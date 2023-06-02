@@ -5,49 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>main</title>
-  <link rel="stylesheet" href="../resources/css/common.css">
+  <link rel="stylesheet" href="../resources/css/common/default.css">
   <link rel="stylesheet" href="../resources/css/main.css">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img class="logo-img" src="../resources/image/common/logo.png">
-    </div>
-    <nav>
-      <div class="header-nav-menu">
-        <a href="#"><img class="header-nav-menu-img" src="../resources/image/common/menu.png"></a>
-      </div>
-      <div class="header-nav-catagory">
-        <ul class="header-nav-catagory-menu">
-          <li><a href="#">BEST50</a></li>
-          <li><a href="#">LAFPROJECT</a></li>
-          <li><a href="#">NEW10%</a></li>
-          <li><a href="#">TOP</a></li>
-          <li><a href="#">PANTS</a></li>
-          <li><a href="#">OUTER</a></li>
-          <li><a href="#">DRESS</a></li>
-          <li><a href="#">SKIRTS</a></li>
-          <li><a href="#">오늘출발</a></li>
-          <li><a href="#">SALE</a></li>
-        </ul>
-      </div>
-      <div class="header-nav-icon">
-        <a href="#"><img src="../resources/image/common/search.png"></a>
-        <a href="#"><img src="../resources/image/common/user.png"></a>
-        <a href="#"><img src="../resources/image/common/buy.png"></a>
-      </div>
-      <div class="quick-menu">
-        <ul>
-          <li><a href="#"><img src="../resources/image/common/topup.png"></a></li>
-          <li><a href="#"><img src="../resources/image/common/edit.png"></a></li>
-          <li><a href="#"><img src="../resources/image/common/like.png"></a></li>
-          <li><a href="#"><img src="../resources/image/common/question.png"></a></li>
-          <li><a href="#"><img src="../resources/image/sample1.png"></a></li>
-          <li><a href="#"><img src="../resources/image/common/chat.png"></a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+
+  <header class="link" data-include="/views/common/header.html"></header>
+
   <main>
     <section class="main-banner">
       <input type="radio" name="slide" id="slide1" checked>
@@ -163,8 +127,8 @@
     </section>
   </main>
   
-  <footer>
+  <footer class="link" data-include="/views/common/footer.html"></footer>
 
-  </footer>
+  <script src="/resources/js/common/default.js"></script>
 </body>
 </html>
