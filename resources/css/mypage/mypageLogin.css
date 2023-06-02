@@ -1,16 +1,15 @@
 .mypageLogin-login{
     width: 1200px;
-    height: 1080px;
     display: inline-block;
     align-items: center;
     justify-content: center;
 }
 .mypageLogin-login > div{
-    margin: 200px;
+    margin: 100px 0 0 220px;
     display: flex;
 }
 .mypageLogin-login-memberLogin{
-    padding: 200px 100px;
+    padding: 100px 130px;
     display: block;
     width: 550px;
 }
@@ -61,7 +60,7 @@
 
 .mypageLogin-login-notMember{
     border-left: 1px solid #ccc;
-    padding: 200px 100px;
+    padding: 100px 100px;
     display: block;
     width: 550px;
 }
