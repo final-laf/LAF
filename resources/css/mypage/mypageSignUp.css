@@ -90,6 +90,11 @@ a{
     font-size: 30px;
     font-weight: bolder;
 }
+.mypageSignUp-table-birth input{
+  border: 1px solid #ccc;
+  width: 50px;
+}
+
 .mypageSignUp-table-Refund div{
     padding: 15px 0;
 }
