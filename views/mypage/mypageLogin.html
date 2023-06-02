@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/resources/css/mypage/mypageLogin.css">
+    <link rel="stylesheet" href="/resources/css/common/default.css">
+    <link rel="stylesheet" href="/resources/css/shopping/categoryList.css">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/resources/css/mypage/mypageLogin.css">
-    <link rel="stylesheet" href="/resources/css/common.css">
 </head>
 <body>
-    <header></header>
+    <header class="link" data-include="/views/common/header.html"></header>
     <main>
         <!-- 개인화면 대쉬보드 전체 틀 -->
         <section class="mypageLogin-login">
             <div><!-- 회원 로그인 방식 분류 -->
                 <div class="mypageLogin-login-memberLogin">
-                    <p>
-                        회원로그인
-                    </p>
+                    <p>회원로그인</p>
                     <form action="" method="post">
                         <div class="mypageLogin-memberLogin-member">
                             <div>ID</div>
@@ -65,13 +64,16 @@
                             알찬 쇼핑이 되실 수 있도록 <br> 적립금과 쿠폰, 이벤트가 준비됩니다. <br> 등급별 혜택과 연말 선물을 받아보세요!
                         </div>
                         <div>
-                            <a href=""><button class="mypageLogin-btn">회원가입</button></a>
+                            <a href="#"><button class="mypageLogin-btn">회원가입</button></a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <footer></footer>
+    <footer class="link" data-include="/views/common/footer.html"></footer>
+
+    <script src="/resources/js/common/default.js"></script>
+
 </body>
 </html>

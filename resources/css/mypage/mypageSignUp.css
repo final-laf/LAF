@@ -1,35 +1,26 @@
-/* 공용 */
-/* 공용 */
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
-
-li{
-    list-style: none;
-}
-
-a{
-    color: black;
-    text-decoration: none;
-}
-
-
-/* 공용 */
-/* 공용 */
-/* 공용 */
 .mypageSignUp-signUp{
-    display: flex;
-    width: 1920px;
-    height: 9000px;
-    justify-content: center;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
 .mypageSignUp-signUp-info{
     margin-top: 50px;
     display: flex;
     width: 1200px;
-    height: 1000px;
+}
+.mypageSignUp-info-intro{
+  color: #666;
+  display: flex;
+  font-size: 17px;
+  padding: 10px 0;
+  align-items: flex-end;
+}
+.mypageSignUp-info-intro span{
+  color: black;
+  font-weight: bold;
+  margin-right: 10px;
+  display: flex;
+  font-size: 40px;
 }
 
 .mypageSignUp-info-signUpInfo{
@@ -39,21 +30,21 @@ a{
     margin: 20px 0;
 }
 .mypageSignUp-signUpInfo-table th{
-    padding-left: 10px;
+    padding-left: 20px;
     height: 30px;
     width: 150px;
-    background-color: #ebebeb;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    background-color: #fafafa;
+    border-top: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+    border-right: 0.5px solid #eee;
     text-align: left;
 }
 .mypageSignUp-signUpInfo-table td{
     width: 1200px;
     padding-left: 10px;
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-top: 0.5px solid #eee;
+    border-left: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
 
 }
 .mypageSignUp-signUpInfo-table tr{
@@ -61,6 +52,7 @@ a{
     height: 70px;
 }
 .mypageSignUp-signUpInfo-table input{
+  border: 0.5px solid #eee;
     width: 300px;
     height: 45px;
 }
@@ -68,6 +60,10 @@ a{
     display: flex;
     align-items: center;
 }
+.mypageSignUp-table-inputTd div{
+  color: #666;
+} 
+
 .mypageSignUp-table-address input{
     margin: 10px 0;
 }
@@ -75,8 +71,8 @@ a{
 .mypageSignUp-table-address button{
     height: 40px;
     width: 100px;
-    border: 1px solid #ccc;
-    background-color: #f6f6f6;
+    border: 0.5px solid #eee;
+    background-color: #fafafa;
 }
 .mypageSignUp-address-postal{
     width: 100px !important;
@@ -91,7 +87,7 @@ a{
     font-weight: bolder;
 }
 .mypageSignUp-table-birth input{
-  border: 1px solid #ccc;
+  border: 0.5px solid #eee;
   width: 50px;
 }
 
@@ -99,8 +95,13 @@ a{
     padding: 15px 0;
 }
 .mypageSignUp-table-Refund select{
-    text-align: center;
-    height: 45px;
-    width: 170px;
-
+  border: 0.5px solid #eee;
+  text-align: center;
+  height: 45px;
+  width: 170px;
+}
+.mypageSignUp-table-Refund option{
+  text-align: center;
+  height: 45px;
+  width: 170px;
 }

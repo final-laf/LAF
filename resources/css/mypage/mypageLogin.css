@@ -1,21 +1,19 @@
 .mypageLogin-login{
-    width: 1200px;
-    height: 1080px;
-    display: inline-block;
+    margin-top: 50px;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 .mypageLogin-login > div{
-    margin: 200px;
     display: flex;
 }
 .mypageLogin-login-memberLogin{
-    padding: 200px 100px;
+    padding: 100px 100px;
     display: block;
-    width: 550px;
 }
 
 .mypageLogin-login-memberLogin p{
+    margin: 20px 0;
     font-size: 30px;
     font-weight: bold;
 }
@@ -35,38 +33,40 @@
 }
 
 .mypageLogin-memberLogin-member{
-    border-bottom: 1px solid #ccc;
+    border-bottom: 0.5px solid #eee;
 }
 
 .mypageLogin-memberLogin-member div{
     color: #c49677;
 }
-
+.mypageLogin-memberLogin-member input{
+    height: 50px;
+}
 #mypageLoginLogin{
     border: none;
     font-size: 20px;
-    color: white;
     background-color: brown;
     margin-top: 30px;
     padding-left: 20px;
-    width: 350px;
+    width: 520px;
     height: 60px;
-    text-align: left;
+    text-align: center;
 }
 
 .mypageLogin-memberLogin-other{
+    margin: 10px 0 50px 0;
     display: flex;
     justify-content: space-between;
 }
 
 .mypageLogin-login-notMember{
-    border-left: 1px solid #ccc;
-    padding: 200px 100px;
+    border-left: 0.5px solid #eee;
+    padding: 100px 100px;
     display: block;
-    width: 550px;
 }
 
 .mypageLogin-login-notMember p{
+    margin: 20px 0;
     font-size: 30px;
     font-weight: bold;
 }
@@ -78,12 +78,12 @@
 }
 .mypageLogin-btn {
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 0.5px solid #eee;
     font-size: 20px;
     color: black;
-    background-color: beige;
+    background-color: #fafafa;
     margin-top: 30px;
     padding-left: 20px;
-    width: 350px;
+    width: 520px;
     height: 60px;
 }

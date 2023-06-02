@@ -4,43 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <link rel="stylesheet" href="/resources/css/common/default.css">
+    <link rel="stylesheet" href="/resources/css/shopping/categoryList.css">
     <link rel="stylesheet" href="/resources/css/mypage/mypageDash.css">
-    <link rel="stylesheet" href="/resources/css/common.css">
+    <title>Document</title>
 </head>
 <body>
-    <header></header>
+    <header class="link" data-include="/views/common/header.html"></header>
     <main>
-        <section class="mypageDash-mainFrame">
-            <!-- 개인화면 대쉬보드 전체 틀 -->
-            <div class="mypageDash-mainFrame-dashFrame">
-                <!-- "마이페이지"를 포함한 왼쪽 탭 -->
-                <div class="mypageDash-dashFrame-myMenu">
-                    <h3>마이페이지</h3>
-                    <!-- "마이페이지" 밑 탭 -->
-                    <dl class="mypageDash-myMenu-menuList">
-                        <!-- 주문관리 -->
-                        <dt>주문관리</dt>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">주문조회</a></dd>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">관심상품</a></dd>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">적립금 내역</a></dd>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">예치금 내역</a></dd>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">쿠폰 내역</a></dd>
-                    </dl>
-                    <dl class="mypageDash-myMenu-menuList">
-                        <!-- 게시물 관리 -->
-                        <dt>게시물 관리</dt>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">내가 쓴 게시물</a></dd>
-                    </dl>
-                    <dl class="mypageDash-myMenu-menuList">
-                        <!-- 정보 관리 -->
-                        <dt>정보관리</dt>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">회원정보변경</a></dd>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">배송지 관리</a></dd>
-                        <dd class="mypageDash-menuList-menuContent"><a href="">정기배송신청</a></dd>
-                    </dl>
-                </div>
+      <section class="mypageDash-mainFrame">
+        <section class="link" data-include="/views/mypage/mypageSide.html"></section>
                 <!-- 마이페이지 중앙 대쉬보드 -->
                 <div class="mypageDash-dashFrame-myMain">
                     <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
@@ -132,9 +105,9 @@
                 </div>
     
     
-            </div>
         </section>
     </main>
-    <footer></footer>
+    <footer class="link" data-include="/views/common/footer.html"></footer>
+    <script src="/resources/js/common/default.js"></script>
 </body>
 </html>
