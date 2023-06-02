@@ -1,3 +1,4 @@
+
 /* main */
 /* main banner slide */
 .main-banner{
@@ -98,6 +99,21 @@
   position: relative;
 }
 
+.md-recommend-btn{
+  margin-top: 90px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.md-recommend-btn button{
+  margin: 0 5px;
+  width: 40px;
+  height: 40px;
+  background-color: #eee;
+  border: 2px solid #ccc;
+}
+
 .main-product-right{
   height: 400px;
   width: 60%;
@@ -120,7 +136,6 @@
   font-size: 20px;
 
   position: relative;
-  border: 1px solid black;
 }
 
 .md-recommend-left{
@@ -150,7 +165,11 @@
 }
 
 .md-recommend-list>li{
+  width: 220px;
+  height: 280px;
   margin: 10px;
+
+  position: relative;
 }
 
 .md-recommend-img{
@@ -161,7 +180,39 @@
   border-top-left-radius: 200px;
   border-top-right-radius: 200px;
 }
+/* ------------------상품 설명 hover---------------- */
+#imgDescription{
+  position: absolute;  
+  bottom: 0;
+  background-color: rgba(255,255,255,0.7);
 
+  height: 40%;
+  width: 100%;
+  font-size: 10px;
+  padding: 20px;
+}
+
+#imgDescription>div:nth-child(1){
+  padding: 8px 0;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#imgDescription > div:nth-child(2) > span:nth-child(1){
+  /* font-size: calc(2em + ); */
+  margin-right: 3px;
+}
+
+#imgDescription > div:nth-child(2) > span:nth-child(2){
+  color: #666;
+  font-size: 0.8em;
+}
+
+#imgDescription>div:nth-child(3){
+  font-size: 1em;
+}
+/* ------------------------------------------------ */
 /* weekly */
 .weekly{
   width: 1200px;
@@ -205,8 +256,12 @@
   width: 100%;
 }
 
+.weekly table td{
+  position: relative;
+}
+
 .weekly-big-img{
-  padding: 10px;
+  padding: 5px;
   width: 400px;
   height: 670px;
   object-fit: cover;
@@ -214,14 +269,12 @@
 }
 
 .weekly-img{
-  padding: 10px;
+  padding: 5px;
   width: 250px;
   height: 330px;
   object-fit: cover;
   object-position: center;
 }
-
-
 
 /* new */
 .new{
@@ -229,6 +282,7 @@
   margin: 40px auto;
   font-size: 20px;
 }
+
 
 /* only */
 .only{
@@ -241,3 +295,4 @@
 .new-list, .only-list{
   display: flex;
 }
+
