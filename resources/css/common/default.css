@@ -40,3 +40,8 @@ button{
   font-weight: 400;
   font-style: normal;
 }
+
+/* 숨기기 속성 */
+.hidden {
+  display: none !important;
+}
