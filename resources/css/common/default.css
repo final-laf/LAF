@@ -12,6 +12,7 @@ body {
 }
 
 main {
+  padding-bottom: 200px;
   background-color: white;
   border-radius: 0 0 200px 0;
 }

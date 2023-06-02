@@ -20,16 +20,19 @@ a{
 /* 공용 */
 /* 공용 */
 .mypageSignUp-signUp{
-    display: flex;
-    width: 1920px;
-    height: 9000px;
-    justify-content: center;
+  margin-top: 50px;
+  display: flex;
+  width: 1920px;
+  justify-content: center;
 }
 .mypageSignUp-signUp-info{
     margin-top: 50px;
     display: flex;
     width: 1200px;
-    height: 1000px;
+}
+.mypageSignUp-info-intro{
+  
+  padding: 10px 0;
 }
 
 .mypageSignUp-info-signUpInfo{
