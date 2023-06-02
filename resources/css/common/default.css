@@ -5,6 +5,17 @@
   /* border: 1px solid black; */
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: #7F7698;
+}
+
+main {
+  background-color: white;
+  border-radius: 0 0 200px 0;
+}
+
 li{
   list-style: none;
 }
