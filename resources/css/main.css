@@ -1,3 +1,4 @@
+
 /* main */
 /* main banner slide */
 .main-banner{
@@ -98,6 +99,21 @@
   position: relative;
 }
 
+.md-recommend-btn{
+  margin-top: 90px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.md-recommend-btn button{
+  margin: 0 5px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(221, 221, 221, 0.5);
+  border: 2px solid rgb(192, 192, 192);
+}
+
 .main-product-right{
   height: 400px;
   width: 60%;
@@ -120,7 +136,6 @@
   font-size: 20px;
 
   position: relative;
-  border: 1px solid black;
 }
 
 .md-recommend-left{
@@ -206,7 +221,7 @@
 }
 
 .weekly-big-img{
-  padding: 10px;
+  padding: 5px;
   width: 400px;
   height: 670px;
   object-fit: cover;
@@ -214,14 +229,12 @@
 }
 
 .weekly-img{
-  padding: 10px;
+  padding: 5px;
   width: 250px;
   height: 330px;
   object-fit: cover;
   object-position: center;
 }
-
-
 
 /* new */
 .new{
@@ -229,6 +242,7 @@
   margin: 40px auto;
   font-size: 20px;
 }
+
 
 /* only */
 .only{
@@ -241,3 +255,4 @@
 .new-list, .only-list{
   display: flex;
 }
+
