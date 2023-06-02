@@ -1,17 +1,7 @@
-h3{
-    display: block;
-}
-dd{
-    display: block;
-    margin-inline-start: 0;
-}
-a, a:hover, a:active, a:focus{
-    text-decoration: none;
-    cursor: pointer;
-}
 .mypageDash-mainFrame{
-    width: 1200px;
+    display: flex;
     margin: 0 auto;
+    width: 1200px;
 }
 
 .mypageDash-mainFrame-dashFrame{
@@ -20,24 +10,6 @@ a, a:hover, a:active, a:focus{
     vertical-align: baseline;
 }
 
-.mypageDash-dashFrame-myMenu h3 {
-    padding: 40px 0 13px;
-    border-bottom: 1px solid #bababa;
-    font-size: 30px;
-    font-weight: 400;;
-}
-.mypageDash-menuList-menuContent a {
-    display: block;
-    padding: 5px 0;
-    color: #999;
-    font-size: 15px;
-    letter-spacing: 0.025rem;
-}
-.mypageDash-myMenu-menuList dt{
-    color: #000;
-    font-size: 18px;
-    letter-spacing: 0.025rem;
-}
 .mypageDash-dashFrame-myMain{
     height: 482px;
     width: 1020px;
@@ -45,7 +17,7 @@ a, a:hover, a:active, a:focus{
 }
 .mypageDash-myMain-myInfo{
     display: flex;
-    background-color: #f0f0f0;
+    background-color: #fafafa;
     width: 1020px;
     padding: 50px 0;
 }
@@ -59,7 +31,7 @@ a, a:hover, a:active, a:focus{
 }
 
 .mypageDash-myRating-Rating{
-    color: #f0f0f0;
+    color: #666;
     width: 126px;
     height: 126px;
     background-color: #cc6600;
@@ -91,7 +63,7 @@ a, a:hover, a:active, a:focus{
 }
 
 .mypageDash-myMain-Shipping{
-    border: 1px solid #ccc;
+    border: 0.5px solid #eee;
     margin: 25px 0 0 0;
     width: 1020px;
     background-color: white;
@@ -104,7 +76,7 @@ a, a:hover, a:active, a:focus{
 .mypageDash-state-shippingList{
     padding: 60px 0 50px 50px;
     width: 665px;
-    border-right: 1px solid #ccc;
+    border-right: 0.5px solid #eee;
 }
 .mypageDash-shippingList-list{
     padding: 10px 0 0 0;
@@ -130,7 +102,7 @@ a, a:hover, a:active, a:focus{
 }
 
 .mypageDash-state-howMany{
-    color: #999999;
+    color: #666;
     justify-content: center;
     padding: 60px;
 }
