@@ -21,9 +21,6 @@ header{
 header nav{
   height: 50px;
 
-  position: sticky;
-  position: relative;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -62,11 +59,10 @@ header nav{
 
 /* quick menu */
 .quick-menu{
-  position: absolute;
-  bottom: 150px;
-  right: 20px;
-  transform: translateY(20%);
-  z-index: 10;
+  position: fixed;
+  bottom: 20px;
+  right: 100px;
+
   background-color: white;
 
   display: flex;
@@ -74,8 +70,8 @@ header nav{
   justify-content: center;
   align-items: center;
 
-  width: 50px;
-  height: 280px;
+  width: 80px;
+  height: 400px;
   border: 1px solid black;
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
@@ -99,8 +95,8 @@ header nav{
 }
 
 .quick-menu img{
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
 }
 
@@ -226,6 +222,7 @@ header nav{
   font-size: 20px;
 
   position: relative;
+  border: 1px solid black;
 }
 
 .md-recommend-left{
@@ -234,9 +231,19 @@ header nav{
   z-index: 1;
 }
 
+.md-recommend-left p:nth-child(1){
+  font-weight: bold;
+}
+
 .md-recommend-left p:nth-child(2){
   margin: 15px 5px;
-  font-size: 16px;
+  font-size: 14px;
+}
+
+
+.md-recommend-right{
+  padding-top: 10px;
+  margin-left: 100px;
 }
 
 .md-recommend-list{
@@ -249,8 +256,8 @@ header nav{
 }
 
 .md-recommend-img{
-  width: 280px;
-  height: 400px;
+  width: 220px;
+  height: 280px;
   object-fit: cover;
   object-position: center;
   border-top-left-radius: 200px;
@@ -263,6 +270,60 @@ header nav{
   margin: 40px auto;
   font-size: 20px;
 }
+
+.weekly-title{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.weekly-title span{
+  font-size: 25px;
+}
+
+.weekly-title button{
+  width: 140px;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  
+  margin: 20px 10px;
+
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 3px;
+
+  background-color: #DAD5E4;
+}
+
+.weekly-title button:nth-child(1){
+  color: white;
+  background-color: #493E5D;
+}
+
+.weekly table{
+  width: 100%;
+}
+
+.weekly-big-img{
+  padding: 10px;
+  width: 400px;
+  height: 670px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.weekly-img{
+  padding: 10px;
+  width: 250px;
+  height: 330px;
+  object-fit: cover;
+  object-position: center;
+}
+
+
 
 /* new */
 .new{
