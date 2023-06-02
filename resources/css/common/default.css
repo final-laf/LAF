@@ -34,6 +34,11 @@ button{
   font-family: SUITE-Regular;
 }
 
+/* hidden */
+.hidden{
+  display: none;
+}
+
 /* 폰트 */
 @font-face {
   font-family: 'SUITE-Regular';
