@@ -31,7 +31,9 @@ a:hover {
 
 /* 게시판 카테고리 버튼을 감싸는 부분 */
 .top-page-button-area {
+    width: 100%;
     margin-top: 50px;
+    border-bottom: 0.5px solid #ccc;
 
     display: flex;
     justify-content: center;
@@ -50,7 +52,7 @@ a:hover {
     background-color: #ffffff;
     border: 0.5px solid #eee;
 
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .top-page-button-choosen {
@@ -78,6 +80,7 @@ a:hover {
 /* 게시판 헤드 */
 .list-table > thead{ background-color: #fafafa; color: black;}
 
+
 /* 게시글 */
 .list-table tr{
     height: 35px;
@@ -99,6 +102,14 @@ a:hover {
 
 .list-table tr > *:nth-of-type(3){ width: 10%; }
 .list-table tr > *:nth-of-type(4){ width: 20%; }
+
+
+
+
+
+
+
+
 
 /* 하단 버튼 영역 */
 .btn-area{
@@ -124,6 +135,12 @@ a:hover {
     cursor: pointer;
 }
 
+
+
+
+
+
+
 /* 페이지네이션 영역 */
 .pagination{
     list-style: none;
@@ -133,29 +150,35 @@ a:hover {
 }
 
 .pagination li{
-    width: 20px;
+    width: 30px;
+    height: 30px;
     padding: 2px;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
 
     border: 0.5px solid #ccc;
 }
 
 .pagination a{
     display: block;
-    width: 100%;
-    height: 100%;
 }
 
 /* 현재 페이지 */
 .current{
     font-weight: bold;
-    background-color: #455ba8;
     border-radius: 50%;
-    color: white !important;
-    letter-spacing: 0 !important;
 }
+
+
+
+
+
+
 
 
 /* 검색창 */
@@ -177,7 +200,10 @@ a:hover {
 }
 
 #boardSearch select{
-    width: 100px;
+    width: 80px;
+    font-size: 12px;
+    text-align: center;
+    appearance:none;
 }
 
 #boardSearch input{
@@ -187,17 +213,16 @@ a:hover {
 }  
 
 #boardSearch button{
-    
-    width: 100px;
+    width: 50px;
 
     font-weight: bold;
-    background-color: #455ba8;
+    font-size: 12px;
+
+    background-color: #ccc;
     border: none;
-    color: white;
+    color: #666;
 
     cursor: pointer;
-    
-
 }
 
 
