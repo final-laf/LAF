@@ -1,155 +1,158 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 
-    <link rel="stylesheet" href="/resources/css/mypage/mypageSignUp.css">
-    <link rel="stylesheet" href="/resources/css/common.css">
+  <link rel="stylesheet" href="/resources/css/mypage/mypageSignUp.css">
+  <link rel="stylesheet" href="/resources/css/common.css">
 </head>
 <body>
-    <header></header>
-    <main>
-        <!-- 개인화면 대쉬보드 전체 틀 -->
-        <section class="mypageSignUp-signUp">
-            <div class="mypageSignUp-signUp-info"> <!-- width 1200px, 상단 마진 50px, 중앙정렬  -->
-                <form action="" method="post">
-                    <div>
-                        <div>Join 회원가입하시면 편리하게 쇼핑하실 수 있습니다. </div>
-                        <div></div>
-                    </div>
-                    <div class="mypageSignUp-info-signUpInfo"><!-- 기본정보 -->
-                        <Strong>
-                            기본정보
-                        </Strong>
-                        
-                        <table class="mypageSignUp-signUpInfo-table">
-                            <tr>
-                                <th>아이디</th>
-                                <td>
-                                    <div class="mypageSignUp-table-inputTd">
-                                        <input type="text" name="memberId">
-                                        <div>　(영문소문자/숫자, 4~16자)</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>비밀번호</th>
-                                <td>
-                                    <div class="mypageSignUp-table-inputTd">
-                                        <input type="text" name="memberPw">
-                                        <div>　(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>비밀번호 확인</th>
-                                <td>
-                                    <input type="text"  name="memberPw2">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>이름</th>
-                                <td>
-                                    <input type="text"   name="memberName">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>주소</th>
-                                <td>
-                                    <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
-                                    <div class="mypageSignUp-table-address">
-                                        <input type="text" class="mypageSignUp-address-postal" name="memberAddress" placeholder="  우편번호" maxlength="6" id="sample6_postcode">
-                                        
-                                        <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
-                                    </div>
-                    
-                                    <div class="mypageSignUp-table-address">
-                                        <input type="text" name="memberAddress" placeholder="  기본 주소" id="sample6_address">
-                                    </div>
-                    
-                                    <div class="mypageSignUp-table-address">
-                                        <input type="text" name="memberAddress" placeholder="  나머지 주소(선택 입력 가능)" id="sample6_detailAddress">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>전화번호</th>
-                                <td class="mypageSignUp-table-tel">
-                                    <input type="text" placeholder="010" maxlength="3"  name="memberName">
-                                    <span>-</span>
-                                    <input type="text"  maxlength="4"  name="memberName">
-                                    <span>-</span>
-                                    <input type="text"  maxlength="4" name="memberName">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>이메일</th>
-                                <td>
-                                    <input type="text"   name="memberEmail">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-    
-                    <div  class="mypageSignUp-info-signUpInfo"><!-- 추가 정보 -->
-                        <Strong>
-                            추가정보
-                        </Strong>
-                        <table class="mypageSignUp-signUpInfo-table">
-                            <tr>
-                                <th>생년월일</th>
-                                <td>
-                                    <input type="text" name="memberBirth">
-                                </td>
-                            </tr>
-                            <tr class="mypageSignUp-table-Refund">
-                                <th>환불계좌 정보</th>
-                                <td>
-                                    <div> - 예금주　 <input type="text" name="memberPw"></div>
-                                    <div> - 은행명　 <select name="bankName" size="1"> 
-                                        <option value="ori">우리은행</option>
-                                        <option value="kuk">국민은행</option> 
-                                        <option value="nong">농협은행</option> 
-                                    </div>ddd
-                                    <div> - 계좌번호ddd <input type="text" name="memberPw"> ('-'와 숫자만 입력해주세요.)</div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div> 
-                </form>
-            </div>
-        </section>
-    </main>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script>
-        function sample6_execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function(data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+  <header></header>
+  <main>
+    <!-- 개인화면 대쉬보드 전체 틀 -->
+    <section class="mypageSignUp-signUp">
+      <div class="mypageSignUp-signUp-info"> <!-- width 1200px, 상단 마진 50px, 중앙정렬  -->
+        <form action="" method="post">
+          <div>
+            <div>Join 회원가입하시면 편리하게 쇼핑하실 수 있습니다. </div>
+            <div></div>
+          </div>
+          <div class="mypageSignUp-info-signUpInfo"><!-- 기본정보 -->
+            <Strong>기본정보</Strong>
+            <table class="mypageSignUp-signUpInfo-table">
+              <tr>
+                <th>아이디</th>
+                <td>
+                  <div class="mypageSignUp-table-inputTd">
+                    <input type="text" name="memberId">
+                    <div>　(영문소문자/숫자, 4~16자)</div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>비밀번호</th>
+                <td>
+                  <div class="mypageSignUp-table-inputTd">
+                    <input type="text" name="memberPw">
+                    <div>　(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>비밀번호 확인</th>
+                <td>
+                  <input type="text"  name="memberPw2">
+                </td>
+              </tr>
+              <tr>
+                <th>이름</th>
+                <td>
+                  <input type="text"   name="memberName">
+                </td>
+              </tr>
+              <tr>
+                <th>주소</th>
+                <td>
+                  <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                  <div class="mypageSignUp-table-address">
+                    <input type="text" class="mypageSignUp-address-postal" name="memberAddress" placeholder="  우편번호" maxlength="6" id="sample6_postcode">
+                    <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                  </div>
+                  <div class="mypageSignUp-table-address">
+                    <input type="text" name="memberAddress" placeholder="  기본 주소" id="sample6_address">
+                  </div>
+                  <div class="mypageSignUp-table-address">
+                    <input type="text" name="memberAddress" placeholder="  나머지 주소(선택 입력 가능)" id="sample6_detailAddress">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>전화번호</th>
+                <td class="mypageSignUp-table-tel">
+                  <input type="text" placeholder="010" maxlength="3"  name="memberName">
+                  <span>-</span>
+                  <input type="text"  maxlength="4"  name="memberName">
+                  <span>-</span>
+                  <input type="text"  maxlength="4" name="memberName">
+                </td>
+              </tr>
+              <tr>
+                <th>이메일</th>
+                <td>
+                  <input type="text"   name="memberEmail">
+                </td>
+              </tr>
+            </table>
+          </div>
 
-                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var addr = ''; // 주소 변수
+          <div  class="mypageSignUp-info-signUpInfo"><!-- 추가 정보 -->
+            <Strong>
+                추가정보
+            </Strong>
+            <table class="mypageSignUp-signUpInfo-table">
+              <tr class="mypageSignUp-table-birth">
+                  <th>생년월일</th>
+                  <td>
+                      <input type="text" name="memberBirth" style="width:100px">년<input type="text" name="memberBirth">월<input type="text" name="memberBirth">일
+                  </td>
+              </tr>
+              <tr class="mypageSignUp-table-Refund">
+                <th>환불계좌 정보</th>
+                <td>
+                  <div> - 예금주　 
+                    <input type="text" name="memberPw">
+                  </div>
+                  <div> - 은행명　 
+                    <select name="bankName" size="1"> 
+                      <option>- 은행 선택 -</option>
+                      <option value="ori">우리은행</option>
+                      <option value="kuk">국민은행</option> 
+                      <option value="nong">농협은행</option> 
+                    </select>
+                  </div>
+                  <div>
+                    <span>- 계좌번호</span>
+                    <input type="text" name="memberPw" maxlengt="20">
+                    ('-'와 숫자만 입력해주세요.)
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div> 
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    function sample6_execDaumPostcode() {
+      new daum.Postcode({
+        oncomplete: function(data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                        addr = data.roadAddress;
-                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                        addr = data.jibunAddress;
-                    }
+          // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var addr = ''; // 주소 변수
 
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('sample6_postcode').value = data.zonecode;
-                    document.getElementById("sample6_address").value = addr;
-                    // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById("sample6_detailAddress").focus();
-                }
-            }).open();
+          //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+              addr = data.roadAddress;
+          } else { // 사용자가 지번 주소를 선택했을 경우(J)
+              addr = data.jibunAddress;
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById('sample6_postcode').value = data.zonecode;
+          document.getElementById("sample6_address").value = addr;
+          // 커서를 상세주소 필드로 이동한다.
+          document.getElementById("sample6_detailAddress").focus();
         }
-    </script>
-    <footer></footer>
+      }).open();
+    }
+  </script>
+  <footer></footer>
 </body>
 </html>
