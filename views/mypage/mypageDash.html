@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/resources/css/mypage/mypageDash.css">
+    <link rel="stylesheet" href="/resources/css/common.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <section class="mypageDash-mainFrame">
+            <!-- 개인화면 대쉬보드 전체 틀 -->
+            <div class="mypageDash-mainFrame-dashFrame">
+                <!-- "마이페이지"를 포함한 왼쪽 탭 -->
+                <div class="mypageDash-dashFrame-myMenu">
+                    <h3>마이페이지</h3>
+                    <!-- "마이페이지" 밑 탭 -->
+                    <dl class="mypageDash-myMenu-menuList">
+                        <!-- 주문관리 -->
+                        <dt>주문관리</dt>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">주문조회</a></dd>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">관심상품</a></dd>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">적립금 내역</a></dd>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">예치금 내역</a></dd>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">쿠폰 내역</a></dd>
+                    </dl>
+                    <dl class="mypageDash-myMenu-menuList">
+                        <!-- 게시물 관리 -->
+                        <dt>게시물 관리</dt>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">내가 쓴 게시물</a></dd>
+                    </dl>
+                    <dl class="mypageDash-myMenu-menuList">
+                        <!-- 정보 관리 -->
+                        <dt>정보관리</dt>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">회원정보변경</a></dd>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">배송지 관리</a></dd>
+                        <dd class="mypageDash-menuList-menuContent"><a href="">정기배송신청</a></dd>
+                    </dl>
+                </div>
+                <!-- 마이페이지 중앙 대쉬보드 -->
+                <div class="mypageDash-dashFrame-myMain">
+                    <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
+                    <div class="mypageDash-myMain-myInfo">
+                        <div class="mypageDash-myInfo-myRating">
+                            <div class="mypageDash-myRating-Rating">온도지기</div>
+                            <div class="mypageDash-myRating-greeting"> <!-- el구문 들어갈 문구 -->
+                                <div class="mypageDash-greeting-greet"><strong><span>장반석</span></strong> 님 안녕하세요</div>
+                                <div class="mypageDash-greeting-greet"><strong><span>silver</span></strong>까지 남은 구매금액은 300,000입니다.</div>
+                                <div class="mypageDash-greeting-greet">(승급 기준에 따른 예상 금액이므로 총 주문 금액과 다릅니다</div>
+                            </div>
+                        </div>
+                        <div class="mypageDash-myInfo-mySave">
+                            <div class="mypageDash-mySave-Point">
+                                <div>적립금</div>
+                                <div id="mypageDashPoint">0원</div>
+                            </div>
+                            <div class="mypageDash-mySave-Point">
+                                <div>쿠폰</div>
+                                <div id="mypageDashCoupon">1장</div>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <!-- 나의 주문 처리 현황 -->
+                    <div class="mypageDash-myMain-Shipping">
+                        <div class="mypageDash-Shipping-state">
+                            <!-- 나의 주문처리 현황 -->
+                            <div class="mypageDash-state-shippingList">
+                                <div>나의 주문처리 현황(최근 3개월 기준)</div>
+                                <div class="mypageDash-shippingList-list">
+                                    <div class="square-list-square">
+                                        <div>
+                                            <div>0</div>
+                                            <div>입금전</div> 
+                                        </div>
+                                    </div>
+                                    <p>></p>
+                                    <div class="square-list-square">
+                                        <div>
+                                            <div>0</div>
+                                            <div>배송준비중</div>
+                                        </div>
+                                    </div>
+                                    <p>></p>
+                                    <div class="square-list-square">
+                                        <div>
+                                            <div>0</div>
+                                            <div>배송중</div>
+                                        </div>
+                                    </div>
+                                    <p>></p>
+                                    <div class="square-list-square">
+                                        <div>
+                                            <div>0</div>
+                                            <div>배송완료</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 취소 교환 반품 건수 -->
+                            <div class="mypageDash-state-howMany">
+                                <div class="mypageDash-howMany-shipping">
+                                    취소 주문건
+                                    <div class="mypageDash-shipping-cancel">
+                                        <Strong><div id="">0</div></Strong> <!-- 취소 건 -->
+                                        건
+                                    </div>
+                                </div>
+                                <div class="mypageDash-howMany-shipping">
+                                    교환 주문건
+                                    <div>
+                                        <Strong><div id="">0</div></Strong> <!-- 교환 건 -->
+                                        건
+                                    </div>
+                                </div>
+                                <div class="mypageDash-howMany-shipping">
+                                    반품 주문건
+                                    <div>
+                                        <Strong><div id="">0</div></Strong> <!-- 반품 건 -->
+                                        건
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                </div>
+    
+    
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
+</html>
