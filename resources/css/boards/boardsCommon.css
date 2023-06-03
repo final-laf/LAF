@@ -1,13 +1,13 @@
 /* section, div{ border : 1px solid black;} */
 
 
-a{
+/* a{
     text-decoration: none;
 }
 
 a:hover {
     text-decoration: underline;
-}
+} */
 
 /* 게시판  */
 .board-list{
@@ -30,17 +30,17 @@ a:hover {
 }
 
 /* 게시판 카테고리 버튼을 감싸는 부분 */
-.top-page-button-area {
+/* .top-page-button-area {
     width: 100%;
     margin-top: 50px;
     border-bottom: 0.5px solid #ccc;
 
     display: flex;
     justify-content: center;
-}
+} */
 
 /* 게시판 카테고리 버튼 */
-.top-page-button {
+/* .top-page-button {
     width: 120px;
     height: 35px;
 
@@ -59,7 +59,7 @@ a:hover {
     background-color: #7F7698;
     border: 0.5px solid #7F7698;
     color: white;
-}
+} */
 
 
 /* 게시글들을 감싸는 부분 */
