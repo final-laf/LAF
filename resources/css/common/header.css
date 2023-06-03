@@ -38,23 +38,30 @@ nav {
     background-color: white;
 }
 
-.header-nav-menu {
+.header-nav-menu>a{
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-left: 10px;
 }
 
 .header-nav-menu-img {
-    height: 30px;
+    height: 15px;
 }
 
 .header-nav-catagory-menu {
     display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
 }
 
 .header-nav-catagory-menu li {
     margin: 0 15px;
+}
+
+.header-nav-catagory-menu li>a:hover{
+    color: #DAD5E4;
 }
 
 .header-nav-icon{
@@ -72,7 +79,7 @@ nav {
     position: fixed;
     bottom: 10px;
     right: 10px;
-    padding: 15px 0;
+    padding: 10px 0;
 
     background-color: #FFFFFF;
 
@@ -95,23 +102,69 @@ nav {
 }
 
 .quick-menu li {
+    width: 40px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
 }
 
-.quick-menu li:last-child {
-    width: 30px;
+.quick-menu a{
     height: 30px;
-    border-bottom: none;
-    border: 1px solid #eee;
     border-radius: 50px;
 }
 
 .quick-menu img {
+    width: 25px;
+    height: 25px;
+}
+
+body > nav > div.quick-menu > ul > li:nth-child(5) > a > img{
     width: 30px;
     height: 30px;
+    border: 1px solid #ccc;
     border-radius: 50px;
+}
+
+.quick-menu li:last-child {
+    border-bottom: none;
+}
+
+.recent-view{
+    position: relative;
+}
+
+.recent-view>span{
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-self: center;
+
+    cursor: pointer;
+
+    position: absolute;
+}
+
+.recent-view>span>img{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+
+    width: 8px;
+    height: 8px;
+}
+
+.recent-view-lbtn{
+    top: 4;
+    left: 0;
+}
+
+.recent-view-rbtn{
+    top: 4;
+    right: 0;
 }

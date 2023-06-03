@@ -199,47 +199,39 @@
 
 /* ------------------상품 설명 hover---------------- */
 #imgDescription{
-  position: absolute;  
-  bottom: 0;
-  background-color: rgba(255,255,255,0.7);
-
-  height: 130px;
-  width: 100%;
-  font-size: 1rem;
-
-  padding: 20px;
+    position: absolute;
+    bottom: 0;
+    
+    width: 100%;
+    height: 120px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    
+    font-size: 1rem;
 }
-
-#imgDescriptionContent{
-  height: 100%;
+#imgDescription .item-name {
+    white-space: nowrap;
+    overflow: hidden;
 }
-
-#imgDescription > div > p:nth-child(1){
-  height: 40%;
-
-  display: flex;
-  align-items: center;
-
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-#imgDescription > div > span:nth-child(2){
-  height: 30%;
+#imgDescription .item-price {
   font-size: 2.2rem;
 }
-
-#imgDescription > div > span:nth-child(3){
+span.item-price-origin{
+  margin-left: 5px;
   color: #666;
   font-size: 1.8rem;
-  margin-left: 5px;
+}
+#imgDescription .item-rieview-count {
+  margin-top: 5px;
+  font-size: 1.2rem;
+  color: #666;
 }
 
-#imgDescription > div > p:nth-child(4){
-  margin-top: 5px;
-  height: 30%;
-  font-size: 1.2em;
-}
 /* ------------------------------------------------ */
 
 /* weekly */
@@ -274,6 +266,7 @@
   letter-spacing: 3px;
 
   background-color: #DAD5E4;
+  cursor: pointer;
 }
 
 .weekly-title button:nth-child(1){
