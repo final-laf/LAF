@@ -171,7 +171,8 @@
 
 .md-recommend-right{
   padding-top: 10px;
-  margin-left: 100px;
+  margin-left: 150px;
+  overflow: hidden;
 }
 
 .md-recommend-list{
@@ -325,6 +326,11 @@
   font-size: 2rem;
 }
 
+.new-content{
+  width: 1200px;
+  overflow: hidden;
+}
+
 .new-list{
   display: flex;
   justify-content: space-between;
@@ -386,6 +392,11 @@
 
 .only-title span{
   font-size: 2rem;
+}
+
+.only-content{
+  width: 1200px;
+  overflow: hidden;
 }
 
 .only-list{
