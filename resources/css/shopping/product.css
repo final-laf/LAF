@@ -214,31 +214,6 @@ hr { margin: 20px 0; }
 #proudctRecommandItem {
   margin-top: 100px;
 }
-#recommandTitle, #recommandDiscription {
-  text-align: center;
-}
-#recommandTitle {
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 200%;
-}
-
-.categoryList-product-item-container {
-  margin: 20px 0;
-  display: flex;
-}
-.categoryList-product-item {
-  max-width: 220px !important;
-  margin: 0 10px;
-}
-.categoryList-product-item img {
-  width: 220px;
-  height: 280px;
-  object-fit: cover;
-  object-position: center;
-}
-
-
 
 
 /* 상품설명 */
