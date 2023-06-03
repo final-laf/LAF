@@ -131,50 +131,10 @@ a:hover {
     color: #666;
     border: 0.5px solid #ccc;
     border-radius: 5px;
+    font-size: 1px;
 
     cursor: pointer;
 }
-
-
-
-
-
-
-
-/* 페이지네이션 영역 */
-.pagination{
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    padding: 0;
-}
-
-.pagination li{
-    width: 30px;
-    height: 30px;
-    padding: 2px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    text-align: center;
-    font-size: 12px;
-
-    border: 0.5px solid #ccc;
-}
-
-.pagination a{
-    display: block;
-}
-
-/* 현재 페이지 */
-.current{
-    font-weight: bold;
-    border-radius: 50%;
-}
-
-
 
 
 
