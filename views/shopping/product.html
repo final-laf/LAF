@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/resources/css/common/default.css">
+  <link rel="stylesheet" href="/resources/css/shopping/categoryList.css">
+  <link rel="stylesheet" href="/resources/css/shopping/product.css">
+  <title>LAF :: ✨재구매1등✨[98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color</title>
+</head>
+<body>
+
+  <header class="link" data-include="/views/common/header.html"></header>
+  <nav class="link" data-include="/views/common/nav.html"></nav>
+  
+  <main>
+    <!-- 제품 페이지 상단(사진, 상품정보, 구매옵션) -->
+    <section id="porductTop">
+
+      <!-- 제품 사진 -->
+      <section id="productTopImages">
+        <img src="/resources/images/prouduct/thumbnail/1.gif">
+      </section>
+
+      <!-- 상품 정보 및 구매옵션 -->
+      <section id="productTopOptions">
+
+        <!-- 상품 정보 -->
+        <div id="titleWrapper">
+          <div id="productTitle">✨재구매1등✨[98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color</div>
+          <div id="productLike">
+            <img class="like" src="/resources/images/common/like-grey.svg">
+          </div>
+        </div>
+        <div id="productPrice">32,500</div>
+
+        <hr>
+
+        <div id="productPoint" class="productInfo">
+          <div class="productPoint-img"><img src="/resources/images/prouduct/point.svg"></div>
+          <span>325</span>원
+        </div>
+        <div id="productDelivery" class="productInfo">
+          <div class="productPoint-img"><img src="/resources/images/prouduct/delivery.svg"></div>
+          배송 소요기간 영엽일 기준 2~3일 (수도권 기준)
+        </div><!-- 상품 정보 종료 -->
+
+        <hr>
+
+        <!-- 구매 옵션 선택 -->
+        <div class="product-option-wrapper">
+          <!-- 색상 선택 -->
+          <div class="product-option color">
+              <div class="product-option-title">
+                색상<span class="option-required">[필수]</span>
+              </div>
+              <div class="product-option-options">
+                <!-- 버튼 선택 시 마다 아래 p 태그의 value값과 innerText 값 변경 -->
+                <p class="product-option-seleced color" value="">색상을 선택해 주세요</p>
+                <ul>
+                  <li class="option-btn color">블랙</li>
+                  <li class="option-btn color">차콜</li>
+                  <li class="option-btn color selected">민트</li>
+                  <li class="option-btn color">다크네이비</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- 사이즈 선택 -->
+            <div class="product-option size">
+              <div class="product-option-title">
+                사이즈<span class="option-required">[필수]</span>
+              </div>
+              <div class="product-option-options">
+                <!-- 버튼 선택 시 마다 아래 p 태그의 value값과 innerText 값 변경 -->
+                <p class="product-option-seleced size" value="">사이즈를 선택해 주세요</p>
+                <ul>
+                  <li class="option-btn size selected">XS</li>
+                  <li class="option-btn size">S</li>
+                  <li class="option-btn size">M</li>
+                  <li class="option-btn size">L</li>
+                </ul>
+              </div>
+            </div>
+        </div> <!-- 구매 옵션 선택 종료 -->
+
+        <hr>
+
+        <!-- 현재 선택 상품 -->
+        <!--
+          # 구현 종료 후 주석 삭제
+
+          - 화면에 있는 옵션 모두 선택 시(모든 value != null)
+            선택한 상품을 자동으로 화면에 출력 + 구매금액 계산
+            (장바구니 담기 아님)
+            
+          - 화면 출력 후 옵션 선택 초기화(value 포함)
+        -->
+        <ul id="productCurrentItem">
+          <li>
+            <div class="current-selected-option">블랙/L</div>
+            <div class="current-count">
+              <button type="button" class="count-up">+</button>
+              <span>1</span>
+              <button type="button" class="count-down">-</button>
+            </div>
+            <div class="current-price">32,500</div>
+            <button type="button" class="current-item-delete">&times;</button>
+          </li>
+          <li>
+            <div class="current-selected-option">차콜/M</div>
+            <div class="current-count">
+              <button type="button" class="count-up">+</button>
+              <span>1</span>
+              <button type="button" class="count-down">-</button>
+            </div>
+            <div class="current-price">32,500</div>
+            <button type="button" class="current-item-delete">x</button>
+          </li>
+          <li>
+            <div class="current-selected-option">민트/M</div>
+            <div class="current-count">
+              <button type="button" class="count-up">+</button>
+              <span>2</span>
+              <button type="button" class="count-down">-</button>
+            </div>
+            <div class="current-price">65,000</div>
+            <button type="button" class="current-item-delete">x</button>
+          </li>
+        </ul>
+
+        <hr>
+
+        <!-- 총 상품 금액 -->
+        <div id="productCurrentTotalSelected">
+          <div id="totalSelectedTitle">총 상품 금액</div>
+          <div id="totalSelectedCalc">
+            <span id="totalSelectePrice">130,000</span>
+            (<span id="totalSelectedCount">4</span>개)
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- 찜 목록 추가 / 장바구니 담기 -->
+        <div id="productCurrentButton">
+          <button id="addLikeBtn">찜 목록 추가</button>
+          <button id="addCartBtn">장바구니 담기</button>
+        </div>
+
+      </section> <!-- 상품 정보 및 구매옵션 종료 -->
+    </section> <!-- 제품 페이지 상단 종료 -->
+
+    <!-- 추천상품 목록 -->
+    <section id="proudctRecommandItem">
+      <div id="recommandTitle">RECOMMEND ITEM</div>
+      <div id="recommandDiscription">이 상품과 함께 구매하면 좋을 상품 추천드립니다 :-)</div>
+      
+      <!-- 아이템 목록 -->
+      <ul class="categoryList-product-item-container">
+
+        <li class="categoryList-product-item">
+          <a href="#"><img src="/resources/images/sample5.png"></a>
+          <div class="item-description">
+            <a href="#"><div class="item-name">여름신상10%🎁[98project] 스퀘어즈 쫀쫀 스탠다드 반팔 T - 4 color</div></a>
+            <div class="item-description-bottom">
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-discount">10%</span>
+                <span class="item-price-origin">28,700</span>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="categoryList-product-item">
+          <img src="/resources/images/sample5.png">
+          <div class="item-description">
+            <div class="item-name">실시간1등🎉[98project/2천장돌파] 오키 썸머 빈티지틴 와이드데님 - 4 size ("전옵션" 프리오더)</div>
+            <div class="item-description-bottom">
+              <div class="item-price">28,700</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="categoryList-product-item">
+          <img src="/resources/images/sample5.png">
+          <div class="item-description">
+            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
+            <div class="item-description-bottom">
+              <div class="item-price">28,700</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="categoryList-product-item">
+          <img src="/resources/images/sample5.png">
+          <div class="item-description">
+            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
+            <div class="item-description-bottom">
+              <div class="item-price">28,700</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="categoryList-product-item">
+          <img src="/resources/images/sample5.png">
+          <div class="item-description">
+            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
+            <div class="item-description-bottom">
+              <div class="item-price">28,700</div>
+            </div>
+          </div>
+        </li>
+        
+      </ul>
+    </section>
+
+    <!-- 상품 상세정보 -->
+    <section id="productDetail">
+
+      <!-- 카테고리(상품설명, 리뷰) -->
+      <div class="categoryList-sub-category-container">
+        <a href="#productDetail"><div class="categoryList-sub-category current">상품 설명</div></a>
+        <a href="#productReivew"><div class="categoryList-sub-category">리뷰</div></a>
+      </div>
+
+      <img src="/resources/images/prouduct/detail/1.png">
+    </section>
+
+    <!-- 리뷰 -->
+    <section id="productReivew">
+
+      <!-- 카테고리(상품설명, 리뷰) -->
+      <div class="categoryList-sub-category-container">
+        <a href="#productDetail"><div class="categoryList-sub-category">상품 설명</div></a>
+        <a href="#productReivew"><div class="categoryList-sub-category current">리뷰</div></a>
+      </div>
+
+      리뷰
+    </section>
+  </main>
+
+  <footer class="link" data-include="/views/common/footer.html"></footer>
+
+  <script src="/resources/js/common/default.js"></script>
+
+</body>
+</html>
