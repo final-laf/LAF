@@ -5,7 +5,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/resources/css/common/default.css">
-  <link rel="stylesheet" href="/resources/css/shopping/categoryList.css">
   <link rel="stylesheet" href="/resources/css/shopping/product.css">
   <title>LAF :: ✨재구매1등✨[98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color</title>
 </head>
@@ -154,76 +153,20 @@
 
     <!-- 추천상품 목록 -->
     <section id="proudctRecommandItem">
-      <div id="recommandTitle">RECOMMEND ITEM</div>
-      <div id="recommandDiscription">이 상품과 함께 구매하면 좋을 상품 추천드립니다 :-)</div>
+      <div class="product-item-title">RECOMMEND ITEM</div>
+      <div class="product-item-desc">이 상품과 함께 구매하면 좋을 상품 추천드립니다 :-)</div>
       
       <!-- 아이템 목록 -->
-      <ul class="categoryList-product-item-container">
-
-        <li class="categoryList-product-item">
-          <a href="#"><img src="/resources/images/sample5.png"></a>
-          <div class="item-description">
-            <a href="#"><div class="item-name">여름신상10%🎁[98project] 스퀘어즈 쫀쫀 스탠다드 반팔 T - 4 color</div></a>
-            <div class="item-description-bottom">
-              <div class="item-price-set">
-                <span class="item-price">25,800</span>
-                <span class="item-price-discount">10%</span>
-                <span class="item-price-origin">28,700</span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/resources/images/sample5.png">
-          <div class="item-description">
-            <div class="item-name">실시간1등🎉[98project/2천장돌파] 오키 썸머 빈티지틴 와이드데님 - 4 size ("전옵션" 프리오더)</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/resources/images/sample5.png">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/resources/images/sample5.png">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/resources/images/sample5.png">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-            </div>
-          </div>
-        </li>
-        
-      </ul>
+      <ul class="link dev-product-item-container" data-include="/views/dev/productList.html"></ul>
     </section>
 
     <!-- 상품 상세정보 -->
     <section id="productDetail">
 
       <!-- 카테고리(상품설명, 리뷰) -->
-      <div class="categoryList-sub-category-container">
-        <a href="#productDetail"><div class="categoryList-sub-category current">상품 설명</div></a>
-        <a href="#productReivew"><div class="categoryList-sub-category">리뷰</div></a>
+      <div class="sub-category-container">
+        <a href="#productDetail"><div class="sub-category current">상품 설명</div></a>
+        <a href="#productReivew"><div class="sub-category">리뷰</div></a>
       </div>
 
       <img src="/resources/images/prouduct/detail/1.png">
@@ -233,12 +176,11 @@
     <section id="productReivew">
 
       <!-- 카테고리(상품설명, 리뷰) -->
-      <div class="categoryList-sub-category-container">
-        <a href="#productDetail"><div class="categoryList-sub-category">상품 설명</div></a>
-        <a href="#productReivew"><div class="categoryList-sub-category current">리뷰</div></a>
+      <div class="sub-category-container">
+        <a href="#productDetail"><div class="sub-category">상품 설명</div></a>
+        <a href="#productReivew"><div class="sub-category current">리뷰</div></a>
       </div>
 
-      리뷰
     </section>
   </main>
 

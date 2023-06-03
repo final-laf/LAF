@@ -109,3 +109,38 @@ hr.dark {
 hr.darker {
   background-color: #999;
 }
+
+/* 서브 카테고리(페이지 내 섹션 구분) */
+.sub-category-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  border-bottom: 0.5px solid #eee;
+}
+.sub-category {
+  border-top: 0.5px solid #eee;
+  border-right: 0.5px solid #eee;
+  width: 170px;
+  height: 45px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+.sub-category.current {
+  background-color: #7F7698;
+  color: white;
+}
+.sub-category:hover {
+  transition-duration: 0.2s;
+  background-color: #7F7698;
+  color: white;
+}
+.sub-category:first-child {
+  border-left: 0.5px solid #eee;
+}
