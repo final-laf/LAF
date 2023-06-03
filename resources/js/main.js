@@ -5,11 +5,15 @@ function imgHover(input) {
 
     productImgs.forEach((productImg, index) => {
         productImg.addEventListener("mouseover", () => {
-        productDescriptions[index].classList.remove('hidden');
+            if (productDescriptions[index] && productDescriptions[index].classList) {
+                productDescriptions[index].classList.remove('hidden');
+            }
         });
 
         productImg.addEventListener("mouseout", () => {
-        productDescriptions[index].classList.add('hidden');
+            if (productDescriptions[index] && productDescriptions[index].classList) {
+                productDescriptions[index].classList.add('hidden');
+            }
         });
     });
 }
@@ -17,4 +21,3 @@ function imgHover(input) {
 imgHover('md-recommend');
 imgHover('weekly-big');
 imgHover('weekly');
-
