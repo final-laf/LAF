@@ -25,6 +25,11 @@
     color: #666;
     font-size: 15px;
     letter-spacing: 0.025rem;
+    transition-duration: 0.2s;
+}
+.mypageSide-menuList-menuContent a:hover {
+    color: #222;
+    transition-duration: 0.2s;
 }
 .mypageSide-myMenu-menuList dt{
     padding-top: 20px;
