@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/resources/css/common/default.css">
-  <link rel="stylesheet" href="/resources/css/shopping/cart.css">
   <link rel="stylesheet" href="/resources/css/dev/productList.css">
+  <link rel="stylesheet" href="/resources/css/shopping/cart.css">
   <title>LAF :: 장바구니</title>
 </head>
 <body>
@@ -28,22 +28,88 @@
           <td class="cart-item-image">이미지</td>
           <td class="cart-item-product">상품정보</td>
           <td class="cart-item-count">수량</td>
-          <td class="cart-item-price">상품구매금액</td>
+          <td class="cart-item-price">상품금액</td>
           <td class="cart-item-point">적립금</td>
-          <td class="cart-item-choose">선택</td>
+          <td class="cart-item-choose">삭제</td>
         </tr>
-        <tr></tr>
-        <tr></tr>
+        <tr>
+          <td class="cart-item-checkbox"><input type="checkbox" name="checkbox"></td>
+          <td class="cart-item-image">
+            <a href="/views/shopping/product.html">
+              <img src="/resources/images/prouduct/thumbnail/1.gif">
+            </a>
+          </td>
+          <td class="cart-item-product">
+            <p>✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color</p>
+            <p class="cart-item-product-option">
+              <button>옵션변경</button>
+              [옵션 : <span class="cart-item-selected-option">블랙/L</span>]
+            </p>
+          </td>
+          <td class="cart-item-count">
+            <button>+</button>
+            <span>2</span>
+            <button>-</button>
+          </td>
+          <td class="cart-item-price">32,500</td>
+          <td class="cart-item-point">325</td>
+          <td class="cart-item-choose"><button>삭제하기</button></td>
+        </tr>
+        <tr>
+          <td class="cart-item-checkbox"><input type="checkbox" name="checkbox"></td>
+          <td class="cart-item-image">
+            <a href="/views/shopping/product.html">
+              <img src="/resources/images/prouduct/thumbnail/1.gif">
+            </a>
+          </td>
+          <td class="cart-item-product">
+            <a href="/views/shopping/product.html">
+              ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color
+            </a>
+            <p class="cart-item-product-option">
+              <button>옵션변경</button>
+              [옵션 : <span class="cart-item-selected-option">블랙/L</span>]
+            </p>
+          </td>
+          <td class="cart-item-count">
+            <button>+</button>
+            <span>2</span>
+            <button>-</button>
+          </td>
+          <td class="cart-item-price">32,500</td>
+          <td class="cart-item-point">325</td>
+          <td class="cart-item-choose"><button>삭제하기</button></td>
+        </tr>
       </table>
       
-      <p>
-        선택상품<button>삭제하기</button><button>장바구니비우기</button>
-      </p>
+      <div class="btn-container">
+        선택상품
+        <button>삭제하기</button>
+        <button>장바구니비우기</button>
+      </div>
     </section>
 
     <!-- 결제예상금액 -->
     <section id="cartPrice">
+      <table>
+        <tr class="table-header">
+          <td class="cart-price-total-origin">총 상품금액</td>
+          <td class="cart-price-delivery">배송비</td>
+          <td class="cart-price-total-discount">총 할인금액</td>
+          <td class="cart-price-total-payment">결제예정금액</td>
+        </tr>
+        <tr class="table-data">
+          <td class="cart-price-total-origin data">32,500</td>
+          <td class="cart-price-delivery">+<span class="data">3,000</span></td>
+          <td class="cart-price-total-discount">-<span class="data">0</span></td>
+          <td class="cart-price-total-payment"><span class="data">35,500</span></td>
+        </tr>
+      </table>
 
+      <div class="btn-container">
+        <button>선택상품주문</button>
+        <button class="submit">전체상품주문</button>
+      </div>
     </section>
 
     <!-- 추천상품 -->
