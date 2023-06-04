@@ -58,10 +58,10 @@
                 <!-- 버튼 선택 시 마다 아래 p 태그의 value값과 innerText 값 변경 -->
                 <p class="product-option-seleced color" value="">색상을 선택해 주세요</p>
                 <ul>
-                  <li class="option-btn color">블랙</li>
-                  <li class="option-btn color">차콜</li>
-                  <li class="option-btn color selected">민트</li>
-                  <li class="option-btn color">다크네이비</li>
+                  <li class="option-btn color"><button>블랙</button></li>
+                  <li class="option-btn color"><button>차콜</button></li>
+                  <li class="option-btn color"><button class="selected">민트</button></li>
+                  <li class="option-btn color"><button>다크네이비</button></li>
                 </ul>
               </div>
             </div>
@@ -75,10 +75,10 @@
                 <!-- 버튼 선택 시 마다 아래 p 태그의 value값과 innerText 값 변경 -->
                 <p class="product-option-seleced size" value="">사이즈를 선택해 주세요</p>
                 <ul>
-                  <li class="option-btn size selected">XS</li>
-                  <li class="option-btn size">S</li>
-                  <li class="option-btn size">M</li>
-                  <li class="option-btn size">L</li>
+                  <li class="option-btn size"><button class="selected">SX</button></li>
+                  <li class="option-btn size"><button>S</button></li>
+                  <li class="option-btn size"><button>M</button></li>
+                  <li class="option-btn size"><button>L</button></li>
                 </ul>
               </div>
             </div>
@@ -145,7 +145,7 @@
         <!-- 찜 목록 추가 / 장바구니 담기 -->
         <div id="productCurrentButton">
           <button id="addLikeBtn">찜 목록 추가</button>
-          <button id="addCartBtn">장바구니 담기</button>
+          <button id="addCartBtn" class="submit">장바구니 담기</button>
         </div>
 
       </section> <!-- 상품 정보 및 구매옵션 종료 -->

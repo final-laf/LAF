@@ -115,6 +115,7 @@ a:hover {
 .btn-area{
     width: 80%;
     height: 30px;
+    margin: 5px 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -122,18 +123,7 @@ a:hover {
 
 /* 글쓰기 버튼 */
 .btn-area > button{
-    margin-right: 5px;
-    
-    width: 60px;
-    height: 20px;   
-    background-color: white;
-
-    color: #666;
-    border: 0.5px solid #ccc;
-    border-radius: 5px;
-    font-size: 1px;
-
-    cursor: pointer;
+    font-size: 10px;
 }
 
 
@@ -174,6 +164,7 @@ a:hover {
 
 #boardSearch button{
     width: 50px;
+    height: 32px;
 
     font-weight: bold;
     font-size: 12px;

@@ -148,3 +148,53 @@ hr.darker {
 .sub-category:first-child {
   border-left: 0.5px solid #eee;
 }
+
+/* section 헤더(제목, 설명) */
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.section-title {
+  font-size: 25px;
+  margin: 4px 0;
+}
+.section-description {
+  color: #666;
+  font-size: 12px;
+}
+
+/* 버튼 기본 스타일 */
+button {
+  width: auto;
+  height: 27px;
+  padding: 0px 8px;
+  
+  background-color: white;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  color: #222;
+  font-size: 14px;
+  cursor: pointer;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+button:hover {
+  background-color: #eee;
+}
+button.selected {
+  border: 0.5px solid #666;
+  background-color: #eee;
+}
+button.submit {
+  background-color: #7F7698;
+  color: white;
+}
+button:hover.submit {
+  background-color: #493e5d;
+}
