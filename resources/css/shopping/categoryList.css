@@ -1,18 +1,7 @@
-/* section 헤더(제목, 설명) */
-.categoryList-section-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-}
-.categoryList-section-title {
-    font-size: 25px;
-    margin: 4px 0;
-}
-.categoryList-section-description {
-    color: #666;
-    font-size: 12px;
+/* section header overridding */
+.section-header.best {
+    margin-top: 30px;
+    margin-bottom: 15px;
 }
 
 /* BEST ITEMS 섹션 */
@@ -136,7 +125,6 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    /* justify-content: center; */
 }
 .categoryList-product-item {
     margin: 40px 13px 0;
