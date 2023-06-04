@@ -120,3 +120,14 @@ tr:not(:first-child) > .item-product {
   color: #666;
   text-decoration: line-through;
 }
+.item-choose {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item-choose > button {
+  width: 66px;
+}
+.item-choose > button:first-child {
+  margin-bottom: 2px;
+}
