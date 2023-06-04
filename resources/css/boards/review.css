@@ -1,0 +1,62 @@
+/* 게시판  */
+.board-list{
+  width: 1200px;
+  margin : 50px auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 게시판 이름 */
+.board-name{
+  width: 100%;
+  margin: 30px 0;
+
+  font-size: 25px;
+  text-align: center;
+}
+
+/* content */
+.best{
+  width: 1200px;
+  margin: 40px auto;
+  font-size: 2rem;
+
+  position: relative;
+}
+
+.best-title{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.best-title span{
+  font-size: 2rem;
+}
+
+.best-content{
+  width: 1200px;
+  overflow: hidden;
+}
+
+.best-list{
+  display: flex;
+  justify-content: space-between;
+}
+
+.best-list li{
+  height: 280px;
+}
+
+/* best img */
+.best-img{
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+  object-position: center;
+}

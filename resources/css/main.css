@@ -322,7 +322,7 @@ color: #666;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .new-title span{
@@ -390,7 +390,7 @@ color: #666;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .only-title span{
