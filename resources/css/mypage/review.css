@@ -1,0 +1,133 @@
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#mypageReview {
+  width: 1000px;
+  padding-left: 50px;
+}
+
+/* 하위메뉴 */
+.sub-category-container {
+  margin-bottom: 50px;
+}
+.sub-category-container span {
+  font-size: 1.4rem;
+  color: inherit;
+  margin-left: 2px;
+}
+
+/* 테이블 공통설정 */
+table {
+  width: 100%;
+}
+table tr {
+  border-top : 0.5px solid #eee;
+}
+/* 테이블 헤더 설정 */
+table tr:first-child {
+  background-color: #fafafa;
+  line-height: 120%;
+  text-align: center;
+}
+table tr:first-child > td {
+  padding: 8px 0;
+}
+table tr:last-child {
+  border-bottom : 0.5px solid #eee;
+}
+table td {
+  padding: 3px 0;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+table tr:not(:first-child) > td {
+  height: 100px;
+}
+
+/* 버튼 컨테이너 설정 */
+.btn-container {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.btn-container button {
+  margin-left: 5px;
+  width: 140px;
+  height: 40px;
+  border-radius: 2px;
+}
+
+/* 찜 목록 - 테이블 레이아웃 설정 */
+.item-order-info { width: 12%; }
+.item-image { width: 13%; }
+.item-product { width: 45%; }
+.item-count { width: 5%; }
+.item-price-set { width: 15%; }
+.item-choose { width: 10%; }
+.item-empty { width: 100%; }
+tr:not(:first-child) > .item-product {
+  /* 테이블 헤더 제외하고 적용 */
+  padding: 10px 10px 10px 0;
+  
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* 컬럼 별 상세설정 */
+.item-order-info {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 120%;
+}
+.item-order-info > .item-order-no > a {
+  font-size: 1.3rem;
+  color: #666;
+}
+.item-order-info > .item-order-no > a:hover {
+  text-decoration: underline;
+}
+.item-image img {
+  height: 94px;
+  width: auto;
+  display: block;
+}
+.item-product button {
+  margin-right: 5px;
+}
+.item-product a:hover {
+  text-decoration: underline;
+}
+.item-product-option, .item-selected-option {
+  font-size: 1.4rem;
+  color: #666;
+}
+.item-price-set {
+  display: inline-flex;
+  flex-direction: column;
+}
+.item-price-origin {
+  font-size: 1.3rem;
+  color: #666;
+  text-decoration: line-through;
+}
+.item-choose {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+.item-choose > button {
+  width: 66px;
+}
+.item-choose > button:first-child {
+  margin-bottom: 2px;
+}

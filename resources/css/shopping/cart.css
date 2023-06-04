@@ -14,6 +14,9 @@ table {
 table tr {
   border-top : 0.5px solid #eee;
 }
+table tr:first-child {
+  background-color: #fafafa;
+}
 table tr:last-child {
   border-bottom : 0.5px solid #eee;
 }
@@ -40,13 +43,14 @@ table tr:not(:first-child) > td {
 }
 
 /* 장바구니 목록 - 테이블 레이아웃 설정 */
-.cart-item-checkbox { width: 1%; }
-.cart-item-image { width: 8%; }
-.cart-item-product { width: 57%; }
+.cart-item-checkbox { width: 3%; }
+.cart-item-image { width: 10%; }
+.cart-item-product { width: 53%; }
 .cart-item-count { width: 8%; }
-.cart-item-price { width: 10%; }
+.cart-item-price-set { width: 10%; }
 .cart-item-point { width: 8%; }
 .cart-item-choose { width: 8%; }
+.cart-item-empty { width: 100%; }
 tr:not(:first-child) > .cart-item-product {
   /* 테이블 헤더 제외하고 적용 */
   padding: 10px 20px 10px 0;
@@ -71,11 +75,25 @@ tr:not(:first-child) > .cart-item-product {
   font-size: 1.4rem;
   color: #666;
 }
+.cart-item-price-set {
+  display: inline-flex;
+  flex-direction: column;
+}
+.cart-item-price-origin {
+  font-size: 1.3rem;
+  color: #666;
+  text-decoration: line-through;
+}
 #cartItemList .cart-item-count button {
   width: 20px;
   height: 20px;
   margin: 0 10px;
 }
+/* #cartItemList > .btn-container > button {
+  height: 40px;
+  width: 120px;
+  border-radius: 2px;
+} */
 
 
 
@@ -104,4 +122,5 @@ tr:not(:first-child) > .cart-item-product {
 #cartPrice > .btn-container > button {
   height: 40px;
   width: 120px;
+  border-radius: 2px;
 }

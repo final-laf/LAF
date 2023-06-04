@@ -63,8 +63,8 @@ html{
 }
 .pagination li {
   width: 20px;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 1.2rem;
+  /* font-weight: bold; */
   border: 0.5px solid #ccc;
   border-right: none;
   width: 35px;
@@ -93,6 +93,7 @@ html{
 }
 .pagination a.current {
   border-bottom: 3px solid #222;
+  font-weight: bold;
   color: #222;
 }
 
@@ -147,7 +148,7 @@ hr.darker {
   background-color: #7F7698;
   color: white;
 }
-.sub-category:first-child {
+.sub-category-container a:first-child .sub-category {
   border-left: 0.5px solid #eee;
 }
 
