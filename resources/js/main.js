@@ -1,10 +1,10 @@
 /* 메인슬라이드 */
 document.addEventListener("DOMContentLoaded", function() {
-    var slides = document.querySelectorAll(".main-banner input[name='slide']");
-    var slideImages = document.querySelectorAll(".main-banner .slide-img li");
-    var prevButton = document.querySelector(".main-banner-lbtn");
-    var nextButton = document.querySelector(".main-banner-rbtn");
-    var currentSlide = 0;
+    const slides = document.querySelectorAll(".main-banner input[name='slide']");
+    const slideImages = document.querySelectorAll(".main-banner .slide-img li");
+    const prevButton = document.querySelector(".main-banner-lbtn");
+    const nextButton = document.querySelector(".main-banner-rbtn");
+    let currentSlide = 0;
 
     prevButton.addEventListener("click", function() {
         currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
@@ -16,15 +16,29 @@ document.addEventListener("DOMContentLoaded", function() {
         updateSlide();
     });
 
+    for (var i = 0; i < slides.length; i++) {
+        slides[i].addEventListener("click", function() {
+        currentSlide = Array.prototype.indexOf.call(slides, this);
+        updateSlide();
+        });
+    }
+
     function updateSlide() {
         for (var i = 0; i < slides.length; i++) {
-        slides[i].checked = false;
-        slideImages[i].style.display = "none"; 
+            slides[i].checked = false;
+            slideImages[i].style.display = "none";
         }
-        slides[currentSlide].checked = true; 
-        slideImages[currentSlide].style.display = "block"; 
+        slides[currentSlide].checked = true;
+        slideImages[currentSlide].style.display = "block";
+
+        let slideContainer = document.querySelector(".main-banner");
+        slideContainer.scrollLeft = currentSlide * slideContainer.offsetWidth;
     }
+
+    updateSlide();
 });
+
+
 
 /* 이미지 hover효과 */
 function imgHover(input) {
