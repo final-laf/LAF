@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 
-  <link rel="stylesheet" href="/resources/css/common/default.css">
-  <link rel="stylesheet" href="/resources/css/mypage/mypageSignUp.css">
+  <link rel="stylesheet" href="../../resources/css/common/default.css">
+  <link rel="stylesheet" href="../../resources/css/mypage/mypageSignUp.css">
 </head>
 <body>
   <header class="link" data-include="/views/common/header.html"></header>
@@ -15,7 +15,7 @@
     <!-- 개인화면 대쉬보드 전체 틀 -->
     <section class="mypageSignUp-signUp">
       <div class="mypageSignUp-signUp-info"> <!-- width 1200px, 상단 마진 50px, 중앙정렬  -->
-        <form action="" method="post">
+        <form action="" method="post" id="mypageSignUpSubmit">
           <div>
             <div class="mypageSignUp-info-intro"><span>Join </span>회원가입하시면 편리하게 쇼핑하실 수 있습니다. </div>
           <div class="mypageSignUp-info-signUpInfo"><!-- 기본정보 -->
@@ -25,7 +25,7 @@
                 <th>아이디</th>
                 <td>
                   <div class="mypageSignUp-table-inputTd">
-                    <input type="text" name="memberId">
+                    <input type="text" name="memberId" id="mypageSignUpId" required>
                     <div>　(영문소문자/숫자, 4~16자)</div>
                   </div>
                 </td>
@@ -34,7 +34,7 @@
                 <th>비밀번호</th>
                 <td>
                   <div class="mypageSignUp-table-inputTd">
-                    <input type="text" name="memberPw">
+                    <input type="password" name="memberPw" id="mypageSignUpPw" required>
                     <div>　(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</div>
                   </div>
                 </td>
@@ -42,13 +42,13 @@
               <tr>
                 <th>비밀번호 확인</th>
                 <td>
-                  <input type="text"  name="memberPw2">
+                  <input type="password"  name="memberPw2" id="mypageSignUpPwConfirm" required>
                 </td>
               </tr>
               <tr>
                 <th>이름</th>
                 <td>
-                  <input type="text"   name="memberName">
+                  <input type="text" name="memberName" id="mypageSignUpName" required maxlength="10">
                 </td>
               </tr>
               <tr>
@@ -56,31 +56,31 @@
                 <td>
                   <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
                   <div class="mypageSignUp-table-address">
-                    <input type="text" class="mypageSignUp-address-postal" name="memberAddress" placeholder="  우편번호" maxlength="6" id="sample6_postcode">
+                    <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
                     <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
                   </div>
                   <div class="mypageSignUp-table-address">
-                    <input type="text" name="memberAddress" placeholder="  기본 주소" id="sample6_address">
+                    <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
                   </div>
                   <div class="mypageSignUp-table-address">
-                    <input type="text" name="memberAddress" placeholder="  나머지 주소(선택 입력 가능)" id="sample6_detailAddress">
+                    <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
                   </div>
                 </td>
               </tr>
               <tr>
                 <th>전화번호</th>
                 <td class="mypageSignUp-table-tel">
-                  <input type="text" placeholder="010" maxlength="3"  name="memberName">
+                  <input type="tel" required id="mypageSignUpTelF" maxlength="3" name="memberName" value="010">
                   <span>-</span>
-                  <input type="text"  maxlength="4"  name="memberName">
+                  <input type="tel" required id="mypageSignUpTelS" maxlength="4" name="memberName">
                   <span>-</span>
-                  <input type="text"  maxlength="4" name="memberName">
+                  <input type="tel" required id="mypageSignUpTelT" maxlength="4" name="memberName">
                 </td>
               </tr>
               <tr>
                 <th>이메일</th>
                 <td>
-                  <input type="text"   name="memberEmail">
+                  <input type="text" required id="mypageSignUpMail" name="memberEmail">
                 </td>
               </tr>
             </table>
@@ -92,14 +92,16 @@
               <tr class="mypageSignUp-table-birth">
                   <th>생년월일</th>
                   <td>
-                      <input type="text" name="memberBirth" style="width:100px">년<input type="text" name="memberBirth">월<input type="text" name="memberBirth">일
+                      <input type="text" maxlength="4" id="mypageSignUpYear" name="memberBirth" style="width:100px">년
+                      <input type="text" maxlength="2" id="mypageSignUpMonth" name="memberBirth">월
+                      <input type="text" maxlength="2" id="mypageSignUpDay" name="memberBirth">일
                   </td>
               </tr>
               <tr class="mypageSignUp-table-Refund">
                 <th>환불계좌 정보</th>
                 <td>
                   <div> - 예금주　 
-                    <input type="text" name="memberPw">
+                    <input type="text" id="mypageSignUpRefundName" name="memberPw">
                   </div>
                   <div> - 은행명　 
                     <select name="bankName" size="1"> 
@@ -111,17 +113,39 @@
                   </div>
                   <div>
                     <span>- 계좌번호</span>
-                    <input type="text" name="memberPw" maxlengt="20">
+                    <input type="text" name="memberPw" id="mypageSignUpRefundNo">
                     ('-'와 숫자만 입력해주세요.)
                   </div>
                 </td>
               </tr>
             </table>
           </div> 
+          <div id="mypageSignUpSubmitButton"><button>회원가입</button></div>
+          <ul class="mypageSignUp-info-terms">
+            <span>
+              <input type="checkbox" name="" id="mypageSignUptermsAll"> 전체 약관 동의
+            </span>
+            <div>
+              [필수] 이용약관 동의
+              <li>제 1조(목적)</li>
+              <span>이용약관에 동의하십니까?<input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsUse" required> 동의함</span>
+            </div>
+            <div>
+              [필수] 개인정보 수집 및 이용 동의
+              <li>1. 개인정보 수집 목적 및 이용목적</li>
+              <span>개인정보 수집 및 이용에 동의하십니까?<input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsInfo" required> 동의함</span>
+            </div>
+            <div>
+              [필수] 쇼핑 수신 동의?
+              <li>할인 쿠폰 등</li>
+              <span>수신에 동의하십니까?<input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsReceiving" required> 동의함</span>
+            </div>
+          </ul> 
         </form>
       </div>
     </section>
   </main>
+  <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script>
     function sample6_execDaumPostcode() {
@@ -150,6 +174,7 @@
     }
   </script>
   <script src="/resources/js/common/default.js"></script>
+  <script src="../../resources/js/mypage/mypageSignUp.js"></script>
   <footer class="link" data-include="/views/common/footer.html"></footer>
 </body>
 </html>
