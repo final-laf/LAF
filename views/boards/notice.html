@@ -6,21 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/resources/css/common/default.css">
   <link rel="stylesheet" href="/resources/css/boards/boardsCommon.css">
-  <title>notice</title>
+  <title>LAF :: 공지사항</title>
 </head>
 <body>
 
   <header class="link" data-include="/views/common/header.html"></header>
+  <nav class="link" data-include="/views/common/nav.html"></nav>
   
   <main>
 
     <section class="board-list">
       <div class="board-name"><span>NOTICE</span></div>
-      <div class="button top-page-button-area">
-        <div class="top-page-button top-page-button-choosen"><span>NOTICE</span></div>
-        <div class="top-page-button">1대1문의</div>
-        <div class="top-page-button">FAQ</div>
-        <div class="top-page-button">REVIEW</div>
+
+      <div class="sub-category-container">
+        <!-- 현재 카테고리에 current 클래스 추가 -->
+        <div class="sub-category current">NOTICE</div>
+        <div class="sub-category">1:1문의</div>
+        <div class="sub-category">FAQ</div>
+        <div class="sub-category">REVIEW</div>
       </div>
 
       <!-- 게시판 -->

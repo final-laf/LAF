@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/resources/css/common/default.css">
+  <link rel="stylesheet" href="/resources/css/shopping/cart.css">
+  <link rel="stylesheet" href="/resources/css/dev/productList.css">
+  <title>LAF :: 장바구니</title>
+</head>
+<body>
+
+  <header class="link" data-include="/views/common/header.html"></header>
+  <nav class="link" data-include="/views/common/nav.html"></nav>
+  
+  <main>
+    <!-- 섹션 헤더(제목, 설명) -->
+    <div class="section-header">
+      <div class="section-title">장바구니</div>
+    </div>
+
+    <!-- 장바구니 목록 -->
+    <section id="cartItemList">
+      <table>
+        <tr>
+          <td class="cart-item-checkbox"><input type="checkbox" name="checkbox"></td>
+          <td class="cart-item-image">이미지</td>
+          <td class="cart-item-product">상품정보</td>
+          <td class="cart-item-count">수량</td>
+          <td class="cart-item-price">상품구매금액</td>
+          <td class="cart-item-point">적립금</td>
+          <td class="cart-item-choose">선택</td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+      </table>
+      
+      <p>
+        선택상품<button>삭제하기</button><button>장바구니비우기</button>
+      </p>
+    </section>
+
+    <!-- 결제예상금액 -->
+    <section id="cartPrice">
+
+    </section>
+
+    <!-- 추천상품 -->
+    <section id="proudctRecommandItem">
+      <div class="product-item-title">RECOMMEND ITEM</div>
+      <div class="product-item-desc">이 상품과 함께 구매하면 좋을 상품 추천드립니다 :-)</div>
+      
+      <!-- 아이템 목록 -->
+      <ul class="link dev-product-item-container" data-include="/views/dev/productList.html"></ul>
+    </section>
+
+  </main>
+
+  <footer class="link" data-include="/views/common/footer.html"></footer>
+
+  <script src="/resources/js/common/default.js"></script>
+
+</body>
+</html>
