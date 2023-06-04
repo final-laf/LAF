@@ -94,6 +94,10 @@
 .mypageSignUp-table-birth input{
   border: 0.5px solid #eee;
   width: 50px;
+  margin-right: 5px;
+}
+.mypageSignUp-table-birth input:not(:first-child) {
+  margin-left: 10px;
 }
 
 .mypageSignUp-table-Refund div{
@@ -110,6 +114,11 @@
   height: 45px;
   width: 170px;
 }
+.mypageSignUp-table-Refund td {
+  padding: 0;
+}
+.mypageSignUp-table-Refund td > div {
+  padding-left: 10px;
 
 #mypageSignUpSubmitButton{
   margin-top: 50px;
