@@ -1,0 +1,95 @@
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#likeList {
+  width: 1000px;
+  padding-left: 50px;
+}
+
+/* 장바구니 페이지 테이블 공통설정 */
+table {
+  width: 100%;
+}
+table tr {
+  border-top : 0.5px solid #eee;
+}
+table tr:last-child {
+  border-bottom : 0.5px solid #eee;
+}
+table td {
+  padding: 3px 0;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+table tr:not(:first-child) > td {
+  height: 100px;
+}
+
+/* 버튼 컨테이너 설정 */
+.btn-container {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.btn-container button {
+  margin-left: 5px;
+  width: 140px;
+  height: 40px;   
+}
+
+/* 찜 목록 - 테이블 레이아웃 설정 */
+.item-checkbox { width: 3%; }
+.item-image { width: 15%; }
+.item-product { width: 55%; }
+.item-price-set { width: 15%; }
+.item-choose { width: 12%; }
+.item-empty { width: 100%; }
+tr:not(:first-child) > .item-product {
+  /* 테이블 헤더 제외하고 적용 */
+  padding: 10px 10px 10px 0;
+  
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.item-image img {
+  height: 94px;
+  width: auto;
+  display: block;
+}
+.item-product button {
+  margin-right: 5px;
+}
+.item-product a:hover {
+  text-decoration: underline;
+}
+.item-product-option, .item-selected-option {
+  font-size: 1.4rem;
+  color: #666;
+}
+.item-price-set {
+  display: inline-flex;
+  flex-direction: column;
+}
+.item-price-origin {
+  font-size: 1.3rem;
+  color: #666;
+  text-decoration: line-through;
+}
+.item-choose {
+  display: inline-flex;
+  flex-direction: column;
+}
+.item-choose button {
+  width: 90px;
+}
+.item-choose button:last-child {
+  margin-top: 2px;
+}
