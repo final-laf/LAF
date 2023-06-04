@@ -73,9 +73,9 @@
                 <th>전화번호</th>
                 <td class="mypageSignUp-table-tel">
                   <input type="text" placeholder="010" maxlength="3"  name="memberName">
-                  <span>-</span>
+                  -
                   <input type="text"  maxlength="4"  name="memberName">
-                  <span>-</span>
+                  -
                   <input type="text"  maxlength="4" name="memberName">
                 </td>
               </tr>
@@ -94,16 +94,19 @@
               <tr class="mypageSignUp-table-birth">
                   <th>생년월일</th>
                   <td>
-                      <input type="text" name="memberBirth" style="width:100px">년<input type="text" name="memberBirth">월<input type="text" name="memberBirth">일
+                      <input type="text" name="memberBirth" style="width:100px">년
+                      <input type="text" name="memberBirth">월
+                      <input type="text" name="memberBirth">일
                   </td>
               </tr>
               <tr class="mypageSignUp-table-Refund">
                 <th>환불계좌 정보</th>
                 <td>
-                  <div> - 예금주　 
+                  <div> 예금주　 
                     <input type="text" name="memberPw">
                   </div>
-                  <div> - 은행명　 
+                  <hr>
+                  <div> 은행명　 
                     <select name="bankName" size="1"> 
                       <option>- 은행 선택 -</option>
                       <option value="ori">우리은행</option>
@@ -111,8 +114,9 @@
                       <option value="nong">농협은행</option> 
                     </select>
                   </div>
+                  <hr>
                   <div>
-                    <span>- 계좌번호</span>
+                    <span>계좌번호</span>
                     <input type="text" name="memberPw" maxlengt="20">
                     ('-'와 숫자만 입력해주세요.)
                   </div>
