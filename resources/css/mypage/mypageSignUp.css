@@ -117,7 +117,9 @@
   height: 50px
 }
 #mypageSignUpSubmitButton button {
+  background-color: #eee;
   border: none;
+  height: 50px;
   width: 200px;
   margin: 0 auto;
 }
