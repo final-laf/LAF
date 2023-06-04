@@ -47,6 +47,7 @@ table tr:not(:first-child) > td {
 .cart-item-price { width: 10%; }
 .cart-item-point { width: 8%; }
 .cart-item-choose { width: 8%; }
+.cart-item-empty { width: 100%; }
 tr:not(:first-child) > .cart-item-product {
   /* 테이블 헤더 제외하고 적용 */
   padding: 10px 20px 10px 0;
