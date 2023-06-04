@@ -4,7 +4,6 @@ footer {
     height: 500px;
     /* background-color: #7F7698; */
 }
-
 .footer-content{
     margin: 100px auto 0;
     width: 1200px;
@@ -32,7 +31,13 @@ footer {
     margin: 15px 0;
 }
 .footer-content-right{width: 23%;}
-.footer-content-sns{width: 10%;}
+.footer-content-sns{width: 16%;}
 .footer-content-sns>p:nth-child(1){
     font-size: 2rem;
+    margin-bottom: 40px;
+}
+.footer-content-sns img{
+    width: 35px;
+    height: 35px;
+    margin: 2px;
 }
