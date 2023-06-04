@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/resources/css/common/default.css">
-    <link rel="stylesheet" href="/resources/css/mypage/like.css">
-    <title>LAF :: 찜 목록</title>
+    <link rel="stylesheet" href="/resources/css/mypage/reviewQueue.css">
+    <title>LAF :: 내 리뷰 관리</title>
 
 </head>
 <body>
@@ -17,27 +17,38 @@
       <!-- 마이페이지 sidebar -->
       <section class="link" data-include="/views/mypage/mypageSide.html"></section>
       
-      <!-- 마이페이지 content -->
-      <section>
+      <!-- 작성 가능한 리뷰 -->
+      <section id="mypageReview">
         <!-- 섹션 헤더(제목, 설명) -->
         <div class="section-header">
-          <div class="section-title">찜 목록</div>
+          <div class="section-title">내 리뷰 관리</div>
+        </div>
+
+        <!-- 하위 메뉴 -->
+        <div class="sub-category-container">
+          <!-- 현재 카테고리에 current 클래스 추가 -->
+          <a href="/views/mypage/reviewQueue.html"><div class="sub-category">작성 가능한 리뷰<span>(2)</span></div></a>
+          <a href="/views/mypage/reviewList.html"><div class="sub-category current">작성한 리뷰<span>(23)</span></div></a>
         </div>
 
         <section id="likeList">
           <table>
             <tr>
-              <td class="item-checkbox"><input type="checkbox" name="checkbox"></td>
+              <td class="item-order-info">주문정보</td>
               <td class="item-image">이미지</td>
               <td class="item-product">상품정보</td>
-              <td class="item-price-set">상품금액</td>
+              <td class="item-count">수량</td>
+              <td class="item-price-set">구매금액</td>
               <td class="item-choose">선택</td>
             </tr>
             <tr>
-              <td colsapn="7" class="item-empty">찜 목록이 비어 있습니다.</td>
+              <td colsapn="7" class="item-empty">작성한 리뷰가 없습니다.</td>
             </tr>
             <tr>
-              <td class="item-checkbox"><input type="checkbox" name="checkbox"></td>
+              <td class="item-order-info">
+                <div class="item-order-date">2023-06-04</div>
+                <div class="item-order-no"><a href="#">[23060400001002]</a></div>
+              </td>
               <td class="item-image">
                 <a href="/views/shopping/product.html">
                   <img src="/resources/images/prouduct/thumbnail/1.gif">
@@ -45,24 +56,25 @@
               </td>
               <td class="item-product">
                 <a href="/views/shopping/product.html">
-                ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color 제품명이 길 때는 두 줄로 나오고 두 줄보다 길때는 잘라야 함
+                ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color 제품명이 길 때는 두 줄로 나오...
                 </a>
                 <p class="item-product-option">
-                  <button>옵션변경</button>
                   [옵션 : <span class="item-selected-option">블랙/L</span>]
                 </p>
               </td>
+              <td class="item-count">1</td>
               <td class="item-price-set">
                 <div class="item-price">32,500</div>
-                <div class="item-price-origin">32,500</div>
               </td>
               <td class="item-choose">
-                <button>장바구니담기</button>
-                <button>&times; 삭제하기</button>
+                <button>리뷰작성</button>
               </td>
             </tr>
             <tr>
-              <td class="item-checkbox"><input type="checkbox" name="checkbox"></td>
+              <td class="item-order-info">
+                <div class="item-order-date">2023-06-04</div>
+                <div class="item-order-no"><a href="#">[23060400001001]</a></div>
+              </td>
               <td class="item-image">
                 <a href="/views/shopping/product.html">
                   <img src="/resources/images/prouduct/thumbnail/1.gif">
@@ -70,28 +82,21 @@
               </td>
               <td class="item-product">
                 <a href="/views/shopping/product.html">
-                  ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color
+                  ✨재구매1등✨ [98project/2만장돌파] 썸머 포드
                 </a>
                 <p class="item-product-option">
-                  <button>옵션변경</button>
                   [옵션 : <span class="item-selected-option">블랙/L</span>]
                 </p>
               </td>
+              <td class="item-count">2</td>
               <td class="item-price-set">
                 <div class="item-price">32,500</div>
-                <div class="item-price-origin"></div>
               </td>
               <td class="item-choose">
-                <button>장바구니담기</button>
-                <button>&times; 삭제하기</button>
+                <button>리뷰작성</button>
               </td>
             </tr>
           </table>
-        
-        <div class="btn-container">
-          <button>선택상품 삭제</button>
-          <button class="submit">장바구니담기</button>
-        </div>
       </section>
 
       <!-- 페이징 -->

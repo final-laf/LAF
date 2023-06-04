@@ -148,7 +148,7 @@ hr.darker {
   background-color: #7F7698;
   color: white;
 }
-.sub-category:first-child {
+.sub-category-container a:first-child .sub-category {
   border-left: 0.5px solid #eee;
 }
 

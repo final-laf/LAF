@@ -89,6 +89,11 @@ tr:not(:first-child) > .cart-item-product {
   height: 20px;
   margin: 0 10px;
 }
+/* #cartItemList > .btn-container > button {
+  height: 40px;
+  width: 120px;
+  border-radius: 2px;
+} */
 
 
 
@@ -117,4 +122,5 @@ tr:not(:first-child) > .cart-item-product {
 #cartPrice > .btn-container > button {
   height: 40px;
   width: 120px;
+  border-radius: 2px;
 }
