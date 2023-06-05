@@ -14,7 +14,7 @@
   width: 100%;
   margin: 30px 0;
 
-  font-size: 25px;
+  font-size: 2rem;
   text-align: center;
 }
 
@@ -41,7 +41,6 @@
 
 .best-content{
   width: 1200px;
-  overflow: hidden;
 }
 
 .best-list{
@@ -49,8 +48,8 @@
   justify-content: space-between;
 }
 
-.best-list li{
-  height: 280px;
+.best-list *{
+  font-size: 1.2rem;
 }
 
 /* best img */
@@ -59,4 +58,18 @@
   height: 280px;
   object-fit: cover;
   object-position: center;
+  display: block;
+}
+
+.review-content, .item-content{
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.reviewer{
+  color: #666;
+}
+
+.item-img{
+  width: 10px;
 }
