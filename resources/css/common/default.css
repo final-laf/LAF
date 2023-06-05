@@ -3,7 +3,8 @@
   padding: 0;
   margin: 0;
   color: #222;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+  font-family: "SUITE-Regular";
   /* border: 1px solid black; */
 }
 
@@ -180,7 +181,7 @@ button {
   border: 0.5px solid #ccc;
   border-radius: 5px;
   color: #222;
-  font-size: 14px;
+  font-size: 1.2rem;
   cursor: pointer;
   
   display: inline-flex;
