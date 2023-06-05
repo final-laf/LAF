@@ -1,83 +1,73 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/resources/css/common/default.css">
-    <link rel="stylesheet" href="/resources/css/mypage/mypageLogin.css">
-    <title>LAF :: 로그인</title>
+  <link rel="stylesheet" href="../../resources/css/common/default.css">
+  <link rel="stylesheet" href="../../resources/css/mypage/mypageLogin.css">
+  <title>LAF :: 로그인</title>
 
 
 </head>
 <body>
-    <header class="link" data-include="/views/common/header.html"></header>
-    <nav class="link" data-include="/views/common/nav.html"></nav>
-    
-    <main>
-        <!-- 개인화면 대쉬보드 전체 틀 -->
-        <section class="mypageLogin-login">
-            <div><!-- 회원 로그인 방식 분류 -->
-                <div class="mypageLogin-login-memberLogin">
-                    <p>회원로그인</p>
-                    <form action="" method="post">
-                        <div class="mypageLogin-memberLogin-member">
-                            <div>ID</div>
-                            <input style="border:none" size="70" type="text" name="memberId">
-                        </div>
-                        <div class="mypageLogin-memberLogin-member">
-                            <div>Password</div>
-                            <input style="border:none" size="70" type="text" name="memberPw">
-                        </div>
-                        <button id="mypageLoginLogin"> LOGIN</button>
-                        <div class="mypageLogin-memberLogin-other">
-                            <nav><input type="checkbox">아이디 저장</nav>
-                            <a>Forgotten ID or Password</a>
-                        </div>
-                    </form>
-                    <div>
-                        <a>사용중이신 SNS로 간편하게 로그인하세요?</a>
-                    </div>
-                </div>
-    
-    
-    
-    
-                <div class="mypageLogin-login-notMember">
-                    <p>
-                        비회원회원 주문조회
-                    </p>
-                    <form action="" method="post">
-                        <div class="mypageLogin-memberLogin-member">
-                            <div>주문자명</div>
-                            <input style="border:none" size="70" type="text" name="memberId">
-                        </div>
-                        <div class="mypageLogin-memberLogin-member">
-                            <div>주문번호</div>
-                            <input style="border:none" size="70" type="text" name="memberPw">
-                        </div>
-                        <button id="mypageLoginNotMember" class="mypageLogin-btn">비회원 주문조회</button>
-                    </form>
-                    <div>
-                        <p>
-                            ~~~ 의 멤버쉽 혜택
-                        </p>
-                        <div>
-                            알찬 쇼핑이 되실 수 있도록 <br> 적립금과 쿠폰, 이벤트가 준비됩니다. <br> 등급별 혜택과 연말 선물을 받아보세요!
-                        </div>
-                        <div>
-                            <a href="/views/mypage/mypageSignUp.html"><button class="mypageLogin-btn">회원가입</button></a>
-                        </div>
-                    </div>
-                </div>
+  <header class="link" data-include="../../views/common/header.html"></header>
+  <nav class="link" data-include="../../views/common/nav.html"></nav>
+  
+  <main>
+    <!-- 개인화면 대쉬보드 전체 틀 -->
+    <section class="mypageLogin-login">
+      <div><!-- 회원 로그인 방식 분류 -->
+        <div class="mypageLogin-login-memberLogin">
+          <p>회원로그인</p>
+          <form action="" method="post">
+            <div class="mypageLogin-memberLogin-member">
+              <div>ID</div>
+              <input style="border:none" size="70" type="text" name="memberId">
             </div>
-        </section>
-    </main>
+            <div class="mypageLogin-memberLogin-member">
+              <div>Password</div>
+              <input style="border:none" size="70" type="text" name="memberPw">
+            </div>
+            <button id="mypageLoginLogin"> LOGIN</button>
+            <div class="mypageLogin-memberLogin-other">
+              <nav><input type="checkbox">아이디 저장</nav>
+              <a>Forgotten ID or Password</a>
+            </div>
+          </form>
+          <div>
+            <a>사용중이신 SNS로 간편하게 로그인하세요?</a>
+          </div>
+        </div>
+        <div class="mypageLogin-login-notMember">
+          <p>비회원회원 주문조회</p>
+          <form action="" method="post">
+            <div class="mypageLogin-memberLogin-member">
+              <div>주문자명</div>
+              <input style="border:none" size="70" type="text" name="memberId">
+            </div>
+            <div class="mypageLogin-memberLogin-member">
+              <div>주문번호</div>
+              <input style="border:none" size="70" type="text" name="memberPw">
+            </div>
+            <button id="mypageLoginNotMember" class="mypageLogin-btn">비회원 주문조회</button>
+          </form>
+          <div>
+            <p>~~~ 의 멤버쉽 혜택</p>
+            <div>알찬 쇼핑이 되실 수 있도록 <br> 적립금과 쿠폰, 이벤트가 준비됩니다. <br> 등급별 혜택과 연말 선물을 받아보세요!</div>
+            <div>
+              <a href="/views/mypage/mypageSignUp.html"><button class="mypageLogin-btn">회원가입</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <footer class="link" data-include="/views/common/footer.html"></footer>
+  <footer class="link" data-include="../../views/common/footer.html"></footer>
 
-    <script src="/resources/js/common/default.js"></script>
+  <script src="../../resources/js/common/default.js"></script>
 
 </body>
 </html>

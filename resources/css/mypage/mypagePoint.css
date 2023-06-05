@@ -31,7 +31,7 @@
 }
 
 .mypageDash-myRating-Rating{
-    color: #eee;
+    color: #666;
     width: 126px;
     height: 126px;
     background-color: #cc6600;
@@ -87,7 +87,7 @@
 
 .square-list-square{
     display: block;
-    background-color: #666;
+    background-color: #333333;
     height: 100px;
     width: 100px;
     margin: 10px;
