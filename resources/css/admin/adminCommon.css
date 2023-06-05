@@ -95,3 +95,42 @@ main{
 
     margin-left: 200px;
 }
+
+/* top classify btn */
+
+.control-classify{
+    margin: 20px 0;
+
+    display: flex;
+    justify-content: center;
+}
+
+.control-classify span{
+    width: 160px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 20px 10px;
+    
+    font-weight: bold;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    
+    background-color: #DAD5E4;
+    cursor: pointer;
+}
+
+.control-classify span:hover{
+    color: white;
+    background-color: #493E5D !important;
+}
+
+.control-classify-select{
+    color: white;
+    background-color: #493E5D !important;
+}
