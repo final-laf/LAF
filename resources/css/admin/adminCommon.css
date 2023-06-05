@@ -71,8 +71,8 @@ main{
     justify-content: center;
 }
 
-.sidebar li:nth-child(1){
-    border-top: 1px solid #ccc; 
+.sidebar a:nth-child(1) > li{
+    border-top: 1px solid #ccc;
 }
 
 .sidebar li:hover{
