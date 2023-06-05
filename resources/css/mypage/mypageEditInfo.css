@@ -1,0 +1,146 @@
+/* 회원가입 정규식 확인 */
+.confirm{color : green;}
+.error{color : red;}
+/*  */
+
+.mypageEditInfo-editInfo{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.mypageEditInfo-editInfo-info{
+    margin-top: 50px;
+    display: flex;
+    width: 1200px;
+}
+.mypageEditInfo-info-intro{
+  color: #666;
+  display: flex;
+  font-size: 17px;
+  padding: 10px 0;
+  align-items: flex-end;
+}
+.mypageEditInfo-info-intro span{
+  color: black;
+  font-weight: bold;
+  margin-right: 10px;
+  display: flex;
+  font-size: 40px;
+}
+
+.mypageEditInfo-info-content{
+    display: block;
+}
+.mypageEditInfo-content-table{
+    margin: 20px 0;
+}
+.mypageEditInfo-content-table th{
+    padding-left: 20px;
+    height: 20px;
+    width: 150px;
+    background-color: #fafafa;
+    /* border-top: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+    border-right: 0.5px solid #eee; */
+    border: 0.5px solid #eee;
+    text-align: left;
+  }
+  .mypageEditInfo-content-table td{
+    width: 1200px;
+    padding-left: 10px;
+    /* border-top: 0.5px solid #eee;
+    border-left: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee; */
+    border: 0.5px solid #eee;
+}
+.mypageEditInfo-content-table tr{
+    
+    height: 50px;
+}
+.mypageEditInfo-content-table input{
+  border: 0.5px solid #eee;
+    width: 300px;
+    height: 35px;
+}
+.mypageEditInfo-table-inputTd{
+    display: flex;
+    align-items: center;
+}
+.mypageEditInfo-table-inputTd div{
+  color: #666;
+} 
+
+.mypageEditInfo-table-address input{
+    margin: 10px 0;
+}
+
+.mypageEditInfo-table-address button{
+    height: 35px;
+    width: 100px;
+    border: 0.5px solid #eee;
+    background-color: #fafafa;
+}
+.mypageEditInfo-address-postal{
+    width: 100px !important;
+}
+.mypageEditInfo-table-tel input{
+    font-size: 15px;
+    text-align: center;
+    width: 100px;
+}
+.mypageEditInfo-table-tel span{
+    font-size: 30px;
+    font-weight: bolder;
+}
+.mypageEditInfo-table-birth input{
+  border: 0.5px solid #eee;
+  width: 50px;
+  margin-right: 5px;
+}
+.mypageEditInfo-table-birth input:not(:first-child) {
+  margin-left: 10px;
+}
+
+.mypageEditInfo-table-Refund div{
+    padding: 15px 0;
+}
+.mypageEditInfo-table-Refund select{
+  border: 0.5px solid #eee;
+  text-align: center;
+  height: 45px;
+  width: 170px;
+}
+.mypageEditInfo-table-Refund option{
+  text-align: center;
+  height: 45px;
+  width: 170px;
+}
+.mypageEditInfo-table-Refund td {
+  padding: 0;
+}
+.mypageEditInfo-table-Refund td > div {
+  padding-left: 10px;
+}
+.mypageEditInfo-info-member{
+  display: flex;
+  justify-content: flex-end;
+}
+#mypageEditInfoSubmitButton{
+  display: flex;
+  justify-content: center;
+}
+#mypageEditInfoSubmitButton button {
+  background-color: #eee;
+  border: none;
+  height: 50px;
+  width: 150px;
+  margin: 0 5px;
+}
+#mypageEditInfoSubmitButton button:nth-child(1) {
+  background-color: #666;
+  color: white;
+  border: none;
+  height: 50px;
+  width: 150px;
+  margin: 0 5px;
+}
