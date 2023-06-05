@@ -1,4 +1,4 @@
-.main-category{
+.order-select{
   width: 1200px;
   height: 550px;
 
@@ -10,6 +10,6 @@
   background-color: white;
 }
 
-.main-category-title{
+.order-select-title{
   font-size: 2.5rem;
 }

@@ -1,8 +1,8 @@
-.main-category{
+.member-content{
   width: 1200px;
-  height: 550px;
+  height: 500px;
 
-  margin: 0 30px 30px;
+  margin: 30px;
   padding: 30px;
 
   border-radius: 30px;
@@ -10,6 +10,6 @@
   background-color: white;
 }
 
-.main-category-title{
+.member-content-title{
   font-size: 2.5rem;
 }
