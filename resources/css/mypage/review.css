@@ -90,7 +90,7 @@ tr:not(:first-child) > .item-product {
   line-height: 120%;
 }
 .item-order-info > .item-order-no > a {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #666;
 }
 .item-order-info > .item-order-no > a:hover {
