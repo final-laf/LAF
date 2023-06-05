@@ -269,12 +269,20 @@ color: #666;
 
   background-color: #DAD5E4;
   cursor: pointer;
+
+  
 }
 
-.weekly-title button:nth-child(1){
+.weekly-title button:hover{
   color: white;
-  background-color: #493E5D;
+  background-color: #493E5D !important;
 }
+
+.weekly-button-select{
+  color: white;
+  background-color: #493E5D !important;
+}
+
 
 .weekly table{
   width: 100%;
@@ -314,7 +322,7 @@ color: #666;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .new-title span{
@@ -382,7 +390,7 @@ color: #666;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .only-title span{
