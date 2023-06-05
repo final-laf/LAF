@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/resources/css/common/default.css">
+  <link rel="stylesheet" href="/resources/css/admin/dashboard.css">
+  <title>관리자::DASHBOARD</title>
+</head>
+<body>
+
+  <header class="link" data-include="/views/admin/adminheader.html"></header>
+  
+  <main>
+    <section class="sidebar">
+      <div class="sidebar-content">
+        <ul>
+          <li>대시보드</li>
+          <li>메인 화면 관리</li>
+          <li>회원 관리</li>
+          <li>상품 관리</li>
+          <li>주문 관리</li>
+          <li>1 대 1 문의</li>
+        </ul>
+      </div>
+    </section>
+    <section class="adminContainer">
+      <div class="today">
+        <div class="today-content">
+          <div class="today-img">
+            <img src="/resources/images/common/cart.svg">
+          </div>
+          <div>
+            <p>오늘 주문접수</p>
+            <span class="today-count">0</span><span>건</span>
+          </div>
+        </div>
+        <div class="today-content">
+          <div class="today-img">
+            <img src="/resources/images/common/coin.svg">
+          </div>
+          <div>
+            <p>오늘 결제확인</p>
+            <span class="today-count">0</span><span>KRW</span>
+          </div>
+        </div>
+        <div class="today-content">
+          <div class="today-img">
+            <img src="/resources/images/common/calc.svg">
+          </div>
+          <div>
+            <p>오늘 매출</p>
+            <span class="today-count">0</span><span>KRW</span>
+          </div>
+        </div>
+      </div>
+      <div class="sell-graph">
+        <div>
+          <span class="board-title"> 판매금액</span>
+        </div>
+        <div>
+          <img src="/resources/images/graph.png">
+        </div>
+      </div>
+      <div class="order">
+
+      </div>
+      <div class="current"></div>
+    </section>
+
+  </main>
+
+  <footer class="link" data-include="/views/common/footer.html"></footer>
+
+  <script src="/resources/js/common/default.js"></script>
+
+</body>
+</html>

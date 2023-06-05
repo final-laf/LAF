@@ -1,0 +1,82 @@
+/* today */
+.today{
+    width: 80%;
+    height: 350px;
+
+    border-radius: 30px;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    padding: 80px 0px 50px;
+    margin-top: 100px;
+}
+
+.today-content{
+    display: flex;
+    align-items: center;
+    width: 250px;
+}
+
+.today-content *{
+    font-size: 2rem;
+}
+
+.today-img{
+    border-radius: 50%;
+    background-color: #ccc;
+
+    width: 80px;
+    height: 80px;
+    margin: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.today-img img{
+    width: 50px;
+    height: 50px;
+}
+
+.today-content span{
+    color: #3A96FC;
+    margin-right: 10px;
+}
+
+.today-count{
+    font-size: 4rem;
+}
+
+/* sell graph */
+.sell-graph{
+    width: 80%;
+
+    border-radius: 30px;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
+    background-color: white;
+
+    padding: 20px 20px 50px;
+    margin-top: 100px;
+}
+
+.sell-graph *{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.board-title{
+    font-size: 2.5rem;
+}
+
+.sell-graph img{
+    height: 400px;
+    width: auto;
+}
+
+/* order */
+/* current */
