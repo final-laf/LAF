@@ -1,0 +1,92 @@
+.mypageOrder-mainFrame{
+  display: flex;
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.mypageOrder-mainFrame-order{
+  width: 1200px;
+  margin: 80px 0 0 30px;
+}
+
+.mypageOrder-order-text{
+  font-weight: bold;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.mypageOrder-mainFrame-order div{
+  font-weight: bold;
+  padding: 20px 0 10px 10px;
+}
+.mypageOrder-mainFrame-order table{
+  border: 0.5px solid #eee;
+  width: 1200px;
+}
+.mypageOrder-mainFrame-order th{
+  padding-left: 15px;
+  background-color: #fafafa;
+  border: 0.5px solid #eee;
+  height: 45px;
+  text-align: left;
+}
+.mypageOrder-mainFrame-order td{
+  padding-left: 10px;
+  border: 0.5px solid #eee;
+  height: 45px;
+}
+
+.mypageOrder-order-payment tr:nth-child(1){
+  background-color: #fafafa;
+}
+.mypageOrder-order-payment tr:nth-child(2){
+  font-weight: bold;
+  background-color: #fafafa;
+}
+.mypageOrder-order-payment td{
+  padding-left: 10px;
+}
+
+.mypageOrder-order-info th{
+  padding-left: 0;
+  text-align: center;
+}
+.mypageOrder-order-info td{
+  padding-left: 0;
+  background-color: white;
+  text-align: center;
+}
+.mypageOrder-order-info td:nth-child(2){
+  background-color: white;
+  text-align: left;
+}
+.mypageOrder-order-info tr:nth-child(3) th{
+  background-color: white;
+  text-align: right;
+}
+.mypageOrder-order-info tr:nth-child(2) > td:nth-child(2){
+  padding-left: 10px;
+}
+.mypageOrder-order-info tr:nth-child(3) >th >div{
+  background-color: #fafafa;
+  display: flex;
+  padding-top: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+.mypageOrder-order-shipping tr th{
+  width: 170px;
+}
+
+.mypageOrder-shipping-shippinglist{
+  display: flex;
+  justify-content: right;
+}
+.mypageOrder-shipping-shippinglist button{
+  background-color: #fafafa;
+}

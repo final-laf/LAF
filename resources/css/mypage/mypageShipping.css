@@ -1,23 +1,23 @@
-.mypageQuestion-mainFrame{
+.mypageShipping-mainFrame{
     display: flex;
     margin: 0 auto;
     width: 1200px;
 }
 
-.mypageQuestion-dashFrame-myMain{
+.mypageShipping-mainFrame-myMain{
     height: 482px;
     width: 1020px;
-    margin: 120px 0 0 30px;
+    margin: 80px 0 0 30px;
 }
 
-.mypageQuestion-myMain-text{
+.mypageShipping-myMain-text{
     font-weight: bold;
     font-size: 30px;
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
 }
-.mypageQuestion-myMain-text div{
+.mypageShipping-myMain-text div{
     display: flex;
     align-items: flex-end;
 
@@ -25,42 +25,50 @@
 }
 
 /* 테이블 구간 */
-.mypageQuestion-MyMain-Question table{
-    padding: 20px 0 0 0;
+.mypageShipping-MyMain-Shipping table{
+    margin: 20px 0 0 0;
     width: 100%;
     display: flex;
+    border: 1px solid #eee;
 }
 
-.mypageQuestion-MyMain-Question th{
+.mypageShipping-MyMain-Shipping th{
     background-color: #fafafa;
     border: 1px solid #eee;
     font-size: 12px;
 }
 
-.mypageQuestion-MyMain-Question tr{
+.mypageShipping-MyMain-Shipping tr{
     border: 1px solid #eee;
     height: 40px;
 }
 
-.mypageQuestion-Question-list td {
-    border: 1px solid #fafafa;
+.mypageShipping-Shipping-list td {
     font-size: 12px;
     text-align: center;
 }
-.mypageQuestion-Question-list td:nth-child(3) {
+.mypageShipping-Shipping-list td:nth-child(5) {
     padding-left: 10px;
     text-align: left;
 }
+#mypageShippingDefault{
+    border: 1px solid #eee;
+    background-color: #58aeff;
+    color: white;
+    width: 40px;
 
-.mypageQuestion-Question-search{
+}
+
+
+.mypageShipping-Shipping-search{
     display: flex;
     justify-content: center;
 }
-.mypageQuestion-Question-search button{
+.mypageShipping-Shipping-search button{
     background-color: #eee;
     margin-left: 10px;
 }
-.mypageQuestion-Question-search select{
+.mypageShipping-Shipping-search select{
 
     background-color: #fafafa;
     border: 1px solid #eee;
@@ -68,7 +76,34 @@
     width: 100px;
     margin-right: 10px;
 }
-.mypageQuestion-Question-search input{
+.mypageShipping-Shipping-search input{
     border: 1px solid #eee;
     width: 350px;
+}
+
+.mypageShipping-Shipping-button div{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.mypageShipping-Shipping-button button:nth-child(2){
+    background-color: #666;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mypageShipping-Shipping-notice{
+    display: block;
+}
+.mypageShipping-Shipping-notice th{
+    padding-left: 10px;
+    text-align: left;
+}
+.mypageShipping-Shipping-notice td{
+    width: 970px;
+    padding: 20px;
+}
+.mypageShipping-Shipping-notice div{
+    color: #666;
 }
