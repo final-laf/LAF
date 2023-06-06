@@ -130,6 +130,7 @@
 .order-count-num{
     font-size: 2rem;
     margin-right: 5px;
+    font-weight: bold;
 }
 
 /* current */
@@ -186,5 +187,6 @@
 
 .current-count-num{
     font-size: 2rem;
+    font-weight: bold;
     margin-right: 5px;
 }
