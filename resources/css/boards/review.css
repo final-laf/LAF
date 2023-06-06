@@ -18,7 +18,7 @@
   text-align: center;
 }
 
-/* content */
+/* 베스트 리뷰 */
 .best{
   width: 1200px;
   margin: 40px auto;
@@ -27,6 +27,7 @@
   position: relative;
 }
 
+/* 베스트 리뷰 타이틀 */
 .best-title{
   width: 100%;
   display: flex;
@@ -39,20 +40,30 @@
   font-size: 2rem;
 }
 
+/* 베스트 리뷰 콘텐츠 */
 .best-content{
   width: 1200px;
 }
 
+/* 각각의 베스트 리뷰 게시글 */
 .best-list{
   display: flex;
   justify-content: space-between;
+}
+
+.best-list li{
+  border: 0.5px solid #ccc;
 }
 
 .best-list *{
   font-size: 1.2rem;
 }
 
-/* best img */
+.review-content, .item-content{
+  padding: 5px;
+}
+
+/* 리뷰 컨텐츠 */
 .best-img{
   width: 220px;
   height: 280px;
@@ -61,15 +72,266 @@
   display: block;
 }
 
-.review-content, .item-content{
-  border: 1px solid #ccc;
-  padding: 5px;
+
+/* 리뷰 베스트 아이템 컨텐츠 */
+.item-desc-container{ 
+  display: inline-block;
+  margin-left: 5px;
+  width: 90%;
 }
 
-.reviewer{
+.item-content {
+  display: flex;
+  border-top: 0.5px solid #ccc;
+}
+
+.item-content > img {
+  width: 30px;
+  height: 30px;
+}
+
+.item-review-state{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2px;
+}
+
+/* 검색창 */
+.reviews-boards-search > * {
+  display: inline-block;
+}
+
+.reviews-boards-search > div > div {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.reviews-boards-search {
+  border-bottom: 0.5px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.reviews-boards-search > div > input {
+  background-image: url("/resources/images/common/search.png");
+  background-position: 140px 1.5px;
+  background-repeat : no-repeat;
+  background-size : 15px;
+
+  border : none;
+  border-bottom: 0.5px solid #ccc;
+
+  outline: none;
+}
+
+
+/* 사용자 리뷰 게시글 */
+.reviews-boards-section {
+  width: 1200px;
+  margin: 50px auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviews {
+  width: 800px;
+}
+
+.reviews-item{ 
+  width: 100%;
+  display: flex;
+
+  padding: 20px 0px;
+
+  border-bottom: 0.5px solid #ccc;
+}
+
+/* 사용자 리뷰 게시글 하나 하나 */
+
+/* 리뷰상품 */
+.reviews-item-product{
+  display: inline-block;
+}
+
+
+.reviews-item-product > img {
+  width: 150px;
+  height: 150px;
+
+  border-radius: 100px;
+
+  display: block;
+
+  margin-bottom: 20px;
+
+  box-shadow: 3px 3px 3px #ccc;
+}
+
+
+/* 사용자의 후기 */
+.reviews-item-review{
+  display: inline-block;
+
+  margin-left: 40px;
+}
+
+.reviews-item-product > div {
+  text-align: center;
+}
+
+.reviews-item-review-contents > div:first-child  {
+  margin-bottom: 10px;
+}
+
+.reviews-item-review-contents > div:first-child > span {
+  margin-right: 10px;
+}
+
+.reviews-item-review-images {
+  margin-top: 40px;
+}
+
+.reviews-item-review-images > img {
+  width: 60px;
+  height: 60px;
+}
+
+
+/* 글자색 */
+.review-grey{
   color: #666;
 }
 
-.item-img{
-  width: 10px;
+
+/* 모달창 */
+/* 모달창 오버레이 */
+.modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 모달창 */
+.modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 500px;
+  height: 600px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* 모달창 본문 */
+.modal-content {
+  margin-top: 20px;
+  padding: 0px 10px;
+  color: black;
+  text-align: left;
+}
+
+/* 모달창 닫기 버튼 div */
+.close-area {
+  display: block;
+  float: right;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* 모달창 타이틀 div 모두 */
+.modal-title-container > div {
+  margin: 0px 0px 15px;
+
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+/* 모달창 내부 타이틀 */
+.modal-title {
+  font-size: 24px;
+}
+
+
+
+/* 모달창 유저이미지 */
+.modal-content-title-profile {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#userProfileMini {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.modal-content-title-profile > div{
+  padding-top: 2px;
+}
+
+.modal-content-title-profile > div > p:last-child{
+  margin-left: 5px;
+  color: #737273;
+}
+
+
+/* 모달창 내부 서브 타이틀 */
+.modal-subtitle {
+  font-size: 16px;
+}
+
+/* 모달창 본문 */
+.modal-content-container {
+  border-radius: 0px;
+  border: 1px solid #737273;
+  margin-bottom: 15px;
+  padding: 20px 15px;
+  overflow: scroll;
+}
+
+/* 모달창 이메일 타이틀 */
+.modal-content-title {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+/* 모달창 내부 이미지 */
+#modalImagePreview {
+  margin-top: 20px;
+  width: 300px;
+  height: auto;
 }
