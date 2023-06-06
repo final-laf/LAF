@@ -12,80 +12,63 @@
 </head>
 <body>
   <header class="link" data-include="../../views/common/header.html"></header>
-  <nav class="link" data-include="../../views/common/nav.html"></nav>
+  <!-- <nav class="link" data-include="../../views/common/nav.html"></nav> -->
   
   <main>
-    <section class="mypageQuestion-mainFrame">
+    <section class="mypageShipping-mainFrame">
       <section class="link" data-include="../../views/mypage/mypageSide.html"></section>
       <!-- 마이페이지 중앙 대쉬보드 -->
-      <div class="mypageQuestion-dashFrame-myMain">
-        <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
-        <div class="mypageQuestion-myMain-text">배송 주소록 관리
+      <div class="mypageShipping-mainFrame-myMain">
+        <!-- 배송지 관리 -->
+        <div class="mypageShipping-myMain-text">배송 주소록 관리
           <div>자주 쓰는 배송지를 등록 관리하실 수 있습니다.</div>
         </div>
-        <div class="mypageQuestion-MyMain-Question">
-          <div>
-            분류 선택 
-            <select name= "">
-              <option value="t">작성 일자별</option>
-              <option value="c">답변 유무별</option>
-            </select>
-          </div>
+        <div class="mypageShipping-MyMain-Shipping">
           <table>
             <tr>
-              <th width="60px">번호</th>
-              <th width="150px">분류</th>
-              <th width="500px">제목</th>
-              <th width="100px">작성자</th>
-              <th width="100px">작성일</th>
-              <th width="60px">조회</th>
+              <th width="30px"> <input type="checkbox"> </th>
+              <th width="130px">배송지명</th>
+              <th width="100px">수령인</th>
+              <th width="130px">휴대전화</th>
+              <th width="550px">주소</th>
+              <th width="60px">수정</th>
             </tr>
             <!-- 항목 추가~ -->
-            <tr class="mypageQuestion-Question-list">
-              <td>1</td>
-              <td>배송 전 변경/취소</td>
-              <td>주문취소 문의</td>
-              <td>최**</td>
-              <td>2023-05-31</td>
-              <td>1</td>
+            <tr class="mypageShipping-Shipping-list">
+              <td><input type="checkbox"></td>
+              <td><button type="button" id="mypageShippingDefault">기본</button> 미지정</td>
+              <td>ㅇㅇㅇ</td>
+              <td>010-1234-1234</td>
+              <td>서울특별시 강남구 삼성동 111-22 무슨 빌라 302호</td>
+              <td><button>수정</button></td>
             </tr>
-            <tr class="mypageQuestion-Question-list">
-              <td>2</td>
-              <td>배송 전 변경/취소</td>
-              <td>↳ 답변 드립니다</td>
-              <td>운영자</td>
-              <td>2023-06-01</td>
-              <td>0</td>
+            <tr class="mypageShipping-Shipping-list">
+              <td><input type="checkbox"></td>
+              <td>두번째 배송지</td>
+              <td>ㅇㅇㅇ</td>
+              <td>010-1234-1234</td>
+              <td>서울특별시 송파구 삼전동 111-22 무슨 빌라 202호</td>
+              <td><button>수정</button></td>
             </tr>
             <!-- ~~~~~~~~~~~~~~~ -->
           </table>
-          <div class="pagination-area">
-            <ul class="pagination">
-                <!-- 첫 페이지로 이동 -->
-                <li><a><img src="/resources/image/common/paging/first-page.svg"></a></li>
-                <!-- 이전 목록 마지막 번호로 이동 -->
-                <li><a><img src="/resources/image/common/paging/prev-page.svg"></a></li>
-                <li><a class="current">1</a></li>
-                <li><a>2</a></li>
-                <li><a>3</a></li>
-                <li><a>4</a></li>
-                <li><a>5</a></li>
-                <li><a>6</a></li>
-                <!-- 다음 목록 시작 번호로 이동 -->
-                <li><a><img src="../../resources/image/common/paging/next-page.svg"></a></li>
-                <!-- 끝 페이지로 이동 -->
-                <li><a><img src="../../resources/image/common/paging/last-page.svg"></a></li>
-            </ul>
+          <div class="mypageShipping-Shipping-button">
+            <div>
+              <button >선택 주소록 삭제</button>
+              <button>배송지등록</button>
+            </div>
           </div>
-          <div class="mypageQuestion-Question-search">
-            <select name="key">
-              <option value="t">제목</option>
-              <option value="c">내용</option>
-              <option value="w">작성자</option>
-            </select>
-            <input type="text">
-            <button>검색</button>
-          </div>
+          <table class="mypageShipping-Shipping-notice">
+            <tr>
+              <th>배송주소록 유의사항 </th>
+            </tr>
+            <tr>
+              <td>
+                <div>❶ 배송 주소록은 최대 3개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</div>
+                <div>❷ 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </section>

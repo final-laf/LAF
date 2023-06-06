@@ -1,7 +1,5 @@
 .mypageSide-sideFrame{
-    position: sticky;
     top: 50px;
-
     width: 200px;
     margin: 0 auto;
     background-color: white;;
@@ -10,7 +8,6 @@
 .mypageSide-mainFrame-dashFrame{
     display: flex;
     position: relative;
-    vertical-align: baseline;
 }
 
 .mypageSide-sideFrame-myMenu h3 {
