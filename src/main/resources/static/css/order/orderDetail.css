@@ -1,28 +1,29 @@
 .orderDetail-mainFrame{
-  display: flex;
   margin: 0 auto;
-  width: 1200px;
+  width: 970px;
 }
 
 .orderDetail-mainFrame-order{
-  width: 1200px;
-  margin: 120px 0 0 30px;
+  width: 9700px;
+  margin: 80px 0 0 0;
 }
-
 .orderDetail-order-text{
   font-weight: bold;
   font-size: 30px;
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
-.orderDetail-mainFrame-order div{
+.orderDetail-mainFrame-order > div{
+  font-size: 18px;
   font-weight: bold;
-  padding: 10px 0 10px 0;
+  padding: 0 0 10px 15px;
 }
+
 .orderDetail-mainFrame-order table{
   border-top: 0.5px solid #eee;
-  width: 1200px;
+  width: 970px;
+  margin-bottom: 40px;
 }
 .orderDetail-mainFrame-order th{
   padding-left: 15px;
@@ -42,20 +43,89 @@
 /* 이메일 앞부분 */
 .orderDetail-mainFrame-order select{
   border: 0.5px solid #eee;
-  width: 49.2%;
-  height: 35px;
-}
-/* 전화번호 뒷부분 */
-.orderDetail-mainFrame-order table tr:nth-child(2) td input{
-  width: 49.1%;
-}
-/* 이메일 앞부분 */
-.orderDetail-mainFrame-order select{
-  border: 0.5px solid #eee;
-  width: 49.2%;
+  width: 48.9%;
   height: 35px;
 }
 /* 이메일 뒷부분 */
 .orderDetail-mainFrame-order table tr:nth-child(2) td input{
-  width: 49.1%;
+  width: 49%;
 }
+
+/* 전화번호 앞부분 */
+.orderDetail-order-tel select{
+  width: 32%;
+}
+/* 전화번호 뒷부분 */
+.orderDetail-order-tel input{
+  width: 32.5%;
+}
+
+/* 주소 */
+.mypageSignUp-table-address{
+  padding: 5px 0 5px 0;
+}
+
+#sample6_postcode{
+  padding-left: 15px;
+  width: 150px;
+}
+/* 배송지 라디오버튼 */
+.orderDetail-order-shipping div{
+  display: flex;
+  justify-content: space-between;
+}
+.orderDetail-order-shipping input{
+  width: 18px;
+}
+.orderDetail-order-shipping label{
+  padding: 0 10px 0 10px;
+  display: flex;
+  align-items: center;
+}
+.orderDetail-order-defaultShipping{
+  display: flex;
+  align-items: center;
+}
+.orderDetail-order-defaultShipping input{
+  width: 15px;
+  margin-right: 10px;
+}
+
+/* 주문 상품 */
+#orderDetailProduct input{
+  width: 15px;
+}
+.mypageOrder-order-info th{
+  font-weight: normal;
+  text-align: center;
+}
+.mypageOrder-order-info th:nth-child(6){
+  font-weight: bold;
+}
+.mypageOrder-order-info td{
+  text-align: center;
+}
+.mypageOrder-order-info td:nth-child(3) div{
+  text-align: left;
+  padding: 10px 20px;
+}
+.mypageOrder-order-info td:nth-child(6){
+  font-weight: bold;
+  color: red;
+}
+.mypageOrder-order-info tr:nth-child(2) td{
+  border-top: 0.5px solid #eee;
+  padding-bottom: 10px;
+}
+.mypageOrder-order-info tr:nth-child(3) td {
+  border-top: 0.5px solid #eee;
+  border-bottom: 0.5px solid #eee;
+  padding-bottom: 10px;
+}
+.mypageOrder-order-info tr:nth-child(3) td div{
+  display: flex;
+  font-weight: bold;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
