@@ -123,8 +123,9 @@ label[for='menuList'] {
 }
 
 .header-nav-icon img{
-    margin: 0 5px;
-    height: 30px
+    margin: 0 8px;
+    height: 20px;
+    width: auto;
 }
 
 /* quick menu */
