@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>LAF</title>
+</head>
+<body>
+
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
+
+  <main>
+    <section class="main-banner">
+      <input type="radio" name="slide" id="slide1" checked>
+      <input type="radio" name="slide" id="slide2">
+      <input type="radio" name="slide" id="slide3">
+      <input type="radio" name="slide" id="slide4">
+      <input type="radio" name="slide" id="slide5">
+      <input type="radio" name="slide" id="slide6">
+      <ul class="slide-img">
+        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample1.png"></a></li>
+        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample2.png"></a></li>
+        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample3.png"></a></li>
+        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample4.png"></a></li>
+        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample5.png"></a></li>
+        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample6.png"></a></li>
+      </ul>
+      <div class="main-banner-dot">
+        <label for="slide1">&nbsp;</label>
+        <label for="slide2">&nbsp;</label>
+        <label for="slide3">&nbsp;</label>
+        <label for="slide4">&nbsp;</label>
+        <label for="slide5">&nbsp;</label>
+        <label for="slide6">&nbsp;</label>
+      </div>
+      <button class="main-banner-lbtn" type="button"><img src="/images/common/allowBtnLeft-white.svg"></button>
+      <button class="main-banner-rbtn" type="button"><img src="/images/common/allowBtnRight-white.svg"></button>
+    </section>
+
+    <section class="main-product">
+      <div class="main-product-left">
+        <a href="#"><img class="mainBannerImg" src="/images/sample/sample5.png"></a>
+      </div>
+      <div class="main-product-right">
+        <a href="#"><img class="mainBannerImg" src="/images/sample/sample6.png"></a>
+      </div>
+    </section>
+
+    <section class="md-recommend">
+      <div class="md-recommend-left">
+        <p>MD<br>Recommend<br>Product</p>
+        <p>daily look<br>made by<br>L&F</p>
+        <div class="md-recommend-btn">
+          <button class="md-recommend-lbtn" type="button"><img src="/images/common/allowBtnLeft-666.svg"></button>
+          <button class="md-recommend-rbtn" type="button"><img src="/images/common/allowBtnRight-666.svg"></button>
+        </div>
+      </div>
+      <div class="md-recommend-right">
+        <ul class="md-recommend-list">
+          <li>
+            <a href="/shopping/product"><img class="md-recommend-img" src="/images/sample/18889.gif"></a>
+            <div class="hidden md-recommend-hover" id="imgDescription">
+            <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+            <div class="item-price-set">
+              <span class="item-price">25,800</span>
+              <span class="item-price-origin">55,700</span>
+              <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+            </div>
+          </li>
+          <li>
+            <a href="/shopping/product"><img class="md-recommend-img" src="/images/sample/23201.gif"></a>
+            <div class="hidden md-recommend-hover" id="imgDescription">
+            <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+            <div class="item-price-set">
+              <span class="item-price">25,800</span>
+              <span class="item-price-origin">55,700</span>
+              <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+            </div>
+          </li>
+          <li>
+            <a href="/shopping/product"><img class="md-recommend-img" src="/images/sample/63689.gif"></a>
+            <div class="hidden md-recommend-hover" id="imgDescription">
+            <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+            <div class="item-price-set">
+              <span class="item-price">25,800</span>
+              <span class="item-price-origin">55,700</span>
+              <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+            </div>
+          </li>
+          <li>
+            <a href="/shopping/product"><img class="md-recommend-img" src="/images/sample/88023.gif"></a>
+            <div class="hidden md-recommend-hover" id="imgDescription">
+            <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+            <div class="item-price-set">
+              <span class="item-price">25,800</span>
+              <span class="item-price-origin">55,700</span>
+              <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+            </div>
+          </li>
+          <li>
+            <a href="/shopping/product"><img class="md-recommend-img" src="/images/sample/87240.gif"></a>
+            <div class="hidden md-recommend-hover" id="imgDescription">
+            <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+            <div class="item-price-set">
+              <span class="item-price">25,800</span>
+              <span class="item-price-origin">55,700</span>
+              <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+            </div>
+          </li>
+          <li>
+            <a href="/shopping/product"><img class="md-recommend-img" src="/images/sample/23201.gif"></a>
+            <div class="hidden md-recommend-hover" id="imgDescription">
+            <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+            <div class="item-price-set">
+              <span class="item-price">25,800</span>
+              <span class="item-price-origin">55,700</span>
+              <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="weekly">
+      <div class="weekly-title">
+        <div>
+          <span>WEEKLY BEST</span>
+        </div>
+        <div>
+          <button class="weekly-button-select" type="button">Outer</button>
+          <button type="button">Top</button>
+          <button type="button">Pants</button>
+          <button type="button">Bag/Shoes</button>
+        </div>
+      </div>
+      <table>
+        <tr>
+          <td rowspan="2">
+            <a href="/shopping/product"><img class="weekly-big-img" src="/images/sample/18889.gif"></a>
+            <div class="hidden weekly-big-hover" id="imgDescription">
+              <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-origin">55,700</span>
+                <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a href="/shopping/product"><img class="weekly-img" src="/images/sample/73157.gif"></a>
+            <div class="hidden weekly-hover" id="imgDescription">
+              <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-origin">55,700</span>
+                <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a href="/shopping/product"><img class="weekly-img" src="/images/sample/49671.gif"></a>
+            <div class="hidden weekly-hover" id="imgDescription">
+              <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-origin">55,700</span>
+                <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a href="/shopping/product"><img class="weekly-img" src="/images/sample/14462.gif"></a>
+            <div class="hidden weekly-hover" id="imgDescription">
+              <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-origin">55,700</span>
+                <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/shopping/product"><img class="weekly-img" src="/images/sample/65099.gif"></a>
+              <div class="hidden weekly-hover" id="imgDescription">
+              <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-origin">55,700</span>
+                <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a href="/shopping/product"><img class="weekly-img" src="/images/sample/79243.gif"></a>
+              <div class="hidden weekly-hover" id="imgDescription">
+              <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-origin">55,700</span>
+                <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a href="/shopping/product"><img class="weekly-img" src="/images/sample/18889.gif"></a>
+            <div class="hidden weekly-hover" id="imgDescription">
+              <div class="item-name">✨불매1위✨재고1천장돌파-썸머-클로-여유핏-브이넷-가디건</div>
+              <div class="item-price-set">
+                <span class="item-price">25,800</span>
+                <span class="item-price-origin">55,700</span>
+                <div class="item-rieview-count">리뷰 개수 : <span>777</span></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </section>
+    
+    <section class="new">
+      <div class="new-title">
+        <span>NEW ARRIVAL</span>
+      </div>
+      <div class="new-content">
+        <ul class="new-list">
+          <li><a href="#"><img class="new-img" src="/images/sample/11280.gif"></a></li>
+          <li><a href="#"><img class="new-img" src="/images/sample/12090.gif"></a></li>
+          <li><a href="#"><img class="new-img" src="/images/sample/14462.gif"></a></li>
+          <li><a href="#"><img class="new-img" src="/images/sample/15332.gif"></a></li>
+          <li><a href="#"><img class="new-img" src="/images/sample/18889.gif"></a></li>
+          <li><a href="#"><img class="new-img" src="/images/sample/21620.gif"></a></li>
+          <li><a href="#"><img class="new-img" src="/images/sample/22209.gif"></a></li>
+          <li><a href="#"><img class="new-img" src="/images/sample/25533.gif"></a></li>
+        </ul>
+      </div>
+      <button class="new-lbtn" type="button"><img src="/images/common/allowBtnLeft-white.svg"></button>
+      <button class="new-rbtn" type="button"><img src="/images/common/allowBtnRight-white.svg"></button>
+    </section>
+    <section class="only">
+      <div class="only-title">
+        <span>ONLY FOR YOU</span>
+      </div>
+      <div class="only-content">
+        <ul class="only-list">
+          <li><a href="#"><img class="only-img" src="/images/sample/50992.gif"></a></li>
+          <li><a href="#"><img class="only-img" src="/images/sample/52489.gif"></a></li>
+          <li><a href="#"><img class="only-img" src="/images/sample/52507.gif"></a></li>
+          <li><a href="#"><img class="only-img" src="/images/sample/56881.gif"></a></li>
+          <li><a href="#"><img class="only-img" src="/images/sample/63689.gif"></a></li>
+          <li><a href="#"><img class="only-img" src="/images/sample/75749.gif"></a></li>
+          <li><a href="#"><img class="only-img" src="/images/sample/79243.gif"></a></li>
+          <li><a href="#"><img class="only-img" src="/images/sample/73157.gif"></a></li>
+        </ul>
+      </div>
+      <button class="only-lbtn" type="button"><img src="/images/common/allowBtnLeft-white.svg"></button>
+      <button class="only-rbtn" type="button"><img src="/images/common/allowBtnRight-white.svg"></button>
+    </section>
+  </main>
+  
+  <th:block th:replace="~{common/footer}"></th:block>
+  <script src="/js/main.js"></script>
+</body>
+</html>

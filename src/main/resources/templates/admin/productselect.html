@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/admin/productselect.css">
+  <title>관리자::상품 조회</title>
+</head>
+<body>
+
+  <th:block th:replace="~{admin/adminheader}"></th:block>
+  
+  <main>
+    <section class="adminContainer">
+      <div class="control-classify">
+        <a href="/views/admin/productenroll.html"><span>상품 등록</span></a>
+        <a href="/views/admin/productselect.html"><span class="control-classify-select">상품 조회</span></a>
+      </div>
+      <div class="product-select">
+        <div>
+          <span class="product-select-title">상품 조회</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <th:block th:replace="~{common/footer}"></th:block>
+
+</body>
+</html>
