@@ -107,10 +107,17 @@
   cursor: pointer;
 }
 
+.select-edit{
+  border: 3px solid #493E5D;
+  border-radius: 10px;
+  padding: 0 10px;
+}
+
+
 /* content-right */
 .main-category-content-right{
   width: 30%;
-  height: 300px;
+  height: 500px;
   padding: 30px;
 
   border-radius: 30px;
@@ -120,4 +127,23 @@
 
 .category-item-right *{
   margin: 10px 0;
+}
+
+.content-subtitle{
+  font-size: 1.5rem;
+}
+
+.content-subtitle~input{
+  border: none;
+  background-color: #F9F4F5;
+  border-bottom: 1px solid black;
+  margin-right: 10px;
+}
+
+.first-content p{
+  background-color: #493E5D;
+  border-radius: 10px;
+  height: 35px;
+  padding: 10px;
+  color: white;
 }
