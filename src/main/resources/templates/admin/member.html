@@ -18,6 +18,57 @@
         <div>
           <span class="member-content-title">회원 관리</span>
         </div>
+        <div class="member-search-box">
+          <div class="member-search">
+            <div>검색어</div>
+            <div>
+              <select>
+                <option>전체</option>
+                <option>이름</option>
+                <option>아이디</option>
+                <option>이메일</option>
+              </select>
+            </div>
+            <div>
+              <input type="text">
+            </div>
+          </div>
+          <div class="member-search-btn">
+            <button type="button">검색</button>
+            <button type="button">초기화</button>
+          </div>
+        </div>
+        <div class="member-result-box">
+          <div class="member-result-top">
+            <div>최근가입일순(검색결과 7 건)</div>
+            <div>
+              <button type="button">적립금 지급</button>
+              <button type="button">쿠폰 지급</button>
+            </div>
+          </div>
+          <table class="member-result" border="1">
+            <tr>
+              <td><input type="checkbox" checked></td>
+              <td>번호</td>
+              <td>아이디</td>
+              <td>이름</td>
+              <td>이메일</td>
+              <td>등급</td>
+              <td>적립금</td>
+              <td>가입일</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>76</td>
+              <td>USER01</td>
+              <td>유저일</td>
+              <td>user01.kh.or.kr</td>
+              <td>일반</td>
+              <td>2,000</td>
+              <td>2023-06-08</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </section>
   </main>

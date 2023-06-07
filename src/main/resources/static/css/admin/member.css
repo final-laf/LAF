@@ -13,3 +13,24 @@
 .member-content-title{
   font-size: 2.5rem;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.member-result tr{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.member-result td{
+  width: 120px;
+}
