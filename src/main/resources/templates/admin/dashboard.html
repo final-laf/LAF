@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/admin/dashboard.css">
+  <title>관리자::DASHBOARD</title>
+</head>
+<body>
+
+  <th:block th:replace="~{admin/adminheader}"></th:block>
+  
+  <main>
+    <section class="adminContainer">
+      <div class="today">
+        <div class="today-content">
+          <div class="today-content-item">
+            <div class="today-img">
+              <img src="/images/common/cart.svg">
+            </div>
+            <div>
+              <p>오늘 주문접수</p>
+              <span class="today-count">0</span><span>건</span>
+            </div>
+          </div>
+          <div class="today-content-item">
+            <div class="today-img">
+              <img src="/images/common/coin.svg">
+            </div>
+            <div>
+              <p>오늘 결제확인</p>
+              <span class="today-count">0</span><span>KRW</span>
+            </div>
+          </div>
+          <div class="today-content-item">
+            <div class="today-img">
+              <img src="/images/common/calc.svg">
+            </div>
+            <div>
+              <p>오늘 매출</p>
+              <span class="today-count">0</span><span>KRW</span>
+            </div>
+          </div>
+        </div>
+        <div class="today-graph">
+          <div>
+            <span class="board-title">판매금액</span>
+          </div>
+          <div>
+            <img src="/images/graph.png">
+          </div>
+        </div>
+      </div>
+      <div class="order">
+        <div>
+          <span class="board-title">주문처리</span>
+          <span>(최근 30일)</span>
+        </div>
+        <div class="order-list">
+          <ul>
+            <li>
+              <div class="order-cat">주문 접수</div>
+              <div class="order-count">
+                <span class="order-count-num">0</span>
+                <span>개</span>
+              </div>
+              <div class="order-cat">결제 확인</div>
+              <div class="order-count">
+                <span class="order-count-num">1</span>
+                <span>개</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-cat">상품 준비</div>
+              <div class="order-count">
+                <span class="order-count-num">21</span>
+                <span>개</span>
+              </div>
+              <div class="order-cat">출고 완료</div>
+              <div class="order-count">
+                <span class="order-count-num">1</span>
+                <span>개</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-cat">배송중</div>
+              <div class="order-count">
+                <span class="order-count-num">0</span>
+                <span>개</span>
+              </div>
+              <div class="order-cat">배송 완료</div>
+              <div class="order-count">
+                <span class="order-count-num">1</span>
+                <span>개</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-cat">취소중</div>
+              <div class="order-count">
+                <span class="order-count-num">0</span>
+                <span>개</span>
+              </div>
+              <div class="order-cat">취소 완료</div>
+              <div class="order-count">
+                <span class="order-count-num">1</span>
+                <span>개</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-cat">교환중</div>
+              <div class="order-count">
+                <span class="order-count-num">0</span>
+                <span>개</span>
+              </div>
+              <div class="order-cat">교환완료</div>
+              <div class="order-count">
+                <span class="order-count-num">1</span>
+                <span>개</span>
+              </div>
+            </li>
+            <li>
+              <div class="order-cat">반품중</div>
+              <div class="order-count">
+                <span class="order-count-num">0</span>
+                <span>개</span>
+              </div>
+              <div class="order-cat">반품 완료</div>
+              <div class="order-count">
+                <span class="order-count-num">1</span>
+                <span>개</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="current">
+        <div class="current-left">
+          <div>
+            <span class="board-title">상품현황</span>
+          </div>
+          <div class="current-list">
+            <ul>
+              <li>
+                <div class="current-cat">안전재고 미만</div>
+                <div class="current-count">
+                  <span class="current-count-num">12</span>
+                  <span>개</span>
+                </div>
+              </li>
+              <li>
+                <div class="current-cat">판매중</div>
+                <div class="current-count">
+                  <span class="current-count-num">9</span>
+                  <span>개</span>
+                </div>
+              </li>
+              <li>
+                <div class="current-cat">품절</div>
+                <div class="current-count">
+                  <span class="current-count-num">1</span>
+                  <span>개</span>
+                </div>
+              </li>
+              <li>
+                <div class="current-cat">비공개</div>
+                <div class="current-count">
+                  <span class="current-count-num">2</span>
+                  <span>개</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="current-right">
+          <div>
+            <span class="board-title">게시글현황</span>
+          </div>
+          <div class="current-list">
+            <ul>
+              <li>
+                <div class="current-cat">상품문의</div>
+                <div class="current-count">
+                  <span class="current-count-num">5</span>
+                  <span>개</span>
+                </div>
+              </li>
+              <li>
+                <div class="current-cat">배송문의</div>
+                <div class="current-count">
+                  <span class="current-count-num">4</span>
+                  <span>개</span>
+                </div>
+              </li>
+              <li>
+                <div class="current-cat">일반문의</div>
+                <div class="current-count">
+                  <span class="current-count-num">3</span>
+                  <span>개</span>
+                </div>
+              </li>
+              <li>
+                <div class="current-cat">총개수</div>
+                <div class="current-count">
+                  <span class="current-count-num">12</span>
+                  <span>개</span>
+                </div>
+              </li>
+            </ul>
+          </div>  
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>
