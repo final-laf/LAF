@@ -39,7 +39,7 @@ nav {
 }
 /* category list */
 .header-nav-menu{
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .header-nav-menu>a{
@@ -119,12 +119,12 @@ label[for='menuList'] {
 
 .header-nav-icon{
     display: flex;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .header-nav-icon img{
     margin: 0 5px;
-    height: 30px
+    height: 25px
 }
 
 /* quick menu */
