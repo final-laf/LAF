@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/boards/boardsCommon.css">
+  <link rel="stylesheet" href="/css/boards/notice.css">
+  <title>LAF :: 공지사항</title>
+</head>
+<body>
+
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
+  
+  <main>
+
+    <section class="board-list">
+      <div class="section-header">
+        <div class="section-title">NOTICE</div>
+      </div>
+      <div class="sub-category-container">
+        <!-- 현재 카테고리에 current 클래스 추가 -->
+        <a href="/notice"><div class="sub-category current">NOTICE</div></a>
+        <a href="/qna"><div class="sub-category">1:1문의</div></a>
+        <a href="/faq"><div class="sub-category">FAQ</div></a>
+        <a href="/review"><div class="sub-category">REVIEW</div></a>
+      </div>
+
+      <!-- 게시판 -->
+      <div class="list-wrapper">
+        <table class="detail-list-table">
+          <tr>
+            <td>TITLE</td>
+            <td><input type="text" placeholder="제목 입력"></td>
+          </tr>
+        </table>
+        <div class="write-list-contents">
+          <textarea>
+  
+          </textarea>
+        </div>
+      </div>
+
+
+      <!-- 하단 버튼 영역 -->
+      <div class="detail-btn-area write-btn-area">
+        <div>
+          <button class="write-btn">LIST</button>                     
+        </div>
+        <div>
+          <button class="write-btn submit">SUBMIT</button>                     
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <th:block th:replace="~{common/footer}"></th:block>
+
+  <script src="/js/common/default.js"></script>
+
+</body> 
+</html>

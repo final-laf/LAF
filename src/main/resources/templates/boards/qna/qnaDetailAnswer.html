@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/boards/boardsCommon.css">
+  <link rel="stylesheet" href="/css/boards/qna.css">
+  <title>LAF :: 1대1문의</title>
+</head>
+<body>
+
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
+  
+  <main>
+
+    <section class="board-list">
+      <div class="section-header">
+        <div class="section-title">1:1문의</div>
+      </div>
+      <div class="sub-category-container">
+        <!-- 현재 카테고리에 current 클래스 추가 -->
+        <a href="/notice"><div class="sub-category">NOTICE</div></a>
+        <a href="/qna"><div class="sub-category current">1:1문의</div></a>
+        <a href="/faq"><div class="sub-category">FAQ</div></a>
+        <a href="/review"><div class="sub-category">REVIEW</div></a>
+      </div>
+
+      <!-- 게시판 -->
+      <div class="detail-list-wrapper">
+        <table class="detail-list-table">
+          <tr>
+            <td>TITLE</td>
+            <td>Re: 테스트 제목 입니다</td>
+          </tr>
+          
+          <tr>
+            <td>CATEGORY</td>
+            <td>배송</td>
+          </tr>
+
+          <tr>
+            <td>NAME</td>
+            <td>관리자</td>
+          </tr>
+
+          <tr>
+            <td>DATE</td>
+            <td>2023-06-07</td>
+          </tr>
+        </table>
+      </div>
+      <div class="detail-question-answer">
+        <div class="detail-question-prev">
+          <pre>문의 내용 확인하기(클릭)</pre>
+        </div>
+        <div class="detail-question-all">
+          <pre>
+        보름이 지나도록 상품이 오지 않습니다. 직접 걸어서 배송하시나요
+          </pre>
+        </div>
+      </div>
+      <div class="detail-list-contents">
+        <pre>
+          네 주인이 직접 걸어서 배송합니다. 30일만 더 기다려 주세요
+        </pre>
+      </div>
+      
+      <!-- 하단 버튼 영역 -->
+      <div class="detail-btn-area">
+        <div>
+          <button>LIST</button>                     
+        </div>
+        <div>
+          <button>MODIFY</button>                     
+          <button>DELETE</button>                     
+        </div>
+       </div>
+       <div class="btn-container">
+        <button class="submit">답변하기</button>
+      </div>
+    </section>
+  </main>
+
+
+  <th:block th:replace="~{common/footer}"></th:block>
+
+  <script src="/js/common/default.js"></script>
+  <script>
+    const questionPrev = document.getElementsByClassName("detail-question-prev")[0]
+    questionPrev.addEventListener('click', e => {
+      questionPrev.style.display = "none";
+      document.getElementsByClassName("detail-question-all")[0].style.display = "block";
+    });
+  </script>
+
+</body> 
+</html>

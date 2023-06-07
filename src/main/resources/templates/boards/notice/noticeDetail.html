@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/common/default.css">
@@ -22,10 +22,10 @@
       </div>
       <div class="sub-category-container">
         <!-- 현재 카테고리에 current 클래스 추가 -->
-        <a href="/views/boards/notice.html"><div class="sub-category current">NOTICE</div></a>
-        <a href="/views/boards/1to1qna.html"><div class="sub-category">1:1문의</div></a>
-        <a href="/views/boards/faq.html"><div class="sub-category">FAQ</div></a>
-        <a href="/views/boards/review.html"><div class="sub-category">REVIEW</div></a>
+        <a href="/notice"><div class="sub-category current">NOTICE</div></a>
+        <a href="/qna"><div class="sub-category">1:1문의</div></a>
+        <a href="/faq"><div class="sub-category">FAQ</div></a>
+        <a href="/review"><div class="sub-category">REVIEW</div></a>
       </div>
 
       <!-- 게시판 -->
@@ -37,18 +37,13 @@
           </tr>
 
           <tr>
-            <td>CATEGORY</td>
-            <td>배송</td>
-          </tr>
-
-          <tr>
             <td>NAME</td>
             <td>관리자</td>
           </tr>
 
           <tr>
             <td>DATE</td>
-            <td>2023-06-06 22:30:21</td>
+            <td>2023-06-07</td>
           </tr>
         </table>
       </div>
@@ -93,20 +88,20 @@
       <!-- 하단 버튼 영역 -->
       <div class="detail-btn-area">
         <div>
-          <button id="insertBtn">LIST</button>                     
+          <button>LIST</button>                     
         </div>
         <div>
-          <button id="insertBtn">MODIFY</button>                     
-          <button id="insertBtn">DELETE</button>                     
+          <button>MODIFY</button>                     
+          <button>DELETE</button>                     
         </div>
-      </div>
-      <div class="btn-container">
-        <button class="submit">답변하기</button>
       </div>
     </section>
   </main>
 
+
   <th:block th:replace="~{common/footer}"></th:block>
+
+  <script src="/js/common/default.js"></script>
 
 </body> 
 </html>
