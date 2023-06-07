@@ -1,0 +1,112 @@
+.board-name > span{
+    font-size: 2.5rem;
+}
+
+/* 게시판  */
+.board-list{
+    width: 1200px;
+    margin : 50px auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 게시판 이름 */
+.board-name{
+    width: 100%;
+    margin: 30px 0;
+
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+
+/* 게시글들을 감싸는 부분 */
+.list-wrapper{
+    width: 80%;
+    margin-top: 30px;
+}
+
+.detail-list-wrapper{
+    width: 80%;
+    margin-top: 30px;
+}
+
+
+/* 게시판 테이블 */
+.list-table{
+    width: 100%;
+    padding: 20px;
+    border-collapse: collapse;
+}
+
+/* 게시판 헤드 */
+.list-table > thead{ background-color: #fafafa; color: black;}
+
+
+
+/* 하단 버튼 영역 */
+.btn-area{
+    width: 80%;
+    height: 30px;
+    margin: 5px 0px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* 글쓰기 버튼 */
+.btn-area > button{
+    font-size: 1rem;
+}
+
+
+/* 검색창 */
+#boardSearch{
+    text-align: center;
+    width: 500px;
+    height: 30px;
+    margin: 30px auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#boardSearch * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#boardSearch select{
+    width: 80px;
+    font-size: 1.2rem;
+    text-align: center;
+    appearance:none;
+}
+
+#boardSearch input{
+    flex-grow: 1;
+    margin: 0 10px;
+    padding-left: 10px;
+}  
+
+#boardSearch button{
+    width: 50px;
+    height: 28px;
+
+    font-weight: bold;
+    font-size: 1.2rem;
+
+    background-color: #ccc;
+    border: none;
+    color: #666;
+
+    cursor: pointer;
+}
+
+
+

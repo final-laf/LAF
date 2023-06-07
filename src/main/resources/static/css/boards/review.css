@@ -1,0 +1,423 @@
+/* 게시판  */
+.board-list{
+  width: 1200px;
+  margin : 50px auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 게시판 이름 */
+.board-name{
+  width: 100%;
+  margin: 30px 0;
+
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* 베스트 리뷰 */
+.best{
+  width: 1200px;
+  margin: 40px auto;
+  font-size: 2rem;
+
+  position: relative;
+}
+
+/* 베스트 리뷰 타이틀 */
+.best-title{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.best-title span{
+  font-size: 2rem;
+}
+
+/* 베스트 리뷰 콘텐츠 */
+.best-content{
+  width: 1200px;
+}
+
+/* 각각의 베스트 리뷰 게시글 */
+.best-list{
+  display: flex;
+  justify-content: space-between;
+}
+
+.best-list li{
+  border: 0.5px solid #ccc;
+}
+
+.best-list *{
+  font-size: 1.2rem;
+}
+
+.review-content, .item-content{
+  padding: 5px;
+}
+
+/* 리뷰 컨텐츠 */
+.best-img{
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+
+/* 리뷰 베스트 아이템 컨텐츠 */
+.item-desc-container{ 
+  display: inline-block;
+  margin-left: 5px;
+  width: 90%;
+}
+
+.item-content {
+  display: flex;
+  border-top: 0.5px solid #ccc;
+}
+
+.item-content > img {
+  width: 30px;
+  height: 30px;
+}
+
+.item-review-state{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2px;
+}
+
+/* 검색창 */
+.reviews-boards-search > * {
+  display: inline-block;
+}
+
+.reviews-boards-search > div > div {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.reviews-boards-search {
+  border-bottom: 0.5px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.reviews-boards-search > div > input {
+  background-image: url("/resources/images/common/search.png");
+  background-position: 140px 1.5px;
+  background-repeat : no-repeat;
+  background-size : 15px;
+
+  border : none;
+  border-bottom: 0.5px solid #ccc;
+
+  outline: none;
+}
+
+
+/* 사용자 리뷰 게시글 */
+.reviews-boards-section {
+  width: 1200px;
+  margin: 50px auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviews {
+  width: 800px;
+}
+
+.reviews-item{ 
+  width: 100%;
+  display: flex;
+
+  padding: 20px 0px;
+
+  border-bottom: 0.5px solid #ccc;
+
+  cursor: pointer;
+}
+
+/* 사용자 리뷰 게시글 하나 하나 */
+
+/* 리뷰상품 */
+.reviews-item-product{
+  display: inline-block;
+}
+
+
+.reviews-item-product > img {
+  width: 150px;
+  height: 150px;
+
+  border-radius: 100px;
+
+  display: block;
+
+  margin-bottom: 20px;
+
+  box-shadow: 3px 3px 3px #ccc;
+}
+
+
+/* 사용자의 후기 */
+.reviews-item-review{
+  display: inline-block;
+
+  margin-left: 40px;
+}
+
+.reviews-item-product > div {
+  text-align: center;
+}
+
+.reviews-item-review-contents > div:first-child  {
+  margin-bottom: 10px;
+}
+
+.reviews-item-review-contents > div:first-child > span {
+  margin-right: 10px;
+}
+
+.reviews-item-review-images {
+  margin-top: 40px;
+}
+
+.reviews-item-review-images > img {
+  width: 60px;
+  height: 60px;
+}
+
+
+
+/* 모달창 */
+/* 모달창 오버레이 */
+.review-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 모달창 */
+.review-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 800px;
+  height: 660px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* 모달 리뷰창 닫기 버튼 */
+.review-modal-close {
+  text-align: right;
+  cursor: pointer;
+}
+
+/* 모달 리뷰창 상단 */
+.review-modal-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.review-modal-top > div:first-child > img {
+  width: 300px;
+  height: 400px;
+  display: block;
+}
+
+.review-modal-top > div:last-child {
+  display: flex;
+  flex-direction: column;
+  align-items: first baseline;
+
+  margin-left: 40px;
+} 
+
+
+
+/* 모달창 내부 상품*/
+.review-modal-product {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.review-modal-product img{
+  width: 80px;
+  height: 110px;
+}
+
+.review-modal-product-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+
+  margin-left: 20px;
+}
+
+.review-modal-product-desc > div {
+  margin-top: 3px;
+}
+
+.review-modal-product-desc > div > span {
+  margin-right: 10px;
+}
+
+.review-modal-to-product {
+  width: 100%;
+  text-align: right;
+
+  padding-bottom: 5px;
+  border-bottom: 0.5px solid #ccc;
+}
+
+.review-modal-contents {
+  margin-top: 20px;
+}
+
+.review-modal-contents > div{
+  text-align: left;
+}
+
+
+/* 모달 리뷰창 가운데 */
+.review-modal-middle {
+  display: flex;
+  justify-content: first baseline;
+}
+
+.review-modal-middle > img {
+  margin-top: 20px;
+
+  width: 70px;
+  height: 90px;
+}
+
+/* 모달 리뷰창 하단 */
+.btn-container {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100%;
+  margin: 10px 0px;
+}
+
+.btn-container > button {
+  width: 120px;
+  height: 40px;
+  margin-left: 5px;
+  border-radius: 0px;
+}
+
+/* 모달창 본문 */
+.modal-content {
+  margin-top: 20px;
+  padding: 0px 10px;
+  color: black;
+  text-align: left;
+}
+
+/* 모달창 닫기 버튼 div */
+.close-area {
+  display: block;
+  float: right;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* 모달창 타이틀 div 모두 */
+.modal-title-container > div {
+  margin: 0px 0px 15px;
+
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+
+/* 모달창 유저이미지 */
+.modal-content-title-profile {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+#userProfileMini {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.modal-content-title-profile > div{
+  padding-top: 2px;
+}
+
+.modal-content-title-profile > div > p:last-child{
+  margin-left: 5px;
+  color: #737273;
+}
+
+
+
+/* 글자색 */
+.review-grey{
+  color: #666;
+}
+
+/* 모달창 타이틀 */
+.review-modal-title {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/* 모달창 서브타이틀 */
+.review-modal-subtitle {
+  font-size: 20px;
+  font-weight: bold;
+}

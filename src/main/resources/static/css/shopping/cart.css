@@ -1,0 +1,126 @@
+main { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+section {
+  max-width: 1200px;
+}
+
+/* 장바구니 페이지 테이블 공통설정 */
+table {
+  width: 1200px;
+}
+table tr {
+  border-top : 0.5px solid #eee;
+}
+table tr:first-child {
+  background-color: #fafafa;
+}
+table tr:last-child {
+  border-bottom : 0.5px solid #eee;
+}
+table td {
+  padding: 3px 0;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+table tr:not(:first-child) > td {
+  height: 100px;
+}
+
+/* 버튼 컨테이너 공통설정 */
+.btn-container {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.btn-container button {
+  margin-left: 5px;
+}
+
+/* 장바구니 목록 - 테이블 레이아웃 설정 */
+.cart-item-checkbox { width: 3%; }
+.cart-item-image { width: 10%; }
+.cart-item-product { width: 53%; }
+.cart-item-count { width: 8%; }
+.cart-item-price-set { width: 10%; }
+.cart-item-point { width: 8%; }
+.cart-item-choose { width: 8%; }
+.cart-item-empty { width: 100%; }
+tr:not(:first-child) > .cart-item-product {
+  /* 테이블 헤더 제외하고 적용 */
+  padding: 10px 20px 10px 0;
+  
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+#cartItemList .cart-item-image img {
+  height: 94px;
+  width: auto;
+  display: block;
+}
+#cartItemList .cart-item-product button {
+  margin-right: 5px;
+}
+#cartItemList .cart-item-product a:hover {
+  text-decoration: underline;
+}
+#cartItemList .cart-item-product-option, #cartItemList .cart-item-selected-option {
+  font-size: 1.4rem;
+  color: #666;
+}
+.cart-item-price-set {
+  display: inline-flex;
+  flex-direction: column;
+}
+.cart-item-price-origin {
+  font-size: 1.3rem;
+  color: #666;
+  text-decoration: line-through;
+}
+#cartItemList .cart-item-count button {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+}
+/* #cartItemList > .btn-container > button {
+  height: 40px;
+  width: 120px;
+  border-radius: 2px;
+} */
+
+
+
+/* 결제예상금액 */
+#cartPrice {
+  margin: 100px 0;
+}
+.cart-price-total-origin { width: 20%; }
+.cart-price-delivery { width: 20%; }
+.cart-price-total-discount { width: 20%; }
+.cart-price-total-payment { width: 40%; }
+#cartPrice > table tr.table-data > td {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+#cartPrice > table td > .data {
+  margin: 0 5px;
+}
+
+#cartPrice .cart-price-total-payment .data {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #D66600;
+  padding-bottom: 3px;
+}
+#cartPrice > .btn-container > button {
+  height: 40px;
+  width: 120px;
+  border-radius: 2px;
+}

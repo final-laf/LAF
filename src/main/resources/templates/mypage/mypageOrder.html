@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/mypage/mypageOrder.css">
+  <title>LAF :: 로그인</title>
+
+
+</head>
+<body>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
+  
+  <main>
+    <!-- 개인화면 대쉬보드 전체 틀 -->
+    <section class="mypageOrder-mainFrame">
+      <div class="mypageOrder-mainFrame-order">
+        <div class="mypageOrder-order-text">주문상세조회</div>
+        <div>주문정보</div>
+        <table>
+          <tr>
+            <th width="170px">주문번호</th>
+            <td>156343-14654456</td>
+          </tr>
+          <tr>
+            <th>주문일자</th>
+            <td>2023-05-31 18:03:20</td>
+          </tr>
+          <tr>
+            <th>주문자</th>
+            <td>ㅇㅇㅇ</td>
+          </tr>
+          <tr>
+            <th>주문처리상태</th>
+            <td>배송전</td>
+          </tr>
+        </table>
+        <!-- 결제 정보 -->
+        <div>결제정보</div>
+        <table class="mypageOrder-order-payment">
+          <tr>
+            <th width="170px">총 주문금액</th>
+            <td>35,500</td>
+          </tr>
+          <tr>
+            <th>총 결제금액</th>
+            <td>35,500</td>
+          </tr>
+          <tr>
+            <th>결제수단</th>
+            <td>ㅇㅇㅇ</td>
+          </tr>
+        </table>
+        <!-- 주문 상품 정보 -->
+        <div>주문 상품 정보</div>
+        <table class="mypageOrder-order-info">
+          <tr>
+            <th width="70px">이미지</th>
+            <th width="600px">상품정보</th>
+            <th width="30px">수량</th>
+            <th width="80px">상품구매금액</th>
+            <th width="100px">주문처리상태</th>
+            <th width="100px">취소/교환/반품</th>
+          </tr>
+          <tr>
+            <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
+            <td>[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</td>
+            <td>1</td>
+            <td>35,500</td>
+            <td>상품준비중</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <th colspan="6">
+              <div>
+                <div>상품 구매금액 33,000 </div><div>+</div>
+                <div>배송비 2,500 </div><div>= 합계 :</div> 
+                <div>35,500</div>
+              </div>
+
+            </th>
+          </tr>
+        </table>
+        <!-- 배송지 정보 -->
+        <div>배송지정보</div>
+        <table class="mypageOrder-order-shipping">
+          <tr>
+            <th>받으시는분</th>
+            <td>ㅇㅇㅇ</td>
+          </tr>
+          <tr>
+            <th>우편번호</th>
+            <td>12345</td>
+          </tr>
+          <tr>
+            <th>주소</th>
+            <td>서울시 강남콩 카라라라 빌라 123-1234</td>
+          </tr>
+          <tr>
+            <th>휴대전화</th>
+            <td>010-1234-1234</td>
+          </tr>
+          <tr>
+            <th>배송메시지</th>
+            <td>문앞에 놔둬주세요</td>
+          </tr>
+        </table>
+        <div class="mypageOrder-shipping-shippinglist"><button>주문목록보기</button></div>
+
+        
+
+      </div>
+    </section>
+  </main>
+
+  <th:block th:replace="~{common/footer}"></th:block>
+</body>
+</html>

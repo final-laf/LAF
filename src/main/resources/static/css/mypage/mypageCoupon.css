@@ -1,0 +1,80 @@
+.mypageCoupon-mainFrame{
+    display: flex;
+    margin: 0 auto;
+    width: 1200px;
+}
+
+.mypageCoupon-dashFrame-myMain{
+    height: 482px;
+    width: 1020px;
+    margin: 80px 0 0 30px;
+}
+
+.mypageCoupon-myMain-text{
+    font-weight: bold;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.mypageCoupon-coupon-button{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+}
+.mypageCoupon-coupon-button button{
+    background-color: #666;
+    color: white;
+    width: 140px;
+    height: 35px;
+    border-radius: 0;
+}
+.mypageCoupon-coupon-button button:nth-child(1){
+    background-color: #eee;
+    color: black;
+    width: 140px;
+    height: 35px;
+    border-radius: 0;
+}
+
+.mypageCoupon-coupon-detail div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+}
+.mypageCoupon-coupon-detail div:nth-child(1)>div{
+    display: flex;
+}
+
+.mypageCoupon-coupon-detail table{
+    padding: 20px 0 0 0;
+    width: 100%;
+    display: flex;
+}
+
+.mypageCoupon-coupon-detail th{
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    font-size: 12px;
+}
+
+.mypageCoupon-coupon-detail tr{
+    border: 1px solid #eee;
+    height: 40px;
+}
+
+.mypageCoupon-detail-list td {
+    font-size: 12px;
+    text-align: center;
+}
+.mypageCoupon-detail-list td:nth-child(2) {
+    text-align: left;
+    padding-left: 10px;
+}
+.mypageCoupon-detail-list td:nth-child(7) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

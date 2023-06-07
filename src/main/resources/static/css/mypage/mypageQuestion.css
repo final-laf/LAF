@@ -1,0 +1,72 @@
+.mypageQuestion-mainFrame{
+    display: flex;
+    margin: 0 auto;
+    width: 1200px;
+}
+
+.mypageQuestion-dashFrame-myMain{
+    height: 482px;
+    width: 1020px;
+    margin: 80px 0 0 30px;
+}
+
+.mypageQuestion-myMain-text{
+    font-weight: bold;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.mypageQuestion-MyMain-Question select{
+
+
+}
+
+/* 테이블 구간 */
+.mypageQuestion-MyMain-Question table{
+    padding: 20px 0 0 0;
+    width: 100%;
+    display: flex;
+}
+
+.mypageQuestion-MyMain-Question th{
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    font-size: 12px;
+}
+
+.mypageQuestion-MyMain-Question tr{
+    border: 1px solid #eee;
+    height: 40px;
+}
+
+.mypageQuestion-Question-list td {
+    border: 1px solid #fafafa;
+    font-size: 12px;
+    text-align: center;
+}
+.mypageQuestion-Question-list td:nth-child(3) {
+    padding-left: 10px;
+    text-align: left;
+}
+
+.mypageQuestion-Question-search{
+    display: flex;
+    justify-content: center;
+}
+.mypageQuestion-Question-search button{
+    background-color: #eee;
+    margin-left: 10px;
+}
+.mypageQuestion-Question-search select{
+
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    text-align: center;
+    width: 100px;
+    margin-right: 10px;
+}
+.mypageQuestion-Question-search input{
+    border: 1px solid #eee;
+    width: 350px;
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/admin/maincontrolview.css">
+  <title>관리자::메인관리(이미지)</title>
+</head>
+<body>
+
+  <th:block th:replace="~{admin/adminheader}"></th:block>
+  
+  <main>
+    <section class="adminContainer">
+      <div class="control-classify">
+        <a href="/views/admin/maincontrolview.html"><span class="control-classify-select">메인 이미지</span></a>
+        <a href="/views/admin/maincontrolcategory.html"><span>메인 카테고리</span></a>
+      </div>
+      <div class="main-control-view">
+        <div>
+          <span class="main-control-view-title">메인 화면 관리</span>
+          <span>(메인 이미지)</span>
+        </div>
+        <div class="main-control-img">
+          <form action="#" method="post">
+            <ul>
+              <li>
+                <div>
+                  <div class="main-control-subtitle">메인 이미지 [1]</div>
+                  <div class="main-thumbnail">
+                    <img src="/images/sample/sample1.png">
+                    <input type="hidden" name="이미지주소">
+                  </div>
+                  <div class="main-control-btn">
+                    <button type="button">업로드</button>
+                    <button type="button">취소</button>
+                  </div>
+                </div>
+                <div>
+                  <div class="main-control-subtitle">메인 이미지 [2]</div>
+                  <div class="main-thumbnail">
+                    <img src="https://via.placeholder.com/535x304">
+                    <input type="hidden" name="이미지주소">
+                  </div>
+                  <div class="main-control-btn">
+                    <button type="button">업로드</button>
+                    <button type="button">취소</button>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <div class="main-control-subtitle">메인 이미지 [3]</div>
+                  <div class="main-thumbnail">
+                    <img src="https://via.placeholder.com/535x304">
+                    <input type="hidden" name="이미지주소">
+                  </div>
+                  <div class="main-control-btn">
+                    <button type="button">업로드</button>
+                    <button type="button">취소</button>
+                  </div>
+                </div>
+                <div>
+                  <div class="main-control-subtitle">메인 이미지 [4]</div>
+                  <div class="main-thumbnail">
+                    <img src="/images/sample/sample1.png">
+                    <input type="hidden" name="이미지주소">
+                  </div>
+                  <div class="main-control-btn">
+                    <button type="button">업로드</button>
+                    <button type="button">취소</button>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <div class="main-control-subtitle">메인 이미지 [5]</div>
+                  <div class="main-thumbnail">
+                    <img src="/images/sample/sample1.png">
+                    <input type="hidden" name="이미지주소">
+                  </div>
+                  <div class="main-control-btn">
+                    <button type="button">업로드</button>
+                    <button type="button">취소</button>
+                  </div>
+                </div>
+                <div>
+                  <div class="main-control-subtitle">메인 이미지 [6]</div>
+                  <div class="main-thumbnail">
+                    <img src="https://via.placeholder.com/535x304">
+                    <input type="hidden" name="이미지주소">
+                  </div>
+                  <div class="main-control-btn">
+                    <button type="button">업로드</button>
+                    <button type="button">취소</button>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="main-control-add">
+              <button type="button"><img src="/images/common/plus.svg"></button>
+            </div>
+            <div class="form-btn">
+              <button type="submit">저장</button>
+              <button type="reset">취소</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <th:block th:replace="~{common/footer}"></th:block>
+
+</body>
+</html>
