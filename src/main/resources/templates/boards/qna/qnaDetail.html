@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/boards/boardsCommon.css">
-  <link rel="stylesheet" href="/css/boards/notice.css">
-  <title>LAF :: 공지사항</title>
+  <link rel="stylesheet" href="/css/boards/qna.css">
+  <title>LAF :: 1대1문의</title>
 </head>
 <body>
 
@@ -18,48 +18,66 @@
 
     <section class="board-list">
       <div class="section-header">
-        <div class="section-title">NOTICE</div>
+        <div class="section-title">1:1문의</div>
       </div>
       <div class="sub-category-container">
         <!-- 현재 카테고리에 current 클래스 추가 -->
-        <a href="/views/boards/notice.html"><div class="sub-category current">NOTICE</div></a>
-        <a href="/views/boards/1to1qna.html"><div class="sub-category">1:1문의</div></a>
-        <a href="/views/boards/faq.html"><div class="sub-category">FAQ</div></a>
-        <a href="/views/boards/review.html"><div class="sub-category">REVIEW</div></a>
+        <a href="/notice"><div class="sub-category">NOTICE</div></a>
+        <a href="/qna"><div class="sub-category current">1:1문의</div></a>
+        <a href="/faq"><div class="sub-category">FAQ</div></a>
+        <a href="/review"><div class="sub-category">REVIEW</div></a>
       </div>
 
       <!-- 게시판 -->
-      <div class="write-list-wrapper">
+      <div class="detail-list-wrapper">
         <table class="detail-list-table">
           <tr>
             <td>TITLE</td>
             <td>테스트 제목 입니다</td>
           </tr>
+          
+          <tr>
+            <td>CATEGORY</td>
+            <td>배송</td>
+          </tr>
+
+          <tr>
+            <td>NAME</td>
+            <td>관리자</td>
+          </tr>
+
+          <tr>
+            <td>DATE</td>
+            <td>2023-06-07</td>
+          </tr>
+        </table>
       </div>
 
       <div class="detail-list-contents">
-        <textarea>
-
-        </textarea>
+        <pre>
+          보름이 지나도록 상품이 오지 않습니다. 직접 걸어서 배송하시나요
+        </pre>
       </div>
 
       <!-- 하단 버튼 영역 -->
       <div class="detail-btn-area">
         <div>
-          <button id="insertBtn">LIST</button>                     
+          <button>LIST</button>                     
         </div>
         <div>
-          <button id="insertBtn">MODIFY</button>                     
-          <button id="insertBtn">DELETE</button>                     
+          <button>MODIFY</button>                     
+          <button>DELETE</button>                     
         </div>
-      </div>
-      <div class="btn-container">
+       </div>
+       <div class="btn-container">
         <button class="submit">답변하기</button>
       </div>
     </section>
   </main>
 
   <th:block th:replace="~{common/footer}"></th:block>
+
+  <script src="/js/common/default.js"></script>
 
 </body> 
 </html>
