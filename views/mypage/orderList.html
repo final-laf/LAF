@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/resources/css/common/default.css">
-  <link rel="stylesheet" href="/resources/css/mypage/review.css">
-  <title>LAF :: 내 리뷰 관리</title>
+  <link rel="stylesheet" href="/resources/css/mypage/orderList.css">
+  <title>LAF :: 주문조회</title>
 
 </head>
 <body>
@@ -17,32 +17,27 @@
     <!-- 마이페이지 sidebar -->
     <section class="link" data-include="/views/mypage/mypageSide.html"></section>
     
-    <!-- 작성 가능한 리뷰 -->
+    <!-- 주문 정보 목록 -->
     <section id="mypageReview">
       <!-- 섹션 헤더(제목, 설명) -->
       <div class="section-header">
-        <div class="section-title">내 리뷰 관리</div>
+        <div class="section-title">주문조회</div>
       </div>
 
-      <!-- 하위 메뉴 -->
-      <div class="sub-category-container">
-        <!-- 현재 카테고리에 current 클래스 추가 -->
-        <a href="/views/mypage/reviewQueue.html"><div class="sub-category">작성 가능한 리뷰<span>(2)</span></div></a>
-        <a href="/views/mypage/reviewList.html"><div class="sub-category current">작성한 리뷰<span>(23)</span></div></a>
-      </div>
-
-      <section id="reviewList">
+      <section id="orderList">
+        <div class="table-title">주문상품정보</div>
         <table>
           <tr>
             <td class="item-order-info">주문정보</td>
             <td class="item-image">이미지</td>
-            <td class="item-product">상품정보</td>
+            <td class="item-product header">상품정보</td>
             <td class="item-count">수량</td>
             <td class="item-price-set">구매금액</td>
+            <td class="item-order-state header">주문처리상태</td>
             <td class="item-choose">선택</td>
           </tr>
           <tr>
-            <td colspan="6" class="item-empty">작성한 리뷰가 없습니다.</td>
+            <td colspan="7" class="item-empty">주문 내역이 없습니다.</td>
           </tr>
           <tr>
             <td class="item-order-info">
@@ -66,9 +61,11 @@
             <td class="item-price-set">
               <div class="item-price">32,500</div>
             </td>
+            <td class="item-order-state">
+              <p>입금확인중</p>
+            </td>
             <td class="item-choose">
-              <button>리뷰수정</button>
-              <button>&times; 삭제</button>
+              <button>주문취소</button> <!-- 배송 전까지만 출력 -->
             </td>
           </tr>
           <tr>
@@ -93,9 +90,12 @@
             <td class="item-price-set">
               <div class="item-price">32,500</div>
             </td>
+            <td class="item-order-state">
+              <p>배송완료</p>
+              <button>리뷰작성</button>
+            </td>
             <td class="item-choose">
-              <button>리뷰수정</button>
-              <button>&times; 삭제</button>
+              <button>교환/반품</button> <!-- 배송 이후 출력 -->
             </td>
           </tr>
         </table>
