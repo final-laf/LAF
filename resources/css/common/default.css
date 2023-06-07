@@ -204,3 +204,37 @@ button.submit {
 button:hover.submit {
   background-color: #493e5d;
 }
+
+input{
+  width: auto;
+  height: 27px;
+  padding: 0px 8px;
+  
+  background-color: white;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  color: #222;
+  font-size: 1.2rem;
+  cursor: pointer;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+select{
+  width: auto;
+  height: 27px;
+  padding: 0px 8px;
+  
+  background-color: white;
+  border: 0.5px solid #ccc;
+  border-radius: 5px;
+  color: #222;
+  font-size: 1.2rem;
+  cursor: pointer;
+  
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
