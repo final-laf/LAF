@@ -73,7 +73,7 @@
     margin: 0 1px;
     width: 80px;
 }
-.mypageAddShipping-confirm-button button:nth-child(1){
+.mypageAddShipping-confirm-button a button{
     background-color: #666;
     color: white;
     width: 80px;
