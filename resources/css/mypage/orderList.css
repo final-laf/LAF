@@ -4,7 +4,7 @@ main {
   justify-content: center;
 }
 
-#mypageReview {
+#orderList {
   width: 1000px;
   padding-left: 50px;
 }
@@ -64,21 +64,17 @@ table tr:not(:first-child) > td {
 }
 
 /* 찜 목록 - 테이블 레이아웃 설정 */
-.item-order-info { width: 12%; }
-.item-image { width: 13%; }
-.item-product { width: 45%; }
+.item-order-info { width: 11%; }
+.item-image { width: 10%; }
+.item-product { width: 40%; }
 .item-count { width: 5%; }
-.item-price-set { width: 15%; }
+.item-price-set { width: 12%; }
+.item-order-state { width: 12%; }
 .item-choose { width: 10%; }
 .item-empty { width: 100%; }
-tr:not(:first-child) > .item-product {
-  /* 테이블 헤더 제외하고 적용 */
-  padding: 10px 10px 10px 0;
-  
+td {
   display: inline-flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
 }
 
 /* 컬럼 별 상세설정 */
@@ -101,6 +97,13 @@ tr:not(:first-child) > .item-product {
   width: auto;
   display: block;
 }
+.item-product:not(.header) {
+  padding: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 .item-product button {
   margin-right: 5px;
 }
@@ -119,6 +122,9 @@ tr:not(:first-child) > .item-product {
   font-size: 1.3rem;
   color: #666;
   text-decoration: line-through;
+}
+.item-order-state:not(.header) > p {
+  color: #7F7698;
 }
 .item-choose {
   display: inline-flex;
