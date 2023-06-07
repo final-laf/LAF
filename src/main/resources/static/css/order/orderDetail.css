@@ -128,4 +128,9 @@
   justify-content: space-between;
   padding: 0 5px;
 }
-
+/* 할인/부가결제 */
+#orderDetailDiscount > tr:nth-child(1){
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+}
