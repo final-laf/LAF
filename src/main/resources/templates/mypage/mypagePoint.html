@@ -16,16 +16,16 @@
   
   <main>
     <section class="mypagePoint-mainFrame">
-      <section class="link" data-include="../../views/mypage/mypageSide.html"></section>
+      <th:block th:replace="~{mypage/mypageSide}"></th:block>
         <!-- 마이페이지 중앙 대쉬보드 -->
         <div class="mypagePoint-dashFrame-myMain">
           <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
-          <div class="mypagePoint-myMain-text">적립금 및 쿠폰</div>
+          <div class="mypagePoint-myMain-text">적립금</div>
           <div class="mypagePoint-myMain-point">
             <div class="mypagePoint-point-button">
               <div>
-                <button>적립금 내역</button>
-                <button>보유중인 쿠폰</button>
+                <a href="/point"><button>적립금 내역</button></a>
+                <a href="/coupon"><button>보유중인 쿠폰</button></a>
               </div>
             </div>
             <div class="mypagePoint-point-statistics">

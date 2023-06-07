@@ -15,7 +15,7 @@
   
   <main>
     <!-- 마이페이지 sidebar -->
-    <section class="link" data-include="/views/mypage/mypageSide.html"></section>
+    <th:block th:replace="~{mypage/mypageSide}"></th:block>
     
     <!-- 작성 가능한 리뷰 -->
     <section id="mypageReview">
@@ -55,7 +55,7 @@
               </a>
             </td>
             <td class="item-product">
-              <a href="/views/shopping/product.html">
+              <a href="/order">
               ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color 제품명이 길 때는 두 줄로 나오...
               </a>
               <p class="item-product-option">
@@ -82,7 +82,7 @@
               </a>
             </td>
             <td class="item-product">
-              <a href="/views/shopping/product.html">
+              <a href="/order">
                 ✨재구매1등✨ [98project/2만장돌파] 썸머 포드
               </a>
               <p class="item-product-option">

@@ -16,7 +16,7 @@
   
   <main>
     <section class="mypageAddShipping-mainFrame">
-      <section class="link" data-include="../../views/mypage/mypageSide.html"></section>
+      <th:block th:replace="~{mypage/mypageSide}"></th:block>
       <!-- 마이페이지 중앙 대쉬보드 -->
       <div class="mypageAddShipping-mainFrame-myMain">
         <!-- 배송지 관리 -->
@@ -65,7 +65,7 @@
               </div>
               <div class="mypageAddShipping-confirm-button">
                 <button>등록</button>
-                <button>취소</button>
+                <a href="/shipping"><button type="button">취소</button></a>
               </div>
             </div>
             <table class="mypageAddShipping-Shipping-notice">
