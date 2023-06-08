@@ -121,9 +121,19 @@
         </div>
       </div>
     </section>
+     <!-- 리뷰 모달(상세조회, 수정) -->
+    <th:block th:replace="~{admin/adminMember/adminMemberModal}"></th:block>
   </main>
 
   <th:block th:replace="~{common/footer}"></th:block>
 
+  <!-- 타입스크립트로 옮길 땐 지울것 -->
+  <script>
+    fetch("/js/boards/review.js")
+    .then(resp => resp.text())
+    .then(temp => {
+      eval(temp)
+    });
+  </script>
 </body>
 </html>

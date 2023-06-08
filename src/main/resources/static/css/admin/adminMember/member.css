@@ -109,3 +109,201 @@
   justify-content: center;
   align-items: center;
 }
+
+
+
+
+/* 회원 상세 조회 모달 */
+/* 모달창 오버레이 */
+.member-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+ /*  display: none; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 101;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 모달창 */
+.member-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 1000px;
+  height: auto;
+
+  padding: 40px;
+
+  text-align: center;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* 상단 회원 상세 표 */
+.member-modal-table > tbody > tr {
+  height: 40px;
+  border-bottom: 0.5px solid #eee;
+}
+
+.member-modal-table > tbody > tr > td {
+  text-align: left;
+  font-size: 1.2rem;
+  padding-left: 10px;
+}
+
+/* 각 행별 속성 */
+.member-modal-table > tbody > tr > td:nth-child(1) {
+  width: 15%;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 0px;
+  background-color: #fafafa;
+}
+.member-modal-table > tbody > tr > td:nth-child(2) {
+  width: 25%;
+}
+.member-modal-table > tbody > tr > td:nth-child(3) {
+  width: 10%;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 0px;
+  background-color: #fafafa;
+}
+.member-modal-table > tbody > tr > td:nth-child(4) {
+  width: 25%;
+}
+.member-modal-table > tbody > tr > td:nth-child(5) {
+  width: 10%;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 0px;
+  background-color: #fafafa;
+}
+.member-modal-table > tbody > tr > td:nth-child(6) {
+  width: 15%;
+}
+
+
+/* 하단 회원 주문 내역 */
+.member-modal-orderlist {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.member-modal-orderlist img {
+  height: 94px;
+  width: auto;
+  display: block;
+}
+
+/* 테이블 내의 모든 요소들에 대한 속성 */
+#memberModalOverlay > div.member-modal-window > div:nth-child(2) > table > tbody > tr > td * {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* 첫번째 열의 속성 */
+.member-modal-orderlist tr:nth-child(1) {
+  font-weight: bold;
+  background-color: #fafafa;
+  height: 40px;
+}
+
+/* 모든 열의 속성 */
+.member-modal-orderlist tr {
+  border-bottom: 0.5px solid #eee;
+}
+
+
+/* 각 행별 속성 */
+.member-modal-orderlist td:nth-child(1) {
+  width: 15%;
+}
+
+.member-modal-orderlist td:nth-child(2) {
+  width: 8%;
+}
+
+.member-modal-orderlist td:nth-child(3) {
+  width: 44%;
+  padding: 0px 10px;
+}
+
+.member-modal-orderlist td:nth-child(4) {
+  width: 3%;
+}
+
+.member-modal-orderlist td:nth-child(5) {
+  width: 10%;
+}
+
+.member-modal-orderlist td:nth-child(6) {
+  width: 10%;
+}
+
+.member-modal-orderlist td:nth-child(7) {
+  width: 10%;
+}
+
+
+/* 수정 버튼 위치 조정 */
+.member-modal-table > tbody > tr:nth-child(3) > td:nth-child(4) > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.member-modal-table > tbody > tr:nth-child(3) > td:nth-child(6) > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+
+
+/* 닫기 버튼 */
+.btn-area > button{
+  color: white;
+  margin: 0 5px;
+  width: 80px;
+  background-color: #ccc;
+}
+
+
+/* 페이지네이션 영역 재조정 */
+.resizing-margin {
+  margin: 20px;
+}
+
+/* 닫기 버튼 우측으롤 조정 */
+.btn-to-wright {
+  text-align: right;
+}
+
+
+/* 글자색 */
+.review-grey{
+  color: #666;
+}
+
