@@ -17,6 +17,7 @@
   <th:block th:replace="~{common/header}"></th:block>
   <th:block th:replace="~{common/nav}"></th:block>
   <th:block th:replace="~{order/orderShipping}"></th:block>
+  <th:block th:replace="~{order/orderCoupon}"></th:block>
   
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
@@ -183,7 +184,7 @@
             <th>쿠폰 할인 (보유쿠폰 <div>0</div>개)</th>
             <th>
               <div>0</div>
-              <button type="button">쿠폰적용</button>
+              <button type="button" id="orderDetailCoupon">쿠폰적용</button>
             </th>
           </tr>
           <tr>

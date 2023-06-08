@@ -41,66 +41,42 @@
             <td class="item-price-set">구매금액</td>
             <td class="item-choose">선택</td>
           </tr>
-          <tr>
-            <td colspan="6" class="item-empty">작성한 리뷰가 없습니다.</td>
-          </tr>
-          <tr>
-            <td class="item-order-info">
-              <div class="item-order-date">2023-06-04</div>
-              <div class="item-order-no"><a href="#">[23060400001002]</a></div>
-            </td>
-            <td class="item-image">
-              <a href="/views/shopping/product.html">
-                <img src="/images/prouduct/thumbnail/1.gif">
-              </a>
-            </td>
-            <td class="item-product">
-              <a href="/order">
-              ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color 제품명이 길 때는 두 줄로 나오...
-              </a>
-              <p class="item-product-option">
-                [옵션 : <span class="item-selected-option">블랙/L</span>]
-              </p>
-            </td>
-            <td class="item-count">1</td>
-            <td class="item-price-set">
-              <div class="item-price">32,500</div>
-            </td>
-            <td class="item-choose">
-              <button>리뷰수정</button>
-              <button>&times; 삭제</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="item-order-info">
-              <div class="item-order-date">2023-06-04</div>
-              <div class="item-order-no"><a href="#">[23060400001001]</a></div>
-            </td>
-            <td class="item-image">
-              <a href="/views/shopping/product.html">
-                <img src="/images/prouduct/thumbnail/1.gif">
-              </a>
-            </td>
-            <td class="item-product">
-              <a href="/order">
-                ✨재구매1등✨ [98project/2만장돌파] 썸머 포드
-              </a>
-              <p class="item-product-option">
-                [옵션 : <span class="item-selected-option">블랙/L</span>]
-              </p>
-            </td>
-            <td class="item-count">2</td>
-            <td class="item-price-set">
-              <div class="item-price">32,500</div>
-            </td>
-            <td class="item-choose">
-              <button>리뷰수정</button>
-              <button>&times; 삭제</button>
-            </td>
-          </tr>
+          <div th:if>
+            <tr>
+              <td colspan="6" class="item-empty">작성한 리뷰가 없습니다.</td>
+            </tr>
+          </div>
+          <div th:if>
+            <tr>
+              <td class="item-order-info">
+                <div class="item-order-date">2023-06-04</div>
+                <div class="item-order-no"><a href="#">[23060400001001]</a></div>
+              </td>
+              <td class="item-image">
+                <a href="/views/shopping/product.html">
+                  <img src="/images/prouduct/thumbnail/1.gif">
+                </a>
+              </td>
+              <td class="item-product">
+                <a href="/order">
+                  ✨재구매1등✨ [98project/2만장돌파] 썸머 포드
+                </a>
+                <p class="item-product-option">
+                  [옵션 : <span class="item-selected-option">블랙/L</span>]
+                </p>
+              </td>
+              <td class="item-count">2</td>
+              <td class="item-price-set">
+                <div class="item-price">32,500</div>
+              </td>
+              <td class="item-choose">
+                <button>리뷰수정</button>
+                <button>&times; 삭제</button>
+              </td>
+            </tr>
+          </div>
         </table>
       </section>
-
       <!-- 페이징 -->
       <div class="pagination-area">
 
