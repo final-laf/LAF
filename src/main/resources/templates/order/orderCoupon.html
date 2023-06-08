@@ -1,0 +1,57 @@
+<div id="orderCouponBack"></div>
+<section class="orderCoupon-mainFrame" id="orderCouponContent">
+  <link rel="stylesheet" href="/css/common/default.css">
+  <link rel="stylesheet" href="/css/order/orderCoupon.css">
+  <!-- 결제 쿠폰 모달창  -->
+  <div class="orderCoupon-mainFrame-main">
+    <!-- 배송지 관리 -->
+    <div class="orderCoupon-main-text">쿠폰 조회/적용
+    </div>
+    <table class="orderCoupon-main-notice">
+      <tr>
+        <th>쿠폰 사용에 따른 유의사항 </th>
+      </tr>
+      <tr>
+        <td>
+          <div>❶ 사용 가능한 쿠폰만 보여지게 됩니다.</div>
+          <div>❷ 쿠폰은 회원등급 할인 이후에 적용되므로, 현재 페이지에서 보여지는 판매가와 실제 적용되는 금액과 다를 수 있습니다.</div>
+          <div>❷ 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
+        </td>
+      </tr>
+    </table>
+    <div class="orderCoupon-main-coupon">
+      <table>
+        <tr>
+          <th width="30px"> <input type="checkbox"> </th>
+          <th width="130px">배송지명</th>
+          <th width="100px">수령인</th>
+          <th width="130px">휴대전화</th>
+          <th width="60px">수정</th>
+        </tr>
+        <!-- 항목 추가~ -->
+        <tr class="orderCoupon-coupon-list">
+          <td><input type="checkbox"></td>
+          <td><button type="button" id="orderCouponDefault">기본</button> 미지정</td>
+          <td>ㅇㅇㅇ</td>
+          <td>010-1234-1234</td>
+          <td><a href="/addshipping"><button type="button">수정</button></a></td>
+        </tr>
+        <tr class="orderCoupon-coupon-list">
+          <td><input type="checkbox"></td>
+          <td>두번째 배송지</td>
+          <td>ㅇㅇㅇ</td>
+          <td>010-1234-1234</td>
+          <td><a href="/addshipping"><button type="button">수정</button></a></td>
+        </tr>
+        <!-- ~~~~~~~~~~~~~~~ -->
+      </table>
+      <div class="orderCoupon-coupon-button">
+        <div>
+          <button >선택 주소록 삭제</button>
+          <button >선택 주소록 삭제</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
