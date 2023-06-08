@@ -1,3 +1,5 @@
+
+
 .orderDetail-mainFrame{
   margin: 0 auto;
   width: 970px;
@@ -109,10 +111,6 @@
   text-align: left;
   padding: 10px 20px;
 }
-.mypageOrder-order-info td:nth-child(6){
-  font-weight: bold;
-  color: red;
-}
 .mypageOrder-order-info tr:nth-child(2) td{
   border-top: 0.5px solid #eee;
   padding-bottom: 10px;
@@ -129,8 +127,88 @@
   padding: 0 5px;
 }
 /* 할인/부가결제 */
-#orderDetailDiscount > tr:nth-child(1){
+#orderDetailDiscount > tbody> tr{
   display: flex;
   justify-content: space-between;
   padding-right: 10px;
+}
+
+/* 할인/부가결제 */
+#orderDetailDiscount > tbody> tr>th{
+  display: flex;
+  align-items:center;
+}
+/* 상품 할인  */
+#orderDetailDiscount > tbody> tr:nth-child(1)>th{
+  padding-right: 67px;
+}
+
+/* 쿠폰적용 버튼 */
+#orderDetailDiscount > tbody> tr:nth-child(2) > th:nth-child(1) {
+  display: flex;
+  align-items:center;
+}
+/* 쿠폰적용 버튼 */
+#orderDetailDiscount > tbody> tr:nth-child(2) > th:nth-child(2) {
+  display: flex;
+  align-items:center;
+}
+/*  */
+#orderDetailDiscount > tbody> tr:nth-child(2) > th:nth-child(2) >div {
+  margin-right: 10px;
+}
+/* 적립금 */
+#orderDetailDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div {
+  margin-right: 10px;
+}
+#orderDetailDiscount > tbody> tr:nth-child(4) {
+  padding-right: 78px;
+}
+#orderDetailDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
+  width: 720px;
+}
+/* 할인 적용 금액 */
+#orderDetailDiscount > tbody> tr:nth-child(4){
+  border-top: 0.5px solid #eee;
+  border-bottom: 0.5px solid #eee;
+  font-weight: bold;
+}
+#orderDetailDiscount > tbody> tr:nth-child(4) > th:nth-child(1){
+  font-weight: bold;
+}
+.orderDetailDiscountRed {
+  font-weight: bold;
+  color: red;
+}
+
+/* 결제정보 */
+#orderDetailInfo > tbody> tr{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+#orderDetailInfo > tbody> tr:nth-child(1){
+  padding-top: 20px;
+}
+#orderDetailInfo > tbody> tr:nth-child(4){
+  padding-top: 20px;
+  border-top: 0.5px solid #eee;
+  border-bottom: 0.5px solid #eee;
+}
+#orderDetailInfo > tbody> tr:nth-child(4) > th{
+  font-weight: bold;
+}
+
+/* 결제수단 */
+#orderDetailHow > tbody> tr{
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+#orderDetailHow > tbody> tr:nth-child(1){
+  padding-top: 15px;
+}
+#orderDetailHow > tbody> tr:nth-child(1) button{
+  width: 100px;
+  margin: 0 10px;
 }
