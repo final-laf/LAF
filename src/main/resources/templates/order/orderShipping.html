@@ -1,0 +1,60 @@
+<section class="orderShipping-mainFrame">
+  <div id="orderShippingContent">
+    <link rel="stylesheet" href="/css/common/default.css">
+    <link rel="stylesheet" href="/css/order/orderShipping.css">
+    <!-- 마이페이지 중앙 대쉬보드 -->
+    <div class="orderShipping-mainFrame-myMain">
+      <!-- 배송지 관리 -->
+      <div class="orderShipping-myMain-text">배송 주소록 관리
+        <div>자주 쓰는 배송지를 등록 관리하실 수 있습니다.</div>
+      </div>
+      <div class="orderShipping-MyMain-Shipping">
+        <table>
+          <tr>
+            <th width="30px"> <input type="checkbox"> </th>
+            <th width="130px">배송지명</th>
+            <th width="100px">수령인</th>
+            <th width="130px">휴대전화</th>
+            <th width="550px">주소</th>
+            <th width="60px">수정</th>
+          </tr>
+          <!-- 항목 추가~ -->
+          <tr class="orderShipping-Shipping-list">
+            <td><input type="checkbox"></td>
+            <td><button type="button" id="orderShippingDefault">기본</button> 미지정</td>
+            <td>ㅇㅇㅇ</td>
+            <td>010-1234-1234</td>
+            <td>서울특별시 강남구 삼성동 111-22 무슨 빌라 302호</td>
+            <td><a href="/addshipping"><button type="button">수정</button></a></td>
+          </tr>
+          <tr class="orderShipping-Shipping-list">
+            <td><input type="checkbox"></td>
+            <td>두번째 배송지</td>
+            <td>ㅇㅇㅇ</td>
+            <td>010-1234-1234</td>
+            <td>서울특별시 송파구 삼전동 111-22 무슨 빌라 202호</td>
+            <td><a href="/addshipping"><button type="button">수정</button></a></td>
+          </tr>
+          <!-- ~~~~~~~~~~~~~~~ -->
+        </table>
+        <div class="orderShipping-Shipping-button">
+          <div>
+            <button >선택 주소록 삭제</button>
+            <a href="/addshipping"><button>배송지등록</button></a> 
+          </div>
+        </div>
+        <table class="orderShipping-Shipping-notice">
+          <tr>
+            <th>배송주소록 유의사항 </th>
+          </tr>
+          <tr>
+            <td>
+              <div>❶ 배송 주소록은 최대 3개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</div>
+              <div>❷ 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
