@@ -10,4 +10,8 @@ public class orderController {
 	public String orderDetail() {
 		return "/order/orderDetail";
 	}
+	@GetMapping("/ordertest")
+	public String ordertest() {
+		return "/order/ordertest";
+	}
 }

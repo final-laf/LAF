@@ -205,10 +205,49 @@
   justify-content: space-between;
   padding-right: 10px;
 }
-#orderDetailHow > tbody> tr:nth-child(1){
-  padding-top: 15px;
+#orderDetailHow > tbody> tr:nth-child(1){padding-top: 15px}
+
+#orderDetailHow > tbody > tr:nth-child(2) > th > div >select{
+  padding-left: 30px;
+  width: 800px;
 }
-#orderDetailHow > tbody> tr:nth-child(1) button{
+#orderDetailHow > tbody> tr:nth-child(1) button{margin: 0 10px 0 0}
+#orderDetailHow > tbody > tr:nth-child(2){
+  display: block;
+  border: 0.5px solid #eee;
+}
+#orderDetailHow > tbody > tr:nth-child(2) > th > div{
+  display: flex;
+  padding-top : 15px;
+  padding-bottom : 15px;
+}
+#orderDetailHow > tbody > tr:nth-child(2) > th > div >div{
+  display: flex;
+  align-items: center;
   width: 100px;
-  margin: 0 10px;
+}
+#orderDetailHow > tbody > tr:nth-child(2) > th > div >input{
+  padding-left: 30px;
+  width: 800px;
+}
+.orderDetailTerms div{
+  font-weight: bold;
+  padding:15px 0 15px 10px 
+}
+/* 결제하기 버튼쪽 */
+.orderDetailTerms div:nth-child(3){
+  display: flex;
+  font-weight: bold;
+  padding:15px 0 15px 10px; 
+  width: 500px;
+  margin: 0 auto;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.orderDetailTerms div:nth-child(3) button{
+  width: 300px;
+  height: 50px;
+  color: #eee;
+  background-color: #7f7698;
 }
