@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="/css/common/default.css">
   <!-- <link rel="stylesheet" href="/resources/css/mypage/mypageOrder.css"> -->
   <link rel="stylesheet" href="/css/order/orderDetail.css">
-  <link rel="stylesheet" href="/css/order/orderDetail.css">
 
   <title>LAF :: 로그인</title>
 
@@ -159,7 +158,7 @@
             </td>
             <td>1</td>
             <td>35,500</td>
-            <td>-1,500원</td>
+            <td class="orderDetailDiscountRed">-1,500원</td>
           </tr>
           <tr>
             <td colspan="6">
@@ -177,19 +176,72 @@
         <table class="mypageOrder-order-info" id="orderDetailDiscount">
           <tr>
             <th>상품 할인</th>
-            <th>1,500원</th>
+            <th>1,500</th>
           </tr>
           <tr>
-            <th>상품 할인</th>
-            <th>1,500원</th>
+            <th>쿠폰 할인 (보유쿠폰 <div>0</div>개)</th>
+            <th>
+              <div>0</div>
+              <button type="button">쿠폰적용</button>
+            </th>
           </tr>
           <tr>
-            <th>상품 할인</th>
-            <th>1,500원</th>
+            <th>적립금 (보유잔액 <div>0</div>원)</th>
+            <th>
+              <div><input type="text"></div>
+              <button type="button">전액사용</button>
+            </th>
+          </tr>
+          <tr>
+            <th>할인 적용 금액</th>
+            <th class="orderDetailDiscountRed">-1,500원</th>
           </tr>
         </table>
-
       </div>
+      <div class="orderDetail-mainFrame-order">
+        <div>결제정보</div>
+          <table class="mypageOrder-order-info" id="orderDetailInfo">
+            <tr>
+              <th>주문상품</th>
+              <th>84,500</th>
+            </tr>
+            <tr>
+              <th>배송비</th>
+              <th>+0</th>
+            </tr>
+            <tr>
+              <th>할인</th>
+              <th class="orderDetailDiscountRed">84,500</th>
+            </tr>
+            <tr>
+              <th class="orderDetailFontBold">최종 결제 금액</th>
+              <th>84,500</th>
+            </tr>
+          </table>
+        </div><div class="orderDetail-mainFrame-order">
+          <div>결제수단</div>
+            <table class="mypageOrder-order-info" id="orderDetailHow">
+              <tr>
+                <th>
+                  <button>무통장입금</button>
+                  <button>Paypal</button>
+                </th>
+                <th>84,500</th>
+              </tr>
+              <tr>
+                <th>배송비</th>
+                <th>+0</th>
+              </tr>
+              <tr>
+                <th>할인</th>
+                <th class="orderDetailDiscountRed">84,500</th>
+              </tr>
+              <tr>
+                <th class="orderDetailFontBold">최종 결제 금액</th>
+                <th>84,500</th>
+              </tr>
+            </table>
+          </div>
     </section>
   </main>
 
