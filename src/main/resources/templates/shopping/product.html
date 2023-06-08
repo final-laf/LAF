@@ -182,7 +182,7 @@
       </div>
 
       <!-- 사용자 리뷰(최신순) 게시판 -->
-      <th:block th:replace="~{/boards/review/reviewList}"></th:block>
+      <div layout:fragment="content" th:replace="~{/boards/review/reviewList}"></div>
 
     </section>
   </main>

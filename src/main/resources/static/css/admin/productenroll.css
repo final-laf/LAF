@@ -13,3 +13,46 @@
 .product-enroll-title{
   font-size: 2.5rem;
 }
+
+.enroll-search-box{
+  width: 95%;
+  margin: 50px auto 80px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.enroll-search{
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
+.enroll-search *{
+  display: flex;
+  align-items: center;
+  height: 35px;
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+}
+
+.enroll-search>div:nth-child(1){
+  width: 100px;
+  height: 100%;
+  padding-left: 20px;
+  margin-right: 10px;
+  background-color: #eee;
+}
+
+.enroll-search input{
+  width: 500px;
+  margin-right: 50px;
+}
+
+.enroll-search>div:nth-child(3){
+  margin-right: 30px;
+}
+
+.enroll-search select{
+  width: 100px;
+}
+

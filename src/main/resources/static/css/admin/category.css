@@ -146,13 +146,14 @@
 
 .content-subtitle{
   font-size: 1.5rem;
+  margin-left: 10px;
 }
 
 .content-subtitle~input{
   width: 200px;
   height: 40px;
   background-color: #F9F4F5;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   margin: 10px;
 }
 

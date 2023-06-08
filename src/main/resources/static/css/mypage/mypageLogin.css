@@ -1,12 +1,11 @@
 .mypageLogin-login{
-    width: 1200px;
-    margin: 50px auto 0;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
 }
 .mypageLogin-login > div{
+    width: 1200px;
+    margin: 0 auto;
     display: flex;
+    justify-content: center;
 }
 .mypageLogin-login-memberLogin{
     margin-right: 50px;
@@ -67,7 +66,7 @@
     padding-left: 50px;
     border-left: 0.5px solid #eee;
     display: block;
-    width: 580px;
+    width: 530px;
 }
 
 .mypageLogin-login-notMember p{
