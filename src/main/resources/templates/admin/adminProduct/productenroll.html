@@ -22,51 +22,54 @@
         <div>
           <span class="product-enroll-title">상품 등록</span>
         </div>
-
         <div>
           <div class="enroll-search-box">
-            <div class="enroll-search">
-              <div>상품명</div>
-              <div>
-                <input type="text">
-              </div>
-              <div>상태</div>
-              <div>
-                <select>
-                  <option>비공개</option>
-                  <option>공개</option>
-                </select>
-              </div>
-            </div>
-            <div class="enroll-search">
-              <div>카테고리</div>
-              <div>
-                <input type="text">
-              </div>
-              <div>
-                <select>
-                  <option>1차 분류</option>
-                  <option>BEST 50</option>
-                  <option>아우터</option>
-                  <option>상의</option>
-                  <option>하의</option>
-                </select>
-              </div>
-              <div>
-                <select>
-                  <option>2차분류</option>
-                  <option>자켓</option>
-                  <option>외투</option>
-                  <option>데님</option>
-                  <option>슬렉스</option>
-                </select>
-              </div>
-              <button>카테고리 추가</button>
-            </div>
+            <table class="enroll-top-table">
+              <tr>
+                <td>상품명</td>
+                <td><input type="text"></td>
+                <td>썸네일 이미지</td>
+              </tr>
+              <tr>
+                <td>카테고리</td>
+                <td>
+                  <select>
+                    <option>1차 분류</option>
+                    <option>1차 분류</option>
+                    <option>1차 분류</option>
+                  </select>
+                  <select>
+                    <option>2차 분류</option>
+                    <option>2차 분류</option>
+                    <option>2차 분류</option>
+                  </select>
+                </td>
+                <td rowspan="3">
+                  <img src="/images/sample/11280.gif" alt="">
+                  <div>
+                    <button>버튼</button>
+                    <button>버튼</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>가격</td>
+                <td>
+                  <p>판매가<input type="text">원</p>
+                  <p>할인율<input type="text">%</p>
+                  <p>최종할인가<input type="text">원</p>
+                </td>
+              </tr>
+              <tr>
+                <td>적립금</td>
+                <td><input type="text">원</td>
+              </tr>
+            </table>
+            <table class="enroll-bottom-table">
+
+            </table>
           </div>
         </div>
-
-
       </div>
     </section>
   </main>

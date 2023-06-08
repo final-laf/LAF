@@ -1,6 +1,5 @@
 .product-enroll{
   width: 1200px;
-  height: 550px;
 
   margin: 0 30px 30px;
   padding: 30px;
@@ -21,38 +20,39 @@
   border-bottom: 1px solid #ccc;
 }
 
-.enroll-search{
-  display: flex;
-  align-items: center;
-  height: 50px;
+.enroll-top-table{
+  width: 100%;
 }
 
-.enroll-search *{
-  display: flex;
-  align-items: center;
-  height: 35px;
-  font-size: 1.4rem;
-  letter-spacing: 3px;
+.enroll-top-table td{
+  padding: 10px;
 }
 
-.enroll-search>div:nth-child(1){
-  width: 100px;
-  height: 100%;
-  padding-left: 20px;
-  margin-right: 10px;
+.enroll-top-table td:nth-child(1){
   background-color: #eee;
 }
 
-.enroll-search input{
-  width: 500px;
-  margin-right: 50px;
+.enroll-top-table td:nth-child(3){
+  border-left: 1px solid #ccc;
 }
 
-.enroll-search>div:nth-child(3){
-  margin-right: 30px;
+.enroll-top-table tr:nth-child(1) > td:nth-child(3){
+  width: 300px;
+  background-color: #eee;
 }
 
-.enroll-search select{
-  width: 100px;
+.enroll-top-table tr{
+  height: 50px;
+  border-bottom: 1px solid #ccc;
 }
+
+.enroll-top-table select{
+  width: 200px;
+}
+
+.enroll-top-table img{
+  height: 280px;
+}
+
+
 
