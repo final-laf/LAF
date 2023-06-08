@@ -20,25 +20,10 @@
   border-bottom: 1px solid #ccc;
 }
 
+/* enroll-top-table */
 .enroll-top-table{
   width: 100%;
-}
-
-.enroll-top-table td{
-  padding: 10px;
-}
-
-.enroll-top-table td:nth-child(1){
-  background-color: #eee;
-}
-
-.enroll-top-table td:nth-child(3){
-  border-left: 1px solid #ccc;
-}
-
-.enroll-top-table tr:nth-child(1) > td:nth-child(3){
-  width: 300px;
-  background-color: #eee;
+  margin-bottom: 50px;
 }
 
 .enroll-top-table tr{
@@ -46,13 +31,206 @@
   border-bottom: 1px solid #ccc;
 }
 
-.enroll-top-table select{
-  width: 200px;
+.enroll-top-table td{
+  padding: 10px 20px;
 }
 
+.enroll-top-table input{
+  margin-right: 5px;
+}
+
+.enroll-top-table tr:nth-child(1) > td:nth-child(1){
+  background-color: #eee;
+  width: 360px;
+}
+
+.enroll-top-table tr:nth-child(2) > td:nth-child(1){
+  padding: 20px;
+}
+
+.enroll-top-table tr:nth-child(1) > td:nth-child(2),
+.enroll-top-table tr:nth-child(2) > td:nth-child(2),
+.enroll-top-table tr:nth-child(3) > td:nth-child(1),
+.enroll-top-table tr:nth-child(4) > td:nth-child(1){
+  background-color: #eee;
+  border-left: 1px solid #ccc;
+  width: 120px;
+}
+/* 썸네일 */
 .enroll-top-table img{
   height: 280px;
+  margin-left: 53px;
 }
 
+.enroll-img-btn{
+  display: flex;
+  justify-content: center;
+}
 
+.enroll-img-btn button{
+  width: 100px;
+  height: 40px;
 
+  margin-top: 10px;
+  color: white;
+  letter-spacing: 3px;
+}
+
+.enroll-img-btn>button:nth-child(1){background-color: #7f7698;}
+.enroll-img-btn>button:nth-child(2){background-color: #666;}
+
+/* 상품명 */
+.enroll-top-table tr:nth-child(1) > td:nth-child(3) input{
+  width: 60%;
+  height: 30px;
+}
+
+.enroll-top-table select{
+  width: 150px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.enroll-top-table option{
+  height: 30px;
+}
+
+/* 가격 */
+.enroll-price *{
+  margin: 10px 0;
+}
+
+.enroll-price p{
+  display: flex;
+  align-items: center;
+}
+
+.enroll-price span{
+  display: block;
+  width: 80px;
+  margin-left: 10px;
+}
+
+/* enroll-middle-table */
+
+.enroll-middle-table{
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.enroll-middle-table td{
+  padding: 10px;
+  text-align: center;
+}
+
+.enroll-middle-table tr{
+  height: 40px;
+  border-top: 1px solid #ccc;
+}
+
+.enroll-middle-table tr:last-child{
+  border-bottom: 1px solid #ccc;
+}
+
+.enroll-middle-table input[type=text]{
+  width: 70%;
+  height: 30px;
+  margin-right: 5px;
+  text-align: center;
+}
+
+.enroll-middle-table select{
+  height: 30px;
+  margin-right: 10px;
+}
+
+.enroll-middle-table option{
+  height: 30px;
+}
+
+.enroll-middle-table tr:nth-child(1) > td:nth-child(1){
+  background-color: #eee;
+  width: 120px;
+}
+
+.enroll-middle-table tr:nth-child(1) > td:nth-child(2),
+.enroll-middle-table tr:nth-child(1) > td:nth-child(3){
+  width: 120px;
+}
+
+.enroll-middle-table tr:nth-child(1) > td:nth-child(4){
+  width: 350px;
+}
+
+.enroll-middle-table tr:nth-child(1) > td:nth-child(5){
+  width: 130px;
+}
+.enroll-middle-table tr:nth-child(1) > td:nth-child(6){
+  width: 450px;
+}
+
+.enroll-middle-table tr:nth-child(1) button{
+  background-color: #666;
+  color: white;
+  width: 100px;
+  height: 30px;
+}
+
+/* enroll-bottom-table */
+.enroll-bottom-table{
+  width: 100%;
+}
+
+.enroll-bottom-table td{
+  padding: 10px 20px;
+}
+
+.enroll-bottom-table tr{
+  height: 40px;
+  border-top: 1px solid #ccc;
+}
+
+.enroll-bottom-table img{
+  width: 600px;
+}
+
+.enroll-bottom-table tr:nth-child(1) > td:nth-child(1){
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.enroll-bottom-table tr:nth-child(1){
+  background-color: #eee;
+}
+
+.enroll-bottom-table td:nth-child(1){
+  width: 700px;
+}
+
+.enroll-bottom-table td:nth-child(1){
+  border-right: 1px solid #ccc;
+}
+
+.enroll-detail-img-btn button{
+  width: 100px;
+  height: 30px;
+
+  color: white;
+  letter-spacing: 3px;
+}
+
+.enroll-detail-img-btn>button:nth-child(1){background-color: #7f7698;}
+.enroll-detail-img-btn>button:nth-child(2){background-color: #666;}
+
+.enroll-bottom-table tr:nth-child(2) > td:nth-child(2){
+  display: flex;
+  align-items: start;
+}
+
+.enroll-bottom-table textarea{
+  resize: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
