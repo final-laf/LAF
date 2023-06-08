@@ -115,7 +115,7 @@
 }
 
 .reviews-boards-search > div > input {
-  background-image: url("/resources/images/common/search.png");
+  /* background-image: url("/images/common/search.png"); */
   background-position: 140px 1.5px;
   background-repeat : no-repeat;
   background-size : 15px;
