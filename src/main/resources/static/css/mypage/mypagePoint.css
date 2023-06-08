@@ -18,7 +18,11 @@
     margin-bottom: 30px;
 }
 
-.mypagePoint-point-button{
+.sub-category-container {
+    margin: 30px 0;
+}
+
+/* .mypagePoint-point-button{
     display: flex;
     justify-content: center;
     border-bottom: 1px solid #eee;
@@ -37,7 +41,7 @@
     width: 140px;
     height: 35px;
     border-radius: 0;
-}
+} */
 
 .mypagePoint-point-statistics{
     border: 3px solid #eee;

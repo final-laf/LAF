@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/order/order.css}">
+  <title>LAF :: 주문</title>
+</head>
+<body>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
+  
+  <main>
+    <!-- 개인화면 대쉬보드 전체 틀 -->
+    <section class="orderDetail-mainFrame">
+      <div class="orderDetail-order-text">주문 정보</div>
+      <!-- 주문 정보 -->
+      <div class="orderDetail-mainFrame-order">
+        <div>주문정보</div>
+        <table>
+          <tr>
+            <th width="100px">주문자</th>
+            <td><input type="text"></td>
+          </tr>
+          <tr>
+            <th>이메일</th>
+            <td>
+              <input type="text">@
+              <select name="" id="">
+                <option value="">naver.com</option>
+                <option value="">google.com</option>
+                <option value="">daum.com</option>
+                <option value="">kakao.com</option>
+                <option value="">nate.com</option>
+              </select>
+              </td>
+          </tr>
+          <tr class="orderDetail-order-tel">
+            <th>휴대전화</th>
+            <td>
+              <select>
+                <option value="">010</option>
+              </select> -
+              <input type="text">-
+              <input type="text">
+            </td>
+          </tr>
+          <tr>
+            <th>주소</th>
+            <td>
+              <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+              <div class="mypageSignUp-table-address">
+                <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
+                <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+              </div>
+              <div class="mypageSignUp-table-address">
+                <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+              </div>
+              <div class="mypageSignUp-table-address">
+                <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th rowspan="3">환불정보</th>
+            <td>
+              <input type="text" placeholder="예금주">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" placeholder="은행명">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" placeholder="계좌번호">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- 배송지 -->
+      <div class="orderDetail-mainFrame-order">
+        <div>배송지</div>
+        <table>
+          <tr class="orderDetail-order-shipping">
+            <td colspan="2">
+              <div>
+                <div>
+                  <input type="radio" name="orderShippingRadio" id="orderDetailSame" value=""><label for="orderDetailSame">주문자 정보와 동일</label>
+                  <input type="radio" name="orderShippingRadio" id="orderDetailNew" value=""><label for="orderDetailNew">새로운 배송지</label>
+                </div>
+                <button>배송지 관리</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th width="100px">받는 사람*</th>
+            <td><input type="text"></td>
+          </tr>
+          <tr>
+            <th>주소</th>
+            <td>
+              <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+              <div class="mypageSignUp-table-address">
+                <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
+                <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+              </div>
+              <div class="mypageSignUp-table-address">
+                <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+              </div>
+              <div class="mypageSignUp-table-address">
+                <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
+              </div>
+            </td>
+          </tr>
+          <tr class="orderDetail-order-tel">
+            <th>휴대전화</th>
+            <td>
+              <select>
+                <option value="">010</option>
+              </select> -
+              <input type="text">-
+              <input type="text">
+            </td>
+          </tr>
+        </table>
+        <div class="orderDetail-order-defaultShipping">
+          <input type="checkbox" name="" id="orderDetailDefaultShipping"> <label for="orderDetailDefaultShipping">기본 배송지로 저장</label> 
+        </div>
+      </div>
+      <div class="orderDetail-mainFrame-order">
+      <div>주문 상품 정보</div>
+        <table class="mypageOrder-order-info" id="orderDetailProduct">
+          <tr>
+            <th width="70px"><input type="checkbox" name="" id=""></th>
+            <th width="70px">이미지</th>
+            <th width="600px">상품정보</th>
+            <th width="50px">수량</th>
+            <th width="100px">상품구매금액</th>
+            <th width="80px">할인금액</th>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" name="" id="">
+            </td>
+            <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
+            <td>
+              <div>[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</div>
+              <div>[옵션 : 내츄럴 크림]</div>
+            </td>
+            <td>1</td>
+            <td>35,500</td>
+            <td class="orderDetailDiscountRed">-1,500원</td>
+          </tr>
+          <tr>
+            <td colspan="6">
+              <div>
+                <div>배송비</div>
+                <div>2,500원</div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        
+      </div>
+      <div class="orderDetail-mainFrame-order">
+      <div>할인/부가결제</div>
+        <table class="mypageOrder-order-info" id="orderDetailDiscount">
+          <tr>
+            <th>상품 할인</th>
+            <th>1,500</th>
+          </tr>
+          <tr>
+            <th>쿠폰 할인 (보유쿠폰 <div>0</div>개)</th>
+            <th>
+              <div>0</div>
+              <button type="button">쿠폰적용</button>
+            </th>
+          </tr>
+          <tr>
+            <th>적립금 (보유잔액 <div>0</div>원)</th>
+            <th>
+              <div><input type="text"></div>
+              <button type="button">전액사용</button>
+            </th>
+          </tr>
+          <tr>
+            <th>할인 적용 금액</th>
+            <th class="orderDetailDiscountRed">-1,500원</th>
+          </tr>
+        </table>
+      </div>
+      <div class="orderDetail-mainFrame-order">
+        <div>결제정보</div>
+          <table class="mypageOrder-order-info" id="orderDetailInfo">
+            <tr>
+              <th>주문상품</th>
+              <th>84,500</th>
+            </tr>
+            <tr>
+              <th>배송비</th>
+              <th>+0</th>
+            </tr>
+            <tr>
+              <th>할인</th>
+              <th class="orderDetailDiscountRed">84,500</th>
+            </tr>
+            <tr>
+              <th class="orderDetailFontBold">최종 결제 금액</th>
+              <th>84,500</th>
+            </tr>
+          </table>
+        </div><div class="orderDetail-mainFrame-order">
+          <div>결제수단</div>
+            <table class="mypageOrder-order-info" id="orderDetailHow">
+              <tr>
+                <th>
+                  <button>무통장입금</button>
+                  <button>Paypal</button>
+                </th>
+                <th>84,500</th>
+              </tr>
+              <tr>
+                <th>배송비</th>
+                <th>+0</th>
+              </tr>
+              <tr>
+                <th>할인</th>
+                <th class="orderDetailDiscountRed">84,500</th>
+              </tr>
+              <tr>
+                <th class="orderDetailFontBold">최종 결제 금액</th>
+                <th>84,500</th>
+              </tr>
+            </table>
+          </div>
+    </section>
+  </main>
+
+  <th:block th:replace="~{/common/footer}"></th:block> 
+
+  <!-- 주소 api -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/js/common/api/address.js"></script>
+</body>
+</html>

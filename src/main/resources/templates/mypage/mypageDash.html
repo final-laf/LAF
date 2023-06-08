@@ -5,15 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/shopping/categoryList.css">
   <link rel="stylesheet" href="/css/mypage/mypageDash.css">
   <title>LAF :: 마이페이지</title>
 
 </head>
 <body>
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
     <section class="mypageDash-mainFrame">
@@ -103,6 +102,7 @@
         </div>
       </section>
   </main>
-  <footer class="link" data-include="../../views/common/footer.html"></footer>
+
+  <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>

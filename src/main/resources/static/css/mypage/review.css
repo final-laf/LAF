@@ -18,6 +18,9 @@ main {
   color: inherit;
   margin-left: 2px;
 }
+.sub-category {
+  width: 180px !important;
+}
 
 /* 테이블 공통설정 */
 table {

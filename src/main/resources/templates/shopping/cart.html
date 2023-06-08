@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/dev/productList.css">
   <link rel="stylesheet" href="/css/shopping/cart.css">
   <title>LAF :: 장바구니</title>
 </head>
 <body>
 
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
     <!-- 섹션 헤더(제목, 설명) -->
@@ -38,12 +37,12 @@
         <tr>
           <td class="cart-item-checkbox"><input type="checkbox" name="checkbox"></td>
           <td class="cart-item-image">
-            <a href="/views/shopping/product.html">
+            <a href="/1/1">
               <img src="/images/prouduct/thumbnail/1.gif">
             </a>
           </td>
           <td class="cart-item-product">
-            <a href="/views/shopping/product.html">
+            <a href="/1/1">
               ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color
             </a>
             <p class="cart-item-product-option">
@@ -66,12 +65,12 @@
         <tr>
           <td class="cart-item-checkbox"><input type="checkbox" name="checkbox"></td>
           <td class="cart-item-image">
-            <a href="/views/shopping/product.html">
+            <a href="/1/1">
               <img src="/images/prouduct/thumbnail/1.gif">
             </a>
           </td>
           <td class="cart-item-product">
-            <a href="/views/shopping/product.html">
+            <a href="/1/1">
               ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color
             </a>
             <p class="cart-item-product-option">
@@ -129,11 +128,11 @@
       <div class="product-item-desc">이 상품과 함께 구매하면 좋을 상품 추천드립니다 :-)</div>
       
       <!-- 아이템 목록 -->
-      <ul class="link dev-product-item-container" data-include="/views/dev/productList.html"></ul>
+      <th:block th:replace="~{/dev/productList}"></th:block>
     </section>
 
   </main>
 
-  <th:block th:replace="~{common/footer}"></th:block>
+  <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>

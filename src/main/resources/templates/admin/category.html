@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/admin/category.css">
-  <title>관리자::메인관리(카테고리)</title>
+  <title>관리자 :: 카테고리관리</title>
 </head>
 <body>
 
-  <th:block th:replace="~{admin/adminheader}"></th:block>
+  <th:block th:replace="~{/admin/adminheader}"></th:block>
   
   <main>
     <section class="adminContainer">
       <div class="control-classify">
-        <a href="/admin/mainview"><span>메인 이미지</span></a>
+        <a href="/admin/banner"><span>메인 이미지</span></a>
         <a href="/admin/category"><span class="control-classify-select">메인 카테고리</span></a>
       </div>
       <div class="main-category">
@@ -120,7 +119,7 @@
     </section>
   </main>
 
-  <th:block th:replace="~{common/footer}"></th:block>
+  <th:block th:replace="~{/common/footer}"></th:block>
 
 </body>
 </html>

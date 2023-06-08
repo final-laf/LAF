@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/mypage/orderList.css">
   <title>LAF :: 주문조회</title>
 
 </head>
 <body>
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
     <!-- 마이페이지 sidebar -->
-    <th:block th:replace="~{mypage/mypageSide}"></th:block>
+    <th:block th:replace="~{/mypage/mypageSide}"></th:block>
     
     <!-- 주문 정보 목록 -->
     <section id="mypageOrderList">
@@ -85,12 +84,12 @@
               <div class="item-order-no"><a href="#">[23060400001002]</a></div>
             </td>
             <td class="item-image">
-              <a href="/views/shopping/product.html">
+              <a href="/1/1">
                 <img src="/images/prouduct/thumbnail/1.gif">
               </a>
             </td>
             <td class="item-product">
-              <a href="/views/shopping/product.html">
+              <a href="/1/1">
               ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color 제품명이 길 때는 두 줄로 나오...
               </a>
               <p class="item-product-option">
@@ -114,12 +113,12 @@
               <div class="item-order-no"><a href="#">[23060400001001]</a></div>
             </td>
             <td class="item-image">
-              <a href="/views/shopping/product.html">
+              <a href="/1/1">
                 <img src="/images/prouduct/thumbnail/1.gif">
               </a>
             </td>
             <td class="item-product">
-              <a href="/views/shopping/product.html">
+              <a href="/1/1">
                 ✨재구매1등✨ [98project/2만장돌파] 썸머 포드
               </a>
               <p class="item-product-option">
@@ -169,6 +168,6 @@
     </section>
   </main>
 
-  <th:block th:replace="~{common/footer}"></th:block>
+  <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>

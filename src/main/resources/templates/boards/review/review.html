@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/boards/review.css">
   <!-- favicon -->
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" sizes="16x16">
@@ -12,9 +11,8 @@
 </head>
 <body>
 
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
-  
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
 
@@ -210,13 +208,9 @@
     </div>
   </div>
 
-  <section class="link" data-include="/views/boards/review/reviewModal.html"></section>
-
   </main>
 
-  <th:block th:replace="~{common/footer}"></th:block>
-
-  <script src="/js/common/default.js"></script>
+  <th:block th:replace="~{/common/footer}"></th:block>
   
 <!-- 타입스크립트로 옮길 땐 지울것 -->
   <script>

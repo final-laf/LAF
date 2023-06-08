@@ -4,19 +4,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/admin/orderselect.css">
-  <title>관리자::주문 조회</title>
+  <title>관리자 :: 주문조회</title>
 </head>
 <body>
 
-  <th:block th:replace="~{admin/adminheader}"></th:block>
+  <th:block th:replace="~{/admin/adminheader}"></th:block>
   
   <main>
     <section class="adminContainer">
       <div class="control-classify">
-        <a href="/admin/ordercurrent"><span>주문 현황</span></a>
-        <a href="/admin/orderselect"><span class="control-classify-select">주문 조회</span></a>
+        <a href="/admin/order/cur"><span>주문 현황</span></a>
+        <a href="/admin/order"><span class="control-classify-select">주문 조회</span></a>
       </div>
       <div class="order-select">
         <div>
@@ -26,7 +25,7 @@
     </section>
   </main>
 
-  <th:block th:replace="~{common/footer}"></th:block>
+  <th:block th:replace="~{/common/footer}"></th:block>
 
 </body>
 </html>

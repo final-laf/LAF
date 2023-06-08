@@ -4,19 +4,18 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/shopping/categoryList.css">
   <link rel="stylesheet" href="/css/mypage/mypageQuestion.css">
   <title>LAF :: 마이페이지</title>
 
 </head>
 <body>
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
     <section class="mypageQuestion-mainFrame">
-      <th:block th:replace="~{mypage/mypageSide}"></th:block>
+      <th:block th:replace="~{/mypage/mypageSide}"></th:block>
       <!-- 마이페이지 중앙 대쉬보드 -->
       <div class="mypageQuestion-dashFrame-myMain">
         <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
@@ -89,6 +88,6 @@
     </section>
   </main>
 
-  <th:block th:replace="~{common/footer}"></th:block>
+  <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>

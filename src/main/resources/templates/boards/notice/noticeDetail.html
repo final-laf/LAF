@@ -4,15 +4,14 @@
   <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/boards/boardsCommon.css">
   <link rel="stylesheet" href="/css/boards/notice.css">
   <title>LAF :: 공지사항</title>
 </head>
 <body>
 
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
 
@@ -88,7 +87,7 @@
       <!-- 하단 버튼 영역 -->
       <div class="detail-btn-area">
         <div>
-          <button>LIST</button>                     
+          <a href="/notice"><button>LIST</button></a>                     
         </div>
         <div>
           <button>MODIFY</button>                     
@@ -98,10 +97,7 @@
     </section>
   </main>
 
-
-  <th:block th:replace="~{common/footer}"></th:block>
-
-  <script src="/js/common/default.js"></script>
+  <th:block th:replace="~{/common/footer}"></th:block>
 
 </body> 
 </html>

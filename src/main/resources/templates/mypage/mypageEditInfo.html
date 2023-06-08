@@ -6,12 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LAF :: 회원가입</title>
 
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/mypage/mypageEditInfo.css">
 </head>
 <body>
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
@@ -132,7 +131,7 @@
             </div>
             <div id="mypageEditInfoSubmitButton">
               <button>회원정보수정</button>
-              <a href="/dash"><button type="button">취소</button></a>
+              <a href="/my"><button type="button">취소</button></a>
             </div>
           </div>
         </form>
@@ -140,7 +139,7 @@
     </section>
   </main>
 
-  <th:block th:replace="~{common/footer}"></th:block>
+  <th:block th:replace="~{/common/footer}"></th:block>
 
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/js/common/api/address.js"></script>

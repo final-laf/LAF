@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/common/default.css">
   <link rel="stylesheet" href="/css/boards/boardsCommon.css">
   <link rel="stylesheet" href="/css/boards/qna.css">
-  <title>LAF :: 1대1문의</title>
+  <title>LAF :: 1:1문의</title>
 </head>
 <body>
 
-  <th:block th:replace="~{common/header}"></th:block>
-  <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
 
@@ -34,11 +33,11 @@
           <!-- 게시판 상단 -->        
           <thead>
             <tr>
-                <th>NO</th>
-                <th>CATEGORY</th>
-                <th>TITLE</th>
-                <th>NAME</th>
-                <th>DATE</th>
+              <th>NO</th>
+              <th>CATEGORY</th>
+              <th>TITLE</th>
+              <th>NAME</th>
+              <th>DATE</th>
             </tr>
           </thead>
           <!-- 게시판 본문 -->
@@ -123,8 +122,7 @@
               <td>관리자</td>
               <td>2023-06-01</td>
             </tr>
-          
-            
+
           </tbody>
         </table>
       </div>
