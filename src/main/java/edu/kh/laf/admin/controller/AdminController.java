@@ -15,45 +15,45 @@ public class AdminController {
 	}
 	
 	// 메인배너관리 이동
-	@GetMapping("/mainview")
+	@GetMapping("/adminMain/mainView")
 	public String adminMainView() {
-		return "/admin/mainview";
+		return "/admin/adminMain/mainView";
 	}
 	
 	// 메인카테고리관리 이동
-	@GetMapping("/category")
+	@GetMapping("/adminMain/category")
 	public String adminCategory() {
-		return "/admin/category";
+		return "/admin/adminMain/category";
 	}
 	
 	// 회원관리 이동
-	@GetMapping("/member")
+	@GetMapping("/adminMember/member")
 	public String adminMember() {
-		return "/admin/member";
+		return "/admin/adminMember/member";
 	}
 	
 	// 상품등록 이동
-	@GetMapping("/productenroll")
+	@GetMapping("/adminProduct/productEnroll")
 	public String adminProductEnroll() {
-		return "/admin/productenroll";
+		return "/admin/adminProduct/productEnroll";
 	}
 	
 	// 상품조회 이동
-	@GetMapping("/productselect")
+	@GetMapping("/adminProduct/productSelect")
 	public String adminProductselect() {
-		return "/admin/productselect";
+		return "/admin/adminProduct/productSelect";
 	}
 	
 	// 주문현황 이동
-	@GetMapping("/ordercurrent")
+	@GetMapping("/adminOrder/orderCurrent")
 	public String adminOrderCurrent() {
-		return "/admin/ordercurrent";
+		return "/admin/adminOrder/orderCurrent";
 	}
 	
 	// 주문조회 이동
-	@GetMapping("/orderselect")
+	@GetMapping("/adminOrder/orderSelect")
 	public String adminOrderselect() {
-		return "/admin/orderselect";
+		return "/admin/adminOrder/orderSelect";
 	}
 	
 
