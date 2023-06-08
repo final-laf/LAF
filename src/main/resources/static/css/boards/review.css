@@ -53,6 +53,7 @@
 
 .best-list li{
   border: 0.5px solid #ccc;
+  cursor: pointer;
 }
 
 .best-list *{
@@ -115,7 +116,8 @@
 }
 
 .reviews-boards-search > div > input {
-  /* background-image: url("/images/common/search.png"); */
+
+  background-image: url("/images/common/search.jpg");
   background-position: 140px 1.5px;
   background-repeat : no-repeat;
   background-size : 15px;
@@ -215,7 +217,7 @@
   width: 100vw;
   height: 100vh;
 
- /*  display: none; */
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -424,7 +426,50 @@
 
 
 
+
+
+
+
 /* 리뷰 수정 모달창 */
+#write-review-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.write-review-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 800px;
+  height: 660px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+} 
+
 .write-review-modal-middle {
   width: 300px;
   display: flex;
@@ -471,4 +516,10 @@
   resize: none;
   outline: none;
   border: 0.5px solid #ccc;
+}
+
+/* 모달 리뷰창 닫기 버튼 */
+#closeWriteModal {
+  text-align: right;
+  cursor: pointer;
 }
