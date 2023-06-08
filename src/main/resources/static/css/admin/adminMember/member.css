@@ -15,7 +15,7 @@
 
 .member-search-box{
   width: 85%;
-  margin: 50px auto 80px;
+  margin: 70px auto 80px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
@@ -24,7 +24,6 @@
   display: flex;
   align-items: center;
   height: 50px;
-  margin: 5px;
 }
 
 .member-search *{
@@ -38,9 +37,8 @@
 .member-search>div:nth-child(1){
   width: 200px;
   height: 100%;
-  border-radius: 5px;
   padding-left: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
   background-color: #eee;
 }
 
@@ -57,7 +55,7 @@
 .member-search-btn *{
   color: white;
   margin: 0 5px;
-  width: 80px;
+  width: 70px;
 }
 
 .member-search-btn>button:nth-child(1){background-color: #7f7698;}
@@ -71,6 +69,7 @@
 .member-result-top{
   display: flex;
   justify-content: space-between;
+  align-items: end;
   margin: 10px;
 }
 
