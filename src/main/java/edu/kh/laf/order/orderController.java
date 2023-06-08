@@ -10,4 +10,9 @@ public class orderController {
 	public String orderDetail() {
 		return "/order/orderDetail";
 	}
+	
+	@GetMapping("/orderlist")
+	public String mypageOrderList() {
+		return "/mypage/orderList";
+	}
 }

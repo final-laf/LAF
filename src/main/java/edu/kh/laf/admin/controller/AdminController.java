@@ -55,9 +55,4 @@ public class AdminController {
 	public String adminOrderselect() {
 		return "/admin/orderselect";
 	}
-	
-
-	
-	
-	
 }
