@@ -16,6 +16,7 @@
 <body>
   <th:block th:replace="~{common/header}"></th:block>
   <th:block th:replace="~{common/nav}"></th:block>
+  <th:block th:replace="~{order/orderShipping}"></th:block>
   
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
@@ -97,7 +98,7 @@
                   <input type="radio" name="orderShippingRadio" id="orderDetailSame" value=""><label for="orderDetailSame">주문자 정보와 동일</label>
                   <input type="radio" name="orderShippingRadio" id="orderDetailNew" value=""><label for="orderDetailNew">새로운 배송지</label>
                 </div>
-                <button>배송지 관리</button>
+                <button id="orderDetailShipping">배송지 관리</button>
               </div>
             </td>
           </tr>
@@ -263,6 +264,7 @@
 
         </div>
       </div>
+      
     </section>
   </main>
 
@@ -297,5 +299,6 @@
   </script>
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/common/default.js"></script>
+  <script src="/js/order/orderDetail.js"></script>
 </body>
 </html>
