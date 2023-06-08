@@ -18,10 +18,50 @@
     <th:block th:replace="~{mypage/mypageSide}"></th:block>
     
     <!-- 주문 정보 목록 -->
-    <section id="mypageReview">
+    <section id="mypageOrderList">
       <!-- 섹션 헤더(제목, 설명) -->
       <div class="section-header">
         <div class="section-title">주문조회</div>
+      </div>
+
+      <!-- 주문조회 필터링 -->
+      <form action="#" id="orderFilter">
+        <select name="orderState" id="orderStateSelect">
+          <option value="">전체</option>
+          <option value="A">주문접수</option>
+          <option value="B">결제확인</option>
+          <option value="C">상품준비중</option>
+          <option value="D">출고완료</option>
+          <option value="E">배송중</option>
+          <option value="F">배송완료</option>
+          <option value="G">취소중</option>
+          <option value="H">취소완료</option>
+          <option value="I">교환중</option>
+          <option value="J">교환완료</option>
+          <option value="K">반품중</option>
+          <option value="L">반품완료</option>
+        </select>
+
+        <ul id="dateFilterBtn">
+          <li>오늘</li>
+          <li>1주일</li>
+          <li>1개월</li>
+          <li>3개월</li>
+          <li>6개월</li>
+        </ul>
+
+        <div id="dateFilter">
+          <input type="date" name="startDate">
+          ~
+          <input type="date" name="endDate">
+        </div>
+
+        <button class="submit">조회</button>
+      </form>
+
+      <div id="orderFilterInfo">
+        <p>· 기본적으로 3개월간의 자료가 조회되며, 기간 검색시 주문처리완료 후 36개월 이내의 주문내역을 조회하실 수 있습니다.</p>
+        <p>· 주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</p>
       </div>
 
       <section id="orderList">

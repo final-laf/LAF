@@ -4,7 +4,7 @@ main {
   justify-content: center;
 }
 
-#orderList {
+#mypageOrderList {
   width: 1000px;
   padding-left: 50px;
 }
@@ -19,12 +19,72 @@ main {
   margin-left: 2px;
 }
 
+/* 주문조회 필터링 */
+#orderFilter {
+  background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  
+  height: 50px;
+  padding: 0 10px;
+  margin-bottom: 2px;
+}
+#orderFilter > * {
+  margin: 0 5px;
+}
+#dateFilterBtn {
+  display: flex;
+}
+#dateFilterBtn > li {
+  width: 40px;
+  height: 27px;
+  
+  background-color: #eee;
+  border: 0.5px solid #ccc;
+  transition-duration: 0.2s;
+  border-right: none;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+#dateFilterBtn > li:hover {
+  background-color: #ccc;
+  transition-duration: 0.2s;
+  
+}
+#dateFilterBtn > li:first-child {
+  border-radius: 2px 0 0 2px;
+}
+#dateFilterBtn > li:last-child {
+  border-radius: 0 2px 2px 0;
+  border-right: 0.5px solid #ccc;
+}
+#dateFilter {
+  display: flex;
+  align-items: center;
+}
+#dateFilter > input:first-child {
+  margin-right: 2px;
+}
+#dateFilter > input:last-child {
+  margin-left: 2px;
+}
+#orderFilterInfo > p {
+  font-size: 1.2rem;
+}
+
 /* 테이블 공통설정 */
 table {
   width: 100%;
 }
 table tr {
   border-top : 0.5px solid #eee;
+}
+.table-title {
+  font-weight: bold;
+  margin: 15px 0 5px 0;
 }
 /* 테이블 헤더 설정 */
 table tr:first-child {
