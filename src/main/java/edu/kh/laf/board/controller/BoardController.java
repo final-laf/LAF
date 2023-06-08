@@ -31,22 +31,22 @@ public class BoardController {
 		return "/boards/qna/qna";
 	}
 	
-	// 1대1문의 게시글 상세 연결
-	@GetMapping("/qna/detail")
+	// 1대1문의 게시글 상세(질문) 연결
+	@GetMapping("/qna/detail-q")
 	public String qnaDetail() {
 		return "/boards/qna/qnaDetail";
 	}
-	
-	// 1대1문의 글쓰기(질문) 연결
-	@GetMapping("/qna/write-q")
-	public String qnaWrite() {
-		return "/boards/qna/qnaWrite";
-	}
-	
-	// 1대1문의 글쓰기(답변) 연결
-	@GetMapping("/qna/write-a")
+
+	// 1대1문의 게시글 상세(답변) 연결
+	@GetMapping("/qna/detail-a")
 	public String qnaDetailAnswer() {
 		return "/boards/qna/qnaDetailAnswer";
+	}
+	
+	// 1대1문의 글쓰기(질문) 연결
+	@GetMapping("/qna/write")
+	public String qnaWrite() {
+		return "/boards/qna/qnaWrite";
 	}
 	
 	// 리뷰 게시글 리스트 연결
