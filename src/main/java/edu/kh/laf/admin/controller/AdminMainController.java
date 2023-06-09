@@ -15,7 +15,7 @@ public class AdminMainController {
 	// 메인화면관리 : 배너관리
 	@GetMapping("/admin/banner")
 	public String banner() {
-		return "/admin/adminMain/mainview";
+		return "/admin/adminMain/banner";
 	}
 	
 	// 메인화면관리 : 카테고리
