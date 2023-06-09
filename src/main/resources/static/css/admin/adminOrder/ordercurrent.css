@@ -29,7 +29,7 @@
 
 .order-list li{
   display: flex;
-  height: 60px;
+  height: 50px;
   border-bottom: 1px solid #eee;
 }
 
