@@ -100,6 +100,10 @@
   height: 50px;
 }
 
+.recent-order-table td{
+  padding: 5px;
+}
+
 .recent-order-table tr:nth-child(1){
   background-color: #fafafa;
   text-align: center;
@@ -115,18 +119,8 @@
   text-align: end;
 }
 
-.recent-order-table td{
-  padding: 0 5px;
-}
-
 .recent-order-table input{
   margin-right: 5px;
-}
-
-.recent-order-table td:nth-child(3)>div{
-  width: 220px;
-  display: flex;
-  margin-top: 5px;
 }
 
 .recent-order-table img{
@@ -140,6 +134,11 @@
   align-items: center;
 }
 
-.recent-order-table td:nth-child(3) p{
-  width: 250px;
+.recent-order-table tr:nth-child(2)>td:nth-child(3) p{
+  width: 230px;
+}
+
+.recent-order-table tr:nth-child(2)>td:nth-child(3) p:nth-child(2){
+  color: #ccc;
+  margin-top: 5px;
 }
