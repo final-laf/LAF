@@ -14,40 +14,92 @@
   font-size: 2.5rem;
 }
 
-
-.control-classify{
-  margin: 20px 0;
-
-  display: flex;
-  justify-content: center;
+/* product-select-box */
+.product-select-box{
+  width: 95%;
+  margin: 50px auto 80px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+/* product-select-top */
+.product-select-top{
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.control-classify span{
+.product-select-top tr{
+  height: 50px;
+  border-bottom: 1px solid #ccc;
+}
+
+.product-select-top td{
+  padding: 10px 20px;
+  vertical-align: middle;
+}
+
+.product-select-top input{
+  margin-right: 5px;
+}
+
+.product-select-top td:nth-child(1){
   width: 160px;
   height: 50px;
-  border: none;
-  border-radius: 5px;
+  background-color: #eee;
+  border-right: 1px solid #ccc;
+}
 
+.product-select-top select{
+  width: 120px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.product-select-top option{
+  height: 30px;
+}
+
+.product-select-top tr:nth-child(3)>td:nth-child(2)>div{
   display: flex;
-  justify-content: center;
   align-items: center;
+}
 
-  margin: 20px 10px;
-  
-  font-weight: bold;
-  font-size: 1.4rem;
+.product-select-top input[type=checkbox]{
+  margin: 0 10px;
+}
+
+.product-select-btn{
+  margin-left: auto;
+  width: 220px;
+  margin-bottom: 50px;
+}
+
+.product-select-btn *{
+  width: 100px;
+  height: 30px;
+  color: white;
   letter-spacing: 3px;
-  
-  background-color: #DAD5E4;
-  cursor: pointer;
+  margin-left: 5px;
 }
 
-.control-classify span:hover{
-  color: white;
-  background-color: #493E5D !important;
+.product-select-btn>button:nth-child(1){background-color: #7f7698;}
+.product-select-btn>button:nth-child(2){background-color: #ccc;}
+
+/*  */
+.product-select-bottom-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 10px;
+  border: 1px ;
 }
 
-.control-classify-select{
-  color: white;
-  background-color: #493E5D !important;
+.product-select-bottom-title button{
+  margin: 0 5px;
+  width: 100px;
+  height: 30px;
+  background-color: #7f7698;
+
+  font-weight: bold;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
 }

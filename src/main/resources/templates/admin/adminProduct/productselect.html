@@ -12,7 +12,7 @@
   <th:block th:replace="~{/admin/adminHeader}"></th:block>
   
   <main>
-    <section class="adminContainer">
+    <section class="admin-container">
       <div class="control-classify">
         <a href="/admin/product"><span class="control-classify-select">상품 조회</span></a>
         <a href="/admin/product/enroll"><span>상품 등록</span></a>
@@ -20,6 +20,92 @@
       <div class="product-select">
         <div>
           <span class="product-select-title">상품 조회</span>
+        </div>
+        <div class="product-select-box">
+          <table class="product-select-top">
+            <tr>
+              <td>검색어</td>
+              <td>
+                <select>
+                  <option>전체</option>
+                  <option>전체</option>
+                  <option>전체</option>
+                </select>
+                <input type="text">
+              </td>
+            </tr>
+            <tr>
+              <td>카테고리</td>
+              <td>
+                <select>
+                  <option>1차 분류</option>
+                  <option>상의</option>
+                  <option>하의</option>
+                </select>
+                <select>
+                  <option>2차 분류</option>
+                  <option>자켓</option>
+                  <option>티셔츠</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>판매상태</td>
+              <td>
+                <div>
+                  <input type="checkbox">전체
+                  <input type="checkbox">공개
+                  <input type="checkbox">품절
+                  <input type="checkbox">비공개
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div class="product-select-btn">
+            <button>검색</button>
+            <button>초기화</button>
+          </div>
+          <div class="product-select-bottom-title">
+            <div>최신순 / 판매량순 (검색결과 2 건)</div>
+            <div><button>일괄수정</button></div>
+          </div>
+          <table class="product-select-bottom">
+            <tr>
+              <td></td>
+              <td>상품번호</td>
+              <td>상품명</td>
+              <td>가격</td>
+              <td>할인가</td>
+              <td>판매량</td>
+              <td>재고</td>
+              <td>등록일</td>
+              <td>상태</td>
+              <td>관리</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>15648</td>
+              <td>
+                <div><img src="/images/sample/11295.gif" alt=""></div>
+                <div>노랑나랑 바람막이</div>
+                <div>L/노랑</div>
+              </td>
+              <td>36,000원</td>
+              <td>33,000원</td>
+              <td>63</td>
+              <td>8</td>
+              <td>23-06-01</td>
+              <td>
+                <select>
+                  <option>공개</option>
+                  <option>비공개</option>
+                </select>
+              </td>
+              <td>
+                <button>수정</button>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </section>
