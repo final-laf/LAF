@@ -182,7 +182,7 @@
 }
 
 .enroll-bottom-table td{
-  padding: 10px 20px;
+  padding: 10px;
 }
 
 .enroll-bottom-table tr{
@@ -191,10 +191,10 @@
 }
 
 .enroll-bottom-table img{
-  width: 600px;
+  width: 700px;
 }
 
-.enroll-bottom-table tr:nth-child(1) > td:nth-child(1){
+.enroll-bottom-table tr:nth-child(1) > td:nth-child(1)>div{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,7 +205,7 @@
 }
 
 .enroll-bottom-table td:nth-child(1){
-  width: 700px;
+  width: 800px;
 }
 
 .enroll-bottom-table td:nth-child(1){
@@ -226,6 +226,7 @@
 .enroll-bottom-table tr:nth-child(2) > td:nth-child(2){
   display: flex;
   align-items: start;
+  justify-content: center;
 }
 
 .enroll-bottom-table textarea{
