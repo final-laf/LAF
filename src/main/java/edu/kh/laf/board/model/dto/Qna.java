@@ -4,10 +4,10 @@ import lombok.*;
 
 @Data
 public class Qna {
-	private int qnaNo;
-	private int memberNo;
-	private int orderNo;
-	private int productNo;
+	private long qnaNo;
+	private long memberNo;
+	private long orderNo;
+	private long productNo;
 	private String qnaCategory;
 	private String qnaTitle;
 	private String qnaContent;

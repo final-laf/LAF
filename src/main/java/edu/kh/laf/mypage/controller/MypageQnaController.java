@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -21,7 +22,8 @@ public class MypageQnaController {
 	
 	// 1:1 문의 내역
 	@GetMapping("/my/qna")
-	public String qna(@SessionAttribute("loginMember") Member loginMember ,HttpServletResponse resp) {
+	public String qna(@SessionAttribute("loginMember") Member loginMember, Model model
+			,HttpServletResponse resp) {
 		
 		
 		
@@ -29,7 +31,7 @@ public class MypageQnaController {
 		List<Qna> qna = new ArrayList<>();
 		qna = qnaService.qnaList(loginMember.getMemberNo());
 		System.out.println(qna);
-		
+		model.addAttribute("qnaList", qna);
 		
 		return "/mypage/mypageQuestion";
 	}
