@@ -110,6 +110,10 @@
   align-items: center;
 }
 
+.selected-member {
+  cursor: pointer;
+}
+
 
 
 
