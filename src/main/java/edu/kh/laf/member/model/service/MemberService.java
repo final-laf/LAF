@@ -1,17 +1,16 @@
 package edu.kh.laf.member.model.service;
 
 import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.mapper.MemberMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class MemberService {
+public interface MemberService {
 
-    @Autowired
-    MemberMapper mapper;
+	 
+	/** 로그인 서비스
+	 * @param inputMember
+	 * @return id,pw가 일치하는 회원 정보 또는 null
+	 */
+	Member login(Member inputMember);
+	
+	
 
-    public Member getMember(Long id) {
-        return mapper.selectMember(id);
-    }
 }
