@@ -9,6 +9,8 @@ import edu.kh.laf.board.model.dto.Qna;
 
 @Mapper
 public interface MypageMapper {
+	
+	
 
 	List<Qna> qnaList(Long memberNo);
 	
