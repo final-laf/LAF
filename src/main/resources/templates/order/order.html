@@ -13,10 +13,10 @@
   
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
-    <section class="orderDetail-mainFrame">
-      <div class="orderDetail-order-text">주문 정보</div>
+    <section class="mypageOrder-mainFrame">
+      <div class="mypageOrder-order-text">주문</div>
       <!-- 주문 정보 -->
-      <div class="orderDetail-mainFrame-order">
+      <div class="mypageOrder-mainFrame-order">
         <div>주문정보</div>
         <table>
           <tr>
@@ -36,7 +36,7 @@
               </select>
               </td>
           </tr>
-          <tr class="orderDetail-order-tel">
+          <tr class="mypageOrder-order-tel">
             <th>휴대전화</th>
             <td>
               <select>
@@ -81,10 +81,10 @@
         </table>
       </div>
       <!-- 배송지 -->
-      <div class="orderDetail-mainFrame-order">
+      <div class="mypageOrder-mainFrame-order">
         <div>배송지</div>
         <table>
-          <tr class="orderDetail-order-shipping">
+          <tr class="mypageOrder-order-shipping">
             <td colspan="2">
               <div>
                 <div>
@@ -115,7 +115,7 @@
               </div>
             </td>
           </tr>
-          <tr class="orderDetail-order-tel">
+          <tr class="mypageOrder-order-tel">
             <th>휴대전화</th>
             <td>
               <select>
@@ -126,13 +126,13 @@
             </td>
           </tr>
         </table>
-        <div class="orderDetail-order-defaultShipping">
-          <input type="checkbox" name="" id="orderDetailDefaultShipping"> <label for="orderDetailDefaultShipping">기본 배송지로 저장</label> 
+        <div class="mypageOrder-order-defaultShipping">
+          <input type="checkbox" name="" id="mypageOrderDefaultShipping"> <label for="mypageOrderDefaultShipping">기본 배송지로 저장</label> 
         </div>
       </div>
-      <div class="orderDetail-mainFrame-order">
+      <div class="mypageOrder-mainFrame-order">
       <div>주문 상품 정보</div>
-        <table class="mypageOrder-order-info" id="orderDetailProduct">
+        <table class="mypageOrder-order-info" id="mypageOrderProduct">
           <tr>
             <th width="70px"><input type="checkbox" name="" id=""></th>
             <th width="70px">이미지</th>
@@ -152,7 +152,7 @@
             </td>
             <td>1</td>
             <td>35,500</td>
-            <td class="orderDetailDiscountRed">-1,500원</td>
+            <td class="mypageOrderDiscountRed">-1,500원</td>
           </tr>
           <tr>
             <td colspan="6">
@@ -165,9 +165,9 @@
         </table>
         
       </div>
-      <div class="orderDetail-mainFrame-order">
+      <div class="mypageOrder-mainFrame-order">
       <div>할인/부가결제</div>
-        <table class="mypageOrder-order-info" id="orderDetailDiscount">
+        <table class="mypageOrder-order-info" id="mypageOrderDiscount">
           <tr>
             <th>상품 할인</th>
             <th>1,500</th>
@@ -188,13 +188,13 @@
           </tr>
           <tr>
             <th>할인 적용 금액</th>
-            <th class="orderDetailDiscountRed">-1,500원</th>
+            <th class="mypageOrderDiscountRed">-1,500원</th>
           </tr>
         </table>
       </div>
-      <div class="orderDetail-mainFrame-order">
+      <div class="mypageOrder-mainFrame-order">
         <div>결제정보</div>
-          <table class="mypageOrder-order-info" id="orderDetailInfo">
+          <table class="mypageOrder-order-info" id="mypageOrderInfo">
             <tr>
               <th>주문상품</th>
               <th>84,500</th>
@@ -205,37 +205,51 @@
             </tr>
             <tr>
               <th>할인</th>
-              <th class="orderDetailDiscountRed">84,500</th>
+              <th class="mypageOrderDiscountRed">84,500</th>
             </tr>
             <tr>
-              <th class="orderDetailFontBold">최종 결제 금액</th>
+              <th class="mypageOrderFontBold">최종 결제 금액</th>
               <th>84,500</th>
             </tr>
           </table>
-        </div><div class="orderDetail-mainFrame-order">
-          <div>결제수단</div>
-            <table class="mypageOrder-order-info" id="orderDetailHow">
-              <tr>
-                <th>
-                  <button>무통장입금</button>
-                  <button>Paypal</button>
-                </th>
-                <th>84,500</th>
-              </tr>
-              <tr>
-                <th>배송비</th>
-                <th>+0</th>
-              </tr>
-              <tr>
-                <th>할인</th>
-                <th class="orderDetailDiscountRed">84,500</th>
-              </tr>
-              <tr>
-                <th class="orderDetailFontBold">최종 결제 금액</th>
-                <th>84,500</th>
-              </tr>
-            </table>
+        </div>
+        <div class="mypageOrder-mainFrame-order">
+            <div>결제수단</div>
+              <table class="mypageOrder-order-info" id="mypageOrderHow">
+                <tr>
+                  <th>
+                    <button>무통장입금</button>
+                    <button>Paypal</button>
+                  </th>
+                  <th>84,500</th>
+                </tr>
+                <tr>
+                  <th>
+                    <div>
+                      <div>입금은행</div>
+                      <select name="" id="">
+                        <option value="">■■■::: 선택해 주세요. :::■■■ </option>
+                        <option value="">국민은행: 9999-9999-9999 (주)LAF </option>
+                      </select>
+                    </div>
+                    <div>
+                      <div>입금자명</div>
+                      <input type="text">
+                    </div>
+                  </th>
+                </tr>
+              </table>
+            </div>
+          <div class="mypageOrderTerms">
+            <div>구매조건 확인 및 결제진행 동의</div>
+            <div>배송정보 제공 방침 동의</div>
+            <div>
+              <div>주문 내용을 확인하였으며 약관에 동의합니다.</div>
+            <div>
+              <button>79,300원 결제하기</button>
+            </div>
           </div>
+        </div>
     </section>
   </main>
 
