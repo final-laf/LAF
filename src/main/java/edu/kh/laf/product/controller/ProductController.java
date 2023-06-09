@@ -13,7 +13,7 @@ public class ProductController {
 	}
 	
 	// 상품상세조회 
-	@GetMapping("/{category:[0-9]+}/{no:[0-9]+}")
+	@GetMapping("/product/{no:[0-9]+}")
 	public String product() {
 		return "/shopping/product";
 	}

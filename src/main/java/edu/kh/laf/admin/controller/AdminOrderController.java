@@ -9,13 +9,13 @@ public class AdminOrderController {
 	// 주문관리 : 주문현황
 	@GetMapping("/admin/order/cur")
 	public String orderCur() {
-		return "/admin/ordercurrent";
+		return "/admin/adminOrder/ordercurrent";
 	}
 	
 	// 주문관리 : 주문조회
 	@GetMapping("/admin/order")
 	public String order() {
-		return "/admin/orderselect";
+		return "/admin/adminOrder/orderselect";
 	}
 	
 }

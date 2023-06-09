@@ -9,13 +9,13 @@ public class AdminProductController {
 	// 상품관리 : 상품조회
 	@GetMapping("/admin/product")
 	public String product() {
-		return "/admin/productselect";
+		return "/admin/adminProduct/productselect";
 	}
 	
 	// 상품관리 : 상품등록
 	@GetMapping("/admin/product/enroll")
 	public String productEnroll() {
-		return "/admin/productenroll";
+		return "/admin/adminProduct/productenroll";
 	}
 	
 }

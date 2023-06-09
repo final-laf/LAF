@@ -15,13 +15,13 @@ public class AdminMainController {
 	// 메인화면관리 : 배너관리
 	@GetMapping("/admin/banner")
 	public String banner() {
-		return "/admin/mainview";
+		return "/admin/adminMain/mainview";
 	}
 	
 	// 메인화면관리 : 카테고리
 	@GetMapping("/admin/category")
 	public String category() {
-		return "/admin/category";
+		return "/admin/adminMain/category";
 	}
 	
 }

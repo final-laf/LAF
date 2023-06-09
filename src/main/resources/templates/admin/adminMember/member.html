@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/admin/member.css">
-  <title>관리자 :: 회원 관리</title>
+  <link rel="stylesheet" href="/css/admin/adminMember/member.css">
+  <title>관리자 :: 회원관리</title>
 </head>
 <body>
 
-  <th:block th:replace="~{/admin/adminheader}"></th:block>
+  <th:block th:replace="~{/admin/adminHeader}"></th:block>
   
   <main>
     <section class="adminContainer">
@@ -100,6 +100,8 @@
         </div>
       </div>
     </section>
+    <!-- 리뷰 모달(상세조회, 수정) -->
+    <th:block th:replace="~{admin/adminMember/adminMemberModal}"></th:block>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>
