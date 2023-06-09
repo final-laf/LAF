@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
   <title>LAF</title>
 </head>
 <body>
@@ -13,36 +13,72 @@
   <th:block th:replace="~{/common/nav}"></th:block>
 
   <main>
-    <section class="main-banner">
-      <input type="radio" name="slide" id="slide1" checked>
-      <input type="radio" name="slide" id="slide2">
-      <input type="radio" name="slide" id="slide3">
-      <input type="radio" name="slide" id="slide4">
-      <input type="radio" name="slide" id="slide5">
-      <input type="radio" name="slide" id="slide6">
-      <ul class="slide-img">
-        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample1.png"></a></li>
-        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample2.png"></a></li>
-        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample3.png"></a></li>
-        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample4.png"></a></li>
-        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample5.png"></a></li>
-        <li><a href="#"><img class="main-banner-img" src="/images/sample/sample6.png"></a></li>
-      </ul>
 
-      <ul class="slide_pagination main-banner-dot"></ul>
+    <!-- 메인 배너(슬라이드) -->
+    <section class="slide_wrap">
+      <div class="slide_box">
+        <ul class="slide_list clearfix">
 
-      <!-- <div class="main-banner-dot">
-        <label for="slide1">&nbsp;</label>
-        <label for="slide2">&nbsp;</label>
-        <label for="slide3">&nbsp;</label>
-        <label for="slide4">&nbsp;</label>
-        <label for="slide5">&nbsp;</label>
-        <label for="slide6">&nbsp;</label>
-      </div> -->
-      <button class="main-banner-lbtn" type="button"><img src="/images/common/allowBtnLeft-white.svg"></button>
-      <button class="main-banner-rbtn" type="button"><img src="/images/common/allowBtnRight-white.svg"></button>
+          <li class="slide_content">
+            <a th:href="@{/product/1}">
+              <img class="main-banner-img" th:src="@{/images/banners/banner01.jpg}">
+            </a>
+          </li>
+
+          <li class="slide_content">
+            <a th:href="@{/product/1}">
+              <img class="main-banner-img" th:src="@{/images/banners/banner02.jpg}">
+            </a>
+          </li>
+
+          <li class="slide_content">
+            <a th:href="@{/product/1}">
+              <img class="main-banner-img" th:src="@{/images/banners/banner03.jpg}">
+            </a>
+          </li>
+
+          <li class="slide_content">
+            <a th:href="@{/product/1}">
+              <img class="main-banner-img" th:src="@{/images/banners/banner04.jpg}">
+            </a>
+          </li>
+
+          <li class="slide_content">
+            <a th:href="@{/product/1}">
+              <img class="main-banner-img" th:src="@{/images/banners/banner05.jpg}">
+            </a>
+          </li>
+
+          <li class="slide_content">
+            <a th:href="@{/product/1}">
+              <img class="main-banner-img" th:src="@{/images/banners/banner06.jpg}">
+            </a>
+          </li>
+
+          <li class="slide_content">
+            <a th:href="@{/product/1}">
+              <img class="main-banner-img" th:src="@{/images/banners/banner07.jpg}">
+            </a>
+          </li>
+
+        </ul>
+      </div> <!-- slide_box -->
+
+      <button class="slide_btn_prev" type="button">
+        <img src="/images/common/allowBtnLeft-white.svg">
+      </button>
+
+      <button class="slide_btn_next" type="button">
+        <img src="/images/common/allowBtnRight-white.svg">
+      </button>
+
+      <!-- slide_pagination -->
+      <ul class="slide_pagination"></ul> 
+        
     </section>
 
+
+    <!-- 추천상품 -->
     <section class="main-product">
       <div class="main-product-left">
         <a href="#"><img class="mainBannerImg" src="/images/sample/sample5.png"></a>
@@ -52,6 +88,7 @@
       </div>
     </section>
 
+    <!-- MD 추천상품(아치) -->
     <section class="md-recommend">
       <div class="md-recommend-left">
         <p>MD<br>Recommend<br>Product</p>
@@ -127,6 +164,7 @@
       </div>
     </section>
 
+    <!-- 위클리 베스트 -->
     <section class="weekly">
       <div class="weekly-title">
         <div>
@@ -224,6 +262,7 @@
       </table>
     </section>
     
+    <!-- 새로 도착한 상품 -->
     <section class="new">
       <div class="new-title">
         <span>NEW ARRIVAL</span>

@@ -1,45 +1,3 @@
-// /* 메인슬라이드 */
-// document.addEventListener("DOMContentLoaded", function () {
-//   const slides = document.querySelectorAll(".main-banner input[name='slide']");
-//   const slideImages = document.querySelectorAll(".main-banner .slide-img li");
-//   const prevButton = document.querySelector(".main-banner-lbtn");
-//   const nextButton = document.querySelector(".main-banner-rbtn");
-//   let currentSlide = 0;
-
-//   prevButton.addEventListener("click", function () {
-//     currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
-//     updateSlide();
-//   });
-
-//   nextButton.addEventListener("click", function () {
-//     currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
-//     updateSlide();
-//   });
-
-//   for (var i = 0; i < slides.length; i++) {
-//     slides[i].addEventListener("click", function () {
-//       currentSlide = Array.prototype.indexOf.call(slides, this);
-//       updateSlide();
-//     });
-//   }
-
-//   function updateSlide() {
-//     for (var i = 0; i < slides.length; i++) {
-//       slides[i].checked = false;
-//       slideImages[i].style.display = "none";
-//     }
-//     slides[currentSlide].checked = true;
-//     slideImages[currentSlide].style.display = "block";
-
-//     let slideContainer = document.querySelector(".main-banner");
-//     slideContainer.scrollLeft = currentSlide * slideContainer.offsetWidth;
-//   }
-
-//   updateSlide();
-// });
-
-
-
 /* 이미지 hover효과 */
 function imgHover(input) {
   const productDescriptions = document.querySelectorAll(`.${input}-hover`);
@@ -96,19 +54,20 @@ slide('only');
 
 
 
-(() => {
-  const slideList = document.querySelector('.slide-img');  // Slide parent dom
-  const slideContents = document.querySelectorAll('.slide-img > li');  // each slide dom
-  const slideBtnNext = document.querySelector('.main-banner-rbtn'); // next button
-  const slideBtnPrev = document.querySelector('.main-banner-lbtn'); // prev button
+/* 메인화면 Banner */
+(function () {
+  const slideList = document.querySelector('.slide_list');  // Slide parent dom
+  const slideContents = document.querySelectorAll('.slide_content');  // each slide dom
+  const slideBtnNext = document.querySelector('.slide_btn_next'); // next button
+  const slideBtnPrev = document.querySelector('.slide_btn_prev'); // prev button
   const pagination = document.querySelector('.slide_pagination');
   const slideLen = slideContents.length;  // slide length
-  const slideWidth = window.offsetWidth; // slide width
-  const slideSpeed = 300; // slide speed
+  const slideWidth = window.innerWidth < 1920 ? 1920 : window.innerWidth; // slide width
+  const slideSpeed = 500; // slide speed
   const startNum = 0; // initial slide index (0 ~ 4)
-
+  
   slideList.style.width = slideWidth * (slideLen + 2) + "px";
-
+  
   // Copy first and last slide
   let firstChild = slideList.firstElementChild;
   let lastChild = slideList.lastElementChild;
@@ -136,13 +95,13 @@ slide('only');
   curSlide.classList.add('slide_active');
 
   /** Next Button Event */
-  slideBtnNext.addEventListener('click', function () {
+  slideBtnNext.addEventListener('click', function() {
     if (curIndex <= slideLen - 1) {
       slideList.style.transition = slideSpeed + "ms";
       slideList.style.transform = "translate3d(-" + (slideWidth * (curIndex + 2)) + "px, 0px, 0px)";
     }
     if (curIndex === slideLen - 1) {
-      setTimeout(function () {
+      setTimeout(function() {
         slideList.style.transition = "0ms";
         slideList.style.transform = "translate3d(-" + slideWidth + "px, 0px, 0px)";
       }, slideSpeed);
@@ -156,13 +115,13 @@ slide('only');
   });
 
   /** Prev Button Event */
-  slideBtnPrev.addEventListener('click', function () {
+  slideBtnPrev.addEventListener('click', function() {
     if (curIndex >= 0) {
       slideList.style.transition = slideSpeed + "ms";
       slideList.style.transform = "translate3d(-" + (slideWidth * curIndex) + "px, 0px, 0px)";
     }
     if (curIndex === 0) {
-      setTimeout(function () {
+      setTimeout(function() {
         slideList.style.transition = "0ms";
         slideList.style.transform = "translate3d(-" + (slideWidth * slideLen) + "px, 0px, 0px)";
       }, slideSpeed);
@@ -182,7 +141,7 @@ slide('only');
       e.preventDefault();
       curDot = document.querySelector('.dot_active');
       curDot.classList.remove('dot_active');
-
+      
       curDot = this;
       this.classList.add('dot_active');
 
@@ -195,3 +154,6 @@ slide('only');
     });
   });
 })();
+
+// 3초마다 배너 변경하기
+setInterval(() => document.querySelector('.slide_btn_next').click(), 3000);
