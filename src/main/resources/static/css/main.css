@@ -63,13 +63,20 @@
   z-index: 1;
 }
 
-.main-banner-lbtn, .main-banner-rbtn{
+.main-banner-lbtn, .main-banner-rbtn {
   z-index: 5;
   width: 50px;
   height: 50px;
-  background-color: rgba(221, 221, 221, 0.5);
+  background-color: rgba(221, 221, 221, 0.2);
   border: none;
   cursor: pointer;
+  margin: 0 30px;
+  border-radius: 50px;
+  transition-duration: 0.2s;
+}
+.main-banner-lbtn:hover, .main-banner-rbtn:hove {
+  background-color: #ffffff25;
+  transition-duration: 0.2s;
 }
 
 .main-banner-lbtn{
@@ -86,8 +93,8 @@
 }
 
 .main-banner-lbtn img, .main-banner-rbtn img{
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 }
 
 /* main product */

@@ -28,14 +28,17 @@
         <li><a href="#"><img class="main-banner-img" src="/images/sample/sample5.png"></a></li>
         <li><a href="#"><img class="main-banner-img" src="/images/sample/sample6.png"></a></li>
       </ul>
-      <div class="main-banner-dot">
+
+      <ul class="slide_pagination main-banner-dot"></ul>
+
+      <!-- <div class="main-banner-dot">
         <label for="slide1">&nbsp;</label>
         <label for="slide2">&nbsp;</label>
         <label for="slide3">&nbsp;</label>
         <label for="slide4">&nbsp;</label>
         <label for="slide5">&nbsp;</label>
         <label for="slide6">&nbsp;</label>
-      </div>
+      </div> -->
       <button class="main-banner-lbtn" type="button"><img src="/images/common/allowBtnLeft-white.svg"></button>
       <button class="main-banner-rbtn" type="button"><img src="/images/common/allowBtnRight-white.svg"></button>
     </section>
@@ -262,6 +265,6 @@
   </main>
   
   <th:block th:replace="~{/common/footer}"></th:block>
-  <script src="/js/main.js"></script>
+  <script th:src="@{/js/main.js}"></script>
 </body>
 </html>

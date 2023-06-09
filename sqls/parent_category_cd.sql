@@ -14,11 +14,13 @@ create table `parent_category_cd` (
 -- 샘플 데이터 삽입
 
 INSERT INTO parent_category_cd VALUES(NULL, 'TOP');
-INSERT INTO parent_category_cd VALUES(NULL, 'BOTTOM');
-INSERT INTO parent_category_cd VALUES(NULL, 'TOP');
-INSERT INTO parent_category_cd VALUES(NULL, 'TOP');
-INSERT INTO parent_category_cd VALUES(NULL, 'TOP');
-INSERT INTO parent_category_cd VALUES(NULL, 'TOP');
-INSERT INTO parent_category_cd VALUES(NULL, 'TOP');
+INSERT INTO parent_category_cd VALUES(NULL, 'PANTS');
+INSERT INTO parent_category_cd VALUES(NULL, 'OUTER');
+INSERT INTO parent_category_cd VALUES(NULL, 'DRESS');
+INSERT INTO parent_category_cd VALUES(NULL, 'SKIRTS');
+INSERT INTO parent_category_cd VALUES(NULL, 'SALE');
+INSERT INTO parent_category_cd VALUES(NULL, 'BEST50');
+
+SELECT * FROM parent_category_cd pcc;
 
 -- -------------------------------------------------------------------------------------------------------------------------- --
