@@ -15,18 +15,18 @@
   <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
-    <section class="mypageDash-mainFrame">
+    <section th:object="${session.loginMember}" class="mypageDash-mainFrame">
       <th:block th:replace="~{mypage/mypageSide}"></th:block>
         <!-- 마이페이지 중앙 대쉬보드 -->
         <div class="mypageDash-dashFrame-myMain">
           <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
           <div class="mypageDash-myMain-myInfo">
             <div class="mypageDash-myInfo-myRating">
-              <div class="mypageDash-myRating-Rating">온도지기</div>
+              <div class="mypageDash-myRating-Rating">실버</div>
               <div class="mypageDash-myRating-greeting"> <!-- el구문 들어갈 문구 -->
-                <div class="mypageDash-greeting-greet"><strong><span>장반석</span></strong> 님 안녕하세요</div>
+                <div class="mypageDash-greeting-greet"><strong><span th:text="*{memberId}">이름</span></strong> 님 안녕하세요</div>
                 <div class="mypageDash-greeting-greet"><strong><span>silver</span></strong>까지 남은 구매금액은 300,000입니다.</div>
-                <div class="mypageDash-greeting-greet">(승급 기준에 따른 예상 금액이므로 총 주문 금액과 다릅니다</div>
+                <div class="mypageDash-greeting-greet">승급 기준에 따른 예상 금액이므로 총 주문 금액과 다릅니다</div>
               </div>
             </div>
             <div class="mypageDash-myInfo-mySave">
