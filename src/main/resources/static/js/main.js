@@ -1,58 +1,13 @@
 /* 이미지 hover효과 */
-function imgHover(input) {
-  const productDescriptions = document.querySelectorAll(`.${input}-hover`);
-  const productImgs = document.querySelectorAll(`.${input}-img`);
-
-  productImgs.forEach((productImg, index) => {
-    productImg.addEventListener("mouseover", () => {
-      if (productDescriptions[index] && productDescriptions[index].classList) {
-        productDescriptions[index].classList.remove('hidden');
-      }
-    });
-
-    productImg.addEventListener("mouseout", () => {
-      if (productDescriptions[index] && productDescriptions[index].classList) {
-        productDescriptions[index].classList.add('hidden');
-      }
-    });
+const mdList = document.querySelectorAll('.md-recommend-list > li');
+for(let md of mdList) {
+  md.querySelector('img').addEventListener("mouseover", () => {
+    md.querySelector('.hover-info').classList.remove('hidden');
+  });
+  md.querySelector('img').addEventListener("mouseout", () => {
+    md.querySelector('.hover-info').classList.add('hidden');
   });
 }
-
-imgHover('md-recommend');
-imgHover('weekly-big');
-imgHover('weekly');
-
-
-
-/* 슬라이드효과 */
-function slide(input) {
-  const prevBtn = document.querySelector(`.${input}-lbtn`);
-  const nextBtn = document.querySelector(`.${input}-rbtn`);
-  const list = document.querySelector(`.${input}-list`);
-  const images = document.querySelectorAll(`.${input}-list li`);
-
-  list.style.width = images.length * (images[0].clientWidth + 20) + 'px'
-
-  let position = 0;
-  const IMAGE_WIDTH = 240;
-
-  prevBtn.addEventListener("click", () => {
-    position += IMAGE_WIDTH
-    list.style.transition = 'transform 1s';
-    list.style.transform = `translateX(${position}px)`
-  })
-  nextBtn.addEventListener("click", () => {
-    position -= IMAGE_WIDTH
-    list.style.transition = 'transform 1s';
-    list.style.transform = `translateX(${position}px)`
-  })
-}
-slide('md-recommend');
-slide('new');
-slide('only');
-
-
-
 
 /* 메인화면 Banner */
 (function () {
@@ -64,7 +19,7 @@ slide('only');
   const slideLen = slideContents.length;  // slide length
   const slideWidth = window.innerWidth < 1920 ? 1920 : window.innerWidth; // slide width
   const slideSpeed = 500; // slide speed
-  const startNum = 0; // initial slide index (0 ~ 4)
+  const startNum = 1; // initial slide index (0 ~ 4)
   
   slideList.style.width = slideWidth * (slideLen + 2) + "px";
   

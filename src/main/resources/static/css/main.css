@@ -89,7 +89,7 @@
 /* main product */
 .main-product{
   width: 1200px;
-  margin: 40px auto;
+  margin: 100px auto;
   display: flex;
   justify-content: space-between;
 }
@@ -160,18 +160,17 @@ span.item-price-origin{
 /* ------------------------------------------------ */
 
 /* md recommend */
-.md-recommend{
+.md-recommend {
   width: 1200px;
-  margin: 40px auto;
+  margin: 100px auto;
   font-size: 2rem;
-
-  position: relative;
+  display: flex;
 }
 
 .md-recommend-left{
-  position: absolute;
-  top: 0;
-  z-index: 1;
+  margin-top: 60px;
+  position: relative;
+  width: 700px;
 }
 
 .md-recommend-left p:nth-child(1){
@@ -179,29 +178,28 @@ span.item-price-origin{
 }
 
 .md-recommend-left p:nth-child(2){
-  margin: 15px 5px;
+  margin: 15px 0;
   font-size: 1.4rem;
 }
 
 .md-recommend-btn{
-  margin-top: 90px;
-  width: 120px;
+  position: absolute;
+  bottom: 15px;
   display: flex;
   justify-content: center;
 }
 
-.md-recommend-btn button{
+.md-recommend-btn button {
   cursor: pointer;
-  
-  margin: 0 5px;
   width: 40px;
   height: 40px;
-  background-color: #eee;
-  border: 2px solid #ccc;
-
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.md-recommend-btn button:first-child {
+  margin-right: 5px;
 }
 
 .md-recommend-btn img{
@@ -210,8 +208,6 @@ span.item-price-origin{
 }
 
 .md-recommend-right{
-  padding-top: 10px;
-  margin-left: 150px;
   overflow: hidden;
 }
 
@@ -220,17 +216,16 @@ span.item-price-origin{
   justify-content: center;
 }
 
-.md-recommend-list>li{
-  width: 220px;
-  height: 280px;
+.md-recommend-list > li{
+  height: 360px;
+  width: 280px;
   margin: 10px;
-
   position: relative;
 }
 
 .md-recommend-img{
-  width: 220px;
-  height: 280px;
+  height: 360px;
+  width: 280px;
   object-fit: cover;
   object-position: center;
   border-top-left-radius: 200px;
@@ -244,7 +239,7 @@ span.item-price-origin{
   font-size: 2rem;
 }
 
-.weekly-title{
+.weekly-title {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -306,139 +301,45 @@ span.item-price-origin{
   object-position: center;
 }
 
-/* new */
-.new{
+
+/* sub-section */
+.sub-section {
   width: 1200px;
   margin: 40px auto;
   font-size: 2rem;
-
   position: relative;
 }
-
-.new-title{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
-
-.new-title span{
+.sub-section-title{
   font-size: 2rem;
+  text-align: center;
+  margin: 100px 0 20px 0;
 }
-
-.new-content{
+.sub-section-content {
   width: 1200px;
+  position: relative;
   overflow: hidden;
 }
-
-.new-list{
+.sub-section-list {
   display: flex;
   justify-content: space-between;
+  
 }
-
-.new-list li{
+.sub-section-list li {
   height: 280px;
+  width: 220px;
+  margin: 0 10px;
 }
-
-/* new img */
-.new-img{
+.sub-section-content > button {
+  top: 120px;
+  margin: 0 20px;
+  background-color: #eeeeee60;
+}
+.sub-section-content > button:hover {
+  background-color: #eeeeee90;
+}
+.sub-section-img {
   width: 220px;
   height: 280px;
   object-fit: cover;
   object-position: center;
-}
-
-/* new btn */
-.new-lbtn, .new-rbtn{
-  z-index: 5;
-  width: 50px;
-  height: 50px;
-  background-color: rgba(221, 221, 221, 0.5);
-  border: none;
-  cursor: pointer;
-}
-.new-lbtn{
-  position: absolute;
-  top: 50%;
-}
-
-.new-rbtn{
-  position: absolute;
-  top: 50%;
-  right: 0;
-}
-
-.new-lbtn img, .new-rbtn img{
-  width: 30px;
-  height: 30px;
-}
-
-/* only */
-.only{
-  width: 1200px;
-  margin: 40px auto;
-  font-size: 2rem;
-
-  position: relative;
-}
-
-.only-title{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
-
-.only-title span{
-  font-size: 2rem;
-}
-
-.only-content{
-  width: 1200px;
-  overflow: hidden;
-}
-
-.only-list{
-  display: flex;
-  justify-content: space-between;
-}
-
-.only-list li{
-  height: 280px;
-}
-
-/* only img */
-.only-img{
-  width: 220px;
-  height: 280px;
-  object-fit: cover;
-  object-position: center;
-}
-
-/* only btn */
-.only-lbtn, .only-rbtn{
-  z-index: 5;
-  width: 50px;
-  height: 50px;
-  background-color: rgba(221, 221, 221, 0.5);
-  border: none;
-  cursor: pointer;
-}
-
-.only-lbtn{
-  position: absolute;
-  top: 50%;
-}
-
-.only-rbtn{
-  position: absolute;
-  top: 50%;
-  right: 0;
-}
-
-.only-lbtn img, .only-rbtn img{
-  width: 30px;
-  height: 30px;
 }
