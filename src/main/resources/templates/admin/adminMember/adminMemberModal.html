@@ -19,7 +19,7 @@
             <td>상태</td>
             <td>
               <div>
-                정상 회원
+                <span>정상 회원</span>
                 <button>수정</button>
               </div>
             </td>
@@ -143,6 +143,70 @@
 
 
 
+
+
+ <!-- 쿠폰 발급 모달창 -->
+ <div class="member-cupon-modal-overlay" id="memberCuponModalOverlay">
+  <div class="member-cupon-modal-window">
+    <table class="member-cupon-modal-table">
+      <tbody>
+        <!-- 6행 6열 -->
+        <tr>
+          <td>회원 이름</td>
+          <td colspan="5">유저일</td>
+        </tr>
+        <tr>
+          <td>가입 환경</td>
+          <td colspan="5">일반 회원 가입</td>
+        </tr>
+        <tr>
+          <td>가입일</td>
+          <td>23-06-01</td>
+          <td>상태</td>
+          <td>
+            <div>
+              <span>정상 회원</span>
+              <button>수정</button>
+            </div>
+          </td>
+          <td>등급</td>
+          <td>
+            <div>
+              <span>실버</span>
+              <button>수정</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>아이디</td>
+          <td>user01</td>
+          <td>생일</td>
+          <td colspan="4">90-05-31</td>
+        </tr>
+        <tr>
+          <td>주소</td>
+          <td colspan="5">서울시 중구 남대문로 120 대일빌딩 2층 kh 정보교육원 종로지원</td>
+        </tr>
+        <tr>
+          <td>기본 배송지</td>
+          <td colspan="5">서울시 중구 남대문로 120 대일빌딩 2층 kh 정보교육원 종로지원</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- 하단 버튼 영역 -->
+    <div class="btn-area btn-to-wright">
+      <button class="button member-cupon-modal-close">닫기</button>                     
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
     
 <script>
     /* 회원 상세 모달 */
@@ -183,6 +247,21 @@
     modal.style.display = "none";
     document.body.style.removeProperty('overflow');
   });
+
+
+
+
+  /* 쿠폰 발급 모달 */
+  const cuponModal = document.getElementById("memberCuponModalOverlay")
+  const OpenCuponModal = document.getElementById("OpenCuponModal");
+
+  /* 쿠폰 버튼 클릭 시 */
+  OpenCuponModal.addEventListener('click', () => {
+    cuponModal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
+  });
+
+  
 </script>
 
 
