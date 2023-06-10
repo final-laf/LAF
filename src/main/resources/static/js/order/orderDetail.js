@@ -1,3 +1,4 @@
+// 모달창 관련
 document.getElementById("orderDetailShipping").addEventListener("click", () => {
   document.getElementById("orderShippingBack").style.display="block";
   document.getElementById("orderShippingContent").style.display="block";
