@@ -1,0 +1,46 @@
+1차 카테고리
+BEST50
+LAFPROJECT
+NEW10%
+TOP
+PANTS
+OUTER
+DRESS
+SKIRT
+BAG/SHOES
+ACC
+오늘출발
+SALE
+
+2차 카테고리
+
+티셔츠, TOP
+맨투맨/후드, TOP
+셔츠/블라우스, TOP
+나시/슬리브리스, TOP
+
+면팬츠, PANTS
+데님, PANTS
+슬랙스, PANTS
+트레이닝/조거, PANTS
+LONG SIZE, PANTS
+
+코트, OUTER
+자켓, OUTER
+점퍼/무스탕, OUTER
+핸드메이드, OUTER
+
+미디/롱, SKIRT
+미니, SKIRT
+
+가방, BAG/SHOES
+신발, BAG/SHOES
+
+쥬얼리, ACC
+양말, ACC
+모자, ACC
+머플러/장갑, ACC
+시계/안경, ACC
+벨트, ACC
+헤어악세사리, ACC
+기타, ACC
