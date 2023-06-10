@@ -6,6 +6,7 @@ import lombok.*;
 public class Qna {
 	private long qnaNo;
 	private long memberNo;
+	private String memberName;
 	private long orderNo;
 	private long productNo;
 	private String qnaCategory;
