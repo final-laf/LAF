@@ -67,11 +67,12 @@ references `coupon` (
 
 -- ------------------------------------------------------------------------------------------------------------- --
 
-SELECT * FROM `member` ;
-UPDATE `member` 
-SET refund_name = '유저이', refund_bank ='국민은행' , refund_account = '779997-07-999119'
-WHERE member_no = 3;
+SELECT * FROM `member` WHERE member_no=1;
 
-COMMIT;
-ROLLBACK;
+SELECT product_name, product_price, product_sale_price , i.img_path, o.`size` , o.color 
+FROM product as p
+JOIN product_img as i ON p.product_no = i.product_no 
+JOIN `option` as o ON p.product_no = o.product_no 
+WHERE p.product_no = 2
+AND option_no = 11;
 
