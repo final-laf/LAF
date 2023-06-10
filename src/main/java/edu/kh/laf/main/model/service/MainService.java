@@ -1,10 +1,9 @@
 package edu.kh.laf.main.model.service;
 
-import edu.kh.laf.product.model.dto.Product;
-
 import java.util.List;
 
-public interface MainService {
+import edu.kh.laf.main.model.dto.Banner;
 
-//    List<Product> selectProductList();
+public interface MainService {
+	List<Banner> selectBannerList();
 }

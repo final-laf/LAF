@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> selectProductList();
-
     Product selectProduct(long productNo);
+    List<Product> selectWeeklyBest(int categoryNo);
+    List<Product> selectCategoryProductList(int categoryNo);
+    List<Product> selectCategoryProductList(int categoryNo, int limit);
+	List<Product> selectPersonalProductList(long memberNo);
+    
 }

@@ -45,7 +45,8 @@ public class DBConfig {
 		sessionFactoryBean.setTypeAliasesPackage(
 				"edu.kh.laf.member.model.dto," +
 				"edu.kh.laf.board.model.dto," +
-				"edu.kh.laf.product.model.dto"
+				"edu.kh.laf.product.model.dto," +
+				"edu.kh.laf.main.model.dto"
 		);
 		
 		return sessionFactoryBean.getObject();

@@ -1,0 +1,32 @@
+<!-- 상품 이미지 -->  
+<a th:href="${'/product/' + product.productNo}">
+  <img class="thumbnail" th:src="${product.thumbnailPath} ?: '/images/common/no-image.png'">
+</a>
+
+<!-- 상품정보(hover일 때 출력) -->
+<div class="hover-info hidden">
+
+  <!-- 상품명 -->
+  <div class="item-name" th:text="${product.productName}">상품명</div>
+  
+  <!-- 상품 가격 정보 -->
+  <div class="item-price-set">
+    <span class="item-price" 
+      th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">상품 할인 가격</span>
+    
+    <!-- 할인된 상품인 경우 할인율, 원래 가격 표기 -->
+    <span class="item-price-discount" th:unless="${product.productSale == 0}"
+      th:text="${product.productSale + '%'}">할인율</span>
+    <span class="item-price-origin" th:unless="${product.productSale == 0}"
+      th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">상품 원래 가격</span>
+  </div>
+
+  <!-- 추가정보(리뷰, 찜 갯수) -->
+  <div class="item-additional-info">
+    <div class="item-rieview-count">
+      리뷰 : <th:block th:text="${product.reviewCount}">리뷰 갯수</th:block>
+    </div>
+    <img src="/images/common/like-fill.svg">
+    <span th:text="${product.likeCount}"></span>
+  </div>
+</div>

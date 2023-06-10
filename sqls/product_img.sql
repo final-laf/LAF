@@ -22,11 +22,10 @@ alter table `product_img` add constraint `fk_product_to_product_img_1` foreign k
 INSERT INTO `product_img`
 VALUES (
 	NULL,	-- 이미지 번호(시퀀스)					
-	1,		-- 상품 번호(외래키)
-	'/images/prouduct/thumbnail/1.gif', 	-- 이미지 경로
+	3,		-- 상품 번호(외래키)
+	'/images/prouduct/thumbnail/3.gif', 	-- 이미지 경로
 	'Y'		-- 썸네일 여부(O)
 );
 
 -- -------------------------------------------------------------------------------------------------------------------------- --
 
-COMMIT;

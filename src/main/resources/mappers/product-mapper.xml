@@ -7,27 +7,90 @@
 		SELECT `product`.product_no,
 				product_name,
 				product_price,
+				product_sale_price,
 				product_sale,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				click_count,
-				img_path AS thumbnail_path
+				img_path AS thumbnail_path,
+				(select count(*) from `like` where  `product`.product_no = `like`.product_no) AS like_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
-		WHERE  `product`.product_no = 1
-				AND img_thumb = 'Y'
+		WHERE  `product`.product_no = ${productNo}
+				AND thumb_fl  = 'Y'
 	</select>
-
-	<!-- 모든 상품 목록 조회 -->
-	<select id="selectProductList" resultType="list">
-		SELECT 	product_no,
+	
+	<!-- 카테고리 별 주간 판매량 순위 -->
+	<!-- TODO: 주문 집계가 되면 판매량으로 재정렬 필요 -->
+	<select id="selectWeeklyBest" resultType="Product">
+		SELECT `product`.product_no,
 				product_name,
 				product_price,
+				product_sale_price,
 				product_sale,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
-				click_count
+				click_count,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
 		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+				JOIN `product_category` ON `product`.product_no = `product_category`.product_no
+		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
+				AND parent_category_no = ${categoryNo}
+		ORDER BY click_count asc, product_sale_price desc
+		LIMIT 7
+	</select>
+	
+	<!-- 카테고리별 상품 목록 조회 -->
+	<select id="selectCategoryProductList" resultType="Product">
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+				JOIN `product_category` ON `product`.product_no = `product_category`.product_no
+		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
+				AND parent_category_no = ${categoryNo}
+		<if test="categoryNo == 10">
+			ORDER BY product_no desc
+		</if>
+		<if test="categoryNo != 10">
+			ORDER BY click_count asc, product_sale_price desc
+		</if>
+		<if test="limit != null">
+			LIMIT ${limit}
+		</if>
+	</select>
+	
+	<!-- 개인별 맞춤 상품 추천 -->
+	<!-- TODO: 개발 진행 후 알고리즘 개선 필요 -->
+	<select id="selectPersonalProductList" resultType="Product">
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
+		ORDER BY click_count asc, product_sale_price desc
+		LIMIT 20
 	</select>
 </mapper>
 
