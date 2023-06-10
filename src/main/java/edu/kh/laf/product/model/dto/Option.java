@@ -1,4 +1,4 @@
-package edu.kh.laf.product.dto;
+package edu.kh.laf.product.model.dto;
 
 import lombok.*;
 

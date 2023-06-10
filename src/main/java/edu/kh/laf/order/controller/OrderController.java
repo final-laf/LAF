@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.order.model.service.OrderService;
-import edu.kh.laf.product.dto.Cart;
+import edu.kh.laf.product.model.dto.Cart;
+import edu.kh.laf.product.model.dto.Product;
 
 @Controller
 public class OrderController {
@@ -29,13 +30,22 @@ public class OrderController {
 		
 		List<Cart> cartList = new ArrayList<>();
 		cartList.add(cart);
+		
+		Cart cart2 = new Cart();
+		cart2.setMemberNo(2);
+		cart2.setProductNo(2);
+		cart2.setOptionNo(11);
+		cart2.setOptionAmount(1);
+		
+		cartList.add(cart2);
 		// ---------------------------
-		
 		// 주문자정보
-		Member orderMember = service.orderInfo(cartList.get(0).getMemberNo());
-		
+		Member orderMember = service.orderMember(cartList.get(0).getMemberNo());
 		model.addAttribute("orderMember", orderMember);
 		
+		// 주문상품정보
+		List<Product> orderList = service.orderList(cartList);
+		model.addAttribute("orderList", orderList);	
 		return "/order/order";
 	}
 	
