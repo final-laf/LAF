@@ -5,6 +5,7 @@ import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.member.model.service.MemberServiceImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -23,16 +25,19 @@ public class MemberController {
     @Autowired
     private MemberService service;
     
+    // 로그인 페이지 이동
 	@GetMapping("/login")
 	public String login() {
 		return "/member/login";
 	}
 	
+	// 회원가입 페이지 이동
 	@GetMapping("/signup")
 	public String signup() {
 		return "/member/signUp";
 	}
 	
+	// 로그인 기능
 	@PostMapping("/login")
 	public String login(Member inputMember, Model model
 			, @RequestHeader(value="referer") String referer
@@ -61,5 +66,15 @@ public class MemberController {
 		
 		return path;
 	}
+
+   // 로그아웃 기능
+   @GetMapping("/logout")
+   public String logout(SessionStatus status, HttpSession session) {
+      status.setComplete(); 
+      return "redirect:/";
+   }
+	
+	
+	
 	
 }
