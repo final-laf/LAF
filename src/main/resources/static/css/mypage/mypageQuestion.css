@@ -4,7 +4,7 @@
     width: 1200px;
 }
 
-.mypageQuestion-dashFrame-myMain{
+.mypageQuestion-mainFrame-myMain{
     height: 482px;
     width: 1020px;
     margin: 80px 0 0 30px;
@@ -16,10 +16,6 @@
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
-}
-.mypageQuestion-MyMain-Question select{
-
-
 }
 
 /* 테이블 구간 */

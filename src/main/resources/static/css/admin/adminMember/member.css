@@ -16,8 +16,8 @@
 .member-search-box{
   width: 85%;
   margin: 70px auto 80px;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .member-search{
@@ -39,7 +39,7 @@
   height: 100%;
   padding-left: 20px;
   margin-right: 10px;
-  background-color: #eee;
+  background-color: #fafafa;;
 }
 
 .member-search select{
@@ -90,15 +90,15 @@
   align-items: center;
   height: 50px;
 
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #eee;
 }
 
 .pretr{
-  background-color: #eee;
+  background-color: #fafafa;;
 }
 
 .member-result:last-child{
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
 }
 
 

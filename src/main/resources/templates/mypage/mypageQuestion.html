@@ -17,49 +17,35 @@
     <section class="mypageQuestion-mainFrame">
       <th:block th:replace="~{/mypage/mypageSide}"></th:block>
       <!-- 마이페이지 중앙 대쉬보드 -->
-      <div class="mypageQuestion-dashFrame-myMain">
+      <div class="mypageQuestion-mainFrame-myMain">
         <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
         <div class="mypageQuestion-myMain-text">1:1 문의 내역</div>
         <div class="mypageQuestion-MyMain-Question">
           <div>
             분류 선택 
-            <select name= "">
+            
+            <select onchange="categoryChange(this)"> <!-- 옵션 선택 시 변경점 바로 적용 -->
               <option value="t">작성 일자별</option>
               <option value="c">답변 유무별</option>
             </select>
           </div>
           <table>
+            <h2 th:each="e:${qnaList}"></h2>
             <tr>
               <th width="60px">번호</th>
-              <th width="150px">분류</th>
-              <th width="500px">제목</th>
+              <th width="180px">분류</th>
+              <th width="530px">제목</th>
               <th width="100px">작성자</th>
               <th width="100px">작성일</th>
-              <th width="60px">조회</th>
             </tr>
-            <!-- 항목 추가~ -->
-            <div th:if>
-              
-            </div>
-            <div th:if>
-              <tr class="mypageQuestion-Question-list">
-                <td>2</td>
-                <td>배송 전 변경/취소</td>
-                <td>↳ 답변 드립니다</td>
-                <td>운영자</td>
-                <td>2023-06-01</td>
-                <td>0</td>
+            <!-- 항목 추가 -->
+              <tr th:each="q,index:${qnaList}" class="mypageQuestion-Question-list">
+                <td th:text="${index.index+1}">번호</td>
+                <td th:text="${q.qnaCategory}">배송카테고리</td>
+                <td th:text="${q.qnaTitle}">제목</td>
+                <td th:text="${q.memberName}">작성자</td>
+                <td th:text="${q.qnaCreateDate}">작성일</td>
               </tr>
-            </div>
-            
-            <tr class="mypageQuestion-Question-list">
-              <td>2</td>
-              <td>배송 전 변경/취소</td>
-              <td>↳ 답변 드립니다</td>
-              <td>운영자</td>
-              <td>2023-06-01</td>
-              <td>0</td>
-            </tr>
             <!-- ~~~~~~~~~~~~~~~ -->
           </table>
           <div class="pagination-area">
@@ -93,7 +79,7 @@
       </div>
     </section>
   </main>
-
   <th:block th:replace="~{/common/footer}"></th:block>
+  <script src="/js/mypage/mypageQuestion.js"></script>
 </body>
 </html>

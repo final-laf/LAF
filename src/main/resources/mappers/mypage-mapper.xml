@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.laf.mypage.model.dao.MypageMapper">
+	
+	
+
+    <select id="qnaList" resultType="Qna">
+        SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=1
+    </select>
+
+</mapper>
+

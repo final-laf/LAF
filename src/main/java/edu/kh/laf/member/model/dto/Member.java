@@ -1,7 +1,5 @@
 package edu.kh.laf.member.model.dto;
 
-import java.sql.Date;
-
 import lombok.*;
 
 @Data

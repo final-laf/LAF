@@ -1,64 +1,62 @@
-
-
-.orderDetail-mainFrame{
+.mypageOrder-mainFrame{
   margin: 0 auto;
   width: 970px;
 }
 
-.orderDetail-mainFrame-order{
+.mypageOrder-mainFrame-order{
   width: 9700px;
   margin: 80px 0 0 0;
 }
-.orderDetail-order-text{
+.mypageOrder-order-text{
   font-weight: bold;
   font-size: 30px;
   display: flex;
   justify-content: center;
   margin-top: 30px;
 }
-.orderDetail-mainFrame-order > div{
+.mypageOrder-mainFrame-order > div{
   font-size: 18px;
   font-weight: bold;
   padding: 0 0 10px 15px;
 }
 
-.orderDetail-mainFrame-order table{
+.mypageOrder-mainFrame-order table{
   border-top: 0.5px solid #eee;
   width: 970px;
   margin-bottom: 40px;
 }
-.orderDetail-mainFrame-order th{
+.mypageOrder-mainFrame-order th{
   padding-left: 15px;
   height: 45px;
   text-align: left;
 }
-.orderDetail-mainFrame-order td{
+.mypageOrder-mainFrame-order td{
   padding-left: 10px;
   padding-top: 10px;
   height: 45px;
 }
-.orderDetail-mainFrame-order input{
+.mypageOrder-mainFrame-order input{
   border: 0.5px solid #eee;
   width: 100%;
   height: 35px;
 }
 /* 이메일 앞부분 */
-.orderDetail-mainFrame-order select{
+.mypageOrder-mainFrame-order select{
   border: 0.5px solid #eee;
   width: 48.9%;
   height: 35px;
 }
 /* 이메일 뒷부분 */
-.orderDetail-mainFrame-order table tr:nth-child(2) td input{
+.mypageOrder-mainFrame-order table tr:nth-child(2) td input{
   width: 49%;
 }
 
 /* 전화번호 앞부분 */
-.orderDetail-order-tel select{
+.mypageOrder-order-tel select{
   width: 32%;
 }
 /* 전화번호 뒷부분 */
-.orderDetail-order-tel input{
+.mypageOrder-order-tel input{
   width: 32.5%;
 }
 
@@ -72,29 +70,29 @@
   width: 150px;
 }
 /* 배송지 라디오버튼 */
-.orderDetail-order-shipping div{
+.mypageOrder-order-shipping div{
   display: flex;
   justify-content: space-between;
 }
-.orderDetail-order-shipping input{
+.mypageOrder-order-shipping input{
   width: 18px;
 }
-.orderDetail-order-shipping label{
+.mypageOrder-order-shipping label{
   padding: 0 10px 0 10px;
   display: flex;
   align-items: center;
 }
-.orderDetail-order-defaultShipping{
+.mypageOrder-order-defaultShipping{
   display: flex;
   align-items: center;
 }
-.orderDetail-order-defaultShipping input{
+.mypageOrder-order-defaultShipping input{
   width: 15px;
   margin-right: 10px;
 }
 
 /* 주문 상품 */
-#orderDetailProduct input{
+#mypageOrderProduct input{
   width: 15px;
 }
 .mypageOrder-order-info th{
@@ -127,88 +125,127 @@
   padding: 0 5px;
 }
 /* 할인/부가결제 */
-#orderDetailDiscount > tbody> tr{
+#mypageOrderDiscount > tbody> tr{
   display: flex;
   justify-content: space-between;
   padding-right: 10px;
 }
 
 /* 할인/부가결제 */
-#orderDetailDiscount > tbody> tr>th{
+#mypageOrderDiscount > tbody> tr>th{
   display: flex;
   align-items:center;
 }
 /* 상품 할인  */
-#orderDetailDiscount > tbody> tr:nth-child(1)>th{
+#mypageOrderDiscount > tbody> tr:nth-child(1)>th{
   padding-right: 67px;
 }
 
 /* 쿠폰적용 버튼 */
-#orderDetailDiscount > tbody> tr:nth-child(2) > th:nth-child(1) {
+#mypageOrderDiscount > tbody> tr:nth-child(2) > th:nth-child(1) {
   display: flex;
   align-items:center;
 }
 /* 쿠폰적용 버튼 */
-#orderDetailDiscount > tbody> tr:nth-child(2) > th:nth-child(2) {
+#mypageOrderDiscount > tbody> tr:nth-child(2) > th:nth-child(2) {
   display: flex;
   align-items:center;
 }
 /*  */
-#orderDetailDiscount > tbody> tr:nth-child(2) > th:nth-child(2) >div {
+#mypageOrderDiscount > tbody> tr:nth-child(2) > th:nth-child(2) >div {
   margin-right: 10px;
 }
 /* 적립금 */
-#orderDetailDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div {
+#mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div {
   margin-right: 10px;
 }
-#orderDetailDiscount > tbody> tr:nth-child(4) {
+#mypageOrderDiscount > tbody> tr:nth-child(4) {
   padding-right: 78px;
 }
-#orderDetailDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
+#mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
   width: 720px;
 }
 /* 할인 적용 금액 */
-#orderDetailDiscount > tbody> tr:nth-child(4){
+#mypageOrderDiscount > tbody> tr:nth-child(4){
   border-top: 0.5px solid #eee;
   border-bottom: 0.5px solid #eee;
   font-weight: bold;
 }
-#orderDetailDiscount > tbody> tr:nth-child(4) > th:nth-child(1){
+#mypageOrderDiscount > tbody> tr:nth-child(4) > th:nth-child(1){
   font-weight: bold;
 }
-.orderDetailDiscountRed {
+.mypageOrderDiscountRed {
   font-weight: bold;
   color: red;
 }
 
 /* 결제정보 */
-#orderDetailInfo > tbody> tr{
+#mypageOrderInfo > tbody> tr{
   display: flex;
   justify-content: space-between;
   padding-right: 10px;
 }
-#orderDetailInfo > tbody> tr:nth-child(1){
+#mypageOrderInfo > tbody> tr:nth-child(1){
   padding-top: 20px;
 }
-#orderDetailInfo > tbody> tr:nth-child(4){
+#mypageOrderInfo > tbody> tr:nth-child(4){
   padding-top: 20px;
   border-top: 0.5px solid #eee;
   border-bottom: 0.5px solid #eee;
 }
-#orderDetailInfo > tbody> tr:nth-child(4) > th{
+#mypageOrderInfo > tbody> tr:nth-child(4) > th{
   font-weight: bold;
 }
 
 /* 결제수단 */
-#orderDetailHow > tbody> tr{
+#mypageOrderHow > tbody> tr{
   display: flex;
   justify-content: space-between;
   padding-right: 10px;
 }
-#orderDetailHow > tbody> tr:nth-child(1){
-  padding-top: 15px;
+#mypageOrderHow > tbody> tr:nth-child(1){padding-top: 15px}
+
+#mypageOrderHow > tbody > tr:nth-child(2) > th > div >select{
+  padding-left: 30px;
+  width: 800px;
 }
-#orderDetailHow > tbody> tr:nth-child(1) button{
+#mypageOrderHow > tbody> tr:nth-child(1) button{margin: 0 10px 0 0}
+#mypageOrderHow > tbody > tr:nth-child(2){
+  display: block;
+  border: 0.5px solid #eee;
+}
+#mypageOrderHow > tbody > tr:nth-child(2) > th > div{
+  display: flex;
+  padding-top : 15px;
+  padding-bottom : 15px;
+}
+#mypageOrderHow > tbody > tr:nth-child(2) > th > div >div{
+  display: flex;
+  align-items: center;
   width: 100px;
-  margin: 0 10px;
+}
+#mypageOrderHow > tbody > tr:nth-child(2) > th > div >input{
+  padding-left: 30px;
+  width: 800px;
+}
+.mypageOrderTerms div{
+  font-weight: bold;
+  padding:15px 0 15px 10px 
+}
+/* 결제하기 버튼쪽 */
+.mypageOrderTerms div:nth-child(3){
+  display: flex;
+  font-weight: bold;
+  padding:15px 0 15px 10px; 
+  width: 500px;
+  margin: 0 auto;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.mypageOrderTerms div:nth-child(3) button{
+  width: 300px;
+  height: 50px;
+  color: #eee;
+  background-color: #7f7698;
 }

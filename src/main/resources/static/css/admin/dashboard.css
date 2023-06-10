@@ -27,7 +27,7 @@
 
 .today-img{
     border-radius: 50%;
-    background-color: #ccc;
+    background-color: #fafafa;
 
     width: 80px;
     height: 80px;
@@ -103,11 +103,11 @@
 .order-list li{
     display: flex;
     height: 70px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
 }
 
 .order-list li:nth-child(1){
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #eee;
 }
 
 .order-list li div{
@@ -118,7 +118,7 @@
 
 .order-cat{
     width: 200px;
-    background-color: #eee;
+    background-color: #fafafa;
 }
 
 .order-count{
@@ -161,11 +161,11 @@
 .current-list li{
     display: flex;
     height: 70px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
 }
 
 .current-list li:nth-child(1){
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #eee;
 }
 
 .current-list li div{
@@ -176,7 +176,7 @@
 
 .current-cat{
     width: 200px;
-    background-color: #eee;
+    background-color: #fafafa;
 }
 
 .current-count{

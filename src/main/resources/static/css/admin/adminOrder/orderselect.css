@@ -1,6 +1,5 @@
 .order-select{
   width: 1200px;
-  height: 550px;
 
   margin: 0 30px 30px;
   padding: 30px;
@@ -12,4 +11,171 @@
 
 .order-select-title{
   font-size: 2.5rem;
+}
+
+/* order-select-box */
+.order-select-box{
+  padding: 50px 70px;
+}
+/* order-select-top */
+.order-select-top{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.order-select-top tr{
+  height: 50px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-select-top tr:nth-child(1){
+  border-top: 1px solid #eee;
+}
+
+.order-select-top td{
+  padding: 10px 20px;
+}
+
+.order-select-top td:nth-child(1){
+  width: 120px;
+  height: 50px;
+  background-color: #fafafa;;
+  border-right: 1px solid #eee;
+  text-align: center;
+}
+
+.order-select-top select{
+  width: 120px;
+  height: 30px;
+  margin-right: 20px;
+}
+
+.order-select-top option{
+  height: 30px;
+}
+
+.order-select-top tr:nth-child(1) input{
+  width: 500px;
+  height: 30px;
+}
+
+.order-select-top tr:nth-child(3)>td:nth-child(2)>div,
+.order-select-top tr:nth-child(4)>td:nth-child(2)>div{
+  display: flex;
+  align-items: center;
+}
+
+.order-select-top input[type=checkbox]{
+  margin: 0 10px;
+}
+
+.order-select-top tr:nth-child(2)>td:nth-child(2)>div *{
+  margin-right: 5px;
+}
+
+.order-select-top tr:nth-child(2)>td:nth-child(2)>div button{
+  background-color: #ccc;
+  color: white;
+  width: 60px;
+}
+
+.order-select-btn{
+  margin-left: auto;
+  width: 220px;
+}
+
+.order-select-btn *{
+  width: 100px;
+  height: 30px;
+  color: white;
+  letter-spacing: 3px;
+  margin-left: 5px;
+}
+
+.order-select-btn>button:nth-child(1){background-color: #7f7698;}
+.order-select-btn>button:nth-child(2){background-color: #ccc;}
+
+
+/* .order-select-list */
+.order-select-list{
+  padding: 50px 70px;
+}
+
+.order-select-table-title>div:nth-child(1){
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.order-select-table-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 10px;
+  border: 1px ;
+}
+
+.order-select-table-title button{
+  margin: 0 5px;
+  width: 100px;
+  height: 30px;
+  background-color: #7f7698;
+  color: white;
+
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+/* order-select-bottom */
+.order-select-table{
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+}
+
+.order-select-table tr{
+  height: 50px;
+}
+
+.order-select-table td{
+  padding: 5px;
+}
+
+.order-select-table tr:nth-child(1){
+  background-color: #fafafa;
+  text-align: center;
+}
+
+.order-select-table tr:nth-child(2)>td:nth-child(1),
+.order-select-table tr:nth-child(2)>td:nth-child(4),
+.order-select-table tr:nth-child(2)>td:nth-child(6){
+  text-align: center;
+}
+
+.order-select-table tr:nth-child(2)>td:nth-child(5){
+  text-align: end;
+}
+
+.order-select-table input{
+  margin-right: 5px;
+}
+
+.order-select-table img{
+  width: 100px;
+  margin-right: 5px;
+}
+
+.order-select-table tr:nth-child(2)>td:nth-child(2)>div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-select-table tr:nth-child(2)>td:nth-child(3) p{
+  width: 230px;
+}
+
+.order-select-table tr:nth-child(2)>td:nth-child(3) p:nth-child(2){
+  color: #ccc;
+  margin-top: 5px;
 }

@@ -42,7 +42,10 @@ public class DBConfig {
 		sessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
 		
 		// alias 
-		sessionFactoryBean.setTypeAliasesPackage("edu.kh.laf.member.model.dto");
+		sessionFactoryBean.setTypeAliasesPackage("edu.kh.laf.member.model.dto,"
+											+ " edu.kh.laf.board.model.dto,"
+											+ " edu.kh.laf.order.model.dto,"
+											+ " edu.kh.laf.product.dto");
 		
 		return sessionFactoryBean.getObject();
 	}

@@ -6,5 +6,6 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	<typeAliases>
+		
 	</typeAliases>
 </configuration>
