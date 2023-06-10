@@ -67,3 +67,11 @@ references `coupon` (
 
 -- ------------------------------------------------------------------------------------------------------------- --
 
+SELECT * FROM `member` ;
+UPDATE `member` 
+SET refund_name = '유저이', refund_bank ='국민은행' , refund_account = '779997-07-999119'
+WHERE member_no = 3;
+
+COMMIT;
+ROLLBACK;
+
