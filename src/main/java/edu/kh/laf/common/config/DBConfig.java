@@ -43,10 +43,11 @@ public class DBConfig {
 		
 		// alias 
 		sessionFactoryBean.setTypeAliasesPackage(
-				"edu.kh.laf.member.model.dto," +
-				"edu.kh.laf.board.model.dto," +
-				"edu.kh.laf.product.model.dto," +
-				"edu.kh.laf.main.model.dto"
+				  "edu.kh.laf.member.model.dto,"
+				+ "edu.kh.laf.board.model.dto,"
+				+ "edu.kh.laf.product.model.dto,"
+        + "edu.kh.laf.order.model.dto," 
+			  + "edu.kh.laf.main.model.dto"
 		);
 		
 		return sessionFactoryBean.getObject();

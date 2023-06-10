@@ -67,3 +67,12 @@ references `coupon` (
 
 -- ------------------------------------------------------------------------------------------------------------- --
 
+SELECT * FROM `member` WHERE member_no=1;
+
+SELECT product_name, product_price, product_sale_price , i.img_path, o.`size` , o.color 
+FROM product as p
+JOIN product_img as i ON p.product_no = i.product_no 
+JOIN `option` as o ON p.product_no = o.product_no 
+WHERE p.product_no = 2
+AND option_no = 11;
+

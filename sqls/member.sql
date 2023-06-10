@@ -17,3 +17,36 @@ SELECT * FROM `member`;
   AND MEMBER_ID = 'admin';	
   
  
+ 
+ INSERT INTO `member` 
+ VALUES (NULL, 'user01', 'pass01!', '유저일', NULL, NULL, 
+ 'user01@kh.or.kr', '01012341234', NULL, 2, DEFAULT, 
+ DEFAULT, NULL, NULL, DEFAULT, DEFAULT, DEFAULT, NULL, NULL, NULL);
+ 
+ INSERT INTO `member` 
+ VALUES (NULL, 'user02', 'pass02!', '유저이', NULL, NULL, 
+ 'user02@kh.or.kr', '01043214321', NULL, 2, DEFAULT, 
+ DEFAULT, NULL, NULL, 2000, 35000, DEFAULT, NULL, NULL, NULL);
+ 
+ INSERT INTO `member` 
+ VALUES (NULL, 'user03', 'pass03!', '유저삼', NULL, NULL, 
+ 'user03@kh.or.kr', '01055558888', NULL, 2, DEFAULT, 
+ DEFAULT, NULL, NULL, 2000, 55000, DEFAULT, NULL, NULL, NULL);
+ 
+ INSERT INTO `member` 
+ VALUES (NULL, 'user04', 'pass04!', '유저사', NULL, NULL, 
+ 'user04@kh.or.kr', '01044444444', NULL, 2, DEFAULT, 
+ DEFAULT, NULL, NULL, 5000, 90000, DEFAULT, NULL, NULL, NULL);
+ 
+ INSERT INTO `member` 
+ VALUES (NULL, 'user05', 'pass05!', '유저오', NULL, NULL, 
+ 'user05@kh.or.kr', '01055555555', NULL, 2, DEFAULT, 
+ DEFAULT, NULL, NULL, 2000, DEFAULT, DEFAULT, NULL, NULL, NULL);
+ 
+ INSERT INTO `member` 
+ VALUES (NULL, 'user06', 'pass06!', '유저육', NULL, NULL, 
+ 'user06@kh.or.kr', '01066666666', NULL, 2, DEFAULT, 
+ DEFAULT, NULL, NULL, 10000, 125000, DEFAULT, NULL, NULL, NULL);
+
+COMMIT;
+ 

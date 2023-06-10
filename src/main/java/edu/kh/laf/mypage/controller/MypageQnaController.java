@@ -23,7 +23,7 @@ public class MypageQnaController {
 	// 1:1 문의 내역
 	@GetMapping("/my/qna")
 	public String qna(@SessionAttribute("loginMember") Member loginMember, Model model
-			,HttpServletResponse resp) {
+			) {
 		
 		
 		

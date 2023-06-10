@@ -16,17 +16,17 @@
     <section class="mypageOrder-mainFrame">
       <div class="mypageOrder-order-text">주문</div>
       <!-- 주문 정보 -->
-      <div class="mypageOrder-mainFrame-order">
+      <div th:object="${orderMember}" class="mypageOrder-mainFrame-order">
         <div>주문정보</div>
         <table>
           <tr>
             <th width="100px">주문자</th>
-            <td><input type="text"></td>
+            <td><input type="text" th:value="*{memberName}"></td>
           </tr>
           <tr>
             <th>이메일</th>
             <td>
-              <input type="text">@
+              <input type="text" th:value="*{memberEmail}">@
               <select name="" id="">
                 <option value="">naver.com</option>
                 <option value="">google.com</option>
@@ -43,7 +43,7 @@
                 <option value="">010</option>
               </select> -
               <input type="text">-
-              <input type="text">
+              <input type="text" th:value="*{memberPhone}">
             </td>
           </tr>
           <tr>
@@ -65,17 +65,17 @@
           <tr>
             <th rowspan="3">환불정보</th>
             <td>
-              <input type="text" placeholder="예금주">
+              <input type="text" th:value="*{refundName}" placeholder="예금주">
             </td>
           </tr>
           <tr>
             <td>
-              <input type="text" placeholder="은행명">
+              <input type="text" th:value="*{refundBank}" placeholder="은행명">
             </td>
           </tr>
           <tr>
             <td>
-              <input type="text" placeholder="계좌번호">
+              <input type="text" th:value="*{refundAccount}" placeholder="계좌번호">
             </td>
           </tr>
         </table>
@@ -141,18 +141,18 @@
             <th width="100px">상품구매금액</th>
             <th width="80px">할인금액</th>
           </tr>
-          <tr>
+          <tr th:each="order : ${orderList}">
             <td>
               <input type="checkbox" name="" id="">
             </td>
             <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
             <td>
-              <div>[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</div>
+              <div th:text="${order.productName}">[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</div>
               <div>[옵션 : 내츄럴 크림]</div>
             </td>
-            <td>1</td>
-            <td>35,500</td>
-            <td class="mypageOrderDiscountRed">-1,500원</td>
+            <td th:text="${order.optionAmount}">1</td>
+            <td th:text="${order.productPrice}">35,500</td>
+            <td th:unless="${(order.productPrice - order.productSalePrice) == 0}" th:text="'-' + ${order.productPrice - order.productSalePrice} + '원'" class="mypageOrderDiscountRed">-1,500원</td>
           </tr>
           <tr>
             <td colspan="6">

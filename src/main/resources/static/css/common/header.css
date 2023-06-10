@@ -116,7 +116,7 @@ label[for='menuList'] {
 .header-nav-catagory-menu li>a:hover{
     color: #DAD5E4;
 }
-
+/* icon */
 .header-nav-icon{
     display: flex;
     margin-right: 20px;
@@ -126,6 +126,12 @@ label[for='menuList'] {
     margin: 0 8px;
     height: 20px;
     width: auto;
+}
+
+.header-nav-icon span{
+    position:absolute;
+    top: 15px;
+    right: 130px;
 }
 
 /* quick menu */

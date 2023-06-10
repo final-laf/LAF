@@ -291,7 +291,7 @@ document.getElementById("mypageSignUpRefundNo").addEventListener("input", () => 
 
 
 
-
+//약관 전체 동의 시 전체 적용 or 전체 해제
 document.getElementById("mypageSignUptermsAll").addEventListener("click", e=>{
     const allButton = document.getElementById("mypageSignUptermsAll")
     const useButton = document.getElementById("mypageSignUptermsUse")
@@ -312,6 +312,7 @@ document.getElementById("mypageSignUptermsAll").addEventListener("click", e=>{
         return;
     }
 });
+// 약관 동의 체크
 const terms = document.getElementsByClassName("mypageSignUp-terms-content");
 for(let i=0; i<terms.length; i++) {
   terms[i].addEventListener("click", () => {

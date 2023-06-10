@@ -5,7 +5,7 @@
 	
 
     <select id="qnaList" resultType="Qna">
-        SELECT * FROM qna WHERE member_no=1;
+        SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=1
     </select>
 
 </mapper>
