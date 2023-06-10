@@ -1,18 +1,22 @@
+// MD추천 : 아이템 1개씩 슬라이드
 function slide1(slide_wrap) {
   const slideList = slide_wrap.querySelector('.slide_list_sub');  // Slide parent dom
   const slideContents = slide_wrap.querySelectorAll('.slide_content_sub');  // each slide dom
   const slideBtnNext = slide_wrap.querySelector('.slide_btn_next_sub'); // next button
   const slideBtnPrev = slide_wrap.querySelector('.slide_btn_prev_sub'); // prev button
   const slideLen = slideContents.length;  // slide length
-  const slideWidth = 300; // slide width
+  const slideWidth = 290; // slide width
   const slideSpeed = 300; // slide speed
   const startNum = 3; // initial slide index (0 ~ 4)
   
   slideList.style.width = slideWidth * (slideLen + 8) + "px";
   
-  for(let i=0; i<4; i++) {
+  const limit = slideLen < 4 ? slideLen : 4;
+  for(let i=0; i<limit; i++) {
     let clonedFrontChild = slideContents[i].cloneNode(true);
     let clonedRearChild = slideContents[slideLen-1-i].cloneNode(true);
+    hoverInfo(clonedFrontChild);
+    hoverInfo(clonedRearChild);
     slideList.appendChild(clonedFrontChild);
     slideList.insertBefore(clonedRearChild, slideList.firstElementChild);
   }
@@ -65,13 +69,14 @@ slide1(md_reccomend);
 
 
 
-
+// 신규상품, 추천상품 : 한 페이지(아이템 5개)씩 슬라이드
 function slide2(slide_wrap) {
   const slideList = slide_wrap.querySelector('.slide_list_sub');  // Slide parent dom
 
   // 슬라이드 아이템 5의 배수로 맞춰주기
   let slideContents = slide_wrap.querySelectorAll('.slide_content_sub');  // each slide dom
-  for(let i=0; i<(5 - slideContents.length % 5); i++) { 
+  for(let i=0; i<(5 - slideContents.length % 5); i++) {
+    if( slideContents.length % 5 == 0 ) break;
     let dummyChild = document.createElement('li');
     dummyChild.classList.add('slide_content_sub');
     slideList.appendChild(dummyChild);
@@ -80,8 +85,8 @@ function slide2(slide_wrap) {
 
   const slideBtnNext = slide_wrap.querySelector('.slide_btn_next_sub'); // next button
   const slideBtnPrev = slide_wrap.querySelector('.slide_btn_prev_sub'); // prev button
-  const slideLen = slideContents.length / 5;  // slide length
-  const slideWidth = 1200; // slide width
+  const slideLen = Math.ceil(slideContents.length / 5);  // slide length
+  const slideWidth = 1210; // slide width
   const slideSpeed = 300; // slide speed
   const startNum = 0; // initial slide index (0 ~ 4)
 

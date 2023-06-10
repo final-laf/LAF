@@ -1,7 +1,14 @@
 /* main */
+main {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* 메인 banner 무한 슬라이드 */
 .slide_wrap { 
-  position: relative; 
+  position: relative;
+  display: block;
 }
 .slide_box { 
   overflow-x: hidden; 
@@ -84,12 +91,10 @@
   height: 100%; 
 }
 
-
-
 /* main product */
 .main-product{
   width: 1200px;
-  margin: 100px auto;
+  margin: 100px 0;
   display: flex;
   justify-content: space-between;
 }
@@ -115,80 +120,31 @@
   object-position: center;
 }
 
-/* ------------------상품 설명 hover---------------- */
-#imgDescription{
-  position: absolute;
-  bottom: 0;
-  
-  width: 100%;
-  height: 120px;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.7);
-  
-  font-size: 1rem;
-
-  pointer-events: none;
-}
-
-#imgDescription .item-name {
-  font-size: 1.2rem;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-#imgDescription .item-price {
-  font-size: 2.2rem;
-}
-
-span.item-price-origin{
-  margin-left: 5px;
-  color: #666;
-  font-size: 1.8rem;
-}
-
-#imgDescription .item-rieview-count {
-  margin-top: 5px;
-  font-size: 1.2rem;
-  color: #666;
-}
-
-/* ------------------------------------------------ */
-
 /* md recommend */
 .md-recommend {
   width: 1200px;
-  margin: 100px auto;
+  margin: 40px 0;
   font-size: 2rem;
   display: flex;
 }
-
 .md-recommend-left{
   margin-top: 60px;
   position: relative;
   width: 700px;
 }
-
 .md-recommend-left p:nth-child(1){
   font-weight: bold;
 }
-
 .md-recommend-left p:nth-child(2){
   margin: 15px 0;
   font-size: 1.4rem;
 }
-
 .md-recommend-btn{
   position: absolute;
   bottom: 15px;
   display: flex;
   justify-content: center;
 }
-
 .md-recommend-btn button {
   cursor: pointer;
   width: 40px;
@@ -201,29 +157,24 @@ span.item-price-origin{
 .md-recommend-btn button:first-child {
   margin-right: 5px;
 }
-
 .md-recommend-btn img{
   width: 20px;
   height: 20px;
 }
-
 .md-recommend-right{
   overflow: hidden;
 }
-
 .md-recommend-list{
   display: flex;
   justify-content: center;
 }
-
 .md-recommend-list > li{
   height: 360px;
   width: 280px;
-  margin: 10px;
+  margin: 5px;
   position: relative;
 }
-
-.md-recommend-img{
+.md-recommend .thumbnail {
   height: 360px;
   width: 280px;
   object-fit: cover;
@@ -235,87 +186,90 @@ span.item-price-origin{
 /* weekly */
 .weekly{
   width: 1200px;
-  margin: 40px auto;
+  margin: 50px 0;
   font-size: 2rem;
 }
-
 .weekly-title {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px 0;
+  margin: 50px 0;
 }
-
-.weekly-title span{
+.weekly-title span {
   font-size: 2rem;
 }
-
-.weekly-title button{
+.weekly-title button {
   width: 120px;
   height: 40px;
   border: none;
-  border-radius: 5px;
-  
-  margin: 20px 5px 10px;
-
+  border-bottom: 2px solid white;
+  margin: 20px 10px 0;
   font-weight: bold;
   font-size: 1.3rem;
   letter-spacing: 3px;
-
-  background-color: #DAD5E4;
+  background-color: #f9f4f5;
   cursor: pointer;
+  transition-duration: 0.2s;
+  border-radius: 0;
 }
-
-.weekly-title button:hover{
-  color: white;
-  background-color: #493E5D !important;
+.weekly-title button:hover {
+  background-color: white;
+  transition-duration: 0.2s;
 }
-
-.weekly-button-select{
-  color: white;
-  background-color: #493E5D !important;
+button.current {
+  background-color: white;
+  border-bottom: 2px solid #f9f4f5 !important;
 }
-
-.weekly table{
+#weeklyProductContainer {
   width: 100%;
+  display: grid;
+  row-gap: 10px;
+  column-gap: 10px;
+  grid-template-columns: 400px repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 }
-
-.weekly table td{
+.weekly-product { 
+  display: block;
   position: relative;
 }
-
-.weekly-big-img{
-  padding: 5px;
-  width: 400px;
-  height: 670px;
-  object-fit: cover;
-  object-position: center;
+.weekly-product:first-child {
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
-
-.weekly-img{
-  padding: 5px;
-  width: 250px;
+.weekly-product a { 
+  display: block;
+}
+.weekly .thumbnail {
+  display: block;
+  width: 256.66px;
   height: 330px;
   object-fit: cover;
   object-position: center;
 }
-
+.weekly-product:first-child .thumbnail {
+  width: 400px;
+  height: 670px;
+}
+.weekly-product:first-child .hover-info {
+  height: 130px;
+  padding: 30px;
+}
 
 /* sub-section */
 .sub-section {
-  width: 1200px;
-  margin: 40px auto;
+  width: 1210px;
+  margin: 50px 0;
   font-size: 2rem;
   position: relative;
 }
 .sub-section-title{
   font-size: 2rem;
   text-align: center;
-  margin: 100px 0 20px 0;
+  margin: 50px 0;
 }
 .sub-section-content {
-  width: 1200px;
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
@@ -325,21 +279,75 @@ span.item-price-origin{
   
 }
 .sub-section-list li {
-  height: 280px;
-  width: 220px;
-  margin: 0 10px;
+  width: 230px;
+  height: 300px;
+  margin: 0 5px;
+  position: relative;
 }
 .sub-section-content > button {
-  top: 120px;
+  top: 130px;
   margin: 0 20px;
   background-color: #eeeeee60;
 }
 .sub-section-content > button:hover {
   background-color: #eeeeee90;
 }
-.sub-section-img {
-  width: 220px;
-  height: 280px;
+.sub-section-content .thumbnail  {
+  width: 230px;
+  height: 300px;
   object-fit: cover;
   object-position: center;
+}
+
+/* 상품 설명 hover */
+.hover-info {
+  position: absolute;
+  bottom: 0;
+  
+  width: 100%;
+  height: 120px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  pointer-events: none;
+}
+.hover-info .item-name {
+  font-size: 1.2rem;
+  white-space: wrap;
+  line-height: 160%;
+  margin-bottom: 5px;
+  justify-self: flex-start;
+}
+.hover-info .item-price {
+  font-size: 2rem;
+}
+.hover-info .item-price-discount {
+  color: #D66600;
+  font-size: 1.6rem;
+  margin: 0 3px;
+}
+.hover-info .item-price-origin {
+  color: #666;
+  font-size: 1.4rem;
+  text-decoration: line-through;
+}
+.hover-info .item-additional-info {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+}
+.hover-info .item-additional-info * {
+  font-size: 1.2rem;
+  color: #666;
+}
+.hover-info img {
+  display: block;
+  height: 10px;
+  width: auto;
+  margin: 0 5px 0 20px;
 }
