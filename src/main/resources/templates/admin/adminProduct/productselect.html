@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/admin/adminProduct/productselect.css">
+  <link rel="stylesheet" href="/css/admin/adminProduct/productenroll.css">
   <title>관리자 :: 상품조회</title>
 </head>
 <body>
@@ -106,7 +107,7 @@
                 </select>
               </td>
               <td>
-                <button type="button">수정</button>
+                <button type="button" class="modify-product">수정</button>
               </td>
             </tr>
             <tr>
@@ -133,7 +134,7 @@
                 </select>
               </td>
               <td>
-                <button type="button">수정</button>
+                <button type="button" class="modify-product">수정</button>
               </td>
             </tr>
             <tr>
@@ -160,13 +161,14 @@
                 </select>
               </td>
               <td>
-                <button type="button">수정</button>
+                <button type="button" class="modify-product">수정</button>
               </td>
             </tr>
           </table>
         </div>
       </div>
     </section>
+    <th:block th:replace="~{admin/adminProduct/productModal}"></th:block>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>

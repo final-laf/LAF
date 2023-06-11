@@ -41,7 +41,7 @@
           <div class="member-result-top">
             <div>최근가입일순(검색결과 7 건)</div>
             <div>
-              <button type="button">적립금 지급</button>
+              <button type="button" id="OpenPointModal">적립금 지급</button>
               <button type="button" id="OpenCuponModal">쿠폰 지급</button>
             </div>
           </div>
@@ -101,7 +101,7 @@
       </div>
     </section>
     <!-- 리뷰 모달(상세조회, 수정) -->
-    <th:block th:replace="~{admin/adminMember/adminMemberModal}"></th:block>
+    <th:block th:replace="~{admin/adminMember/memberModal}"></th:block>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>

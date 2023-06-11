@@ -1,25 +1,9 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/admin/adminProduct/productEnroll.css">
-  <title>관리자 :: 상품등록</title>
-</head>
-<body>
-
-  <th:block th:replace="~{/admin/adminHeader}"></th:block>
-  
-  <main>
-    <section class="admin-container">
-      <div class="control-classify">
-        <a href="/admin/product"><span>상품 조회</span></a>
-        <a href="/admin/product/enroll"><span class="control-classify-select">상품 등록</span></a>
-      </div>
-      <div class="product-enroll">
+<!-- 회원 상세 모달창 -->
+<div class="product-modal-overlay" id="productModalOverlay">
+  <div class="product-modal-window">
+      <div>
         <div>
-          <span class="product-enroll-title">상품 등록</span>
+          <span class="product-enroll-title">상품 수정</span>
         </div>
         <div class="enroll-search-box">
           <table class="enroll-top-table">
@@ -125,12 +109,51 @@
         </div>
       </div>
       <div class="enroll-completted-btn">
-        <button type="button">등록</button>
+        <button type="button">수정</button>
+        <button type="button" class="product-modal-close">취소</button>
       </div>
-    </section>
-  </main>
+    </div>
+  </div>
+</div>
 
-  <th:block th:replace="~{/common/footer}"></th:block>
+<script>
 
-</body>
-</html>
+  /* 상품 상세 모달 */
+const productModal = document.getElementById("productModalOverlay")
+const selectedProduct = document.getElementsByClassName("modify-product")
+
+
+for(let product of selectedProduct) {
+
+  /* 상품 목록에서 한 회원 클릭시 */
+  product.addEventListener('click', () => {
+    productModal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
+  });
+
+};
+    
+/* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
+productModal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("product-modal-overlay")) {
+      productModal.style.display = "none";
+        document.body.style.removeProperty('overflow');
+    }
+});
+
+/* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
+window.addEventListener("keyup", e => {
+    if(productModal.style.display === "flex" && e.key === "Escape") {
+      productModal.style.display = "none"
+        document.body.style.removeProperty('overflow');
+    }
+});
+
+/* 모달창 내부 닫기 버튼 */
+const productModalClose = document.getElementsByClassName("product-modal-close")[0];
+productModalClose.addEventListener("click", e => {
+  productModal.style.display = "none";
+    document.body.style.removeProperty('overflow');
+});
+</script>
