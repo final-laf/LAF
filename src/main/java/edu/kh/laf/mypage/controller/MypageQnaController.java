@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.mypage.model.service.MypageServiceimpl;
+import edu.kh.laf.mypage.model.service.MypageServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class MypageQnaController {
 	@Autowired
-	private MypageServiceimpl qnaService;
+	private MypageServiceImpl qnaService;
 	
 	
 	// 1:1 문의 내역
