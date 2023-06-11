@@ -10,4 +10,5 @@ import edu.kh.laf.board.model.dto.Notice;
 public interface NoticeMapper {
 	
 	List<Notice> noticeList();
+	
 }
