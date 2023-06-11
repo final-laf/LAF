@@ -7,19 +7,20 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
-import edu.kh.laf.mypage.model.dao.MypageDAO;
+import edu.kh.laf.mypage.model.dao.MypageReviewDAO;
 
 @Service
-public class MypageServiceImpl implements MypageService {
+public class MypageReviewServiceImpl implements MypageReviewService {
 	@Autowired
-	private MypageDAO dao;
-	
-	
+	private MypageReviewDAO dao;
+
 	@Override
-	public List<Qna> qnaList(Long memberNo) {
-		return dao.qnaList(memberNo);
+	public List<Review> myReview(Long memberNo) {
+		return dao.myReview(memberNo);
 	}
 
 
+	
+	
 
 }

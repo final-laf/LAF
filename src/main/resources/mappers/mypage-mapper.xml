@@ -3,10 +3,17 @@
 <mapper namespace="edu.kh.laf.mypage.model.dao.MypageMapper">
 	
 	
-
+	<!-- qnaList -->
     <select id="qnaList" resultType="Qna">
         SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=1
     </select>
+     
+	<!-- myReviewList -->
+     <select id="myReview" resultType="Review">
+        SELECT * FROM `order` WHERE member_no=#{memberNo} AND review_no IS NULL
+    </select>
+    
+    
 
 </mapper>
 
