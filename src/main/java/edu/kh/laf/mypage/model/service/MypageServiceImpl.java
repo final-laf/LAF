@@ -9,7 +9,7 @@ import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.mypage.model.dao.MypageDAO;
 
 @Service
-public class MypageServiceimpl implements MypageService {
+public class MypageServiceImpl implements MypageService {
 	@Autowired
 	private MypageDAO dao;
 	

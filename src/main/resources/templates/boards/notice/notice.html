@@ -42,76 +42,12 @@
           <!-- 게시판 본문 -->
           <tbody>
 
-            <tr>
-              <td>10</td>
-              <td>테스트 제목 입니다</td>
+            <tr th:each="q,index:${noticeList}">
+              <td th:text="${index.index+1}">번호</td>
+              <td th:text="${q.noticeTitle}">테스트 제목 입니다</td>
               <td>관리자</td>
-              <td>2023-06-01</td>
+              <td th:text="${q.noticeDate}">2023-06-01</td>
             </tr>
-
-            <tr>
-              <td>9</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>8</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>7</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>6</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>5</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>4</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>3</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>2</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>1</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-          
             
           </tbody>
         </table>
