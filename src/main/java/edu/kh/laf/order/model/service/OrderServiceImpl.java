@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService{
 		for(Cart cart : cartList) {
 			
 			Product orderProduct = mapper.orderProduct(cart);
-			orderProduct.setOptionAmount(cart.getOptionAmount());
+			//orderProduct.setOptionAmount(cart.getOptionAmount());
 			
 			orderList.add(orderProduct);
 		}
