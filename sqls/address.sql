@@ -29,6 +29,8 @@ COMMIT;
 
 -- ------------------------------------------------------------------------------
 
+-- 등록된 배송지 조회
+SELECT * FROM `address` WHERE member_no = 3 ORDER BY address_default_fl DESC, address_no ASC;
 
 
 
