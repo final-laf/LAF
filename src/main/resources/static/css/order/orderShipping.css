@@ -11,14 +11,15 @@
     display: none;
     background-color: #fafafa;
     z-index: 101;
-    top: 50%;
-    left: 50%;
     position: fixed;
     border: 0.5px solid #eee;
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-    transform: translate(-50%,-50%);
+    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 

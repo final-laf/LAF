@@ -94,7 +94,7 @@
                     <input type="radio" name="orderShippingRadio" id="orderDetailSame" value=""><label for="orderDetailSame">주문자 정보와 동일</label>
                     <input type="radio" name="orderShippingRadio" id="orderDetailNew" value=""><label for="orderDetailNew">새로운 배송지</label>
                   </div>
-                  <button th:if="${session.loginMember}" id="orderDetailShipping">배송지 관리</button>
+                  <button type="button" th:if="${session.loginMember}" id="orderDetailShipping">배송지 관리</button>
                 </div>
               </td>
             </tr>
@@ -168,8 +168,8 @@
           </table>
           
         </div>
-        <div class="mypageOrder-mainFrame-order">
-        <div>할인/부가결제</div>
+        <div th:if="${session.loginMember}" class="mypageOrder-mainFrame-order">
+          <div>할인/부가결제</div>
           <table class="mypageOrder-order-info" id="mypageOrderDiscount">
             <tr>
               <th>상품 할인</th>
@@ -194,90 +194,61 @@
               <th class="mypageOrderDiscountRed">-1,500원</th>
             </tr>
           </table>
-      </div>
-      <div class="mypageOrder-mainFrame-order">
+        </div>
+        <div class="mypageOrder-mainFrame-order">
           <div>결제수단</div>
-            <table class="mypageOrder-order-info" id="mypageOrderHow">
-              <tr>
-                <th>
-                  <button>무통장입금</button>
-                  <button>Paypal</button>
-                </th>
-                <th>84,500</th>
-              </tr>
-              <tr>
-                <th>
-                  <div>
-                    <div>입금은행</div>
-                    <select name="" id="">
-                      <option value="">■■■::: 선택해 주세요. :::■■■ </option>
-                      <option value="">국민은행: 9999-9999-9999 (주)LAF </option>
-                    </select>
-                  </div>
-                  <div>
-                    <div>입금자명</div>
-                    <input type="text">
-                  </div>
-                </th>
-              </tr>
-            </table>
+          <table class="mypageOrder-order-info" id="mypageOrderHow">
+            <tr>
+              <th>
+                <button type="button">무통장입금</button>
+                <button type="button">Paypal</button>
+              </th>
+              <th>84,500</th>
+            </tr>
+            <tr>
+              <th>
+                <div>
+                  <div>입금은행</div>
+                  <select name="" id="">
+                    <option value="">■■■::: 선택해 주세요. :::■■■ </option>
+                    <option value="">국민은행: 9999-9999-9999 (주)LAF </option>
+                  </select>
+                </div>
+                <div>
+                  <div>입금자명</div>
+                  <input type="text">
+                </div>
+              </th>
+            </tr>
+          </table>
         </div>
         <div class="mypageOrder-mainFrame-order">
           <div>결제정보</div>
-            <table class="mypageOrder-order-info" id="mypageOrderInfo">
-              <tr>
-                <th>주문상품</th>
-                <th>84,500</th>
-              </tr>
-              <tr>
-                <th>배송비</th>
-                <th>+0</th>
-              </tr>
-              <tr>
-                <th>할인</th>
-                <th class="mypageOrderDiscountRed">84,500</th>
-              </tr>
-              <tr>
-                <th class="mypageOrderFontBold">최종 결제 금액</th>
-                <th>84,500</th>
-              </tr>
-            </table>
+          <table class="mypageOrder-order-info" id="mypageOrderInfo">
+            <tr>
+              <th>주문상품</th>
+              <th>84,500</th>
+            </tr>
+            <tr>
+              <th>배송비</th>
+              <th>+0</th>
+            </tr>
+            <tr>
+              <th>할인</th>
+              <th class="mypageOrderDiscountRed">84,500</th>
+            </tr>
+            <tr>
+              <th class="mypageOrderFontBold">최종 결제 금액</th>
+              <th>84,500</th>
+            </tr>
+          </table>
         </div>
-        <div class="mypageOrder-mainFrame-order">
-            <div>결제수단</div>
-              <table class="mypageOrder-order-info" id="mypageOrderHow">
-                <tr>
-                  <th>
-                    <button>무통장입금</button>
-                    <button>Paypal</button>
-                  </th>
-                  <th>84,500</th>
-                </tr>
-                <tr>
-                  <th>
-                    <div>
-                      <div>입금은행</div>
-                      <select name="" id="">
-                        <option value="">■■■::: 선택해 주세요. :::■■■ </option>
-                        <option value="">국민은행: 9999-9999-9999 (주)LAF </option>
-                      </select>
-                    </div>
-                    <div>
-                      <div>입금자명</div>
-                      <input type="text">
-                    </div>
-                  </th>
-                </tr>
-              </table>
-            </div>
-          <div class="mypageOrderTerms">
-            <div>구매조건 확인 및 결제진행 동의</div>
-            <div>배송정보 제공 방침 동의</div>
-            <div>
-              <div>주문 내용을 확인하였으며 약관에 동의합니다.</div>
-            <div>
-              <button>79,300원 결제하기</button>
-            </div>
+        <div class="mypageOrderTerms">
+          <div>구매조건 확인 및 결제진행 동의</div>
+          <div>배송정보 제공 방침 동의</div>
+          <div>
+            <div>주문 내용을 확인하였으며 약관에 동의합니다.</div>
+            <div><button>79,300원 결제하기</button></div>
           </div>
         </div>
       </form>
@@ -297,7 +268,7 @@
     }
   </script>
 
-  <script src="/js/order/orderDetail.js"></script>
+  <script src="/js/order/order.js"></script>
 
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

@@ -4,7 +4,7 @@
     
     <!-- 주문자조회 -->
     <select id="selectOrderMember" resultType="Member">
-        SELECT * FROM member WHERE member_no= #{memberNo};
+        SELECT * FROM member WHERE member_no = #{memberNo};
 	</select>
 
     <!-- 상품조회 -->
@@ -23,5 +23,12 @@
 		WHERE product_no = #{productNo}
 		AND option_no = #{optionNo};
 	</select>
+
+    <!-- 쿠폰조회 -->
+    <select id="selectCouponList" resultType="Coupon">
+		SELECT * FROM coupon WHERE member_no = #{memberNo};
+	</select>
+	
+	
 </mapper>
 
