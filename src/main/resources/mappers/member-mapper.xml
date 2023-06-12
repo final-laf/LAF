@@ -13,7 +13,32 @@
 	    	   MEMBER_TOTALPAY, MEMBER_NOT, REFUND_NAME, REFUND_BANK, REFUND_ACCOUNT
 	  FROM `member`
 	  WHERE MEMBER_DEL_FL = 'N'
-	  AND MEMBER_ID = #{memberId};	
+	  AND MEMBER_ID = #{memberId}
      </select>
+     
+     	<!-- 회원 가입(SQL 수정 필요, 동적 SQL 사용해야) -->	
+  	<insert id="signUp">
+  		INSERT INTO `member`
+		VALUES (NULL, 
+				#{memberId}, 
+				#{memberPw}, 
+				#{memberName}, 
+				NULL, 
+				NULL,
+				#{memberEmail}, 
+				#{memberPhone}, 
+				NULL, 
+				2, 
+				DEFAULT, 
+				DEFAULT, 
+				NULL, 
+				NULL, 
+				DEFAULT, 
+				DEFAULT, 
+				DEFAULT, 
+				NULL, 
+				NULL, 
+				NULL)
+  	</insert>
 </mapper>
 

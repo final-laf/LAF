@@ -5,6 +5,7 @@ import edu.kh.laf.member.model.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -23,18 +24,27 @@ public class MemberServiceImpl implements MemberService {
 		Member loginMember = mapper.login(inputMember);
 		if(loginMember != null) { // 아이디가 일치하는 회원이 조회된 경우
 			
-			// 회원가입 암호화 처리시 주석 풀 것
-			/*if(bcrypt.matches(inputMember.getMemberPw(),
-							  loginMember.getMemberPw())) {
+			if(bcrypt.matches(inputMember.getMemberPw(),loginMember.getMemberPw())) {
 				loginMember.setMemberPw(null);
-				*/
-			
-			// 회원가입 암호화 처리시 삭제할 것
-			if(inputMember.getMemberPw().equals(loginMember.getMemberPw())) {	
-			} else { // 다를 경우
-				loginMember = null; // 로그인 실패처럼 만듦
+			} else {
+				loginMember = null;
 			}
 		}
 		return loginMember;
 	}
+
+
+	// 회원 가입 서비스
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int signUp(Member inputMember) {
+
+		// 비밀번호를 BCrypt를 이용하여 암호화 후 다시 inputMember에 세팅
+		String encPw = bcrypt.encode(inputMember.getMemberPw());
+		inputMember.setMemberPw(encPw);
+		int result = mapper.signUp(inputMember);
+
+		return result;
+	}
+
 }

@@ -17,8 +17,8 @@
   color: #666;
   display: flex;
   font-size: 17px;
-  padding: 10px 0;
   align-items: flex-end;
+  margin-bottom: 30px;
 }
 .mypageSignUp-info-intro span{
   color: black;
@@ -33,6 +33,7 @@
 }
 .mypageSignUp-signUpInfo-table{
     margin: 20px 0;
+    margin-bottom: 50px;
 }
 .mypageSignUp-signUpInfo-table th{
     padding-left: 20px;
@@ -115,11 +116,9 @@
   width: 170px;
 }
 .mypageSignUp-table-Refund td {
-  padding: 0;
-}
-.mypageSignUp-table-Refund td > div {
   padding-left: 10px;
 }
+
 #mypageSignUpSubmitButton{
   margin-top: 50px;
   display: flex;
@@ -147,4 +146,29 @@
   display: flex;
   justify-content: flex-end;
   margin: 10px 0;
+}
+
+/* 각 행별 설정 */
+#mypageSignUpSubmit > div > div:nth-child(3) > table > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {
+  font-weight: bold;
+  width: 10%;
+  background-color: #fafafa;
+}
+
+.mypageSignUp-table-birth > td:nth-child(2) {
+  width: 40%;
+}
+
+.mypageSignUp-table-birth > td:nth-child(3) {
+  width: 10%;
+  font-weight: bold;
+  background-color: #fafafa;
+}
+
+.mypageSignUp-table-birth > td:nth-child(4) {
+  width: 40%;
+}
+
+.mypageSignUp-table-birth > td:nth-child(4) > select {
+  width: 100px;
 }

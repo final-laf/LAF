@@ -73,8 +73,44 @@ public class MemberController {
       status.setComplete(); 
       return "redirect:/";
    }
+   
+   	// 회원 가입 진행
+	@PostMapping("/signUp")
+	public String signUp(Member inputMember
+				, String[] memberAddress
+				, RedirectAttributes ra) {
 	
-	
-	
+		// 회원 가입 서비스 호출
+		int result = service.signUp(inputMember);
+		
+		// 가입 성공 여부에 따라 주소 결정
+		String path = "redirect:";
+		String message = null;
+		
+		if(result > 0) { // 가입 성공
+			path += "/"; // 메인 페이지
+			message = inputMember.getMemberName() + "님의 가입을 환영합니다.";
+		} else { // 가입 실패
+			path += "signUp";  
+			message = "회원 가입 실패!";
+		}
+		
+//		// 회원번호를 가져와 주소를 배송지 테이블에 업로드
+//		// 만약 주소를 입력하지 않은 경우(,,) null로 변경
+//		if(inputMember.getMemberAddress().equals(",,")) {
+//			inputMember.setMemberAddress(null);
+//		
+//		}else {
+//			//String.join("구분자", String[])
+//			// 배열의 요소를 하나의 문자열로 변경
+//			// 단, 요소 사이에 "구분자" 추가
+//			String addr = String.join("^^^", memberAddress);
+//			inputMember.setMemberAddress(addr);
+//		}
+		
+		
+		ra.addFlashAttribute("message", message);
+		return path;
+	}
 	
 }
