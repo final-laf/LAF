@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -95,6 +96,7 @@ public class MemberController {
 			message = "회원 가입 실패!";
 		}
 		
+		
 //		// 회원번호를 가져와 주소를 배송지 테이블에 업로드
 //		// 만약 주소를 입력하지 않은 경우(,,) null로 변경
 //		if(inputMember.getMemberAddress().equals(",,")) {
@@ -112,5 +114,16 @@ public class MemberController {
 		ra.addFlashAttribute("message", message);
 		return path;
 	}
+	
+	
+	
+	// 아이디 중복 검사
+	@GetMapping("/dupCheck/id")
+	@ResponseBody
+	public int checkId(String memberId) {
+		return service.checkId(memberId);
+	}
+	
+	
 	
 }

@@ -71,11 +71,7 @@
               <tr>
                 <th>전화번호</th>
                 <td class="mypageSignUp-table-tel">
-                  <input type="text" id="mypageSignUpTelF" placeholder="010" maxlength="3"  name="memberPhone">
-                  -
-                  <input type="text" id="mypageSignUpTelS"  maxlength="4"  name="">
-                  -
-                  <input type="text" id="mypageSignUpTelT"  maxlength="4" name="">
+                  <input type="text" id="mypageSignUpTelF" maxlength="11"  name="memberPhone" placeholder="'-' 을 제외한 11자리를 입력해주세요">
                 </td>
               </tr>
               <tr>
@@ -125,9 +121,8 @@
               </tr>
               <tr>
                 <td colspan="3">
-                  <span>- 계좌번호</span>
-                  <input type="text" name="refundAccount" id="mypageSignUpRefundNo">
-                  ('-'와 숫자만 입력해주세요.)
+                  <span>계좌번호</span>
+                  <input type="text" name="refundAccount" id="mypageSignUpRefundNo"  placeholder="'-' 을 제외한 숫자만 입력해주세요">
                 </td>
               </tr>
             </table>
@@ -163,6 +158,6 @@
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/js/common/api/address.js"></script>
-  <script src="/js/mypage/mypageSignUp.js"></script>
+  <script src="/js/member/signUp.js"></script>
 </body>
 </html>
