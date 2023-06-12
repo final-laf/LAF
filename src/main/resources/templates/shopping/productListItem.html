@@ -1,5 +1,5 @@
 <!-- 상품 이미지 -->  
-<a th:href="${'/product/' + product.productNo}">
+<a th:href="@{/product/{productNo}(productNo = ${product.productNo})}">
   <img class="thumbnail" th:src="${product.thumbnailPath} ?: '/images/common/no-image.png'">
 </a>
 

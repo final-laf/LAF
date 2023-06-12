@@ -18,7 +18,7 @@
       <ul class="slide_list clearfix">
 
         <li class="slide_content" th:each="banner : ${bannerList}">
-          <a th:href="${'/product/' + banner.productNo}">
+          <a th:href="@{/product/{productNo}(productNo = ${banner.productNo})}">
             <img class="main-banner-img" th:src="${banner.imgPath}">
           </a>
         </li>
@@ -27,11 +27,11 @@
     </div> <!-- slide_box -->
 
     <button class="slide_btn_prev" type="button">
-      <img src="/images/common/allowBtnLeft-white.svg">
+      <img th:src="@{/images/common/allowBtnLeft-white.svg}">
     </button>
 
     <button class="slide_btn_next" type="button">
-      <img src="/images/common/allowBtnRight-white.svg">
+      <img th:src="@{/images/common/allowBtnRight-white.svg}">
     </button>
 
     <!-- slide_pagination -->
@@ -44,10 +44,14 @@
     <!-- 추천상품 -->
     <section class="main-product">
       <div class="main-product-left">
-        <a href="#"><img class="mainBannerImg" src="/images/sample/sample5.png"></a>
+        <a href="#">
+          <img class="mainBannerImg" th:src="@{/images/sample/sample5.png}">
+        </a>
       </div>
       <div class="main-product-right">
-        <a href="#"><img class="mainBannerImg" src="/images/sample/sample6.png"></a>
+        <a href="#">
+          <img class="mainBannerImg" th:src="@{/images/sample/sample6.png}">
+        </a>
       </div>
     </section>
 
@@ -109,8 +113,12 @@
           </li>
         </ul>
 
-        <button class="slide_btn_prev slide_btn_prev_sub" type="button"><img src="/images/common/allowBtnLeft-white.svg"></button>
-        <button class="slide_btn_next slide_btn_next_sub" type="button"><img src="/images/common/allowBtnRight-white.svg"></button>
+        <button class="slide_btn_prev slide_btn_prev_sub" type="button">
+          <img th:src="@{/images/common/allowBtnLeft-white.svg}">
+        </button>
+        <button class="slide_btn_next slide_btn_next_sub" type="button">
+          <img th:src="@{/images/common/allowBtnRight-white.svg}">
+        </button>
 
       </div>
 
@@ -127,8 +135,12 @@
           </li>
         </ul>
         
-        <button class="slide_btn_prev slide_btn_prev_sub" type="button"><img src="/images/common/allowBtnLeft-white.svg"></button>
-        <button class="slide_btn_next slide_btn_next_sub" type="button"><img src="/images/common/allowBtnRight-white.svg"></button>
+        <button class="slide_btn_prev slide_btn_prev_sub" type="button">
+          <img th:src="@{/images/common/allowBtnLeft-white.svg}">
+        </button>
+        <button class="slide_btn_next slide_btn_next_sub" type="button">
+          <img th:src="@{/images/common/allowBtnRight-white.svg}">
+        </button>
       </div>
       
     </section>
