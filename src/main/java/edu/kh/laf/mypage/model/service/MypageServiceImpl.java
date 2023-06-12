@@ -35,10 +35,32 @@ public class MypageServiceImpl implements MypageService {
 		return mapper.searchQnaList(qnaMap);
 	}
 
+
+
+	/** 답변이 달린 qna
+	 *
+	 */
+	@Override
+	public List<Qna> answeredQna(Long memberNo) {
+		return mapper.answeredQna(memberNo);
+	}
+
+
+	/** 검색어를 포함한 답변이 달린 qna
+	 *
+	 */
+	@Override
+	public List<Qna> searchAnsweredQna(Map<String, String> qnaMap) {
+		return mapper.searchAnsweredQna(qnaMap);
+	}
+
+
+
 	// 배송지정보조회
 	@Override
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
 
 }

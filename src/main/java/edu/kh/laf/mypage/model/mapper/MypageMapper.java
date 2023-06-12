@@ -38,6 +38,20 @@ public interface MypageMapper {
 
 	
 	
+	/** 답변이 달린 qna
+	 * @param memberNo
+	 * @return
+	 */
+	List<Qna> answeredQna(Long memberNo);
+
+	/** 검색어를 포함한 답변이 달린 qna
+	 * @param qnaMap
+	 * @return
+	 */
+	List<Qna> searchAnsweredQna(Map<String, String> qnaMap);
+
+	
+	
 	
 	
 }

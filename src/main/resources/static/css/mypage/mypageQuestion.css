@@ -66,3 +66,8 @@
     border: 1px solid #eee;
     width: 350px;
 }
+
+/* mypageQuestionAnswered디스플레이 none */
+#mypageQuestionAnswered{
+    display:none;
+}
