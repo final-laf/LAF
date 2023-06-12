@@ -3,8 +3,7 @@ package edu.kh.laf.order.model.service;
 import java.util.List;
 
 import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.product.model.dto.Cart;
-import edu.kh.laf.product.model.dto.Product;
+import edu.kh.laf.order.model.dto.OrderProduct;
 
 
 public interface OrderService {
@@ -13,12 +12,12 @@ public interface OrderService {
 	 * @param memberNo
 	 * @return
 	 */
-	Member orderMember(long memberNo);
+	Member selectOrderMember(long memberNo);
 
 	/** 주문상품정보
 	 * @param cartList
 	 * @return
 	 */
-	List<Product> orderList(List<Cart> cartList);
+	List<OrderProduct> selectOrderProduct(List<OrderProduct> cartList);
 
 }
