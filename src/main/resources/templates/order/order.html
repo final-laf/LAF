@@ -150,7 +150,7 @@
               <div th:text="${order.productName}">[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</div>
               <div>[옵션 : 내츄럴 크림]</div>
             </td>
-            <!-- <td th:text="${order.optionAmount}">1</td> -->
+            <td th:text="${order.count}">1</td>
             <td>1</td>
             <td th:text="${order.productPrice}">35,500</td>
             <td th:unless="${(order.productPrice - order.productSalePrice) == 0}" th:text="'-' + ${order.productPrice - order.productSalePrice} + '원'" class="mypageOrderDiscountRed">-1,500원</td>

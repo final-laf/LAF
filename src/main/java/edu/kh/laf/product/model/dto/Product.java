@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class Product {
-    private long productNo;
-    private String productName;
-    private long productPrice;	// 원가
+    private long productNo;			// 상품번호
+    private String productName;		// 상품명
+    private long productPrice;		// 원가
     private int productSalePrice;	// 할인가
     private int productSale;        // 할인율
     private String productState;    // N:비공개, O:판매중, S:품절
@@ -18,6 +18,6 @@ public class Product {
     private String[] imgPath;       // 상품 상세 이미지 경로
     
     // additional data
-    private int likeCount; // 찜목록에 담긴 횟수
-    private int reviewCount; // 리뷰 갯수
+    private int likeCount; 			// 찜목록에 담긴 횟수
+    private int reviewCount;		// 리뷰 갯수
 }

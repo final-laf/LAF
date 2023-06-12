@@ -4,11 +4,11 @@ import lombok.*;
 
 @Data
 public class Option {
-	private long optionNo;
-	private long productNo;
-	private String size;
-	private String color;
-	private int stock;
-	private String location;
-	private int sellCount;
+	private long optionNo;		// 옵션번호
+	private long productNo;		// 상품번호
+	private String size;		// 사이즈
+	private String color;		// 컬러
+	private int stock;			// 재고
+	private String location;	// 창고위치
+	private int sellCount;		// 총판매량
 }
