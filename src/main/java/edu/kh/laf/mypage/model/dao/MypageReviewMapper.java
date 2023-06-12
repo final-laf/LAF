@@ -6,16 +6,12 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.laf.board.model.dto.Qna;
-import edu.kh.laf.board.model.dto.Review;
 
 @Mapper
-public interface MypageMapper {
+public interface MypageReviewMapper {
 	
 	
 
-	List<Qna> qnaList(Long memberNo);
-
-	List<Review> myReview(Long memberNo);
 	
 
 	

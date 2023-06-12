@@ -45,8 +45,8 @@
           </tr>
           <tr th:each="q,index:${reviewList}">
             <td class="item-order-info" >
-              <div class="item-order-date" th:text="${}">2023-06-04</div>
-              <div class="item-order-no"><a href="#">[23060400001001]</a></div>
+              <div class="item-order-date" th:text="${orderDate}">2023-06-04</div>
+              <div class="item-order-no"><a th:text="${orderNo}" href="#">[23060400001001]</a></div>
             </td>
             <td class="item-image">
               <a href="/product/1">
@@ -54,7 +54,7 @@
               </a>
             </td>
             <td class="item-product">
-              <a href="/order">
+              <a href="/order/${orderNo}">
                 ✨재구매1등✨ [98project/2만장돌파] 썸머 포드
               </a>
               <p class="item-product-option">
@@ -63,7 +63,7 @@
             </td>
             <td class="item-count">2</td>
             <td class="item-price-set">
-              <div class="item-price">32,500</div>
+              <div class="item-price" th:text="${orderTotalPrice}">32,500</div>
             </td>
             <td class="item-choose">
               <button>리뷰수정</button>
