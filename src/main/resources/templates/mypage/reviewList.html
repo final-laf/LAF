@@ -40,7 +40,7 @@
             <td class="item-price-set">구매금액</td>
             <td class="item-choose">선택</td>
           </tr>
-          <tr th:if="${reviewList!=null}">
+          <tr th:if="${reviewList==null}">
             <td colspan="6" class="item-empty">작성한 리뷰가 없습니다.</td>
           </tr>
           <tr th:each="q,index:${reviewList}">

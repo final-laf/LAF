@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
-import edu.kh.laf.mypage.model.dao.MypageMapper;
-import edu.kh.laf.mypage.model.dao.MypageReviewMapper;
+import edu.kh.laf.mypage.model.mapper.MypageMapper;
+import edu.kh.laf.mypage.model.mapper.MypageReviewMapper;
 
 @Service
 public class MypageReviewServiceImpl implements MypageReviewService {

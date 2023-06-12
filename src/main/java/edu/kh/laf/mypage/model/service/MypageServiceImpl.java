@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.member.model.dto.Address;
-import edu.kh.laf.mypage.model.dao.MypageMapper;
+import edu.kh.laf.mypage.model.mapper.MypageMapper;
 
 @Service
 public class MypageServiceImpl implements MypageService {

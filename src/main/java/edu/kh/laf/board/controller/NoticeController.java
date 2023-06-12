@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.board.model.dto.Notice;
-import edu.kh.laf.board.model.service.dao.NoticeServiceImpl;
+import edu.kh.laf.board.model.service.NoticeServiceImpl;
 import edu.kh.laf.member.model.dto.Member;
 
 @Controller
