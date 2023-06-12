@@ -15,6 +15,9 @@ public class NoticeDAO {
 	@Autowired
 	private NoticeMapper mapper;
 
+	/** 공지사항 목록
+	 * @return
+	 */
 	public List<Notice> noticeList() {
 		return mapper.noticeList();
 	}

@@ -45,9 +45,19 @@ hr { margin: 20px 0; }
   margin-top: 5px;
   margin-left: 10px;
 }
-#productPrice {
-  font-size: 30px;
+#productSalePrice {
+  font-size: 3rem;
   font-weight: bold;
+}
+#productSale {
+  color: #D66600;
+  font-size: 2rem;
+  margin: 0 3px;
+}
+#productPrice {
+  color: #666;
+  font-size: 1.6rem;
+  text-decoration: line-through;
 }
 .productInfo {
   display: flex;
@@ -59,6 +69,9 @@ hr { margin: 20px 0; }
   width: 25px;
   text-align: center;
   margin-right: 10px;
+  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 #productPoint > span {
   color: #222;
@@ -84,6 +97,7 @@ hr { margin: 20px 0; }
   color: #c90000;
   font-size: 12px;
   font-weight: bold;
+  margin: 0 3px;
 }
 .product-option-options {
   display: flex;
@@ -98,6 +112,9 @@ hr { margin: 20px 0; }
 }
 .option-btn {
   margin: 2px 5px;
+}
+.option-btn:disabled {
+  color: #eee;
 }
 
 /* 현재 선택된 아이템들 */

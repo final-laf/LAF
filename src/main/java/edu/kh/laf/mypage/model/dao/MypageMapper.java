@@ -14,17 +14,27 @@ public interface MypageMapper {
 	
 	
 
-	List<Qna> qnaList(Long memberNo);
-
-	List<Review> myReview(Long memberNo);
-
-	
-	/** 등록된 배송지 조회
+	/** 내 qna조회
 	 * @param memberNo
 	 * @return
 	 */
-	List<Address> selectAddressList(Long memberNo);
-	
+	List<Qna> qnaList(Long memberNo);
 
+	/** 답변 qna
+	 * @param memberNo
+	 * @return
+	 */
+	List<Qna> categoryAnsweredQna(Long memberNo);
+
+	/** 검색어를 포함한 qna
+	 * @param memberNo
+	 * @param search
+	 * @return
+	 */
+	List<Qna> searchQnaList(Map<String, String> qnaMap);
+
+	
+	
+	
 	
 }

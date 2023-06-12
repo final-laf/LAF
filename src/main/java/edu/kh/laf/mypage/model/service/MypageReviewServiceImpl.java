@@ -7,16 +7,20 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
-import edu.kh.laf.mypage.model.dao.MypageReviewDAO;
+import edu.kh.laf.mypage.model.dao.MypageMapper;
+import edu.kh.laf.mypage.model.dao.MypageReviewMapper;
 
 @Service
 public class MypageReviewServiceImpl implements MypageReviewService {
 	@Autowired
-	private MypageReviewDAO dao;
+	private MypageReviewMapper mapper;
 
+	/** 내 리뷰 조회
+	 *
+	 */
 	@Override
 	public List<Review> myReview(Long memberNo) {
-		return dao.myReview(memberNo);
+		return mapper.myReview(memberNo);
 	}
 
 

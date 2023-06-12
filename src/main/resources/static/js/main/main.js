@@ -19,12 +19,6 @@ for(let el of thumbList) {
   });
 }
 
-// 금액 3자리마다 쉼표
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-
 // 위클리 베스트 카테고리 변경
 const categoryBtns = document.querySelectorAll('.weekly-title button');
 for(let btn of categoryBtns) {
@@ -114,7 +108,7 @@ for(let btn of categoryBtns) {
         container.append(weekly);
       }
     })
-    .finally(e => console.log(e));
+    .catch(e => console.log(e));
   });
 }
 

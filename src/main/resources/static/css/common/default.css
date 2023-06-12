@@ -190,7 +190,10 @@ button {
   align-items: center;
   justify-content: center;
 }
-button:hover {
+button:disabled {
+  color: #eee;
+}
+button:hover:not(:disabled) {
   background-color: #eee;
 }
 button.selected {
