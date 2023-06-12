@@ -1,3 +1,9 @@
+/* select, current 페이지의 각 주문 */
+.order-modal-row {
+  cursor: pointer;
+}
+
+
 /* 모달창 오버레이 */
 .order-modal-overlay {
   position: fixed;
