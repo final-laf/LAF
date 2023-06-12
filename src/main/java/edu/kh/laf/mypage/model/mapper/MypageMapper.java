@@ -6,13 +6,10 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.laf.board.model.dto.Qna;
-import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.member.model.dto.Address;
 
 @Mapper
 public interface MypageMapper {
-	
-	
 
 	/** 내 qna조회
 	 * @param memberNo
@@ -32,6 +29,12 @@ public interface MypageMapper {
 	 * @return
 	 */
 	List<Qna> searchQnaList(Map<String, String> qnaMap);
+
+	/** 배송지정보조회
+	 * @param memberNo
+	 * @return
+	 */
+	List<Address> selectAddressList(Long memberNo);
 
 	
 	
