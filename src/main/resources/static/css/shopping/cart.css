@@ -102,7 +102,7 @@ tr:not(:first-child) > .cart-item-product {
   margin: 100px 0;
 }
 .cart-price-total-origin { width: 20%; }
-.cart-price-delivery { width: 20%; }
+.cart-price-shipping { width: 20%; }
 .cart-price-total-discount { width: 20%; }
 .cart-price-total-payment { width: 40%; }
 #cartPrice > table tr.table-data > td {
