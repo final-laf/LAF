@@ -99,7 +99,7 @@
               <td>상품구매금액</td>
               <td>주문처리상태</td>
             </tr>
-            <tr>
+            <tr class="order-modal-row">
               <td>
                 <p>2023-05-31</p>
                 <p>[20230531-0004095]</p>
@@ -132,7 +132,7 @@
               <td>상품구매금액</td>
               <td>주문처리상태</td>
             </tr>
-            <tr>
+            <tr class="order-modal-row">
               <td>
                 <p>2023-05-31</p>
                 <p>[20230531-0004095]</p>
@@ -167,7 +167,7 @@
               <td>주문처리상태</td>
             </tr>
             <tr>
-              <td>
+              <td class="order-modal-row">
                 <p>2023-05-31</p>
                 <p>[20230531-0004095]</p>
               </td>
@@ -201,7 +201,7 @@
               <td>주문처리상태</td>
             </tr>
             <tr>
-              <td>
+              <td class="order-modal-row">
                 <p>2023-05-31</p>
                 <p>[20230531-0004095]</p>
               </td>
@@ -224,6 +224,7 @@
         </div>
       </div>
     </section>
+    <th:block th:replace="~{admin/adminOrder/orderModal}"></th:block>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>

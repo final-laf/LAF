@@ -126,21 +126,24 @@
   </div>
 </div>
 <script>
+
 /* 주문 상세 모달 */
 const orderModal = document.getElementById("orderModalOverlay")
-const selectedOrders = document.getElementsByClassName("order-select-table")
+const selectedOrders = document.getElementsByClassName("order-modal-row")
 
 
 for(let order of selectedOrders) {
 
-  /* 주문 목록에서 한 주문 클릭시 */
+    /* 주문 목록에서 한 주문 클릭시 */
   order.addEventListener('click', () => {
+    console.log("왜안돼")
     orderModal.style.display = "flex";
     document.body.style.overflowY = "hidden";
-  });
+  }); 
 
 };
-    
+
+
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
 orderModal.addEventListener("click", e => {
     const evTarget = e.target
@@ -150,6 +153,7 @@ orderModal.addEventListener("click", e => {
     }
 });
 
+
 /* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
 window.addEventListener("keyup", e => {
     if(orderModal.style.display === "flex" && e.key === "Escape") {
@@ -157,6 +161,7 @@ window.addEventListener("keyup", e => {
         document.body.style.removeProperty('overflow');
     }
 });
+
 
 /* 모달창 내부 닫기 버튼 */
 const orderModalClose = document.getElementsByClassName("order-modal-close")[0];
