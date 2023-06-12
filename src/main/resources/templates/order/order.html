@@ -16,202 +16,182 @@
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
     <section class="mypageOrder-mainFrame">
-      <div class="mypageOrder-order-text">주문</div>
-      <!-- 주문 정보 -->
-      <div th:object="${orderMember}" class="mypageOrder-mainFrame-order">
-        <div>주문정보</div>
-        <table>
-          <tr>
-            <th width="100px">주문자</th>
-            <td><input type="text" th:value="*{memberName}"></td>
-          </tr>
-          <tr>
-            <th>이메일</th>
-            <td>
-              <input type="text" th:value="*{memberEmail}">@
-              <select name="" id="">
-                <option value="">naver.com</option>
-                <option value="">google.com</option>
-                <option value="">daum.com</option>
-                <option value="">kakao.com</option>
-                <option value="">nate.com</option>
-              </select>
+      <form action="" method="post">
+        <div class="mypageOrder-order-text">주문</div>
+        <!-- 주문 정보 -->
+        <div th:object="${orderMember}" class="mypageOrder-mainFrame-order">
+          <div>주문정보</div>
+          <table>
+            <tr>
+              <th width="100px">주문자</th>
+              <td><input type="text" th:value="*{memberName}"></td>
+            </tr>
+            <tr>
+              <th>이메일</th>
+              <td>
+                <input type="text" th:value="*{memberEmail}">@
+                <select name="" id="">
+                  <option value="">naver.com</option>
+                  <option value="">google.com</option>
+                  <option value="">daum.com</option>
+                  <option value="">kakao.com</option>
+                  <option value="">nate.com</option>
+                </select>
+                </td>
+            </tr>
+            <tr class="mypageOrder-order-tel">
+              <th>휴대전화</th>
+              <td>
+                <select>
+                  <option value="">010</option>
+                </select> -
+                <input type="text">-
+                <input type="text" th:value="*{memberPhone}">
               </td>
-          </tr>
-          <tr class="mypageOrder-order-tel">
-            <th>휴대전화</th>
-            <td>
-              <select>
-                <option value="">010</option>
-              </select> -
-              <input type="text">-
-              <input type="text" th:value="*{memberPhone}">
-            </td>
-          </tr>
-          <tr>
-            <th>주소</th>
-            <td>
-              <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
-              <div class="mypageSignUp-table-address">
-                <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
-                <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
-              </div>
-              <div class="mypageSignUp-table-address">
-                <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
-              </div>
-              <div class="mypageSignUp-table-address">
-                <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th rowspan="3">환불정보</th>
-            <td>
-              <input type="text" th:value="*{refundName}" placeholder="예금주">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="text" th:value="*{refundBank}" placeholder="은행명">
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input type="text" th:value="*{refundAccount}" placeholder="계좌번호">
-            </td>
-          </tr>
-        </table>
-      </div>
-      <!-- 배송지 -->
-      <div class="mypageOrder-mainFrame-order">
-        <div>배송지</div>
-        <table>
-          <tr class="mypageOrder-order-shipping">
-            <td colspan="2">
-              <div>
-                <div>
-                  <input type="radio" name="orderShippingRadio" id="orderDetailSame" value=""><label for="orderDetailSame">주문자 정보와 동일</label>
-                  <input type="radio" name="orderShippingRadio" id="orderDetailNew" value=""><label for="orderDetailNew">새로운 배송지</label>
+            </tr>
+            <tr>
+              <th>주소</th>
+              <td>
+                <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                <div class="mypageSignUp-table-address">
+                  <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
+                  <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
                 </div>
-                <button th:if="${session.loginMember}" id="orderDetailShipping">배송지 관리</button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th width="100px">받는 사람*</th>
-            <td><input type="text"></td>
-          </tr>
-          <tr>
-            <th>주소</th>
-            <td>
-              <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
-              <div class="mypageSignUp-table-address">
-                <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
-                <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
-              </div>
-              <div class="mypageSignUp-table-address">
-                <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
-              </div>
-              <div class="mypageSignUp-table-address">
-                <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
-              </div>
-            </td>
-          </tr>
-          <tr class="mypageOrder-order-tel">
-            <th>휴대전화</th>
-            <td>
-              <select>
-                <option value="">010</option>
-              </select> -
-              <input type="text">-
-              <input type="text">
-            </td>
-          </tr>
-        </table>
-        <div th:if="${session.loginMember}" class="mypageOrder-order-defaultShipping">
-          <input type="checkbox" name="" id="mypageOrderDefaultShipping"> <label for="mypageOrderDefaultShipping">기본 배송지로 저장</label> 
+                <div class="mypageSignUp-table-address">
+                  <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+                </div>
+                <div class="mypageSignUp-table-address">
+                  <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th rowspan="3">환불정보</th>
+              <td>
+                <input type="text" th:value="*{refundName}" placeholder="예금주">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" th:value="*{refundBank}" placeholder="은행명">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" th:value="*{refundAccount}" placeholder="계좌번호">
+              </td>
+            </tr>
+          </table>
         </div>
-      </div>
-      <div class="mypageOrder-mainFrame-order">
-      <div>주문 상품 정보</div>
-        <table class="mypageOrder-order-info" id="mypageOrderProduct">
-          <tr>
-            <th width="70px"><input type="checkbox" name="" id=""></th>
-            <th width="70px">이미지</th>
-            <th width="600px">상품정보</th>
-            <th width="50px">수량</th>
-            <th width="100px">상품구매금액</th>
-            <th width="80px">할인금액</th>
-          </tr>
-          <tr id="text" th:each="order : ${orderList}">
-            <td>
-              <input type="checkbox" name="" id="">
-            </td>
-            <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
-            <td>
-              <div th:text="${order.product.productName}">상품명</div>
-              <div th:text="${order.option.color} + ' | '+${order.option.size}">[옵션 : 내츄럴 크림]</div>
-            </td>
-            <td th:text="${order.count}">구매수량</td>
-            <td th:text="${order.product.productPrice}">상품구매금액</td>
-            <td th:unless="${(order.product.productPrice - order.product.productSalePrice) == 0}" th:text="'-' + ${order.product.productPrice - order.product.productSalePrice} + '원'" class="mypageOrderDiscountRed">할인금액</td>
-          </tr>
-          <tr>
-            <td colspan="6">
-              <div>
-                <div>배송비</div>
-                <div>2,500원</div>
-              </div>
-            </td>
-          </tr>
-        </table>
-        
-      </div>
-      <div class="mypageOrder-mainFrame-order">
-      <div>할인/부가결제</div>
-        <table class="mypageOrder-order-info" id="mypageOrderDiscount">
-          <tr>
-            <th>상품 할인</th>
-            <th>1,500</th>
-          </tr>
-          <tr>
-            <th>쿠폰 할인 (보유쿠폰 <div>0</div>개)</th>
-            <th>
-              <div>0</div>
-              <button type="button" id="orderDetailCoupon">쿠폰적용</button>
-            </th>
-          </tr>
-          <tr>
-            <th>적립금 (보유잔액 <div>0</div>원)</th>
-            <th>
-              <div><input type="text"></div>
-              <button type="button">전액사용</button>
-            </th>
-          </tr>
-          <tr>
-            <th>할인 적용 금액</th>
-            <th class="mypageOrderDiscountRed">-1,500원</th>
-          </tr>
-        </table>
-      </div>
-      <div class="mypageOrder-mainFrame-order">
-        <div>결제정보</div>
-          <table class="mypageOrder-order-info" id="mypageOrderInfo">
-            <tr>
-              <th>주문상품</th>
-              <th>84,500</th>
+        <!-- 배송지 -->
+        <div class="mypageOrder-mainFrame-order">
+          <div>배송지</div>
+          <table>
+            <tr class="mypageOrder-order-shipping">
+              <td colspan="2">
+                <div>
+                  <div>
+                    <input type="radio" name="orderShippingRadio" id="orderDetailSame" value=""><label for="orderDetailSame">주문자 정보와 동일</label>
+                    <input type="radio" name="orderShippingRadio" id="orderDetailNew" value=""><label for="orderDetailNew">새로운 배송지</label>
+                  </div>
+                  <button th:if="${session.loginMember}" id="orderDetailShipping">배송지 관리</button>
+                </div>
+              </td>
             </tr>
             <tr>
-              <th>배송비</th>
-              <th>+0</th>
+              <th width="100px">받는 사람*</th>
+              <td><input type="text"></td>
             </tr>
             <tr>
-              <th>할인</th>
-              <th class="mypageOrderDiscountRed">84,500</th>
+              <th>주소</th>
+              <td>
+                <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                <div class="mypageSignUp-table-address">
+                  <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
+                  <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                </div>
+                <div class="mypageSignUp-table-address">
+                  <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+                </div>
+                <div class="mypageSignUp-table-address">
+                  <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
+                </div>
+              </td>
+            </tr>
+            <tr class="mypageOrder-order-tel">
+              <th>휴대전화</th>
+              <td>
+                <select>
+                  <option value="">010</option>
+                </select> -
+                <input type="text">-
+                <input type="text">
+              </td>
+            </tr>
+          </table>
+          <div th:if="${session.loginMember}" class="mypageOrder-order-defaultShipping">
+            <input type="checkbox" name="" id="mypageOrderDefaultShipping"> <label for="mypageOrderDefaultShipping">기본 배송지로 저장</label> 
+          </div>
+        </div>
+        <div class="mypageOrder-mainFrame-order">
+        <div>주문 상품 정보</div>
+          <table class="mypageOrder-order-info" id="mypageOrderProduct">
+            <tr>
+              <th width="70px"><input type="checkbox" name="" id=""></th>
+              <th width="70px">이미지</th>
+              <th width="600px">상품정보</th>
+              <th width="50px">수량</th>
+              <th width="100px">상품구매금액</th>
+              <th width="80px">할인금액</th>
+            </tr>
+            <tr id="text" th:each="order : ${orderList}">
+              <td>
+                <input type="checkbox" name="" id="">
+              </td>
+              <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
+              <td>
+                <div th:text="${order.product.productName}">상품명</div>
+                <div th:text="${order.option.color} + ' | '+${order.option.size}">[옵션 : 내츄럴 크림]</div>
+              </td>
+              <td th:text="${order.count}">구매수량</td>
+              <td th:text="${order.product.productPrice}">상품구매금액</td>
+              <td th:unless="${(order.product.productPrice - order.product.productSalePrice) == 0}" th:text="'-' + ${order.product.productPrice - order.product.productSalePrice} + '원'" class="mypageOrderDiscountRed">할인금액</td>
             </tr>
             <tr>
-              <th class="mypageOrderFontBold">최종 결제 금액</th>
-              <th>84,500</th>
+              <td colspan="6">
+                <div>
+                  <div>배송비</div>
+                  <div>2,500원</div>
+                </div>
+              </td>
+            </tr>
+          </table>
+          
+        </div>
+        <div class="mypageOrder-mainFrame-order">
+        <div>할인/부가결제</div>
+          <table class="mypageOrder-order-info" id="mypageOrderDiscount">
+            <tr>
+              <th>상품 할인</th>
+              <th>1,500</th>
+            </tr>
+            <tr>
+              <th>쿠폰 할인 (보유쿠폰 <div>0</div>개)</th>
+              <th>
+                <div>0</div>
+                <button type="button" id="orderDetailCoupon">쿠폰적용</button>
+              </th>
+            </tr>
+            <tr>
+              <th>적립금 (보유잔액 <div>0</div>원)</th>
+              <th>
+                <div><input type="text"></div>
+                <button type="button">전액사용</button>
+              </th>
+            </tr>
+            <tr>
+              <th>할인 적용 금액</th>
+              <th class="mypageOrderDiscountRed">-1,500원</th>
             </tr>
           </table>
       </div>
@@ -242,16 +222,65 @@
               </tr>
             </table>
         </div>
-        <div class="mypageOrderTerms">
-          <div>구매조건 확인 및 결제진행 동의</div>
-          <div>배송정보 제공 방침 동의</div>
-          <div>
-            <div>주문 내용을 확인하였으며 약관에 동의합니다.</div>
-          <div>
-            <button>79,300원 결제하기</button>
+        <div class="mypageOrder-mainFrame-order">
+          <div>결제정보</div>
+            <table class="mypageOrder-order-info" id="mypageOrderInfo">
+              <tr>
+                <th>주문상품</th>
+                <th>84,500</th>
+              </tr>
+              <tr>
+                <th>배송비</th>
+                <th>+0</th>
+              </tr>
+              <tr>
+                <th>할인</th>
+                <th class="mypageOrderDiscountRed">84,500</th>
+              </tr>
+              <tr>
+                <th class="mypageOrderFontBold">최종 결제 금액</th>
+                <th>84,500</th>
+              </tr>
+            </table>
+        </div>
+        <div class="mypageOrder-mainFrame-order">
+            <div>결제수단</div>
+              <table class="mypageOrder-order-info" id="mypageOrderHow">
+                <tr>
+                  <th>
+                    <button>무통장입금</button>
+                    <button>Paypal</button>
+                  </th>
+                  <th>84,500</th>
+                </tr>
+                <tr>
+                  <th>
+                    <div>
+                      <div>입금은행</div>
+                      <select name="" id="">
+                        <option value="">■■■::: 선택해 주세요. :::■■■ </option>
+                        <option value="">국민은행: 9999-9999-9999 (주)LAF </option>
+                      </select>
+                    </div>
+                    <div>
+                      <div>입금자명</div>
+                      <input type="text">
+                    </div>
+                  </th>
+                </tr>
+              </table>
+            </div>
+          <div class="mypageOrderTerms">
+            <div>구매조건 확인 및 결제진행 동의</div>
+            <div>배송정보 제공 방침 동의</div>
+            <div>
+              <div>주문 내용을 확인하였으며 약관에 동의합니다.</div>
+            <div>
+              <button>79,300원 결제하기</button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </section>
   </main>
 

@@ -7,21 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+
+import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.service.OrderService;
-import edu.kh.laf.product.model.dto.Product;
 
 @Controller
+@SessionAttributes({"loginMember"})
 public class OrderController {
 	
 	@Autowired
 	private OrderService service;
+	
+	@Autowired
+	private MypageService service2; // 배송지정보조회
 
 	// 주문정보 입력 페이지
 	@GetMapping("/order")
-	public String order(OrderProduct cart, Model model) {
+	public String order(OrderProduct cart, Model model, @SessionAttribute("loginMember") Member loginMember) {
 		// 임시 장바구니 정보 세팅---------
 		List<OrderProduct> cartList = new ArrayList<>();
 		cart.setMemberNo(2);
@@ -52,12 +60,16 @@ public class OrderController {
 		Member orderMember = service.selectOrderMember(cartList.get(0).getMemberNo());
 		model.addAttribute("orderMember", orderMember);
 		
+		// 배송지정보(로그인회원만)
+		List<Address> addressList = service2.selectAddressList(loginMember.getMemberNo());
+		model.addAttribute("addressList", addressList);
+
 		// 주문상품정보
 		List<OrderProduct> orderList = service.selectOrderProduct(cartList);
 		model.addAttribute("orderList", orderList);	
 		return "/order/order";
 	}
-	
+
 	// 주문상세조회
 	@GetMapping("/order/{no:[0-9]+}")
 	public String detail() {
