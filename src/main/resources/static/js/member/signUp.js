@@ -314,7 +314,7 @@ document.getElementById("mypageSignUptermsAll").addEventListener("click", e=>{
 });
 // 약관 동의 체크
 const terms = document.getElementsByClassName("mypageSignUp-terms-content");
-for(let i=0; i<terms.length; i++) {
+for(let i=0; iterms.length; i++) {
   terms[i].addEventListener("click", () => {
     if (document.getElementById("mypageSignUptermsUse").checked && document.getElementById("mypageSignUptermsInfo").checked && document.getElementById("mypageSignUptermsReceiving").checked) {
       document.getElementById("mypageSignUptermsAll").checked = true;

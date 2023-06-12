@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class Product {
-    private long productNo;
-    private String productName;
+    private long productNo;			// 상품번호
+    private String productName;		// 상품명
     private long productPrice;		// 원가
     private long productSalePrice;	// 할인가
     private int productSale;        // 할인율

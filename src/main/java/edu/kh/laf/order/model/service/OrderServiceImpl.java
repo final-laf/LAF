@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.mapper.OrderMapper;
-import edu.kh.laf.product.model.dto.Cart;
+import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 
 @Service
@@ -19,25 +20,37 @@ public class OrderServiceImpl implements OrderService{
 	
 	// 주문자정보
 	@Override
-	public Member orderMember(long memberNo) {
-		// TODO Auto-generated method stub
-		return mapper.orderMember(memberNo);
+	public Member selectOrderMember(long memberNo) {
+		return mapper.selectOrderMember(memberNo);
 	}
 	
 	// 주문상품정보
 	@Override
-	public List<Product> orderList(List<Cart> cartList) {
+	public List<OrderProduct> selectOrderProduct(List<OrderProduct> cartList) {
 		
-		List<Product> orderList = new ArrayList<>();
+		List<OrderProduct> orderList = new ArrayList<>();
 		
-		for(Cart cart : cartList) {
+		for(OrderProduct cart : cartList) {
 			
-			Product orderProduct = mapper.orderProduct(cart);
-			orderProduct.setOptionAmount(cart.getOptionAmount());
+			OrderProduct orderProduct = new OrderProduct();
+			
+			// 상품조회
+			Product selectProduct = mapper.selectOrderProduct(cart.getProductNo());
+			orderProduct.setProduct(selectProduct);
+			
+			// 옵션조회
+			Option selectOption = new Option();
+			selectOption.setProductNo(cart.getProductNo());
+			selectOption.setOptionNo(cart.getOptionNo());
+			
+			selectOption= mapper.selectOrderProductOption(selectOption);
+			orderProduct.setOption(selectOption);
+			
+			// 주문수량
+			orderProduct.setCount(cart.getCount());
 			
 			orderList.add(orderProduct);
 		}
-		
 		return orderList;
 	}
 }

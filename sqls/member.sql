@@ -50,3 +50,62 @@ SELECT * FROM `member`;
 
 COMMIT;
  
+
+INSERT INTO `member`
+VALUES (NULL, 
+		'user06', 
+		'pass06!', 
+		'유저육', 
+		NULL, 
+		NULL,
+		'user06@kh.or.kr', 
+		'01066666666', 
+		NULL, 
+		2, 
+		DEFAULT, 
+		DEFAULT, 
+		NULL, 
+		NULL, 
+		10000, 
+		125000, 
+		DEFAULT, 
+		NULL, 
+		NULL, 
+		NULL);
+
+
+
+INSERT INTO `member`
+VALUES (NULL, 
+		'#{memberId}', 
+		'#{memberPw}', 
+		'#{memberName}', 
+		NULL, 
+		NULL,
+		'#{memberEmail}', 
+		01044386606, 
+		NULL, 
+		2, 
+		DEFAULT, 
+		DEFAULT, 
+		NULL, 
+		NULL, 
+		10000, 
+		125000, 
+		DEFAULT, 
+		NULL, 
+		NULL, 
+		NULL);
+
+COMMIT;
+
+
+	
+
+
+
+
+
+
+
+

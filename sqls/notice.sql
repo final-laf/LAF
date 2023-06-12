@@ -16,3 +16,5 @@ references `member` (
 	`member_no`
 );
 
+-- 샘플
+INSERT INTO notice values(DEFAULT, 1, '제목입니다.', '내용입니다.', DEFAULT, 'y');

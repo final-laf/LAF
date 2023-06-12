@@ -159,8 +159,26 @@
 
   display: flex;
   flex-direction: column;
+
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
 }
 
+
+.member-modal-window::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* 모달타이틀 */
+.member-modal-title {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.member-modal-title > span{
+  font-size: 2.5rem;
+}
 
 
 /* 상단 회원 상세 표 */
@@ -173,6 +191,11 @@
   text-align: left;
   font-size: 1.2rem;
   padding-left: 10px;
+}
+
+/* 첫번째 열의 속성 */
+.member-modal-table tr:first-child {
+  border-top: 0.5px solid #eee;
 }
 
 /* 각 행별 속성 */
@@ -207,11 +230,26 @@
   width: 15%;
 }
 
+/* 수정 버튼 위치 조정 */
+.member-modal-table > tbody > tr:nth-child(3) > td:nth-child(4) > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.member-modal-table > tbody > tr:nth-child(3) > td:nth-child(6) > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+}
+
 
 /* 하단 회원 주문 내역 */
 .member-modal-orderlist {
   width: 100%;
-  margin-top: 30px;
+  margin: 40px 0px;
 }
 
 .member-modal-orderlist img {
@@ -221,7 +259,7 @@
 }
 
 /* 테이블 내의 모든 요소들에 대한 속성 */
-#memberModalOverlay > div.member-modal-window > div:nth-child(2) > table > tbody > tr > td * {
+#memberModalOverlay > div.member-modal-window > div:nth-child(4) > table > tbody > tr > td * {
   font-size: 1.2rem;
   text-align: center;
 }
@@ -270,20 +308,67 @@
 }
 
 
-/* 수정 버튼 위치 조정 */
-.member-modal-table > tbody > tr:nth-child(3) > td:nth-child(4) > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 10px;
+/* 포인트 지급 및 차감 내역 */
+.member-modal-subtitle {
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bold;
 }
 
-.member-modal-table > tbody > tr:nth-child(3) > td:nth-child(6) > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 10px;
+/* 테이블 크기 지정 */
+.member-modal-ponitList {
+  width: 100%;
 }
+
+.member-modal-ponitList > table {
+  width: 100%;
+}
+
+.member-modal-ponitList > table > tbody {
+  width: 100%;
+}
+
+/* 모든 행에 대한 설정 */
+.member-modal-ponitList > table > tbody > tr {
+  height: 40px;
+  border-bottom: 0.5px solid #eee;
+}
+
+.member-modal-ponitList > table > tbody > tr * {
+  font-size: 1.2rem;
+}
+
+/* 제목행 */
+.member-modal-ponitList > table > tbody > tr:nth-child(1) {
+  font-weight: bold;
+  background-color: #fafafa;
+  border-top: 0.5px solid #eee;
+}
+
+/* 각 행에 대한 설정 */
+.member-modal-ponitList > table > tbody > tr > td:nth-child(1) {
+  width: 10%;
+}
+
+.member-modal-ponitList > table > tbody > tr > td:nth-child(2) {
+  width: 10%;
+}
+
+.member-modal-ponitList > table > tbody > tr > td:nth-child(3) {
+  width: 20%;
+}
+
+.member-modal-ponitList > table > tbody > tr > td:nth-child(4) {
+  width: 30%;
+}
+
+.member-modal-ponitList > table > tbody > tr > td:nth-child(5) {
+  width: 30%;
+}
+
+
+
+
 
 
 /* 닫기 버튼 */
@@ -367,3 +452,301 @@
   display: flex;
   flex-direction: column;
 }
+
+/* 테이블 */
+.member-cupon-modal-table {
+  margin-bottom: 40px;
+}
+
+/* 테이블 내의 모든 요소들에 대한 속성 */
+#memberCuponModalOverlay > div > table > tbody > tr > td * {
+  font-size: 1.2rem;
+}
+
+/* 첫번째 행의 속성 */
+#memberCuponModalOverlay > div > table > tbody > tr > td:nth-child(1) {
+  font-weight: bold;
+  background-color: #fafafa;
+  font-size: 1.2rem;
+}
+
+/* 최대할인금액 행 속성 */
+#memberCuponModalOverlay > div > table > tbody > tr:last-child > td:nth-child(1) {
+  font-weight: normal;
+  background-color: #fff;
+}
+
+/* 모든 열의 속성 */
+.member-cupon-modal-table tr {
+  border-bottom: 0.5px solid #eee;
+  height: 40px;
+}
+
+/* 첫번째 열의 속성 */
+.member-cupon-modal-table tr:first-child {
+  border-top: 0.5px solid #eee;
+}
+
+/* 모든 셀렉트 */
+.member-cupon-modal-table tr select {
+  border-radius: 2px;
+}
+
+
+/* 각 행별 속성 */
+.member-cupon-modal-table td:nth-child(1) {
+  width: 15%;
+}
+
+.member-cupon-modal-table td:nth-child(2) {
+  width: 25%;
+  padding: 0px 5px;
+}
+
+.member-cupon-modal-table td:nth-child(3) {
+  width: 15%;
+  font-weight: bold;
+  background-color: #fafafa;
+  font-size: 1.2rem;
+}
+
+.member-cupon-modal-table td:nth-child(4) {
+  width: 45%;
+  padding: 0px 5px;
+  text-align: left;
+}
+
+
+
+/* 쿠폰명 */
+#cuponName {
+  width: 99%;
+  border-radius: 2px;
+  outline: none;
+}
+
+/* 쿠폰 대상 */
+#memberCuponKey {
+  width: 96%;
+}
+
+/* 쿠폰 유효기간 */
+/* 유효기간 */
+.cupon-detail-date > div > input {
+  border-radius: 2px;
+}
+
+.cupon-detail-date {
+  display: flex;
+  padding: 0px 5px;
+}
+
+.cupon-detail-date > div {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.cupon-detail-date > div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  margin-left: 5px;
+}
+
+.member-cupon-modal-table > tbody > tr:nth-child(2) > td:nth-child(4) > div > div:nth-child(2) > span {
+  margin-left: 5px;
+}
+
+
+/* 쿠폰 상세 */
+.cupon-detail-top {
+  width: 100%;
+  text-align: left;
+  padding : 0px 5px;
+}
+
+.cupon-detail-top > * {
+  margin-right : 10px;
+}
+
+#memberCuponDiscountKey {
+  width: 120px;
+}
+
+#memberCuponDiscountPerWonKey {
+  width: 60px;
+}
+
+#memberCuponDiscountOverKey {
+  width: 120px;
+}
+
+#memberCuponModalOverlay > div > table > tbody > tr:nth-child(4) > td{
+  padding-left: 5px;
+}
+
+#memberCuponDiscountLimitKey {
+  width: 120px;
+}
+
+/* 버튼 영역 */
+.member-cupon-btn-area *{
+  color: white;
+  margin: 0 5px;
+  width: 70px;
+}
+
+.member-cupon-btn-area>button:nth-child(1){background-color: #7f7698;}
+.member-cupon-btn-area>button:nth-child(2){background-color: #ccc;}
+
+
+
+
+/* 적립금 지급 모달창 */
+/* 모달창 오버레이 */
+.member-point-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 101;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 모달창 */
+.member-point-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 1000px;
+  height: 500;
+
+  padding: 40px;
+
+  text-align: left;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+/* 테이블 */
+.member-point-modal-table {
+  margin-bottom: 20px;
+}
+
+/* 테이블 내의 모든 요소들에 대한 속성 */
+#memberPointModalOverlay > div > table > tbody > tr > td * {
+  font-size: 1.2rem;
+}
+
+/* 첫번째 행의 속성 */
+#memberPointModalOverlay > div > table > tbody > tr > td:nth-child(1) {
+  font-weight: bold;
+  background-color: #fafafa;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* 모든 열의 속성 */
+.member-point-modal-table tr {
+  border-bottom: 0.5px solid #eee;
+  height: 40px;
+}
+
+/* 첫번째 열의 속성 */
+.member-point-modal-table tr:first-child {
+  border-top: 0.5px solid #eee;
+}
+
+/* 모든 셀렉트 */
+.member-point-modal-table tr select {
+  border-radius: 2px;
+}
+
+/* 각 행별 속성 */
+.member-point-modal-table td:nth-child(1) {
+  width: 15%;
+}
+
+.member-point-modal-table td:nth-child(2) {
+  width: 25%;
+  padding: 0px 5px;
+}
+
+.member-point-modal-table td:nth-child(3) {
+  width: 15%;
+  font-weight: bold;
+  background-color: #fafafa;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.member-point-modal-table td:nth-child(4) {
+  width: 45%;
+  padding: 0px 5px;
+  text-align: left;
+}
+
+/* 대상 회원 */
+.point-member {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 0px 5px;
+}
+
+/* 적립금 */
+#memberPoint {
+  width: 120px;
+  outline: none;
+  border-radius: 2px;
+}
+
+/* 유효기간 */
+.point-detail-date > div > input {
+  border-radius: 2px;
+}
+
+/* 사유 */
+#memberPointReasonKey {
+  width: 200px;
+}
+
+/* 버튼 영역 */
+.member-point-btn-area {
+  text-align: center;
+}
+
+.member-point-btn-area *{
+  color: white;
+  margin: 0 5px;
+  width: 70px;
+}
+
+.member-point-btn-area>button:nth-child(1){background-color: #7f7698;}
+.member-point-btn-area>button:nth-child(2){background-color: #ccc;}
+

@@ -67,14 +67,25 @@ references `coupon` (
 
 -- ------------------------------------------------------------------------------------------------------------- --
 
+-- 주문자 조회
 SELECT * FROM `member` WHERE member_no=1;
 
-SELECT product_name, product_price, product_sale_price , i.img_path, o.`size` , o.color 
+-- 상품조회
+SELECT product_name, product_price, product_sale_price , i.img_path  
 FROM product as p
 JOIN product_img as i ON p.product_no = i.product_no 
-JOIN `option` as o ON p.product_no = o.product_no 
-WHERE p.product_no = 2
-AND option_no = 11;
+WHERE thumb_fl = 'Y' 
+AND p.product_no = 2;
+
+-- 옵션조회
+SELECT `size` , color 
+FROM `option`
+WHERE product_no = 1
+AND option_no = 2;
+ 
+COMMIT;
+
+
 
 
 
