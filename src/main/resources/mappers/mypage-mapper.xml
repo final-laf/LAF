@@ -5,7 +5,7 @@
 	
 	<!-- qnaList -->
     <select id="qnaList" resultType="Qna">
-        SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=1
+        SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo}
     </select>
      
 	<!-- myReviewList -->
@@ -13,6 +13,14 @@
         SELECT * FROM `order` WHERE member_no=#{memberNo} AND review_no IS NULL
     </select>
     
+    <!-- 검색어를 포함한 qna조회결과  -->
+    <select id="searchQnaList" resultType="Qna">
+        SELECT * FROM `qna` q  
+        JOIN `member` m ON q.member_no = m.member_no 
+        WHERE q.member_no=#{memberNo}
+         AND `${type}` LIKE '%${content}%'
+    </select>
+     
     
     <!-- 등록된 배송지 조회 -->
     <select id="selectAddressList" resultType="Address">

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageReviewServiceImpl;
-import edu.kh.laf.mypage.model.service.MypageServiceImpl;
 import edu.kh.laf.order.model.dto.Order;
 
 @Controller
