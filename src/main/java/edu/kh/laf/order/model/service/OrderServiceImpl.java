@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.mapper.OrderMapper;
@@ -22,6 +23,12 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Member selectOrderMember(long memberNo) {
 		return mapper.selectOrderMember(memberNo);
+	}
+	
+	// 쿠폰정보
+	@Override
+	public List<Coupon> selectCouponList(Long memberNo) {
+		return mapper.selectCouponList(memberNo);
 	}
 	
 	// 주문상품정보

@@ -13,37 +13,32 @@ import edu.kh.laf.mypage.model.mapper.MypageMapper;
 
 @Service
 public class MypageServiceImpl implements MypageService {
+	
 	@Autowired
 	private MypageMapper mapper;
 	
-	
-	/** qna 리스트
-	 *
-	 */
+	// qna 리스트
 	@Override
 	public List<Qna> qnaList(Long memberNo) {
 		return mapper.qnaList(memberNo);
 	}
 
-
-	/** 답변된 qna
-	 *
-	 */
+	// 답변된 qna
 	@Override
 	public List<Qna> categoryAnsweredQna(Long memberNo) {
 		return mapper.categoryAnsweredQna(memberNo);
 	}
 
-
-	/** 검색어 포함한 qna
-	 *
-	 */
-
+	// 검색어 포함한 qna
 	@Override
 	public List<Qna> searchQnaList(Map<String, String> qnaMap) {
 		return mapper.searchQnaList(qnaMap);
 	}
 
-
+	// 배송지정보조회
+	@Override
+	public List<Address> selectAddressList(Long memberNo) {
+		return mapper.selectAddressList(memberNo);
+	}
 
 }
