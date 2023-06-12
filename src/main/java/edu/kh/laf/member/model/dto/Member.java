@@ -15,13 +15,13 @@ public class Member {
     private String memberBirth;			// 생일
     private String memberGrade;			//
     private String memberEnrollDate;	// 가입일
-    private String memberDeleteFlage;	
-    private String memberDeleteDate;
+    private String memberDelFL;	
+    private String memberDelDate;
     private String memberSocial;
     private Long memberPoint;
     private Long memberTotalPay;
     private String memberNot;
-    private String refundName;
-    private String refundBank;
-    private String refundAccount;
+    private String refundName;			// 환불 예금주
+    private String refundBank;			// 환불 은행명
+    private String refundAccount;		// 환불 계좌번호
 }

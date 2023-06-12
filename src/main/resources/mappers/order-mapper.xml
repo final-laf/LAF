@@ -17,7 +17,7 @@
 	</select>
    
     <!-- 옵션조회 -->
-    <select id="selectOrderProductOption" resultType="Product">
+    <select id="selectOrderProductOption" resultType="Option">
 		SELECT `size` , color 
 		FROM `option`
 		WHERE product_no = #{productNo}
