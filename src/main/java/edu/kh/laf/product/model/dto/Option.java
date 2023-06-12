@@ -10,5 +10,5 @@ public class Option {
 	private String color;
 	private int stock;
 	private String location;
-	private int sellCount;
+	private int count;
 }

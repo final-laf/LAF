@@ -76,3 +76,9 @@ JOIN `option` as o ON p.product_no = o.product_no
 WHERE p.product_no = 2
 AND option_no = 11;
 
+
+
+
+
+
+COMMIT;
