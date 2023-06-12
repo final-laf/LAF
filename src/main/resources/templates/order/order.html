@@ -143,19 +143,18 @@
             <th width="100px">상품구매금액</th>
             <th width="80px">할인금액</th>
           </tr>
-          <tr th:each="order : ${orderList}">
+          <tr id="text" th:each="order : ${orderList}">
             <td>
               <input type="checkbox" name="" id="">
             </td>
             <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
             <td>
-              <div th:text="${order.productName}">[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</div>
-              <div>[옵션 : 내츄럴 크림]</div>
+              <div th:text="${order.product.productName}">상품명</div>
+              <div th:text="${order.option.color} + ' | '+${order.option.size}">[옵션 : 내츄럴 크림]</div>
             </td>
-            <td th:text="${order.count}">1</td>
-            <td>1</td>
-            <td th:text="${order.productPrice}">35,500</td>
-            <td th:unless="${(order.productPrice - order.productSalePrice) == 0}" th:text="'-' + ${order.productPrice - order.productSalePrice} + '원'" class="mypageOrderDiscountRed">-1,500원</td>
+            <td th:text="${order.count}">구매수량</td>
+            <td th:text="${order.product.productPrice}">상품구매금액</td>
+            <td th:unless="${(order.product.productPrice - order.product.productSalePrice) == 0}" th:text="'-' + ${order.product.productPrice - order.product.productSalePrice} + '원'" class="mypageOrderDiscountRed">할인금액</td>
           </tr>
           <tr>
             <td colspan="6">
@@ -257,10 +256,22 @@
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block> 
+  
+  <script th:inline="javascript">
+    const orderMember = /*[[${orderMember}]]*/ "로그인한 회원정보";
+    if(loginMember.memberAddress !=null){
+        const arr = loginMember.memberAddress.split("^^^");
+
+        document.querySelectorAll("input[name='memberAddress']").forEach( (item, i) =>{
+            item.value = arr[i];
+        } );
+    }
+  </script>
+
+  <script src="/js/order/orderDetail.js"></script>
 
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/js/common/api/address.js"></script>
-  <script src="/js/order/orderDetail.js"></script>
 </body>
 </html>

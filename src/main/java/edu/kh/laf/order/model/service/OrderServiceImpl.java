@@ -39,7 +39,11 @@ public class OrderServiceImpl implements OrderService{
 			orderProduct.setProduct(selectProduct);
 			
 			// 옵션조회
-			Option selectOption = mapper.selectOrderProductOption(cart.getOptionNo());
+			Option selectOption = new Option();
+			selectOption.setProductNo(cart.getProductNo());
+			selectOption.setOptionNo(cart.getOptionNo());
+			
+			selectOption= mapper.selectOrderProductOption(selectOption);
 			orderProduct.setOption(selectOption);
 			
 			// 주문수량

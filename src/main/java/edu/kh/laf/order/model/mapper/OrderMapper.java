@@ -16,5 +16,5 @@ public interface OrderMapper {
 	public Product selectOrderProduct(long productNo);
 
 	// 옵션조회
-	public Option selectOrderProductOption(long optionNo);
+	public Option selectOrderProductOption(Option selectOption);
 }
