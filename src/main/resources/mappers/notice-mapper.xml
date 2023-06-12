@@ -3,7 +3,7 @@
 <mapper namespace="edu.kh.laf.board.model.dao.NoticeMapper">
 	
 	
-
+	<!--공지사항-->
     <select id="noticeList" resultType="Notice">
         SELECT * FROM notice 
     </select>

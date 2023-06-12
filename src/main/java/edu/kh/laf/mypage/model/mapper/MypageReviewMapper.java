@@ -1,4 +1,4 @@
-package edu.kh.laf.mypage.model.dao;
+package edu.kh.laf.mypage.model.mapper;
 
 import java.util.List;
 import java.util.Map;

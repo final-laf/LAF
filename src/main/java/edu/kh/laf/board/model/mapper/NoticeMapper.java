@@ -1,4 +1,4 @@
-package edu.kh.laf.board.model.dao;
+package edu.kh.laf.board.model.mapper;
 
 import java.util.List;
 
