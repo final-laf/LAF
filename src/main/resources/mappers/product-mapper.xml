@@ -9,6 +9,7 @@
 				product_price,
 				product_sale_price,
 				product_sale,
+				product_point,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				click_count,
@@ -28,6 +29,7 @@
 				product_price,
 				product_sale_price,
 				product_sale,
+				product_point,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				click_count,
@@ -50,6 +52,7 @@
 				product_price,
 				product_sale_price,
 				product_sale,
+				product_point,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				click_count,
@@ -80,6 +83,7 @@
 				product_price,
 				product_sale_price,
 				product_sale,
+				product_point,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				click_count,
@@ -92,5 +96,28 @@
 		ORDER BY click_count asc, product_sale_price desc
 		LIMIT 20
 	</select>
+	
+	<!-- 개인별 맞춤 상품 추천 -->
+	<!-- TODO: 개발 진행 후 알고리즘 개선 필요 -->
+	<select id="selectRecommendList" resultType="Product">
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
+		ORDER BY click_count asc, product_sale_price desc
+		LIMIT 20
+	</select>
+	
 </mapper>
 

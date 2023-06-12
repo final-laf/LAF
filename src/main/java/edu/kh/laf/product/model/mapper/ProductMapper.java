@@ -34,4 +34,11 @@ public interface ProductMapper {
      * @return productList
      */
 	List<Product> selectPersonalProductList(long memberNo);
+
+	/**
+     * 상품별 추천 상품
+     * @param productNo
+     * @return productList
+     */
+	List<Product> selectRecommendList(long productNo);
 }

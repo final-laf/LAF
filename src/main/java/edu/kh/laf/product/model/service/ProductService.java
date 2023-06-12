@@ -11,5 +11,5 @@ public interface ProductService {
     List<Product> selectCategoryProductList(int categoryNo);
     List<Product> selectCategoryProductList(int categoryNo, int limit);
 	List<Product> selectPersonalProductList(long memberNo);
-    
+	List<Product> selectRecommendList(long productNo);    
 }

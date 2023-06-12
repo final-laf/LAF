@@ -10,5 +10,5 @@ public class Option {
 	private String color;		// 컬러
 	private int stock;			// 재고
 	private String location;	// 창고위치
-	private int sellCount;		// 총판매량
+	private int count;		  // 총판매량
 }

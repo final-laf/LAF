@@ -63,11 +63,22 @@ public class ProductServiceImpl implements ProductService {
 
 	/**
 	 * 개인별 맞춤 상품 추천
+	 * @param memberNo
 	 * @return productList
 	 */
 	@Override
 	public List<Product> selectPersonalProductList(long memberNo) {
 		return mapper.selectPersonalProductList(memberNo);
 	}
-	
+
+	/**
+	 * 상품별 추천 상품
+	 * @param productNo
+	 * @return productList
+	 */
+	@Override
+	public List<Product> selectRecommendList(long productNo) {
+		return mapper.selectRecommendList(productNo);
+	}
+
 }

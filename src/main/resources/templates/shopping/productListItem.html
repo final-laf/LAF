@@ -1,5 +1,5 @@
 <!-- 상품 이미지 -->  
-<a th:href="${'/product/' + product.productNo}">
+<a th:href="@{/product/{productNo}(productNo = ${product.productNo})}">
   <img class="thumbnail" th:src="${product.thumbnailPath} ?: '/images/common/no-image.png'">
 </a>
 
@@ -26,7 +26,7 @@
     <div class="item-rieview-count">
       리뷰 : <th:block th:text="${product.reviewCount}">리뷰 갯수</th:block>
     </div>
-    <img src="/images/common/like-fill.svg">
+    <img th:src="@{/images/common/like-fill.svg}">
     <span th:text="${product.likeCount}"></span>
   </div>
 </div>

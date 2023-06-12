@@ -1,5 +1,7 @@
 package edu.kh.laf.product.model.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -7,8 +9,9 @@ public class Product {
     private long productNo;			// 상품번호
     private String productName;		// 상품명
     private long productPrice;		// 원가
-    private int productSalePrice;	// 할인가
+    private long productSalePrice;	// 할인가
     private int productSale;        // 할인율
+    private	int productPoint;		// 상품 구매시 적립 포인트
     private String productState;    // N:비공개, O:판매중, S:품절
     private String productDate;     // 상품 등록일
     private int clickCount;
@@ -19,5 +22,5 @@ public class Product {
     
     // additional data
     private int likeCount; 			// 찜목록에 담긴 횟수
-    private int reviewCount;		// 리뷰 갯수
+    private int reviewCount; 		// 리뷰 갯수
 }
