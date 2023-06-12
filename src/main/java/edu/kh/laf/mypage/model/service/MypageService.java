@@ -26,4 +26,16 @@ public interface MypageService {
 	 * @return
 	 */
 	List<Qna> searchQnaList(Map<String, String> qnaMap);
+
+	/** 답변된 qna
+	 * @param memberNo
+	 * @return
+	 */
+	List<Qna> answeredQna(Long memberNo);
+
+	/** 검색어를 포함한 답변된 qna
+	 * @param qnaMap
+	 * @return
+	 */
+	List<Qna> searchAnsweredQna(Map<String, String> qnaMap);
 }

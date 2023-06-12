@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="edu.kh.laf.mypage.model.dao.MypageMapper">
+<mapper namespace="edu.kh.laf.mypage.model.mapper.MypageMapper">
 	
 	
 	<!-- qnaList -->
     <select id="qnaList" resultType="Qna">
-        SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo}
+        SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo} ORDER BY qna_create_date DESC;
     </select>
      
 	<!-- myReviewList -->
@@ -18,7 +18,12 @@
         SELECT * FROM `qna` q  
         JOIN `member` m ON q.member_no = m.member_no 
         WHERE q.member_no=#{memberNo}
-         AND `${type}` LIKE '%${content}%'
+         AND `${type}` LIKE '%${content}%' ORDER BY qna_create_date DESC;
+    </select>
+    
+    	<!-- answered qnaList -->
+    <select id="answeredQna" resultType="Qna">
+        SELECT * FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo} ORDER BY qna_answer DESC
     </select>
      
     
@@ -30,5 +35,14 @@
 		ORDER BY address_default_fl DESC, address_no ASC;
 	</select>
 
+
+	    <!-- 검색어를 포함한 qna조회결과  -->
+    <select id="searchAnsweredQna" resultType="Qna">
+        SELECT * FROM `qna` q  
+        JOIN `member` m ON q.member_no = m.member_no 
+        WHERE q.member_no=#{memberNo}
+        AND `${type}` LIKE '%${content}%' 
+        ORDER BY qna_answer DESC
+    </select>
 </mapper>
 

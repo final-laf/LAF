@@ -37,8 +37,10 @@ public class MypageQnaController {
 			model.addAttribute("searchQna", "");
 			List<Qna> qna = new ArrayList<>();
 			qna = qnaService.qnaList(loginMember.getMemberNo());
-			System.out.println(qna);
+			List<Qna> answeredQna = new ArrayList<>();
+			answeredQna = qnaService.answeredQna(loginMember.getMemberNo());
 			model.addAttribute("qnaList", qna);
+			model.addAttribute("answeredQnaList", answeredQna);
 			
 		//PathVariable 있을 때
 		}else {
@@ -52,7 +54,10 @@ public class MypageQnaController {
 			System.out.println(qnaMap);
 			List<Qna> qna = new ArrayList<>();
 			qna = qnaService.searchQnaList(qnaMap);
+			List<Qna> answeredQna = new ArrayList<>();
+			answeredQna = qnaService.searchAnsweredQna(qnaMap);
 			model.addAttribute("qnaList", qna);
+			model.addAttribute("answeredQnaList", answeredQna);
 			System.out.println(qna);
 		}
 		

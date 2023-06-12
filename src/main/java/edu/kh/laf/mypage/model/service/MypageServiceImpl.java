@@ -45,5 +45,23 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 
+	/** 답변이 달린 qna
+	 *
+	 */
+	@Override
+	public List<Qna> answeredQna(Long memberNo) {
+		return mapper.answeredQna(memberNo);
+	}
+
+
+	/** 검색어를 포함한 답변이 달린 qna
+	 *
+	 */
+	@Override
+	public List<Qna> searchAnsweredQna(Map<String, String> qnaMap) {
+		return mapper.searchAnsweredQna(qnaMap);
+	}
+
+
 
 }

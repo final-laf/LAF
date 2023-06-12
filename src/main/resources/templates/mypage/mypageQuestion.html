@@ -28,8 +28,7 @@
               <option value="answer">답변 유무별</option>
             </select>
           </div>
-          <table>
-            <h2 th:each="e:${qnaList}"></h2>
+          <table id="mypageQuestionRecent">
             <tr>
               <th width="60px">번호</th>
               <th width="180px">분류</th>
@@ -38,14 +37,50 @@
               <th width="100px">작성일</th>
             </tr>
             <!-- 항목 추가 -->
-              <tr th:each="q,index:${qnaList}" class="mypageQuestion-Question-list">
+            <div th:each="q,index:${qnaList}">
+              <tr class="mypageQuestion-Question-list">
                 <td th:text="${index.index+1}">번호</td>
                 <td th:text="${q.qnaCategory}">배송카테고리</td>
                 <td th:text="${q.qnaTitle}">제목</td>
                 <td th:text="${q.memberName}">작성자</td>
                 <td th:text="${q.qnaCreateDate}">작성일</td>
               </tr>
+              <tr th:if="${q.qnaAnswer != null}" class="mypageQuestion-Question-list">
+                <td >-</td>
+                <td >-</td>
+                <td>　↳　문의해주신 답변입니다. </td>
+                <td >관리자</td>
+                <td >-</td>
+              </tr>
+            </div>  
             <!-- ~~~~~~~~~~~~~~~ -->
+          </table>
+          <table id="mypageQuestionAnswered">
+            <tr>
+              <th width="60px">번호</th>
+              <th width="180px">분류</th>
+              <th width="530px">제목</th>
+              <th width="100px">작성자</th>
+              <th width="100px">작성일</th>
+            </tr>
+            <!-- 항목 추가 -->
+            <div th:each="q,ind:${answeredQnaList}">
+              <tr class="mypageQuestion-Question-list">
+                <td th:text="${ind.index+1}">번호</td>
+                <td th:text="${q.qnaCategory}">배송카테고리</td>
+                <td th:text="${q.qnaTitle}">제목</td>
+                <td th:text="${q.memberName}">작성자</td>
+                <td th:text="${q.qnaCreateDate}">작성일</td>
+              </tr>
+              <tr th:if="${q.qnaAnswer != null}" class="mypageQuestion-Question-list">
+                <td >-</td>
+                <td >-</td>
+                <td>　↳　문의해주신 답변입니다. </td>
+                <td >관리자</td>
+                <td >-</td>
+              </tr>
+            <!-- ~~~~~~~~~~~~~~~ -->
+            </div>
           </table>
           <div class="pagination-area">
             <ul class="pagination">
