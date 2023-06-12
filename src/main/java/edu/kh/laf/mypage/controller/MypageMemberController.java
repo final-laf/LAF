@@ -1,10 +1,23 @@
 package edu.kh.laf.mypage.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.mypage.model.service.MypageService;
 
 @Controller
+@SessionAttributes({"loginMember"})
 public class MypageMemberController {
+	
+	@Autowired
+	private MypageService service;
 
 	// 마이페이지 대쉬보드
 	@GetMapping("/my")
@@ -32,7 +45,13 @@ public class MypageMemberController {
 	
 	// 배송지 관리
 	@GetMapping("/my/ship")
-	public String ship() {
+	public String ship(Member loginMember, Model model) {
+		
+		// 배송지 목록 조회
+		List<Address> addressList = service.selectAddressList(loginMember.getMemberNo());
+		
+		model.addAttribute("addressList", addressList);
+
 		return "/mypage/mypageShipping";
 	}
 	
