@@ -47,4 +47,10 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	// 아이디 중복 검사
+	@Override
+	public int checkId(String memberId) {
+		return mapper.checkId(memberId);
+	}
+
 }

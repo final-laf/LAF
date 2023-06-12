@@ -40,5 +40,14 @@
 				NULL, 
 				NULL)
   	</insert>
+  	
+  	<select id="checkId" resultType="_int">
+		SELECT COUNT(*) FROM `member`
+		WHERE member_id  = #{memberId}
+		AND member_del_fl  = 'N'
+	</select>
+  	
+  	
+  	
 </mapper>
 

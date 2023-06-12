@@ -16,6 +16,12 @@ public interface MemberService {
 	 * @return result
 	 */
 	int signUp(Member inputMember);
+
+	/** 아이디 중복 검사 서비스
+	 * @param nickname
+	 * @return result
+	 */
+	int checkId(String memberId);
 	
 	
 

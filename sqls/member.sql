@@ -101,7 +101,9 @@ COMMIT;
 
 
 	
-
+SELECT COUNT(*) FROM `member`
+		WHERE member_id  = 'user01'
+		AND member_del_fl  = 'N';
 
 
 

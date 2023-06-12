@@ -43,10 +43,9 @@ document.getElementById("mypageSignUpSubmit").addEventListener("submit", e=> {
 const memberId = document.getElementById("mypageSignUpId");
 // 정규 표현식을 이용해서 유효한 형식인지 판별
 memberId.addEventListener("input", () => {
-  const regEx = /^[a-z\d]{4,16}/;
+  const regEx = /^[a-z\d]{4,16}$/;
   if(regEx.test(memberId.value) ){ // 유효한 경우
-    /**********************************************************************/ 
-    fetch('/memberIdCheck/memberId?memberId=' + memberId.value)
+    fetch('/dupCheck/id?memberId=' + memberId.value)
     .then(response => response.text()) 
     .then(count => {
       count=0;
@@ -63,7 +62,6 @@ memberId.addEventListener("input", () => {
       }
     }) 
     .catch(err => console.log(err)); // 예외 처리
-    /**********************************************************************/ 
   } else { 
     memberId.classList.add("error");  
     memberId.classList.remove("confirm");  
@@ -119,48 +117,33 @@ memberPwConfirm.addEventListener('input', ()=>{
     checkObj.memberPwConfirm = false;
   }
 });
-  
+
+
+
+
 //전화번호
-document.getElementById("mypageSignUpTelF").addEventListener("input", () => {
-  const mypageSignUpTelF = document.getElementById("mypageSignUpTelF");
-  const regEx = /^0[0-9]{1,2}$/;
-  if(regEx.test(mypageSignUpTelF.value)){
-    mypageSignUpTelF.classList.remove("error");
-    mypageSignUpTelF.classList.add("confirm");
-    checkObj.mypageSignUpTelF = true;
-  }else{
-    mypageSignUpTelF.classList.remove("confirm");
-    mypageSignUpTelF.classList.add("error");
-    checkObj.mypageSignUpTelF = false;
+// 전화번호 윺효성 검사
+const memberTel = document.getElementById("mypageSignUpTelF");
+
+// 전화번호가 입력되었을 때
+memberTel.addEventListener("input", () => {
+  // 정규표현식으로 유효성 검사
+  const regEx = /^0(1[01679]|2|[3-6][1-5]|70)[1-9]\d{2,3}\d{4}$/;
+  if(regEx.test(memberTel.value)) { // 유효
+      memberTel.classList.add("confirm");
+      memberTel.classList.remove("error");
+      checkObj.memberNickname = true;
+      console.log("유효");
+    } else { // 무효
+      memberTel.classList.add("error");
+      memberTel.classList.remove("confirm");
+      checkObj.memberNickname = false;
+      console.log("무효");
   }
 });
-document.getElementById("mypageSignUpTelS").addEventListener("input", () => {
-  const mypageSignUpTel = document.getElementById("mypageSignUpTelS");
-  const regEx = /^[0-9]{3,4}$/;
-  if(regEx.test(mypageSignUpTel.value)){
-    mypageSignUpTel.classList.remove("error");
-    mypageSignUpTel.classList.add("confirm");
-    checkObj.mypageSignUpTelS = true;
-  }else{
-    mypageSignUpTel.classList.remove("confirm");
-    mypageSignUpTel.classList.add("error");
-    checkObj.mypageSignUpTelS = false;
-  }
-});
-document.getElementById("mypageSignUpTelT").addEventListener("input", () => {
-  const mypageSignUpTel = document.getElementById("mypageSignUpTelT");
-  const regEx = /^[0-9]{3,4}$/;
-  if(regEx.test(mypageSignUpTel.value)){
-    mypageSignUpTel.classList.remove("error");
-    mypageSignUpTel.classList.add("confirm");
-    checkObj.mypageSignUpTelT = true;
-  }else{
-    mypageSignUpTel.classList.remove("confirm");
-    mypageSignUpTel.classList.add("error");
-    checkObj.mypageSignUpTelT = false;
-  }
-});
-  
+
+
+
 
 ///////////////
 // 이메일 유효성 검사
@@ -312,6 +295,7 @@ document.getElementById("mypageSignUptermsAll").addEventListener("click", e=>{
         return;
     }
 });
+
 // 약관 동의 체크
 const terms = document.getElementsByClassName("mypageSignUp-terms-content");
 for(let i=0; iterms.length; i++) {

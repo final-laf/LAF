@@ -3,6 +3,10 @@
 .error{color : red;}
 /*  */
 
+input {
+  outline: none;
+}
+
 .mypageSignUp-signUp{
   margin-top: 50px;
   display: flex;
@@ -20,6 +24,7 @@
   align-items: flex-end;
   margin-bottom: 30px;
 }
+
 .mypageSignUp-info-intro span{
   color: black;
   font-weight: bold;
@@ -66,8 +71,9 @@
     display: flex;
     align-items: center;
 }
-.mypageSignUp-table-inputTd div{
+.mypageSignUp-table-inputTd > div{
   color: #666;
+  margin-left: 10px;
 } 
 
 .mypageSignUp-table-address input{
@@ -84,9 +90,8 @@
     width: 100px !important;
 }
 .mypageSignUp-table-tel input{
-    font-size: 15px;
-    text-align: center;
-    width: 100px;
+    text-align: left;
+    width: 300px;
 }
 .mypageSignUp-table-tel span{
     font-size: 30px;
@@ -172,3 +177,17 @@
 .mypageSignUp-table-birth > td:nth-child(4) > select {
   width: 100px;
 }
+
+
+#mypageSignUpRefundName {
+  margin-left: 10px;
+}
+
+[name="refundBank"] {
+  margin-left: 10px;
+}
+
+#mypageSignUpRefundNo{
+  margin-left: 10px;
+}
+
