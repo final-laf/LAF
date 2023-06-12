@@ -31,23 +31,22 @@ public class OrderController {
 		cartList.add(cart);
 		OrderProduct cart2 = new OrderProduct();
 		cart2.setMemberNo(2);
-		cart2.setProductNo(2);
-		cart2.setOptionNo(11);
-		cart2.setCount(1);
+		cart2.setProductNo(1);
+		cart2.setOptionNo(6);
+		cart2.setCount(11);
 		cartList.add(cart2);
 		OrderProduct cart3 = new OrderProduct();
 		cart3.setMemberNo(2);
 		cart3.setProductNo(2);
-		cart3.setOptionNo(10);
-		cart3.setCount(11);
+		cart3.setOptionNo(9);
+		cart3.setCount(5);
 		cartList.add(cart3);
 		OrderProduct cart4 = new OrderProduct();
 		cart4.setMemberNo(2);
 		cart4.setProductNo(1);
-		cart4.setOptionNo(3);
+		cart4.setOptionNo(6);
 		cart4.setCount(2);
 		cartList.add(cart4);
-		
 		// ---------------------------
 		// 주문자정보
 		Member orderMember = service.selectOrderMember(cartList.get(0).getMemberNo());

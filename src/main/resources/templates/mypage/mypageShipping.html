@@ -33,7 +33,7 @@
               <th width="60px">수정</th>
             </tr>
             <!-- 항목 추가~ -->
-            <tr class="mypageShipping-Shipping-list">
+            <tr th:each="address : ${addressList}" class="mypageShipping-Shipping-list">
               <td><input type="checkbox"></td>
               <td><button type="button" id="mypageShippingDefault">기본</button> 미지정</td>
               <td>ㅇㅇㅇ</td>

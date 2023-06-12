@@ -80,10 +80,10 @@ AND p.product_no = 2;
 -- 옵션조회
 SELECT `size` , color 
 FROM `option`
-WHERE product_no = 2
-AND option_no = 11;
+WHERE product_no = 1
+AND option_no = 2;
  
-
+COMMIT;
 
 
 

@@ -14,6 +14,13 @@
     </select>
     
     
+    <!-- 등록된 배송지 조회 -->
+    <select id="selectAddressList" resultType="Address">
+		SELECT *
+		FROM `address`
+		WHERE member_no = #{memberNo}
+		ORDER BY address_default_fl DESC, address_no ASC;
+	</select>
 
 </mapper>
 
