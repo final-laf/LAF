@@ -13,14 +13,14 @@ import edu.kh.laf.board.model.dto.Notice;
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
-	private NoticeDAO dao;
+	private NoticeDAO mapper;
 
 	/** 공지사항 리스트
 	 *
 	 */
 	@Override
 	public List<Notice> noticeList() {
-		return dao.noticeList();
+		return mapper.noticeList();
 	}
 	
 	
