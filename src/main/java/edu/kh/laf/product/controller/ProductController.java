@@ -3,6 +3,7 @@ package edu.kh.laf.product.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -73,38 +74,18 @@ public class ProductController {
 		return "/shopping/product";
 	}
 	
+	// 특정 상품의 모든 옵션 정보 조회
+	@GetMapping("/getOption")
+	@ResponseBody
+	public List<Option> selectOptionList(long productNo) {
+		return optionService.selectOptionList(productNo);
+	}
+	
 	// 색상 선택 시 해당 색상 사이즈 목록 조회
 	@GetMapping("/getStock")
 	@ResponseBody
 	public List<Option> getOptionSelectedColor(long productNo, String color, Model model) {
 		return optionService.getOptionSelectedColor(productNo, color); 
-	}
-	
-	// 장바구니 담기
-	@GetMapping("/cart/add")
-	@ResponseBody
-	public String getOptionSelectedColor(String data, long productNo, 
-			@SessionAttribute(name = "loginMember", required = false) Member loginMember) throws JsonProcessingException {
-		
-		BasicJsonParser parser = new BasicJsonParser();
-		List<Object> optionList = parser.parseList(data);
-		
-		List<Cart> cartList = new ArrayList<>();
-		for(Object option : optionList) {
-			
-			Cart cart = new Cart();
-			
-			Map<String, Object> map = (Map<String, Object>)(option);
-			cart.setProductNo(productNo);
-//			cart.setMemberNo(loginMember.getMemberNo());
-			System.out.println(String.valueOf(map.get("optionNo")));
-			cart.setOptionNo(Long.parseLong(String.valueOf(map.get("optionNo"))));
-			cart.setCount((int)map.get("count"));
-			
-			cartList.add(cart);
-		}
-		
-		return null; 
 	}
 	
 }
