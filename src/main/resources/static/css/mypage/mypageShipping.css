@@ -4,20 +4,20 @@
     width: 1200px;
 }
 
-.mypageShipping-mainFrame-myMain{
+.orderShipping-mainFrame-myMain{
     height: 482px;
     width: 1020px;
     margin: 80px 0 0 30px;
 }
 
-.mypageShipping-myMain-text{
+.orderShipping-myMain-text{
     font-weight: bold;
     font-size: 30px;
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
 }
-.mypageShipping-myMain-text div{
+.orderShipping-myMain-text div{
     display: flex;
     align-items: flex-end;
 
@@ -25,50 +25,50 @@
 }
 
 /* 테이블 구간 */
-.mypageShipping-MyMain-Shipping table{
+.orderShipping-MyMain-Shipping table{
     margin: 20px 0 0 0;
     width: 100%;
     display: flex;
     border: 1px solid #eee;
 }
 
-.mypageShipping-MyMain-Shipping th{
+.orderShipping-MyMain-Shipping th{
     background-color: #fafafa;
     border: 1px solid #eee;
     font-size: 12px;
 }
 
-.mypageShipping-MyMain-Shipping tr{
+.orderShipping-MyMain-Shipping tr{
     border: 1px solid #eee;
     height: 40px;
 }
 
-.mypageShipping-Shipping-list td {
+.orderShipping-Shipping-list td {
     font-size: 12px;
     text-align: center;
 }
-.mypageShipping-Shipping-list td:nth-child(5) {
+.orderShipping-Shipping-list td:nth-child(5) {
     padding-left: 10px;
     text-align: left;
 }
-#mypageShippingDefault{
+#orderShippingDefault{
     border: 1px solid #eee;
     background-color: #58aeff;
     color: white;
     width: 40px;
-
+    
 }
 
 
-.mypageShipping-Shipping-search{
+.orderShipping-Shipping-search{
     display: flex;
     justify-content: center;
 }
-.mypageShipping-Shipping-search button{
+.orderShipping-Shipping-search button{
     background-color: #eee;
     margin-left: 10px;
 }
-.mypageShipping-Shipping-search select{
+.orderShipping-Shipping-search select{
 
     background-color: #fafafa;
     border: 1px solid #eee;
@@ -76,34 +76,34 @@
     width: 100px;
     margin-right: 10px;
 }
-.mypageShipping-Shipping-search input{
+.orderShipping-Shipping-search input{
     border: 1px solid #eee;
     width: 350px;
 }
 
-.mypageShipping-Shipping-button div{
+.orderShipping-Shipping-button div{
     margin-top: 5px;
     display: flex;
     justify-content: space-between;
 }
-.mypageShipping-Shipping-button button:nth-child(2){
+.orderShipping-Shipping-button button:nth-child(2){
     background-color: #666;
     color: white;
     display: flex;
     justify-content: space-between;
 }
 
-.mypageShipping-Shipping-notice{
+.orderShipping-Shipping-notice{
     display: block;
 }
-.mypageShipping-Shipping-notice th{
+.orderShipping-Shipping-notice th{
     padding-left: 10px;
     text-align: left;
 }
-.mypageShipping-Shipping-notice td{
+.orderShipping-Shipping-notice td{
     width: 970px;
     padding: 20px;
 }
-.mypageShipping-Shipping-notice div{
+.orderShipping-Shipping-notice div{
     color: #666;
 }

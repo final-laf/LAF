@@ -30,18 +30,12 @@
         <tr th:each="coupon : ${couponList}" class="orderCoupon-coupon-list">
           <td>
             <div th:text="${coupon.couponName}">쿠폰</div>
-            <div th:text="${coupon.couponCondition} + '원 이상 구매시'">2000원 이상 구매시 </div>
+            <div th:text="${#numbers.formatInteger(coupon.couponCondition, 3, 'COMMA')} + '원 이상 구매시'">2000원 이상 구매시 </div>
           </td>
-          <td th:text="${coupon.couponDueDate}">23-06-01</td>
-          <td><a href="#"><button type="button">사용</button></a></td>
-        </tr>
-        <tr class="orderCoupon-coupon-list">
-          <td>
-            <div>쿠폰</div>
-            <div>2000원 이상 구매시 </div>
-          </td>
-          <td>23-06-01</td>
-          <td><a href="#"><button type="button">사용</button></a></td>
+          <!-- <td th:text="${#dates.format(coupon.couponDueDate, 'yy-MM-dd')}">23-06-01</td> -->
+          <!-- <td th:text="${#temporals.format(coupon.couponDueDate, 'yyyy-MM-dd HH:mm:ss')}">23-06-01</td> -->
+          <td th:text="${#strings.substring(coupon.couponDueDate,0,10)}">23-06-01</td>
+          <td><button type="button">사용</button></td>
         </tr>
         <!-- ~~~~~~~~~~~~~~~ -->
       </table>

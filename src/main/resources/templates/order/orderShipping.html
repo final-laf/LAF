@@ -1,7 +1,7 @@
 <div id="orderShippingBack"></div>
 <section class="orderShipping-mainFrame" id="orderShippingContent">
   <link rel="stylesheet" href="/css/common/default.css">
-  <link rel="stylesheet" href="/css/order/orderShipping.css">
+  
   <!-- 결제 배송 모달창  -->
   <div class="orderShipping-mainFrame-myMain">
     <!-- 배송지 관리 -->
@@ -18,9 +18,9 @@
           <th width="60px">수정</th>
         </tr>
         <!-- 항목 추가~ -->
-        <tr th:if="session.loginMember" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
+        <tr th:if="${session.loginMember}" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
           <td><input type="checkbox"></td>
-          <td th:text="${address.addressName}"><button type="button" id="orderShippingDefault">기본</button> 미지정</td>
+          <td th:text="${address.addressName}">미지정</td>
           <td th:text="${address.addressReceiver}">수령인</td>
           <td th:text="${address.addressTel}">010-1234-1234</td>
           <td th:text="${address.address}">서울특별시 강남구 삼성동 111-22 무슨 빌라 302호</td>
