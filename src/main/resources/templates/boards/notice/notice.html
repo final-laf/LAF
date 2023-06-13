@@ -41,18 +41,18 @@
           </thead>
           <!-- 게시판 본문 -->
           <tbody>
-
-            <tr th:each="q,index:${noticeList}">
+            <!-- onclick="asd(asd)" -->
+            <tr th:each="q, index:${noticeList}" th:value="${q.noticeNo}" class="trup">
               <td th:text="${index.index+1}">번호</td>
-              <td th:text="${q.noticeTitle}">테스트 제목 입니다</td>
+                <td th:text="${q.noticeTitle}">테스트 제목 입니다</td>
               <td>관리자</td>
               <td th:text="${q.noticeDate}">2023-06-01</td>
             </tr>
+          
             
           </tbody>
         </table>
       </div>
-
       <!-- 하단 버튼 영역 -->
       <div class="btn-area">
         <a href="/notice/write"><button id="insertBtn">WRITE</button></a>                     

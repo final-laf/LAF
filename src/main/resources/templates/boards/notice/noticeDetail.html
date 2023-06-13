@@ -14,8 +14,9 @@
   <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
+    
 
-    <section class="board-list">
+    <section class="board-list" th:with="notice=${notice}">
       <div class="section-header">
         <div class="section-title">NOTICE</div>
       </div>
@@ -32,7 +33,7 @@
         <table class="detail-list-table">
           <tr>
             <td>TITLE</td>
-            <td>테스트 제목 입니다</td>
+            <td th:text="${notice.noticeTitle}">테스트 제목 입니다</td>
           </tr>
 
           <tr>
@@ -42,13 +43,13 @@
 
           <tr>
             <td>DATE</td>
-            <td>2023-06-07</td>
+            <td th:text="${notice.noticeDate}">2023-06-07</td>
           </tr>
         </table>
       </div>
 
       <div class="detail-list-contents">
-        <pre>
+        <pre th:text="${notice.noticeContent}">
 영업일 기준 7일 안으로 순차 지급해드리고 있습니다.
 판매/교환/반품예정인 상품의 후기글 등 후기 게시판 성격에 맞지 않는 글은 무통보 삭제될 수 있습니다.
 아래 조건이 맞지 않을 경우 적립금 지급이 어려울 수 있습니다.
@@ -90,8 +91,12 @@
           <a href="/notice"><button>LIST</button></a>                     
         </div>
         <div>
-          <button>MODIFY</button>                     
-          <button>DELETE</button>                     
+          <a href="/">
+            <button>MODIFY</button>                     
+          </a>
+          <a href="">
+            <button>DELETE</button>                     
+          </a>
         </div>
       </div>
     </section>
