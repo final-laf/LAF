@@ -102,6 +102,9 @@
 .mypageOrder-order-info th:nth-child(6){
   font-weight: bold;
 }
+.mypageOrder-order-info tr{
+  border-bottom: 0.5px solid #eee;
+}
 .mypageOrder-order-info td{
   text-align: center;
 }
