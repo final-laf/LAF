@@ -49,9 +49,7 @@ INSERT INTO `option` VALUES (NULL, 1, 'S', '다크네이비', 15, '이천', 23);
 INSERT INTO `option` VALUES (NULL, 1, 'M', '다크네이비', 20, '이천', 0);
 INSERT INTO `option` VALUES (NULL, 1, 'L', '다크네이비', 19, '이천', 6);
 
-INSERT INTO `option` VALUES (NULL, 1, 'XS', '다크네이비', 15, '이천', 23);
-INSERT INTO `option` VALUES (NULL, 1, 'S', '다크네이비', 15, '이천', 23);
-INSERT INTO `option` VALUES (NULL, 1, 'M', '다크네이비', 20, '이천', 0);
-INSERT INTO `option` VALUES (NULL, 1, 'L', '다크네이비', 19, '이천', 6);
+INSERT INTO `option` VALUES (NULL, 8, 'FREE', '스카이블루', 14, '이천', 1);
+INSERT INTO `option` VALUES (NULL, 8, 'FREE', '블랙', 13, '이천', 2);
 
 COMMIT;
