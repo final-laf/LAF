@@ -13,6 +13,7 @@ public class Member {
     private String memberEmail;			// 이메일
     private String memberPhone;			// 전화번호
     private String memberBirth;			// 생일
+    private String memberAddress;		// 회원주소
     private String memberGrade;			// 회원 등급(B:브론즈, S:실버, G:골드, D:다이아, A:관리자)
     private String memberEnrollDate;	// 가입일
     private String memberDelFL;			// 회원 탈퇴여부

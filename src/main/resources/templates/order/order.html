@@ -154,8 +154,8 @@
                 <div th:text="${order.option.color} + ' | '+${order.option.size}">[옵션 : 내츄럴 크림]</div>
               </td>
               <td th:text="${order.count}">구매수량</td>
-              <td th:text="${order.product.productPrice}">상품구매금액</td>
-              <td th:unless="${(order.product.productPrice - order.product.productSalePrice) == 0}" th:text="'-' + ${order.product.productPrice - order.product.productSalePrice} + '원'" class="mypageOrderDiscountRed">할인금액</td>
+              <td th:text="${#numbers.formatInteger(order.product.productPrice, 3, 'COMMA')}">상품구매금액</td>
+              <td th:unless="${(order.product.productPrice - order.product.productSalePrice) == 0}" th:text="'-' + ${#numbers.formatInteger(order.product.productPrice - order.product.productSalePrice, 3, 'COMMA')} + '원'" class="mypageOrderDiscountRed">할인금액</td>
             </tr>
             <tr>
               <td colspan="6">
@@ -254,8 +254,8 @@
       </form>
     </section>
   </main>
-
   <th:block th:replace="~{/common/footer}"></th:block> 
+
   
   <script th:inline="javascript">
     const orderMember = /*[[${orderMember}]]*/ "로그인한 회원정보";

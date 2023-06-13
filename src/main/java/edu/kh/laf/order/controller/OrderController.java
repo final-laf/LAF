@@ -38,25 +38,25 @@ public class OrderController {
 		List<OrderProduct> cartList = new ArrayList<>();
 		cart.setMemberNo(2);
 		cart.setProductNo(1);
-		cart.setOptionNo(2);
+		cart.setOptionNo(38);
 		cart.setCount(2);
 		cartList.add(cart);
 		OrderProduct cart2 = new OrderProduct();
 		cart2.setMemberNo(2);
 		cart2.setProductNo(1);
-		cart2.setOptionNo(6);
+		cart2.setOptionNo(45);
 		cart2.setCount(11);
 		cartList.add(cart2);
 		OrderProduct cart3 = new OrderProduct();
 		cart3.setMemberNo(2);
 		cart3.setProductNo(2);
-		cart3.setOptionNo(9);
+		cart3.setOptionNo(8);
 		cart3.setCount(5);
 		cartList.add(cart3);
 		OrderProduct cart4 = new OrderProduct();
 		cart4.setMemberNo(2);
 		cart4.setProductNo(1);
-		cart4.setOptionNo(6);
+		cart4.setOptionNo(49);
 		cart4.setCount(2);
 		cartList.add(cart4);
 		// ---------------------------
@@ -84,12 +84,12 @@ public class OrderController {
 	@PostMapping("/payment")
 	public String payment(Order order) {
 		
+		// order테이블 인설트하기
+
 		// order_product 테이블 인설트하기
 		
 		// 장바구니 삭제하기
-		
-		// order테이블 인설트하기
-		
+				
 		// 상품 테이블 / 판매량, 상품상태(모든옵션재고)
 		
 		// option 업데이트하기 / 재고, 판매량
