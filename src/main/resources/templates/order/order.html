@@ -17,7 +17,7 @@
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
     <section th:object="${orderMember}" class="mypageOrder-mainFrame">
-      <form action="" method="post">
+      <form action="/order" method="post">
         <div class="mypageOrder-order-text">주문 정보</div>
         <!-- 주문 정보 -->
         <div class="mypageOrder-mainFrame-order">
@@ -25,7 +25,7 @@
           <table>
             <tr>
               <th width="100px">주문자</th>
-              <td><input type="text" th:value="*{memberName}"></td>
+              <td><input type="text" th:value="*{memberName}"><input type="hidden" name="memberNo" th:value="*{memberNo}"></td>
             </tr>
             <tr>
               <th>이메일</th>
@@ -90,10 +90,10 @@
             </tr>
             <tr>
               <th width="100px">받는 사람*</th>
-              <td><input type="text"></td>
+              <td><input type="text" name="orderRecvName"></td>
             </tr>
             <tr>
-              <th>주소</th>
+              <th>주소<input type="hidden" name="orderRecvAdd"></th>
               <td>
                 <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
                 <div class="mypageSignUp-table-address">
@@ -111,7 +111,7 @@
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input type="text">
+                <input type="text" name="orderRecvPhone">
               </td>
             </tr>
           </table>
@@ -184,7 +184,7 @@
           <div>결제정보</div>
           <table class="mypageOrder-order-info" id="mypageOrderInfo">
             <tr>
-              <th>주문상품</th>
+              <th>주문상품<input type="hidden" name="orderTotalPrice"></th>
               <th id="totalAmount">0</th>
             </tr>
             <tr>
@@ -196,7 +196,7 @@
               <th class="mypageOrderDiscountRed" id="payDiscount">0원</th>
             </tr>
             <tr>
-              <th class="mypageOrderFontBold">최종 결제 금액</th>
+              <th class="mypageOrderFontBold">최종 결제 금액 <input type="hidden" name="orderPayment"></th>
               <th id="payment">84,500</th>
             </tr>
           </table>
@@ -228,10 +228,10 @@
           </table>
         </div>
         <div class="mypageOrderTerms">
-          <div>구매조건 확인 및 결제진행 동의</div>
-          <div>배송정보 제공 방침 동의</div>
+          <div><input type="checkbox">구매조건 확인 및 결제진행 동의</div>
+          <div><input type="checkbox">배송정보 제공 방침 동의</div>
           <div>
-            <div>주문 내용을 확인하였으며 약관에 동의합니다.</div>
+            <div><input type="checkbox">주문 내용을 확인하였으며 약관에 동의합니다.</div>
             <div><button id="paymentBtn">79,300원 결제하기</button></div>
           </div>
         </div>
@@ -248,7 +248,7 @@
         const arr = orderMember.memberAddress.split("^^^");
         document.querySelectorAll("input[name='memberAddress']").forEach( (item, i) =>{
             if(arr[i] == undefined ){
-              item.value = " ";
+              item.value = " "; // 상세주소없으면 빈값넣어서 placeholder가리기
             }else{
               item.value = arr[i];
             }

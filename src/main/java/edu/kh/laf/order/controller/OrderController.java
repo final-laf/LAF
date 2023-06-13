@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -81,9 +82,15 @@ public class OrderController {
 
 	
 	// 결제시
-	@PostMapping("/payment")
-	public String payment(Order order) {
+	@PostMapping("/order")
+	public String payment(@RequestParam(value="orderTotalPrice") String orderTotalPrice
+						, @RequestParam(value="orderPayment") String orderPayment
+//						, Order order
+						) {
 		
+		System.out.println(orderTotalPrice);
+		System.out.println(orderPayment);
+//		System.out.println(order);
 		// order테이블 인설트하기
 
 		// order_product 테이블 인설트하기
@@ -103,7 +110,7 @@ public class OrderController {
 		
 		
 		// 주문테이블 조회해서 번호얻어와서 이동할 번호 path
-		return null; //주문상세조회로 넘어가기
+		return "/order/orderDetail"; //주문상세조회로 넘어가기
 	}
 	
 	

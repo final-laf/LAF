@@ -188,6 +188,12 @@
   justify-content: space-between;
   padding-right: 10px;
 }
+
+#mypageOrderInfo > tbody> tr *{
+  display: flex;
+  align-items: center;
+}
+
 #mypageOrderInfo > tbody> tr:nth-child(1){
   padding-top: 20px;
 }
@@ -232,9 +238,16 @@
   width: 800px;
 }
 .mypageOrderTerms div{
+  display: flex;
+  align-items: center;
+
   font-weight: bold;
   padding:15px 0 15px 10px 
 }
+.mypageOrderTerms div>input{
+  margin-right: 5px;
+}
+
 /* 결제하기 버튼쪽 */
 .mypageOrderTerms div:nth-child(3){
   display: flex;
