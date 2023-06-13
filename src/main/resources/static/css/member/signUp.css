@@ -1,7 +1,7 @@
 /* 회원가입 정규식 확인 */
-.confirm{color : green;}
+.confirm{color : #666;}
 .error{color : red;}
-/*  */
+
 
 input {
   outline: none;
@@ -41,7 +41,7 @@ input {
     margin-bottom: 50px;
 }
 .mypageSignUp-signUpInfo-table th{
-    padding-left: 20px;
+    padding-left: 10px;
     height: 30px;
     width: 150px;
     background-color: #fafafa;
@@ -93,10 +93,7 @@ input {
     text-align: left;
     width: 300px;
 }
-.mypageSignUp-table-tel span{
-    font-size: 30px;
-    font-weight: bolder;
-}
+
 .mypageSignUp-table-birth input{
   border: 0.5px solid #eee;
   width: 50px;
@@ -187,7 +184,30 @@ input {
   margin-left: 10px;
 }
 
-#mypageSignUpRefundNo{
+
+/* 유효성 검사 메세지(id, phone, email) */
+#mypageSignUpRefundNo, #emailMessage, #phoneMessage {
   margin-left: 10px;
+  color: #666;
 }
 
+/* 필수입력값을 알리는 '*' */
+.required-for-signUp {
+  display: flex;
+  align-items: flex-start;
+}
+
+.required-for-signUp > span {
+  margin-left: 5px;
+  font-size: 2px;
+  color: red;
+}
+
+.for-flex-signUp {
+  display: flex;
+  flex-direction: row;
+}
+
+.signUp-button {
+  margin-left: 10px;
+}

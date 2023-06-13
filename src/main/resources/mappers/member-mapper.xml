@@ -41,11 +41,22 @@
 				NULL)
   	</insert>
   	
+  	
+  	<!--아이디 중복 검사-->
   	<select id="checkId" resultType="_int">
 		SELECT COUNT(*) FROM `member`
 		WHERE member_id  = #{memberId}
 		AND member_del_fl  = 'N'
 	</select>
+  	
+  	
+  	<!--이메일 중복 검사-->
+  	<select id="checkEmail" resultType="_int">
+		SELECT COUNT(*) FROM `member`
+		WHERE member_email  = #{memberEmail}
+		AND member_del_fl  = 'N'
+	</select>
+	
   	
   	
   	

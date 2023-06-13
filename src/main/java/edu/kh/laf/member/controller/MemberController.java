@@ -68,14 +68,14 @@ public class MemberController {
 		return path;
 	}
 
-   // 로그아웃 기능
-   @GetMapping("/logout")
-   public String logout(SessionStatus status, HttpSession session) {
-      status.setComplete(); 
-      return "redirect:/";
-   }
+	// 로그아웃 기능
+	@GetMapping("/logout")
+	  public String logout(SessionStatus status, HttpSession session) {
+	    status.setComplete(); 
+	    return "redirect:/";
+	}
    
-   	// 회원 가입 진행
+	// 회원 가입 진행
 	@PostMapping("/signUp")
 	public String signUp(Member inputMember
 				, String[] memberAddress
@@ -123,6 +123,14 @@ public class MemberController {
 	public int checkId(String memberId) {
 		return service.checkId(memberId);
 	}
+	
+	// 이메일 중복 검사
+	@GetMapping("/dupCheck/email")
+	@ResponseBody
+	public int checkEmail(String memberEmail) {
+		return  service.checkEmail(memberEmail);
+	}
+	
 	
 	
 	

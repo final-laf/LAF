@@ -22,7 +22,13 @@ public interface MemberService {
 	 * @return result
 	 */
 	int checkId(String memberId);
-	
+
+
+	/** 이메일 중복 확인
+	 * @param email
+	 * @return count
+	 */
+	int checkEmail(String email);
 	
 
 }
