@@ -84,12 +84,3 @@ WHERE product_no = 1
 AND option_no = 2;
  
 COMMIT;
-
-
-
-
-
-
-
-
-COMMIT;
