@@ -27,6 +27,12 @@ public interface NoticeService {
 	 */
 	Notice writeNotice(Notice notice);
 
+	/** 공지사항 삭제
+	 * @param noticeNo
+	 * @return
+	 */
+	int deleteNotice(String noticeNo);
+
 	
 
 }

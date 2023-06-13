@@ -91,18 +91,15 @@
           <a href="/notice"><button>LIST</button></a>                     
         </div>
         <div>
-          <a href="/">
-            <button>MODIFY</button>                     
-          </a>
-          <a href="">
-            <button>DELETE</button>                     
-          </a>
+          <button type="button">MODIFY</button>                     
+          <button id="noticeDelete" type="button" th:value="${notice.noticeNo}">DELETE</button>                     
         </div>
       </div>
     </section>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>
+  <script src="/js/boards/notice.js"></script>
 
 </body> 
 </html>

@@ -41,5 +41,13 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.writeNotice(notice);
 	}
 
+	/** 공지사항 삭제
+	 *
+	 */
+	@Override
+	public int deleteNotice(String noticeNo) {
+		return mapper.deleteNotice(noticeNo);
+	}
+
 	
 }
