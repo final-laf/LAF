@@ -113,8 +113,9 @@ hr { margin: 20px 0; }
 .option-btn {
   margin: 2px 5px;
 }
-.option-btn:disabled {
+.option-btn button:disabled {
   color: #eee;
+  cursor: default;
 }
 
 /* 현재 선택된 아이템들 */

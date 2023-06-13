@@ -65,27 +65,25 @@
                 색상<span class="option-required">[필수]</span>
               </div>
               <div class="product-option-options">
-                <!-- 버튼 선택 시 마다 아래 p 태그의 value값과 innerText 값 변경 -->
-                <p class="product-option-seleced color" value="">색상을 선택해 주세요</p>
+                <p class="product-option-seleced color">색상을 선택해 주세요</p>
                 <ul>
                   <li class="option-btn color" th:each="color : ${colorList}">
-                    <button name="color" th:value="${color}" th:text="${color}">컬러</button>
+                    <button name="color" th:text="${color}" disabled>컬러</button>
                   </li>
                 </ul>
               </div>
             </div>
 
             <!-- 사이즈 선택 -->
-            <div class="product-option size">
+            <div class="product-option size" th:if="${#lists.size(sizeList) > 1}">
               <div class="product-option-title">
                 사이즈<span class="option-required">[필수]</span>
               </div>
               <div class="product-option-options">
-                <!-- 버튼 선택 시 마다 아래 p 태그의 value값과 innerText 값 변경 -->
-                <p class="product-option-seleced size" value="">사이즈를 선택해 주세요</p>
+                <p class="product-option-seleced size">사이즈를 선택해 주세요</p>
                 <ul>
                   <li class="option-btn color" th:each="size : ${sizeList}">
-                    <button name="size" th:value="${size}" th:text="${size}" disabled>사이즈</button>
+                    <button name="size" th:text="${size}" disabled>사이즈</button>
                   </li>
                 </ul>
               </div>

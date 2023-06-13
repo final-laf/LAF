@@ -210,7 +210,7 @@ main {
   letter-spacing: 3px;
   background-color: #f9f4f5;
   cursor: pointer;
-  transition-duration: 0.2s;
+  /* transition-duration: 0.2s; */
   border-radius: 0;
 }
 .weekly-title button:hover {

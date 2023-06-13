@@ -1,22 +1,33 @@
 package edu.kh.laf.product.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import org.springframework.boot.json.BasicJsonParser;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.product.model.dto.Cart;
+import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
+@SessionAttributes({"loginMember"})
 public class ProductController {
 
 	private ProductService productService;
@@ -63,15 +74,18 @@ public class ProductController {
 		return "/shopping/product";
 	}
 	
-	// 선택한 컬러의 품절 사이즈 목록 조회
+	// 특정 상품의 모든 옵션 정보 조회
+	@GetMapping("/getOption")
+	@ResponseBody
+	public List<Option> selectOptionList(long productNo) {
+		return optionService.selectOptionList(productNo);
+	}
+	
+	// 색상 선택 시 해당 색상 사이즈 목록 조회
 	@GetMapping("/getStock")
 	@ResponseBody
-	public List<String> getStockSelectedColor(
-			long productNo,
-			String color,
-			Model model) {
-		
-		return optionService.getStockSelectedColor(productNo, color); 
+	public List<Option> getOptionSelectedColor(long productNo, String color, Model model) {
+		return optionService.getOptionSelectedColor(productNo, color); 
 	}
 	
 }

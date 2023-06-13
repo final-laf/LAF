@@ -13,15 +13,15 @@ public interface OptionMapper {
 	/**
 	 * 상품번호로 해당 상품의 모든 옵션 조회
 	 * @param productNo
-	 * @return 
+	 * @return optionList
 	 */
 	List<Option> selectOptionList(long productNo);
 
 	/**
 	 * 색상 선택 시 품절 사이즈 목록 조회
 	 * @param map
-	 * @return emptySizeList
+	 * @return optionList
 	 */
-	List<String> getStockSelectedColor(Map<String, Object> map);
+	List<Option> getOptionSelectedColor(Map<String, Object> map);
 	
 }

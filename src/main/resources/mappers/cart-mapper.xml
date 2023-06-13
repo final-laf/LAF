@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.kh.laf.product.model.mapper.CartMapper">
+
+	<!-- 장바구니에 상품 추가 -->
+	<insert id="insertCart" parameterType="list">
+		insert into `cart`
+		values
+			<foreach collection="list" item="cart" separator=",">
+			(
+				${cart.productNo},
+				${cart.memberNo},
+				${cart.optionNo},
+				${cart.count}
+			)
+			</foreach>
+	</insert>
+</mapper>
+

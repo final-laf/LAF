@@ -63,15 +63,15 @@ public class OptionServiceImpl implements OptionService {
 		return new ArrayList<String>(sizes);
 	}
 
-	// 색상 선택 시 사이즈 품절여부 확인
+	// 색상 선택 시 해당 색상 사이즈 목록 조회
 	@Override
-	public List<String> getStockSelectedColor(long productNo, String color) {
+	public List<Option> getOptionSelectedColor(long productNo, String color) {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productNo", productNo);
 		map.put("color", color);
 		
-		return mapper.getStockSelectedColor(map);
+		return mapper.getOptionSelectedColor(map);
 	}
 
 }
