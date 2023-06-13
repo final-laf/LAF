@@ -53,14 +53,15 @@ for (let i = 1; i < table.rows.length - 1; i++) {
 document.getElementById("totalDiscount").innerText = totalDiscount.toLocaleString() + '원';
 // 주문상품 총 금액 세팅
 document.getElementById("totalAmount").innerText = totalAmount.toLocaleString() + '원';
-
+document.getElementsByName("orderTotalPrice").value = totalAmount;
 
 // 할인적용금액 세팅
 const td = document.getElementById("applyDiscount").innerText;
 document.getElementById("payDiscount").innerText = td;
 
 
-// 최종결제금액
-const payment = (totalAmount + totalDiscount + 2500).toLocaleString();
-document.getElementById("payment").innerText = payment + '원';
-document.getElementById("paymentBtn").innerText = payment + '원 결제하기';
+// 최종결제금액 세팅
+const payment = totalAmount + totalDiscount + 2500;
+document.getElementById("payment").innerText = payment.toLocaleString() + '원';
+document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
+document.getElementsByName("orderPayment").value = payment;
