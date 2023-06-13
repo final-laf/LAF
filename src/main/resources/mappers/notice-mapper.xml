@@ -5,7 +5,7 @@
 	
 	<!--공지사항 목록 조회-->
     <select id="noticeList" resultType="Notice">
-        SELECT * FROM `notice` 
+        SELECT * FROM `notice` WHERE notice_delete_fl='n';
     </select>
     
 	<!--공지사항 상세 조회-->
@@ -17,6 +17,11 @@
     <insert id="writeNotice" parameterType="Notice" >
         INSERT INTO `notice` VALUES (default, #{memberNo}, #{noticeTitle}, #{noticeContent}, default, default)
     </insert>
+    
+    <!-- 공지사항 삭제 -->
+    <update id="deleteNotice">
+        UPDATE `notice` SET notice_delete_fl ='y' WHERE notice_no=#{noticeNo}
+    </update>
 
 </mapper>
 
