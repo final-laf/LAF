@@ -1,22 +1,32 @@
 package edu.kh.laf.product.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.json.BasicJsonParser;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.product.model.dto.Cart;
+import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
+@SessionAttributes({"loginMember"})
 public class ProductController {
 
 	private ProductService productService;
@@ -63,15 +73,38 @@ public class ProductController {
 		return "/shopping/product";
 	}
 	
-	// 선택한 컬러의 품절 사이즈 목록 조회
+	// 색상 선택 시 해당 색상 사이즈 목록 조회
 	@GetMapping("/getStock")
 	@ResponseBody
-	public List<String> getStockSelectedColor(
-			long productNo,
-			String color,
-			Model model) {
+	public List<Option> getOptionSelectedColor(long productNo, String color, Model model) {
+		return optionService.getOptionSelectedColor(productNo, color); 
+	}
+	
+	// 장바구니 담기
+	@GetMapping("/cart/add")
+	@ResponseBody
+	public String getOptionSelectedColor(String data, long productNo, 
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember) throws JsonProcessingException {
 		
-		return optionService.getStockSelectedColor(productNo, color); 
+		BasicJsonParser parser = new BasicJsonParser();
+		List<Object> optionList = parser.parseList(data);
+		
+		List<Cart> cartList = new ArrayList<>();
+		for(Object option : optionList) {
+			
+			Cart cart = new Cart();
+			
+			Map<String, Object> map = (Map<String, Object>)(option);
+			cart.setProductNo(productNo);
+//			cart.setMemberNo(loginMember.getMemberNo());
+			System.out.println(String.valueOf(map.get("optionNo")));
+			cart.setOptionNo(Long.parseLong(String.valueOf(map.get("optionNo"))));
+			cart.setCount((int)map.get("count"));
+			
+			cartList.add(cart);
+		}
+		
+		return null; 
 	}
 	
 }

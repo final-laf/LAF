@@ -21,21 +21,32 @@ references `product` (
 -- 샘플데이터
 SELECT * FROM `option` ;
 
+INSERT INTO `option` VALUES (NULL, 1, 'XS', '아이보리', 15, '이천', 23);
 INSERT INTO `option` VALUES (NULL, 1, 'S', '아이보리', 15, '이천', 23);
 INSERT INTO `option` VALUES (NULL, 1, 'M', '아이보리', 17, '이천', 15);
 INSERT INTO `option` VALUES (NULL, 1, 'L', '아이보리', 19, '이천', 6);
 
-INSERT INTO `option` VALUES (NULL, 1, 'S', '검정', 25, '이천', 3);
-INSERT INTO `option` VALUES (NULL, 1, 'M', '검정', 27, '이천', 5);
-INSERT INTO `option` VALUES (NULL, 1, 'L', '검정', 29, '이천', 6);
-
-INSERT INTO `option` VALUES (NULL, 2, 'S', '검정', 5, '이천', 3);
-INSERT INTO `option` VALUES (NULL, 2, 'M', '검정', 7, '이천', 15);
-INSERT INTO `option` VALUES (NULL, 2, 'L', '검정', 9, '이천', 6);
-
-INSERT INTO `option` VALUES (NULL, 2, 'S', '그린', 12, '이천', 13);
-INSERT INTO `option` VALUES (NULL, 2, 'M', '그린', 11, '이천', 5);
-INSERT INTO `option` VALUES (NULL, 2, 'L', '그린', 21, '이천', 26);
-
 ROLLBACK;
+COMMIT;
+
+INSERT INTO `option` VALUES (NULL, 1, 'XS', '블랙', 15, '이천', 23);
+INSERT INTO `option` VALUES (NULL, 1, 'S', '블랙', 0, '이천', 23);
+INSERT INTO `option` VALUES (NULL, 1, 'M', '블랙', 0, '이천', 15);
+INSERT INTO `option` VALUES (NULL, 1, 'L', '블랙', 0, '이천', 6);
+
+INSERT INTO `option` VALUES (NULL, 1, 'XS', '차콜', 15, '이천', 23);
+INSERT INTO `option` VALUES (NULL, 1, 'S', '차콜', 15, '이천', 23);
+INSERT INTO `option` VALUES (NULL, 1, 'M', '차콜', 0, '이천', 15);
+INSERT INTO `option` VALUES (NULL, 1, 'L', '차콜', 19, '이천', 6);
+
+INSERT INTO `option` VALUES (NULL, 1, 'XS', '민트', 0, '이천', 23);
+INSERT INTO `option` VALUES (NULL, 1, 'S', '민트', 20, '이천', 0);
+INSERT INTO `option` VALUES (NULL, 1, 'M', '민트', 17, '이천', 0);
+INSERT INTO `option` VALUES (NULL, 1, 'L', '민트', 19, '이천', 6);
+
+INSERT INTO `option` VALUES (NULL, 1, 'XS', '다크네이비', 15, '이천', 23);
+INSERT INTO `option` VALUES (NULL, 1, 'S', '다크네이비', 15, '이천', 23);
+INSERT INTO `option` VALUES (NULL, 1, 'M', '다크네이비', 20, '이천', 0);
+INSERT INTO `option` VALUES (NULL, 1, 'L', '다크네이비', 19, '이천', 6);
+
 COMMIT;

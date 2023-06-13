@@ -40,5 +40,5 @@ public interface OptionService {
 	 * @param map
 	 * @return emptySizeList
 	 */
-	List<String> getStockSelectedColor(long productNo, String color);
+	List<Option> getOptionSelectedColor(long productNo, String color);
 }

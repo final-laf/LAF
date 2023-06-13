@@ -23,23 +23,27 @@ for (let btn of optionBtns) {
 // 컬러 선택한 이후에 사이즈 선택하기 (품절 사이즈 제외)
 const colorBtns = document.querySelectorAll('button[name="color"]');
 const sizeBtns = document.querySelectorAll('button[name="size"]');
+
 for (let colorBtn of colorBtns) {
   colorBtn.addEventListener('click', e => {
     const productNo = location.href.split('/')[4];
-    const color = e.target.getAttribute('value');
+    const color = e.target.innerText;
 
     fetch("/getStock?" + "productNo=" + productNo + "&color=" + color)
-      .then(resp => resp.json())
-      .then(emptyStockList => {
-        for (let size of emptyStockList) {
-          for (let sizeBtn of sizeBtns) {
-            if (sizeBtn.getAttribute('value') != size) {
-              sizeBtn.disabled = false;
-            }
+    .then(resp => resp.json())
+    .then(optionList => {
+      for (let btn of sizeBtns) {
+        for (let op of optionList) {
+          if(btn.innerText == op.size) {
+            btn.removeAttribute("option-no");
+            btn.setAttribute("option-no", op.optionNo);
+            if(op.stock == 0) btn.disabled = true;
+            else              btn.disabled = false;
           }
         }
-      })
-      .catch(e => console.log(e));
+      }
+    })
+    .catch(e => console.log(e));
   });
 }
 
@@ -67,9 +71,10 @@ for(let btn of sizeBtns) {
   btn.addEventListener('click', e => {
     const selectedColorBtn = document.querySelector('button[name="color"].selected');
     const selectedSizeBtn = document.querySelector('button[name="size"].selected');
-    const color = selectedColorBtn.getAttribute('value');
-    const size = selectedSizeBtn.getAttribute('value');
+    const color = selectedColorBtn.innerText;
+    const size = selectedSizeBtn.innerText;
     const price = Number(document.querySelector('#productSalePrice').innerText.replace(',', ''));
+    const optionNo = selectedSizeBtn.getAttribute('option-no');
     
     // 이미 추가된 옵션인지 확인
     const curList = document.querySelectorAll('#productCurrentItem > li > .current-selected-option');
@@ -149,6 +154,7 @@ for(let btn of sizeBtns) {
     });
 
     const li = document.createElement('li');
+    li.setAttribute("option-no", optionNo);
     li.append(option, countContainer, curPrice, cancelBtn);
 
     const parent = document.querySelector('#productCurrentItem');
@@ -167,3 +173,32 @@ for(let btn of sizeBtns) {
     updateTotal();
   });
 }
+
+/* 장바구니 담기 */
+const submitBtn = document.getElementById('addCartBtn');
+submitBtn.addEventListener('click', e => {
+  const curItems = document.getElementById('productCurrentItem').querySelectorAll('li');
+  const productNo = location.href.split('/')[4];
+  
+  const data = [];
+  for(let item of curItems) {
+    data.push({
+      "optionNo": item.getAttribute('option-no'),
+      "count": item.querySelector('.current-count span').innerText
+    });
+  }
+
+  const dataStr = encodeURIComponent(JSON.stringify(data));
+  fetch("/cart/add?productNo=" + productNo + "&data=" + dataStr)
+  .then(resp => resp.text())
+  .then(result => {
+    if(result > 0) {
+      alert("장바구니 담기 성공!")
+    } else {
+      alert("장바구니 담기 실패")
+    }
+  }) 
+  .catch(err => {
+      console.log(err);
+  });
+});
