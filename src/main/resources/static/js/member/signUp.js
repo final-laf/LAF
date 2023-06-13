@@ -1,17 +1,16 @@
 // 회원 가입 check확인용 
 const checkObj = {
-  "mypageSignUpId" : false,
-  "mypageSignUpPw" : false,
+  "memberId" : false,
+  "memberPw" : false,
   "memberPwConfirm" : false,
-  "mypageSignUpTelF" : true,
-  "mypageSignUpTelS" : false,
-  "mypageSignUpTelT" : false,
+  "memberTel" : true,
   "mypageSignUpMail" : false,
   "mypageSignUpYear" : true,
   "mypageSignUpMonth" : true,
   "mypageSignUpDay" : true,
   "mypageSignUpRefundNo" : true,
   "mypageSignUptermsAll" : false,
+  "authKey" : false
 };
 
 
@@ -20,17 +19,16 @@ document.getElementById("mypageSignUpSubmit").addEventListener("submit", e=> {
   for(let key in checkObj){
     if(!checkObj[key]){ // 각 key에 대한 value를 얻어와 false인 경우 
       switch(key){
-        case "mypageSignUpId": alert("아이디가 유효하지 않습니다."); break;
-        case "mypageSignUpPw": alert("비밀번호가 유효하지 않습니다."); break;
+        case "memberId": alert("아이디가 유효하지 않습니다."); break;
+        case "memberPw": alert("비밀번호가 유효하지 않습니다."); break;
         case "memberPwConfirm": alert("비밀번호가 동일하지 않습니다."); break;
-        case "mypageSignUpTelF": alert("전화번호가 유효하지 않습니다."); break;
-        case "mypageSignUpTelS": alert("전화번호가 유효하지 않습니다."); break;
-        case "mypageSignUpTelT": alert("전화번호가 유효하지 않습니다."); break;
+        case "memberTel": alert("전화번호가 유효하지 않습니다."); break;
         case "mypageSignUpMail": alert("이메일이 유효하지 않습니다."); break;
         case "mypageSignUpYear": alert("생년월일(년)이 유효하지 않습니다."); break;
         case "mypageSignUpMonth": alert("생년월일(월)이 유효하지 않습니다."); break;
         case "mypageSignUpDay": alert("생년월일(일)이 유효하지 않습니다."); break;
         case "mypageSignUptermsAll": alert("약관에 동의해 주십시오."); break;
+        case "authKey": alert("이메일 인증이 필요합니다."); break;
       }
       document.getElementById(key).focus(); //false로 이동
       e.preventDefault(); // form 태그 기본 이벤트 제거
@@ -68,13 +66,13 @@ memberId.addEventListener("input", () => {
         idMessage.innerText = "(영문소문자/숫자, 4~16자)"
         memberId.classList.remove("error"); 
         memberId.classList.remove("confirm");  
-        checkObj.mypageSignUpId = true; 
+        checkObj.memberId = true; 
     
       }else{
         idMessage.innerText = "중복된 아이디 입니다."
         memberId.classList.add("error");  
         memberId.classList.remove("confirm");  
-        checkObj.mypageSignUpId = false; 
+        checkObj.memberId = false; 
       }
     }) 
     .catch(err => console.log(err)); // 예외 처리
@@ -82,7 +80,7 @@ memberId.addEventListener("input", () => {
     idMessage.innerText = "유효하지 않은 형식입니다."
     memberId.classList.add("error");  
     memberId.classList.remove("confirm");  
-    checkObj.mypageSignUpId = false; 
+    checkObj.memberId = false; 
   }
 })
 
@@ -111,7 +109,7 @@ memberPw.addEventListener("input", () => {
   const regEx = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,16}$/;
 
   if(regEx.test(memberPw.value)){
-    checkObj.mypageSignUpPw = true;
+    checkObj.memberPw = true;
     memberPw.classList.remove("error");
     memberPw.classList.add("confirm");
 
@@ -119,7 +117,7 @@ memberPw.addEventListener("input", () => {
     if(memberPw.value == memberPwConfirm.value){
       memberPwConfirm.classList.add("confirm");
       memberPwConfirm.classList.remove("error");
-      checkObj.mypageSignUpPw = true;
+      checkObj.memberPw = true;
       
     } else { //다를 경우
       memberPwConfirm.classList.remove("confirm");
@@ -129,7 +127,7 @@ memberPw.addEventListener("input", () => {
   }else{
     memberPw.classList.remove("confirm");
     memberPw.classList.add("error");
-    checkObj.mypageSignUpPw = false;
+    checkObj.memberPw = false;
   }
 });
   
@@ -149,7 +147,7 @@ memberPwConfirm.addEventListener('input', ()=>{
       return;
   }
     
-  if(checkObj.mypageSignUpPw){ // 비밀번호가 유효하게 작성된 경우에
+  if(checkObj.memberPw){ // 비밀번호가 유효하게 작성된 경우에
   
     // 비밀번호 == 비밀번호 확인 (같을 경우)
     if(memberPw.value == memberPwConfirm.value){
@@ -170,7 +168,7 @@ memberPwConfirm.addEventListener('input', ()=>{
 
 
 //전화번호
-// 전화번호 윺효성 검사
+// 전화번호 유효성 검사
 const memberTel = document.getElementById("mypageSignUpTelF");
 const phoneMessage = document.getElementById("phoneMessage");
 
@@ -252,6 +250,116 @@ memberEmail.addEventListener("input", () => {
   }
 
 })
+
+
+
+
+// 이메일 인증
+const sendAuthKeyBtn = document.getElementById("sendAuthKeyBtn");
+const authKeyMessage = document.getElementById("authKeyMessage");
+let authTimer;
+let authMin = 4;
+let authSec = 59;
+
+// 인증번호를 발송한 이메일 저장
+let tempEmail;
+
+sendAuthKeyBtn.addEventListener("click", function(){
+    authMin = 4;
+    authSec = 59;
+
+    checkObj.authKey = false;
+
+    if(checkObj.memberEmail){ // 중복이 아닌 이메일인 경우
+        /* fetch() API 방식 ajax */
+        fetch("/sendEmail/signUp?email="+memberEmail.value)
+        .then(resp => resp.text())
+        .then(result => {
+            if(result > 0){
+                console.log("인증 번호가 발송되었습니다.")
+                tempEmail = memberEmail.value;
+            }else{
+                console.log("인증번호 발송 실패")
+            }
+        })
+        .catch(err => {
+            console.log("이메일 발송 중 에러 발생");
+            console.log(err);
+        });
+        
+
+        alert("인증번호가 발송 되었습니다.");
+
+        
+        authKeyMessage.innerText = "05:00";
+        authKeyMessage.classList.remove("confirm");
+
+        authTimer = window.setInterval(()=>{
+
+            authKeyMessage.innerText = "0" + authMin + ":" + (authSec<10 ? "0" + authSec : authSec);
+            
+            // 남은 시간이 0분 0초인 경우
+            if(authMin == 0 && authSec == 0){
+                checkObj.authKey = false;
+                clearInterval(authTimer);
+                return;
+            }
+
+            // 0초인 경우
+            if(authSec == 0){
+                authSec = 60;
+                authMin--;
+            }
+
+
+            authSec--; // 1초 감소
+
+        }, 1000)
+
+    } else{
+        alert("중복되지 않은 이메일을 작성해주세요.");
+        memberEmail.focus();
+    }
+});
+
+// 인증 확인
+const authKey = document.getElementById("authKey");
+const checkAuthKeyBtn = document.getElementById("checkAuthKeyBtn");
+
+checkAuthKeyBtn.addEventListener("click", function(){
+
+    if(authMin > 0 || authSec > 0){ // 시간 제한이 지나지 않은 경우에만 인증번호 검사 진행
+        /* fetch API */
+        const obj = {"inputKey":authKey.value, "email":tempEmail}
+        const query = new URLSearchParams(obj).toString()
+        // inputKey=123456&email=user01
+
+        fetch("/sendEmail/checkAuthKey?" + query)
+        .then(resp => resp.text())
+        .then(result => {
+            if(result > 0){
+                clearInterval(authTimer);
+                authKeyMessage.innerText = "인증되었습니다.";
+                authKeyMessage.classList.add("confirm");
+                checkObj.authKey = true;
+
+            } else{
+                alert("인증번호가 일치하지 않습니다.")
+                checkObj.authKey = false;
+            }
+        })
+        .catch(err => console.log(err));
+
+
+    } else{
+        alert("인증 시간이 만료되었습니다. 다시 시도해주세요.")
+    }
+
+});
+
+
+
+
 
 
 

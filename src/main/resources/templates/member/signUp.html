@@ -79,7 +79,7 @@
                 <th><div class="for-flex-signUp"><span>이메일</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <input type="text"  id="mypageSignUpMail" name="memberEmail">
-                  <button class="signUp-button">인증 메일 전송</button>
+                  <button class="signUp-button" id="sendAuthKeyBtn">인증 메일 전송</button>
                   <span id="emailMessage"></span>
                 </td>
               </tr>
@@ -88,7 +88,7 @@
                 <td>
                   <input type="text" id="authKey" name="authKey" maxlength="6" autocomplete="off">
                   <button class="signUp-button" id="checkAuthKeyBtn" type="button">인증하기</button>
-                  <span id="emailConfirmMessage"></span>
+                  <span id="authKeyMessage"></span>
                 </td>
               </tr>
             </table>
