@@ -22,6 +22,24 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> noticeList() {
 		return mapper.noticeList();
 	}
-	
+
+	/** 공지사항 상세
+	 * @param noticeNo
+	 * @return
+	 */
+	@Override
+	public Notice detailNotice(String noticeNo) {
+		return mapper.detailNotice(noticeNo);
+	}
+
+	/** 공지사항 작성
+	 * @param no
+	 * @return
+	 */
+	@Override
+	public Notice writeNotice(Notice notice) {
+		return mapper.writeNotice(notice);
+	}
+
 	
 }

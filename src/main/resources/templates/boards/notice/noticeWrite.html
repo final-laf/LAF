@@ -15,44 +15,48 @@
   
   <main>
 
-    <section class="board-list">
-      <div class="section-header">
-        <div class="section-title">NOTICE</div>
-      </div>
-      <div class="sub-category-container">
-        <!-- 현재 카테고리에 current 클래스 추가 -->
-        <a href="/notice"><div class="sub-category current">NOTICE</div></a>
-        <a href="/qna"><div class="sub-category">1:1문의</div></a>
-        <a href="/faq"><div class="sub-category">FAQ</div></a>
-        <a href="/review"><div class="sub-category">REVIEW</div></a>
-      </div>
 
-      <!-- 게시판 -->
-      <div class="list-wrapper">
-        <table class="detail-list-table">
-          <tr>
-            <td>TITLE</td>
-            <td><input type="text" placeholder="제목 입력"></td>
-          </tr>
-        </table>
-        <div class="write-list-contents">
-          <textarea>
-  
-          </textarea>
+    <form action="/notice/isnert" method="get" enctype="multipart/form-data"></form>
+      <section class="board-list">
+        <div class="section-header">
+          <div class="section-title">NOTICE</div>
         </div>
-      </div>
+        <div class="sub-category-container">
+          <!-- 현재 카테고리에 current 클래스 추가 -->
+          <a href="/notice"><div class="sub-category current">NOTICE</div></a>
+          <a href="/qna"><div class="sub-category">1:1문의</div></a>
+          <a href="/faq"><div class="sub-category">FAQ</div></a>
+          <a href="/review"><div class="sub-category">REVIEW</div></a>
+        </div>
+
+        <!-- 게시판 -->
+      
+        <div class="list-wrapper">
+          <table class="detail-list-table">
+            <tr>
+              <td>TITLE</td>
+              <td><input type="text" name="noticeTitle" placeholder="제목 입력"></td>
+            </tr>
+          </table>
+          <div class="write-list-contents">
+            <textarea name="noticeContent">
+            </textarea>
+          </div>
+        </div>
+    
 
 
-      <!-- 하단 버튼 영역 -->
-      <div class="detail-btn-area write-btn-area">
-        <div>
-          <a href="/notice"><button class="write-btn">LIST</button></a>
+        <!-- 하단 버튼 영역 -->
+        <div class="detail-btn-area write-btn-area">
+          <div>
+            <a href="/notice"><button class="write-btn">LIST</button></a>
+          </div>
+          <div>
+            <button class="write-btn submit">SUBMIT</button>                     
+          </div>
         </div>
-        <div>
-          <button class="write-btn submit">SUBMIT</button>                     
-        </div>
-      </div>
-    </section>
+      </section>
+    </form>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>

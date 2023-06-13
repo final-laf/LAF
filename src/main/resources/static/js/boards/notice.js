@@ -1,17 +1,20 @@
-const notices = document.querySelector("div.list-wrapper > table > tbody")
+const notices = document.getElementsByClassName('trup');
 
 
-for(let notice of notices.children) {
+for(let notice of notices) {
+  
 
     /* 공지 게시글 클릭시 */
-    notice.addEventListener('click', () => {
-        document.location.href="/notice/detail"
+    notice.addEventListener('click', e => {
+      const noticeNo = e.target.parentElement.getAttribute("value");
+      document.location.href="/notice/"+noticeNo
     });
   
-  };
+};
 
-  const insertBtn = document.getElementById("insertBtn")
+const insertBtn = document.getElementById("insertBtn")
 
-  insertBtn.addEventListener('click', () => {
-    document.location.href="/notice/write"
-  });
+insertBtn.addEventListener('click', () => {
+  document.location.href="/notice/write"
+});
+
