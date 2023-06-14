@@ -211,27 +211,74 @@ for(let btn of eventBtns) {
 const submitBtn = document.getElementById('addCartBtn');
 submitBtn.addEventListener('click', e => {
   const curItems = document.getElementById('productCurrentItem').querySelectorAll('li');
-  const productNo = location.href.split('/')[4];
   
   const data = [];
   for(let item of curItems) {
     data.push({
+      "productNo": location.href.split('/')[4],
       "optionNo": item.getAttribute('option-no'),
       "count": item.querySelector('.current-count span').innerText
     });
   }
+  
+  // 비회원 : 쿠키로 브라우저에 저장 (당일 24시 만료)
+  if( loginMember == undefined ) {
 
-  const dataStr = encodeURIComponent(JSON.stringify(data));
-  fetch("/cart/add?productNo=" + productNo + "&data=" + dataStr)
-  .then(resp => resp.text())
-  .then(result => {
-    if(result > 0) {
-      alert("장바구니 담기 성공!")
-    } else {
-      alert("장바구니 담기 실패")
+    // 기존 장바구니와 합치기
+    const preCart = getCart();
+    if(preCart != null) {
+      let flag = false;
+
+      for(let cart of preCart) {
+        for(let i=0; i<data.length; i++) {
+          // 장바구니에 이미 담긴 상품일 경우 제외
+          if(data[i].optionNo == cart.optionNo) {
+            data.splice(i, 1);
+            flag = true;
+          } else break;
+        }
+
+        // 합치기
+        data.push(cart);
+      }
+
+      alert("중복된 상품을 제외하고 장바구니에 추가하였습니다.");
     }
-  }) 
-  .catch(err => {
+    
+    // 쿠키 저장
+    var expDate = new Date();
+    expDate.setHours(23, 59, 59);
+    document.cookie = "cart=" + JSON.stringify(data) + "; path=/; domain=localhost; max-age=" + expDate;
+  }
+  
+  // 회원 : 서버 DB에 저장
+  else {
+    // 장바구니 데이터 가져와서 중복 있는지 확인
+    fetch("/cart/list")
+    .then(resp => resp.json())
+    .then(cartList => {
+      console.log(cartList);
+      return;
+      // 중복 데이터 검사
+    }) 
+    .catch(err => {
       console.log(err);
-  });
+    });
+
+    // 장바구니 정보 DB에 저장 
+    // const dataStr = encodeURIComponent(JSON.stringify(data));
+    // fetch("/cart/add?data=" + dataStr)
+    // .then(resp => resp.text())
+    // .then(result => {
+    //   if(result > 0) {
+    //     alert("장바구니 담기 성공!")
+    //   } else {
+    //     alert("장바구니 담기 실패")
+    //   }
+    // }) 
+    // .catch(err => {
+    //     console.log(err);
+    // });
+  }
+
 });

@@ -15,5 +15,12 @@
 			)
 			</foreach>
 	</insert>
+	
+	<!-- 유저 번호로 장바구니 목록 조회 -->
+	<select id="selectCart" resultType="Cart">
+		select *
+		from `cart`
+		where member_no = ${memberNo}
+	</select>
 </mapper>
 

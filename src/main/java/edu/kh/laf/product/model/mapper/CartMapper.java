@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.product.model.dto.Cart;
 
 @Mapper
@@ -15,5 +16,12 @@ public interface CartMapper {
 	 * @return result
 	 */
 	int insertCart(List<Cart> cartList);
+
+	/**
+	 * 유저 번호로 장바구니 목록 조회
+	 * @param memberNo
+	 * @return
+	 */
+	List<Cart> selectCart(long memberNo);
 
 }
