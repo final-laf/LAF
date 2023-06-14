@@ -7,6 +7,9 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,11 +82,38 @@ public class MemberController {
 	@PostMapping("/signUp")
 	public String signUp(Member inputMember
 				, String[] memberAddress
+				, String[] memberBirth
 				, RedirectAttributes ra) {
 	
-		System.out.println(inputMember.getMemberId());
-		System.out.println(inputMember.getMemberName());
-		System.out.println(inputMember.getMemberEmail());
+		// 분리된 주소값 구분자를 넣어 String으로 변환, 입력
+		// 만약 주소를 입력하지 않은 경우(,,) null로 변경
+		if(inputMember.getMemberAddress().equals(",,")) {
+			inputMember.setMemberAddress(null);
+		
+		}else {
+			// 주소 요소 사이에 "^^^" 추가
+			String addr = String.join("^^^", memberAddress);
+			inputMember.setMemberAddress(addr);
+		}
+		
+		// 생년월일(년)을 가져와 나이 계산
+		
+		
+	
+		// 분리된 생년월일 String으로 변환, 입력
+		// 만약 생년월일을 입력하지 않은 경우(,,) null로 변경
+		if(inputMember.getMemberBirth().equals(",,")) {
+			inputMember.setMemberBirth(null);
+			
+		}else {
+			// 주소 요소 사이에 "^^^" 추가
+			String birth =  Arrays.stream(memberBirth).collect(Collectors.joining());
+			inputMember.setMemberBirth(birth);
+		}
+		
+		
+		
+		
 		
 		// 회원 가입 서비스 호출
 		int result = service.signUp(inputMember);
@@ -99,21 +129,6 @@ public class MemberController {
 			path += "signUp";  
 			message = "회원 가입 실패!";
 		}
-		
-		
-//		// 회원번호를 가져와 주소를 배송지 테이블에 업로드
-//		// 만약 주소를 입력하지 않은 경우(,,) null로 변경
-//		if(inputMember.getMemberAddress().equals(",,")) {
-//			inputMember.setMemberAddress(null);
-//		
-//		}else {
-//			//String.join("구분자", String[])
-//			// 배열의 요소를 하나의 문자열로 변경
-//			// 단, 요소 사이에 "구분자" 추가
-//			String addr = String.join("^^^", memberAddress);
-//			inputMember.setMemberAddress(addr);
-//		}
-		
 		
 		ra.addFlashAttribute("message", message);
 		return path;

@@ -3,6 +3,8 @@ const checkObj = {
   "memberId" : false,
   "memberPw" : false,
   "memberPwConfirm" : false,
+  "memberName" : false,
+  "memberAddress" : false,
   "memberTel" : false,
   "memberEmail" : false,
   "authKey" : false,
@@ -142,6 +144,45 @@ memberPwConfirm.addEventListener('input', ()=>{
 
 
 
+// 이름 정규식 확인
+const memberName = document.getElementById("mypageSignUpName");
+  
+memberName.addEventListener("input", () => {
+
+    // 이름이 입력되지 않은 경우
+    if(memberName.value.trim().length == 0) {
+      memberName.value = ""; // 띄어쓰기 못 넣게 하기
+      checkObj.memberName = false; // 빈칸 == 유효하지 않다
+      return;
+  }
+
+// 정규식 최소 8글자 최대 16글자 문자/숫자/특수문자 중 두가지 이상 조합 비밀번호
+  const regEx = /^[a-zA-Z가-힣]{1,20}$/;
+
+  // 정규식을 통과한다면
+  if(regEx.test(memberName.value)){
+    checkObj.memberName = true;
+
+  // 통과하지 않는다면
+  }else{
+    checkObj.memberName = false;
+  }
+});
+  
+
+
+
+// 주소
+
+// 주소검색 버튼을 눌렀고
+// 우편번호, 기본 주소, 나머지 주소값이 다 입력이 되어 있다면
+// checkObj.memberAddress가 true
+
+
+
+
+
+
 
 //전화번호
 // 전화번호 유효성 검사
@@ -224,7 +265,6 @@ memberEmail.addEventListener("input", () => {
     emailMessage.innerText="유효하지 않은 이메일 입니다."
     checkObj.memberEmail = false; 
   }
-
 })
 
 
@@ -380,7 +420,7 @@ document.getElementById("mypageSignUpYear").addEventListener("input", () => {
 document.getElementById("mypageSignUpMonth").addEventListener("input", () => {
   const mypageSignUpBirth = document.getElementById("mypageSignUpMonth");
   const regEx = /^1[0-2]$/;
-  const regEx1 = /^[0-9]$/;
+  const regEx1 = /^0[0-9]$/;
 
 //입력을 받지 않아도 넘어갈 수 있도록 설정
   if(mypageSignUpBirth.value==""){
@@ -489,8 +529,10 @@ document.getElementById("mypageSignUptermsAll").addEventListener("click", e=>{
     }
 });
 
+
+
 // 약관 동의 체크
-// const terms = document.getElementsByClassName("mypageSignUp-terms-content");
+const terms = document.getElementsByClassName("mypageSignUp-terms-content");
 // for(let i=0; iterms.length; i++) {
 //   terms[i].addEventListener("click", () => {
 //     if (document.getElementById("mypageSignUptermsUse").checked && document.getElementById("mypageSignUptermsInfo").checked && document.getElementById("mypageSignUptermsReceiving").checked) {
@@ -508,7 +550,19 @@ document.getElementById("mypageSignUptermsAll").addEventListener("click", e=>{
 
 // 회원 가입 form태그가 제출 되었을 때
 document.getElementById("mypageSignUpSubmit").addEventListener("submit", e=>{
-  
+
+  // 주소
+const memberAddress = document.querySelectorAll('input[name="memberAddress"]');
+  for(let address of memberAddress) {
+      // 주소값이 하나라도 입력되어 있지 않은 경우
+      if(address.value.trim().length == 0) {
+        checkObj.memberAddress = false;
+      } else {
+          // 주소값이 다 입력되어 있는 경우
+            checkObj.memberAddress = true;
+      }
+  }
+
   for(let key in checkObj){
     
     if(!checkObj[key]){ // 각 key에 대한 value(true/false)를 얻어와
@@ -519,26 +573,35 @@ document.getElementById("mypageSignUpSubmit").addEventListener("submit", e=>{
         case "memberPw": 
         alert("비밀번호가 유효하지 않습니다"); break;
         case "memberPwConfirm":
-          alert("비밀번호가 동일하지 않았습니다"); break;
-          case "memberTel" : 
-          alert("전화번호가 유효하지 않습니다"); break;
-          case "memberEmail" : 
-          alert("이메일이 유효하지 않습니다"); break;
-          case "authKey" : 
-          alert("이메일 인증이 필요합니다."); break;
-          case "mypageSignUpYear" : 
-          alert("생년월일(년)이 유효하지 않습니다"); break;
-          case "mypageSignUpMonth" : 
-          alert("생년월일(월) 유효하지 않습니다"); break;
-          case "mypageSignUpDay" : 
-          alert("생년월일(일) 유효하지 않습니다"); break;
-          case "mypageSignUpRefundNo" : 
-          alert("계좌번호가 유효하지 않습니다"); break;
-          case "mypageSignUptermsAll" : 
-          alert("필수 약관에 동의하지 않았습니다"); break;
+        alert("비밀번호가 동일하지 않았습니다"); break;
+        case "memberName":
+        alert("이름이 입력되지 않았습니다"); break;
+        case "memberAddress":
+        alert("상세 주소까지 주소를 다 적어 주시기 바랍니다."); break;
+        case "memberTel" : 
+        alert("전화번호가 유효하지 않습니다"); break;
+        case "memberEmail" : 
+        alert("이메일이 유효하지 않습니다"); break;
+        case "authKey" : 
+        alert("이메일 인증이 필요합니다."); break;
+        case "mypageSignUpYear" : 
+        alert("생년월일(년)이 유효하지 않습니다"); break;
+        case "mypageSignUpMonth" : 
+        alert("생년월일(월) 유효하지 않습니다"); break;
+        case "mypageSignUpDay" : 
+        alert("생년월일(일) 유효하지 않습니다"); break;
+        case "mypageSignUpRefundNo" : 
+        alert("계좌번호가 유효하지 않습니다"); break;
+        case "mypageSignUptermsAll" : 
+        alert("필수 약관에 동의하지 않았습니다"); break;
         }
         e.preventDefault(); // form 태그 기본 이벤트 제거
         return; // 함수 종료
         }
       }
+
+
 });
+
+
+
