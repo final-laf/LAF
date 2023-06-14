@@ -125,8 +125,11 @@
   display: flex;
   font-weight: bold;
   justify-content: space-between;
+  align-items: center;
   padding: 0 5px;
+  margin-bottom: 5px;
 }
+
 /* 할인/부가결제 */
 #mypageOrderDiscount > tbody> tr{
   display: flex;
@@ -149,6 +152,14 @@
   display: flex;
   align-items:center;
 }
+
+#mypageOrderDiscount > tbody > tr:nth-child(2) > th:nth-child(1) > div,
+#mypageOrderDiscount > tbody > tr:nth-child(3) > th:nth-child(1) > div{
+  margin-left: 10px;
+  font-weight: bold;
+  color: #3971FF;
+}
+
 /* 쿠폰적용 버튼 */
 #mypageOrderDiscount > tbody> tr:nth-child(2) > th:nth-child(2) {
   display: flex;
@@ -166,7 +177,9 @@
   padding-right: 78px;
 }
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
-  width: 720px;
+  width: 650px;
+  text-align:right;
+  margin-right: 10px;
 }
 /* 할인 적용 금액 */
 #mypageOrderDiscount > tbody> tr:nth-child(4){

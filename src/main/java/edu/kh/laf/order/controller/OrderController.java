@@ -37,25 +37,25 @@ public class OrderController {
 						@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		// 임시 장바구니 정보 세팅---------
 		List<OrderProduct> cartList = new ArrayList<>();
-		cart.setMemberNo(2);
+		cart.setMemberNo(3);
 		cart.setProductNo(1);
 		cart.setOptionNo(38);
 		cart.setCount(2);
 		cartList.add(cart);
 		OrderProduct cart2 = new OrderProduct();
-		cart2.setMemberNo(2);
+		cart2.setMemberNo(3);
 		cart2.setProductNo(1);
 		cart2.setOptionNo(45);
 		cart2.setCount(11);
 		cartList.add(cart2);
 		OrderProduct cart3 = new OrderProduct();
-		cart3.setMemberNo(2);
+		cart3.setMemberNo(3);
 		cart3.setProductNo(2);
 		cart3.setOptionNo(8);
 		cart3.setCount(5);
 		cartList.add(cart3);
 		OrderProduct cart4 = new OrderProduct();
-		cart4.setMemberNo(2);
+		cart4.setMemberNo(3);
 		cart4.setProductNo(1);
 		cart4.setOptionNo(49);
 		cart4.setCount(2);
@@ -83,16 +83,12 @@ public class OrderController {
 	
 	// 결제시
 	@PostMapping("/order")
-	public String payment(@RequestParam(value="orderTotalPrice") String orderTotalPrice
-						, @RequestParam(value="orderPayment") String orderPayment
-//						, Order order
-						) {
+	public String payment(Order order) {
 		
-		System.out.println(orderTotalPrice);
-		System.out.println(orderPayment);
 //		System.out.println(order);
+		
 		// order테이블 인설트하기
-
+//		insertOrder
 		// order_product 테이블 인설트하기
 		
 		// 장바구니 삭제하기
