@@ -29,7 +29,7 @@
         <div id="titleWrapper">
           <div id="productTitle" th:text="${product.productName}">제품명 출력</div>
           <div id="productLike">
-            <img class="like" th:if="${checkLike > 0}" th:src="@{/images/common/like-fill.svg}">
+            <img class="like" value="like" th:if="${checkLike > 0}" th:src="@{/images/common/like-fill.svg}">
             <img class="like" th:unless="${checkLike > 0}" th:src="@{/images/common/like-grey.svg}">
           </div>
         </div>

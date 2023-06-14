@@ -293,46 +293,54 @@ submitBtn.addEventListener('click', e => {
 
 /* 하트 모양 이미지로 찜 목록 추가/삭제 */
 const img = document.querySelector('#productLike > img');
-img.addEventListener('click', e => {
-  const productNo = location.href.split('/')[4];
+
+/* 찜 목록 추가 함수 */
+function like(productNo) {
   
   // 비회원인 경우 로그인 화면으로 이동 유도
   if(loginMember == undefined) {
     if(confirm('찜하기는 회원만 사용 가능합니다. 로그인 하시겠습니까?'))
-      location.href = "/login";
+    location.href = "/login";
     return;
   }
+  
+  fetch("/like/add?productNo=" + productNo)
+  .then(resp => resp.text())
+  .then(result => {
+    if(result > 0) {
+      alert("찜 목록에 추가했습니다.");
+      img.setAttribute('src', '/images/common/like-fill.svg');
+      img.setAttribute('value', 'like');
+    } else{
+      alert("찜 목록 추가 실패");
+    }
+  }) 
+  .catch(err => console.log(err));
+}
 
+img.addEventListener('click', e => {
   // 찜 목록 삭제
-  if (e.target.getAttribute('src').includes('fill')) {
+  if (img.getAttribute('src').includes('fill')) {
     fetch("/like/delete?productNo=" + productNo)
     .then(resp => resp.text())
     .then(result => {
       if(result > 0) {
         alert("찜 목록에서 삭제했습니다.");
-        e.target.setAttribute('src', '/images/common/like-grey.svg');
+        img.setAttribute('src', '/images/common/like-grey.svg');
+        img.removeAttribute('value');
       } else {
         alert("찜 목록 삭제 실패");
       }
     }) 
     .catch(err => console.log(err));
     
-  // 찜 목록 추가
-  } else {
-    fetch("/like/add?productNo=" + productNo)
-    .then(resp => resp.text())
-    .then(result => {
-      if(result > 0) {
-        alert("찜 목록에 추가했습니다.");
-        e.target.setAttribute('src', '/images/common/like-fill.svg');
-      } else{
-        alert("찜 목록 추가 실패");
-      }
-    }) 
-    .catch(err => console.log(err));
-  }
+  } else { like(productNo); }
 });
 
 /* 찜 목록 추가 버튼 이벤트 */
-
-
+const likeBtn = document.querySelector('#addLikeBtn');
+const liked = img.getAttribute('value') == 'like';
+likeBtn.addEventListener('click', e => {
+  if(liked) alert('이미 찜 목록에 추가된 상품입니다.');
+  else      like(productNo);
+})
