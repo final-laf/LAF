@@ -5,7 +5,7 @@
 	
 	<!-- qnaList 전체 목록 조회 -->
     <select id="qnaList" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='n' ORDER BY qna_create_date DESC
+        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer, q.qna_lock_fl FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='n' ORDER BY qna_create_date DESC
     </select>
      
     <!-- 검색어를 포함한 qna조회결과  -->
@@ -44,7 +44,7 @@
 	
 	  <!-- 공지사항 작성 -->
     <insert id="writeQna" parameterType="Qna" >
-        INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL,default)
+        INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default)
     </insert>
 	
 	
