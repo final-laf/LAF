@@ -25,7 +25,7 @@ public interface NoticeService {
 	 * @param no
 	 * @return
 	 */
-	Notice writeNotice(Notice notice);
+	int writeNotice(Notice notice);
 
 	/** 공지사항 삭제
 	 * @param noticeNo

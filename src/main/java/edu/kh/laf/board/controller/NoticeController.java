@@ -49,8 +49,7 @@ public class NoticeController {
 	
 	// 공지사항 목록 - 글쓰기페이지 연결
 	@GetMapping("/notice/write")
-	public String wirte(Model model, Notice notice){
-		model.addAttribute("notice", notice);
+	public String wirte(Model model){
 		return "/boards/notice/noticeWrite";
 	}
 	
@@ -60,13 +59,11 @@ public class NoticeController {
 			,Model model, @SessionAttribute("loginMember") Member loginMember){
 		notice.setMemberNo(loginMember.getMemberNo());
 		System.out.println(notice);
-		Notice writeNotice = service.writeNotice(notice);
+		int writeNotice = service.writeNotice(notice);
 		model.addAttribute("writeNotice",writeNotice);
 		
-		return "/boards/notice/notice";
+		return "redirect:/notice";
 	}
-	
-	
 	
 	
 

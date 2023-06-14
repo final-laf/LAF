@@ -37,7 +37,7 @@ public class NoticeServiceImpl implements NoticeService {
 	 * @return
 	 */
 	@Override
-	public Notice writeNotice(Notice notice) {
+	public int writeNotice(Notice notice) {
 		return mapper.writeNotice(notice);
 	}
 
