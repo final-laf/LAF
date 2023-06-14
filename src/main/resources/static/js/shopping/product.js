@@ -1,14 +1,3 @@
-// 좋아요(♡) 클릭 시 이미지 변경
-const likeImages = document.querySelectorAll('img.like');
-for (let like of likeImages) {
-  like.addEventListener('click', () => {
-    if (like.getAttribute('src').includes('fill'))
-      like.setAttribute('src', '/images/common/like-grey.svg');
-    else
-      like.setAttribute('src', '/images/common/like-fill.svg');
-  });
-}
-
 // 옵션 버튼 선택 시 클래스(selected) 추가
 const optionBtns = document.querySelectorAll('.option-btn > button');
 for (let btn of optionBtns) {
@@ -61,12 +50,10 @@ for (let colorBtn of colorBtns) {
         if(btn.innerText == op.size) {
           btn.removeAttribute("option-no");
           btn.setAttribute("option-no", op.optionNo);
-          
           if(op.stock == 0) btn.disabled = true;
           else              btn.disabled = false;
         }
       }
-
     })
     .catch(e => console.log(e));
   });
@@ -111,7 +98,6 @@ for(let btn of eventBtns) {
         // 옵션 선택 버튼 초기화
         if(selectedSizeBtn == null) selectedColorBtn.classList.remove('selected');
         else                        selectedSizeBtn.classList.remove('selected');
-        
         return;
       }
     }
@@ -211,8 +197,21 @@ for(let btn of eventBtns) {
 const submitBtn = document.getElementById('addCartBtn');
 submitBtn.addEventListener('click', e => {
   const curItems = document.getElementById('productCurrentItem').querySelectorAll('li');
-  
-  const data = [];
+  const selectedColorBtn = document.querySelector('button[name="color"].selected');
+  const selectedSizeBtn = document.querySelector('button[name="size"].selected');
+  const sizeBtns = document.querySelectorAll('button[name="size"]');
+
+  // 선택한 상품이 없을 경우
+  if(curItems.length == 0 && selectedColorBtn == null) {
+    alert('색상을 선택해 주세요');
+    return;
+  } else if(curItems.length == 0 && sizeBtns && selectedSizeBtn == null) {
+    alert('사이즈를 선택해 주세요');
+    return;
+  }
+
+  // 선택한 상품 object 데이터로 변환
+  let data = [];
   for(let item of curItems) {
     data.push({
       "productNo": location.href.split('/')[4],
@@ -237,12 +236,10 @@ submitBtn.addEventListener('click', e => {
             flag = true;
           } else break;
         }
-
-        // 합치기
-        data.push(cart);
+        data.push(cart); // 머지
       }
-
-      alert("중복된 상품을 제외하고 장바구니에 추가하였습니다.");
+      if(flag) alert("중복된 상품을 제외하고 장바구니에 추가하였습니다.");
+      else alert("선택한 상품을 장바구니에 담았습니다.");
     }
     
     // 쿠키 저장
@@ -253,32 +250,89 @@ submitBtn.addEventListener('click', e => {
   
   // 회원 : 서버 DB에 저장
   else {
+    
     // 장바구니 데이터 가져와서 중복 있는지 확인
+    let flag = false;
     fetch("/cart/list")
     .then(resp => resp.json())
     .then(cartList => {
-      console.log(cartList);
-      return;
-      // 중복 데이터 검사
-    }) 
-    .catch(err => {
-      console.log(err);
-    });
+      for(let cart of cartList) {
+        for(let i=0; i<data.length; i++) {
+          // 장바구니에 이미 담긴 상품일 경우 제외
+          if(data[i].optionNo == cart.optionNo) {
+            data.splice(i, 1);
+            flag = true;
+          } else break;
+        }
+      }
 
-    // 장바구니 정보 DB에 저장 
-    // const dataStr = encodeURIComponent(JSON.stringify(data));
-    // fetch("/cart/add?data=" + dataStr)
-    // .then(resp => resp.text())
-    // .then(result => {
-    //   if(result > 0) {
-    //     alert("장바구니 담기 성공!")
-    //   } else {
-    //     alert("장바구니 담기 실패")
-    //   }
-    // }) 
-    // .catch(err => {
-    //     console.log(err);
-    // });
+      // 장바구니에 새로 추가할 상품이 없는 경우 함수 종료
+      if(data.length <= 0 && flag) {
+        alert("새로 추가할 상품이 없습니다.");
+        return;
+      }
+      
+      // 장바구니 정보 DB에 저장 
+      const dataStr = encodeURIComponent(JSON.stringify(data));
+      fetch("/cart/add?data=" + dataStr)
+      .then(resp => resp.text())
+      .then(result => {
+        if(result > 0) {
+          if(flag) alert("중복된 상품을 제외하고 장바구니에 추가하였습니다.");
+          else alert("선택한 상품을 장바구니에 담았습니다.");
+        } else {
+          alert("장바구니 담기 실패")
+        }
+      }) 
+      .catch(err => console.log(err));
+    }) 
+    .catch(err => console.log(err));
   }
 
 });
+
+/* 하트 모양 이미지로 찜 목록 추가/삭제 */
+const img = document.querySelector('#productLike > img');
+img.addEventListener('click', e => {
+  const productNo = location.href.split('/')[4];
+  
+  // 비회원인 경우 로그인 화면으로 이동 유도
+  if(loginMember == undefined) {
+    if(confirm('찜하기는 회원만 사용 가능합니다. 로그인 하시겠습니까?'))
+      location.href = "/login";
+    return;
+  }
+
+  // 찜 목록 삭제
+  if (e.target.getAttribute('src').includes('fill')) {
+    fetch("/like/delete?productNo=" + productNo)
+    .then(resp => resp.text())
+    .then(result => {
+      if(result > 0) {
+        alert("찜 목록에서 삭제했습니다.");
+        e.target.setAttribute('src', '/images/common/like-grey.svg');
+      } else {
+        alert("찜 목록 삭제 실패");
+      }
+    }) 
+    .catch(err => console.log(err));
+    
+  // 찜 목록 추가
+  } else {
+    fetch("/like/add?productNo=" + productNo)
+    .then(resp => resp.text())
+    .then(result => {
+      if(result > 0) {
+        alert("찜 목록에 추가했습니다.");
+        e.target.setAttribute('src', '/images/common/like-fill.svg');
+      } else{
+        alert("찜 목록 추가 실패");
+      }
+    }) 
+    .catch(err => console.log(err));
+  }
+});
+
+/* 찜 목록 추가 버튼 이벤트 */
+
+
