@@ -1,5 +1,7 @@
 SELECT * FROM `member`;
 
+
+/* 멤버 선택 */
   SELECT   MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_GENDER, 
     	   MEMBER_AGE, MEMBER_EMAIL, MEMBER_PHONE, MEMBER_BIRTH, MEMBER_GRADE,
     	   DATE_FORMAT(MEMBER_ENROLL_DATE, '%Y년%m월%d일') AS MEMBER_ENROLL_DATE,
@@ -11,13 +13,15 @@ SELECT * FROM `member`;
   WHERE MEMBER_DEL_FL = 'N'
   AND MEMBER_ID = 'admin';	
   
+ 
+ /* admin 회원 선택 */
   SELECT   *
   FROM `member`
   WHERE MEMBER_DEL_FL = 'N'
   AND MEMBER_ID = 'admin';	
   
  
- 
+ /* member semple 입력(초기 member 설정값) */
  INSERT INTO `member` 
  VALUES (NULL, 'user01', 'pass01!', '유저일', NULL, NULL, 
  'user01@kh.or.kr', '01012341234', NULL, 2, DEFAULT, 
@@ -50,7 +54,7 @@ SELECT * FROM `member`;
 
 COMMIT;
  
-
+/*회원 insert */
 INSERT INTO `member`
 VALUES (NULL, 
 		'user06', 
@@ -74,18 +78,18 @@ VALUES (NULL,
 		NULL);
 
 
-
 INSERT INTO `member`
 VALUES (NULL, 
-		'#{memberId}', 
-		'#{memberPw}', 
-		'#{memberName}', 
+		'datetest1', 
+		'datetest1', 
+		'datetest1', 
 		NULL, 
 		NULL,
-		'#{memberEmail}', 
+		'datetest1@kh.or.kr', 
 		01044386606, 
-		NULL, 
-		2, 
+		20230101, 
+		'NULL', 
+		'B', 
 		DEFAULT, 
 		DEFAULT, 
 		NULL, 
@@ -97,41 +101,38 @@ VALUES (NULL,
 		NULL, 
 		NULL);
 
-COMMIT;
 
-	
+
+/* 멤버 테이블 선택 */	
+SELECT * FROM `member`;
+
+/* 해당 회원 검색 */	
 SELECT COUNT(*) FROM `member`
 		WHERE member_id  = 'user01'
 		AND member_del_fl  = 'N';
 
 
-
-
+/* confirm_email 테이블 생성 */
 DROP TABLE IF EXISTS `confirm_email`;
 
 CREATE TABLE `confirm_email` (
-	`authority_key_no`	bigint	NOT NULL PRIMARY KEY auto_increment	COMMENT '인증 키 번호',
-	`authority_key`	varchar(6)	NOT NULL	COMMENT '인증 키',
+	`authority_key_no`	bigint	NOT NULL	PRIMARY KEY AUTO_INCREMENT	COMMENT '인증 키 번호',
+	`authority_key`	char(6)	NOT NULL	COMMENT '인증 키',
 	`authority_email`	varchar(30)	NOT NULL	COMMENT '인증 이메일',
 	`authority_time`	datetime	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '인증 날짜(시간)'
 );
 
 
+SELECT * FROM `member`;
+
+/* member 삭제 */
+DELETE FROM `member` WHERE member_no = 17;
 
 COMMIT;
 
-SELECT * FROM `confirm_email`;
-
-
+/*  */
 INSERT INTO `confirm_email`
-VALUES (null, 152444, 'user01@kh.or.kr', default);
-
-
-UPDATE  'confirm_email' 
-SET authority_key = 152444,
-	authority_time = datetime
-	
-WHERE authority_email = 'user01@kh.or.kr';
+VALUES (null, 'ABJ135', 'user01@kh.or.kr', default);
 
 
 UPDATE `confirm_email`
@@ -140,3 +141,5 @@ SET authority_key = 152444,
 WHERE authority_email = 'user01@kh.or.kr';
 
 
+
+ALTER TABLE `member` DROP `member_age`;
