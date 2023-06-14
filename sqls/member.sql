@@ -126,20 +126,21 @@ CREATE TABLE `confirm_email` (
 SELECT * FROM `member`;
 
 /* member 삭제 */
-DELETE FROM `member` WHERE member_no = 17;
+DELETE FROM `member` WHERE member_no = 24;
 
 COMMIT;
 
-/*  */
+/* authority key 삽입 */
 INSERT INTO `confirm_email`
 VALUES (null, 'ABJ135', 'user01@kh.or.kr', default);
 
 
+/* authority key 업데이트 */
 UPDATE `confirm_email`
 SET authority_key = 152444,
 	authority_time = datetime
 WHERE authority_email = 'user01@kh.or.kr';
 
 
-
+/* 컬럼 삭제 */
 ALTER TABLE `member` DROP `member_age`;

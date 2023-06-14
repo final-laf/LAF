@@ -55,6 +55,8 @@ public class MemberController {
 		if(loginMember != null) { // 로그인 성공 시
 			path += "/"; // 메인페이지로 리다이렉트
 			model.addAttribute("loginMember", loginMember);
+			
+			
 //			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
 //			if(saveId != null) { // 체크 되었을 때
 //				cookie.setMaxAge(60 * 60 * 24 * 30); // 초 단위로 지정
@@ -63,6 +65,8 @@ public class MemberController {
 //			}
 //			cookie.setPath("/"); 
 //			resp.addCookie(cookie);
+			
+			
 		} else { // 로그인 실패 시
 			path += referer; // HTTP Header - referer(이전 주소)
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
@@ -84,6 +88,11 @@ public class MemberController {
 				, String[] memberAddress
 				, String[] memberBirth
 				, RedirectAttributes ra) {
+		
+		
+		System.out.println(inputMember.getRefundAccount());
+		System.out.println(inputMember.getRefundBank());
+		
 	
 		// 분리된 주소값 구분자를 넣어 String으로 변환, 입력
 		// 만약 주소를 입력하지 않은 경우(,,) null로 변경
@@ -95,9 +104,6 @@ public class MemberController {
 			String addr = String.join("^^^", memberAddress);
 			inputMember.setMemberAddress(addr);
 		}
-		
-		// 생년월일(년)을 가져와 나이 계산
-		
 		
 	
 		// 분리된 생년월일 String으로 변환, 입력

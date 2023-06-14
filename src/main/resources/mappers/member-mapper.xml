@@ -19,26 +19,26 @@
      	<!-- 회원 가입(SQL 수정 필요, 동적 SQL 사용해야) -->	
   	<insert id="signUp">
   		INSERT INTO `member`
-		VALUES (NULL, 
-				#{memberId}, 
-				#{memberPw}, 
-				#{memberName}, 
-				NULL, 
-				#{memberEmail}, 
-				#{memberPhone}, 
-				NULL, 
-				#{memberAddress},
-				'B', 
-				DEFAULT, 
-				DEFAULT, 
-				NULL, 
-				NULL, 
-				DEFAULT, 
-				DEFAULT, 
-				DEFAULT, 
-				NULL, 
-				NULL, 
-				NULL)
+		VALUES (NULL, 					<!--회원 번호-->
+				#{memberId}, 			<!--회원 아이디-->
+				#{memberPw}, 			<!--비밀번호-->
+				#{memberName}, 			<!--회원 이름-->
+				NULL, 					<!--성별-->
+				#{memberEmail}, 		<!--이메일-->
+				#{memberPhone}, 		<!--전화번호-->
+				NULL, 					<!--생일-->
+				#{memberAddress},		<!--회원주소-->
+				'B', 					<!--회원 등급-->
+				DEFAULT, 				<!--가입일-->
+				DEFAULT, 				<!--회원 탈퇴여부-->
+				NULL, 					<!--탈퇴일-->
+				NULL, 					<!--회원 소셜 가입-->
+				DEFAULT, 				<!--회원 적립금-->
+				DEFAULT, 				<!--회원 누적 구매액-->
+				DEFAULT, 				<!--비회원 여부-->
+				NULL, 					<!--환불 예금주-->
+				NULL, 					<!--환불 은행명-->
+				NULL)					<!--환불 계좌번호-->
   	</insert>
   	
   	

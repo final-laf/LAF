@@ -15,7 +15,7 @@
 	
 	<select id="checkAuthKey" resultType="int">
 		SELECT COUNT(*) FROM `confirm_email`
-		WHERE authority_email = #{memberEmail}
+		WHERE authority_email = #{email}
 		AND authority_key = #{inputKey}
 	</select>
 	
