@@ -7,14 +7,14 @@ public class Qna {
 	private long qnaNo;
 	private long memberNo;
 	private String memberName;
-	private long orderNo;
-	private long productNo;
+	private String orderNo;
+	private String productNo;
 	private String qnaCategory;
 	private String qnaTitle;
 	private String qnaContent;
 	private String qnaCreateDate;
 	private String qnaLockFl;
-	private int qnaPw;
+	private String qnaPw;
 	private String qnaAnswer;
 
 }

@@ -96,6 +96,15 @@ public class QnaController {
 		}else {
 			qna.setQnaLockFl("n");
 		}
+		if(qna.getQnaCategory().equals("etc")) {
+			qna.setQnaCategory("일반");
+		}else if(qna.getQnaCategory().equals("product")){
+			qna.setQnaCategory("상품");
+		}else {
+			qna.setQnaCategory("배송");
+		}
+		
+		System.out.println(qna);
 		int writeNotice = qnaService.writeQna(qna);
 		
 		return "redirect:/qna";
