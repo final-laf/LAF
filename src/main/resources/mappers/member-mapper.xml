@@ -28,7 +28,7 @@
 				#{memberEmail}, 
 				#{memberPhone}, 
 				NULL, 
-				2, 
+				'B', 
 				DEFAULT, 
 				DEFAULT, 
 				NULL, 

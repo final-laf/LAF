@@ -52,14 +52,14 @@ public class MemberController {
 		if(loginMember != null) { // 로그인 성공 시
 			path += "/"; // 메인페이지로 리다이렉트
 			model.addAttribute("loginMember", loginMember);
-			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
-			if(saveId != null) { // 체크 되었을 때
-				cookie.setMaxAge(60 * 60 * 24 * 30); // 초 단위로 지정
-			}else {
-				cookie.setMaxAge(0);
-			}
-			cookie.setPath("/"); 
-			resp.addCookie(cookie);
+//			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
+//			if(saveId != null) { // 체크 되었을 때
+//				cookie.setMaxAge(60 * 60 * 24 * 30); // 초 단위로 지정
+//			}else {
+//				cookie.setMaxAge(0);
+//			}
+//			cookie.setPath("/"); 
+//			resp.addCookie(cookie);
 		} else { // 로그인 실패 시
 			path += referer; // HTTP Header - referer(이전 주소)
 			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
@@ -81,6 +81,10 @@ public class MemberController {
 				, String[] memberAddress
 				, RedirectAttributes ra) {
 	
+		System.out.println(inputMember.getMemberId());
+		System.out.println(inputMember.getMemberName());
+		System.out.println(inputMember.getMemberEmail());
+		
 		// 회원 가입 서비스 호출
 		int result = service.signUp(inputMember);
 		

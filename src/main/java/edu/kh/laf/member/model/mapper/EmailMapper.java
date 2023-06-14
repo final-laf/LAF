@@ -2,26 +2,27 @@ package edu.kh.laf.member.model.mapper;
 
 import java.util.Map;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
-@Repository
-public class EmailMapper {
+@Mapper
+public interface EmailMapper {
 
-	@Autowired
-    private SqlSessionTemplate sqlSession;
+	/** 인증 키 업데이트
+	 * @param map
+	 * @return result
+	 */
+	int updateAuthKey(Map<String, String> map);
 
-	public int updateAuthKey(Map<String, String> map) {
-		return sqlSession.update("emailMapper.updateAuthKey", map);
-	}
+	/** 인증 키 삽입
+	 * @param map
+	 * @return result
+	 */
+	int insertAuthKey(Map<String, String> map);
 
-	public int insertAuthKey(Map<String, String> map) {
-		return sqlSession.update("emailMapper.insertAuthKey", map);
-	}
-
-	public int checkAuthKey(Map<String, Object> paramMap) {
-		return sqlSession.selectOne("emailMapper.checkAuthKey", paramMap);
-	}
+	/** 인증 키 확인
+	 * @param paramMap
+	 * @return int 1(인증) 0(인증 안 됨)
+	 */
+	public int checkAuthKey(Map<String, Object> paramMap);
 	
 }

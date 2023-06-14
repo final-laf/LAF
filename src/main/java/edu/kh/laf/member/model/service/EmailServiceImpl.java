@@ -23,8 +23,8 @@ public class EmailServiceImpl implements EmailService {
 	    @Autowired
 	    private JavaMailSender mailSender;
 	    
-	    private String fromEmail = "baekdh0206@gmail.com";
-	    private String fromUsername = "수업용프로젝트";
+	    private String fromEmail = "grainbite@gmail.com";
+	    private String fromUsername = "LAF";
 
 	    // 암호 키 생성
 	    @Override
@@ -49,7 +49,7 @@ public class EmailServiceImpl implements EmailService {
 	    
 	    @Transactional
 	    @Override
-	    public int signUp(String email, String title) {
+	    public int signUp(String memberEmail, String title) {
 	        
 	        //6자리 난수 인증번호 생성
 	        String authKey = createAuthKey();
@@ -57,17 +57,17 @@ public class EmailServiceImpl implements EmailService {
 	            //인증메일 보내기
 	            MimeMessage mail = mailSender.createMimeMessage();
 	            // 제목
-	            String subject = "[Board Project]"+title+" 인증코드";
+	            String subject = "[LAF]"+title+" 인증코드";
 	            // 문자 인코딩
 	            String charset = "UTF-8";
 	            // 메일 내용
 	            String mailContent 
-	                = "<p>Board Project "+title+" 인증코드입니다.</p>"
+	                = "<p>LAF "+title+" 인증코드입니다.</p>"
 	                + "<h3 style='color:blue'>" + authKey + "</h3>";
 	            
 	            // 송신자(보내는 사람) 지정
 	            mail.setFrom(new InternetAddress(fromEmail, fromUsername));
-	            mail.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+	            mail.addRecipient(Message.RecipientType.TO, new InternetAddress(memberEmail));
 	            
 	            // 수신자(받는사람) 지정
 	            
@@ -85,7 +85,7 @@ public class EmailServiceImpl implements EmailService {
 	        
 	        Map<String, String> map = new HashMap<String, String>();
 	        map.put("authKey", authKey);
-	        map.put("email", email);
+	        map.put("memberEmail", memberEmail);
 	        
 	        System.out.println(map);
 	        

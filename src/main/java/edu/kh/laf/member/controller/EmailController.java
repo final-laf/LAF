@@ -23,8 +23,8 @@ public class EmailController {
     
     @GetMapping("/signUp")
     @ResponseBody
-    public int signUp(String email) {
-        return service.signUp(email, "회원 가입");
+    public int signUp(String memberEmail) {
+        return service.signUp(memberEmail, "회원 가입");
     }
     
     

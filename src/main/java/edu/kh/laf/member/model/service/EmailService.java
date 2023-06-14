@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface EmailService {
 	
-	int signUp(String email, String title);
+	int signUp(String memberEmail, String title);
 		
 	String createAuthKey();
 	

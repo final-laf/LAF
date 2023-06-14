@@ -10,7 +10,7 @@
 	</update>
 	
 	<insert id="insertAuthKey">
-		INSERT INTO `confirm_email` VALUES (null, #{authKey}, #{email}, default)
+		INSERT INTO `confirm_email` VALUES (null, #{authKey}, #{memberEmail}, default)
 	</insert>
 	
 	<select id="checkAuthKey" resultType="int">
