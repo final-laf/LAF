@@ -81,22 +81,4 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectRecommendList(productNo);
 	}
 
-	// 찜 목록 추가
-	@Override
-	public int insertLike(Map<String, Object> map) {
-		return mapper.insertLike(map);
-	}
-
-	// 찜 목록 삭제
-	@Override
-	public int deleteLike(Map<String, Object> map) {
-		return mapper.deleteLike(map);
-	}
-
-	// 찜 여부 확인
-	@Override
-	public int checkLike(Map<String, Object> map) {
-		return mapper.checkLike(map);
-	}
-
 }

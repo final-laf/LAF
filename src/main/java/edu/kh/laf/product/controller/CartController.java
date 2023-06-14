@@ -52,16 +52,26 @@ public class CartController {
 		// 배열 형태 JSON data parsing
 		BasicJsonParser parser = new BasicJsonParser();
 		List<Object> optionList = parser.parseList(data);
+//		
+//		// 비회원은 쿠키로 저장
+//		// TODO 비회원 임시 회원번호 생성 + 임시 회원 데이터 member table에 삽입
+//		if(loginMember == null) {
+//			loginMember = new Member();
+//			loginMember.setMemberNo(new Random().nextLong(Long.MAX_VALUE));
+//			// TODO 회원번호 중복검사 필요
+//		}
 		
-		// Cart 타입 리스트에 담기
 		List<Cart> cartList = new ArrayList<>();
 		for(Object option : optionList) {			
-			Cart cart = new Cart();	
+			Cart cart = new Cart();
+			
 			Map<String, String> map = (Map<String, String>)(option);
+			
 			cart.setMemberNo(loginMember.getMemberNo());
 			cart.setProductNo(Long.parseLong(map.get("productNo")));
 			cart.setOptionNo(Long.parseLong(map.get("optionNo")));
 			cart.setCount(Integer.parseInt(map.get("count")));
+			
 			cartList.add(cart);
 		}
 		

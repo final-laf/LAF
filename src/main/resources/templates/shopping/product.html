@@ -29,13 +29,15 @@
         <div id="titleWrapper">
           <div id="productTitle" th:text="${product.productName}">제품명 출력</div>
           <div id="productLike">
-            <img class="like" value="like" th:if="${checkLike > 0}" th:src="@{/images/common/like-fill.svg}">
-            <img class="like" th:unless="${checkLike > 0}" th:src="@{/images/common/like-grey.svg}">
+            <img class="like" th:src="@{/images/common/like-grey.svg}">
           </div>
         </div>
+        <!-- <div id="productPrice" th:text="${product.productName}">상품가격(할인후)</div> -->
 
         <div class="item-price-set">
           <span id="productSalePrice" th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">상품가격(할인후)</span>
+          <!-- <span class="item-price-origin">28,700</span> -->
+          <!-- 할인된 상품인 경우 할인율, 원래 가격 표기 -->
           <span id="productSale" th:unless="${product.productSale == 0}"
             th:text="${product.productSale + '%'}">할인율</span>
           <span id="productPrice" th:unless="${product.productSale == 0}"
