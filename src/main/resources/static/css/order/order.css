@@ -95,6 +95,11 @@
 #mypageOrderProduct input{
   width: 15px;
 }
+#mypageOrderProduct > tbody > tr:nth-child(6) > td > div > div:nth-child(1) > span:nth-child(2){
+  font-weight: normal;
+  font-size: 1.2rem;
+}
+
 .mypageOrder-order-info th{
   font-weight: normal;
   text-align: center;
@@ -173,7 +178,7 @@
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div {
   margin-right: 10px;
 }
-#mypageOrderDiscount > tbody> tr:nth-child(4) {
+#mypageOrderDiscount > tbody> tr:last-child {
   padding-right: 78px;
 }
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
@@ -182,12 +187,12 @@
   margin-right: 10px;
 }
 /* 할인 적용 금액 */
-#mypageOrderDiscount > tbody> tr:nth-child(4){
+#mypageOrderDiscount > tbody> tr:last-child{
   border-top: 0.5px solid #eee;
   border-bottom: 0.5px solid #eee;
   font-weight: bold;
 }
-#mypageOrderDiscount > tbody> tr:nth-child(4) > th:nth-child(1){
+#mypageOrderDiscount > tbody> tr:last-child > th:nth-child(1){
   font-weight: bold;
 }
 .mypageOrderDiscountRed {

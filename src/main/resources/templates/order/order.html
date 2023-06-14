@@ -146,32 +146,39 @@
             <tr>
               <td colspan="6">
                 <div>
+                  <div>총 금액</div>
+                  <div id="totalPrice">0원</div>
+                </div>
+                <div th:if="${session.loginMember}">
                   <div>예상적립금</div>
                   <div id="productPoint">4,500원</div>
                 </div>
                 <div>
-                  <div>배송비</div>
-                  <div>2,500원</div>
+                  <div>
+                    <span>배송비</span>
+                    <span>(100,000원 이상 결제 시 무료배송!)</span>
+                  </div>
+                  <div id="deliveryPrice">+2,500원</div>
                 </div>
               </td>
             </tr>
           </table>
         </div>
-        <div th:if="${session.loginMember}" class="mypageOrder-mainFrame-order">
+        <div class="mypageOrder-mainFrame-order">
           <div>할인/부가결제</div>
           <table class="mypageOrder-order-info" id="mypageOrderDiscount">
             <tr>
               <th>상품 할인</th>
               <th id="totalDiscount">0</th>
             </tr>
-            <tr>
+            <tr th:if="${session.loginMember}" >
               <th>쿠폰 할인 (보유쿠폰 <div th:text="${#lists.size(couponList)}">0</div>개)</th>
               <th>
                 <div id="couponDiscount">50,000원</div>
                 <button type="button" id="orderDetailCoupon">쿠폰적용</button>
               </th>
             </tr>
-            <tr>
+            <tr th:if="${session.loginMember}" >
               <th>적립금 (보유잔액 <div id="memberPoint" th:text="*{#numbers.formatInteger(memberPoint, 3, 'COMMA')}">0</div>원)</th>
               <th>
                 <div><input type="text" name="usePoint" value="2000">원</div>
@@ -180,7 +187,7 @@
             </tr>
             <tr>
               <th>할인 적용 금액</th>
-              <th class="mypageOrderDiscountRed" id="applyDiscount">-9,500원</th>
+              <th class="mypageOrderDiscountRed" id="applyDiscount">-0원</th>
             </tr>
           </table>
         </div>
@@ -197,7 +204,7 @@
             </tr>
             <tr>
               <th>배송비</th>
-              <th>+2,500원</th>
+              <th id="totalDelivery">0원</th>
             </tr>
             <tr>
               <th>할인</th>
@@ -205,7 +212,7 @@
             </tr>
             <tr>
               <th class="mypageOrderFontBold">최종 결제 금액</th>
-              <th id="payment">84,500</th>
+              <th id="payment">0</th>
             </tr>
           </table>
         </div>
@@ -240,7 +247,7 @@
           <div><input type="checkbox" checked>배송정보 제공 방침 동의</div>
           <div>
             <div><input type="checkbox" checked>주문 내용을 확인하였으며 약관에 동의합니다.</div>
-            <div><button id="paymentBtn">79,300원 결제하기</button></div>
+            <div><button id="paymentBtn">0원 결제하기</button></div>
           </div>
         </div>
       </form>
@@ -251,17 +258,6 @@
   
   <script th:inline="javascript">
     const orderMember = /*[[${orderMember}]]*/ "주문자 회원정보";
-    // 주소 자르기
-    if(orderMember.memberAddress !=null){
-        const arr = orderMember.memberAddress.split("^^^");
-        document.querySelectorAll("input[name='memberAddress']").forEach( (item, i) =>{
-            if(arr[i] == undefined ){
-              item.value = " "; // 상세주소없으면 빈값넣어서 placeholder가리기
-            }else{
-              item.value = arr[i];
-            }
-        } );
-    }
   </script>
 
   <script src="/js/order/order.js"></script>
