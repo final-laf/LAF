@@ -99,7 +99,6 @@ VALUES (NULL,
 
 COMMIT;
 
-
 	
 SELECT COUNT(*) FROM `member`
 		WHERE member_id  = 'user01'
@@ -108,6 +107,36 @@ SELECT COUNT(*) FROM `member`
 
 
 
+DROP TABLE IF EXISTS `confirm_email`;
 
+CREATE TABLE `confirm_email` (
+	`authority_key_no`	bigint	NOT NULL PRIMARY KEY auto_increment	COMMENT '인증 키 번호',
+	`authority_key`	varchar(6)	NOT NULL	COMMENT '인증 키',
+	`authority_email`	varchar(30)	NOT NULL	COMMENT '인증 이메일',
+	`authority_time`	datetime	NOT NULL	DEFAULT CURRENT_TIMESTAMP	COMMENT '인증 날짜(시간)'
+);
+
+
+
+COMMIT;
+
+SELECT * FROM `confirm_email`;
+
+
+INSERT INTO `confirm_email`
+VALUES (null, 152444, 'user01@kh.or.kr', default);
+
+
+UPDATE  'confirm_email' 
+SET authority_key = 152444,
+	authority_time = datetime
+	
+WHERE authority_email = 'user01@kh.or.kr';
+
+
+UPDATE `confirm_email`
+SET authority_key = 152444,
+	authority_time = datetime
+WHERE authority_email = 'user01@kh.or.kr';
 
 

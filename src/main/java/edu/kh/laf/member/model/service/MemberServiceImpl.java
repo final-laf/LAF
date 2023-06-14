@@ -42,6 +42,10 @@ public class MemberServiceImpl implements MemberService {
 		// 비밀번호를 BCrypt를 이용하여 암호화 후 다시 inputMember에 세팅
 		String encPw = bcrypt.encode(inputMember.getMemberPw());
 		inputMember.setMemberPw(encPw);
+		
+		System.out.println(inputMember.getMemberEmail());
+		System.out.println(inputMember.getMemberId());
+		
 		int result = mapper.signUp(inputMember);
 
 		return result;
@@ -51,6 +55,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int checkId(String memberId) {
 		return mapper.checkId(memberId);
+	}
+	
+	// 이메일 중복 확인
+	@Override
+	public int checkEmail(String email) {
+		return mapper.checkEmail(email);
 	}
 
 }

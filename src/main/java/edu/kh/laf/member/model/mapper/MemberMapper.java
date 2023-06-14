@@ -21,9 +21,15 @@ public interface MemberMapper {
 	 */
 	int signUp(Member inputMember);
 
-	/** 아이디 중복 검사 서비스
+	/** 아이디 중복 검사
 	 * @param memberId
 	 * @return result
 	 */
 	int checkId(String memberId);
+
+	/** 이메일 중복 검사
+	 * @param email
+	 * @return result
+	 */
+	int checkEmail(String email);
 }

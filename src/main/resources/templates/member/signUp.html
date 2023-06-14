@@ -23,16 +23,16 @@
             <Strong>기본정보</Strong>
             <table class="mypageSignUp-signUpInfo-table">
               <tr>
-                <th>아이디</th>
+                <th><div class="for-flex-signUp"><span>아이디</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <div class="mypageSignUp-table-inputTd">
                     <input type="text" name="memberId" id="mypageSignUpId" >
-                    <div>(영문소문자/숫자, 4~16자)</div>
+                    <div id="idMessage">(영문소문자/숫자, 4~16자)</div>
                   </div>
                 </td>
               </tr>
               <tr>
-                <th>비밀번호</th>
+                <th><div class="for-flex-signUp"><span>비밀번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <div class="mypageSignUp-table-inputTd">
                     <input type="password" name="memberPw" id="mypageSignUpPw" >
@@ -41,19 +41,19 @@
                 </td>
               </tr>
               <tr>
-                <th>비밀번호 확인</th>
+                <th><div class="for-flex-signUp"><span>비밀번호 확인</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <input type="password"  name="memberPw2" id="mypageSignUpPwConfirm" >
                 </td>
               </tr>
               <tr>
-                <th>이름</th>
+                <th><div class="for-flex-signUp"><span>이름</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <input type="text" name="memberName" id="mypageSignUpName"  maxlength="10">
                 </td>
               </tr>
               <tr>
-                <th>주소</th>
+                <th><div class="for-flex-signUp"><span>주소</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
                   <div class="mypageSignUp-table-address">
@@ -69,15 +69,26 @@
                 </td>
               </tr>
               <tr>
-                <th>전화번호</th>
+                <th><div class="for-flex-signUp"><span>전화번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td class="mypageSignUp-table-tel">
-                  <input type="text" id="mypageSignUpTelF" maxlength="11"  name="memberPhone" placeholder="'-' 을 제외한 11자리를 입력해주세요">
+                  <input type="text" id="mypageSignUpTelF" maxlength="11"  name="memberPhone">
+                  <span id="phoneMessage">'-'를 제외한 숫자만 입력 바랍니다.</span>
                 </td>
               </tr>
               <tr>
-                <th>이메일</th>
+                <th><div class="for-flex-signUp"><span>이메일</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <input type="text"  id="mypageSignUpMail" name="memberEmail">
+                  <button class="signUp-button" id="sendAuthKeyBtn" type="button">인증 메일 전송</button>
+                  <span id="emailMessage"></span>
+                </td>
+              </tr>
+              <tr>
+                <th><div class="for-flex-signUp"><span>이메일 인증 번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td>
+                  <input type="text" id="authKey" name="authKey" maxlength="6" autocomplete="off">
+                  <button class="signUp-button" id="checkAuthKeyBtn" type="button">인증하기</button>
+                  <span id="authKeyMessage"></span>
                 </td>
               </tr>
             </table>
@@ -96,6 +107,7 @@
                   <td>성별</td>
                   <td>
                     <select name="memberGender">
+                      <option>선택</option>
                       <option value="F">여자</option>
                       <option value="M">남자</option>
                     </select>
@@ -147,7 +159,7 @@
               <span>수신에 동의하십니까?<input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsReceiving" > 동의함</span>
             </div>
           </ul> 
-          <div id="mypageSignUpSubmitButton"><button>회원가입</button></div>
+          <div id="mypageSignUpSubmitButton"><button id="signUpButton">회원가입</button></div>
         </form>
       </div>
     </section>
