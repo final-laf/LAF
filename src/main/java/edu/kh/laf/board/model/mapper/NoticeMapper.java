@@ -21,7 +21,7 @@ public interface NoticeMapper {
 	/** 공지사항 작성
 	 * @return
 	 */
-	Notice writeNotice(Notice notice);
+	int writeNotice(Notice notice);
 
 	/** 공지사항 삭제
 	 * @param noticeNo
