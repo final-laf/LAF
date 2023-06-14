@@ -17,7 +17,7 @@
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
     <section th:object="${orderMember}" class="mypageOrder-mainFrame">
-      <form action="/order" method="post">
+      <form th:action="@{/order}" method="post" onsubmit="return false">
         <div class="mypageOrder-order-text">주문 정보</div>
         <!-- 주문 정보 -->
         <div class="mypageOrder-mainFrame-order">
@@ -89,7 +89,7 @@
               </td>
             </tr>
             <tr>
-              <th width="100px">받는 사람*</th>
+              <th width="100px">받는 사람</th>
               <td><input type="text" name="orderRecvName"></td>
             </tr>
             <tr>
@@ -132,9 +132,9 @@
             </tr>
             <tr th:each="order : ${orderList}">
               <td>
-                <input type="checkbox">
+                <input class="productPoint" type="checkbox" th:value=${order.product.productPoint}>
               </td>
-              <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif"></td>
+              <td width="70px"><img width="70px" th:src="${order.product.thumbnailPath}"></td>
               <td>
                 <div th:text="${order.product.productName}">상품명</div>
                 <div th:text="${order.option.color} + ' | '+${order.option.size}">[옵션 : 내츄럴 크림]</div>
@@ -145,6 +145,10 @@
             </tr>
             <tr>
               <td colspan="6">
+                <div>
+                  <div>예상적립금</div>
+                  <div id="productPoint">4,500원</div>
+                </div>
                 <div>
                   <div>배송비</div>
                   <div>2,500원</div>
@@ -163,15 +167,15 @@
             <tr>
               <th>쿠폰 할인 (보유쿠폰 <div th:text="${#lists.size(couponList)}">0</div>개)</th>
               <th>
-                <div>0</div>
+                <div id="couponDiscount">50,000원</div>
                 <button type="button" id="orderDetailCoupon">쿠폰적용</button>
               </th>
             </tr>
             <tr>
-              <th>적립금 (보유잔액 <div th:text="*{memberPoint}">0</div>원)</th>
+              <th>적립금 (보유잔액 <div id="memberPoint" th:text="*{#numbers.formatInteger(memberPoint, 3, 'COMMA')}">0</div>원)</th>
               <th>
-                <div><input type="text"></div>
-                <button type="button">전액사용</button>
+                <div><input type="text" name="usePoint" value="2000">원</div>
+                <button id="pointBtn" type="button">전액사용</button>
               </th>
             </tr>
             <tr>
@@ -182,9 +186,13 @@
         </div>
         <div class="mypageOrder-mainFrame-order">
           <div>결제정보</div>
+
+          <input type="hidden" name="orderTotalPrice">
+          <input type="hidden" name="orderPayment">
+          
           <table class="mypageOrder-order-info" id="mypageOrderInfo">
             <tr>
-              <th>주문상품<input type="hidden" name="orderTotalPrice"></th>
+              <th>주문상품</th>
               <th id="totalAmount">0</th>
             </tr>
             <tr>
@@ -196,7 +204,7 @@
               <th class="mypageOrderDiscountRed" id="payDiscount">0원</th>
             </tr>
             <tr>
-              <th class="mypageOrderFontBold">최종 결제 금액 <input type="hidden" name="orderPayment"></th>
+              <th class="mypageOrderFontBold">최종 결제 금액</th>
               <th id="payment">84,500</th>
             </tr>
           </table>
@@ -207,7 +215,7 @@
             <tr>
               <th>
                 <button type="button">무통장입금</button>
-                <button type="button">Paypal</button>
+                <!-- <button type="button">Paypal</button> -->
               </th>
             </tr>
             <tr>
@@ -215,23 +223,23 @@
                 <div>
                   <div>입금은행</div>
                   <select name="" id="">
-                    <option value="">■■■::: 선택해 주세요. :::■■■ </option>
-                    <option value="">국민은행: 9999-9999-9999 (주)LAF </option>
+                    <!-- <option value="">■■■::: 선택해 주세요. :::■■■ </option> -->
+                    <option value="">국민은행: 9999-9999-9999</option>
                   </select>
                 </div>
                 <div>
                   <div>입금자명</div>
-                  <input type="text">
+                  <input type="text" value="(주)LAF ">
                 </div>
               </th>
             </tr>
           </table>
         </div>
         <div class="mypageOrderTerms">
-          <div><input type="checkbox">구매조건 확인 및 결제진행 동의</div>
-          <div><input type="checkbox">배송정보 제공 방침 동의</div>
+          <div><input type="checkbox" checked>구매조건 확인 및 결제진행 동의</div>
+          <div><input type="checkbox" checked>배송정보 제공 방침 동의</div>
           <div>
-            <div><input type="checkbox">주문 내용을 확인하였으며 약관에 동의합니다.</div>
+            <div><input type="checkbox" checked>주문 내용을 확인하였으며 약관에 동의합니다.</div>
             <div><button id="paymentBtn">79,300원 결제하기</button></div>
           </div>
         </div>

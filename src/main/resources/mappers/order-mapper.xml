@@ -4,16 +4,26 @@
     
     <!-- 주문자조회 -->
     <select id="selectOrderMember" resultType="Member">
-        SELECT * FROM member WHERE member_no = #{memberNo};
+        SELECT * FROM member WHERE member_no = #{memberNo}
 	</select>
 
     <!-- 상품조회 -->
     <select id="selectOrderProduct" resultType="Product">
-		SELECT product_name, product_price, product_sale_price, i.img_path
-		FROM product AS p
-		JOIN product_img AS i ON p.product_no = i.product_no
-		WHERE thumb_fl = 'Y'
-		AND p.product_no = #{productNo};
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				(select count(*) from `like` where  `product`.product_no = `like`.product_no) AS like_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE  `product`.product_no = #{memberNo}
+				AND thumb_fl  = 'Y'
 	</select>
    
     <!-- 옵션조회 -->
@@ -21,12 +31,12 @@
 		SELECT `size` , color 
 		FROM `option`
 		WHERE product_no = #{productNo}
-		AND option_no = #{optionNo};
+		AND option_no = #{optionNo}
 	</select>
 
     <!-- 쿠폰조회 -->
     <select id="selectCouponList" resultType="Coupon">
-		SELECT * FROM coupon WHERE member_no = #{memberNo};
+		SELECT * FROM coupon WHERE member_no = #{memberNo}
 	</select>
 	
 	
