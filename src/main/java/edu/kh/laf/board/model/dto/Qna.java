@@ -13,7 +13,7 @@ public class Qna {
 	private String qnaTitle;
 	private String qnaContent;
 	private String qnaCreateDate;
-	private String qnaLockFLl;
+	private String qnaLockFl;
 	private int qnaPw;
 	private String qnaAnswer;
 

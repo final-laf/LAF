@@ -32,4 +32,14 @@ public interface QnaService {
 	int deleteQna(String qnaNo);
 
 
+
+
+
+	/** qna writeQna
+	 * @param qna
+	 * @return
+	 */
+	int writeQna(Qna qna);
+
+
 }
