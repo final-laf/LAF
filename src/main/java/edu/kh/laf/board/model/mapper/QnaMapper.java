@@ -26,4 +26,10 @@ public interface QnaMapper {
 	 */
 	int deleteQna(String qnaNo);
 
+	/** qna 글쓰기
+	 * @param qna
+	 * @return
+	 */
+	int writeQna(Qna qna);
+
 }

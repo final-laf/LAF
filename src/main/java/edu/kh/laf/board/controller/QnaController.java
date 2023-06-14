@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -67,13 +68,43 @@ public class QnaController {
 		return "/boards/qna/qnaDetail";
 	}
 	
-	// 1:1 문의 글쓰기
+	// 1:1 문의 글쓰기 컨트롤러
 	@GetMapping("/qna/write")
-	public String write() {
+	public String writeQna() {
 		return "/boards/qna/qnaWrite";
 	}
 	
-	/** 1:1 문의 삭제
+	// 1:1 문의 수정 컨트롤러
+	@GetMapping("/qna/modify/{no:[0-9]+}")
+	public String modifyQna(@PathVariable String no, Model model) {
+		return "/boards/qna/qnaModify";
+	}
+	
+	// 1:1 문의 답글 컨트롤러
+	@GetMapping("/qna/answer/{no:[0-9]+}")
+	public String answerQna(@PathVariable String no, Model model) {
+		return "/boards/qna/qnaAnswer";
+	}
+	
+	// 기능: 1:1 문의 글쓰기
+	@GetMapping("/qna/insert")
+	public String insert(Qna qna, @RequestHeader(value = "referer") String referer
+			,Model model){
+		System.out.println(qna);
+		if(qna.getQnaLockFl().equals("on")) {
+			qna.setQnaLockFl("y");
+		}else {
+			qna.setQnaLockFl("n");
+		}
+		int writeNotice = qnaService.writeQna(qna);
+		
+		return "redirect:/qna";
+	}
+	
+	
+	
+	
+	/** 기능: 1:1 문의 삭제
 	 * @param qnaNo
 	 * @return
 	 */

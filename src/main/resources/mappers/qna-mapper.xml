@@ -36,11 +36,16 @@
 		
 	</select>
 	
+	
 	<!-- qna 삭제 -->
     <update id="deleteQna">
         UPDATE `qna` SET qna_delete_fl ='y' WHERE qna_no=#{noticeNo}
     </update>
 	
+	  <!-- 공지사항 작성 -->
+    <insert id="writeQna" parameterType="Qna" >
+        INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL,default)
+    </insert>
 	
 	
 

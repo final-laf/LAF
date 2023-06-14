@@ -38,4 +38,9 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.deleteQna(qnaNo);
 	}
 
+	@Override
+	public int writeQna(Qna qna) {
+		return mapper.writeQna(qna);
+	}
+
 }
