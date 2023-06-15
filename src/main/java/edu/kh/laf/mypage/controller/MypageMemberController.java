@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -21,31 +22,20 @@ public class MypageMemberController {
 	private MypageService service;
 
 	// 마이페이지 대쉬보드
-	@GetMapping("/my")
+	@GetMapping("/myPage")
 	public String my() {
-		return "/mypage/mypageDash";
+		return "/myPage/myPageDashboard";
 	}
 	
-	// 회원정보 수정 
-	@GetMapping("/my/info")
+	// 회원정보 수정  
+	@GetMapping("/myPage/info") // css 수정 필요 
 	public String info() {
-		return "/mypage/mypageEditInfo";
+		return "/myPage/myPageInfo/myPageInfo";
 	}
 	
-	// 적립금 및 쿠폰 : 적립금
-	@GetMapping("/my/point")
-	public String point() {
-		return "/mypage/mypagePoint";
-	}
-	
-	// 적립금 및 쿠폰 : 쿠폰
-	@GetMapping("/my/coupon")
-	public String coupon() {
-		return "/mypage/mypageCoupon";
-	}
-	
+
 	// 배송지 관리
-	@GetMapping("/my/ship")
+	@GetMapping("/myPage/shipping")
 	public String ship(@SessionAttribute("loginMember") Member loginMember
 					, Model model) {
 		// 배송지 목록 조회
@@ -53,19 +43,38 @@ public class MypageMemberController {
 		
 		model.addAttribute("addressList", addressList);
 
-		return "/mypage/mypageShipping";
+		return "/myPage/myPageInfo/myPageShipping";
 	}
 	
 	// 배송지 관리 : 배송지 등록
-	@GetMapping("/my/ship/enroll")
+	@GetMapping("/myPage/shipping/add")
 	public String shipEnroll() {
-		return "/mypage/mypageAddShipping";
+		return "/myPage/myPageInfo/myPageAddShipping";
+	}
+	
+	
+	// 적립금 및 쿠폰 : 적립금
+	@GetMapping("/myPage/point")
+	public String point() {
+		return "/myPage/myPageOrder/myPagePoint";
+	}
+	
+	// 적립금 및 쿠폰 : 쿠폰
+	@GetMapping("/myPage/coupon")
+	public String coupon() {
+		return "/myPage/myPageOrder/myPageCoupon";
+	}
+	
+	// 나의 주문목록 조회
+	@GetMapping("/myPage/order") // 연결 에러남
+	public String order() {
+		return "/myPage/myPageOrder/myPageOrderList";
 	}
 	
 	// 찜 목록
-	@GetMapping("/my/like")
+	@GetMapping("/myPage/like")
 	public String like() {
-		return "/mypage/like";
+		return "/myPage/like";
 	}
 	
 }

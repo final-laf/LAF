@@ -180,7 +180,7 @@ VALUES (NULL,
 
 SELECT * FROM `member`;
 COMMIT;
-DELETE FROM `member` WHERE member_no = 43;
+DELETE FROM `member` WHERE member_no = 44;
 
 
 

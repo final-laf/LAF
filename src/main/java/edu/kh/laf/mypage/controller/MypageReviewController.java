@@ -19,19 +19,19 @@ public class MypageReviewController {
 	private MypageReviewServiceImpl reviewService;
 	
 	// 내가 쓴 리뷰 : 작성 가능한 리뷰 
-	@GetMapping("/my/review")
+	@GetMapping("/myPage/review")
 	public String review(@SessionAttribute("loginMember") Member loginMember) {
 		List<Order> myOrder = new ArrayList<>();
-		return "/mypage/reviewQueue";
+		return "/myPage/myPageBoard/reviewQueue";
 	}
 	
 	// 내가 쓴 리뷰 : 작성한 리뷰
-	@GetMapping("/my/review/list")
+	@GetMapping("/myPage/review/list")
 	public String reviewList(@SessionAttribute("loginMember") Member loginMember) {
 		List<Review> myReview = new ArrayList<>();
 		myReview = reviewService.myReview(loginMember.getMemberNo());
 		System.out.println(myReview);
-		return "/mypage/reviewList";
+		return "/myPage/myPageBoard/myPageReview";
 	}
 
 }
