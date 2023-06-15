@@ -42,16 +42,16 @@
             <tr>
               <th>주소</th>
               <td>
-                <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                <!-- 주소 api 이용 (스크립트) -->
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
-                  <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                  <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="order_postcode" readonly>
+                  <button type="button" onclick="sample6_execDaumPostcode('order')">주소검색</button>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+                  <input type="text" required name="memberAddress" placeholder="  기본 주소" id="order_address" readonly>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
+                  <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="order_detailAddress">
                 </div>
               </td>
             </tr>
@@ -99,17 +99,17 @@
             <tr>
               <th>주소<input type="hidden" name="orderRecvAdd"></th>
               <td>
-                <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                <!-- 주소 api 이용 (스크립트) -->
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
-                  <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                  <input type="text" required class="mypageSignUp-address-postal" name="receiverAddress" placeholder="우편번호" maxlength="6" id="recv_postcode" readonly>
+                  <button type="button" onclick="sample6_execDaumPostcode('recv')">주소검색</button>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+                  <input type="text" required name="receiverAddress" placeholder="  기본 주소" id="recv_address" readonly>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
-                </div>
+                  <input type="text" required name="receiverAddress" placeholder="  나머지 주소" id="recv_detailAddress">
+                </div>  
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">

@@ -93,19 +93,52 @@
     color: #666;
     font-size: 10px;
 }
-#orderCouponDefault{
-    border: 1px solid #eee;
-    background-color: #58aeff;
-    color: white;
-    width: 40px;
+
+.orderCoupon-main-coupon label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.orderCoupon-main-coupon label>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 45px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #666;
+    font-size: 1rem;
+    color: white;
+}
+
+.orderCoupon-main-coupon input[type=radio]{
+    display: none;
+}
+
+.orderCoupon-main-coupon input[type=radio]:checked + label>div{
+    background-color: #7F7698;
+}
+
+.orderCoupon-coupon-button{
+    margin-top: 20px;
+}
 
 .orderCoupon-coupon-button div{
     margin-top: 5px;
     display: flex;
     justify-content: center;
 }
+
+.orderCoupon-coupon-button button:nth-child(1){
+    background-color: #7F7698;
+    color: white;
+    display: flex;
+    width: 82px;
+    margin-left: 10px;   
+}
+
 .orderCoupon-coupon-button button:nth-child(2){
     background-color: #666;
     color: white;
