@@ -126,7 +126,7 @@ CREATE TABLE `confirm_email` (
 SELECT * FROM `member`;
 
 /* member 삭제 */
-DELETE FROM `member` WHERE member_no = 24;
+DELETE FROM `member` WHERE member_no = 32;
 
 COMMIT;
 
@@ -144,3 +144,48 @@ WHERE authority_email = 'user01@kh.or.kr';
 
 /* 컬럼 삭제 */
 ALTER TABLE `member` DROP `member_age`;
+
+/* refund_bank 일괄 수정 */
+UPDATE `member` SET refund_bank = '1';
+
+/* 회원번호 일괄 수정 */
+UPDATE `member` SET member_grade= 'B';
+
+UPDATE `member` SET member_grade = 'A'
+WHERE member_no = 1;
+
+
+/* 비회원 샘플 삽입 */
+INSERT INTO `member`
+VALUES (NULL, 
+		'nonmember5', 
+		'nonmember5', 
+		'nonmember5', 
+		NULL, 
+		'nonmember5@sample.com', 
+		00000000000, 
+		NULL, 
+		'nonAddress', 
+		'B', 
+		DEFAULT, 
+		DEFAULT, 
+		NULL, 
+		NULL, 
+		default, 
+		default, 
+		DEFAULT, 
+		NULL, 
+		NULL, 
+		NULL);
+
+SELECT * FROM `member`;
+COMMIT;
+DELETE FROM `member` WHERE member_no = 43;
+
+
+
+/* 멤버 비밀번호 업데이트 */
+UPDATE `member`
+SET member_pw = '$2a$10$ysTBZkMe9StXPLRh/z/E3uBtRWT67qPCuyuTvVNf27Ho8xHe9LUmm'
+WHERE member_no  = 38;
+

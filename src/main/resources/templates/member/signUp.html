@@ -124,10 +124,10 @@
               <tr>
                 <td colspan="3"> 은행명
                   <select name="refundBank" size="1"> 
-                    <option value="n">- 은행 선택 -</option>
-                    <option value="ori">우리은행</option>
-                    <option value="kuk">국민은행</option> 
-                    <option value="nong">농협은행</option> 
+                    <option value="0">- 은행 선택 -</option>
+                    <option value="1">국민은행</option> 
+                    <option value="2">농협은행</option> 
+                    <option value="3">우리은행</option>
                   </select>
                 </td>
               </tr>
@@ -139,26 +139,33 @@
               </tr>
             </table>
           </div> 
-          <ul class="mypageSignUp-info-terms">
-            <span>
+          <div class="mypageSignUp-info-terms">
+            <div>
               <input type="checkbox" name="" id="mypageSignUptermsAll"> 전체 약관 동의
-            </span>
+            </div>
             <div>
               [필수] 이용약관 동의
-              <li>제 1조(목적)</li>
-              <span>이용약관에 동의하십니까?<input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsUse" > 동의함</span>
+              <div>
+                <pre th:insert="~{/member/termsAndConditions :: terms1}"></pre>
+              </div>
+              <div>
+                <span>이용약관에 동의하십니까?</span>
+                <input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsUse" >
+                <span>동의함</span>
+              </div>
             </div>
             <div>
               [필수] 개인정보 수집 및 이용 동의
-              <li>1. 개인정보 수집 목적 및 이용목적</li>
-              <span>개인정보 수집 및 이용에 동의하십니까?<input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsInfo" > 동의함</span>
+              <div>
+                <pre th:insert="~{/member/termsAndConditions :: terms2}"></pre>
+              </div>
+              <div>
+                <span>개인정보 수집 및 이용에 동의하십니까?</span>
+                <input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsInfo" >
+                <span>동의함</span>
+              </div>
             </div>
-            <div>
-              [필수] 쇼핑 수신 동의?
-              <li>할인 쿠폰 등</li>
-              <span>수신에 동의하십니까?<input type="checkbox" class="mypageSignUp-terms-content" name="" id="mypageSignUptermsReceiving" > 동의함</span>
-            </div>
-          </ul> 
+          </div> 
           <div id="mypageSignUpSubmitButton"><button id="signUpButton">회원가입</button></div>
         </form>
       </div>
