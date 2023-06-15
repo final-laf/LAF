@@ -30,22 +30,16 @@ if(loginMember != null){ // 로그인한 회원만
   })
 };
 
-// 배송지관련
+// 배송 관련 정보 세팅--------------------------------------------------------------
 // 주문자 환불정보 세팅
 if(orderMember.refundBank != null){
   document.getElementById('refundBank').children[parseInt(orderMember.refundBank)-1].selected = true;
 };
-// 보내는 사람
-const addAll = document.querySelectorAll("input[name='memberAddress']");
 // 주소 잘라서 세팅
 if(orderMember.memberAddress !=null){
   const arr = orderMember.memberAddress.split("^^^");
-  addAll.forEach( (item, i) =>{
-      if(arr[i] == undefined ){
-        item.value = ""; // 상세주소없으면 빈값넣어서 placeholder가리기
-      }else{
-        item.value = arr[i];
-      }
+  document.querySelectorAll("input[name='memberAddress']").forEach( (item, i) =>{
+    item.value = arr[i];
   } );
 }
 
@@ -54,8 +48,6 @@ const orderDetailSame = document.getElementById('orderDetailSame');
 const orderDetailNew = document.getElementById('orderDetailNew');
 // 받는 사람 이름
 const orderRecvName = document.querySelector('[name="orderRecvName"]');
-// 받는 사람 주소
-const arr2 = orderMember.memberAddress.split("^^^");
 // 받는 사람 전화번호
 const orderRecvPhone = document.querySelector('[name="orderRecvPhone"]');
 
@@ -65,20 +57,35 @@ const orderRecvAdd = document.querySelector('[name="orderRecvAdd"]'); // 제출�
 orderDetailSame.addEventListener('click', () => {
   orderRecvName.value = orderMember.memberName;
   orderRecvPhone.value = orderMember.memberPhone;
-  addAll[3].value = arr2[0];
-  addAll[4].value = arr2[1];
-  addAll[5].value = arr2[2];
+  const arr = orderMember.memberAddress.split("^^^");
+  document.querySelectorAll("input[name='receiverAddress']").forEach( (item, i) =>{
+    item.value = arr[i];
+  } )
   orderRecvAdd.value = addAll[3].value+"^^^"+addAll[4].value+"^^^"+addAll[5].value;
 });
 // 새로운 배송지
 orderDetailNew.addEventListener('click', () => {
   orderRecvName.value = "";
   orderRecvPhone.value = "";
-  addAll[3].value = "";
-  addAll[4].value = "";
-  addAll[5].value = "";
+  document.querySelectorAll("input[name='receiverAddress']").forEach( (item, i) =>{
+    item.value ="";
+  } )
   orderRecvAdd.value = "";
 });
+
+// 쿠폰 적용하기--------------------------------------------------------------
+const applyBtn = document.getElementById('applyBtn'); // 적용하기 버튼
+const cp = document.getElementById("couponDiscount"); // 쿠폰적용 할인가 화면표시
+applyBtn.addEventListener('click',() => {
+  // 모달창 닫기
+  document.getElementById("orderCouponBack").style.display="none";
+  document.getElementById("orderCouponContent").style.display="none";
+  document.body.style.removeProperty('overflow');
+  // 체크된 인덱스번째의 쿠폰번호, 쿠폰할인가격 계산후 세팅
+  //인덱스번호가져오기 document.querySelector('input[name="useCoupon"]:checked').getAttribute('id').slice(-1)
+});
+
+
 
 // 결제 계산하기--------------------------------------------------------------
 
