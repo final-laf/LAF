@@ -33,9 +33,9 @@ public interface QnaMapper {
 	int writeQna(Qna qna);
 
 	/** 비밀글 확인
-	 * @param qnaLockNo
+	 * @param qna
 	 * @return
 	 */
-	Qna confirmLockNo(long qnaLockNo);
+	Qna confirmLockNo(Qna qna);
 
 }

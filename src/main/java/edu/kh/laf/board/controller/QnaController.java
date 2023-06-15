@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -144,13 +146,16 @@ public class QnaController {
 	}
 	
 	// 기능 : 1:1 문의 비밀글 유효성 검사
-	@GetMapping(value="/qna/qnaLockNo/{qnaLockNo}")
+	@PostMapping("/qna/qnaLockNo")
 	@ResponseBody
-	public int detail(@PathVariable int qnaLockNo) {
-		System.out.println(qnaLockNo);
-//		Qna confirmLockNo = qnaService.confirmLockNo(qnaLockNo);
-//		System.out.println(confirmLockNo);
-		int checkSecretPw=0;
+	public int detail(@RequestBody Qna qna) {
+		System.out.println(qna);
+		Qna check = qnaService.confirmLockNo(qna);
+		System.out.println(check);
+		int checkSecretPw=1;
+		if(check==null) {
+			checkSecretPw=-1;
+		}
 		return checkSecretPw;
 	}
 	

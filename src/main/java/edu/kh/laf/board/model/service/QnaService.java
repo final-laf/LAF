@@ -46,10 +46,10 @@ public interface QnaService {
 
 
 	/** 비밀글 비밀번호 유효성 검사
-	 * @param qnaLockNo
+	 * @param qna
 	 * @return
 	 */
-	Qna confirmLockNo(long qnaLockNo);
+	Qna confirmLockNo(Qna qna);
 
 
 }
