@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -27,7 +28,7 @@ public class QnaController {
 	
 
 	// 1:1 문의 목록
-	@GetMapping(value = {"/qna/{search}","/qna"})
+	@GetMapping(value = {"/qna/list/{search}","/qna/list"})
 	public String qna(Model model,@PathVariable(required = false) String search
 			) {
 		//PathVariable 없을 때
@@ -55,7 +56,6 @@ public class QnaController {
 //			answeredQna = qnaService.searchAnsweredQna(qnaMap);
 			model.addAttribute("qnaList", qna);
 //			model.addAttribute("answeredQnaList", answeredQna);
-			System.out.println(qna);
 		}
 		return "/boards/qna/qna";
 	}
@@ -88,11 +88,28 @@ public class QnaController {
 	
 	// 기능: 1:1 문의 글쓰기
 	@GetMapping("/qna/insert")
+	
 	public String insert(Qna qna, @RequestHeader(value = "referer") String referer
 			,Model model){
+		
 		System.out.println(qna);
-		if(qna.getQnaLockFl().equals("on")) {
-			qna.setQnaLockFl("y");
+		if(qna.getMemberNo()==0) {
+			qna.setMemberNo(35);
+		}
+		if(qna.getOrderNo()=="") {
+			qna.setOrderNo(null);
+		}
+		if(qna.getProductNo()=="") {
+			qna.setProductNo(null);
+		}
+		if(qna.getQnaPw()=="") {
+			qna.setQnaPw(null);
+		}
+		System.out.println(qna);
+		if(qna.getQnaLockFl()!=null) {
+			if(qna.getQnaLockFl().equals("on")) {
+				qna.setQnaLockFl("y");
+			}
 		}else {
 			qna.setQnaLockFl("n");
 		}
@@ -124,6 +141,17 @@ public class QnaController {
 		int no = qnaService.deleteQna(qnaNo);
 		String n= "";
 		return n;
+	}
+	
+	// 기능 : 1:1 문의 비밀글 유효성 검사
+	@GetMapping(value="/qna/qnaLockNo/{qnaLockNo}")
+	@ResponseBody
+	public int detail(@PathVariable int qnaLockNo) {
+		System.out.println(qnaLockNo);
+//		Qna confirmLockNo = qnaService.confirmLockNo(qnaLockNo);
+//		System.out.println(confirmLockNo);
+		int checkSecretPw=0;
+		return checkSecretPw;
 	}
 	
 }
