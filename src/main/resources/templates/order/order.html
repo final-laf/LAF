@@ -17,7 +17,7 @@
   <main>
     <!-- 개인화면 대쉬보드 전체 틀 -->
     <section th:object="${orderMember}" class="mypageOrder-mainFrame">
-      <form th:action="@{/order}" method="post" onsubmit="return false">
+      <form id="orderSubmit" th:action="@{/order}" method="post">
         <div class="mypageOrder-order-text">주문 정보</div>
         <!-- 주문 정보 -->
         <div class="mypageOrder-mainFrame-order">
@@ -25,12 +25,12 @@
           <table>
             <tr>
               <th width="100px">주문자</th>
-              <td><input type="text" th:value="*{memberName}"><input type="hidden" name="memberNo" th:value="*{memberNo}"></td>
+              <td><input id="orderName" type="text" th:value="*{memberName}"><input type="hidden" name="memberNo" th:value="*{memberNo}"></td>
             </tr>
             <tr>
               <th>이메일</th>
               <td>
-                <input type="text" th:value="*{memberEmail}">
+                <input id="orderEmail"  type="text" th:value="*{memberEmail}">
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
@@ -63,7 +63,11 @@
             </tr>
             <tr>
               <td>
-                <input type="text" th:value="*{refundBank}" placeholder="은행명">
+                <select id="refundBank" name="paymentBank">
+                  <option value="1">국민은행</option>
+                  <option value="2">농협</option>
+                  <option value="3">우리은행</option>
+                </select>
               </td>
             </tr>
             <tr>
@@ -81,8 +85,8 @@
               <td colspan="2">
                 <div>
                   <div>
-                    <input type="radio" name="orderShippingRadio" id="orderDetailSame" value=""><label for="orderDetailSame">주문자 정보와 동일</label>
-                    <input type="radio" name="orderShippingRadio" id="orderDetailNew" value=""><label for="orderDetailNew">새로운 배송지</label>
+                    <input type="radio" name="orderShippingRadio" id="orderDetailSame" ><label for="orderDetailSame">주문자 정보와 동일</label>
+                    <input type="radio" name="orderShippingRadio" id="orderDetailNew" checked><label for="orderDetailNew">새로운 배송지</label>
                   </div>
                   <button type="button" th:if="${session.loginMember}" id="orderDetailShipping">배송지 관리</button>
                 </div>
@@ -112,6 +116,12 @@
               <th>휴대전화</th>
               <td>
                 <input type="text" name="orderRecvPhone">
+              </td>
+            </tr>
+            <tr class="mypageOrder-order-tel">
+              <th>주문요청사항</th>
+              <td>
+                <input type="text" name="orderRecvRequire" placeholder="요청사항을 적어주세요">
               </td>
             </tr>
           </table>
@@ -151,7 +161,8 @@
                 </div>
                 <div th:if="${session.loginMember}">
                   <div>예상적립금</div>
-                  <div id="productPoint">4,500원</div>
+                  <div id="productPoint">0원</div>
+                  <input type="hidden" name="productPoint">
                 </div>
                 <div>
                   <div>
@@ -174,14 +185,14 @@
             <tr th:if="${session.loginMember}" >
               <th>쿠폰 할인 (보유쿠폰 <div th:text="${#lists.size(couponList)}">0</div>개)</th>
               <th>
-                <div id="couponDiscount">50,000원</div>
+                <div><span id="couponDiscount">50,000</span>원</div>
                 <button type="button" id="orderDetailCoupon">쿠폰적용</button>
               </th>
             </tr>
             <tr th:if="${session.loginMember}" >
-              <th>적립금 (보유잔액 <div id="memberPoint" th:text="*{#numbers.formatInteger(memberPoint, 3, 'COMMA')}">0</div>원)</th>
+              <th>적립금 (보유잔액 <div id="memberPoint" th:if="*{memberPoint}" th:text="*{#numbers.formatInteger(memberPoint, 3, 'COMMA')}"></div><div id="memberPoint" th:unless="*{memberPoint}">0</div>원)</th>
               <th>
-                <div><input type="text" name="usePoint" value="2000">원</div>
+                <div><input type="text" name="usePoint">원</div>
                 <button id="pointBtn" type="button">전액사용</button>
               </th>
             </tr>
@@ -193,8 +204,9 @@
         </div>
         <div class="mypageOrder-mainFrame-order">
           <div>결제정보</div>
-
+          <!-- 주문총가격 -->
           <input type="hidden" name="orderTotalPrice">
+          <!-- 결제총가격 -->
           <input type="hidden" name="orderPayment">
           
           <table class="mypageOrder-order-info" id="mypageOrderInfo">
@@ -221,7 +233,8 @@
           <table class="mypageOrder-order-info" id="mypageOrderHow">
             <tr>
               <th>
-                <button type="button">무통장입금</button>
+                <span>무통장입금</span>
+                <input type="hidden" name="payment" value="1">
                 <!-- <button type="button">Paypal</button> -->
               </th>
             </tr>
@@ -229,14 +242,14 @@
               <th>
                 <div>
                   <div>입금은행</div>
-                  <select name="" id="">
+                  <select>
                     <!-- <option value="">■■■::: 선택해 주세요. :::■■■ </option> -->
-                    <option value="">국민은행: 9999-9999-9999</option>
+                    <option>국민은행: 9999-9999-9999</option>
                   </select>
                 </div>
                 <div>
                   <div>입금자명</div>
-                  <input type="text" value="(주)LAF ">
+                  <input name="paymentName" type="text" placeholder="입금하시는 분의 성함을 적어주세요">
                 </div>
               </th>
             </tr>

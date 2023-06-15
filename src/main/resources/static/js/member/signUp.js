@@ -564,7 +564,6 @@ const memberAddress = document.querySelectorAll('input[name="memberAddress"]');
   }
 
   for(let key in checkObj){
-    
     if(!checkObj[key]){ // 각 key에 대한 value(true/false)를 얻어와
       // false인 경우 == 유효하지 않다!
       switch(key){
@@ -594,13 +593,11 @@ const memberAddress = document.querySelectorAll('input[name="memberAddress"]');
         alert("계좌번호가 유효하지 않습니다"); break;
         case "mypageSignUptermsAll" : 
         alert("필수 약관에 동의하지 않았습니다"); break;
-        }
-        e.preventDefault(); // form 태그 기본 이벤트 제거
-        return; // 함수 종료
-        }
       }
-
-
+      e.preventDefault(); // form 태그 기본 이벤트 제거
+      return; // 함수 종료
+    }
+  }
 });
 
 
