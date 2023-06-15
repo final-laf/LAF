@@ -31,15 +31,18 @@ if(loginMember != null){ // 로그인한 회원만
 };
 
 // 배송지관련
-
+// 주문자 환불정보 세팅
+if(orderMember.refundBank != null){
+  document.getElementById('refundBank').children[parseInt(orderMember.refundBank)-1].selected = true;
+};
 // 보내는 사람
-
+const addAll = document.querySelectorAll("input[name='memberAddress']");
 // 주소 잘라서 세팅
 if(orderMember.memberAddress !=null){
   const arr = orderMember.memberAddress.split("^^^");
-  document.querySelectorAll("input[name='memberAddress']").forEach( (item, i) =>{
+  addAll.forEach( (item, i) =>{
       if(arr[i] == undefined ){
-        item.value = " "; // 상세주소없으면 빈값넣어서 placeholder가리기
+        item.value = ""; // 상세주소없으면 빈값넣어서 placeholder가리기
       }else{
         item.value = arr[i];
       }
@@ -56,22 +59,25 @@ const arr2 = orderMember.memberAddress.split("^^^");
 // 받는 사람 전화번호
 const orderRecvPhone = document.querySelector('[name="orderRecvPhone"]');
 
-console.log(orderMember.memberNo);
+// 주소지 전환
+const orderRecvAdd = document.querySelector('[name="orderRecvAdd"]'); // 제출용세팅
 // 주문자 정보와 동일
 orderDetailSame.addEventListener('click', () => {
   orderRecvName.value = orderMember.memberName;
   orderRecvPhone.value = orderMember.memberPhone;
-  document.querySelectorAll("input[name='memberAddress']")[3].value = arr2[0];
-  document.querySelectorAll("input[name='memberAddress']")[4].value = arr2[1];
-  document.querySelectorAll("input[name='memberAddress']")[5].value = arr2[2];
+  addAll[3].value = arr2[0];
+  addAll[4].value = arr2[1];
+  addAll[5].value = arr2[2];
+  orderRecvAdd.value = addAll[3].value+"^^^"+addAll[4].value+"^^^"+addAll[5].value;
 });
 // 새로운 배송지
 orderDetailNew.addEventListener('click', () => {
   orderRecvName.value = "";
   orderRecvPhone.value = "";
-  document.querySelectorAll("input[name='memberAddress']")[3].value = "";
-  document.querySelectorAll("input[name='memberAddress']")[4].value = "";
-  document.querySelectorAll("input[name='memberAddress']")[5].value = "";
+  addAll[3].value = "";
+  addAll[4].value = "";
+  addAll[5].value = "";
+  orderRecvAdd.value = "";
 });
 
 // 결제 계산하기--------------------------------------------------------------
@@ -122,7 +128,8 @@ let couponDiscount = 0;
 if(loginMember != null){ // 로그인한 회원일시
   // 예상적립금 세팅
   document.getElementById("productPoint").innerText = totalPoint.toLocaleString() + '원';
-  
+  document.querySelector("input[name=productPoint]").value = totalPoint; // 제출용
+
   // 포인트 사용
   const memberPoint = document.getElementById("memberPoint").innerText;
   const pointInput = document.querySelector("input[name=usePoint]");
@@ -139,7 +146,7 @@ if(loginMember != null){ // 로그인한 회원일시
   });
 
   // 쿠폰할인금액 세팅
-  couponDiscount = document.getElementById("couponDiscount").innerText;
+  couponDiscount = parseInt(document.getElementById("couponDiscount").innerText.replace(",", ""));
 }
 
 // 할인적용 총 금액 세팅
@@ -154,3 +161,4 @@ document.querySelector("input[name=orderPayment]").value = payment;
 
 // -----------------------------------------------------------------------------
 
+// 유효성검사

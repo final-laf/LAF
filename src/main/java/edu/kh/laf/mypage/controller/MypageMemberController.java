@@ -50,7 +50,9 @@ public class MypageMemberController {
 					, Model model) {
 		// 배송지 목록 조회
 		List<Address> addressList = service.selectAddressList(loginMember.getMemberNo());
-		
+		for(Address add : addressList) {
+			add.setAddress(add.getAddress().replace("^^^", " "));
+		}
 		model.addAttribute("addressList", addressList);
 
 		return "/mypage/mypageShipping";

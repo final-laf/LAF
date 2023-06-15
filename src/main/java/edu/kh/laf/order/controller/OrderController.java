@@ -69,6 +69,9 @@ public class OrderController {
 		if (loginMember != null) {
 			// 배송지정보조회
 			List<Address> addressList = service2.selectAddressList(loginMember.getMemberNo());
+			for(Address add : addressList) {
+				add.setAddress(add.getAddress().replace("^^^", " "));
+			}
 			model.addAttribute("addressList", addressList);
 			// 쿠폰정보조회
 			List<Coupon> couponList = service.selectCouponList(loginMember.getMemberNo());
@@ -85,7 +88,7 @@ public class OrderController {
 	@PostMapping("/order")
 	public String payment(Order order) {
 		
-//		System.out.println(order);
+		System.out.println(order);
 		
 		// order테이블 인설트하기
 //		insertOrder

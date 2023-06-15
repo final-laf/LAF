@@ -84,3 +84,13 @@ WHERE product_no = 1
 AND option_no = 2;
  
 COMMIT;
+
+SELECT * FROM `member`;
+UPDATE `member` SET refund_bank = NULL WHERE member_no in (11, 12, 14,15,31,32);
+
+SELECT * FROM address;
+UPDATE `address` SET address = '12008^^^서울 강남구 테헤란로98길 8^^^언덕위에빌딩' WHERE address_no = 3;
+
+SELECT * FROM coupon;
+INSERT INTO coupon VALUES (NULL,3,'5,000원 할인', '2023-05-01', '2055-05-01', 5000, 'm','50000',NULL,'n');
+

@@ -16,7 +16,7 @@ public class Order {
 	private long pointNoGain;			// 적립번호
 	private long pointNoUse;			// 적립번호
 	private String payment;				// 지불방법
-	private String paymentBank;			// 은행
+	private String paymentBank;			// 지불계좌은행
 	private String paymentName;			// 입금자명
 	private long reviewNo;				// 후기번호
 	private String orderState;			// 주문현황
