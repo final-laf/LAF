@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.mapper.QnaMapper;
@@ -38,9 +39,20 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.deleteQna(qnaNo);
 	}
 
+	/** qna 글쓰기
+	 *
+	 */
 	@Override
 	public int writeQna(Qna qna) {
 		return mapper.writeQna(qna);
+	}
+
+	/** 비밀글 확인
+	 *
+	 */
+	@Override
+	public Qna confirmLockNo(long qnaLockNo) {
+		return mapper.confirmLockNo(qnaLockNo);
 	}
 
 }

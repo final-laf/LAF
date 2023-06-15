@@ -35,7 +35,7 @@
           <table class="detail-list-table">
             <tr>
               <td>TITLE</td>
-              <td><input name="qnaTitle" type="text" placeholder="제목 입력"></td>
+              <td><input name="qnaTitle" type="text" placeholder="제목 입력" required></td>
             </tr>
             <tr>
               <td>CATEGORY</td>
@@ -49,20 +49,20 @@
             </tr>
             <tr>
               <td>PRODUCT NO.</td>
-              <td><input name="productNo" type="number" placeholder="상품번호 입력"></td>
+              <td><input name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력"></td>
             </tr>
             <tr>
               <td>ORDER NO.</td>
-              <td><input name="orderNo" type="number" placeholder="주문번호 입력"></td>
+              <td><input name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력"></td>
             </tr> 
             <tr th:if="${session.loginMember}">
               <td>PASSWORD.</td>
-              <td><input name="qnaPw" type="text" placeholder="비밀번호 입력(선택)"></td>
-              <td><input th:unless="${session.loginMember}" name="orderNo" type="text" placeholder="비밀번호 입력(필수)"></td>
+              <td><input name="qnaPw" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"  placeholder="비밀번호 입력(선택)"></td>
+              <td><input th:unless="${session.loginMember}" name="orderNo"  type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="비밀번호 입력(필수)"></td>
             </tr>
             <tr th:unless="${session.loginMember}">
               <td>PASSWORD.</td>
-              <td><input name="qnaPw" type="text" placeholder="비밀번호 입력(필수)"></td>
+              <td><input name="qnaPw" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="비밀번호 입력(필수)" required></td>
             </tr>
             <tr>
               <td>LOCK.</td>
@@ -70,9 +70,7 @@
             </tr>
           </table>
           <div class="write-list-contents">
-            <textarea name="qnaContent">
-    
-            </textarea>
+            <textarea name="qnaContent" type="text" required></textarea>
           </div>
         </div>
 

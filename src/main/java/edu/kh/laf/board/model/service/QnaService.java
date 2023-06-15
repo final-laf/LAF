@@ -42,4 +42,14 @@ public interface QnaService {
 	int writeQna(Qna qna);
 
 
+
+
+
+	/** 비밀글 비밀번호 유효성 검사
+	 * @param qnaLockNo
+	 * @return
+	 */
+	Qna confirmLockNo(long qnaLockNo);
+
+
 }
