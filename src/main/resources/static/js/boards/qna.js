@@ -32,13 +32,37 @@ if (document.getElementById("qnaModelBack")!=null) {
 // 모달 비밀글 입력하기
 if (document.getElementById("qnaModalBtn")!=null) {
   document.getElementById("qnaModalBtn").addEventListener("click", e => {
-    console.log(qnaLockNo)
-    fetch("/qna/qnaLockNo?qnaLockNo="+qnaLockNo)  
-      .then(response => response.text()) 
-      .then(() => {}) 
-      .catch (e => { console.log(e)}); 
+  const pw = e.target.parentElement.parentElement.children[1].children[0].value
+  const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
+  fetch("/qna/qnaLockNo",{
+    method : "POST", headers : {"Content-Type" : "application/json"},
+    body : JSON.stringify(data)
+  })
+  .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
+
+  . then(count => {
+      console.log("count = "+count);
       
-    // document.location.href="/qna/detail/" + qnaLockNo
+      if (count == -1) { // INSERT DELETE 실패 시
+          console.log("좋아요 처리 실패");
+          return;            
+      }
+      
+
+      // toggle() : 클래스가 있으면 없애고, 없으면 추가하고
+
+
+      
+
+    }) //파싱된 데이터를 받아서 처리하는 코드 작성
+  
+  .catch(err => {
+      console.log("예외 발생");
+      console.log(err);
+  }) // 예외 발생 시 처리하는 부분
+    
+      
+  // document.location.href="/qna/detail/" + qnaLockNo
   })
 }
 

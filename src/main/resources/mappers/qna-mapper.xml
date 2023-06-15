@@ -46,8 +46,8 @@
     </insert>
 	
     <!--qna 비밀글 조회-->
-    <select id="confirmLockNo" resultType="Qna">
-		SELECT * FROM qna WHERE qna_no=#{qnaLockNo}
+    <select id="confirmLockNo" parameterType="Qna">
+		SELECT * FROM qna WHERE qna_no=#{qnaNo} AND qna_pw =#{qnaPw}
 	</select>
 	
 

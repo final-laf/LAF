@@ -51,8 +51,8 @@ public class QnaServiceImpl implements QnaService {
 	 *
 	 */
 	@Override
-	public Qna confirmLockNo(long qnaLockNo) {
-		return mapper.confirmLockNo(qnaLockNo);
+	public Qna confirmLockNo(Qna qna) {
+		return mapper.confirmLockNo(qna);
 	}
 
 }
