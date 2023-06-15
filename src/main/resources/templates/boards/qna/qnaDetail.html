@@ -15,7 +15,7 @@
   
   <main>
 
-    <section class="board-list">
+    <section class="board-list" th:with="qna=${qna}">
       <div class="section-header">
         <div class="section-title">1:1문의</div>
       </div>
@@ -32,22 +32,22 @@
         <table class="detail-list-table">
           <tr>
             <td>TITLE</td>
-            <td>Re: 테스트 제목 입니다</td>
+            <td th:text="${qna.qnaTitle}">Re: 테스트 제목 입니다</td>
           </tr>
           
           <tr>
             <td>CATEGORY</td>
-            <td>배송</td>
+            <td th:text="${qna.qnaCategory}">배송</td>
           </tr>
 
           <tr>
             <td>NAME</td>
-            <td>관리자</td>
+            <td th:text="${qna.memberName}">관리자</td>
           </tr>
 
           <tr>
             <td>DATE</td>
-            <td>2023-06-07</td>
+            <td th:text="${qna.qnaCreateDate}">2023-06-07</td>
           </tr>
         </table>
       </div>
@@ -56,13 +56,13 @@
           <pre>문의 내용 확인하기(클릭)</pre>
         </div>
         <div class="detail-question-all">
-          <pre>
+          <pre th:text="${qna.qnaContent}">
         보름이 지나도록 상품이 오지 않습니다. 직접 걸어서 배송하시나요
           </pre>
         </div>
       </div>
       <div class="detail-list-contents">
-        <pre>
+        <pre th:text="${qna.qnaAnswer}">
           네 주인이 직접 걸어서 배송합니다. 30일만 더 기다려 주세요
         </pre>
       </div>
@@ -70,15 +70,15 @@
       <!-- 하단 버튼 영역 -->
       <div class="detail-btn-area">
         <div>
-          <button>LIST</button>                     
+          <a href="/qna"><button type="button">LIST</button></a>                     
         </div>
         <div>
-          <button>MODIFY</button>                     
-          <button>DELETE</button>                     
+          <button type="button" id="qnaModify" th:value="${qna.qnaNo}">MODIFY</button>                     
+          <button type="button" id="qnaDelete" th:value="${qna.qnaNo}">DELETE</button>                     
         </div>
        </div>
        <div class="btn-container">
-        <button class="submit">답변하기</button>
+        <button class="submit" id="answerBtn">답변하기</button>
       </div>
     </section>
   </main>
@@ -92,6 +92,7 @@
       document.getElementsByClassName("detail-question-all")[0].style.display = "block";
     });
   </script>
+  <script src="/js/boards/qna.js"></script>
 
 </body> 
 </html>

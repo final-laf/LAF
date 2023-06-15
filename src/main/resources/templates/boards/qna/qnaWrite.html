@@ -15,61 +15,78 @@
   
   <main>
 
-    <section class="board-list">
-      <div class="section-header">
-        <div class="section-title">1:1문의</div>
-      </div>
-      <div class="sub-category-container">
-        <!-- 현재 카테고리에 current 클래스 추가 -->
-        <a href="/notice"><div class="sub-category">NOTICE</div></a>
-        <a href="/qna"><div class="sub-category current">1:1문의</div></a>
-        <a href="/faq"><div class="sub-category">FAQ</div></a>
-        <a href="/review"><div class="sub-category">REVIEW</div></a>
-      </div>
+    <form action="/qna/insert" method="get">
 
-      <!-- 게시판 -->
-      <div class="list-wrapper">
-        <table class="detail-list-table">
-          <tr>
-            <td>TITLE</td>
-            <td><input type="text" placeholder="제목 입력"></td>
-          </tr>
-          <tr>
-            <td>CATEGORY</td>
-            <td>
-              <select name="categorykey" id="categoryKey">
-                <option value="product">상품문의</option>
-                <option value="shipping">배송문의</option>
-                <option value="etc">일반문의</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>PRODUCT NO.</td>
-            <td><input type="text" placeholder="상품번호 입력"></td>
-          </tr>
-          <tr>
-            <td>ORDER NO.</td>
-            <td><input type="text" placeholder="주문번호 입력"></td>
-          </tr>
-        </table>
-        <div class="write-list-contents">
-          <textarea>
-  
-          </textarea>
+      <input th:value="${session.loginMember.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
+      <section class="board-list">
+        <div class="section-header">
+          <div class="section-title">1:1문의</div>
         </div>
-      </div>
+        <div class="sub-category-container">
+          <!-- 현재 카테고리에 current 클래스 추가 -->
+          <a href="/notice"><div class="sub-category">NOTICE</div></a>
+          <a href="/qna"><div class="sub-category current">1:1문의</div></a>
+          <a href="/faq"><div class="sub-category">FAQ</div></a>
+          <a href="/review"><div class="sub-category">REVIEW</div></a>
+        </div>
 
-      <!-- 하단 버튼 영역 -->
-      <div class="detail-btn-area write-btn-area">
-        <div>
-          <button type="button" class="write-btn" id="listBtn">LIST</button>                     
+        <!-- 게시판 -->
+        <div class="list-wrapper">
+          <table class="detail-list-table">
+            <tr>
+              <td>TITLE</td>
+              <td><input name="qnaTitle" type="text" placeholder="제목 입력"></td>
+            </tr>
+            <tr>
+              <td>CATEGORY</td>
+              <td>
+                <select name="qnaCategory" id="categoryKey">
+                  <option value="product">상품문의</option>
+                  <option value="shipping">배송문의</option>
+                  <option value="etc">일반문의</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>PRODUCT NO.</td>
+              <td><input name="productNo" type="number" placeholder="상품번호 입력"></td>
+            </tr>
+            <tr>
+              <td>ORDER NO.</td>
+              <td><input name="orderNo" type="number" placeholder="주문번호 입력"></td>
+            </tr> 
+            <tr th:if="${session.loginMember}">
+              <td>PASSWORD.</td>
+              <td><input name="qnaPw" type="text" placeholder="비밀번호 입력(선택)"></td>
+              <td><input th:unless="${session.loginMember}" name="orderNo" type="text" placeholder="비밀번호 입력(필수)"></td>
+            </tr>
+            <tr th:unless="${session.loginMember}">
+              <td>PASSWORD.</td>
+              <td><input name="qnaPw" type="text" placeholder="비밀번호 입력(필수)"></td>
+            </tr>
+            <tr>
+              <td>LOCK.</td>
+              <td id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부">&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
+            </tr>
+          </table>
+          <div class="write-list-contents">
+            <textarea name="qnaContent">
+    
+            </textarea>
+          </div>
         </div>
-        <div>
-          <button class="write-btn submit">SUBMIT</button>                     
+
+        <!-- 하단 버튼 영역 -->
+        <div class="detail-btn-area write-btn-area">
+          <div>
+            <button type="button" class="write-btn" id="listBtn">LIST</button>                     
+          </div>
+          <div>
+            <button class="write-btn submit">SUBMIT</button>                     
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </form>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>

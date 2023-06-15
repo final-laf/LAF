@@ -42,94 +42,29 @@
           </thead>
           <!-- 게시판 본문 -->
           <tbody>
-
-            <tr>
-              <td>10</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
+            <tr th:each="q, index:${qnaList}" th:value="${q.qnaNo}">
+              <div th:if="${q.qnaLockFl=='n'}">
+                <td th:text="${index.index+1}">번호</td>
+                <td th:text="${q.qnaCategory}">qna카테고리</td>
+                <td th:text="${q.qnaTitle}">제목</td>
+                <td th:text="${q.memberName}">작성자</td>
+                <td th:text="${q.qnaCreateDate}">작성일</td>
+              </div>
+              <div th:if="${q.qnaLockFl=='y'}">
+                <td th:text="${index.index+1}">번호</td>
+                <td th:text="${q.qnaCategory}">qna카테고리</td>
+                <td th:text="${'[비밀글] '+q.qnaTitle}">제목</td>
+                <td th:text="${q.memberName}">작성자</td>
+                <td th:text="${q.qnaCreateDate}">작성일</td>
+              </div>
             </tr>
-
-            <tr>
-              <td>9</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>8</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>7</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>6</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>5</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>4</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>3</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>2</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
-            <tr>
-              <td>1</td>
-              <td>배송</td>
-              <td>테스트 제목 입니다</td>
-              <td>관리자</td>
-              <td>2023-06-01</td>
-            </tr>
-
           </tbody>
         </table>
       </div>
 
       <!-- 하단 버튼 영역 -->
       <div class="btn-area">
-        <button id="insertBtn">WRITE</button>                     
+        <button type="button" id="insertBtn">WRITE</button>                     
       </div>
 
       <!-- 페이지네이션 영역 -->
@@ -152,8 +87,6 @@
 
         </ul>
       </div>
-
-
       <!-- 검색창 -->
       <form id="boardSearch">
         <select name="key" id="searchKey">
