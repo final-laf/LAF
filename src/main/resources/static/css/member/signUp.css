@@ -121,6 +121,10 @@ input {
   padding-left: 10px;
 }
 
+#mypageSignUpSubmit {
+  width: 100%;
+}
+
 #mypageSignUpSubmitButton{
   margin-top: 50px;
   display: flex;
@@ -134,12 +138,19 @@ input {
   margin: 0 auto;
 }
 
+
+
+
+
+/* 약관 동의 버튼 창 */
 .mypageSignUp-info-terms{
+  width: 100%;
   margin-top: 20px;
   padding: 10px;
   background-color: #fafafa;
 }
-.mypageSignUp-info-terms li{
+
+.mypageSignUp-info-terms div > div:first-child {
   height: 200px;
   background-color: #eee;
   margin: 10px 0;
@@ -149,6 +160,71 @@ input {
   justify-content: flex-end;
   margin: 10px 0;
 }
+
+/* 체크박스 부분 */
+.mypageSignUp-info-terms div > div:last-child {
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.mypageSignUp-info-terms div > div:last-child > * {
+  margin-left: 10px;
+}
+
+
+
+/* 전체 약관 동의 */
+.mypageSignUp-info-terms > div:nth-child(1) {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.mypageSignUp-info-terms > div:nth-child(1) > * {
+  margin-right: 10px;
+}
+
+/* [필수] 동의 내역 */
+.mypageSignUp-info-terms > div:nth-child(2) > div:first-child {
+  padding: 20px;
+  width: 100%;
+}
+
+.mypageSignUp-info-terms > div:nth-child(2) > div > pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+  height: 100%;
+}
+
+.mypageSignUp-info-terms > div:nth-child(2) > div > pre::-webkit-scrollbar {
+  display: none;
+}
+
+.mypageSignUp-info-terms > div:nth-child(3) > div:first-child {
+  padding: 20px;
+  width: 100%;
+}
+
+.mypageSignUp-info-terms > div:nth-child(3) > div > pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+  height: 100%;
+}
+
+.mypageSignUp-info-terms > div:nth-child(3) > div > pre::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
 
 /* 각 행별 설정 */
 #mypageSignUpSubmit > div > div:nth-child(3) > table > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {

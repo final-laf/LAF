@@ -19,26 +19,46 @@
      	<!-- 회원 가입(SQL 수정 필요, 동적 SQL 사용해야) -->	
   	<insert id="signUp">
   		INSERT INTO `member`
-		VALUES (NULL, 
-				#{memberId}, 
-				#{memberPw}, 
-				#{memberName}, 
-				NULL, 
-				#{memberEmail}, 
-				#{memberPhone}, 
-				NULL, 
-				#{memberAddress},
-				'B', 
-				DEFAULT, 
-				DEFAULT, 
-				NULL, 
-				NULL, 
-				DEFAULT, 
-				DEFAULT, 
-				DEFAULT, 
-				NULL, 
-				NULL, 
-				NULL)
+		VALUES (NULL, 					<!--회원 번호-->
+				#{memberId}, 			<!--회원 아이디-->
+				#{memberPw}, 			<!--비밀번호-->
+				#{memberName}, 			<!--회원 이름-->
+				<!--성별-->
+				<!--성별이 없으면-->
+				<if test='memberGender == "n"'> NULL, </if>
+				<!--성별이 있으면-->
+				<if test='memberGender != "n"'> #{memberGender}, </if>
+				#{memberEmail}, 		<!--이메일-->
+				#{memberPhone}, 		<!--전화번호-->
+				<!--생일-->
+				<!--생일이 없으면-->
+				<if test='memberBirth == null'> NULL, </if>
+				<!--성별이 있으면-->
+				<if test='memberBirth != null'> #{memberBirth}, </if>
+				#{memberAddress},		<!--회원주소-->
+				'B', 					<!--회원 등급-->
+				DEFAULT, 				<!--가입일-->
+				DEFAULT, 				<!--회원 탈퇴여부-->
+				NULL, 					<!--탈퇴일-->
+				NULL, 					<!--회원 소셜 가입-->
+				DEFAULT, 				<!--회원 적립금-->
+				DEFAULT, 				<!--회원 누적 구매액-->
+				DEFAULT, 				<!--비회원 여부-->
+				<!--환불 예금주-->
+				<!--환불 예금주가 없으면-->
+				<if test='refundName == null'> NULL, </if>
+				<!--환불 예금주가 있으면-->
+				<if test='refundName != null'> #{refundName}, </if>
+				<!--환불 은행-->
+				<!--환불 은행이 없으면-->
+				<if test='refundBank == 0'> NULL, </if>
+				<!--환불 은행이 있으면-->
+				<if test='refundBank != 0'> #{refundBank}, </if>
+				<!--환불 계좌번호-->
+				<!--환불 계좌번호가 없으면-->
+				<if test='refundAccount == null'> NULL) </if>
+				<!--환불 계좌번호가 있으면-->
+				<if test='refundAccount != null'> #{refundAccount}) </if>
   	</insert>
   	
   	
