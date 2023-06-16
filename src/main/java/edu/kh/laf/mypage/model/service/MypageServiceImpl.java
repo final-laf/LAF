@@ -7,15 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.laf.board.model.dto.Qna;
-import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
+import edu.kh.laf.order.model.dto.Order;
 
 @Service
 public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	private MypageMapper mapper;
+	
+	
+	// ---------------------------- MyPage Dashboard ---------------------------- 
+	
+	// 로그인 멤버의 주문 조회
+	@Override
+	public List<Order> selectMyPageOrderList(Member loginMember) {
+		return mapper.selectMyPageOrderList(loginMember);
+	}
+	
+	
+	// -------------------------------------------------------------------------- 
+
+	
+	
 	
 	// qna 리스트
 	@Override
@@ -61,6 +77,8 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
+	
 
 
 }

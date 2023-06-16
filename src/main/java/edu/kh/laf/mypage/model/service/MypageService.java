@@ -5,8 +5,27 @@ import java.util.Map;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.order.model.dto.Order;
 
 public interface MypageService {
+	
+	
+	// ---------------------------- MyPage Dashboard ---------------------------- 
+	
+
+	/** 로그인 멤버의 주문 조회
+	 * @param loginMember
+	 * @return myPageOrderList
+	 */
+	List<Order> selectMyPageOrderList(Member loginMember);
+	
+	
+	
+	// -------------------------------------------------------------------------- 
+
+	
+	
 
 	/** qna 전체
 	 * @param memberNo
@@ -45,5 +64,8 @@ public interface MypageService {
 	 * @return
 	 */
 	List<Address> selectAddressList(Long memberNo);
+	
+	
+	
 
 }

@@ -3,6 +3,13 @@
 <mapper namespace="edu.kh.laf.mypage.model.mapper.MypageMapper">
 	
 	
+	
+	<!--회원 주문 조회(마이페이지)-->
+	<select id="selectMyPageOrderList" resultType="Order">
+		SELECT * FROM `order` WHERE member_no = #{memberNo}
+	</select>
+
+	
 	<!-- qnaList -->
     <select id="qnaList" resultType="Qna">
         SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo} ORDER BY qna_create_date DESC

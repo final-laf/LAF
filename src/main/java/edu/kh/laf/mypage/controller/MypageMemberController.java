@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageService;
+import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.order.model.service.OrderService;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -20,10 +22,35 @@ public class MypageMemberController {
 	
 	@Autowired
 	private MypageService service;
+	
+	@Autowired
+	private OrderService orderService;
 
 	// 마이페이지 대쉬보드
 	@GetMapping("/myPage")
-	public String my() {
+	public String my(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+					 Model model) {
+		
+		// 로그인멤버의 쿠폰 정보 조회
+		List<Coupon> couponList = orderService.selectCouponList(loginMember.getMemberNo());
+		model.addAttribute("couponList", couponList);
+		
+		// 로그인 멤버의 목표 금액 설정
+		long goal;
+		switch(loginMember.getMemberGrade()) {
+			case "B" : goal = 100000 - (long)loginMember.getMemberTotalPay(); break;
+			case "S" : goal = 1000000 - (long)loginMember.getMemberTotalPay(); break;
+			case "G" : goal = 5000000 - (long)loginMember.getMemberTotalPay(); break;
+			default: goal = 0;
+		}
+		model.addAttribute("goal", goal);
+		
+		// 로그인 멤버의 주문 조회
+		List<Order> myPageOrderList = service.selectMyPageOrderList(loginMember); 
+		model.addAttribute("myPageOrderList", myPageOrderList);
+		
+		
+		
 		return "/myPage/myPageDashboard";
 	}
 	

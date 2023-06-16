@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/css/shopping/categoryList.css">
-  <link rel="stylesheet" href="/css/myPage/mypageDash.css">
+  <link rel="stylesheet" href="/css/myPage/mypageDashboard.css">
   <title>LAF :: 마이페이지</title>
 
 </head>
@@ -25,18 +25,41 @@
               <div class="mypageDash-myRating-Rating">실버</div>
               <div class="mypageDash-myRating-greeting"> <!-- el구문 들어갈 문구 -->
                 <div class="mypageDash-greeting-greet"><strong><span th:text="*{memberId}">이름</span></strong> 님 안녕하세요</div>
-                <div class="mypageDash-greeting-greet"><strong><span>silver</span></strong>까지 남은 구매금액은 300,000입니다.</div>
-                <div class="mypageDash-greeting-greet">승급 기준에 따른 예상 금액이므로 총 주문 금액과 다릅니다</div>
+                <!-- 브론즈, 실버, 플레티넘 :  다음 목표까지 도달할 금액 제시 -->
+                <th:block th:if="${session.loginMember.memberGrade == 'B' or session.loginMember.memberGrade == 'S' or session.loginMember.memberGrade == 'G'}">
+                  <div class="mypageDash-greeting-greet">
+                    <th:block th:switch="*{memberGrade}">
+                      <strong th:case="B">실버</strong>
+                      <strong th:case="S">골드</strong>
+                      <strong th:case="G">다이아</strong>
+                    </th:block>
+                    <span>까지 남은 구매금액은</span>
+                    <span th:text="|${#numbers.formatInteger(goal, 3, 'COMMA')} 원|">목표로 하는 금액</span>
+                    <span>입니다.</span>
+                  </div>
+                  <div class="mypageDash-greeting-greet">승급 기준에 따른 예상 금액이므로 총 주문 금액과 다릅니다</div>
+                </th:block>
+                <!-- 다이아, 관리자 : 현 등급을 알려줌 -->  
+                <th:block th:if="${session.loginMember.memberGrade == 'P' or session.loginMember.memberGrade == 'A'}">
+                  <div class="mypageDash-greeting-greet">
+                    <span>회원님의 등급은</span>
+                    <th:block th:switch="*{memberGrade}">
+                      <strong th:case="A">관리자</strong>
+                      <strong th:case="D">다이아</strong>
+                    </th:block>
+                    <span>입니다.</span>
+                  </div>
+                </th:block>
               </div>
             </div>
             <div class="mypageDash-myInfo-mySave">
               <div class="mypageDash-mySave-Point">
                 <div>적립금</div>
-                <div id="mypageDashPoint">0원</div>
+                <div id="mypageDashPoint" th:text="|*{memberPoint} 원|">포인트</div>
               </div>
               <div class="mypageDash-mySave-Point">
                 <div>쿠폰</div>
-                <div id="mypageDashCoupon">1장</div>
+                <div id="mypageDashCoupon" th:text="|${#lists.size(couponList)} 개|">쿠폰 개수</div>
               </div>
             </div>
           </div>
@@ -46,31 +69,32 @@
               <!-- 나의 주문처리 현황 -->
               <div class="mypageDash-state-shippingList">
                 <div>나의 주문처리 현황(최근 3개월 기준)</div>
+                <th:block th:text="${#lists.size(myPageOrderList)}"></th:block>
                 <div class="mypageDash-shippingList-list">
                   <div class="square-list-square">
                     <div>
-                      <div>0</div>
-                      <div>입금전</div> 
+                      <div></div>
+                      <div>주문접수</div> 
                     </div>
                   </div>
                   <p>></p>
                   <div class="square-list-square">
                     <div>
-                      <div>0</div>
-                      <div>배송준비중</div>
+                      <div></div>
+                      <div>상품준비중</div>
                     </div>
                   </div>
                   <p>></p>
                   <div class="square-list-square">
                     <div>
-                      <div>0</div>
+                      <div></div>
                       <div>배송중</div>
                     </div>
                   </div>
                   <p>></p>
                   <div class="square-list-square">
                     <div>
-                      <div>0</div>
+                      <div></div>
                       <div>배송완료</div>
                     </div>
                   </div>
@@ -104,5 +128,53 @@
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>
+  <script th:inline="javascript">
+
+    // 나의 주문 리스트
+    const myPageOrderList = /*[[${myPageOrderList}]]*/ [];
+
+    // 나의 주문 처리 현황
+    let orderCompleted = 0;         // 주문접수
+    let productReady = 0;           // 상품준비중
+    let shipping = 0;               // 배송중
+    let shippingCompleted = 0;      // 배송완료
+
+    // 나의 주문에서, orderState 상태에 따라 개수 카운트
+    for(let myPageOrder of myPageOrderList) {
+      switch(myPageOrder.orderState) {
+        case 'A' : orderCompleted++; break;
+        case 'C' : productReady++; break;
+        case 'E' : shipping++; break;
+        case 'F' : shippingCompleted++; break;
+        default : break;
+      } 
+    }
+  
+  // 각 처리 현황별 개수를 배열로 만들어
+  const orderCountsInputs = [orderCompleted, productReady, shipping, shippingCompleted]
+  const orderCounts  = document.querySelectorAll(".square-list-square > div > div:first-child")
+
+  // 나의 주문 처리 현황 중 숫자를 적는 div에 innerText로 각 값을 대입
+  for (let i = 0; i < orderCounts.length; i++) {
+  orderCounts[i].innerText = orderCountsInputs[i];
+  }
+
+  // 취소 교환 반품 처리현황
+  let orderCanceled = 0;       // 취소주문건
+  let orderChanged = 0;        // 교환주문건
+  let orderReturn = 0;         // 반품주문건
+  
+    // 나의 주문에서, orderState 상태에 따라 개수 카운트
+    for(let myPageOrder of myPageOrderList) {
+    switch(myPageOrder.orderState) {
+      case 'G', 'H' : orderCanceled++; break;
+      case 'I', 'J' : orderChanged++; break;
+      case 'K', 'L' : orderReturn++; break;
+      default : break;
+    } 
+  }
+
+
+</script>
 </body>
 </html>

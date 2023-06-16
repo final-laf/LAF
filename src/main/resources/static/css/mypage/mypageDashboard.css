@@ -42,7 +42,9 @@
 
 .mypageDash-myRating-greeting{
     margin: 0 0 0 50px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .mypageDash-greeting-greet{
     font-size: 15px;
