@@ -216,3 +216,33 @@ for(let btn of categoryBtns) {
 
 // 3초마다 배너 변경하기
 setInterval(() => document.querySelector('.slide_btn_next').click(), 3000);
+
+
+/* 퀵메뉴 스크롤 숨김효과 */
+const quickMenu = document.querySelector('.quick-menu');
+let isHidden = true;
+
+window.addEventListener('scroll', () => {
+  const scrollPosition = window.scrollY;
+  const windowHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+
+  if (scrollPosition > 300 && isHidden) {
+    quickMenu.style.transform = 'translateX(0)';
+    isHidden = false;
+  }
+
+  if (scrollPosition <= 300 && !isHidden) {
+    quickMenu.style.transform = 'translateX(100px)';
+    isHidden = true;
+  }
+
+  if (scrollPosition + windowHeight >= documentHeight - 300) {
+    quickMenu.style.transform = 'translateX(100px)';
+    isHidden = true;
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  quickMenu.style.transform = 'translateX(100px)';
+});
