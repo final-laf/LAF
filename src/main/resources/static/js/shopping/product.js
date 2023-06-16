@@ -308,12 +308,13 @@ function like(productNo) {
   .then(resp => resp.text())
   .then(result => {
     if(result > 0) {
-      alert("찜 목록에 추가했습니다.");
       img.setAttribute('src', '/images/common/like-fill.svg');
       img.setAttribute('value', 'like');
-    } else{
+    } else {
       alert("찜 목록 추가 실패");
+      return false;
     }
+    return true;
   }) 
   .catch(err => console.log(err));
 }
@@ -325,7 +326,6 @@ img.addEventListener('click', e => {
     .then(resp => resp.text())
     .then(result => {
       if(result > 0) {
-        alert("찜 목록에서 삭제했습니다.");
         img.setAttribute('src', '/images/common/like-grey.svg');
         img.removeAttribute('value');
       } else {
@@ -341,6 +341,10 @@ img.addEventListener('click', e => {
 const likeBtn = document.querySelector('#addLikeBtn');
 const liked = img.getAttribute('value') == 'like';
 likeBtn.addEventListener('click', e => {
-  if(liked) alert('이미 찜 목록에 추가된 상품입니다.');
-  else      like(productNo);
+  if( liked ) {
+    alert('이미 찜 목록에 추가된 상품입니다.');
+  } else {
+    if( like(productNo) )
+      alert('찜 목록에 추가되었습니다.');
+  }
 })
