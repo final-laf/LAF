@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.laf.mypage.model.mapper.MypageLikeMapper">
+	
+	<!-- 찜 목록 추가 -->
+	<insert id="insertLike">
+		insert into `like`
+		values (
+			#{memberNo}, 
+			#{productNo}
+		)
+	</insert>
+	
+	<!-- 찜 목록 삭제 -->
+	<delete id="deleteLike">
+		delete from `like`
+		where member_no = #{memberNo}
+			  and product_no = #{productNo}
+	</delete>
+	
+	<!-- 찜 여부 확인 -->
+	<select id="checkLike">
+		select count(*)
+		from `like`
+		where member_no = #{memberNo}
+			  and product_no = #{productNo}
+	</select>
+
+</mapper>
+
