@@ -152,6 +152,8 @@ label[for='menuList'] {
     height: 300px;
     border: 1px solid #eee;
     border-radius: 50px;
+
+    transition-duration: 0.2s;
 }
 .quick-menu ul {
     height: 100%;
