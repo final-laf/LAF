@@ -22,7 +22,7 @@ public class MypageReviewController {
 	@GetMapping("/myPage/review")
 	public String review(@SessionAttribute("loginMember") Member loginMember) {
 		List<Order> myOrder = new ArrayList<>();
-		return "/myPage/myPageBoard/myPageQuestion";
+		return "/myPage/myPageBoard/myPageReview";
 	}
 	
 	// 내가 쓴 리뷰 : 작성한 리뷰
