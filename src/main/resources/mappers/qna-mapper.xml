@@ -40,7 +40,7 @@
         UPDATE `qna` SET qna_delete_fl ='y' WHERE qna_no=#{noticeNo}
     </update>
 	
-	  <!-- 공지사항 작성 -->
+	<!-- 공지사항 작성 -->
     <insert id="writeQna" parameterType="Qna" >
         INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default)
     </insert>
@@ -49,6 +49,12 @@
     <select id="confirmLockNo" parameterType="Qna">
 		SELECT * FROM qna WHERE qna_no=#{qnaNo} AND qna_pw =#{qnaPw}
 	</select>
+	
+	
+	<!-- qna문의 수정 -->
+    <update id="updateQna" parameterType="Qna" >
+        UPDATE `qna` SET (#{qnaNo}, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, #{qnaCreateDate}, #{qnaLockFl}, #{qnaPw}, #{qnaAnswer}, #{qnaDeleteFl}) WHERE pna_no=#{qnaNo}
+    </update>
 	
 
 </mapper>

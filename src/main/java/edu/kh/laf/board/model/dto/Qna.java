@@ -16,5 +16,6 @@ public class Qna {
 	private String qnaLockFl;
 	private String qnaPw;
 	private String qnaAnswer;
+	private String qnaDeleteFl;
 
 }

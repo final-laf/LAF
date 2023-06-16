@@ -15,7 +15,7 @@
   
   <main>
 
-    <form action="/qna/insert" method="get">
+    <form action="/qna/insert" method="post">
 
       <input th:value="${session.loginMember.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
       <section class="board-list">
@@ -40,18 +40,18 @@
             <tr>
               <td>CATEGORY</td>
               <td>
-                <select name="qnaCategory" id="categoryKey">
+                <select name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option value="etc" selected>일반문의</option>
                   <option value="product">상품문의</option>
                   <option value="shipping">배송문의</option>
-                  <option value="etc">일반문의</option>
                 </select>
               </td>
             </tr>
-            <tr>
+            <tr id="qnaWriteProduct">
               <td>PRODUCT NO.</td>
               <td><input name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력"></td>
             </tr>
-            <tr>
+            <tr id="qnaWriteShipping">
               <td>ORDER NO.</td>
               <td><input name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력"></td>
             </tr> 
@@ -88,6 +88,7 @@
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>
+  <script src="/js/boards/qna.js"></script>
 
 </body> 
 </html>
