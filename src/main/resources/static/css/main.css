@@ -255,3 +255,8 @@ button.current {
   height: 130px;
   padding: 30px;
 }
+
+/* 퀵메뉴 사라지기/나타나기 효과 시간 */
+.quick-menu {
+  transition-duration: 0.2s;
+}
