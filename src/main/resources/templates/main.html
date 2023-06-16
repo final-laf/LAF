@@ -4,39 +4,43 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAF</title>
+
   <link rel="stylesheet" th:href="@{/css/main.css}">
   <link rel="stylesheet" th:href="@{/css/shopping/productListItem.css}">
-  <title>LAF</title>
 </head>
 <body>
-
+  
   <th:block th:replace="~{/common/header}"></th:block>
   <th:block th:replace="~{/common/nav}"></th:block>
-
+  
   <!-- 메인 배너(슬라이드) -->
   <section class="slide_wrap">
     <div class="slide_box">
       <ul class="slide_list clearfix">
-
+        
         <li class="slide_content" th:each="banner : ${bannerList}">
           <a th:href="@{/product/{productNo}(productNo = ${banner.productNo})}">
             <img class="main-banner-img" th:src="${banner.imgPath}">
           </a>
         </li>
-
+        
       </ul>
     </div> <!-- slide_box -->
-
+    
     <button class="slide_btn_prev" type="button">
       <img th:src="@{/images/common/allowBtnLeft-white.svg}">
     </button>
-
+    
     <button class="slide_btn_next" type="button">
       <img th:src="@{/images/common/allowBtnRight-white.svg}">
     </button>
-
+    
     <!-- slide_pagination -->
-    <ul class="slide_pagination"></ul> 
+    <ul class="slide_pagination"></ul>
+
+    <!-- banner 슬라이드 관련 js -->
+    <script th:src="@{/js/main/banner.js}"></script>
   </section>
 
 
