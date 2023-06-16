@@ -1,4 +1,6 @@
-const notices = document.querySelector("div.list-wrapper > table > tbody")
+const notices = document.querySelector(".qna-list")
+
+// qna list에서 삭제
 let qnaLockNo =0;
 if (notices!=null) {
   for(let notice of notices.children) {
@@ -6,7 +8,15 @@ if (notices!=null) {
     
     notice.addEventListener('click', e => {
       qnaLockNo = e.target.parentElement.getAttribute("value");
+      const loginMember = e.target.parentElement.getAttribute("memberNo");
+      const writeMember = e.target.parentElement.getAttribute("writerNo");
+      // 로그인멤버와 작성자가 같거나 운영자일 경우 바로 접속
+      if(loginMember==writeMember || loginMember==1){
+        document.location.href="/qna/detail/" + qnaLockNo;
+        return;
+      }
       // 비밀글일 경우 
+
       if(e.target.parentElement.getAttribute("fl")=="y"){
         document.getElementById("qnaModelBack").style.display = "flex";
         document.getElementById("qnaModal").style.display = "flex";
@@ -16,7 +26,7 @@ if (notices!=null) {
         return;
       }
       // 비밀글 아닐 경우 바로 접속 
-      document.location.href="/qna/detail/" + qnaNo
+      document.location.href="/qna/detail/" + qnaLockNo
     });
   };
 }
@@ -32,37 +42,26 @@ if (document.getElementById("qnaModelBack")!=null) {
 // 모달 비밀글 입력하기
 if (document.getElementById("qnaModalBtn")!=null) {
   document.getElementById("qnaModalBtn").addEventListener("click", e => {
-  const pw = e.target.parentElement.parentElement.children[1].children[0].value
-  const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
-  fetch("/qna/qnaLockNo",{
-    method : "POST", headers : {"Content-Type" : "application/json"},
-    body : JSON.stringify(data)
-  })
-  .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
-
-  . then(count => {
+    const pw = e.target.parentElement.parentElement.children[1].children[0].value
+    const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
+    fetch("/qna/qnaLockNo",{
+      method : "POST", headers : {"Content-Type" : "application/json"},
+      body : JSON.stringify(data)
+    })
+    .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
+    .then(count => {
       console.log("count = "+count);
-      
-      if (count == -1) { // INSERT DELETE 실패 시
-          console.log("좋아요 처리 실패");
-          return;            
+      if (count == -1) { // 비밀번호 불일치 시
+        console.log("비밀번호 입력 실패");
+        return;            
       }
-      
-
-      // toggle() : 클래스가 있으면 없애고, 없으면 추가하고
-
-
-      
+      document.location.href="/qna/detail/" + qnaLockNo;
 
     }) //파싱된 데이터를 받아서 처리하는 코드 작성
-  
-  .catch(err => {
-      console.log("예외 발생");
-      console.log(err);
-  }) // 예외 발생 시 처리하는 부분
-    
-      
-  // document.location.href="/qna/detail/" + qnaLockNo
+    .catch(err => {
+        console.log("예외 발생");
+        console.log(err);
+    }) 
   })
 }
 
@@ -75,6 +74,27 @@ if (insertBtn!=null) {
   });
 }
 
+// 글쓰기 내부 select 클릭 시
+const changeValue = (target) => {
+
+  console.log(target.value);
+  if(target.value=="product"){
+    document.getElementById("qnaWriteProduct").style.display = "table-row"
+    document.getElementById("qnaWriteShipping").style.display = "none"
+  }
+  if(target.value=="shipping"){
+    document.getElementById("qnaWriteShipping").style.display = "table-row"
+    document.getElementById("qnaWriteProduct").style.display = "none"
+    
+  }
+  if(target.value=="etc"){
+    document.getElementById("qnaWriteShipping").style.display = "none"
+    document.getElementById("qnaWriteProduct").style.display = "none"
+
+  }
+}
+
+
 /* 문의 게시글(수정) 클릭시 */
 const modifyBtn = document.getElementById("qnaModify")
 if (modifyBtn!=null) {
@@ -84,6 +104,9 @@ if (modifyBtn!=null) {
     document.location.href="/qna/modify/"+qnaNo
   });
 }
+
+
+
 
   
 /* 문의 게시글(답변) 클릭시 */
@@ -113,7 +136,3 @@ if (document.getElementById("qnaDelete") != null) {
   })
 }
 
-
-// document.getElementById("qnaModify").addEventListener("click", ()=>{
-  
-// })

@@ -56,6 +56,13 @@
   padding-left: 20px;
   text-decoration: none;
 }
+/* 작성 시 카테고리 none */
+#qnaWriteProduct{
+  display:none;
+}
+#qnaWriteShipping{
+  display: none;
+}
 
 /* 게시판 상세 본문 */
 .detail-list-contents {
