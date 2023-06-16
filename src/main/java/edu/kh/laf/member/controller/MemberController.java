@@ -118,9 +118,6 @@ public class MemberController {
 		}
 		
 		
-		
-		
-		
 		// 회원 가입 서비스 호출
 		int result = service.signUp(inputMember);
 		

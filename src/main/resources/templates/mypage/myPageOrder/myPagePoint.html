@@ -5,9 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/shopping/categoryList.css">
-  <link rel="stylesheet" href="/css/mypage/mypagePoint.css">
+  <link rel="stylesheet" href="/css/myPage/myPageOrder/myPagePoint.css">
   <title>LAF :: 마이페이지</title>
-
 </head>
 <body>
   <th:block th:replace="~{/common/header}"></th:block>
@@ -15,7 +14,7 @@
   
   <main>
     <section class="mypagePoint-mainFrame">
-      <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+      <th:block th:replace="~{/myPage/myPageSide}"></th:block>
         <!-- 마이페이지 중앙 대쉬보드 -->
         <div class="mypagePoint-dashFrame-myMain">
           <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
@@ -25,8 +24,8 @@
             <!-- 하위 메뉴 -->
             <div class="sub-category-container">
               <!-- 현재 카테고리에 current 클래스 추가 -->
-              <a href="/my/point"><div class="sub-category current">적립금 내역</div></a>
-              <a href="/my/coupon"><div class="sub-category">보유중인 쿠폰</div></a>
+              <a href="/myPage/point"><div class="sub-category current">적립금 내역</div></a>
+              <a href="/myPage/coupon"><div class="sub-category">보유중인 쿠폰</div></a>
             </div>
 
 
