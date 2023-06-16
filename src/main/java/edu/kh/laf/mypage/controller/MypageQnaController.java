@@ -28,7 +28,7 @@ public class MypageQnaController {
 	
 	
 	// 1:1 문의 내역
-	@GetMapping(value = {"/my/qna/{search}", "/my/qna"})
+	@GetMapping(value = {"/myPage/qna/{search}", "/myPage/qna"})
 	public String qna(@SessionAttribute("loginMember") Member loginMember, Model model,@PathVariable(required = false) String search
 			) {
 		
@@ -61,7 +61,7 @@ public class MypageQnaController {
 			System.out.println(qna);
 		}
 		
-		return "/mypage/mypageQuestion";
+		return "/myPage/myPageBoard/myPageQuestion";
 	}
 	
 	/** 분류 선택에 따른 qna 리스트
@@ -69,7 +69,7 @@ public class MypageQnaController {
 	 * @param loginMember
 	 * @return
 	 */
-	@GetMapping(value="/my/qna/category", produces="application/text; charset=UTF-8")
+	@GetMapping(value="/myPage/qna/category", produces="application/text; charset=UTF-8")
 	@ResponseBody
 	public List<Qna> qnaCategory(String category, @SessionAttribute("loginMember") Member loginMember, @SessionAttribute String searchQna
 			) {
