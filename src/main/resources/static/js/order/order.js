@@ -118,83 +118,107 @@ document.getElementById('totalDelivery').innerText = delivery.toLocaleString() +
 let couponDis = 0;
 
 if(loginMember != null){ // 로그인한 회원일시
-// 쿠폰 적용하기--------------------------------------------------------------
-// 쿠폰 제한 금액과 상품총금액 비교
-const couponList = document.querySelectorAll('.orderCoupon-coupon-list');
-const applyBtn = document.getElementById('applyBtn'); // 적용하기 버튼
-const cn = document.getElementById("couponNo"); // 쿠폰번호세팅
-const cp = document.getElementById("couponDiscount"); // 쿠폰적용 할인가 화면표시
+  // 쿠폰 적용하기--------------------------------------------------------------
+  // 쿠폰 제한 금액과 상품총금액 비교
+  const couponList = document.querySelectorAll('.orderCoupon-coupon-list');
+  const applyBtn = document.getElementById('applyBtn'); // 적용하기 버튼
+  const cn = document.getElementById("couponNo"); // 쿠폰번호세팅
+  const cp = document.getElementById("couponDiscount"); // 쿠폰적용 할인가 화면표시
 
-let couponNoC = [];
+  let couponNoC = [];
 
-for(c of couponList){
-  let couponCondition = c.children[0].children[1].getAttribute('value'); // 쿠폰적용최소가격
-  let couponNo = c.children[0].children[0].getAttribute('value');
-  let couponUnit = c.children[0].children[2].getAttribute('value')
-  let couponAmount = c.children[0].children[3].getAttribute('value')
-  let couponMaxDiscount = c.children[0].children[4].getAttribute('value')
+  for(c of couponList){
+    let couponCondition = c.children[0].children[1].getAttribute('value'); // 쿠폰적용최소가격
+    let couponNo = c.children[0].children[0].getAttribute('value');
+    let couponUnit = c.children[0].children[2].getAttribute('value')
+    let couponAmount = c.children[0].children[3].getAttribute('value')
+    let couponMaxDiscount = c.children[0].children[4].getAttribute('value')
 
-  const couponSelect = c.children[2];
+    const couponSelect = c.children[2];
 
-  if(totalAmount < parseInt(couponCondition)){ // 쿠폰 적용불가능판단 후 선택불가
-    couponSelect.children[1].children[0].innerText= '적용불가'
-    couponSelect.style.pointerEvents = 'none';
-  }else{ // 사용가능시 쿠폰적용할인금액 계산
-    if(couponUnit == 'p'){ // 할인율일때
-      if(totalAmount * couponAmount * 0.01 < couponMaxDiscount){
-        couponMaxDiscount = totalAmount * couponAmount * 0.01
+    if(totalAmount < parseInt(couponCondition)){ // 쿠폰 적용불가능판단 후 선택불가
+      couponSelect.children[1].children[0].innerText= '적용불가'
+      couponSelect.style.pointerEvents = 'none';
+    }else{ // 사용가능시 쿠폰적용할인금액 계산
+      if(couponUnit == 'p'){ // 할인율일때
+        if(totalAmount * couponAmount * 0.01 < couponMaxDiscount){
+          couponMaxDiscount = totalAmount * couponAmount * 0.01
+        }
       }
     }
+    couponNoC.push([couponNo,couponMaxDiscount])
   }
-  couponNoC.push([couponNo,couponMaxDiscount])
-}
 
-applyBtn.addEventListener('click',() => {
-  // 모달창 닫기
-  document.getElementById("orderCouponBack").style.display="none";
-  document.getElementById("orderCouponContent").style.display="none";
-  document.body.style.removeProperty('overflow');
-  // 체크된 인덱스번째의 쿠폰번호, 쿠폰적용할인가격 계산후 세팅
-  
-  // 체크된 인덱스번호가져오기
-  const checked = document.querySelector('input[name="useCoupon"]:checked').getAttribute('id').slice(-1);
-  cn.value = couponNoC[checked][0]; // 쿠폰 적용 번호 세팅
-  cp.innerText = parseInt(couponNoC[checked][1]).toLocaleString(); // 쿠폰 적용 금액 세팅
-   // 쿠폰할인금액 세팅
-  couponDis = parseInt(couponNoC[checked][1]);
+  applyBtn.addEventListener('click',() => {
+    // 모달창 닫기
+    document.getElementById("orderCouponBack").style.display="none";
+    document.getElementById("orderCouponContent").style.display="none";
+    document.body.style.removeProperty('overflow');
+    // 체크된 인덱스번호가져오기
+    if(document.querySelector('input[name="useCoupon"]:checked') != null){
+      // 체크된 인덱스번째의 쿠폰번호, 쿠폰적용할인가격 계산후 세팅
+      const checked = document.querySelector('input[name="useCoupon"]:checked').getAttribute('id').slice(-1);
+      cn.value = couponNoC[checked][0]; // 쿠폰 적용 번호 세팅
+      cp.innerText = parseInt(couponNoC[checked][1]).toLocaleString(); // 쿠폰 적용 금액 세팅
+      // 쿠폰할인금액 세팅
+      couponDis = parseInt(couponNoC[checked][1]);
 
-});
-
-  // 예상적립금 세팅
-  document.getElementById("productPoint").innerText = totalPoint.toLocaleString() + '원';
-  document.querySelector("input[name=productPoint]").value = totalPoint; // 제출용
-
-  // 포인트 사용
-  const memberPoint = document.getElementById("memberPoint").innerText;
-  const pointInput = document.querySelector("input[name=usePoint]");
-  
-  // 전액사용 포인트 버튼
-  document.getElementById("pointBtn").addEventListener('click', () => {
-    pointInput.value = memberPoint;
-  });
-  // 포인트 입력시 사용포인트 제어
-  document.querySelector("input[name=usePoint]").addEventListener('input', e => {
-    console.log("oninput", e.target.value); // 값이 바뀔때마다 찍힘
-    if (parseInt(e.target.value) < parseInt(memberPoint)) {
-      e.preventDefault();
     }
-  });
+  })
+
+
+    // 예상적립금 세팅
+    document.getElementById("productPoint").innerText = totalPoint.toLocaleString() + '원';
+    document.querySelector("input[name=productPoint]").value = totalPoint; // 제출용
+
+    // 포인트 사용
+    const memberPoint = document.getElementById("memberPoint").innerText;
+    const pointInput = document.querySelector("input[name=usePoint]");
+    // 전액사용 포인트 버튼
+    document.getElementById("pointBtn").addEventListener('click', () => {
+      pointInput.value = memberPoint;
+    });
+    // 포인트 입력시 사용포인트 제어
+    pointInput.addEventListener('input', e => {
+      const value = parseInt(e.target.value);
+      
+      if (isNaN(value) || value < 0 || value > orderMember.memberPoint) {
+        e.target.value = "";
+      }else{
+        let usep = parseInt(memberPoint.replace(",", "")) - parseInt(e.target.value);
+        document.getElementById("memberPoint").innerText = usep.toLocaleString();
+        // 할인적용 총 금액 세팅
+        document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + couponDis + usep).toLocaleString() + '원';
+        document.getElementById("payDiscount").innerText = '-' + (totalDiscount + couponDis + usep).toLocaleString() + '원'; // 제출용
+      }
+      if(e.target.value == ""){
+        document.getElementById("memberPoint").innerText = memberPoint;
+      }
+    });
+
+
+
+    // 할인적용 총 금액 세팅
+    document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원';
+    document.getElementById("payDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원'; // 제출용
+    // 최종결제금액 세팅
+    const payment = totalAmount - totalDiscount + delivery;
+    document.getElementById("payment").innerText = payment.toLocaleString() + '원';
+    document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
+    document.querySelector("input[name=orderPayment]").value = payment;
+}else{
+
+  // 할인적용 총 금액 세팅
+  document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원';
+  document.getElementById("payDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원'; // 제출용
+
+  // 최종결제금액 세팅
+  const payment = totalAmount - totalDiscount + delivery;
+  document.getElementById("payment").innerText = payment.toLocaleString() + '원';
+  document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
+  document.querySelector("input[name=orderPayment]").value = payment;
 }
 
-// 할인적용 총 금액 세팅
-document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원';
-document.getElementById("payDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원'; // 제출용
-
-// 최종결제금액 세팅
-const payment = totalAmount - totalDiscount + delivery;
-document.getElementById("payment").innerText = payment.toLocaleString() + '원';
-document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
-document.querySelector("input[name=orderPayment]").value = payment;
 
 // -----------------------------------------------------------------------------
 
