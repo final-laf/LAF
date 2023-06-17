@@ -162,58 +162,97 @@ if(loginMember != null){ // 로그인한 회원일시
       cp.innerText = parseInt(couponNoC[checked][1]).toLocaleString(); // 쿠폰 적용 금액 세팅
       // 쿠폰할인금액 세팅
       couponDis = parseInt(couponNoC[checked][1]);
-
     }
   })
 
+  // 예상적립금 세팅
+  document.getElementById("productPoint").innerText = totalPoint.toLocaleString() + '원';
+  document.querySelector("input[name=productPoint]").value = totalPoint; // 제출용
 
-    // 예상적립금 세팅
-    document.getElementById("productPoint").innerText = totalPoint.toLocaleString() + '원';
-    document.querySelector("input[name=productPoint]").value = totalPoint; // 제출용
-
-    // 포인트 사용
-    const memberPoint = document.getElementById("memberPoint").innerText;
-    const pointInput = document.querySelector("input[name=usePoint]");
-    // 전액사용 포인트 버튼
-    document.getElementById("pointBtn").addEventListener('click', () => {
-      pointInput.value = memberPoint;
-    });
-    // 포인트 입력시 사용포인트 제어
-    pointInput.addEventListener('input', e => {
-      const value = parseInt(e.target.value);
-      
-      if (isNaN(value) || value < 0 || value > orderMember.memberPoint) {
-        e.target.value = "";
-      }else{
-        let usep = parseInt(memberPoint.replace(",", "")) - parseInt(e.target.value);
-        document.getElementById("memberPoint").innerText = usep.toLocaleString();
-        // 할인적용 총 금액 세팅
-        document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + couponDis + usep).toLocaleString() + '원';
-        document.getElementById("payDiscount").innerText = '-' + (totalDiscount + couponDis + usep).toLocaleString() + '원'; // 제출용
-      }
-      if(e.target.value == ""){
-        document.getElementById("memberPoint").innerText = memberPoint;
-      }
-    });
-
-
-
+  // 쿠폰 적용 전 값 저장
+  let cpp = cp.innerText;
+  // 일정 간격마다 확인
+  setInterval(function() {
+    if (cp.innerText !== cpp) {
+      paySet();
+      cpp = cp.innerText;
+    }
+  }, 500);
+  // 쿠폰 적용시 세팅
+  function paySet() {
+    const cp = parseInt(document.getElementById("couponDiscount").innerText.replace(",", ""));
     // 할인적용 총 금액 세팅
-    document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원';
-    document.getElementById("payDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원'; // 제출용
+    document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + cp).toLocaleString() + '원';
+    document.getElementById("payDiscount").innerText = '-' + (totalDiscount + cp).toLocaleString() + '원'; // 제출용
     // 최종결제금액 세팅
-    const payment = totalAmount - totalDiscount + delivery;
+    const payment = totalAmount - totalDiscount + delivery - cp;
     document.getElementById("payment").innerText = payment.toLocaleString() + '원';
     document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
     document.querySelector("input[name=orderPayment]").value = payment;
+  }
+  // 쿠폰 끝--------------------------------------------------------------
+
+  // 포인트 사용
+  const memberPoint = document.getElementById("memberPoint").innerText;
+  const pointInput = document.querySelector("input[name=usePoint]");
+  // 전액사용 포인트 버튼
+  document.getElementById("pointBtn").addEventListener('click', () => {
+    pointInput.value = memberPoint;
+  });
+  // 포인트 입력시 사용포인트 제어
+  pointInput.addEventListener('input', e => {
+    const value = parseInt(e.target.value);
+    
+    if (isNaN(value) || value < 0 || value > orderMember.memberPoint) {
+      e.target.value = "";
+    }else{
+      let usep = parseInt(memberPoint.replace(",", "")) - parseInt(e.target.value);
+      document.getElementById("memberPoint").innerText = usep.toLocaleString();
+    }
+    if(e.target.value == ""){
+      document.getElementById("memberPoint").innerText = memberPoint;
+    }
+  });
+
+  // 포인트 할인적용버튼 누를시
+  const applyPointBtn = document.getElementById("applyPointBtn");
+
+  applyPointBtn.addEventListener('click', () => {
+    let point = 0;
+    if(pointInput.value != ""){
+      point = parseInt(pointInput.value);
+    };
+    const cp = parseInt(document.getElementById("couponDiscount").innerText.replace(",", ""));
+
+    // 할인적용 총 금액 세팅
+    document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + cp + point).toLocaleString() + '원';
+    document.getElementById("payDiscount").innerText = '-' + (totalDiscount + cp + point).toLocaleString() + '원'; // 제출용
+    // 최종결제금액 세팅
+    const payment = totalAmount - totalDiscount + delivery - cp - point;
+    document.getElementById("payment").innerText = payment.toLocaleString() + '원';
+    document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
+    document.querySelector("input[name=orderPayment]").value = payment;
+
+  });
+
+  // 처음 페이지 로딩시--------------------------------------------------------------
+  // 할인적용 총 금액 세팅
+  document.getElementById("applyDiscount").innerText = '-' + (totalDiscount).toLocaleString() + '원';
+  document.getElementById("payDiscount").innerText = '-' + (totalDiscount).toLocaleString() + '원'; // 제출용
+  // 최종결제금액 세팅
+  const payment = totalAmount - totalDiscount + delivery;
+  document.getElementById("payment").innerText = payment.toLocaleString() + '원';
+  document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
+  document.querySelector("input[name=orderPayment]").value = payment;
+    
 }else{
 
   // 할인적용 총 금액 세팅
-  document.getElementById("applyDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원';
-  document.getElementById("payDiscount").innerText = '-' + (totalDiscount + couponDis).toLocaleString() + '원'; // 제출용
+  document.getElementById("applyDiscount").innerText = '-' + (totalDiscount).toLocaleString() + '원';
+  document.getElementById("payDiscount").innerText = '-' + (totalDiscount).toLocaleString() + '원'; // 제출용
 
   // 최종결제금액 세팅
-  const payment = totalAmount - totalDiscount + delivery;
+  const payment = totalAmount + delivery;
   document.getElementById("payment").innerText = payment.toLocaleString() + '원';
   document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
   document.querySelector("input[name=orderPayment]").value = payment;
