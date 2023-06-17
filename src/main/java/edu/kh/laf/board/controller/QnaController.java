@@ -30,7 +30,7 @@ public class QnaController {
 	
 
 	// 1:1 문의 목록
-	@GetMapping(value = {"/qna/list/{search}","/qna/list"})
+	@GetMapping(value = {"/qna/{search}","/qna"})
 	public String qna(Model model,@PathVariable(required = false) String search
 			) {
 		//PathVariable 없을 때
@@ -79,6 +79,9 @@ public class QnaController {
 	// 1:1 문의 수정 컨트롤러
 	@GetMapping("/qna/modify/{no:[0-9]+}")
 	public String modifyQna(@PathVariable String no, Model model) {
+		Qna qna = qnaService.detailQna(no);
+		model.addAttribute("qna", qna);
+		System.out.println(qna);
 		return "/boards/qna/qnaModify";
 	}
 	
@@ -89,7 +92,7 @@ public class QnaController {
 	}
 	
 	// 기능: 1:1 문의 글쓰기
-	@GetMapping("/qna/insert")
+	@PostMapping("/qna/insert")
 	
 	public String insert(Qna qna, @RequestHeader(value = "referer") String referer
 			,Model model){
@@ -129,6 +132,48 @@ public class QnaController {
 		return "redirect:/qna";
 	}
 	
+	// 기능: 1:1 문의 수정하기
+	@PostMapping("/qna/update")
+	
+	public String update(Qna qna, Model model){
+		String path = "redirect:/qna/detail/";
+		path+=qna.getQnaNo();
+		
+		System.out.println(qna);
+		if(qna.getMemberNo()==0) {
+			qna.setMemberNo(35);
+		}
+		if(qna.getOrderNo()=="") {
+			qna.setOrderNo(null);
+		}
+		if(qna.getProductNo()=="") {
+			qna.setProductNo(null);
+		}
+		if(qna.getQnaPw()=="") {
+			qna.setQnaPw(null);
+		}
+		System.out.println(qna);
+		if(qna.getQnaLockFl()!=null) {
+			if(qna.getQnaLockFl().equals("on")) {
+				qna.setQnaLockFl("y");
+			}
+		}else {
+			qna.setQnaLockFl("n");
+		}
+		if(qna.getQnaCategory().equals("etc")) {
+			qna.setQnaCategory("일반");
+		}else if(qna.getQnaCategory().equals("product")){
+			qna.setQnaCategory("상품");
+		}else {
+			qna.setQnaCategory("배송");
+		}
+		
+		System.out.println(qna);
+		int writeNotice = qnaService.updateQna(qna);
+		
+		return path;
+	}
+	
 	
 	
 	
@@ -149,13 +194,14 @@ public class QnaController {
 	@PostMapping("/qna/qnaLockNo")
 	@ResponseBody
 	public int detail(@RequestBody Qna qna) {
-		System.out.println(qna);
+		System.out.println("qna= "+qna);
 		Qna check = qnaService.confirmLockNo(qna);
-		System.out.println(check);
+		System.out.println("check = " + check);
 		int checkSecretPw=1;
 		if(check==null) {
 			checkSecretPw=-1;
 		}
+		System.out.println(checkSecretPw);
 		return checkSecretPw;
 	}
 	

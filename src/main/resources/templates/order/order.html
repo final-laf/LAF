@@ -185,14 +185,15 @@
             <tr th:if="${session.loginMember}" >
               <th>쿠폰 할인 (보유쿠폰 <div th:text="${#lists.size(couponList)}">0</div>개)</th>
               <th>
-                <div><span id="couponDiscount">50,000</span>원</div>
+                <input type="hidden" id="couponNo">
+                <div><span id="couponDiscount">0</span>원</div>
                 <button type="button" id="orderDetailCoupon">쿠폰적용</button>
               </th>
             </tr>
             <tr th:if="${session.loginMember}" >
               <th>적립금 (보유잔액 <div id="memberPoint" th:if="*{memberPoint}" th:text="*{#numbers.formatInteger(memberPoint, 3, 'COMMA')}"></div><div id="memberPoint" th:unless="*{memberPoint}">0</div>원)</th>
               <th>
-                <div><input type="text" name="usePoint">원</div>
+                <div><input name="usePoint" id="usePoint" type="text" th:max="*{memberPoint}">원</div>
                 <button id="pointBtn" type="button">전액사용</button>
               </th>
             </tr>

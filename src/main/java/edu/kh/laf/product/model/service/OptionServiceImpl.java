@@ -65,13 +65,19 @@ public class OptionServiceImpl implements OptionService {
 
 	// 색상 선택 시 해당 색상 사이즈 목록 조회
 	@Override
-	public List<Option> getOptionSelectedColor(long productNo, String color) {
+	public List<Option> selectOptionSelectedColor(long productNo, String color) {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("productNo", productNo);
 		map.put("color", color);
 		
-		return mapper.getOptionSelectedColor(map);
+		return mapper.selectOptionSelectedColor(map);
+	}
+
+	// 옵션 번호로 옵션 정보 조회 
+	@Override
+	public Option selectOption(long optionNo) {
+		return mapper.selectOption(optionNo);
 	}
 
 }

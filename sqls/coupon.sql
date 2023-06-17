@@ -26,6 +26,17 @@ references `member` (
 INSERT INTO `coupon` VALUES (NULL, 3, '10% 할인', '2023-06-01', '2077-06-01', 10, 'p', '5000','30000','n');
 
 COMMIT;
+
 -- ----------------------------------------------------------------------------
 
 SELECT * FROM coupon WHERE member_no = 3;
+
+
+SELECT * FROM coupon;
+INSERT INTO coupon VALUES (NULL,3,'10% 할인', '2023-01-01', '2045-04-07', '10', 'p','90000','30000','n');
+
+
+UPDATE coupon SET coupon_max_discount = '5000' WHERE coupon_no = 2 ;
+UPDATE coupon SET coupon_condition = '500000' WHERE coupon_no = 1 ;
+COMMIT;
+

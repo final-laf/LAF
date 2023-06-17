@@ -256,19 +256,22 @@ submitBtn.addEventListener('click', e => {
     fetch("/cart/list")
     .then(resp => resp.json())
     .then(cartList => {
+      console.log(cartList);
+      console.log(cartList.length);
       for(let cart of cartList) {
         for(let i=0; i<data.length; i++) {
           // 장바구니에 이미 담긴 상품일 경우 제외
           if(data[i].optionNo == cart.optionNo) {
             data.splice(i, 1);
             flag = true;
-          } else break;
+          }
         }
+        console.log(data.length);
       }
 
       // 장바구니에 새로 추가할 상품이 없는 경우 함수 종료
       if(data.length <= 0 && flag) {
-        alert("새로 추가할 상품이 없습니다.");
+        alert("이미 추가된 상품입니다. 새로 추가할 상품이 없습니다.");
         return;
       }
       

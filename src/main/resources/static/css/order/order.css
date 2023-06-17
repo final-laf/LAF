@@ -205,7 +205,7 @@
   padding-right: 78px;
 }
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
-  width: 650px;
+  width: 550px;
   text-align:right;
   margin-right: 10px;
 }

@@ -28,7 +28,7 @@
       </div>
 
       <!-- 게시판 -->
-      <div class="list-wrapper">
+      <div class="list-wrapper qna-list">
         <table class="list-table">
           <!-- 게시판 상단 -->        
           <thead>
@@ -42,7 +42,7 @@
           </thead>
           <!-- 게시판 본문 -->
           <tbody>
-            <tr th:each="q, index:${qnaList}" th:value="${q.qnaNo}" th:fl="${q.qnaLockFl}">
+            <tr th:each="q, index:${qnaList}" th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:fl="${q.qnaLockFl}">
               <div th:if="${q.qnaLockFl=='n'}">
                 <td th:text="${index.index+1}">번호</td>
                 <td th:text="${q.qnaCategory}">qna카테고리</td>

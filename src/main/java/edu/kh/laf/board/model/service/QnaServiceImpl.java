@@ -55,4 +55,12 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.confirmLockNo(qna);
 	}
 
+	/** 게시글 수정
+	 *
+	 */
+	@Override
+	public int updateQna(Qna qna) {
+		return mapper.updateQna(qna);
+	}
+
 }

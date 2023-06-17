@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/boards/boardsCommon.css">
+  <link rel="stylesheet" href="/css/boards/qna.css">
+  <title>LAF :: 1대1문의</title>
+</head>
+<body>
+
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
+  
+  <main>
+
+    <form action="/qna/update" method="post">
+      
+      <input th:value="${session.loginMember.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
+      <section class="board-list"  th:with="qna=${qna}">
+        <input type="hidden" name="qnaNo" th:value="${qna.qnaNo}">
+        <div class="section-header">
+          <div class="section-title">1:1문의</div>
+        </div>
+        <div class="sub-category-container">
+          <!-- 현재 카테고리에 current 클래스 추가 -->
+          <a href="/notice"><div class="sub-category">NOTICE</div></a>
+          <a href="/qna"><div class="sub-category current">1:1문의</div></a>
+          <a href="/faq"><div class="sub-category">FAQ</div></a>
+          <a href="/review"><div class="sub-category">REVIEW</div></a>
+        </div>
+
+        <!-- 게시판 -->
+        <div class="list-wrapper">
+          <table class="detail-list-table">
+            <tr>
+              <td>TITLE</td>
+              <td><input name="qnaTitle" type="text" required th:value="${qna.qnaTitle}"></td>
+            </tr>
+            <tr>
+              <td>CATEGORY</td>
+              <td>
+                <!-- 카테고리 변동 시 밑 product, order tr 변동 -->
+                <select name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option th:if="${qna.qnaCategory=='일반'}" value="etc">일반문의</option>
+                  <option th:if="${qna.qnaCategory=='상품'}" value="product">상품문의</option>
+                  <option th:if="${qna.qnaCategory=='배송'}" value="shipping">배송문의</option>
+                </select>
+              </td>
+            </tr>
+            <!-- select에 따라 변동 사항 -->
+            <tr>
+              <td>PRODUCT NO.</td>
+              <td>
+                <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}">
+                <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력">
+              </td>
+            </tr>
+            <tr>
+              <td>ORDER NO.</td>
+              <td>
+                <input th:if="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.orderNo}" >
+                <input th:unless="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력">
+              </td>
+            </tr> 
+            <!-- 변동 사항 -->
+            <tr>
+              <td>PASSWORD.</td>
+              <td>
+                <input th:if="${qna.qnaPw}" name="qnaPw" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"  th:value="${qna.qnaPw}">
+                <input th:unless="${qna.qnaPw}" name="qnaPw"  type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.qnaPw}">
+              </td>
+            </tr>
+            <tr>
+              <td>LOCK.</td>
+              <td th:if="${qna.qnaLockFl}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부" checked>&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
+              <td th:unless="${qna.qnaLockFl}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부">&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
+            </tr>
+          </table>
+          <div class="write-list-contents">
+            <textarea name="qnaContent" type="text" required th:text="${qna.qnaContent}"></textarea>
+          </div>
+        </div>
+
+        <!-- 하단 버튼 영역 -->
+        <div class="detail-btn-area write-btn-area">
+          <div>
+            <button type="button" class="write-btn" id="listBtn">LIST</button>                     
+          </div>
+          <div>
+            <button class="write-btn submit">SUBMIT</button>                     
+          </div>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <th:block th:replace="~{/common/footer}"></th:block>
+
+</body> 
+</html>

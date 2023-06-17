@@ -52,4 +52,14 @@ public interface QnaService {
 	Qna confirmLockNo(Qna qna);
 
 
+
+
+
+	/** 게시글 수정하기
+	 * @param qna
+	 * @return
+	 */
+	int updateQna(Qna qna);
+
+
 }

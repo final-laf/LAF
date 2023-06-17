@@ -22,11 +22,12 @@ html{
 body {
   display: flex;
   flex-direction: column;
-  background-color: #7F7698;
+  /* background-color: #7F7698; */
+  background-color: white;
 }
 
 main {
-  padding-bottom: 200px;
+  padding-bottom: 50px;
   background-color: white;
   border-radius: 0 0 200px 0;
 }
