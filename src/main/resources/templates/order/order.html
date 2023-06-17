@@ -191,10 +191,15 @@
               </th>
             </tr>
             <tr th:if="${session.loginMember}" >
-              <th>적립금 (보유잔액 <div id="memberPoint" th:if="*{memberPoint}" th:text="*{#numbers.formatInteger(memberPoint, 3, 'COMMA')}"></div><div id="memberPoint" th:unless="*{memberPoint}">0</div>원)</th>
+              <th>
+                적립금 (보유잔액 <div id="memberPoint" th:if="*{memberPoint}" th:text="*{#numbers.formatInteger(memberPoint, 3, 'COMMA')}"></div><div id="memberPoint" th:unless="*{memberPoint}">0</div>원)
+                <span>
+                  <button id="pointBtn" type="button">전액사용</button>
+                </span>
+              </th>
               <th>
                 <div><input name="usePoint" id="usePoint" type="text" th:max="*{memberPoint}">원</div>
-                <button id="pointBtn" type="button">전액사용</button>
+                <button id="applyPointBtn" type="button">할인적용</button>
               </th>
             </tr>
             <tr>

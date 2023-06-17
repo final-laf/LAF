@@ -209,6 +209,11 @@
   text-align:right;
   margin-right: 10px;
 }
+/* 전액사용 버튼 */
+#pointBtn{
+  margin-left: 10px;
+}
+
 /* 할인 적용 금액 */
 #mypageOrderDiscount > tbody> tr:last-child{
   border-top: 0.5px solid #eee;
