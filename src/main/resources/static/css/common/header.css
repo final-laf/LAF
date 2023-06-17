@@ -153,7 +153,7 @@ label[for='menuList'] {
     border: 1px solid #eee;
     border-radius: 50px;
 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 3px rgba(0,0,0,0.2);
 }
 .quick-menu ul {
     height: 100%;

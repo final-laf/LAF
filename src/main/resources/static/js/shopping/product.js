@@ -271,7 +271,7 @@ submitBtn.addEventListener('click', e => {
 
       // 장바구니에 새로 추가할 상품이 없는 경우 함수 종료
       if(data.length <= 0 && flag) {
-        alert("새로 추가할 상품이 없습니다.");
+        alert("이미 추가된 상품입니다. 새로 추가할 상품이 없습니다.");
         return;
       }
       
