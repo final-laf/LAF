@@ -19,12 +19,15 @@
 	<!-- 장바구니에 상품 삭제 -->
 	<delete id="deleteCart" parameterType="list">
 		delete from `cart`
-		where
-			<foreach collection="list" item="cart" separator=",">
+		<where>
+			<foreach collection="list" item="cart" separator="or">
+			(
 				member_no = ${cart.memberNo}
 				and product_no = ${cart.productNo}
 				and option_no = ${cart.optionNo}
+			)
 			</foreach>
+		</where>
 	</delete>
 	
 	<!-- 유저 번호로 장바구니 목록 조회 -->

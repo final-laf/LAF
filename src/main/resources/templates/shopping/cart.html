@@ -20,84 +20,100 @@
     </div>
 
     <!-- 장바구니 목록 -->
-    <section id="cartItemList">
-      <table>
-        <tr>
-          <td class="cart-item-checkbox"><input type="checkbox" name="checkbox" id="checkboxSelectAll"></td>
-          <td class="cart-item-image">이미지</td>
-          <td class="cart-item-product">상품정보</td>
-          <td class="cart-item-count">수량</td>
-          <td class="cart-item-price-set">상품금액</td>
-          <td class="cart-item-point">적립금</td>
-          <td class="cart-item-choose">삭제</td>
-        </tr>
+    <form th:action="@{/cart/order}" method="POST">
+      <section id="cartItemList">
+        <table>
+          <tr>
+            <td class="cart-item-checkbox"><input type="checkbox" name="checkbox" id="checkboxSelectAll"></td>
+            <td class="cart-item-image">이미지</td>
+            <td class="cart-item-product">상품정보</td>
+            <td class="cart-item-count">수량</td>
+            <td class="cart-item-price-set">상품금액</td>
+            <td class="cart-item-point">적립금</td>
+            <td class="cart-item-choose">삭제</td>
+          </tr>
 
-        <tr th:if="${#lists.size(productList) == 0}">
-          <td colspan="7" class="cart-item-empty">장바구니가 비어 있습니다.</td>
-        </tr>
+          <tr th:if="${#lists.size(productList) == 0}">
+            <td colspan="7" class="cart-item-empty">장바구니가 비어 있습니다.</td>
+          </tr>
+          
+          <tr th:unless="${#lists.size(productList) == 0}" th:each="product : ${productList}" class="data-tr">
+
+            <input type="hidden" name="productNo" th:value="${product.productNo}">
+            <input type="hidden" name="optionNo" th:value="${optionList[productStat.index].optionNo}">
+            
+            <td class="cart-item-checkbox">
+              <input type="checkbox" name="checkbox" class="checkbox-item">
+            </td>
+            
+            <td class="cart-item-image">
+              <a th:href="@{/product/{productNo}(productNo = ${product.productNo})}">
+                <img th:src="${product.thumbnailPath}">
+              </a>
+            </td>
+            
+            <td class="cart-item-product">
+              <a th:href="@{/product/{productNo}(productNo = ${product.productNo})}" 
+                th:text="${product.productName}">상품명</a>
+              <p class="cart-item-product-option">
+                <button type="button">옵션변경</button>
+                <span class="cart-item-selected-option">[옵션 : <th:block th:text="|${optionList[productStat.index].color} / ${optionList[productStat.index].size}|">옵션정보</th:block>]</span>
+              </p>
+            </td>
+            
+            <td class="cart-item-count">
+              <button type="button">-</button>
+              <span th:text="${cartList[productStat.index].count}">주문수량</span>
+              <button type="button">+</button>
+            </td>
+            
+            <td class="cart-item-price-set">
+              <div class="cart-item-price" th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">판매금액(할인가)</div>
+              <div class="cart-item-price-origin" th:unless="${product.productSale == 0}" 
+                th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</div>
+            </td>
+            
+            <td class="cart-item-point" th:text="${product.productPoint}">포인트</td>
+            
+            <td class="cart-item-choose">
+              <button  type="button" th:product='${product.productNo}' 
+                th:option='${optionList[productStat.index].optionNo}'>삭제하기</button>
+            </td>
+          
+          </tr>
+
+        </table>
         
-        <tr th:unless="${#lists.size(productList) == 0}" th:each="product : ${productList}">
-          <td class="cart-item-checkbox"><input type="checkbox" name="checkbox" class="checkbox-item"></td>
-          <td class="cart-item-image">
-            <a th:href="@{/product/{productNo}(productNo = ${product.productNo})}">
-              <img th:src="${product.thumbnailPath}">
-            </a>
-          </td>
-          <td class="cart-item-product">
-            <a th:href="@{/product/{productNo}(productNo = ${product.productNo})}" 
-              th:text="${product.productName}">상품명</a>
-            <p class="cart-item-product-option">
-              <button>옵션변경</button>
-              <span class="cart-item-selected-option">[옵션 : <th:block th:text="|${optionList[productStat.index].color} / ${optionList[productStat.index].size}|">옵션정보</th:block>]</span>
-            </p>
-          </td>
-          <td class="cart-item-count">
-            <button>-</button>
-            <span th:text="${cartList[productStat.index].count}">주문수량</span>
-            <button>+</button>
-          </td>
-          <td class="cart-item-price-set">
-            <div class="cart-item-price" th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">판매금액(할인가)</div>
-            <div class="cart-item-price-origin" th:unless="${product.productSale == 0}" 
-              th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</div>
-          </td>
-          <td class="cart-item-point" th:text="${product.productPoint}">포인트</td>
-          <td class="cart-item-choose"><button th:product='${product.productNo}'
-            th:option='${optionList[productStat.index].optionNo}'>삭제하기</button></td>
-        </tr>
+        <div class="btn-container">
+          <button type="button" id="deleteSelectedBtn">선택상품삭제</button>
+          <button type="button" id="clearCartBtn">장바구니비우기</button>
+        </div>
 
-      </table>
+      </section>
       
-      <div class="btn-container">
-        선택상품
-        <button id="clearCartBtn">삭제하기</button>
-        <button>장바구니비우기</button>
-      </div>
-    </section>
+      <!-- 결제예상금액 -->
+      <section id="cartPrice">
+        <table>
+          <tr class="table-header">
+            <td class="cart-price-total-origin">총 상품금액</td>
+            <td class="cart-price-shipping">배송비</td>
+            <td class="cart-price-total-discount">총 할인금액</td>
+            <td class="cart-price-total-payment">결제예정금액</td>
+          </tr>
+          <tr class="table-data">
+            <td class="cart-price-total-origin data">32,500</td>
+            <td class="cart-price-shipping">+<span class="data">3,000</span></td>
+            <td class="cart-price-total-discount">-<span class="data">0</span></td>
+            <td class="cart-price-total-payment"><span class="data">35,500</span></td>
+          </tr>
+        </table>
 
-    <!-- 결제예상금액 -->
-    <section id="cartPrice">
-      <table>
-        <tr class="table-header">
-          <td class="cart-price-total-origin">총 상품금액</td>
-          <td class="cart-price-shipping">배송비</td>
-          <td class="cart-price-total-discount">총 할인금액</td>
-          <td class="cart-price-total-payment">결제예정금액</td>
-        </tr>
-        <tr class="table-data">
-          <td class="cart-price-total-origin data">32,500</td>
-          <td class="cart-price-shipping">+<span class="data">3,000</span></td>
-          <td class="cart-price-total-discount">-<span class="data">0</span></td>
-          <td class="cart-price-total-payment"><span class="data">35,500</span></td>
-        </tr>
-      </table>
-
-      <div class="btn-container">
-        <a href="/order" style="border: 1px solid black; width: 120px; height: 40px; margin-right: 20px; display: flex; justify-content: center; align-items: center;">임시 주문화면 이동</a>
-        <button>선택상품주문</button>
-        <button class="submit">전체상품주문</button>
-      </div>
-    </section>
+        <div class="btn-container">
+          <button id="orderSelectedBtn">선택상품주문</button>
+          <button class="submit" id="orderAllBtn">전체상품주문</button>
+        </div>
+      </section>
+    </form>
 
     <!-- 추천상품 -->
     <section id="proudctRecommandItem">
