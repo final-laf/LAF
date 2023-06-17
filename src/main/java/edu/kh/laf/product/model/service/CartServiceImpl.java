@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.stereotype.Service;
 
+import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Cart;
 import edu.kh.laf.product.model.mapper.CartMapper;
 
@@ -53,11 +54,9 @@ public class CartServiceImpl implements CartService {
 		// 배열 형태 JSON data parsing
 		BasicJsonParser parser = new BasicJsonParser();
 		List<Object> list = parser.parseList(data);
-//		Map<String, Object> obj = parser.parseMap(data);
-//		
-//		// Cart 타입 리스트에 담기
+
+		// Cart 타입 리스트에 담기
 		List<Cart> cartList = new ArrayList<>();
-//		cartList();
 		for(Object obj : list) {			
 			Cart cart = new Cart();	
 			Map<String, String> map = (Map<String, String>)(obj);
@@ -67,6 +66,23 @@ public class CartServiceImpl implements CartService {
 			cartList.add(cart);
 		}
 	
+		return mapper.deleteCart(cartList);
+	}
+
+	// 주문완료 후 장바구니 삭제
+	@Override
+	public int deleteCartAfterOrder(List<OrderProduct> orderList) {
+		
+		// Cart 타입 리스트에 담기
+		List<Cart> cartList = new ArrayList<>();
+		for(OrderProduct o : orderList) {			
+			Cart cart = new Cart();	
+			cart.setMemberNo(o.getMemberNo());
+			cart.setProductNo(o.getProductNo());
+			cart.setOptionNo(o.getOptionNo());
+			cartList.add(cart);
+		}
+		
 		return mapper.deleteCart(cartList);
 	}
 	

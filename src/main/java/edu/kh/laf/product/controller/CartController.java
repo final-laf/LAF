@@ -27,7 +27,7 @@ import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"loginMember", "orderProductList"})
 public class CartController {
 
 	@Autowired
@@ -85,7 +85,7 @@ public class CartController {
 			long[] productNo,
 			long[] optionNo,
 			@SessionAttribute("loginMember") Member loginMember,
-			RedirectAttributes ra){
+			Model model){
 		
 		List<OrderProduct> orderProductList = new ArrayList<>();
 		
@@ -94,9 +94,10 @@ public class CartController {
 			op.setMemberNo(loginMember.getMemberNo());
 			op.setProductNo(productNo[i]);
 			op.setOptionNo(optionNo[i]);
+			orderProductList.add(op);
 		}
 		
-		ra.addAttribute("orderProductList", orderProductList);
+		model.addAttribute("orderProductList", orderProductList);
 		return "redirect:/order";
 	}
 }
