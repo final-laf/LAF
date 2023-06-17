@@ -16,6 +16,17 @@
 			</foreach>
 	</insert>
 	
+	<!-- 장바구니에 상품 삭제 -->
+	<delete id="deleteCart" parameterType="list">
+		delete from `cart`
+		where
+			<foreach collection="list" item="cart" separator=",">
+				member_no = ${cart.memberNo}
+				and product_no = ${cart.productNo}
+				and option_no = ${cart.optionNo}
+			</foreach>
+	</delete>
+	
 	<!-- 유저 번호로 장바구니 목록 조회 -->
 	<select id="selectCart" resultType="Cart">
 		select *

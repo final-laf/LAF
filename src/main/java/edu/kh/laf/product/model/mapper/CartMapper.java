@@ -20,8 +20,15 @@ public interface CartMapper {
 	/**
 	 * 유저 번호로 장바구니 목록 조회
 	 * @param memberNo
-	 * @return
+	 * @return cartList
 	 */
 	List<Cart> selectCart(long memberNo);
+
+	/**
+	 * 장바구니 상품 삭제
+	 * @param cartList
+	 * @return result
+	 */
+	int deleteCart(List<Cart> cartList);
 
 }

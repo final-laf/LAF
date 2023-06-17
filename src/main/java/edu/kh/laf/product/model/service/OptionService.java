@@ -40,5 +40,12 @@ public interface OptionService {
 	 * @param map
 	 * @return emptySizeList
 	 */
-	List<Option> getOptionSelectedColor(long productNo, String color);
+	List<Option> selectOptionSelectedColor(long productNo, String color);
+
+	/**
+	 * 옵션 번호로 옵션 정보 조회
+	 * @param optionNo
+	 * @return option
+	 */
+	Option selectOption(long optionNo);
 }

@@ -22,6 +22,13 @@ public interface OptionMapper {
 	 * @param map
 	 * @return optionList
 	 */
-	List<Option> getOptionSelectedColor(Map<String, Object> map);
+	List<Option> selectOptionSelectedColor(Map<String, Object> map);
+
+	/**
+	 * 옵션 번호로 옵션 정보 조회
+	 * @param optionNo
+	 * @return option
+	 */
+	Option selectOption(long optionNo);
 	
 }

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.mypage.model.service.MypageLikeServcie;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.service.OptionService;
@@ -23,13 +25,12 @@ import edu.kh.laf.product.model.service.ProductService;
 @SessionAttributes({"loginMember"})
 public class ProductController {
 
+	@Autowired
 	private ProductService productService;
+	@Autowired
 	private OptionService optionService;
-	
-	public ProductController(ProductService productService, OptionService optionService) {
-		this.productService = productService;
-		this.optionService = optionService;
-	}
+	@Autowired
+	private MypageLikeServcie likeServcie;
 	
 	// 카테고리 상품목록 
 	@GetMapping("/{category:[0-9]+}")
@@ -71,7 +72,7 @@ public class ProductController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("productNo", productNo);
 			map.put("memberNo", loginMember.getMemberNo());
-			model.addAttribute("checkLike", productService.checkLike(map));
+			model.addAttribute("checkLike", likeServcie.checkLike(map));
 		}
 		
 		return "/shopping/product";
@@ -81,7 +82,7 @@ public class ProductController {
 	@GetMapping("/getStock")
 	@ResponseBody
 	public List<Option> getOptionSelectedColor(long productNo, String color, Model model) {
-		return optionService.getOptionSelectedColor(productNo, color);
+		return optionService.selectOptionSelectedColor(productNo, color);
 	}
 	
 	// 특정 상품의 모든 옵션 정보 조회
@@ -89,26 +90,6 @@ public class ProductController {
 	@ResponseBody
 	public List<Option> selectOptionList(long productNo) {
 		return optionService.selectOptionList(productNo);
-	}
-	
-	// 찜 목록 추가
-	@GetMapping("/like/add")
-	@ResponseBody
-	public int insertLike(long productNo, @SessionAttribute("loginMember") Member loginMember) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("productNo", productNo);
-		map.put("memberNo", loginMember.getMemberNo());
-		return productService.insertLike(map);
-	}
-	
-	// 찜 목록 삭제
-	@GetMapping("/like/delete")
-	@ResponseBody
-	public int deleteLike(long productNo, @SessionAttribute("loginMember") Member loginMember) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("productNo", productNo);
-		map.put("memberNo", loginMember.getMemberNo());
-		return productService.deleteLike(map);
 	}
 	
 }
