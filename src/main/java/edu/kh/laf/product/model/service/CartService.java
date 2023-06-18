@@ -40,7 +40,14 @@ public interface CartService {
 	Cookie insertCart2(Cookie[] cookies, String data);
 	
 	/**
-	 * [회원] 장바구니 상품 삭제
+	 * [회원] 장바구니 상품 전체 삭제
+	 * @param memberNo
+	 * @return result
+	 */
+	int deleteCartAll(Long memberNo);
+
+	/**
+	 * [회원] 장바구니 상품 선택 삭제
 	 * @param data
 	 * @param memberNo
 	 * @return result
@@ -61,6 +68,7 @@ public interface CartService {
 	 * @return result
 	 */
 	int deleteCartAfterOrder(List<OrderProduct> orderList);
+
 
 
 

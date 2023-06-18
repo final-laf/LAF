@@ -87,15 +87,13 @@ tr:not(:first-child) > .cart-item-product {
 #cartItemList .cart-item-count button {
   width: 20px;
   height: 20px;
-  margin: 0 10px;
+  /* margin: 0 10px; */
 }
-/* #cartItemList > .btn-container > button {
-  height: 40px;
-  width: 120px;
-  border-radius: 2px;
-} */
-
-
+.cart-item-count > span {
+  /* 주문수량 출력부 */
+  text-align: center;
+  width: 40px;  
+}
 
 /* 결제예상금액 */
 #cartPrice {

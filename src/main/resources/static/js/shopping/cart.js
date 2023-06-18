@@ -145,7 +145,7 @@ clearCartBtn.addEventListener('click', () => {
 
   // [비회원]
   if(loginMember == undefined) {
-    url = "/cart/delete2All"
+    url = "/cart/deleteAll2"
   }
 
   fetch(url)
@@ -266,3 +266,51 @@ orderSelectedBtn.addEventListener('click', e => {
   document.getElementById('cartFrm').submit();
 });
 
+// 장바구니 상품 수량 변경
+const countBtns = document.querySelectorAll('.cart-item-count > button');
+for(let btn of countBtns) {
+  btn.addEventListener('click', e => {
+    const countText = e.target.parentElement.querySelector('span');
+    const countInput = e.target.parentElement.parentElement.querySelector('input[name="count"]');
+
+    let count = Number(countInput.value);
+    if(btn.classList.contains('minus-btn')) count--;
+    else count++;
+
+    if(count <= 0) {
+      alert('최소 주문 수량은 1개 입니다.');
+      count = 1;
+    } else if(count >= 100) {
+      alert('최대 주문 수량은 99개 입니다.');
+      count = 99;
+    }
+
+    countText.innerText = count;
+    countInput.value = count;
+
+    const data = getAllData();
+    let url = "";
+
+    if(loginMember != undefined) {
+      // 회원 : update DB
+      const dataStr = encodeURIComponent(JSON.stringify(data));
+      url = "/cart/update?data=" + dataStr;
+      console.log("dataStr : " + dataStr);
+    } else {
+      // 비회원 : update cookie
+      let cookieStr = "";
+      for(let d of data)
+        cookieStr += d.productNo + '-' + d.optionNo + '-' + d.count + '@';
+      url = "/cart/update2?data=" + cookieStr;
+    }
+
+    fetch(url)
+    .then(resp => resp.text())
+    .then(result => {
+      if(result <= 0) alert("수량 변경 실패");
+    }) 
+    .catch(err => console.log(err));
+
+    estimate();
+  });
+}

@@ -138,7 +138,7 @@ public class CartController {
 		return 1;
 	}
 	
-	// [회원] 장바구니 상품 삭제
+	// [회원] 장바구니 상품 선택 삭제
 	@GetMapping("/cart/delete")
 	@ResponseBody
 	public int deleteCart(String data, @SessionAttribute("loginMember") Member loginMember)
@@ -146,10 +146,19 @@ public class CartController {
 		return cartService.deleteCart(data, loginMember.getMemberNo());
 	}
 	
-	// [비회원] 장바구니 상품 전체 삭제
-	@GetMapping("/cart/delete2All")
+	// [회원] 장바구니 상품 전체 삭제
+	@GetMapping("/cart/deleteAll")
 	@ResponseBody
-	public int deleteCart2All(HttpServletResponse resp) {
+	public int deleteCartAll(@SessionAttribute("loginMember") Member loginMember)
+			throws JsonProcessingException {
+		return cartService.deleteCartAll(loginMember.getMemberNo());
+	}
+
+	
+	// [비회원] 장바구니 상품 전체 삭제
+	@GetMapping("/cart/deleteAll2")
+	@ResponseBody
+	public int deleteCartAll2(HttpServletResponse resp) {
 		Cookie cookie = new Cookie("cart", "");
 		cookie.setMaxAge(1);
 		cookie.setPath("/");
@@ -169,6 +178,29 @@ public class CartController {
 		Cookie cookie = cartService.deleteCart2(cookies, data);
 		resp.addCookie(cookie);
 		
+		return 1;
+	}
+	
+	// [회원] 장바구니 상품 수정
+	@GetMapping("/cart/update")
+	@ResponseBody
+	public int updateCart(
+			String data, 
+			@SessionAttribute("loginMember") Member loginMember
+		) throws JsonProcessingException {
+		return cartService.deleteCartAll(loginMember.getMemberNo())
+				* cartService.insertCart(data, loginMember.getMemberNo());
+	}
+	
+	// [비회원] 장바구니 상품 수정
+	@GetMapping("/cart/update2")
+	@ResponseBody
+	public int updateCart2(
+			String data,
+			HttpServletResponse resp) {
+		Cookie cookie = cartService.insertCart2(null, data);
+		if(cookie == null) return -1;
+		resp.addCookie(cookie);
 		return 1;
 	}
 	

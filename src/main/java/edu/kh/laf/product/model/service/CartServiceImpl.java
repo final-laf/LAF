@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Cart;
@@ -40,6 +41,7 @@ public class CartServiceImpl implements CartService {
 
 	// [회원] 장바구니에 상품 추가
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int insertCart(String data, Long memberNo) {
 		
 		// 배열 형태 JSON data parsing
@@ -67,9 +69,11 @@ public class CartServiceImpl implements CartService {
 		
 		// 이전 장바구니 정보 찾기
 		Cookie cart = null;
-		for(Cookie c : cookies) {
-			if(c.getName().equals("cart")) {
-				cart = c;
+		if(cookies != null) {
+			for(Cookie c : cookies) {
+				if(c.getName().equals("cart")) {
+					cart = c;
+				}
 			}
 		}
 
@@ -97,6 +101,7 @@ public class CartServiceImpl implements CartService {
 
 	// [회원] 장바구니 상품 삭제
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int deleteCart(String data, Long memberNo) {
 		
 		// 배열 형태 JSON data parsing
@@ -117,8 +122,9 @@ public class CartServiceImpl implements CartService {
 		return mapper.deleteCart(cartList);
 	}
 
-	// 주문완료 후 장바구니 삭제
+	// [회원] 주문완료 후 장바구니 삭제
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int deleteCartAfterOrder(List<OrderProduct> orderList) {
 		
 		// Cart 타입 리스트에 담기
@@ -175,6 +181,12 @@ public class CartServiceImpl implements CartService {
 		cookie.setPath("/");
 		
 		return cookie;
+	}
+
+	// [회원] 장바구니 상품 전체 삭제
+	@Override
+	public int deleteCartAll(Long memberNo) {
+		return mapper.deleteCartAll(memberNo);
 	}
 	
 }
