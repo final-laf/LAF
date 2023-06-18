@@ -77,7 +77,7 @@
           <button type="button" id="qnaDelete" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}">DELETE</button>                     
         </div>
        </div>
-       <div class="btn-container"  th:if="${session.loginMember?.memberGrade =='B'}">
+       <div class="btn-container"  th:if="${session.loginMember?.memberGrade =='A'}">
         <button type="button" id="qnaAnswer" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}" class="submit" >답변하기</button>
       </div>
     </section>
