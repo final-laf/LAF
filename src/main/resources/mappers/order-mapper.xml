@@ -39,6 +39,15 @@
 		SELECT * FROM coupon WHERE member_no = #{memberNo}
 	</select>
 	
+	<!-- 주문옵션전체조회 -->
+	<select id="SelectOrderCheck" resultType="Option">
+		SELECT * FROM `option` WHERE option_no = #{optionNo} AND product_no = #{productNo}
+	</select>
+	
+	<!-- 상품이름조회 -->
+	<select id="SelectProductName" resultType="String">
+		SELECT product_name FROM product WHERE product_no = #{productNo}
+	</select>
 	
 </mapper>
 

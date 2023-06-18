@@ -1,14 +1,18 @@
 package edu.kh.laf.order.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -20,6 +24,7 @@ import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.service.OrderService;
+import edu.kh.laf.product.model.dto.Option;
 
 @Controller
 @SessionAttributes({"loginMember", "orderProductList"})
@@ -60,6 +65,31 @@ public class OrderController {
 		return "/order/order";
 	}
 
+	// 상품품절확인
+	@PostMapping(value="/orderCheck", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String orderCheck(@RequestBody Map<String, String> orderData){
+		
+		// 상품번호 및 주문수량
+		int productNo = Integer.parseInt(orderData.get("productNo"));
+		int count = Integer.parseInt(orderData.get("count"));
+		// 상품옵션전체조회
+		Option option = service.SelectOrderCheck(orderData);
+		
+		// 상품이름조회 + 10글자만
+		String productName = service.SelectProductName(productNo);
+		String message = "";
+		
+		// 주문수량, 재고 비교
+		if(option.getStock() == 0 ){
+			message = productName + "["+ option.getColor() +"/" + option.getSize() +"]" +" 현재 품절입니다.";
+		}else if(option.getStock() < count){
+//			message = "현재 남아있는 재고는 " + option.getStock() +"개 입니다.";
+			message = productName + "["+ option.getColor() +"/" + option.getSize() +"]" +" 현재 남아있는 재고는 " + option.getStock() +"개 입니다.";
+		}
+		System.out.println(message);
+		return message;
+	}
 	
 	// 결제시
 	@PostMapping("/order")
@@ -67,7 +97,7 @@ public class OrderController {
 		
 		// 상품 리스트는 세션에서 받기
 		
-		System.out.println(order);
+//		System.out.println(order);
 		
 		// order테이블 인설트하기
 		

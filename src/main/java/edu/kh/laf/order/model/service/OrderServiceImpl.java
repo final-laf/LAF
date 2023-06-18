@@ -2,6 +2,7 @@ package edu.kh.laf.order.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,17 @@ public class OrderServiceImpl implements OrderService{
 			orderList.add(orderProduct);
 		}
 		return orderList;
+	}
+	
+	// 주문옵션전체조회
+	@Override
+	public Option SelectOrderCheck(Map<String, String> orderData) {
+		return mapper.SelectOrderCheck(orderData);
+	}
+	
+	// 상품이름조회
+	@Override
+	public String SelectProductName(int productNo) {
+		return mapper.SelectProductName(productNo);
 	}
 }

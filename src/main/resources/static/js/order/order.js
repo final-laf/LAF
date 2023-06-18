@@ -258,24 +258,50 @@ if(loginMember != null){ // 로그인한 회원일시
 // -----------------------------------------------------------------------------
 
 // 유효성검사
-for(order of orderList){
-  
-  console.log(order);
-  console.log(order.productNo);
-  console.log(order.optionNo);
-  console.log(order.count);
-}
 
 // 회원 가입 form태그가 제출 되었을 때
-document.getElementById("orderSubmit").addEventListener("submit", () => {
-
+document.getElementById("orderSubmit").addEventListener("submit", e => {
+  e.preventDefault(); 
   // 배송지 주소 제출용에 세팅
   const deliveryAdd = document.querySelectorAll("input[name='receiverAddress']"); // 배송지주소
   const orderRecvAdd = document.querySelector('[name="orderRecvAdd"]'); // 제출용세팅
   orderRecvAdd.value = deliveryAdd[0].value + "^^^" + deliveryAdd[1].value + "^^^" + deliveryAdd[2].value;
 
-
-
+  // 상품 품절확인
+  let orderState = [];
+  let fetchEnds = [];
+  for(order of orderList){
+    const orderData = {productNo: order.productNo, optionNo: order.optionNo, count: order.count};
+    const fetchEnd = fetch("/orderCheck", {
+      method: "POST",
+      headers: {"Content-Type": "application/json; charset=UTF-8"},
+      body: JSON.stringify(orderData)
+    })
+    .then(resp => resp.text())
+    .then(message => {
+      if(message !=""){
+        orderState.push(message);
+      }
+    }) 
+    .catch( err => {
+        console.log(err);
+    } );
+    fetchEnds.push(fetchEnd);
+  }
+  // 비동기요청 종료후 담긴 배열 내용 출력
+  Promise.all(fetchEnds)
+    .then(() => {
+      if (orderState.length > 0) {
+        const result = orderState.join("\n\n");
+        alert(result);
+        // 경고창 확인 누르면 특정 주소로 이동
+        window.location.href = "/cart";
+      } else {
+        // message가 없으므로 submit 실행
+        document.getElementById("orderSubmit").submit();
+      }
+    });
+    
 
 
 });
