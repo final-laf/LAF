@@ -1,3 +1,40 @@
+// 결제예상금액 계산
+function estimate() {
+  const totalOrigin = document.querySelector('.table-data > .cart-price-total-origin');
+  const shipping = document.querySelector('.table-data > .cart-price-shipping');
+  const totalDiscount = document.querySelector('.table-data > .cart-price-total-discount');
+  const totalPayment = document.querySelector('.table-data > .cart-price-total-payment');
+
+  let totalOriginCalc = 0;
+  let totalPaymentCalc = 0;
+
+  const rowList = document.querySelectorAll('.data-tr');
+  for(let row of rowList) {
+    const checkbox = row.querySelector('[name="checkbox"]');
+    const countInput = row.querySelector('input[name="count"]');
+
+    if(checkbox.checked == true) {
+      const pay = Number(row.querySelector('.cart-item-price').innerText.replaceAll(',', ''));
+      const origin = row.querySelector('.cart-item-price-origin') == null ? pay : Number(row.querySelector('.cart-item-price-origin').innerText.replaceAll(',', ''));
+      totalOriginCalc += origin * Number(countInput.value);
+      totalPaymentCalc += pay * Number(countInput.value);
+    }
+  }
+
+  const shippingCalc = totalPaymentCalc >= 100000 ? 0 : 3000;
+  totalOrigin.innerText = numberWithCommas(totalOriginCalc);
+  totalDiscount.innerText = '- ' + numberWithCommas(totalOriginCalc - totalPaymentCalc);
+  shipping.innerText = '+ ' + numberWithCommas(shippingCalc);
+  totalPayment.innerText = numberWithCommas(totalPaymentCalc + shippingCalc);
+}
+
+const checkboxList = document.querySelectorAll('[name="checkbox"]');
+for(let checkbox of checkboxList) {
+  checkbox.addEventListener('change', () => {
+    estimate();
+  });
+}
+
 // 전체선택 체크박스
 const checkboxSelectAll = document.getElementById('checkboxSelectAll');
 checkboxSelectAll.addEventListener('click', e => {
@@ -11,6 +48,9 @@ checkboxSelectAll.addEventListener('click', e => {
     ch.checked = false;
   }
 });
+
+// 장바구니 기본값 : 전체선택
+checkboxSelectAll.click();
 
 // 전체상품 데이터 추출
 const productInputList = document.querySelectorAll('input[name="productNo"]');
@@ -72,14 +112,14 @@ for(let btn of deleteBtns) {
         tr.remove();
 
         // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
-        if(tr.querySelector('.data-tr') == null) {
+        const table = document.querySelector('#cartItemList > table');
+        if(table.querySelector('.data-tr') == null) {
           const td = document.createElement('td');
           td.classList.add('cart-item-empty');
           td.colspan = 7;
           td.innerText = '장바구니가 비어 있습니다.';
           const tr = document.createElement('tr');
           tr.append(td);
-          const table = document.querySelector('#cartItemList > table');
           table.append(tr);
         }
 
@@ -225,3 +265,4 @@ orderSelectedBtn.addEventListener('click', e => {
   
   document.getElementById('cartFrm').submit();
 });
+

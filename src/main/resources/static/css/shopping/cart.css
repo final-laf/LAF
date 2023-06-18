@@ -113,7 +113,7 @@ tr:not(:first-child) > .cart-item-product {
   margin: 0 5px;
 }
 
-#cartPrice .cart-price-total-payment .data {
+#cartPrice > table tr.table-data > .cart-price-total-payment {
   font-size: 2rem;
   font-weight: bold;
   color: #D66600;
