@@ -1,8 +1,14 @@
 package edu.kh.laf.product.model.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Cart {
 	private long productNo;
 	private long memberNo;

@@ -46,7 +46,8 @@
   <div th:unless="${session.loginMember}" class="header-nav-icon">
     <a href="/1"><img src="/images/common/search.svg"></a>
     <a href="/login"><img src="/images/common/user.svg"></a>
-    <a href="/cart"><img src="/images/common/cart.svg"></a>
+    <a th:if="${session.loginMember}" th:href="@{/cart}"><img src="/images/common/cart.svg"></a>
+    <a th:unless="${session.loginMember}" th:href="@{/cart2}"><img src="/images/common/cart.svg"></a>
   </div>
 
   <div th:if="${session.loginMember}" class="header-nav-icon">

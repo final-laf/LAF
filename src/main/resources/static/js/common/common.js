@@ -15,10 +15,3 @@ function getCookie(key) {
 
   return obj[key];
 }
-
-// 쿠키에 저장된 장바구니 정보 얻어오기
-function getCart() {
-  const cart = getCookie('cart');
-  if(!cart) return null;
-  return JSON.parse(cart);
-}

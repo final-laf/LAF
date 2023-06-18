@@ -20,7 +20,8 @@
     </div>
 
     <!-- 장바구니 목록 -->
-    <form th:action="@{/cart/order}" method="POST">
+    
+    <form th:action="@{/cart/order}" method="POST" id="cartFrm">
       <section id="cartItemList">
         <table>
           <tr>
@@ -41,6 +42,7 @@
 
             <input type="hidden" name="productNo" th:value="${product.productNo}">
             <input type="hidden" name="optionNo" th:value="${optionList[productStat.index].optionNo}">
+            <input type="hidden" name="count" th:value="${cartList[productStat.index].count}">
             
             <td class="cart-item-checkbox">
               <input type="checkbox" name="checkbox" class="checkbox-item">
@@ -62,9 +64,9 @@
             </td>
             
             <td class="cart-item-count">
-              <button type="button">-</button>
+              <button type="button" class="minus-btn">-</button>
               <span th:text="${cartList[productStat.index].count}">주문수량</span>
-              <button type="button">+</button>
+              <button type="button" class="plus-btn">+</button>
             </td>
             
             <td class="cart-item-price-set">
@@ -101,10 +103,10 @@
             <td class="cart-price-total-payment">결제예정금액</td>
           </tr>
           <tr class="table-data">
-            <td class="cart-price-total-origin data">32,500</td>
-            <td class="cart-price-shipping">+<span class="data">3,000</span></td>
-            <td class="cart-price-total-discount">-<span class="data">0</span></td>
-            <td class="cart-price-total-payment"><span class="data">35,500</span></td>
+            <td class="cart-price-total-origin data">0</td>
+            <td class="cart-price-shipping">+ 3,000</td>
+            <td class="cart-price-total-discount">- 0</td>
+            <td class="cart-price-total-payment">0</td>
           </tr>
         </table>
 
