@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Expires" content="-1" />
   <link rel="stylesheet" th:href="@{/css/dev/productList.css}">
   <link rel="stylesheet" th:href="@{/css/shopping/cart.css}">
   <title>LAF :: 장바구니</title>
@@ -20,7 +21,6 @@
     </div>
 
     <!-- 장바구니 목록 -->
-    
     <form th:action="@{/cart/order}" method="POST" id="cartFrm">
       <section id="cartItemList">
         <table>
@@ -58,7 +58,7 @@
               <a th:href="@{/product/{productNo}(productNo = ${product.productNo})}" 
                 th:text="${product.productName}">상품명</a>
               <p class="cart-item-product-option">
-                <button type="button">옵션변경</button>
+                <button class="option-change-btn" type="button">옵션변경</button>
                 <span class="cart-item-selected-option">[옵션 : <th:block th:text="|${optionList[productStat.index].color} / ${optionList[productStat.index].size}|">옵션정보</th:block>]</span>
               </p>
             </td>
@@ -85,13 +85,15 @@
           </tr>
 
         </table>
-        
+
         <div class="btn-container">
           <button type="button" id="deleteSelectedBtn">선택상품삭제</button>
           <button type="button" id="clearCartBtn">장바구니비우기</button>
         </div>
-
+        
+        
       </section>
+      
       
       <!-- 결제예상금액 -->
       <section id="cartPrice">
@@ -109,14 +111,14 @@
             <td class="cart-price-total-payment">0</td>
           </tr>
         </table>
-
+        
         <div class="btn-container">
           <button id="orderSelectedBtn">선택상품주문</button>
           <button class="submit" id="orderAllBtn">전체상품주문</button>
         </div>
       </section>
     </form>
-
+    
     <!-- 추천상품 -->
     <section id="proudctRecommandItem">
       <div class="product-item-title">RECOMMEND ITEM</div>
@@ -125,11 +127,31 @@
       <!-- 아이템 목록 -->
       <th:block th:replace="~{/dev/productList}"></th:block>
     </section>
-
+    
+    
   </main>
 
-  <th:block th:replace="~{/common/footer}"></th:block>
 
+  <!-- 옵션 변경 드롭다운 모달 -->
+  <div class="bubble-overlay hidden">
+    <div class="bubble">
+      <svg height="12" viewBox="0 0 25 12" width="25" class="x10l6tqk xng853d xu8u0ou" fill="var(--card-background)" style="transform: scale(1, -1) translate(0px, 0px);">
+        <path d="M24.553.103c-2.791.32-5.922 1.53-7.78 3.455l-9.62 7.023c-2.45 2.54-5.78 1.645-5.78-2.487V2.085C1.373 1.191.846.422.1.102h24.453z"></path>
+      </svg>
+      <div class="bubble-container">
+        <select name="colorChange" id="colorChangeSelector">
+          <option class="bubble-content" value="none" selected>색상</option>
+        </select>
+        <!-- <select name="sizeChange" id="sizeChangeSelector">
+          <option class="bubble-content" value="none" selected>사이즈</option>
+        </select> -->
+      </div>
+    </div>
+  </div>
+  
+  
+  <th:block th:replace="~{/common/footer}"></th:block>
+  
   <script th:src="@{js/shopping/cart.js}"></script>
 </body>
 </html>

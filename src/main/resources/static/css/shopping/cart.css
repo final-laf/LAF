@@ -2,6 +2,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 section {
   max-width: 1200px;
@@ -121,4 +122,75 @@ tr:not(:first-child) > .cart-item-product {
   height: 40px;
   width: 120px;
   border-radius: 2px;
+}
+
+/* 옵션 변경 모달 */
+.bubble-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.bubble-btn:hover {
+  background-color: #eee;
+  transition-duration: 0.2s;
+}
+
+.bubble-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.bubble > svg {
+  fill: white;
+}
+.bubble-container {
+  margin: 0;
+  width: 200px;
+  padding: 8px 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 18px -7px rgba(0,0,0,1);
+  display: flex;
+  flex-direction: column;
+}
+.bubble-container > select {
+  margin: 4px 8px;
+  font-size: 1.3rem;
+}
+.bubble-container option {
+  font-size: 1.3rem;
+}
+.bubble-content {
+  margin: 0 8px;
+  padding: 8px 8px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.bubble-content:disabled {
+  background-color: #eee;
 }
