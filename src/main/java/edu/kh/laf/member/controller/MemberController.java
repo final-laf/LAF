@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.mysql.cj.Session;
+
 @Controller
 @SessionAttributes({"loginMember"})
 public class MemberController {
@@ -77,7 +79,7 @@ public class MemberController {
 
 	// 로그아웃 기능
 	@GetMapping("/logout")
-	  public String logout(SessionStatus status, HttpSession session) {
+	  public String logout(SessionStatus status) {
 	    status.setComplete(); 
 	    return "redirect:/";
 	}
