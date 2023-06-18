@@ -6,7 +6,10 @@
 	
 	<!--회원 주문 조회(마이페이지)-->
 	<select id="selectMyPageOrderList" resultType="Order">
-		SELECT * FROM `order` WHERE member_no = #{memberNo}
+		SELECT *  FROM `order` 
+		WHERE member_no = #{memberNo}
+		and (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -3 MONTH) AND NOW())
+
 	</select>
 
 	

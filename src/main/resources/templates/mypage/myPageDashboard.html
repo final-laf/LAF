@@ -22,7 +22,15 @@
           <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
           <div class="mypageDash-myMain-myInfo">
             <div class="mypageDash-myInfo-myRating">
-              <div class="mypageDash-myRating-Rating">실버</div>
+              <div class="mypageDash-myRating-Rating">
+                <th:block th:switch="*{memberGrade}">
+                  <strong th:case="B">BRONZE</strong>
+                  <strong th:case="S">SILVER</strong>
+                  <strong th:case="G">GOLD</strong>
+                  <strong th:case="D">DIAMOND</strong>
+                  <strong th:case="A">ADMIN</strong>
+                </th:block>
+              </div>
               <div class="mypageDash-myRating-greeting"> <!-- el구문 들어갈 문구 -->
                 <div class="mypageDash-greeting-greet"><strong><span th:text="*{memberId}">이름</span></strong> 님 안녕하세요</div>
                 <!-- 브론즈, 실버, 플레티넘 :  다음 목표까지 도달할 금액 제시 -->
@@ -103,22 +111,19 @@
               <!-- 취소 교환 반품 건수 -->
               <div class="mypageDash-state-howMany">
                 <div class="mypageDash-howMany-shipping">
-                  취소 주문건
-                  <div class="mypageDash-shipping-cancel">
-                    <Strong><div id="">0</div></Strong>건 <!-- 취소 건 -->
-                  </div>
+                  <span>취소 주문건</span>
+                  <span>0</span>
+                  <span>건</span>
                 </div>
                 <div class="mypageDash-howMany-shipping">
-                  교환 주문건
-                  <div>
-                    <Strong><div id="">0</div></Strong>건 <!-- 교환 건 -->
-                  </div>
+                  <span>교환 주문건</span>
+                  <span>0</span>
+                  <span>건</span>
                 </div>
                 <div class="mypageDash-howMany-shipping">
-                  반품 주문건
-                  <div>
-                    <Strong><div id="">0</div></Strong>건 <!-- 반품 건 -->
-                  </div>
+                  <span>반품 주문건</span>
+                  <span>0</span>
+                  <span>건</span>
                 </div>
               </div>
             </div>
@@ -167,11 +172,23 @@
     // 나의 주문에서, orderState 상태에 따라 개수 카운트
     for(let myPageOrder of myPageOrderList) {
     switch(myPageOrder.orderState) {
-      case 'G', 'H' : orderCanceled++; break;
-      case 'I', 'J' : orderChanged++; break;
-      case 'K', 'L' : orderReturn++; break;
+      case 'G' : orderCanceled++; break;
+      case 'H' : orderCanceled++; break;
+      case 'I' : orderChanged++; break;
+      case 'J' : orderChanged++; break;
+      case 'K' : orderReturn++; break;
+      case 'L' : orderReturn++; break;
       default : break;
     } 
+  }
+
+    // 각 처리 현황별 개수를 배열로 만들어
+  const abnormalOrderCountsInputs = [orderCanceled, orderChanged, orderReturn]
+  const abnormalOrderCounts  = document.querySelectorAll(".mypageDash-howMany-shipping > span:nth-child(2)")
+
+  // 취소 교환 반품 처리 현황 중 숫자를 적는 span에 innerText로 각 값을 대입
+  for (let i = 0; i < abnormalOrderCounts.length; i++) {
+    abnormalOrderCounts[i].innerText = abnormalOrderCountsInputs[i];
   }
 
 

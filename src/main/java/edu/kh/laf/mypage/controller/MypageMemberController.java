@@ -45,7 +45,7 @@ public class MypageMemberController {
 		}
 		model.addAttribute("goal", goal);
 		
-		// 로그인 멤버의 주문 조회
+		// 로그인 멤버의 주문 조회(최근 3개월 이내)
 		List<Order> myPageOrderList = service.selectMyPageOrderList(loginMember); 
 		model.addAttribute("myPageOrderList", myPageOrderList);
 		
@@ -81,24 +81,5 @@ public class MypageMemberController {
 		return "/myPage/myPageInfo/myPageAddShipping";
 	}
 	
-	
-	// 적립금 및 쿠폰 : 적립금
-	@GetMapping("/myPage/point")
-	public String point() {
-		return "/myPage/myPageOrder/myPagePoint";
-	}
-	
-	// 적립금 및 쿠폰 : 쿠폰
-	@GetMapping("/myPage/coupon")
-	public String coupon() {
-		return "/myPage/myPageOrder/myPageCoupon";
-	}
-	
-	
-	// 찜 목록
-	@GetMapping("/myPage/like")
-	public String like() {
-		return "/myPage/like";
-	}
 	
 }
