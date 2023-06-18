@@ -52,7 +52,6 @@ const orderRecvName = document.querySelector('[name="orderRecvName"]');
 const orderRecvPhone = document.querySelector('[name="orderRecvPhone"]');
 
 // 주소지 전환
-const orderRecvAdd = document.querySelector('[name="orderRecvAdd"]'); // 제출용세팅
 // 주문자 정보와 동일
 orderDetailSame.addEventListener('click', () => {
   orderRecvName.value = orderMember.memberName;
@@ -61,7 +60,6 @@ orderDetailSame.addEventListener('click', () => {
   document.querySelectorAll("input[name='receiverAddress']").forEach( (item, i) =>{
     item.value = arr[i];
   } )
-  orderRecvAdd.value = addAll[3].value+"^^^"+addAll[4].value+"^^^"+addAll[5].value;
 });
 // 새로운 배송지
 orderDetailNew.addEventListener('click', () => {
@@ -70,7 +68,6 @@ orderDetailNew.addEventListener('click', () => {
   document.querySelectorAll("input[name='receiverAddress']").forEach( (item, i) =>{
     item.value ="";
   } )
-  orderRecvAdd.value = "";
 });
 
 // 결제 계산하기--------------------------------------------------------------
@@ -258,7 +255,27 @@ if(loginMember != null){ // 로그인한 회원일시
   document.querySelector("input[name=orderPayment]").value = payment;
 }
 
-
 // -----------------------------------------------------------------------------
 
 // 유효성검사
+for(order of orderList){
+  
+  console.log(order);
+  console.log(order.productNo);
+  console.log(order.optionNo);
+  console.log(order.count);
+}
+
+// 회원 가입 form태그가 제출 되었을 때
+document.getElementById("orderSubmit").addEventListener("submit", () => {
+
+  // 배송지 주소 제출용에 세팅
+  const deliveryAdd = document.querySelectorAll("input[name='receiverAddress']"); // 배송지주소
+  const orderRecvAdd = document.querySelector('[name="orderRecvAdd"]'); // 제출용세팅
+  orderRecvAdd.value = deliveryAdd[0].value + "^^^" + deliveryAdd[1].value + "^^^" + deliveryAdd[2].value;
+
+
+
+
+
+});

@@ -41,6 +41,10 @@ public class OrderServiceImpl implements OrderService{
 			
 			OrderProduct orderProduct = new OrderProduct();
 			
+			// 상품,옵션번호 유지
+			orderProduct.setProductNo(cart.getProductNo());
+			orderProduct.setOptionNo(cart.getOptionNo());
+			
 			// 상품조회
 			Product selectProduct = mapper.selectOrderProduct(cart.getProductNo());
 			orderProduct.setProduct(selectProduct);
