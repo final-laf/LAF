@@ -42,22 +42,32 @@
               <td>CATEGORY</td>
               <td>
                 <!-- 카테고리 변동 시 밑 product, order tr 변동 -->
-                <select name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
-                  <option th:if="${qna.qnaCategory=='일반'}" value="etc">일반문의</option>
-                  <option th:if="${qna.qnaCategory=='상품'}" value="product">상품문의</option>
-                  <option th:if="${qna.qnaCategory=='배송'}" value="shipping">배송문의</option>
+                <select th:if="${qna.qnaCategory=='일반'}" name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option value="etc" selected>일반문의</option>
+                  <option value="product">상품문의</option>
+                  <option value="shipping">배송문의</option>
+                </select>
+                <select th:if="${qna.qnaCategory=='상품'}" name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option value="etc">일반문의</option>
+                  <option value="product" selected>상품문의</option>
+                  <option value="shipping">배송문의</option>
+                </select>
+                <select th:if="${qna.qnaCategory=='배송'}" name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option value="etc">일반문의</option>
+                  <option value="product">상품문의</option>
+                  <option value="shipping" selected>배송문의</option>
                 </select>
               </td>
             </tr>
             <!-- select에 따라 변동 사항 -->
-            <tr>
+            <tr id="qnaWriteProduct">
               <td>PRODUCT NO.</td>
               <td>
                 <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}">
                 <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력">
               </td>
             </tr>
-            <tr>
+            <tr id="qnaWriteShipping">
               <td>ORDER NO.</td>
               <td>
                 <input th:if="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.orderNo}" >
@@ -86,7 +96,7 @@
         <!-- 하단 버튼 영역 -->
         <div class="detail-btn-area write-btn-area">
           <div>
-            <button type="button" class="write-btn" id="listBtn">LIST</button>                     
+            <a href="/qna"><button type="button" class="write-btn" id="listBtn">LIST</button></a>                   
           </div>
           <div>
             <button class="write-btn submit">SUBMIT</button>                     
@@ -95,8 +105,10 @@
       </section>
     </form>
   </main>
+  
 
   <th:block th:replace="~{/common/footer}"></th:block>
+  <script src="/js/boards/qna.js"></script>
 
 </body> 
 </html>

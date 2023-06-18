@@ -14,65 +14,89 @@
   <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
-
-    <section class="board-list">
-      <div class="section-header">
-        <div class="section-title">1:1문의</div>
-      </div>
-      <div class="sub-category-container">
-        <!-- 현재 카테고리에 current 클래스 추가 -->
-        <a href="/notice"><div class="sub-category">NOTICE</div></a>
-        <a href="/qna"><div class="sub-category current">1:1문의</div></a>
-        <a href="/faq"><div class="sub-category">FAQ</div></a>
-        <a href="/review"><div class="sub-category">REVIEW</div></a>
-      </div>
-
-      <!-- 게시판 -->
-      <div class="list-wrapper">
-        <table class="detail-list-table">
-          <tr>
-            <td>TITLE</td>
-            <td><input type="text" placeholder="제목 입력"></td>
-          </tr>
-          <tr>
-            <td>CATEGORY</td>
-            <td>
-              <select name="categorykey" id="categoryKey" readonly>
-                <option value="product">상품문의</option>
-                <option value="shipping">배송문의</option>
-                <option value="etc">일반문의</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>PRODUCT NO.</td>
-            <td><input type="text" placeholder="상품번호 입력"></td>
-          </tr>
-          <tr>
-            <td>ORDER NO.</td>
-            <td><input type="text" placeholder="주문번호 입력"></td>
-          </tr>
-        </table>
-        <div class="write-list-contents">
-          <textarea>
-  
-          </textarea>
+    <form action="/qna/answer" method="post">
+      
+      <input th:value="${session.loginMember.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
+      <section class="board-list"  th:with="qna=${qna}">
+        <input type="hidden" name="qnaNo" th:value="${qna.qnaNo}">
+        <div class="section-header">
+          <div class="section-title">1:1문의</div>
         </div>
-      </div>
+        <div class="sub-category-container">
+          <!-- 현재 카테고리에 current 클래스 추가 -->
+          <a href="/notice"><div class="sub-category">NOTICE</div></a>
+          <a href="/qna"><div class="sub-category current">1:1문의</div></a>
+          <a href="/faq"><div class="sub-category">FAQ</div></a>
+          <a href="/review"><div class="sub-category">REVIEW</div></a>
+        </div>
 
-      <!-- 하단 버튼 영역 -->
-      <div class="detail-btn-area write-btn-area">
-        <div>
-          <button type="button" class="write-btn" id="listBtn">LIST</button>                     
+        <!-- 게시판 -->
+        <div class="list-wrapper">
+          <table class="detail-list-table">
+            <tr>
+              <td>TITLE</td>
+              <td><input name="qnaTitle" type="text" required th:value="${qna.qnaTitle}" readonly></td>
+            </tr>
+            <tr>
+              <td>CATEGORY</td>
+              <td>
+                <!-- 카테고리 변동 시 밑 product, order tr 변동 -->
+                <select th:if="${qna.qnaCategory=='일반'}" name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option value="etc" selected>일반문의</option>
+                </select>
+                <select th:if="${qna.qnaCategory=='상품'}" name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option value="product" selected>상품문의</option>
+                </select>
+                <select th:if="${qna.qnaCategory=='배송'}" name="qnaCategory" id="categoryKey" onchange="changeValue(this)">
+                  <option value="shipping" selected>배송문의</option>
+                </select>
+              </td>
+            </tr>
+            <!-- select에 따라 변동 사항 -->
+            <tr  th:if="${qna.productNo}">
+              <td>PRODUCT NO.</td>
+              <td>
+                <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}" readonly>
+                <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력" readonly>
+              </td>
+            </tr>
+            <tr  th:if="${qna.orderNo}">
+              <td>ORDER NO.</td>
+              <td>
+                <input th:if="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.orderNo}"  readonly>
+                <input th:unless="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력" readonly>
+              </td>
+            </tr> 
+            <!-- 변동 사항 -->
+          </table>
+          <div class="detail-question-answer">
+            <div class="detail-question-">
+              <pre th:text="${qna.qnaContent}">
+            보름이 지나도록 상품이 오지 않습니다. 직접 걸어서 배송하시나요
+              </pre>
+            </div>
+          </div>
+          <div class="write-list-contents">
+            <textarea name="qnaAnswer" type="text" required th:text="${qna.qnaAnswer}"></textarea>
+          </div>
         </div>
-        <div>
-          <button class="write-btn submit">SUBMIT</button>                     
+
+        <!-- 하단 버튼 영역 -->
+        <div class="detail-btn-area write-btn-area">
+          <div>
+            <a href="/qna"><button type="button" class="write-btn" id="listBtn">LIST</button></a>                   
+          </div>
+          <div>
+            <button class="write-btn submit">SUBMIT</button>                     
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </form>
   </main>
+  
 
   <th:block th:replace="~{/common/footer}"></th:block>
+  <script src="/js/boards/qna.js"></script>
 
 </body> 
 </html>

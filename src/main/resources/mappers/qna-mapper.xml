@@ -56,6 +56,11 @@
         UPDATE `qna` SET (#{qnaNo}, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, #{qnaCreateDate}, #{qnaLockFl}, #{qnaPw}, #{qnaAnswer}, #{qnaDeleteFl}) WHERE pna_no=#{qnaNo}
     </update>
 	
+	<!-- qna문의 수정 -->
+    <update id="answerQna" parameterType="Qna" >
+        UPDATE `qna` SET qna_answer =#{qnaAnswer} WHERE qna_No=#{qnaNo}
+    </update>
+	
 
 </mapper>
 
