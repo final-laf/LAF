@@ -53,3 +53,7 @@ INSERT INTO `option` VALUES (NULL, 8, 'FREE', '스카이블루', 14, '이천', 1
 INSERT INTO `option` VALUES (NULL, 8, 'FREE', '블랙', 13, '이천', 2);
 
 COMMIT;
+
+-- -------------------------------------------------------------------------
+
+SELECT * FROM `option` WHERE option_no = 8 AND product_no = 2;

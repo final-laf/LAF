@@ -1,6 +1,7 @@
 package edu.kh.laf.order.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +24,10 @@ public interface OrderMapper {
 	
 	// 쿠폰조회
 	public List<Coupon> selectCouponList(Long memberNo);
+	
+	// 주문옵션전체조회
+	public Option SelectOrderCheck(Map<String, String> orderData);
+	
+	// 상품이름조회
+	public String SelectProductName(int productNo);
 }
