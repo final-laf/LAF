@@ -55,11 +55,21 @@ public interface QnaService {
 
 
 
-	/** 게시글 수정하기
+	/** qna 수정하기
 	 * @param qna
 	 * @return
 	 */
 	int updateQna(Qna qna);
+
+
+
+
+
+	/** qna 답변달기
+	 * @param qna
+	 * @return
+	 */
+	int answerQna(Qna qna);
 
 
 }

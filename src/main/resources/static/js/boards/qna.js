@@ -35,7 +35,13 @@ if (document.getElementById("qnaModelBack")!=null) {
   document.getElementById("qnaModelBack").addEventListener("click", ()=>{
     document.getElementById("qnaModelBack").style.display = "none";
     document.getElementById("qnaModal").style.display = "none";
-
+  })
+}
+//수정하기 비밀번호 모달
+if (document.getElementById("qnaDetailModelBack")!=null) {
+  document.getElementById("qnaDetailModelBack").addEventListener("click", ()=>{
+    document.getElementById("qnaDetailModelBack").style.display = "none";
+    document.getElementById("qnaDetailModal").style.display = "none";
   })
 }
 
@@ -53,6 +59,7 @@ if (document.getElementById("qnaModalBtn")!=null) {
       console.log("count = "+count);
       if (count == -1) { // 비밀번호 불일치 시
         console.log("비밀번호 입력 실패");
+        document.getElementById("qnaDetailModalInput").value = "";
         return;            
       }
       document.location.href="/qna/detail/" + qnaLockNo;
@@ -99,18 +106,59 @@ const changeValue = (target) => {
 const modifyBtn = document.getElementById("qnaModify")
 if (modifyBtn!=null) {
   modifyBtn.addEventListener('click', e => {
+    const loginMember = e.target.getAttribute("memberNo");
+    const writeMember = e.target.getAttribute("writerNo");
     const qnaNo = e.target.value;
+    if(loginMember==writeMember){
+      const qnaNo = e.target.value;
+      console.log(qnaNo);
+      document.location.href="/qna/modify/"+qnaNo
+      return;
+    }
+    if(loginMember!=writeMember){
+      qnaLockNo=qnaNo;
+      document.getElementById("qnaDetailModelBack").style.display = "flex";
+      document.getElementById("qnaDetailModal").style.display = "flex";
+      e.stopPropagation();
+      return;
+    }
     console.log(qnaNo);
     document.location.href="/qna/modify/"+qnaNo
   });
 }
 
+// 수정하기 모달 비밀글 입력하기
+if (document.getElementById("qnaDetailModalBtn")!=null) {
+  document.getElementById("qnaDetailModalBtn").addEventListener("click", e => {
+    const pw = e.target.parentElement.parentElement.children[1].children[0].value
+    const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
+    fetch("/qna/qnaLockNo",{
+      method : "POST", headers : {"Content-Type" : "application/json"},
+      body : JSON.stringify(data)
+    })
+    .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
+    .then(count => {
+      
+      console.log("count = "+count);
+      if (count == -1) { // 비밀번호 불일치 시
+        console.log("비밀번호 입력 실패");
+        document.getElementById("qnaDetailModalInput").value = "";
+        return;            
+      }
+      document.location.href="/qna/modify/" + qnaLockNo;
+    }) //파싱된 데이터를 받아서 처리하는 코드 작성
+    .catch(err => {
+      console.log("예외 발생");
+      console.log(err);
+    }) 
+  })
+}
 
 
 
   
 /* 문의 게시글(답변) 클릭시 */
-const answerBtn = document.getElementById("answerBtn")
+const answerBtn = document.getElementById("qnaAnswer")
 if (answerBtn!=null) {
   answerBtn.addEventListener('click', e => {
     const qnaNo = e.target.value;

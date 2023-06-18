@@ -63,4 +63,9 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.updateQna(qna);
 	}
 
+	@Override
+	public int answerQna(Qna qna) {
+		return mapper.answerQna(qna);
+	}
+
 }

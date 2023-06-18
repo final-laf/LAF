@@ -38,10 +38,16 @@ public interface QnaMapper {
 	 */
 	Qna confirmLockNo(Qna qna);
 
-	/** 게시글 수정
+	/** qna 수정
 	 * @param qna
 	 * @return
 	 */
 	int updateQna(Qna qna);
+
+	/** qna 답변달기
+	 * @param qna
+	 * @return
+	 */
+	int answerQna(Qna qna);
 
 }

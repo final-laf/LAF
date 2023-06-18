@@ -13,14 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
-import edu.kh.laf.board.model.dto.Notice;
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.service.QnaService;
-import edu.kh.laf.member.model.dto.Member;
 
 @Controller
 public class QnaController {
@@ -88,6 +84,9 @@ public class QnaController {
 	// 1:1 문의 답글 컨트롤러
 	@GetMapping("/qna/answer/{no:[0-9]+}")
 	public String answerQna(@PathVariable String no, Model model) {
+		Qna qna = qnaService.detailQna(no);
+		model.addAttribute("qna", qna);
+		System.out.println(qna);
 		return "/boards/qna/qnaAnswer";
 	}
 	
@@ -170,6 +169,19 @@ public class QnaController {
 		
 		System.out.println(qna);
 		int writeNotice = qnaService.updateQna(qna);
+		
+		return path;
+	}
+	
+	// 기능: 1:1 문의 수정하기
+	@PostMapping("/qna/answer")
+	
+	public String answer(Qna qna, Model model){
+		String path = "redirect:/qna/detail/";
+		path+=qna.getQnaNo();
+		
+		System.out.println(qna);
+		int answerNotice = qnaService.answerQna(qna);
 		
 		return path;
 	}
