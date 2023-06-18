@@ -20,6 +20,7 @@
     </div>
 
     <!-- 장바구니 목록 -->
+    
     <form th:action="@{/cart/order}" method="POST">
       <section id="cartItemList">
         <table>
@@ -41,6 +42,7 @@
 
             <input type="hidden" name="productNo" th:value="${product.productNo}">
             <input type="hidden" name="optionNo" th:value="${optionList[productStat.index].optionNo}">
+            <input type="hidden" name="count" th:value="${cartList[productStat.index].count}">
             
             <td class="cart-item-checkbox">
               <input type="checkbox" name="checkbox" class="checkbox-item">

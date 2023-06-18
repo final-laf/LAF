@@ -15,12 +15,14 @@ checkboxSelectAll.addEventListener('click', e => {
 // 전체상품 데이터 추출
 const productInputList = document.querySelectorAll('input[name="productNo"]');
 const optionInputList = document.querySelectorAll('input[name="optionNo"]');
+const countInputList = document.querySelectorAll('input[name="count"]');
 function getAllData() {
   let data = [];
   for(let i=0; i<productInputList.length; i++) {
     data.push({
       "productNo": productInputList[i].value,
-      "optionNo": optionInputList[i].value
+      "optionNo": optionInputList[i].value,
+      "count":countInputList[i].value
     });
   }
   return data;
@@ -30,11 +32,12 @@ function getAllData() {
 function getSelectedData() {
   let data = [];
   const rowList = document.querySelectorAll('.data-tr');
-  for(let el of rowList) {
-    if(el.querySelector('[name="checkbox"]').checked == true) {
+  for(let i=0; i<rowList.length; i++) {
+    if(rowList[i].querySelector('[name="checkbox"]').checked == true) {
       data.push({
-        "productNo": el.getAttribute('product'),
-        "optionNo": el.getAttribute('option')
+        "productNo": productInputList[i].value,
+        "optionNo": optionInputList[i].value,
+        "count": countInputList[i].value
       });
     }
   }
@@ -50,14 +53,19 @@ for(let btn of deleteBtns) {
     const tr = e.target.parentElement.parentElement;
     const productNo = tr.querySelector('input[name="productNo"]').value;
     const optionNo = tr.querySelector('input[name="optionNo"]').value;
-    let data = [];
-    data.push({
+    const count = tr.querySelector('input[name="count"]').value;
+    
+    const data = [{
       "productNo": productNo,
       "optionNo": optionNo
-    });
+    }];
+    let url = "/cart/delete?data=" + encodeURIComponent(JSON.stringify(data));
+
+    if(loginMember == undefined) {
+      url = "/cart/delete2?data=" + productNo + "-" + optionNo + "-" + count + "@";
+    }
     
-    const dataStr = encodeURIComponent(JSON.stringify(data));
-    fetch("/cart/delete?data=" + dataStr)
+    fetch(url)
     .then(resp => resp.text())
     .then(result => {
       if(result > 0) {
@@ -90,9 +98,17 @@ const clearCartBtn = document.getElementById('clearCartBtn');
 clearCartBtn.addEventListener('click', () => {
   if(!confirm("장바구니를 비우시겠습니까?")) return;
 
+  // [회원]
   const data = getAllData();
   const dataStr = encodeURIComponent(JSON.stringify(data));
-  fetch("/cart/delete?data=" + dataStr)
+  let url = "/cart/delete?data=" + dataStr;
+
+  // [비회원]
+  if(loginMember == undefined) {
+    url = "/cart/delete2All"
+  }
+
+  fetch(url)
   .then(resp => resp.text())
   .then(result => {
     if(result > 0) {
@@ -121,46 +137,58 @@ clearCartBtn.addEventListener('click', () => {
     }
   }) 
   .catch(err => console.log(err));
-});
+}); 
 
 // 선택한 상품만 삭제
 const deleteSelectedBtn = document.getElementById('deleteSelectedBtn');
 deleteSelectedBtn.addEventListener('click', () => {
+  if(!confirm("해당 상품을 정말로 삭제하시겠습니까?")) return;
+
   const data = getSelectedData();
-  const dataStr = encodeURIComponent(JSON.stringify(data));
-    fetch("/cart/delete?data=" + dataStr)
-    .then(resp => resp.text())
-    .then(result => {
-      if(result > 0) {
+  let url = "/cart/delete?data=" + encodeURIComponent(JSON.stringify(data));
+  
+  if(loginMember == undefined) {
+    url = "/cart/delete2?data=";
+    for(let d of data) {
+      url += d.productNo + "-" + d.optionNo + "-" + d.count + "@";
+    }
+  }
+  
+  console.log(url);
 
-        // 삭제한 행 제거
-        const rowList = document.querySelectorAll('.data-tr');
-        for(let el of rowList) {
-          if(el.querySelector('[name="checkbox"]').checked == true) {
-            el.remove();
-          }
+  fetch(url)
+  .then(resp => resp.text())
+  .then(result => {
+    if(result > 0) {
+
+      // 삭제한 행 제거
+      const rowList = document.querySelectorAll('.data-tr');
+      for(let el of rowList) {
+        if(el.querySelector('[name="checkbox"]').checked == true) {
+          el.remove();
         }
-
-        // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
-        const table = document.querySelector('#cartItemList > table');
-        if(table.querySelector('.data-tr') == null) {
-          const td = document.createElement('td');
-          td.classList.add('cart-item-empty');
-          td.colspan = 7;
-          td.innerText = '장바구니가 비어 있습니다.';
-          const tr = document.createElement('tr');
-          tr.append(td);
-          table.append(tr);
-        }
-
-        // 스크롤 맨 위로 이동
-        window.scrollTo(0, 0);
-        alert("선택하신 상품을 삭제했습니다.")
-      } else {
-        alert("삭제 실패");
       }
-    })
-    .catch(err => console.log(err));
+
+      // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
+      const table = document.querySelector('#cartItemList > table');
+      if(table.querySelector('.data-tr') == null) {
+        const td = document.createElement('td');
+        td.classList.add('cart-item-empty');
+        td.colspan = 7;
+        td.innerText = '장바구니가 비어 있습니다.';
+        const tr = document.createElement('tr');
+        tr.append(td);
+        table.append(tr);
+      }
+
+      // 스크롤 맨 위로 이동
+      window.scrollTo(0, 0);
+      alert("선택하신 상품을 삭제했습니다.")
+    } else {
+      alert("삭제 실패");
+    }
+  })
+  .catch(err => console.log(err));
 });
 
 // 선택상품주문
@@ -171,21 +199,4 @@ orderSelectedBtn.addEventListener('click', () => {
     return ;
   }
   alert('선택상품주문');
-});
-
-// 전체상품주문
-const orderAllBtn = document.getElementById('orderAllBtn');
-orderAllBtn.addEventListener('click', () => {
-  // const data = getAllData();
-  // fetch("/cart/order", {
-  //   method : "POST",
-  //   headers : {"Content-Type" : "application/json"},
-  //   body : JSON.stringify(data)
-  // })
-  // .then(resp => resp.text())
-  // .then() 
-  // .catch(err => {
-  //   alert("결제화면 이동 실패");
-  //   console.log(err);
-  // });
 });
