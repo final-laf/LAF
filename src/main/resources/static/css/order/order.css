@@ -311,3 +311,7 @@
   color: #eee;
   background-color: #7f7698;
 }
+
+/* 회원가입 정규식 확인 */
+.confirm{color : #666;}
+.error{color : red;}
