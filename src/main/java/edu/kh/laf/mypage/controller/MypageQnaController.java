@@ -32,6 +32,7 @@ public class MypageQnaController {
 	public String qna(@SessionAttribute("loginMember") Member loginMember, Model model,@PathVariable(required = false) String search
 			) {
 		
+		
 		//PathVariable 없을 때
 		if(search == null) {
 			model.addAttribute("searchQna", "");

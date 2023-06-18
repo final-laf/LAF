@@ -26,8 +26,8 @@
         <!-- 하위 메뉴 -->
         <div class="sub-category-container">
           <!-- 현재 카테고리에 current 클래스 추가 -->
-          <a href="/my/review"><div class="sub-category current">작성 가능한 리뷰<span>(2)</span></div></a>
-          <a href="/my/review/list"><div class="sub-category">작성한 리뷰<span>(23)</span></div></a>
+          <a href="/myPage/review"><div class="sub-category">작성 가능한 리뷰<span>(2)</span></div></a>
+          <a href="/myPage/review/list"><div class="sub-category current">작성한 리뷰<span>(23)</span></div></a>
         </div>
 
         <section id="reviewList">
@@ -40,13 +40,14 @@
               <td class="item-price-set">구매금액</td>
               <td class="item-choose">선택</td>
             </tr>
-            <tr th:if="${reviewList==null}">
+            <!-- 작성 가능 리뷰 없을때 -->
+            <tr th:unless="${myReview==null}">
               <td colspan="6" class="item-empty">작성 가능한 리뷰가 없습니다.</td>
             </tr>
-            <tr th:each="q,index:${reviewList}">
-              <td class="item-order-info">
-                <div class="item-order-date" th:text="${orderDate}">2023-06-04</div>
-                <div class="item-order-no"><a href="#">[23060400001002]</a></div>
+            <!-- 작성 가능 리뷰 있을 때 -->
+            <tr th:each="r:${myReview}">
+              <td class="item-order-info" >
+                <div class="item-order-no" th:text="${r.orderNo}">[23060400001001]</div>
               </td>
               <td class="item-image">
                 <a href="/product/1">
@@ -54,23 +55,24 @@
                 </a>
               </td>
               <td class="item-product">
-                <a href="/product/1">
-                ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color 제품명이 길 때는 두 줄로 나오...
+                <a href="/order/${r.orderNo}" th:text="${r.product.productName}">
+                  제품명
                 </a>
-                <p class="item-product-option">
-                  [옵션 : <span class="item-selected-option">블랙/L</span>]
+                <p class="item-product-option">[옵션 : 
+                  <span class="item-selected-option" th:text="${r.option.color}">컬러</span>/<span class="item-selected-option" th:text="${r.option.size}">사이즈</span>]
                 </p>
               </td>
-              <td class="item-count">1</td>
+              <td class="item-count" th:text="${r.count}">2</td>
               <td class="item-price-set">
-                <div class="item-price">32,500</div>
+                <div class="item-price" th:text="${orderTotalPrice}">가격</div>
               </td>
               <td class="item-choose">
-                <button>리뷰작성</button>
+                <button>리뷰수정</button>
+                <button>&times; 삭제</button>
               </td>
             </tr>
           </table>
-      </section>
+        </section>
 
       <!-- 페이징 -->
       <div class="pagination-area">

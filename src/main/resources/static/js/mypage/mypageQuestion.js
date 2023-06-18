@@ -1,3 +1,16 @@
+// 내 1:1문의에서 qna 선택
+const perQna = document.getElementsByClassName("mypageQuestion-Question-list");
+// qna list에서 삭제
+if (perQna!=null) {
+  for(let qna of perQna) {
+    /* 내 1:1 문의 클릭시 */
+    qna.addEventListener('click', e => {
+        const qnaNo = e.target.parentElement.getAttribute("value");
+        document.location.href="/qna/detail/" + qnaNo
+    });
+  };
+}
+
 // 카테고리 누를 시
 function categoryChange(category){
     if(category=="write"){
@@ -19,3 +32,4 @@ document.getElementById("QuestionContent").addEventListener("click", () => {
         location.href = "http://localhost/my/qna/"+search;
     }
 })
+

@@ -1,9 +1,12 @@
-const notices = document.querySelector(".qna-list")
+
+
+// qna 게시판에서 qna 선택
+const qnas = document.querySelector(".qna-list")
 
 // qna list에서 삭제
 let qnaLockNo =0;
-if (notices!=null) {
-  for(let notice of notices.children) {
+if (qnas!=null) {
+  for(let notice of qnas.children) {
     /* 문의 게시글(질문) 클릭시 */
     
     notice.addEventListener('click', e => {
@@ -16,12 +19,9 @@ if (notices!=null) {
         return;
       }
       // 비밀글일 경우 
-
       if(e.target.parentElement.getAttribute("fl")=="y"){
         document.getElementById("qnaModelBack").style.display = "flex";
         document.getElementById("qnaModal").style.display = "flex";
-
-
         e.stopPropagation();
         return;
       }

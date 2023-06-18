@@ -22,6 +22,10 @@ main {
   width: 180px !important;
 }
 
+.current{
+  background-color: #7F7698;
+}
+
 /* 테이블 공통설정 */
 table {
   width: 100%;
