@@ -61,19 +61,10 @@
       <div id="orderFilterInfo">
         <p>· 기본적으로 3개월간의 자료가 조회되며, 기간 검색시 주문처리완료 후 36개월 이내의 주문내역을 조회하실 수 있습니다.</p>
         <p>· 주문번호를 클릭하시면 해당 주문에 대한 상세내역을 확인하실 수 있습니다.</p>
-        <div th:each="order : ${orderList}">
-          <span th:object="${order.key}">
-            <b th:text="*{orderRecvName}"></b>
-          </span>
-          <br>
-          <span th:each="orderProduct : ${order.value}">
-          <b th:if="${order.value}" th:text="${order.value}"></b>
-          </span>
-        </div>
       </div>
-      <section id="orderList" th:object="${myPageOrderList}">
+      <section id="orderList">
         <div class="table-title">주문상품정보</div>
-        <table th:unless="${myPageOrderList}">
+        <table th:unless="${orderList}">
           <tr>
             <td class="item-order-info">주문정보</td>
             <td class="item-image">이미지</td>
@@ -87,7 +78,7 @@
             <td colspan="7" class="item-empty">주문 내역이 없습니다.</td>
           </tr>
         </table>
-        <table th:if="${myPageOrderList}">
+        <table th:if="${orderList}">
           <tr>
             <td class="item-order-info">주문정보</td>
             <td class="item-image">이미지</td>
@@ -97,34 +88,37 @@
             <td class="item-order-state header">주문처리상태</td>
             <td class="item-choose">선택</td>
           </tr>
-          <tr th:each="myPageOrder : ${myPageOrderList}">
-            <td class="item-order-info">
-              <div class="item-order-date" th:text="${myPageOrder.orderDate}">주문날짜</div>
-              <div class="item-order-no"><a href="#" th:text="${myPageOrder.orderNo}">주문번호</a></div>
-            </td>
-            <td class="item-image">
-              <a href="/product/1">
-                <img src="/images/prouduct/thumbnail/1.gif">
-              </a>
-            </td>
-            <td class="item-product">
-              <a href="/product/1">
-              제품명
-              </a>
-              <p class="item-product-option">
-                [옵션 : <span class="item-selected-option">블랙/L</span>]
-              </p>
-            </td>
-            <td class="item-count">1</td>
-            <td class="item-price-set">
-              <div class="item-price">제품가격</div>
-            </td>
-            <td class="item-order-state">
-              <p>주문처리상태</p>
-            </td>
-            <td class="item-choose">
-              <button>주문취소</button> <!-- 배송 전까지만 출력 -->
-            </td>
+          <tr th:each="order : ${orderList}">
+            <th:block th:object="${order.key}">
+              <td class="item-order-info">
+                <div class="item-order-date" th:text="${order.value}">테스트</div>
+                <div class="item-order-date" th:text="*{orderDate}">주문날짜</div>
+                <div class="item-order-no"><a href="#" th:text="*{orderNo}">주문번호</a></div>
+              </td>
+              <td class="item-image">
+                <a href="/product/1">
+                  <img>
+                </a>
+              </td>
+              <td class="item-product">
+                <a href="/product/1">
+                제품명
+                </a>
+                <p class="item-product-option">
+                  [옵션 : <span class="item-selected-option">블랙/L</span>]
+                </p>
+              </td>
+              <td class="item-count">1</td>
+              <td class="item-price-set">
+                <div class="item-price">제품가격</div>
+              </td>
+              <td class="item-order-state">
+                <p>주문처리상태</p>
+              </td>
+              <td class="item-choose">
+                <button>주문취소</button> <!-- 배송 전까지만 출력 -->
+              </td>
+          </th:block>
           </tr>
         </table>
       </section>
