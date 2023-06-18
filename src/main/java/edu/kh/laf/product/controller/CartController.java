@@ -45,6 +45,9 @@ public class CartController {
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			Model model) {
 		
+		if(loginMember==null)
+			return "redirect:/cart2";
+		
 		List<Cart> cartList = cartService.selectCart(loginMember.getMemberNo());
 		List<Product> productList = new ArrayList<>(); 
 		List<Option> optionList = new ArrayList<>();
@@ -177,7 +180,6 @@ public class CartController {
 		Cookie[] cookies = req.getCookies();
 		Cookie cookie = cartService.deleteCart2(cookies, data);
 		resp.addCookie(cookie);
-		
 		return 1;
 	}
 	

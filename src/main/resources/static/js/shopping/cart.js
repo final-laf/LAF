@@ -1,3 +1,31 @@
+// [회원, 비회원] 카트 정보 업데이트
+function updateCart() {
+  const data = getAllData();
+  let url = "";
+
+  if(loginMember != undefined) {
+    // 회원 : update DB
+    const dataStr = encodeURIComponent(JSON.stringify(data));
+    url = "/cart/update?data=" + dataStr;
+    console.log("dataStr : " + dataStr);
+  } else {
+    // 비회원 : update cookie
+    let cookieStr = "";
+    for(let d of data)
+      cookieStr += d.productNo + '-' + d.optionNo + '-' + d.count + '@';
+    url = "/cart/update2?data=" + cookieStr;
+  }
+
+  fetch(url)
+  .then(resp => resp.text())
+  .then(result => {
+    console.log("result : " + result);
+    if(result <= 0 ) alert('업데이트 실패');
+  }) 
+  .catch(err => console.log(err));
+}
+
+
 // 결제예상금액 계산
 function estimate() {
   const totalOrigin = document.querySelector('.table-data > .cart-price-total-origin');
@@ -53,10 +81,11 @@ checkboxSelectAll.addEventListener('click', e => {
 checkboxSelectAll.click();
 
 // 전체상품 데이터 추출
-const productInputList = document.querySelectorAll('input[name="productNo"]');
-const optionInputList = document.querySelectorAll('input[name="optionNo"]');
-const countInputList = document.querySelectorAll('input[name="count"]');
 function getAllData() {
+  const productInputList = document.querySelectorAll('input[name="productNo"]');
+  const optionInputList = document.querySelectorAll('input[name="optionNo"]');
+  const countInputList = document.querySelectorAll('input[name="count"]');
+  
   let data = [];
   for(let i=0; i<productInputList.length; i++) {
     data.push({
@@ -75,9 +104,9 @@ function getSelectedData() {
   for(let i=0; i<rowList.length; i++) {
     if(rowList[i].querySelector('[name="checkbox"]').checked == true) {
       data.push({
-        "productNo": productInputList[i].value,
-        "optionNo": optionInputList[i].value,
-        "count": countInputList[i].value
+        "productNo": rowList[i].querySelector('input[name="productNo"]').value,
+        "optionNo": rowList[i].querySelector('input[name="optionNo"]').value,
+        "count": rowList[i].querySelector('input[name="count"]').value
       });
     }
   }
@@ -288,29 +317,196 @@ for(let btn of countBtns) {
     countText.innerText = count;
     countInput.value = count;
 
-    const data = getAllData();
-    let url = "";
-
-    if(loginMember != undefined) {
-      // 회원 : update DB
-      const dataStr = encodeURIComponent(JSON.stringify(data));
-      url = "/cart/update?data=" + dataStr;
-      console.log("dataStr : " + dataStr);
-    } else {
-      // 비회원 : update cookie
-      let cookieStr = "";
-      for(let d of data)
-        cookieStr += d.productNo + '-' + d.optionNo + '-' + d.count + '@';
-      url = "/cart/update2?data=" + cookieStr;
-    }
-
-    fetch(url)
-    .then(resp => resp.text())
-    .then(result => {
-      if(result <= 0) alert("수량 변경 실패");
-    }) 
-    .catch(err => console.log(err));
-
+    updateCart();
     estimate();
   });
 }
+
+// 옵션 변경 모달 띄우기
+const modalOverlay = document.querySelector('.bubble-overlay');
+const bubbleContainer = document.querySelector('.bubble-container');
+
+// 색상 옵션 변경
+const optionChangeBtns = document.querySelectorAll('.option-change-btn')
+const colorSelector = document.querySelector('#colorChangeSelector');
+for(let btn of optionChangeBtns) {
+  btn.addEventListener('click', e => {
+
+    // 데이터 가져오기
+    const productNo = e.target.parentElement.parentElement.parentElement.querySelector('input[name="productNo"]').value;
+    const optionNo = e.target.parentElement.parentElement.parentElement.querySelector('input[name="optionNo"]').value;
+
+    // 데이터 미리 심어두기
+    colorSelector.setAttribute('productNo', productNo);
+    colorSelector.setAttribute('optionNo', optionNo);
+
+    fetch("/getOption?" + "productNo=" + productNo)
+    .then(resp => resp.json())
+    .then(optionList => {
+      
+      const color = [];
+      const stock = [];
+      const opNo = [];
+      
+      // 모든 사이즈가 품절인 경우 컬러 선택 버튼 비활성화
+      for (let op of optionList) {
+        if(color.indexOf(op.color) == -1) {
+          color.push(op.color);
+          stock.push(false);
+          opNo.push(op.optionNo);
+        }
+        if(op.stock > 0)
+        stock[color.indexOf(op.color)] = true;
+      }
+      
+      // select option 생성
+      const optionTitle = document.createElement('option');
+      optionTitle.classList.add('bubble-content');
+      optionTitle.value = 'none';
+      optionTitle.innerText = '색상';
+      optionTitle.selected = true;
+
+      colorSelector.innerHTML = '';
+      colorSelector.append(optionTitle);
+
+      for(let i=0; i<stock.length; i++) {
+        const option = document.createElement('option');
+        option.classList.add('bubble-content');
+        option.value = color[i];
+        option.innerText = color[i];
+        option.disabled = !stock[i];
+        option.setAttribute('opno', opNo[i]);
+        colorSelector.append(option);
+      }
+    })
+    .catch(e => console.log(e));
+
+    // 화면 출력
+    const bubble = document.querySelector('.bubble');
+    bubble.style.top = e.target.getBoundingClientRect().top + 25 + 'px';
+    bubble.style.left = e.target.getBoundingClientRect().left - 30 + 'px';
+    modalOverlay.classList.toggle('hidden');
+  });
+}
+
+// 사이즈 옵션 변경
+colorSelector.addEventListener('change', e => {
+  
+  const productNo = e.target.getAttribute('productNo');
+  const optionNo = e.target.getAttribute('optionNo');
+  const color = e.target.value;
+
+  const optionInput = document.querySelector('input[name="optionNo"][value="' + optionNo + '"]');
+  const optionText = optionInput.parentElement.querySelector('.cart-item-selected-option');
+
+  fetch("/getOption?" + "productNo=" + productNo)
+  .then(resp => resp.json())
+  .then(optionList => {
+
+    const size = [];
+    const stock = [];
+    const opNo = [];
+
+    for (let op of optionList) {
+      if(op.color == color && size.indexOf(op.size) == -1) {
+        size.push(op.size);
+        stock.push(op.stock > 0 ? op.stock : 0);
+        opNo.push(op.optionNo);
+      }
+    }
+
+    /* 원사이즈 제품인 경우 */
+    if(size.length == 1) {
+      
+      let newOpNo = -1;
+      for(let o of e.target.children) {
+        if(o.innerText == color)
+          newOpNo = o.getAttribute('opNo');
+      }
+
+      // 장바구니에 있는 상품인지 검사
+      const data = getAllData();
+      for(let d of data) {
+        if(d.optionNo == newOpNo) { 
+          if(newOpNo != optionNo) // 옵션이 그대로가 아니면 안내문구 출력
+            alert('이미 장바구니에 담겨있는 옵션입니다.');
+          modalOverlay.click();
+          return;
+        }
+      }
+
+      // DB, 쿠키 업데이트
+      optionInput.value = newOpNo;
+      optionText.value = '[옵션 : ' + color + '/' + size[0] + ']';
+      updateCart();
+
+      modalOverlay.click();
+      return;
+    }
+
+    const optionTitle = document.createElement('option');
+    optionTitle.classList.add('bubble-content');
+    optionTitle.value = 'none';
+    optionTitle.innerText = '사이즈';
+    optionTitle.selected = true;
+
+    const select = document.createElement('select');
+    select.setAttribute('name', 'sizeChange');
+    select.append(optionTitle);
+    select.setAttribute('id', 'sizeChangeSelector');
+    select.addEventListener('change', e => {
+
+      let size = e.target.value;
+      let newOpNo = -1;
+      for(let o of e.target.children) {
+        if(o.innerText == size)
+          newOpNo = o.getAttribute('opNo');
+      }
+
+      // 장바구니에 있는 상품인지 검사
+      const data = getAllData();
+      for(let d of data) {
+
+        if(d.optionNo == newOpNo) { 
+          if(newOpNo != optionNo) // 옵션이 그대로가 아니면 안내문구 출력
+            alert('이미 장바구니에 담겨있는 옵션입니다.');
+          modalOverlay.click();
+          return;
+        }
+      }
+
+      // DB, 쿠키 업데이트
+      optionInput.value = newOpNo;
+      optionText.innerText = '[옵션 : ' + color + ' / ' + size + ']';
+      updateCart();
+
+      modalOverlay.click();
+    });
+    
+    for(let i=0; i<size.length; i++) {
+      const option = document.createElement('option');
+      option.classList.add('bubble-content');
+      option.value = size[i];
+      option.innerText = size[i];
+      option.disabled = !stock[i];
+      option.setAttribute('opno', opNo[i]);
+      select.append(option);
+    }
+
+    bubbleContainer.lastChild.remove();
+    bubbleContainer.append(select);
+  })
+  .catch(e => console.log(e));
+
+});
+
+/* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
+modalOverlay.addEventListener("click", e => {
+  const evTarget = e.target
+  if(evTarget.classList.contains("bubble-overlay")) {
+      modalOverlay.classList.toggle('hidden');
+      const sizeChangeSelector = document.getElementById('sizeChangeSelector');
+      if(sizeChangeSelector != null)
+        sizeChangeSelector.remove();
+  }
+});
