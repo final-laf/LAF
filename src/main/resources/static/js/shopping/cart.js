@@ -419,7 +419,7 @@ colorSelector.addEventListener('change', e => {
     }
 
     /* 원사이즈 제품인 경우 */
-    if(size.length == 1) {
+    if(size.length <= 1) {
       
       let newOpNo = -1;
       for(let o of e.target.children) {
