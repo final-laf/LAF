@@ -5,8 +5,39 @@ import java.util.Map;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.order.model.dto.OrderProduct;
 
 public interface MypageService {
+	
+	
+	// ---------------------------- MyPage Dashboard ---------------------------- 
+	
+
+	/** 로그인 멤버의 주문 조회
+	 * @param loginMember
+	 * @return myPageOrderList
+	 */
+	List<Order> selectMyPageOrderList(Member loginMember);
+	
+	
+	// ---------------------------- MyPage Order ---------------------------- 
+	
+	
+	
+	/** 주문번호로 order_product 테이블에서 해당 상품 조회
+	 * @param orderNo
+	 * @return myPageOrderProductList
+	 */
+	List<OrderProduct> selectMyPageOrderProductList(long orderNo);
+	
+	
+	
+	// -------------------------------------------------------------------------- 
+
+	
+	
 
 	/** qna 전체
 	 * @param memberNo
@@ -45,5 +76,10 @@ public interface MypageService {
 	 * @return
 	 */
 	List<Address> selectAddressList(Long memberNo);
+
+
+
+
+	
 
 }

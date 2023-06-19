@@ -31,10 +31,11 @@
 }
 
 .mypageDash-myRating-Rating{
-    color: #eee;
+    color: #666;
+    font-size: 2.0rem;
     width: 126px;
     height: 126px;
-    background-color: #cc6600;
+    background-color: #fff;
     text-align: center;
     line-height: 126px;
     border-radius: 50%;
@@ -42,7 +43,9 @@
 
 .mypageDash-myRating-greeting{
     margin: 0 0 0 50px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .mypageDash-greeting-greet{
     font-size: 15px;
@@ -115,3 +118,4 @@
 .mypageDash-howMany-shipping div{
     display: flex;
 }
+
