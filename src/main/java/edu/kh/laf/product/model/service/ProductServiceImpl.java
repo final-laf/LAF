@@ -60,4 +60,14 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectRecommendList(productNo);
 	}
 
+	// 상품 검색
+	@Override
+	public List<Product> search(String query, long memberNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("query", query);
+		map.put("memberNo", memberNo);
+		
+		return mapper.search(map);
+	}
+
 }

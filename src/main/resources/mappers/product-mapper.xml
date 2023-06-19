@@ -119,5 +119,33 @@
 		LIMIT 20
 	</select>
 	
+	<!-- 검색 결과 조회 -->
+	<select id="search" resultType="Product">
+		SELECT `product`.product_no,
+			   `product`.product_name,
+			   `product`.product_price,
+			   `product`.product_sale_price,
+			   `product`.product_sale,
+			   `product`.product_point,
+			   `product`.product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				<if test="memberNo > 0">
+				(
+					SELECT 	 count(*) 
+					FROM 	`like`
+					WHERE 	`product`.product_no = `like`.product_no
+						     and `like`.member_no = ${memberNo}
+				) AS like_count, 
+				</if>
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
+				AND `product`.product_name like '%${query}%'
+		ORDER BY click_count asc, product_sale_price desc
+	</select>
+	
 </mapper>
 

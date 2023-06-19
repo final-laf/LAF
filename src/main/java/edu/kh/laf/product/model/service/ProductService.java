@@ -45,4 +45,12 @@ public interface ProductService {
 	 * @return productList
 	 */
 	List<Product> selectRecommendList(long productNo);
+	
+	/**
+	 * 상품별 검색
+	 * @param query
+	 * @param long1 
+	 * @return productList
+	 */
+	List<Product> search(String query, long long1);
 }

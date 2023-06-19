@@ -128,10 +128,11 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    /* justify-content: flex-start; */
 }
 .categoryList-product-item {
-    margin: 40px 13px 0;
+    margin: 40px 25px 0;
     max-width: 250px !important;
     position: relative;
 }

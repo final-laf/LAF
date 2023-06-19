@@ -41,4 +41,11 @@ public interface ProductMapper {
      * @return productList
      */
 	List<Product> selectRecommendList(long productNo);
+	
+	/**
+     * 상품 검색 결과
+     * @param query
+     * @return productList
+     */
+	List<Product> search(Map<String, Object> map);
 }

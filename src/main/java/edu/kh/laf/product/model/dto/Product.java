@@ -1,7 +1,5 @@
 package edu.kh.laf.product.model.dto;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data

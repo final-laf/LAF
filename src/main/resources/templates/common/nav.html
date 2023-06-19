@@ -123,6 +123,7 @@
   document.getElementById('searchImg').addEventListener('click', () => {
     const input = document.getElementById('query');
     input.classList.toggle('hidden');
+    input.value = '';
     input.focus();
   });
 </script>
