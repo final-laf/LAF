@@ -139,6 +139,7 @@ for(let btn of deleteBtns) {
     .then(result => {
       if(result > 0) {
         tr.remove();
+        estimate();
 
         // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
         const table = document.querySelector('#cartItemList > table');
@@ -174,7 +175,7 @@ clearCartBtn.addEventListener('click', () => {
 
   // [비회원]
   if(loginMember == undefined) {
-    url = "/cart/deleteAll2"
+    url = "/cart/delete2All"
   }
 
   fetch(url)
@@ -187,6 +188,7 @@ clearCartBtn.addEventListener('click', () => {
       for(let el of rowList) {
           el.remove();
       }
+      estimate();
 
       // 남은 상품이 하나도 없다고 표시
       const td = document.createElement('td');
@@ -242,6 +244,7 @@ deleteSelectedBtn.addEventListener('click', () => {
           el.remove();
         }
       }
+      estimate();
 
       // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
       const table = document.querySelector('#cartItemList > table');

@@ -7,10 +7,42 @@ import java.util.Map;
 
 public interface ProductService {
 
+	/**
+     * 상품 번호로 상품 정보 조회
+     * @param productNo
+     * @return product
+     */
     Product selectProduct(long productNo);
+    
+    /**
+     * 카테고리별 위클리 베스트 상품 목록 조회
+     * @return productList
+     */
     List<Product> selectWeeklyBest(int categoryNo);
+    
+    /**
+     * 카테고리 전체 상품 목록 조회
+     * @return productList
+     */
     List<Product> selectCategoryProductList(int categoryNo);
+    
+    /**
+     * 카테고리 상품 목록 조회(갯수제한)
+     * @return productList
+     */
     List<Product> selectCategoryProductList(int categoryNo, int limit);
+    
+    /**
+	 * 개인별 맞춤 상품 추천
+	 * @param memberNo
+	 * @return productList
+	 */
 	List<Product> selectPersonalProductList(long memberNo);
+	
+	/**
+	 * 상품별 추천 상품
+	 * @param productNo
+	 * @return productList
+	 */
 	List<Product> selectRecommendList(long productNo);
 }

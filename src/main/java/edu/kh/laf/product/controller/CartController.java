@@ -39,7 +39,7 @@ public class CartController {
 	@Autowired
 	private OptionService optionService;
 	
-	// [회원] 장바구니
+	// [회원] 장바구니 조회
 	@GetMapping("/cart")
 	public String cart(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
@@ -64,7 +64,7 @@ public class CartController {
 		return "/shopping/cart";
 	}
 	
-	// [비회원] 장바구니
+	// [비회원] 장바구니 조회
 	@GetMapping("/cart2")
 	public String cart2(HttpServletRequest req, Model model) {
 		
@@ -157,15 +157,11 @@ public class CartController {
 		return cartService.deleteCartAll(loginMember.getMemberNo());
 	}
 
-	
 	// [비회원] 장바구니 상품 전체 삭제
-	@GetMapping("/cart/deleteAll2")
+	@GetMapping("/cart/delete2All")
 	@ResponseBody
-	public int deleteCartAll2(HttpServletResponse resp) {
-		Cookie cookie = new Cookie("cart", "");
-		cookie.setMaxAge(1);
-		cookie.setPath("/");
-		resp.addCookie(cookie);
+	public int deleteCart2All(HttpServletResponse resp) {
+		resp.addCookie(cartService.deleteCart2All());
 		return 1;
 	}
 	
