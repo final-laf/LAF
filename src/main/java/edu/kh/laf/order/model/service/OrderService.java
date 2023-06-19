@@ -48,7 +48,13 @@ public interface OrderService {
 	 * @param loginMember
 	 * @return
 	 */
-	int insertOrder(Order order, Map<String, Object> orderData, Member loginMember);
+	String insertOrder(Order order, Map<String, Object> orderData, Member loginMember);
+
+	/** 주문번호조회
+	 * @param orderKey
+	 * @return
+	 */
+	int selectOrderNo(String orderKey);
 
 
 }

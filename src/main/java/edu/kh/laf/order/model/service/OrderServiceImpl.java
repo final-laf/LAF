@@ -85,7 +85,7 @@ public class OrderServiceImpl implements OrderService{
 	// 주문테이블추가
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int insertOrder(Order order, Map<String, Object> orderData, Member loginMember) {
+	public String insertOrder(Order order, Map<String, Object> orderData, Member loginMember) {
 	
 		// 주문자 번호 세팅
 		// 비회원인 경우
@@ -135,10 +135,17 @@ public class OrderServiceImpl implements OrderService{
 		System.out.println(order);
 		// 주문내역 추가
 		int result = mapper.insertOrder(order);
-		return result;
+		if(result == 0) {
+			orderKey = "";
+		}
+		return orderKey;
 	}
 	
-	
+	// 주문번호조회
+	@Override
+	public int selectOrderNo(String orderKey) {
+		return mapper.selectOrderNo(orderKey);
+	}
 	
 	
 	

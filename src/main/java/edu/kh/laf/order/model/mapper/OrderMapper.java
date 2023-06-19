@@ -43,6 +43,9 @@ public interface OrderMapper {
 
 	// 주문내역추가
 	public int insertOrder(Order order);
+	
+	// 주문번호조회
+	public int selectOrderNo(String orderKey);
 
 
 	
