@@ -107,6 +107,7 @@ hr { margin: 20px 0; }
 }
 .product-option ul {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 5px;
 }
 .option-btn {
