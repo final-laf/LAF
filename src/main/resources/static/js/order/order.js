@@ -43,6 +43,10 @@ if(orderMember.memberAddress !=null){
   } );
 }
 
+// 주문자
+const orderName = document.getElementById('orderName'); // 이름
+const orderTel = document.querySelector('[name="orderTel"]');  // 전화번호
+
 // 받는 사람
 const orderDetailSame = document.getElementById('orderDetailSame');
 const orderDetailNew = document.getElementById('orderDetailNew');
@@ -54,11 +58,11 @@ const orderRecvPhone = document.querySelector('[name="orderRecvPhone"]');
 // 주소지 전환
 // 주문자 정보와 동일
 orderDetailSame.addEventListener('click', () => {
-  orderRecvName.value = orderMember.memberName;
-  orderRecvPhone.value = orderMember.memberPhone;
-  const arr = orderMember.memberAddress.split("^^^");
+  orderRecvName.value = orderName.value;
+  orderRecvPhone.value = orderTel.value;
+  const arr = document.querySelectorAll("input[name='memberAddress']");
   document.querySelectorAll("input[name='receiverAddress']").forEach( (item, i) =>{
-    item.value = arr[i];
+    item.value = arr[i].value;
   } )
 });
 // 새로운 배송지
@@ -164,7 +168,7 @@ if(loginMember != null){ // 로그인한 회원일시
 
   // 예상적립금 세팅
   document.getElementById("productPoint").innerText = totalPoint.toLocaleString() + '원';
-  document.querySelector("input[name=productPoint]").value = totalPoint; // 제출용
+  document.querySelector("input[name=pointNoGain]").value = totalPoint; // 제출용
 
   // 쿠폰 적용 전 값 저장
   let cpp = cp.innerText;
@@ -217,8 +221,12 @@ if(loginMember != null){ // 로그인한 회원일시
   applyPointBtn.addEventListener('click', () => {
     let point = 0;
     if(pointInput.value != ""){
-      point = parseInt(pointInput.value);
+      point = parseInt(pointInput.value.replace(",", ""));
     };
+    console.log(point);
+    // 사용한 포인트 금액 세팅(제출용)
+    document.querySelector("input[name=pointNoUse]").value = point;
+    // 쿠폰 할인 금액
     const cp = parseInt(document.getElementById("couponDiscount").innerText.replace(",", ""));
 
     // 할인적용 총 금액 세팅
@@ -262,6 +270,11 @@ if(loginMember != null){ // 로그인한 회원일시
 // 회원 가입 form태그가 제출 되었을 때
 document.getElementById("orderSubmit").addEventListener("submit", e => {
   e.preventDefault(); 
+
+  // 주문자 주소 세팅
+  const memberAddress = document.querySelectorAll("input[name='memberAddress']"); // 배송지주소
+  const orderAdd = document.querySelector('[name="orderAdd"]'); // 제출용세팅
+  orderAdd.value = memberAddress[0].value + "^^^" + memberAddress[1].value + "^^^" + memberAddress[2].value;
   // 배송지 주소 제출용에 세팅
   const deliveryAdd = document.querySelectorAll("input[name='receiverAddress']"); // 배송지주소
   const orderRecvAdd = document.querySelector('[name="orderRecvAdd"]'); // 제출용세팅

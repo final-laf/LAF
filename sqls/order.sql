@@ -94,3 +94,55 @@ UPDATE `address` SET address = '12008^^^서울 강남구 테헤란로98길 8^^^�
 SELECT * FROM coupon;
 INSERT INTO coupon VALUES (NULL,3,'5,000원 할인', '2023-05-01', '2055-05-01', 5000, 'm','50000',NULL,'n');
 
+-- 비회원 번호 조회
+SELECT member_no FROM `member` WHERE member_email = 'kh@avnw.dovsa';
+
+-- 주문고유번호 중복조회
+SELECT count(*) FROM `order` WHERE order_uno = "230619-3-Jej70Q";
+
+SELECT * FROM `order`;
+UPDATE `order` SET order_uno = "230619-3-NTY05K" WHERE order_no=2;
+UPDATE `order` SET order_uno = "230619-3-8EJ80Q" WHERE order_no=3;
+UPDATE `order` SET order_uno = "230619-3-JOE79H" WHERE order_no=4;
+UPDATE `order` SET order_uno = "230619-3-J8j70Q" WHERE order_no=5;
+UPDATE `order` SET order_uno = "230619-3-J5370H" WHERE order_no=6;
+UPDATE `order` SET order_uno = "230619-3-8L290Q" WHERE order_no=7;
+UPDATE `order` SET order_uno = "230619-3-2A50XH" WHERE order_no=8;
+UPDATE `order` SET order_uno = "230619-3-BI0W0H" WHERE order_no=9;
+UPDATE `order` SET order_uno = "230619-3-2IBEIA" WHERE order_no=10;
+UPDATE `order` SET order_uno = "230619-3-Y2Q2IB" WHERE order_no=11;
+UPDATE `order` SET order_uno = "230619-3-EIB82A" WHERE order_no=12;
+
+COMMIT;
+
+SELECT * FROM product;
+SELECT * FROM `option`;
+SELECT * FROM `order`;
+
+-- 주문내역 추가
+INSERT INTO `order`
+VALUES(NULL,
+	   '230619-3-Q8KNWH',
+	   3,
+	   '유저이',
+	   '11035^^^경기 평택시 청북읍 판교길 4^^^길바닥 3-4',
+	   '01043214321',
+	   NULL,
+	   208800,
+	   195500,
+	   DEFAULT,
+	   NULL,
+	   NULL,
+	   1,
+	   2,
+	   '홍길동',
+	   NULL,
+	   'A',
+	   4);
+
+
+
+
+
+
+

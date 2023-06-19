@@ -21,9 +21,11 @@ references `member` (
 -- 샘플데이터
 SELECT * FROM `address`;
 SELECT * FROM `member`;
-INSERT INTO address VALUES(NULL, 3, '집', '유저이', '경기 평택시 청북읍 판교길 4^^^길바닥 3-4', 01043214321, 'Y');
-INSERT INTO address VALUES(NULL, 3, '회사', '코카콜라', '경기도 의왕시 고천공업로 5', 01016683282, 'N');
-INSERT INTO address VALUES(NULL, 3, '왠수', '팹시', '서울 강남구 테헤란로98길 8', 01015228000, 'N');
+INSERT INTO address VALUES(NULL, 3, '집', '유저이', '경기 평택시 청북읍 판교길 4^^^길바닥 3-4', '01043214321', 'Y');
+INSERT INTO address VALUES(NULL, 3, '회사', '코카콜라', '경기도 의왕시 고천공업로 5', '01016683282', 'N');
+INSERT INTO address VALUES(NULL, 3, '왠수', '팹시', '서울 강남구 테헤란로98길 8', '01015228000', 'N');
+
+UPDATE address SET address_tel = '01015228000' WHERE address_no =3;
 
 COMMIT;
 

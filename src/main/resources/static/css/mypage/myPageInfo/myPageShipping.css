@@ -20,8 +20,6 @@
 .orderShipping-myMain-text div{
     display: flex;
     align-items: flex-end;
-
-
 }
 
 /* 테이블 구간 */
@@ -29,7 +27,6 @@
     margin: 20px 0 0 0;
     width: 100%;
     display: flex;
-    border: 1px solid #eee;
 }
 
 .orderShipping-MyMain-Shipping th{
@@ -81,7 +78,7 @@
     width: 350px;
 }
 
-.orderShipping-Shipping-button div{
+.orderShipping-Shipping-button{
     margin-top: 5px;
     display: flex;
     justify-content: space-between;

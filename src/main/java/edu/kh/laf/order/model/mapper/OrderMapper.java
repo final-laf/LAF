@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 
@@ -30,4 +31,19 @@ public interface OrderMapper {
 	
 	// 상품이름조회
 	public String SelectProductName(int productNo);
+
+	// 비회원 생성
+	public int createNonMember(Member nonMember);
+	
+	// 비회원번호조회
+	public int selectNonMember(String orderEmail);
+	
+	// 주문고유번호 중복확인
+	public int checkOrderKey(String orderKey);
+
+	// 주문내역추가
+	public int insertOrder(Order order);
+
+
+	
 }
