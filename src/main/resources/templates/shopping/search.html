@@ -80,7 +80,7 @@
                   th:unless="${product.productSale == 0}"
                   th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</span>
               </div>
-              <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount}|"></div>
+              <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
             </div>
           </div>
         </li>

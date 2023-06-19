@@ -15,16 +15,16 @@ public interface ProductService {
     Product selectProduct(long productNo);
     
     /**
-     * 카테고리별 위클리 베스트 상품 목록 조회
+     * 카테고리별 위클리 베스트 상품 목록 조회(갯수제한)
      * @return productList
      */
-    List<Product> selectWeeklyBest(int categoryNo);
+    List<Product> selectWeeklyBest(int categoryNo, int limit);
     
     /**
      * 카테고리 전체 상품 목록 조회
      * @return productList
      */
-    List<Product> selectCategoryProductList(int categoryNo);
+    List<Product> selectCategoryProductList(int categoryNo, long memberNo);
     
     /**
      * 카테고리 상품 목록 조회(갯수제한)

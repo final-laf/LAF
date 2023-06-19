@@ -30,7 +30,7 @@ public class MainController {
     public String home(Model model, @SessionAttribute(required = false) Member loginMember) {
     	
     	List<Banner> bannerList = mainService.selectBannerList();
-    	List<Product> weeklyBest = productService.selectWeeklyBest(1); // 1:TOP
+    	List<Product> weeklyBest = productService.selectWeeklyBest(1, 7); // 1:TOP
         List<Product> mdList = productService.selectCategoryProductList(8, 20); // 8:MD추천
         List<Product> newArrivals = productService.selectNewArrivalProductList(); // 신규상품
         
@@ -49,7 +49,7 @@ public class MainController {
     @GetMapping("/weekly")
     @ResponseBody
     public List<Product> weeklyBest(int no, Model model) {
-        return productService.selectWeeklyBest(no);
+        return productService.selectWeeklyBest(no, 7);
     }
     
 }

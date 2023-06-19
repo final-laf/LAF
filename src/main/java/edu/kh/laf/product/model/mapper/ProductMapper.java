@@ -20,7 +20,7 @@ public interface ProductMapper {
      * 카테고리별 위클리 베스트 상품 목록 조회
      * @return weeklyBest
      */
-    List<Product> selectWeeklyBest(int categoryNo);
+    List<Product> selectWeeklyBest(Map<String, Object> map);
     
     /**
      * 카테고리별 상품 목록 조회

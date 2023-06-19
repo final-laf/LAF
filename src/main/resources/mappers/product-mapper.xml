@@ -44,7 +44,7 @@
 				AND parent_category_no = ${categoryNo}
 				and product_state = 'O' -- 판매중
 		ORDER BY click_count asc, product_sale_price desc
-		LIMIT 7
+		LIMIT ${limit}
 	</select>
 	
 	<!-- 카테고리별 상품 목록 조회 -->
@@ -59,7 +59,14 @@
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				click_count,
 				img_path AS thumbnail_path,
-				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				<if test="memberNo > 0">
+				(
+					SELECT 	 count(*) 
+					FROM 	`like`
+					WHERE 	`product`.product_no = `like`.product_no
+						     and `like`.member_no = ${memberNo}
+				) AS like_count, 
+				</if>
 				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no

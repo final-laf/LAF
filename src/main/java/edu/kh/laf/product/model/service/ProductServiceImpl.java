@@ -23,17 +23,22 @@ public class ProductServiceImpl implements ProductService {
         return mapper.selectProduct(productNo);
     }
     
-    // 카테고리별 위클리 베스트 상품 목록 조회
+    // 카테고리별 위클리 베스트 상품 목록 조회(갯수제한)
     @Override
-	public List<Product> selectWeeklyBest(int categoryNo) {
-		return mapper.selectWeeklyBest(categoryNo);
+	public List<Product> selectWeeklyBest(int categoryNo, int limit) {
+    	Map<String, Object> map = new HashMap<>();
+		map.put("categoryNo", categoryNo);
+		map.put("limit", limit);
+    	
+		return mapper.selectWeeklyBest(map);
 	}
 
     // 카테고리 전체 상품 목록 조회
     @Override
-    public List<Product> selectCategoryProductList(int categoryNo) {
+    public List<Product> selectCategoryProductList(int categoryNo, long memberNo) {
     	Map<String, Object> map = new HashMap<>();
     	map.put("categoryNo", categoryNo);
+    	map.put("memberNo", memberNo);
     	
     	return mapper.selectCategoryProductList(map);
     }
