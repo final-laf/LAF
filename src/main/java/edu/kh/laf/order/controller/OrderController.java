@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
@@ -105,6 +104,8 @@ public class OrderController {
 						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList) {
 		
 		System.out.println(order);
+		System.out.println(order.getCouponNo());
+		System.out.println(order.getPointNoUse());
 		
 		// 주문테이블추가
 		int result = service.insertOrder(order,orderData,loginMember);

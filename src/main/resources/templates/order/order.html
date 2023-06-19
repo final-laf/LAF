@@ -188,7 +188,7 @@
             <tr th:if="${session.loginMember}" >
               <th>쿠폰 할인 (보유쿠폰 <div th:text="${#lists.size(couponList)}">0</div>개)</th>
               <th>
-                <input type="hidden" name="couponNo" id="couponNo">
+                <input type="hidden" name="couponNo" id="couponNo" value="0">
                 <div><span id="couponDiscount">0</span>원</div>
                 <button type="button" id="orderDetailCoupon">쿠폰적용</button>
               </th>
@@ -203,12 +203,12 @@
               <th>
                 <div><input name="usePoint" id="usePoint" type="text" th:max="*{memberPoint}">원</div>
                 <button id="applyPointBtn" type="button">할인적용</button>
-                <input type="hidden" name="pointNoUse">
+                <input type="hidden" name="pointNoUse" value="0">
               </th>
             </tr>
             <tr>
               <th>할인 적용 금액</th>
-              <th class="mypageOrderDiscountRed" id="applyDiscount">-0원</th>
+              <th class="mypageOrderDiscountRed" id="applyDiscount" value="0">-0원</th>
             </tr>
           </table>
         </div>

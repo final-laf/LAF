@@ -102,10 +102,10 @@ SELECT count(*) FROM `order` WHERE order_uno = "230619-3-Jej70Q";
 
 SELECT * FROM `order`;
 UPDATE `order` SET order_uno = "230619-3-NTY05K" WHERE order_no=2;
-UPDATE `order` SET order_uno = "230619-3-8EJ80Q" WHERE order_no=3;
-UPDATE `order` SET order_uno = "230619-3-JOE79H" WHERE order_no=4;
-UPDATE `order` SET order_uno = "230619-3-J8j70Q" WHERE order_no=5;
-UPDATE `order` SET order_uno = "230619-3-J5370H" WHERE order_no=6;
+UPDATE `order` SET order_uno = "230619-3-8E88ZQ" WHERE order_no=13;
+UPDATE `order` SET order_uno = "230619-3-JO879H" WHERE order_no=14;
+UPDATE `order` SET order_uno = "230619-3-J887ZQ" WHERE order_no=15;
+UPDATE `order` SET order_uno = "230619-3-J58Z0H" WHERE order_no=16;
 UPDATE `order` SET order_uno = "230619-3-8L290Q" WHERE order_no=7;
 UPDATE `order` SET order_uno = "230619-3-2A50XH" WHERE order_no=8;
 UPDATE `order` SET order_uno = "230619-3-BI0W0H" WHERE order_no=9;
@@ -140,7 +140,8 @@ VALUES(NULL,
 	   'A',
 	   4);
 
-
+-- 주문번호조회
+SELECT order_no FROM `order` WHERE order_uno = '230619-3-Q8KNWH';
 
 
 

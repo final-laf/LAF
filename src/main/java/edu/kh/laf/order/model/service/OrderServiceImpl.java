@@ -110,6 +110,8 @@ public class OrderServiceImpl implements OrderService{
 				order.setMemberNo(nonMemberNo);
 			}
 		}
+		System.out.println(order);
+		
 		
 		// 주문고유번호 세팅
 		// 주문고유번호 중복확인

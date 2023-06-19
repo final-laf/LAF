@@ -104,7 +104,8 @@
 			   #{paymentName},
 			   NULL,
 			   #{orderState},
-			   #{couponNo});
+			   #{couponNo}
+			   )
 	</insert>
 	
 	
