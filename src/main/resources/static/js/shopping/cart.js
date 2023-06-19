@@ -7,7 +7,6 @@ function updateCart() {
     // 회원 : update DB
     const dataStr = encodeURIComponent(JSON.stringify(data));
     url = "/cart/update?data=" + dataStr;
-    console.log("dataStr : " + dataStr);
   } else {
     // 비회원 : update cookie
     let cookieStr = "";
@@ -19,7 +18,6 @@ function updateCart() {
   fetch(url)
   .then(resp => resp.text())
   .then(result => {
-    console.log("result : " + result);
     if(result <= 0 ) alert('업데이트 실패');
   }) 
   .catch(err => console.log(err));
@@ -411,8 +409,8 @@ colorSelector.addEventListener('change', e => {
     const opNo = [];
 
     for (let op of optionList) {
-      if(op.color == color && size.indexOf(op.size) == -1) {
-        size.push(op.size);
+      if(op.color == color && (op.size == null || size.indexOf(op.size) == -1)) {
+        if(op.size != null) size.push(op.size);
         stock.push(op.stock > 0 ? op.stock : 0);
         opNo.push(op.optionNo);
       }
@@ -440,9 +438,9 @@ colorSelector.addEventListener('change', e => {
 
       // DB, 쿠키 업데이트
       optionInput.value = newOpNo;
-      optionText.value = '[옵션 : ' + color + '/' + size[0] + ']';
+      optionText.innerText = '[옵션 : ' + color + ']';
       updateCart();
-
+      
       modalOverlay.click();
       return;
     }

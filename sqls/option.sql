@@ -55,8 +55,13 @@ INSERT INTO `option` VALUES (NULL, 8, 'FREE', '블랙', 13, '이천', 2);
 INSERT INTO `option` VALUES (NULL, 15, 'FREE', '중청', 14, '이천', 1);
 INSERT INTO `option` VALUES (NULL, 15, 'FREE', '진청', 13, '이천', 2);
 
-INSERT INTO `option` VALUES (NULL, 6, default, '내추럴크림', 0, '이천', 20);
-INSERT INTO `option` VALUES (NULL, 6, default, '네이비', 10, '이천', 10);
+INSERT INTO `option` VALUES (NULL, 6, 'FREE', '내추럴크림', 0, '이천', 20);
+INSERT INTO `option` VALUES (NULL, 6, 'FREE', '네이비', 10, '이천', 10);
+
+INSERT INTO `option` VALUES (NULL, 6, NULL, '핑크', 10, '이천', 10);
+INSERT INTO `option` VALUES (NULL, 6, NULL, '스카이', 10, '이천', 10);
+INSERT INTO `option` VALUES (NULL, 6, NULL, '브라운', 10, '이천', 10);
+
 
 COMMIT;
 
