@@ -131,3 +131,24 @@ LIMIT 7
 ALTER TABLE laf.product ADD product_point int(11) NULL;
 
 COMMIT;
+
+
+
+
+SELECT `product`.product_no,
+			   `product`.product_name,
+			   `product`.product_price,
+			   `product`.product_sale_price,
+			   `product`.product_sale,
+			   `product`.product_point,
+			   `product`.product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				product_date AS product_date_for_ordering,
+				click_count,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count_for_ordering,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		ORDER BY 
+				(click_count + like_count_for_ordering + review_count) desc

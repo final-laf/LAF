@@ -96,12 +96,13 @@ public class ProductController {
 	@GetMapping("/search")
 	public String navSearch(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
-			String query, Model model) {
+			String query, String ordering, Model model) {
 
 		long MemberNo = loginMember == null ? -1 : loginMember.getMemberNo();
-		List<Product> productList = productService.search(query, MemberNo);
+		List<Product> productList = productService.search(query, ordering, MemberNo);
 		model.addAttribute("productList", productList);
 		model.addAttribute("query", query);
+		model.addAttribute("ordering", ordering);
 		
 		return "/shopping/search";
 	}

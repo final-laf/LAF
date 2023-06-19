@@ -47,6 +47,12 @@ public class ProductServiceImpl implements ProductService {
 		
 		return mapper.selectCategoryProductList(map);
 	}
+	
+	// 신규 등록 상품 목록 조회(20개)
+	@Override
+	public List<Product> selectNewArrivalProductList() {
+		return mapper.selectNewArrivalProductList();
+	}
 
 	// 개인별 맞춤 상품 추천
 	@Override
@@ -62,12 +68,13 @@ public class ProductServiceImpl implements ProductService {
 
 	// 상품 검색
 	@Override
-	public List<Product> search(String query, long memberNo) {
+	public List<Product> search(String query, String ordering, long memberNo) {
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("query", query);
 		map.put("memberNo", memberNo);
+		map.put("ordering", ordering);
 		
 		return mapper.search(map);
 	}
-
 }

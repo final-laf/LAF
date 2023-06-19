@@ -1,4 +1,4 @@
-// 베스트 아이템 마우스오버 시 정보 출력
+/* 베스트 아이템 마우스오버 시 정보 출력 */
 const bestItemImages = document.querySelectorAll('.categoryList-best-item img');
 const itemDescriptions = document.getElementsByClassName('item-description');
 for (let i = 0; i < bestItemImages.length; i++) {
@@ -10,7 +10,7 @@ for (let i = 0; i < bestItemImages.length; i++) {
   });
 }
 
-// 좋아요(♡) 클릭 시 이미지 변경 + 찜 목록에 추가
+/* 좋아요(♡) 클릭 시 이미지 변경 + 찜 목록에 추가 */
 const likeImages = document.querySelectorAll('img.like');
 for (let like of likeImages) {
   like.addEventListener('click', e => {
@@ -53,3 +53,23 @@ for (let like of likeImages) {
     }
   });
 }
+
+/* 검색 정렬 순서 변경 */
+// const orderingList = document.querySelector('#orderingList');
+// const orderingOptions = orderingList.querySelectorAll('li');
+// for(let o of orderingOptions) {
+//   o.addEventListener('click', e => {
+//     document.querySelector('#orderingList > li.current').classList.remove('current');
+//     e.target.classList.add('current');
+
+//     const query = decodeURI(location.search.split('=')[1]);
+//     const ordering = e.target.getAttribute('value');
+
+//     fetch("/search?query=" + query + "&ordering=" + ordering)
+//     .then(resp => resp.json())
+//     .then(productList => {
+//       console.log(productList);
+//     }) 
+//     .catch(err => console.log(err));
+//   });
+// }

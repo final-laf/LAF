@@ -33,6 +33,12 @@ public interface ProductService {
     List<Product> selectCategoryProductList(int categoryNo, int limit);
     
     /**
+     * 신규 등록 상품 목록 조회(20개)
+     * @return productList
+     */
+    List<Product> selectNewArrivalProductList();
+    
+    /**
 	 * 개인별 맞춤 상품 추천
 	 * @param memberNo
 	 * @return productList
@@ -49,8 +55,9 @@ public interface ProductService {
 	/**
 	 * 상품별 검색
 	 * @param query
-	 * @param long1 
+	 * @param ordering 
+	 * @param memberNo 
 	 * @return productList
 	 */
-	List<Product> search(String query, long long1);
+	List<Product> search(String query, String ordering, long memberNo);
 }

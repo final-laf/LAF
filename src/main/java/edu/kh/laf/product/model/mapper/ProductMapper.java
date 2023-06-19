@@ -29,6 +29,13 @@ public interface ProductMapper {
     List<Product> selectCategoryProductList(Map<String, Object> map);
 
     /**
+     * 신규 등록 상품 목록 조회(20개)
+     * @return productList
+     */
+    List<Product> selectNewArrivalProductList();
+    
+    
+    /**
      * 개인별 맞춤 상품 추천
      * @param memberNo
      * @return productList

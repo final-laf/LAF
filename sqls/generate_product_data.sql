@@ -9,7 +9,7 @@ VALUES(
 	36000, 					-- 할인가
 	0, 						-- 할인율
 	360,					-- 구매시 적립 포인트
-	default, 				-- 상품 상태(기본값: N-비공개)
+	'O', 				-- 상품 상태(기본값: N-비공개, O-판매중, S-품절)
 	default, 				-- 상품 등록일
 	DEFAULT					-- 조회수
 );
@@ -58,9 +58,9 @@ values(
 
 
 
+-- 카테고리 확인
 
-
-
+select * from `parent_category_cd`;
 
 -- 부모 카테고리 생성
 insert into `parent_category_cd`

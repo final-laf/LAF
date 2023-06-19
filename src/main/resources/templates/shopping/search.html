@@ -30,14 +30,26 @@
       <!-- 아이템 목록 상단(상품 갯수, 정렬방법) -->
       <div class="categoryList-product-header">
         <div class="product-count"><span th:text="${#lists.size(productList)}"></span> 개의 상품</div>
-        <ul class="categoryList-order">
+        <ul class="categoryList-order" id="orderingList">
           <!-- 현재 정렬방식에 current 클래스 추가 -->
-          <li><a href="#" class="current">신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
-          <li><a href="#">상품명 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=new(q=${query})}" 
+            th:classappend="${ordering == 'new'} or ${ordering == null} ? 'current'">
+            신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
+          <li><a th:href="@{/search?query={q}&ordering=name(q=${query})}"
+            th:classappend="${ordering == 'name'} ? 'current'">
+            상품명 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=low(q=${query})}"
+            th:classappend="${ordering == 'low'} ? 'current'">
+            낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=high(q=${query})}"
+            th:classappend="${ordering == 'high'} ? 'current'">
+            높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=pop(q=${query})}"
+            th:classappend="${ordering == 'pop'} ? 'current'">
+            인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=rev(q=${query})}"
+            th:classappend="${ordering == 'rev'} ? 'current'">
+            사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
         </ul>
       </div>
 
