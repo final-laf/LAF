@@ -92,4 +92,11 @@ public class ProductController {
 		return optionService.selectOptionList(productNo);
 	}
 	
+	// 상품검색(상단바)
+	@GetMapping("/search")
+	public String navSearch(String query, Model model) {
+		
+		model.addAttribute("query", query);
+		return "/shopping/search";
+	}
 }
