@@ -4,6 +4,7 @@ import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.member.model.service.MemberServiceImpl;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
@@ -50,11 +51,24 @@ public class MemberController {
 			, @RequestParam(value="saveId", required=false) String saveId
 			, HttpServletResponse resp
 			, RedirectAttributes ra
+			, HttpServletRequest request
 			) {
 		
 		Member loginMember = service.login(inputMember);
 		String path = "redirect:"; 
 		if(loginMember != null) { // 로그인 성공 시
+			
+			
+			// 비회원인지 조회 후 이전페이지로 리다이렉트
+			if(loginMember.getMemberNot().toUpperCase().equals("Y")) {
+				ra.addFlashAttribute("message", "회원가입이 되어있지 않은 회원입니다.");
+				return path += referer;
+			}
+			
+			// 기존에 있던 세션 정보를 초기화
+			request.getSession().invalidate();
+			request.getSession(true);
+
 			path += "/"; // 메인페이지로 리다이렉트
 			model.addAttribute("loginMember", loginMember);
 			
