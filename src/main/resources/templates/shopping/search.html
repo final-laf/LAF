@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/shopping/categoryList.css}">
+  <link rel="stylesheet" th:href="@{/css/shopping/search.css}">
+  <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
+  <title th:text="|LAF :: ${query}|"></title>
+</head>
+<body>
+
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
+  
+  <main>
+
+    <section id="searchSection">
+      <div class="section-title"><span th:text="|'${query}'|"></span> 검색 결과</div>
+      <form action="/search">
+        <input type="text" name="query" placeholder="검색어를 입력해주세요">
+        <button class="submit">검색</button>
+      </form>
+    </section>
+
+    <!-- PRODUCTS LIST -->
+    <section id="categoryList-product-container">
+      
+      <!-- 아이템 목록 상단(상품 갯수, 정렬방법) -->
+      <div class="categoryList-product-header">
+        <div class="product-count"><span th:text="${#lists.size(productList)}"></span> 개의 상품</div>
+        <ul class="categoryList-order" id="orderingList">
+          <!-- 현재 정렬방식에 current 클래스 추가 -->
+          <li><a th:href="@{/search?query={q}&ordering=new(q=${query})}" 
+            th:classappend="${ordering == 'new'} or ${ordering == null} ? 'current'">
+            신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
+          <li><a th:href="@{/search?query={q}&ordering=name(q=${query})}"
+            th:classappend="${ordering == 'name'} ? 'current'">
+            상품명 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=low(q=${query})}"
+            th:classappend="${ordering == 'low'} ? 'current'">
+            낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=high(q=${query})}"
+            th:classappend="${ordering == 'high'} ? 'current'">
+            높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=pop(q=${query})}"
+            th:classappend="${ordering == 'pop'} ? 'current'">
+            인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search?query={q}&ordering=rev(q=${query})}"
+            th:classappend="${ordering == 'rev'} ? 'current'">
+            사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
+        </ul>
+      </div>
+
+      <!-- 아이템 목록 -->
+      <ul class="categoryList-product-item-container">
+
+        <li class="categoryList-product-item" th:each="product : ${productList}" th:productNo="${product.productNo}">
+          <a class="link" th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+            <img th:src="${product.thumbnailPath}">
+          </a>
+          <img class="like" th:if="${product.likeCount > 0}" th:src="@{/images/common/like-fill.svg}" value="like">
+          <img class="like" th:unless="${product.likeCount > 0}" th:src="@{/images/common/like-grey.svg}">
+          <div class="item-description">
+            <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+              <div class="item-name" th:text="${product.productName}">제품 이름</div>
+            </a>
+            <div class="item-description-bottom">
+              <div class="item-price-set">
+                <span 
+                  class="item-price" 
+                  th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">할인가</span>
+                <span 
+                  class="item-price-discount" 
+                  th:unless="${product.productSale == 0}"
+                  th:text="${product.productSale + '%'}">할인율</span>
+                <span 
+                  class="item-price-origin" 
+                  th:unless="${product.productSale == 0}"
+                  th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</span>
+              </div>
+              <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+
+      <!-- 페이징 -->
+      <div class="pagination-area">
+
+          <ul class="pagination">
+          
+              <!-- 첫 페이지로 이동 -->
+              <li><a><img th:src="@{/images/common/paging/first-page.svg}"></a></li>
+
+              <!-- 이전 목록 마지막 번호로 이동 -->
+              <li><a><img th:src="@{/images/common/paging/prev-page.svg}"></a></li>
+
+              <li><a class="current">1</a></li>
+              <li><a>2</a></li>
+              <li><a>3</a></li>
+              <li><a>4</a></li>
+              <li><a>5</a></li>
+              <li><a>6</a></li>
+    
+              <!-- 다음 목록 시작 번호로 이동 -->
+              <li><a><img th:src="@{/images/common/paging/next-page.svg}"></a></li>
+              
+              <!-- 끝 페이지로 이동 -->
+              <li><a><img th:src="@{/images/common/paging/last-page.svg}"></a></li>
+          </ul>
+      </div>
+
+    </section>
+  </main>
+
+  <th:block th:replace="~{/common/footer}"></th:block>
+  <script th:src="@{/js/shopping/categoryList.js}"></script>
+</body>
+</html>

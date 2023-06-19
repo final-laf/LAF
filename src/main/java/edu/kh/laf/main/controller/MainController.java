@@ -30,9 +30,9 @@ public class MainController {
     public String home(Model model, @SessionAttribute(required = false) Member loginMember) {
     	
     	List<Banner> bannerList = mainService.selectBannerList();
-    	List<Product> weeklyBest = productService.selectWeeklyBest(1); // 1:TOP
+    	List<Product> weeklyBest = productService.selectWeeklyBest(1, 7); // 1:TOP
         List<Product> mdList = productService.selectCategoryProductList(8, 20); // 8:MD추천
-        List<Product> newArrivals = productService.selectCategoryProductList(10, 20); // 10:NEW
+        List<Product> newArrivals = productService.selectNewArrivalProductList(); // 신규상품
         
         long memberNo = loginMember == null ? 0 : loginMember.getMemberNo();
         List<Product> personalList = productService.selectPersonalProductList(memberNo);
@@ -49,7 +49,7 @@ public class MainController {
     @GetMapping("/weekly")
     @ResponseBody
     public List<Product> weeklyBest(int no, Model model) {
-        return productService.selectWeeklyBest(no);
+        return productService.selectWeeklyBest(no, 7);
     }
     
 }

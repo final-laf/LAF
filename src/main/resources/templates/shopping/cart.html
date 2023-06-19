@@ -59,7 +59,16 @@
                 th:text="${product.productName}">상품명</a>
               <p class="cart-item-product-option">
                 <button class="option-change-btn" type="button">옵션변경</button>
-                <span class="cart-item-selected-option">[옵션 : <th:block th:text="|${optionList[productStat.index].color} / ${optionList[productStat.index].size}|">옵션정보</th:block>]</span>
+
+                <!-- 사이즈가 있는 상품 -->
+                <span class="cart-item-selected-option" 
+                  th:unless="${optionList[productStat.index].size == null} or ${optionList[productStat.index].size == 1}"
+                  th:text="|[옵션 : ${optionList[productStat.index].color} / ${optionList[productStat.index].size}]|">옵션정보</span>
+
+                <!-- 사이즈가 없는 상품(원사이즈) -->
+                <span class="cart-item-selected-option"
+                  th:if="${optionList[productStat.index].size == null} or ${optionList[productStat.index].size == 1}"
+                  th:text="|[옵션 : ${optionList[productStat.index].color}]|">옵션정보</span>
               </p>
             </td>
             

@@ -30,7 +30,6 @@ public interface CartService {
 	 */
 	int insertCart(String data, Long memberNo);
 
-
 	/**
 	 * [비회원] 장바구니에 상품 추가
 	 * @param cookies
@@ -45,6 +44,12 @@ public interface CartService {
 	 * @return result
 	 */
 	int deleteCartAll(Long memberNo);
+	
+	/**
+	 * [비회원] 장바구니 상품 전체 삭제
+	 * @return cookie
+	 */
+	Cookie deleteCart2All();
 
 	/**
 	 * [회원] 장바구니 상품 선택 삭제
@@ -63,16 +68,16 @@ public interface CartService {
 	Cookie deleteCart2(Cookie[] cookies, String data);
 
 	/**
-	 * 결제완료 후 장바구니 상품 삭제
+	 * [회원] 결제완료 후 장바구니 상품 삭제
 	 * @param orderList
 	 * @return result
 	 */
 	int deleteCartAfterOrder(List<OrderProduct> orderList);
-
-
-
-
 	
-
-
+	/**
+	 * [비회원] 결제완료 후 장바구니 상품 삭제
+	 * @param orderList
+	 * @return cookie
+	 */
+	Cookie deleteCart2AfterOrder(Cookie[] cookies, List<OrderProduct> orderList);
 }

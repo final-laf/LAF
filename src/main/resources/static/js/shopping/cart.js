@@ -7,7 +7,6 @@ function updateCart() {
     // 회원 : update DB
     const dataStr = encodeURIComponent(JSON.stringify(data));
     url = "/cart/update?data=" + dataStr;
-    console.log("dataStr : " + dataStr);
   } else {
     // 비회원 : update cookie
     let cookieStr = "";
@@ -19,7 +18,6 @@ function updateCart() {
   fetch(url)
   .then(resp => resp.text())
   .then(result => {
-    console.log("result : " + result);
     if(result <= 0 ) alert('업데이트 실패');
   }) 
   .catch(err => console.log(err));
@@ -139,6 +137,7 @@ for(let btn of deleteBtns) {
     .then(result => {
       if(result > 0) {
         tr.remove();
+        estimate();
 
         // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
         const table = document.querySelector('#cartItemList > table');
@@ -174,7 +173,7 @@ clearCartBtn.addEventListener('click', () => {
 
   // [비회원]
   if(loginMember == undefined) {
-    url = "/cart/deleteAll2"
+    url = "/cart/delete2All"
   }
 
   fetch(url)
@@ -187,6 +186,7 @@ clearCartBtn.addEventListener('click', () => {
       for(let el of rowList) {
           el.remove();
       }
+      estimate();
 
       // 남은 상품이 하나도 없다고 표시
       const td = document.createElement('td');
@@ -242,6 +242,7 @@ deleteSelectedBtn.addEventListener('click', () => {
           el.remove();
         }
       }
+      estimate();
 
       // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
       const table = document.querySelector('#cartItemList > table');
@@ -408,15 +409,15 @@ colorSelector.addEventListener('change', e => {
     const opNo = [];
 
     for (let op of optionList) {
-      if(op.color == color && size.indexOf(op.size) == -1) {
-        size.push(op.size);
+      if(op.color == color && (op.size == null || size.indexOf(op.size) == -1)) {
+        if(op.size != null) size.push(op.size);
         stock.push(op.stock > 0 ? op.stock : 0);
         opNo.push(op.optionNo);
       }
     }
 
     /* 원사이즈 제품인 경우 */
-    if(size.length == 1) {
+    if(size.length <= 1) {
       
       let newOpNo = -1;
       for(let o of e.target.children) {
@@ -437,9 +438,9 @@ colorSelector.addEventListener('change', e => {
 
       // DB, 쿠키 업데이트
       optionInput.value = newOpNo;
-      optionText.value = '[옵션 : ' + color + '/' + size[0] + ']';
+      optionText.innerText = '[옵션 : ' + color + ']';
       updateCart();
-
+      
       modalOverlay.click();
       return;
     }

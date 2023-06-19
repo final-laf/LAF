@@ -131,3 +131,52 @@ LIMIT 7
 ALTER TABLE laf.product ADD product_point int(11) NULL;
 
 COMMIT;
+
+
+
+-- 검색
+SELECT `product`.product_no,
+			   `product`.product_name,
+			   `product`.product_price,
+			   `product`.product_sale_price,
+			   `product`.product_sale,
+			   `product`.product_point,
+			   `product`.product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				product_date AS product_date_for_ordering,
+				click_count,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count_for_ordering,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		ORDER BY 
+				(click_count + like_count_for_ordering + review_count) desc
+
+	
+-- product_state 일괄 갱신
+update product set product_state = 'O';
+
+
+
+-- TOP 베스트상품 검색
+SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+				JOIN `product_category` ON `product`.product_no = `product_category`.product_no
+		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
+				AND parent_category_no = 1
+				and product_state = 'O' -- 판매중
+		ORDER BY click_count asc, product_sale_price desc
+		LIMIT 20

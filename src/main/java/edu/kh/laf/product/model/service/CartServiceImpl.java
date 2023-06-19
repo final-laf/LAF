@@ -98,8 +98,22 @@ public class CartServiceImpl implements CartService {
 		return cookie;
 	}
 	
-
-	// [회원] 장바구니 상품 삭제
+	// [회원] 장바구니 상품 전체 삭제
+	@Override
+	public int deleteCartAll(Long memberNo) {
+		return mapper.deleteCartAll(memberNo);
+	}
+	
+	// [비회원] 장바구니 상품 전체 삭제
+	@Override
+	public Cookie deleteCart2All() {
+		Cookie cookie = new Cookie("cart", "");
+		cookie.setMaxAge(1);
+		cookie.setPath("/");
+		return cookie;
+	}
+	
+	// [회원] 장바구니 상품 선택 삭제
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int deleteCart(String data, Long memberNo) {
@@ -119,24 +133,6 @@ public class CartServiceImpl implements CartService {
 			cartList.add(cart);
 		}
 	
-		return mapper.deleteCart(cartList);
-	}
-
-	// [회원] 주문완료 후 장바구니 삭제
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int deleteCartAfterOrder(List<OrderProduct> orderList) {
-		
-		// Cart 타입 리스트에 담기
-		List<Cart> cartList = new ArrayList<>();
-		for(OrderProduct o : orderList) {			
-			Cart cart = new Cart();	
-			cart.setMemberNo(o.getMemberNo());
-			cart.setProductNo(o.getProductNo());
-			cart.setOptionNo(o.getOptionNo());
-			cartList.add(cart);
-		}
-		
 		return mapper.deleteCart(cartList);
 	}
 
@@ -182,11 +178,66 @@ public class CartServiceImpl implements CartService {
 		
 		return cookie;
 	}
-
-	// [회원] 장바구니 상품 전체 삭제
-	@Override
-	public int deleteCartAll(Long memberNo) {
-		return mapper.deleteCartAll(memberNo);
-	}
 	
+	// [회원] 결제완료 후 장바구니 상품 삭제
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteCartAfterOrder(List<OrderProduct> orderList) {
+		
+		// Cart 타입 리스트에 담기
+		List<Cart> cartList = new ArrayList<>();
+		for(OrderProduct o : orderList) {			
+			Cart cart = new Cart();	
+			cart.setMemberNo(o.getMemberNo());
+			cart.setProductNo(o.getProductNo());
+			cart.setOptionNo(o.getOptionNo());
+			cartList.add(cart);
+		}
+		
+		return mapper.deleteCart(cartList);
+	}
+
+	
+	// [비회원] 결제완료 후 장바구니 상품 삭제
+	@Override
+	public Cookie deleteCart2AfterOrder(Cookie[] cookies, List<OrderProduct> orderList) {
+		
+		// 이전 장바구니 정보 찾기
+		String newData = "";
+		for(Cookie c : cookies) {
+			if(c.getName().equals("cart")) {
+				newData = c.getValue();;
+			}
+		}
+		
+		// 주문 완료된 상품 기존 쿠키에서 지우기
+		for(OrderProduct order : orderList) {
+			String tmp = order.getProductNo() + "-" + order.getOptionNo() + "-" + order.getCount() + "@";
+			newData.replace(tmp, "");
+		}
+		
+		// 신규 쿠키 데이터 생성
+		Cookie cookie = new Cookie("cart", newData);
+
+		if(newData.trim().length() == 0) {
+			cookie.setMaxAge(0);
+		} else {
+
+			// 오늘 자정에 쿠키 만료
+			Calendar tomorrow = Calendar.getInstance();
+			long now = tomorrow.getTimeInMillis();		
+			tomorrow.add(Calendar.DATE, 1);
+			tomorrow.set(Calendar.HOUR, 0);
+			tomorrow.set(Calendar.MINUTE, 0);
+			tomorrow.set(Calendar.SECOND, -1);
+			long tomo = tomorrow.getTimeInMillis();
+			int sec = (int) ((tomo - now) / 1000);
+			cookie.setMaxAge(sec);
+		}
+		
+		// 기타 정보 지정
+		cookie.setPath("/");
+		
+		return cookie;
+	}
 }

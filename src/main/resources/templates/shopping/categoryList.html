@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/shopping/categoryList.css">
+  <link rel="stylesheet" th:href="@{/css/shopping/categoryList.css}">
   <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
   <title>LAF :: TOP</title>
 </head>
@@ -20,127 +20,32 @@
       <!-- 섹션 헤더(제목, 설명) -->
       <div class="section-header best">
         <div class="section-title">BEST ITEMS</div>
-        <div class="section-description">한 주동안 가장 인기🔥있던 상품들입니다💗</div>
+        <div class="section-description">한 주동안 가장 🔥인기🔥있었던 상품들입니다💗</div>
       </div>
 
       <!-- 베스트 상품 목록 -->
-      <!-- 반드시 10개 출력 -->
       <ul class="categoryList-section-container best-item">
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/prouduct/thumbnail/1.gif"></a>
+        
+        <li class="categoryList-best-item" th:each="product : ${bestList}">
+          <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+            <img class="thumbnail" th:src="${product.thumbnailPath}">
+          </a>
           <div class="item-description hidden">
-            <div class="item-name">✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color</div>
+            <div class="item-name" th:if="${#strings.length(product.productName) > 26}" 
+              th:text="${#strings.substring(product.productName, 0, 26) + '…'}">제품 이름</div>
+            <div class="item-name" th:unless="${#strings.length(product.productName) > 26}" 
+              th:text="${product.productName}">제품 이름</div>
             <div class="item-price-set">
-              <span class="item-price">32,500</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-best-item">
-          <a href="/product/1"><img src="/images/sample/18889.gif"></a>
-          <div class="item-description hidden">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥...</div>
-            <div class="item-price-set">
-              <span class="item-price">25,800</span>
-              <span class="item-price-origin">28,700</span>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
+              <span class="item-price" 
+                th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">할인가</span>
+              <span class="item-price-origin" 
+                th:unless="${product.productSale == 0}"
+                th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</span>
+              <div class="item-additional-info">
+                <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
+                <img th:src="@{/images/common/like-fill.svg}">
+                <span th:text="${product.likeCount}"></span>
+              </div>
             </div>
           </div>
         </li>
@@ -178,124 +83,41 @@
 
       <!-- 아이템 목록 -->
       <ul class="categoryList-product-item-container">
-        <li class="categoryList-product-item">
-          <a href="/product/1"><img src="/images/prouduct/thumbnail/1.gif"></a>
-          <img class="like" src="/images/common/like-fill.svg">
-          <div class="item-description">
-            <a href="/product/1">
-              <div class="item-name">✨재구매1등✨[98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color</div>
+
+        <li class="categoryList-product-item" th:each="product : ${productList}" th:productNo="${product.productNo}">
+          <a class="link" th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+            <img th:src="${product.thumbnailPath}">
+          </a>
+          <img class="like" th:if="${product.likeCount > 0}" th:src="@{/images/common/like-fill.svg}" value="like">
+          <img class="like" th:unless="${product.likeCount > 0}" th:src="@{/images/common/like-grey.svg}">
+          <div class="item-description-bottom-container">
+
+            <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+              <div class="item-name" th:text="${product.productName}">제품 이름</div>
             </a>
+
             <div class="item-description-bottom">
               <div class="item-price-set">
-                <span class="item-price">32,500</span>
-                <span class="item-price-discount"></span>
-                <span class="item-price-origin"></span>
+                <span class="item-price" 
+                  th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">할인가</span>
+                <span class="item-price-discount" 
+                  th:unless="${product.productSale == 0}"
+                  th:text="${product.productSale + '%'}">할인율</span>
+                <span class="item-price-origin" 
+                  th:unless="${product.productSale == 0}"
+                  th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</span>
               </div>
-              <div class="item-rieview-count">리뷰 개수 : <span>702</span></div>
+
+              <div class="item-additional-info">
+                <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
+                <img th:src="@{/images/common/like-fill.svg}">
+                <span th:text="${product.likeCount}"></span>
+              </div> 
             </div>
+
           </div>
         </li>
 
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-grey.svg">
-          <div class="item-description">
-            <div class="item-name">여름신상10%🎁[98project] 스퀘어즈 쫀쫀 스탠다드 반팔 T - 4 color</div>
-            <div class="item-description-bottom">
-              <div class="item-price-set">
-                <span class="item-price">25,800</span>
-                <span class="item-price-discount">10%</span>
-                <span class="item-price-origin">28,700</span>
-              </div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-grey.svg">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-grey.svg">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-fill.svg">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-fill.svg">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-fill.svg">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-fill.svg">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-
-        <li class="categoryList-product-item">
-          <img src="/images/sample/18889.gif">
-          <img class="like" src="/images/common/like-fill.svg">
-          <div class="item-description">
-            <div class="item-name">[1천장돌파] 썸머 클로 여유핏 브이넥 가디건</div>
-            <div class="item-description-bottom">
-              <div class="item-price">28,700</div>
-              <div class="item-rieview-count">리뷰 개수 : <span>18</span></div>
-            </div>
-          </div>
-        </li>
-        
       </ul>
 
       <!-- 페이징 -->
@@ -328,6 +150,6 @@
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>
-  <script src="/js/shopping/categoryList.js"></script>
+  <script th:src="@{/js/shopping/categoryList.js}"></script>
 </body>
 </html>

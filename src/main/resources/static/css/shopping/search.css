@@ -1,0 +1,35 @@
+#searchSection {
+  height: 250px;
+  background-color: #F9F4F5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#searchSection > .section-title {
+  font-size: 1.6rem;
+  margin-bottom: 40px;
+}
+#searchSection > .section-title > span {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+#searchSection form {
+  display: flex;
+  align-items: center;
+}
+#searchSection form > input {
+  width: 500px;
+  height: 50px;
+  font-size: 1.4rem;
+  margin-right: 5px;
+}
+#searchSection form > button {
+  width: 100px;
+  height: 50px;
+  font-size: 1.4rem;
+}
+#categoryList-product-container {
+  padding-top: 50px;
+}

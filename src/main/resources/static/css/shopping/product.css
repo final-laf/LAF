@@ -107,6 +107,7 @@ hr { margin: 20px 0; }
 }
 .product-option ul {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 5px;
 }
 .option-btn {
@@ -199,3 +200,15 @@ hr { margin: 20px 0; }
 
 /* 리뷰 */
 #productReivew {}
+
+/* 추천상품 css ovrride */
+.sub-section-title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 80px 0 0;
+}
+
+/* 내부 sub-category(상품설명, 리뷰) */
+.sub-category-container {
+  margin-bottom: 50px;
+}

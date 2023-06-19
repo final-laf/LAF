@@ -19,6 +19,7 @@
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
 		WHERE  `product`.product_no = ${productNo}
 				AND thumb_fl  = 'Y'
+				and product_state = 'O' -- 판매중
 	</select>
 	
 	<!-- 카테고리 별 주간 판매량 순위 -->
@@ -41,8 +42,9 @@
 				JOIN `product_category` ON `product`.product_no = `product_category`.product_no
 		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
 				AND parent_category_no = ${categoryNo}
+				and product_state = 'O' -- 판매중
 		ORDER BY click_count asc, product_sale_price desc
-		LIMIT 7
+		LIMIT ${limit}
 	</select>
 	
 	<!-- 카테고리별 상품 목록 조회 -->
@@ -57,22 +59,45 @@
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				click_count,
 				img_path AS thumbnail_path,
-				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				<if test="memberNo > 0">
+				(
+					SELECT 	 count(*) 
+					FROM 	`like`
+					WHERE 	`product`.product_no = `like`.product_no
+						     and `like`.member_no = ${memberNo}
+				) AS like_count, 
+				</if>
 				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
 				JOIN `product_category` ON `product`.product_no = `product_category`.product_no
 		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
 				AND parent_category_no = ${categoryNo}
-		<if test="categoryNo == 10">
-			ORDER BY product_no desc
-		</if>
-		<if test="categoryNo != 10">
-			ORDER BY click_count asc, product_sale_price desc
-		</if>
+				and product_state = 'O' -- 판매중
 		<if test="limit != null">
 			LIMIT ${limit}
 		</if>
+	</select>
+	
+	<!-- 신규 상품 목록 조회 -->
+	<select id="selectNewArrivalProductList" resultType="Product">
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				img_path AS thumbnail_path,
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
+		       	and product_state = 'O' -- 판매중
+		ORDER BY product_date desc, product_sale_price desc
+		LIMIT 20
 	</select>
 	
 	<!-- 개인별 맞춤 상품 추천 -->
@@ -92,7 +117,8 @@
 				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
-		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
+		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
+				and product_state = 'O' -- 판매중
 		ORDER BY click_count asc, product_sale_price desc
 		LIMIT 20
 	</select>
@@ -114,9 +140,59 @@
 				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
-		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
+		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
+				and product_state = 'O' -- 판매중
 		ORDER BY click_count asc, product_sale_price desc
 		LIMIT 20
+	</select>
+	
+	<!-- 검색 결과 조회 -->
+	<select id="search" resultType="Product">
+		SELECT `product`.product_no,
+			    product_name,
+			    product_price,
+			    product_sale_price,
+			    product_sale,
+			    product_point,
+			    product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				product_date AS product_date_for_ordering,
+				click_count,
+				img_path AS thumbnail_path,
+				<if test="memberNo > 0">
+				(
+					SELECT 	 count(*) 
+					FROM 	`like`
+					WHERE 	`product`.product_no = `like`.product_no
+						     and `like`.member_no = ${memberNo}
+				) AS like_count, 
+				</if>
+				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count_for_ordering,
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
+				and product_state = 'O' -- 판매중
+				AND `product`.product_name like '%${query}%'
+		ORDER BY 
+			<if test='ordering == null or ordering.equals("new")'>
+				product_date_for_ordering desc
+			</if>
+			<if test='ordering != null and ordering.equals("name")'>
+				product_name asc
+			</if>
+			<if test='ordering != null and ordering.equals("low")'>
+				product_sale_price asc
+			</if>
+			<if test='ordering != null and ordering.equals("high")'>
+				product_sale_price desc
+			</if>
+			<if test='ordering != null and ordering.equals("pop")'>
+				(click_count + like_count_for_ordering + review_count) desc
+			</if>
+			<if test='ordering != null and ordering.equals("rev")'>
+				review_count desc
+			</if>
 	</select>
 	
 </mapper>

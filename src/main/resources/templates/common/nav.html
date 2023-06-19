@@ -30,63 +30,42 @@
 
   <div class="header-nav-catagory">
     <ul class="header-nav-catagory-menu">
-      <li><a href="/1">BEST50</a></li>
-      <li><a href="/1">LAFPROJECT</a></li>
-      <li><a href="/1">NEW10%</a></li>
-      <li><a href="/1">TOP</a></li>
-      <li><a href="/1">PANTS</a></li>
-      <li><a href="/1">OUTER</a></li>
-      <li><a href="/1">DRESS</a></li>
-      <li><a href="/1">SKIRTS</a></li>
-      <li><a href="/1">오늘출발</a></li>
-      <li><a href="/1">SALE</a></li>
+      <li><a href="#">BEST50</a></li>
+      <li><a href="#">LAFPROJECT</a></li>
+      <li><a href="#">NEW10%</a></li>
+      <li><a th:href="@{/1}">TOP</a></li>
+      <li><a th:href="@{/2}">PANTS</a></li>
+      <li><a th:href="@{/3}">OUTER</a></li>
+      <li><a th:href="@{/4}">DRESS</a></li>
+      <li><a th:href="@{/5}">SKIRTS</a></li>
+      <li><a th:href="@{/9}">ACC</a></li>
+      <li><a th:href="@{/6}">SALE</a></li>
     </ul>
   </div>
 
-  <div th:unless="${session.loginMember}" class="header-nav-icon">
-    <a href="/1"><img src="/images/common/search.svg"></a>
-    <a href="/login"><img src="/images/common/user.svg"></a>
-    <a th:if="${session.loginMember}" th:href="@{/cart}"><img src="/images/common/cart.svg"></a>
-    <a th:unless="${session.loginMember}" th:href="@{/cart2}"><img src="/images/common/cart.svg"></a>
-  </div>
+  <!-- 비회원 -->
+  <form th:action="@{/search}">
+    <div th:unless="${session.loginMember}" class="header-nav-icon">
+      <input id="searchCheckbox" class="hidden" type="checkbox">
+      <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
+      <label for="searchCheckbox">
+        <img id="searchImg" src="/images/common/search.svg">
+      </label>
+      <a href="/login"><img src="/images/common/user.svg"></a>
+      <a th:href="@{/cart2}"><img src="/images/common/cart.svg"></a>
+    </div>
 
-  <div th:if="${session.loginMember}" class="header-nav-icon">
-    <span>[[${session.loginMember.memberName}]]님 환영합니다.</span>
-    <a href="/1"><img src="/images/common/search.svg"></a>
-    <a href="/myPage"><img src="/images/common/user.svg"></a>
-    <a href="/cart"><img src="/images/common/cart.svg"></a>
-  </div>
-  <!-- 임시로그인버튼 -->
-  <div style="position:absolute; right: 250px; width:150px; height: 50px; display:flex; flex-wrap: wrap;">
-    <form action="/login" method="post">
-      <input type="hidden" name="memberId" value="user01">
-      <input type="hidden" name="memberPw" value="pass01!">
-      <button style="width: 50px; height: 20px;">user01</button>
-    </form>
-    <form action="/login" method="post">
-      <input type="hidden" name="memberId" value="user02">
-      <input type="hidden" name="memberPw" value="pass02!">
-      <button style="width: 50px; height: 20px;">user02</button>
-    </form>
-    <form action="/login" method="post">
-      <input type="hidden" name="memberId" value="user03">
-      <input type="hidden" name="memberPw" value="pass03!">
-      <button style="width: 50px; height: 20px;">user03</button>
-    </form>
-    <form action="/login" method="post">
-      <input type="hidden" name="memberId" value="user04">
-      <input type="hidden" name="memberPw" value="pass04!">
-      <button style="width: 50px; height: 20px;">user04</button>
-    </form>
-    <form action="/login" method="post">
-      <input type="hidden" name="memberId" value="nonmember1">
-      <input type="hidden" name="memberPw" value="nonmember1">
-      <button style="width: 50px; height: 20px;">비회원</button>
-    </form>
-    <form action="/logout" method="get">
-      <button style="width: 50px; height: 20px; background-color: #ccc;">logout</button>
-    </form>
-  </div>
+    <!-- 회원 -->
+    <div th:if="${session.loginMember}" class="header-nav-icon">
+      <input id="searchCheckbox" class="hidden" type="checkbox">
+      <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
+      <label for="searchCheckbox">
+        <img id="searchImg" src="/images/common/search.svg">
+      </label>
+      <a href="/myPage"><img src="/images/common/user.svg"></a>
+      <a href="/cart"><img src="/images/common/cart.svg"></a>
+    </div>
+  </form>
 
   <div class="quick-menu">
     <ul>
@@ -107,4 +86,12 @@
 <script th:inline="javascript">
   // 현재 로그인한 회원 정보
   var loginMember = /*[[${session.loginMember}]]*/ "";
+
+  // 검색 아이콘 클릭 시 검색어 입력창 출력
+  document.getElementById('searchImg').addEventListener('click', () => {
+    const input = document.getElementById('query');
+    input.classList.toggle('hidden');
+    input.value = '';
+    input.focus();
+  });
 </script>

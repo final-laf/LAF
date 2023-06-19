@@ -32,13 +32,17 @@ public class ProductController {
 	@Autowired
 	private MypageLikeServcie likeServcie;
 	
-	// 카테고리 상품목록 
+	// 카테고리 상품목록 조회
 	@GetMapping("/{category:[0-9]+}")
-	public String category() {
+	public String category(Model model, @PathVariable("category") int category,
+			@SessionAttribute(name="loginMember", required=false) Member loginMember) {
+		long memberNo = loginMember == null ? -1 : loginMember.getMemberNo();
+		model.addAttribute("productList", productService.selectCategoryProductList(category, memberNo));
+		model.addAttribute("bestList", productService.selectWeeklyBest(category, 10));
 		return "/shopping/categoryList";
 	}
 	
-	// 상품상세조회 
+	// 상품상세조회
 	@GetMapping("/product/{productNo:[0-9]+}")
 	public String product(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
@@ -92,4 +96,18 @@ public class ProductController {
 		return optionService.selectOptionList(productNo);
 	}
 	
+	// 상품검색(전체)
+	@GetMapping("/search")
+	public String navSearch(
+			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			String query, String ordering, Model model) {
+
+		long MemberNo = loginMember == null ? -1 : loginMember.getMemberNo();
+		List<Product> productList = productService.search(query, ordering, MemberNo);
+		model.addAttribute("productList", productList);
+		model.addAttribute("query", query);
+		model.addAttribute("ordering", ordering);
+		
+		return "/shopping/search";
+	}
 }
