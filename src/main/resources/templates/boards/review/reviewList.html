@@ -24,9 +24,9 @@
     <!-- 사용자 리뷰 게시글 하나하나 -->
     <div class="reviews-item" th:each="r:${reviewList}">
       <div class="reviews-item-product">
-        <img src="/images/sample/230605001.jpg">
+        <img th:src="${r.product.thumbnailPath}">
         <div>
-          <div id="" th:text="${r.product.productName}">제품명</div>
+          <div id="reviewListProductName" th:text="${r.product.productName}">제품명</div>
           <div class="review-grey">
             <span class="review-grey" th:text="${r.product.productPrice}">가격</span><span class="review-grey">원</span>
           </div>
@@ -36,7 +36,7 @@
         <div class="reviews-item-review-contents">
           <div>
             <span>&starf;&starf;&starf;&starf;&starf;</span>
-            <span class="review-grey" >244530002***</span>
+            <span class="review-grey" th:text="${r.orderUno}">244530002***</span>
           </div>
           <div class="review-grey" th:text="${r.reviewContent}">
             내용

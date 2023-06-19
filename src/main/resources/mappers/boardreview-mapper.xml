@@ -12,6 +12,7 @@
         				 r.order_no, 
         				 r.product_no, 
         				 r.option_no, 
+        				 o.order_uno,
         				 `count`, 
         				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
         				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
