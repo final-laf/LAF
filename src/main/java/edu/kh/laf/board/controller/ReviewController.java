@@ -26,11 +26,14 @@ public class ReviewController {
 //		reviewList에서 하나씩 옵션 및 상품 설정
 		for(Review review : reviewList) {
 			int num = review.getMemberId().length()/2;
+			int uNum = review.getOrderUno().length()/2;
 			String blind = "";
 			for(int i=0; i<num; i++) {blind += "*";}
-			System.out.println(blind);
 			review.setMemberId(review.getMemberId().substring(0, num)+blind);
-			System.out.println(review.getMemberId());
+			blind = "";
+			for(int i=0; i<uNum; i++) {blind += "*";}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum)+blind);
+			
 //			옵션 설정
 			review.setOption(service.reviewOption(review.getOptionNo()));
 //			상품 설정

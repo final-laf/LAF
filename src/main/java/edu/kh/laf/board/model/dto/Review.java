@@ -7,7 +7,8 @@ import lombok.Data;
 
 @Data
 public class Review {
-	private String memberId;
+	private String memberId; 		 // 주문자 id
+	private String orderUno;		 // 주문고유번호
 	private long reviewNo; 			 // 리뷰 번호
 	private String reviewContent; 	 // 리뷰 내용
 	private String reviewCreateDate; // 리뷰 생성일
@@ -17,7 +18,6 @@ public class Review {
 	private long optionNo;			 // 옵션 번호
 	private ReviewImg reviewImg;     // 리뷰 이미지
 	
-	private Order order;	      	 // 주문
 	private Product product; 		 // 상품
 	private Option option; 			 // 옵션
 	private long count;				 // 수량

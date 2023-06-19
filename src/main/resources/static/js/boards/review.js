@@ -6,7 +6,8 @@
   for(let review of reviewDetail) {
   
     /* 리뷰 아이템 클릭시 */
-    review.addEventListener('click', () => {
+    review.addEventListener('click', e => {
+      console.log(e.target)
       modal.style.display = "flex";
       document.body.style.overflowY = "hidden";
     });
