@@ -70,13 +70,65 @@ commit;
 
 
 SELECT * from `order`;
-/* 내가 가져와야 할 형태 */
-/* 주문번호, 주문일자, 대표 상품 이미지, 대표 상품 이름, 대표 상품 옵션, 전체 상품 개수, 전체 상품 구문 금액(할인 전, 할인 후), 주문처리상태 */
-/* 로그인멤버의 주문을 받아 와 리스트형식으로, 그 주문별로 일치하는 오더프로덕트를 조회 해 와 리스트형으로, 맵 형식으로 각 주문과 각 리스트를 매핑? */
 
 SELECT * from `order_product` where order_no = 12;
 
 select * from `product` where product_no = 1;
 
 select * from `option` where OPTION_NO = 8;
+
+SELECT * from `member`;
+
+update `member`
+SET member_name
+	member_address 
+	member_phone 
+	member_email 
+	member_birth 
+	성별
+	예금주
+	은행명
+	계좌번호
+	
+	/* authority key 업데이트 */
+UPDATE `confirm_email`
+SET authority_key = 152444,
+	authority_time = datetime
+WHERE authority_email = 'user01@kh.or.kr';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

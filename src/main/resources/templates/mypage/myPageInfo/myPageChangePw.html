@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAF :: 비밀번호 변경</title>
+
+  <link rel="stylesheet" href="/css/myPage/myPageInfo/myPageChangePw.css">
+</head>
+<body>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
+  
+  <main>
+    <section class="mypageSignUp-signUp" th:object="${session.loginMember}">
+      <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+      <div class="mypageSignUp-signUp-info"> <!-- width 1000px, 상단 마진 50px, 중앙정렬  -->
+        <form th:action="@{/myPage/info}" method="post" id="mypageSignUpSubmit">
+          <div>
+            <div class="mypageSignUp-info-intro"><span>비밀번호 변경</span></div>
+          <div class="mypageSignUp-info-signUpInfo"><!-- 기본정보 -->
+            <Strong>기본정보</Strong>
+            <table class="mypageSignUp-signUpInfo-table">
+              <tr>
+                <th><div class="for-flex-signUp"><span>현재 비밀번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td>
+                  <div class="mypageSignUp-table-inputTd">
+                    <input type="password" name="memberPw" id="mypageSignUpPw" >
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th><div class="for-flex-signUp"><span>새로운 비밀번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td>
+                  <div class="mypageSignUp-table-inputTd">
+                    <input type="password" name="memberPw" id="mypageSignUpPw" >
+                    <div>(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th><div class="for-flex-signUp"><span>비밀번호 확인</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td>
+                  <input type="password"  name="memberPw2" id="mypageSignUpPwConfirm" >
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div id="mypageSignUpSubmitButton"><button id="signUpButton">비밀번호수정</button><button id="cancelButton">취소</button></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <th:block th:replace="~{/common/footer}"></th:block>
+
+  
+  <!-- 주소 api -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/js/common/api/address.js"></script>
+  <script src="/js/myPage/myPageInfo.js"></script>
+</body>
+</html>

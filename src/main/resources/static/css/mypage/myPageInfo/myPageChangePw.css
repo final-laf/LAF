@@ -77,54 +77,8 @@ input {
   margin-left: 10px;
 } 
 
-.mypageSignUp-table-address input{
-    margin: 10px 0;
-}
 
-.mypageSignUp-table-address button{
-    height: 45px;
-    width: 100px;
-    border: 0.5px solid #eee;
-    background-color: #fafafa;
-}
-.mypageSignUp-address-postal{
-    width: 100px !important;
-}
-.mypageSignUp-table-tel input{
-    text-align: left;
-    width: 300px;
-}
-
-.mypageSignUp-table-birth input{
-  border: 0.5px solid #eee;
-  width: 50px;
-  margin-right: 5px;
-  text-align: right;
-  padding-right: 10px;
-}
-
-.mypageSignUp-table-birth input:not(:first-child) {
-  margin-left: 10px;
-}
-
-.mypageSignUp-table-Refund div{
-    padding: 15px 0;
-}
-.mypageSignUp-table-Refund select{
-  border: 0.5px solid #eee;
-  text-align: center;
-  height: 45px;
-  width: 170px;
-}
-.mypageSignUp-table-Refund option{
-  text-align: center;
-  height: 45px;
-  width: 170px;
-}
-.mypageSignUp-table-Refund td {
-  padding-left: 10px;
-}
-
+/* 수정, 취소 버튼 */
 #mypageSignUpSubmit {
   width: 100%;
 }
@@ -145,62 +99,20 @@ input {
 
 #signUpButton {
   background-color: #7F7698;
+  font-weight: bold;
 }
 
 #cancelButton {
   background-color: #ccc;
+  font-weight: bold;
 }
+
 
 /* 필수 입력값 첫뻔째 열 */
 #mypageSignUpSubmit > div > div:nth-child(2) > table > tbody > tr > th {
   width: 15%;
 }
 
-
-
-
-/* 추가정보 각 행별 설정 */
-#mypageSignUpSubmit > div > div:nth-child(3) > table > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {
-  font-weight: bold;
-  width: 10%;
-  background-color: #fafafa;
-}
-
-.mypageSignUp-table-birth > td:nth-child(2) {
-  width: 40%;
-}
-
-.mypageSignUp-table-birth > td:nth-child(3) {
-  width: 10%;
-  font-weight: bold;
-  background-color: #fafafa;
-}
-
-.mypageSignUp-table-birth > td:nth-child(4) {
-  width: 40%;
-}
-
-.mypageSignUp-table-birth > td:nth-child(4) > select {
-  width: 100px;
-}
-
-
-#mypageSignUpRefundName {
-  margin-left: 10px;
-}
-
-[name="refundBank"] {
-  margin-left: 10px;
-}
-
-
-
-
-/* 유효성 검사 메세지(id, phone, email) */
-#mypageSignUpRefundNo, #emailMessage, #phoneMessage {
-  margin-left: 10px;
-  color: #666;
-}
 
 /* 필수입력값을 알리는 '*' */
 .required-for-signUp {

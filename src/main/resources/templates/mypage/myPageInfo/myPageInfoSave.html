@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAF :: 회원가입</title>
+
+  <link rel="stylesheet" href="/css/myPage/myPageInfo/myPageInfo.css">
+</head>
+<body>
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
+  
+  <main>
+    <!-- 개인화면 대쉬보드 전체 틀 -->
+    <section class="mypageEditInfo-editInfo">
+      <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+      <div class="mypageEditInfo-editInfo-info"> <!-- width 1200px, 상단 마진 50px, 중앙정렬  -->
+        <form action="" method="post" id="mypageEditInfoSubmit">
+          <div>
+          <div class="mypageEditInfo-info-content"><!-- 기본정보 -->
+            <div>
+              <Strong>기본정보</Strong>
+              <div>*필수입력사항</div>
+            </div>
+            <table class="mypageEditInfo-content-table">
+              <tr>
+                <th>아이디*</th>
+                <td>
+                  <div class="mypageEditInfo-table-inputTd">
+                    <input type="text" name="memberId" id="mypageEditInfo" required>
+                    <div>　(영문소문자/숫자, 4~16자)</div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>비밀번호*</th>
+                <td>
+                  <div class="mypageEditInfo-table-inputTd">
+                    <input type="password" name="memberPw" id="mypageSignUpPw" required>
+                    <div>　(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>비밀번호 확인*</th>
+                <td>
+                  <input type="password"  name="memberPw2" id="mypageSignUpPwConfirm" required>
+                </td>
+              </tr>
+              <tr>
+                <th>이름*</th>
+                <td>
+                  <input type="text" name="memberName" id="mypageSignUpName" required maxlength="10">
+                </td>
+              </tr>
+              <tr>
+                <th>주소*</th>
+                <td>
+                  <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                  <div class="mypageEditInfo-table-address">
+                    <input type="text" required class="mypageEditInfo-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
+                    <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                  </div>
+                  <div class="mypageEditInfo-table-address">
+                    <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+                  </div>
+                  <div class="mypageEditInfo-table-address">
+                    <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>전화번호*</th>
+                <td class="mypageEditInfo-table-tel">
+                  <input type="text" placeholder="010" maxlength="3"  name="memberName">
+                  -
+                  <input type="text"  maxlength="4"  name="memberName">
+                  -
+                  <input type="text"  maxlength="4" name="memberName">
+                </td>
+              </tr>
+              <tr>
+                <th>이메일*</th>
+                <td>
+                  <input type="text" required id="mypageSignUpMail" name="memberEmail">
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div  class="mypageEditInfo-info-content"><!-- 추가 정보 -->
+            <Strong>추가정보</Strong>
+            <table class="mypageEditInfo-content-table">
+              <tr class="mypageEditInfo-table-birth">
+                  <th>생년월일</th>
+                  <td>
+                      <input type="text" maxlength="4" id="mypageSignUpYear" name="memberBirth" style="width:100px">년
+                      <input type="text" maxlength="2" id="mypageSignUpMonth" name="memberBirth">월
+                      <input type="text" maxlength="2" id="mypageSignUpDay" name="memberBirth">일
+                  </td>
+              </tr>
+              <tr class="mypageEditInfo-table-Refund">
+                <th>환불계좌 정보</th>
+                <td>
+                  <div> 예금주　 
+                    <input type="text" id="mypageSignUpRefundName" name="memberPw">
+                  </div>
+                  <hr>
+                  <div> 은행명　 
+                    <select name="bankName" size="1"> 
+                      <option>- 은행 선택 -</option>
+                      <option value="ori">우리은행</option>
+                      <option value="kuk">국민은행</option> 
+                      <option value="nong">농협은행</option> 
+                    </select>
+                  </div>
+                  <hr>
+                  <div>
+                    <span>- 계좌번호</span>
+                    <input type="text" name="memberPw" id="mypageSignUpRefundNo">
+                    ('-'와 숫자만 입력해주세요.)
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div> 
+          <div>
+            <div class="mypageEditInfo-info-member">
+              <button id="mypageEditWithdrawal">회원탈퇴</button>
+            </div>
+            <div id="mypageEditInfoSubmitButton">
+              <button>회원정보수정</button>
+              <a href="/my"><button type="button">취소</button></a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <th:block th:replace="~{/common/footer}"></th:block>
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/js/common/api/address.js"></script>
+  <script src="/js/myPage/myPageInfo/mypageEditInfo.js"></script>
+</body>
+</html>

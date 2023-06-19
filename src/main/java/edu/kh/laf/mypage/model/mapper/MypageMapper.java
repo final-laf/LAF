@@ -94,6 +94,13 @@ public interface MypageMapper {
 	Option selectMyPageProductOption(long optionNo);
 
 
+	/** 회원 정보 수정
+	 * @param inputMember
+	 * @return result
+	 */
+	int editMyPageInfo(Member inputMember);
+
+
 	
 	
 	

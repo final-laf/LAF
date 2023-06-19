@@ -29,6 +29,16 @@ public class MypageServiceImpl implements MypageService {
 		return mapper.selectMyPageOrderList(loginMember);
 	}
 	
+
+	// ---------------------------- MyPage Order ---------------------------- 
+
+	
+	// 회원 정보 수정
+	@Override
+	public int editMyPageInfo(Member inputMember) {
+		return mapper.editMyPageInfo(inputMember);
+	}
+	
 	
 	// ---------------------------- MyPage Order ---------------------------- 
 	
@@ -98,6 +108,8 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
+
 
 
 

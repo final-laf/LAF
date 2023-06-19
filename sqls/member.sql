@@ -178,14 +178,14 @@ VALUES (NULL,
 		NULL, 
 		NULL);
 
-SELECT * FROM `member`;
+SELECT * FROM `member`;	
 COMMIT;
-DELETE FROM `member` WHERE member_no = 44;
+DELETE FROM `member` WHERE member_no = 45;
 
 
 
 /* 멤버 비밀번호 업데이트 */
 UPDATE `member`
-SET member_pw = '$2a$10$ysTBZkMe9StXPLRh/z/E3uBtRWT67qPCuyuTvVNf27Ho8xHe9LUmm'
+SET member_not = 'Y'
 WHERE member_no  = 38;
 

@@ -63,11 +63,17 @@
             <div class="mypageDash-myInfo-mySave">
               <div class="mypageDash-mySave-Point">
                 <div>적립금</div>
-                <div id="mypageDashPoint" th:text="|*{memberPoint} 원|">포인트</div>
+                <div>
+                  <span id="mypageDashPoint" th:text="*{memberPoint}">포인트</span>
+                  <span>원</span>
+                </div>
               </div>
               <div class="mypageDash-mySave-Point">
                 <div>쿠폰</div>
-                <div id="mypageDashCoupon" th:text="|${#lists.size(couponList)} 개|">쿠폰 개수</div>
+                <div>
+                  <span id="mypageDashCoupon" th:text="${#lists.size(couponList)}">쿠폰 개수</span>
+                  <span>개</span>
+                </div>
               </div>
             </div>
           </div>
@@ -77,32 +83,31 @@
               <!-- 나의 주문처리 현황 -->
               <div class="mypageDash-state-shippingList">
                 <div>나의 주문처리 현황(최근 3개월 기준)</div>
-                <th:block th:text="${#lists.size(myPageOrderList)}"></th:block>
                 <div class="mypageDash-shippingList-list">
                   <div class="square-list-square">
                     <div>
-                      <div></div>
+                      <div>주문접수중인 주문 개수</div>
                       <div>주문접수</div> 
                     </div>
                   </div>
-                  <p>></p>
+                  <div>&gt;</div>
                   <div class="square-list-square">
                     <div>
-                      <div></div>
+                      <div>상품준비중중인 주문 개수</div>
                       <div>상품준비중</div>
                     </div>
                   </div>
-                  <p>></p>
+                  <div>&gt;</div>
                   <div class="square-list-square">
                     <div>
-                      <div></div>
+                      <div>배송중중인 주문 개수</div>
                       <div>배송중</div>
                     </div>
                   </div>
-                  <p>></p>
+                  <div>&gt;</div>
                   <div class="square-list-square">
                     <div>
-                      <div></div>
+                      <div>배송완료중인 주문 개수</div>
                       <div>배송완료</div>
                     </div>
                   </div>
@@ -111,19 +116,25 @@
               <!-- 취소 교환 반품 건수 -->
               <div class="mypageDash-state-howMany">
                 <div class="mypageDash-howMany-shipping">
-                  <span>취소 주문건</span>
-                  <span>0</span>
-                  <span>건</span>
+                  <span>취소주문건</span>
+                  <div>
+                    <span>취소주문건 주문 개수</span>
+                    <span>건</span>
+                  </div>
                 </div>
                 <div class="mypageDash-howMany-shipping">
-                  <span>교환 주문건</span>
-                  <span>0</span>
-                  <span>건</span>
+                  <span>교환주문건</span>
+                  <div>
+                    <span>교환주문건 주문 개수</span>
+                    <span>건</span>
+                  </div>
                 </div>
                 <div class="mypageDash-howMany-shipping">
-                  <span>반품 주문건</span>
-                  <span>0</span>
-                  <span>건</span>
+                  <span>반품주문건</span>
+                  <div>
+                    <span>반품주문건 주문 개수</span>
+                    <span>건</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -184,7 +195,7 @@
 
     // 각 처리 현황별 개수를 배열로 만들어
   const abnormalOrderCountsInputs = [orderCanceled, orderChanged, orderReturn]
-  const abnormalOrderCounts  = document.querySelectorAll(".mypageDash-howMany-shipping > span:nth-child(2)")
+  const abnormalOrderCounts  = document.querySelectorAll(".mypageDash-howMany-shipping > div > span:first-child")
 
   // 취소 교환 반품 처리 현황 중 숫자를 적는 span에 innerText로 각 값을 대입
   for (let i = 0; i < abnormalOrderCounts.length; i++) {

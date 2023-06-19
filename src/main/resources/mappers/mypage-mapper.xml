@@ -9,8 +9,50 @@
 		SELECT *  FROM `order` 
 		WHERE member_no = #{memberNo}
 		and (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -3 MONTH) AND NOW())
-
 	</select>
+	
+	<!--회원 정보 수정(마이페이지-정보관리-회원정보변경)-->
+  	<update id="editMyPageInfo">
+	    update `member`
+		SET member_name = #{memberName},
+			member_address = #{memberAddress},
+			member_phone = #{memberPhone},
+			member_email = #{memberEmail},
+			member_birth = 
+			<!--생일-->
+			<!--생일이 없으면-->
+			<if test='memberBirth == null'> NULL, </if>
+			<!--생일이 있으면-->
+			<if test='memberBirth != null'> #{memberBirth}, </if>
+			member_gender = 
+			<!--성별-->
+			<!--성별이 없으면-->
+			<if test='memberGender == "n"'> NULL, </if>
+			<!--성별이 있으면-->
+			<if test='memberGender != "n"'> #{memberGender}, </if>
+			refund_name = 			
+			<!--환불 예금주-->
+			<!--환불 예금주가 없으면-->
+			<if test='refundName == null'> NULL, </if>
+			<!--환불 예금주가 있으면-->
+			<if test='refundName != null'> #{refundName}, </if>
+			refund_bank = 
+			<!--환불 은행-->
+			<!--환불 은행이 없으면-->
+			<if test='refundBank == 0'> NULL, </if>
+			<!--환불 은행이 있으면-->
+			<if test='refundBank != 0'> #{refundBank}, </if>
+			refund_account = 
+			<!--환불 계좌번호-->
+			<!--환불 계좌번호가 없으면-->
+			<if test='refundAccount == null'> NULL) </if>
+			<!--환불 계좌번호가 있으면-->
+			<if test='refundAccount != null'> #{refundAccount} </if>
+		WHERE member_no = #{memberNo}
+  	</update>
+
+	
+
 
 
 	<!--주문 상품 조회(마이페이지-주문조회)-->
