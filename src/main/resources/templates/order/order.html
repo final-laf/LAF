@@ -25,22 +25,25 @@
           <table>
             <tr>
               <th width="100px">주문자</th>
-              <td><input id="orderName" type="text" th:value="*{memberName}"><input type="hidden" name="memberNo" th:value="*{memberNo}"></td>
+              <td>
+                <input name="orderName" id="orderName" type="text" th:value="*{memberName}">
+                <input type="hidden" name="memberNo" th:if="*{memberNo}" th:value="*{memberNo}">
+              </td>
             </tr>
             <tr>
               <th>이메일</th>
               <td>
-                <input id="orderEmail"  type="text" th:value="*{memberEmail}">
+                <input name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input type="text" th:value="*{memberPhone}">
+                <input name="orderTel" type="text" th:value="*{memberPhone}">
               </td>
             </tr>
             <tr>
-              <th>주소</th>
+              <th>주소<input type="hidden" name="orderAdd"></th>
               <td>
                 <!-- 주소 api 이용 (스크립트) -->
                 <div class="mypageSignUp-table-address">
@@ -58,7 +61,7 @@
             <tr>
               <th rowspan="3">환불정보</th>
               <td>
-                <input type="text" th:value="*{refundName}" placeholder="예금주">
+                <input name="refundName" type="text" th:value="*{refundName}" placeholder="예금주">
               </td>
             </tr>
             <tr>
@@ -72,7 +75,7 @@
             </tr>
             <tr>
               <td>
-                <input type="text" th:value="*{refundAccount}" placeholder="계좌번호">
+                <input name="refundAccount" type="text" th:value="*{refundAccount}" placeholder="계좌번호">
               </td>
             </tr>
           </table>
@@ -162,7 +165,7 @@
                 <div th:if="${session.loginMember}">
                   <div>예상적립금</div>
                   <div id="productPoint">0원</div>
-                  <input type="hidden" name="productPoint">
+                  <input type="hidden" name="pointNoGain">
                 </div>
                 <div>
                   <div>
@@ -185,7 +188,7 @@
             <tr th:if="${session.loginMember}" >
               <th>쿠폰 할인 (보유쿠폰 <div th:text="${#lists.size(couponList)}">0</div>개)</th>
               <th>
-                <input type="hidden" id="couponNo">
+                <input type="hidden" name="couponNo" id="couponNo">
                 <div><span id="couponDiscount">0</span>원</div>
                 <button type="button" id="orderDetailCoupon">쿠폰적용</button>
               </th>
@@ -200,6 +203,7 @@
               <th>
                 <div><input name="usePoint" id="usePoint" type="text" th:max="*{memberPoint}">원</div>
                 <button id="applyPointBtn" type="button">할인적용</button>
+                <input type="hidden" name="pointNoUse">
               </th>
             </tr>
             <tr>

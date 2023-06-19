@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Order {
 	private long orderNo;				// 주문번호
+	private String orderUno;			// 주문고유번호
 	private long memberNo;				// 주문자번호
 	private String orderRecvName;		// 받는사람 이름
 	private String orderRecvAdd;		// 받는사람 주소

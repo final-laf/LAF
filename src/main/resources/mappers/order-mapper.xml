@@ -49,5 +49,67 @@
 		SELECT product_name FROM product WHERE product_no = #{productNo}
 	</select>
 	
+	<!-- 비회원 생성 -->
+	<insert id="createNonMember">
+		INSERT INTO `member`
+		VALUES (NULL, 
+				#{memberId}, 
+				#{memberPw}, 
+				#{memberName}, 
+				NULL, 
+				#{memberEmail}, 
+				#{memberPhone}, 
+				NULL, 
+				#{memberAddress}, 
+				'B', 
+				DEFAULT, 
+				DEFAULT, 
+				NULL, 
+				NULL, 
+				DEFAULT, 
+				DEFAULT, 
+				'Y', 
+				#{refundName}, 
+				#{refundBank}, 
+				#{refundAccount});
+	</insert>
+	
+	<!-- 비회원번호조회 -->
+	<select id="selectNonMember" resultType="Member">
+		SELECT member_no FROM `member` WHERE member_email = #{memberEmail}
+	</select>
+	
+	<!-- 주문고유번호 중복확인 -->
+	<select id="checkOrderKey" resultType="int">
+		SELECT count(*) FROM `order` WHERE order_uno = #{orderUno}
+	</select>
+	
+	<!-- 주문내역추가 -->
+	<insert id="insertOrder">
+		INSERT INTO `order`
+		VALUES(NULL,
+			   #{orderUno},
+			   #{memberNo},
+			   #{orderRecvName},
+			   #{orderRecvAdd},
+			   #{orderRecvPhone},
+			   NULL,
+			   #{orderTotalPrice},
+			   #{orderPayment},
+			   DEFAULT,
+			   NULL,
+			   NULL,
+			   #{payment},
+			   #{paymentBank},
+			   #{paymentName},
+			   NULL,
+			   #{orderState},
+			   #{couponNo});
+	</insert>
+	
+	
+	
+	
+	
 </mapper>
 

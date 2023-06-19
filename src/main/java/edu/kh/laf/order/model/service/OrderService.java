@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
 
@@ -40,5 +41,14 @@ public interface OrderService {
 	 * @return
 	 */
 	String SelectProductName(int productNo);
+
+	/** 주문테이블추가
+	 * @param order
+	 * @param orderData
+	 * @param loginMember
+	 * @return
+	 */
+	int insertOrder(Order order, Map<String, Object> orderData, Member loginMember);
+
 
 }
