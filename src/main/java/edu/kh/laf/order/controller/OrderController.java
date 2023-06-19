@@ -1,10 +1,5 @@
 package edu.kh.laf.order.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,36 +99,38 @@ public class OrderController {
 						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList) {
 		
 		System.out.println(order);
-		System.out.println(order.getCouponNo());
-		System.out.println(order.getPointNoUse());
 		
-		// 주문테이블추가
-		int result = service.insertOrder(order,orderData,loginMember);
+		// 주문테이블추가 후 주문고유번호 가져오기
+		String orderKey = service.insertOrder(order,orderData,loginMember);
 
-		if(result>0) {
-			System.out.println("주문성공");
+		if(orderKey == "") {
+			System.out.println("주문실패"); // 리다이렉트하기
 		}
 		
+		// 주문번호조회
+		int orderNo = service.selectOrderNo(orderKey);
+		
 		
 
-		//5. 
-		// order_product 테이블 인설트하기
+		//5. 상품리스트 for문 돌리면서 각 상품당 아래 절차 진행
+		// 1-order_product 테이블 인설트 
+		// 2-option테이블에서 주문수량만큼 상품재고 빼고 판매량 더해주기 
+		// 3-option에서 상품 모든 옵션의 수량이 0 이라면 상품 테이블 상품상태 품절로 전환
+
+		//6.회원일경우----------------------------------------------------------
+		// 1.포인트 적립
+		// 적립금 내역 테이블 데이터 삽입		
+//		// 적립될 적립금 내역 추가(수정해야됨 밑에꺼 복붙함)
+//		Point gainPoint = new Point();
+//		usePoint.setMemberNo(order.getMemberNo());
+//		usePoint.setPointSort("U");
+//		usePoint.setPointAmount(order.getPointNoUse());
+//		usePoint.setPointUseDate(payDate);
+//		usePoint.setPointContent("상품구매시 사용한 적립금");
+		// 적립된 적립금 추가 후 적립번호 가져오기
 		
-		//6.
-		// 장바구니 삭제하기 - 테이블 제거
-		// 장바구니 삭제하기 - 세션값 제거
-		// 장바구니 삭제하기 - 쿠키값 제거 비회원
 		
-		//7.
-		// 상품 테이블 / 판매량, 상품상태(모든옵션재고)
-		
-		//8.
-		// option 업데이트하기 / 재고, 판매량
-		
-		//9.
-		// 회원일경우만
-		// 적립금 내역 테이블 데이터 삽입
-		
+		// 2.포인트 사용한 경우
 		// 사용한 적립금 추가 후 적립번호 가져오기
 		// 결제일 생성
 //		SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
@@ -154,21 +151,24 @@ public class OrderController {
 		
 //				int pointUse = mapper.insertUsePoint(order.getPointNoUse());
 		
-		// 적립된 적립금 추가 후 적립번호 가져오기
+		// 사용한 적립금 추가 후 적립번호 가져오기
 //				int pointGain = 0;
-		// 회원 적립금 최신화
-		
-		// member테이블 업데이트하기 / 적립금, 누적구매액
 		
 		
+		// 3.order테이블 적립/사용 적립번호 업데이트
+		// 4.회원테이블 적립금 최신화 / 적립금, 누적구매액
 		
 		
-		// 쿠폰 테이블 업데이트 / 사용여부
+		// 5.쿠폰 테이블 업데이트 / 사용여부
 		
 		
+		// 6.
+		// 장바구니 삭제하기 - 테이블 제거
+		// 장바구니 삭제하기 - 세션값 제거
+		// 장바구니 삭제하기 - 쿠키값 제거 비회원
 		
-		//10.
-		// 주문테이블 조회해서 번호얻어와서 이동할 번호 path - 주문번호
+		
+		// 7.주문테이블 조회해서 번호얻어와서 이동할 번호 path - 주문번호
 		return "/order/orderDetail"; //주문상세조회로 넘어가기
 	}
 	

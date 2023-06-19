@@ -104,12 +104,15 @@
 			   #{paymentName},
 			   NULL,
 			   #{orderState},
-			   #{couponNo}
+			   <if test="couponNo == 0"> NULL</if>
+			   <if test="couponNo != 0">#{couponNo}</if>
 			   )
 	</insert>
 	
-	
-	
+	<!-- 주문번호조회selectOrderNo -->
+	<select id="selectOrderNo" resultType="int">
+		SELECT order_no FROM `order` WHERE order_uno = #{orderUno}
+	</select>
 	
 	
 </mapper>
