@@ -74,9 +74,11 @@ public class CartController {
 		
 		Cookie[] cookies = req.getCookies();
 		Cookie cartCookie = null;
-		for(Cookie c : cookies) {
-			if(c.getName().equals("cart")) {
-				cartCookie = c;
+		if(cookies != null) {
+			for(Cookie c : cookies) {
+				if(c.getName().equals("cart")) {
+					cartCookie = c;
+				}
 			}
 		}
 		
