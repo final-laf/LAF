@@ -44,11 +44,11 @@
       <!-- 아이템 목록 -->
       <ul class="categoryList-product-item-container">
 
-        <li class="categoryList-product-item" th:each="product : ${productList}">
-          <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+        <li class="categoryList-product-item" th:each="product : ${productList}" th:productNo="${product.productNo}">
+          <a class="link" th:href="@{/product/{productNo}(productNo=${product.productNo})}">
             <img th:src="${product.thumbnailPath}">
           </a>
-          <img class="like" th:if="${product.likeCount > 0}" th:src="@{/images/common/like-fill.svg}">
+          <img class="like" th:if="${product.likeCount > 0}" th:src="@{/images/common/like-fill.svg}" value="like">
           <img class="like" th:unless="${product.likeCount > 0}" th:src="@{/images/common/like-grey.svg}">
           <div class="item-description">
             <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">

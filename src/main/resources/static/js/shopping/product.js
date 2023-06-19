@@ -334,7 +334,7 @@ function like(productNo) {
   .catch(err => console.log(err));
 }
 
-img.addEventListener('click', e => {
+img.addEventListener('click', () => {
   // 찜 목록 삭제
   if (img.getAttribute('src').includes('fill')) {
     fetch("/like/delete?productNo=" + productNo)
