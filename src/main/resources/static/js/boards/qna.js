@@ -83,7 +83,7 @@ if (insertBtn!=null) {
 
 // 글쓰기 내부 select 클릭 시
 const changeValue = (target) => {
-
+vgn
   console.log(target.value);
   if(target.value=="product"){
     document.getElementById("qnaWriteProduct").style.display = "table-row"

@@ -26,8 +26,8 @@
         <!-- 하위 메뉴 -->
         <div class="sub-category-container">
           <!-- 현재 카테고리에 current 클래스 추가 -->
-          <a href="/myPage/review"><div class="sub-category">작성 가능한 리뷰<span>(2)</span></div></a>
-          <a href="/myPage/review/list"><div class="sub-category current">작성한 리뷰<span>(23)</span></div></a>
+          <a href="/myPage/review"><div class="sub-category ">작성 가능한 리뷰(<span th:text="${myOrder.size}">수량</span>)</div></a>
+          <a href="/myPage/review/list"><div class="sub-category current">작성한 리뷰(<span th:if="${writtenReview}" th:text="${writtenReview?.size}">수량</span><span th:if="${writtenReview==null}">0</span>)</div></a>
         </div>
 
         <section id="reviewList">
@@ -37,25 +37,25 @@
               <td class="item-image">이미지</td>
               <td class="item-product">상품정보</td>
               <td class="item-count">수량</td>
-              <td class="item-price-set">구매금액</td>
+              <td class="item-price-set">상품금액</td>
               <td class="item-choose">선택</td>
             </tr>
             <!-- 작성 가능 리뷰 없을때 -->
-            <tr th:unless="${myReview==null}">
+            <tr th:unless="${writtenReview==null}">
               <td colspan="6" class="item-empty">작성 가능한 리뷰가 없습니다.</td>
             </tr>
             <!-- 작성 가능 리뷰 있을 때 -->
-            <tr th:each="r:${myReview}">
+            <tr th:each="r:${writtenReview}">
               <td class="item-order-info" >
                 <div class="item-order-no" th:text="${r.orderNo}">[23060400001001]</div>
               </td>
               <td class="item-image">
                 <a href="/product/1">
-                  <img src="/images/prouduct/thumbnail/1.gif">
+                  <img src="${r.product.thumbnailPath}">
                 </a>
               </td>
               <td class="item-product">
-                <a href="/order/${r.orderNo}" th:text="${r.product.productName}">
+                <a href="/order/${r.productNo}" th:text="${r.product.productName}">
                   제품명
                 </a>
                 <p class="item-product-option">[옵션 : 

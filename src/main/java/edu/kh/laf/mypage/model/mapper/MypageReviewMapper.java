@@ -20,7 +20,7 @@ public interface MypageReviewMapper {
 	 * @param memberNo
 	 * @return
 	 */
-	List<OrderProduct> myReview(Long memberNo);
+	List<Review> myReview(Long memberNo);
 
 	/** 옵션 조회
 	 * @param optionNo
@@ -38,6 +38,6 @@ public interface MypageReviewMapper {
 	 * @param memberNo
 	 * @return
 	 */
-	List<OrderProduct> myWrittenReview(Long memberNo);
+	List<Review> myWrittenReview(Long memberNo);
 	
 }
