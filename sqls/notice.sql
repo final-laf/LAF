@@ -18,3 +18,6 @@ references `member` (
 
 -- 샘플
 INSERT INTO notice values(DEFAULT, 1, '제목입니다.', '내용입니다.', DEFAULT, 'y');
+
+SELECT * FROM notice WHERE notice_no =2;
+INSERT INTO notice VALUES (default, 2,  '공공공지사항', 'ㅎㅇㅇ', default, default);

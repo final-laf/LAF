@@ -14,7 +14,7 @@
   <th:block th:replace="~{/common/header}"></th:block>
   <th:block th:replace="~{/common/nav}"></th:block>
   
-  <main>
+  <main th:with="reviewList=${reviewList}">
 
     <section class="board-list">
       <div class="board-name"><span>REVIEW</span></div>
@@ -34,126 +34,26 @@
         <div class="best-content">
           <ul class="best-list">
             <!-- 베스트 리뷰 하나 하나 -->
-            <li>
-              <a href="#">
-                <img class="best-img" src="/images/sample/230605001.jpg">
+            <li th:each="r:${reviewList}" start="1" end="5">
+              <a href="#" id="review-bestThum">
+                <img class="best-img" th:src="${r.product.thumbnailPath}">
               </a>
               <div class="review-content">
-                <p class="review-title">랍 형식의 러본 프릴까지 달린 원피스...</p>
-                <p class="review-grey">권재*</p>
+                <p class="review-title" th:text="${r.reviewContent}">(리뷰 내용)</p>
+                <p class="review-grey" th:text="${r.memberId}">(id)</p>
               </div>
               <div class="item-content">
                 <img class="item-img" src="/images/sample/230605001.jpg">
                 <di class="item-desc-container">
-                  <div class="item-title">[커플룩/시밀러룩] 셀리르딘 ...</div>
+                  <div class="item-title" th:text="${r.product.productName}">(상품명)</div>
                   <div class="item-review-state">
                     <div>
                       <span class="review-grey">리뷰</span>
-                      <span>23</span>
+                      <span th:text="${r.reviewCount}">(리뷰)</span>
                     </div>
                     <div>
                       <span class="review-grey">평점</span>
-                      <span>4.8</span>
-                    </div>
-                  </div>
-                </di>
-              </div>
-            </li>
-            <li>
-              <a href="#">
-                <img class="best-img" src="/images/sample/230605001.jpg">
-              </a>
-              <div class="review-content">
-                <p class="review-title">랍 형식의 러본 프릴까지 달린 원피스...</p>
-                <p class="review-grey">권재*</p>
-              </div>
-              <div class="item-content">
-                <img class="item-img" src="/images/sample/230605001.jpg">
-                <di class="item-desc-container">
-                  <div class="item-title">[커플룩/시밀러룩] 셀리르딘 ...</div>
-                  <div class="item-review-state">
-                    <div>
-                      <span class="review-grey">리뷰</span>
-                      <span>23</span>
-                    </div>
-                    <div>
-                      <span class="review-grey">평점</span>
-                      <span>4.8</span>
-                    </div>
-                  </div>
-                </di>
-              </div>
-            </li>
-            <li>
-              <a href="#">
-                <img class="best-img" src="/images/sample/230605001.jpg">
-              </a>
-              <div class="review-content">
-                <p class="review-title">랍 형식의 러본 프릴까지 달린 원피스...</p>
-                <p class="review-grey">권재*</p>
-              </div>
-              <div class="item-content">
-                <img class="item-img" src="/images/sample/230605001.jpg">
-                <di class="item-desc-container">
-                  <div class="item-title">[커플룩/시밀러룩] 셀리르딘 ...</div>
-                  <div class="item-review-state">
-                    <div>
-                      <span class="review-grey">리뷰</span>
-                      <span>23</span>
-                    </div>
-                    <div>
-                      <span class="review-grey">평점</span>
-                      <span>4.8</span>
-                    </div>
-                  </div>
-                </di>
-              </div>
-            </li>
-            <li>
-              <a href="#">
-                <img class="best-img" src="/images/sample/230605001.jpg">
-              </a>
-              <div class="review-content">
-                <p class="review-title">랍 형식의 러본 프릴까지 달린 원피스...</p>
-                <p class="review-grey">권재*</p>
-              </div>
-              <div class="item-content">
-                <img class="item-img" src="/images/sample/230605001.jpg">
-                <di class="item-desc-container">
-                  <div class="item-title">[커플룩/시밀러룩] 셀리르딘 ...</div>
-                  <div class="item-review-state">
-                    <div>
-                      <span class="review-grey">리뷰</span>
-                      <span>23</span>
-                    </div>
-                    <div>
-                      <span class="review-grey">평점</span>
-                      <span>4.8</span>
-                    </div>
-                  </div>
-                </di>
-              </div>
-            </li>
-            <li>
-              <a href="#">
-                <img class="best-img" src="/images/sample/230605001.jpg">
-              </a>
-              <div class="review-content">
-                <p class="review-title">랍 형식의 러본 프릴까지 달린 원피스...</p>
-                <p class="review-grey">권재*</p>
-              </div>
-              <div class="item-content">
-                <img class="item-img" src="/images/sample/230605001.jpg">
-                <di class="item-desc-container">
-                  <div class="item-title">[커플룩/시밀러룩] 셀리르딘 ...</div>
-                  <div class="item-review-state">
-                    <div>
-                      <span class="review-grey">리뷰</span>
-                      <span>23</span>
-                    </div>
-                    <div>
-                      <span class="review-grey">평점</span>
-                      <span>4.8</span>
+                      <span th:text="${r.reviewScoreAvg}">(평점)</span>
                     </div>
                   </div>
                 </di>

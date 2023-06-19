@@ -14,7 +14,7 @@ public interface MypageReviewService {
 	 * @param memberNo
 	 * @return
 	 */
-	List<OrderProduct> myReview(Long memberNo);
+	List<Review> myReview(Long memberNo);
 
 	/** 리뷰 옵션 조회
 	 * @param optionNo
@@ -32,6 +32,6 @@ public interface MypageReviewService {
 	 * @param memberNo
 	 * @return
 	 */
-	List<OrderProduct> myWrittenReview(Long memberNo);
+	List<Review> myWrittenReview(Long memberNo);
 
 }

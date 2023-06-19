@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageReviewService;
-import edu.kh.laf.mypage.model.service.MypageReviewServiceImpl;
-import edu.kh.laf.order.model.dto.Order;
-import edu.kh.laf.order.model.dto.OrderProduct;
-import edu.kh.laf.product.model.dto.Product;
 
 @Controller
 public class MypageReviewController {
@@ -25,37 +21,40 @@ public class MypageReviewController {
 	// 내가 쓴 리뷰 : 작성 가능한 리뷰 
 	@GetMapping("/myPage/review")
 	public String review(@SessionAttribute("loginMember") Member loginMember, Model model) {
-		List<OrderProduct> myReview = new ArrayList<>();
-		myReview = reviewService.myReview(loginMember.getMemberNo());
-		for(OrderProduct order : myReview) {
-			System.out.println(order);
+		List<Review> myOrder = new ArrayList<>();
+		myOrder = reviewService.myReview(loginMember.getMemberNo());
+		for(Review review : myOrder) {
+			System.out.println(review);
 //			옵션 설정
-			order.setOption(reviewService.myOrderOption(order.getOptionNo()));
+			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
 //			상품 설정
-			order.setProduct(reviewService.myOrderProduct(order.getProductNo()));
+			review.setProduct(reviewService.myOrderProduct(review.getProductNo()));
+//		 	
 			
 		}
-		System.out.println(myReview);
-		model.addAttribute("myReview", myReview);
+		List<Review> myWrittenReview = reviewService.myWrittenReview(loginMember.getMemberNo());
+		System.out.println(myOrder);
+		model.addAttribute("myOrder", myOrder);
+		model.addAttribute("myWrittenReview", myWrittenReview);
 		return "/myPage/myPageBoard/myPageReview";
 	}
 	
 	// 내가 쓴 리뷰 : 작성한 리뷰
 	@GetMapping("/myPage/review/list")
 	public String reviewList(@SessionAttribute("loginMember") Member loginMember, Model model) {
-		List<OrderProduct> myReview = new ArrayList<>();
-		myReview = reviewService.myWrittenReview(loginMember.getMemberNo());
-		for(OrderProduct order : myReview) {
-			System.out.println(order);
+		List<Review> myWrittenReview = new ArrayList<>();
+		myWrittenReview = reviewService.myWrittenReview(loginMember.getMemberNo());
+		for(Review review : myWrittenReview) {
+			System.out.println(review);
 //			옵션 설정
-			order.setOption(reviewService.myOrderOption(order.getOptionNo()));
+			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
 //			상품 설정
-			order.setProduct(reviewService.myOrderProduct(order.getProductNo()));
-			
+			review.setProduct(reviewService.myOrderProduct(review.getProductNo()));
 		}
-		System.out.println(myReview);
-		model.addAttribute("myReview", myReview);
+		List<Review> myOrder = reviewService.myReview(loginMember.getMemberNo());
+		System.out.println(myWrittenReview);
+		model.addAttribute("myOrder", myOrder);
+		model.addAttribute("myWrittenReview", myWrittenReview);
 		return "/myPage/myPageBoard/myPageReviewQueue";
 	}
-
 }

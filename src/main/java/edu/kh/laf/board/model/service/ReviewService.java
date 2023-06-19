@@ -3,6 +3,8 @@ package edu.kh.laf.board.model.service;
 import java.util.List;
 
 import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.dto.Product;
 
 public interface ReviewService {
 
@@ -10,5 +12,17 @@ public interface ReviewService {
 	 * @return
 	 */
 	List<Review> reviewList();
+
+	/** 리뷰 옵션 조회
+	 * @param optionNo
+	 * @return
+	 */
+	Option reviewOption(long optionNo);
+
+	/** 리뷰 상품 조회
+	 * @param productNo
+	 * @return
+	 */
+	Product reviewProduct(long productNo);
 
 }

@@ -22,7 +22,7 @@ public class MypageReviewServiceImpl implements MypageReviewService {
 	 *
 	 */
 	@Override
-	public List<OrderProduct> myReview(Long memberNo) {
+	public List<Review> myReview(Long memberNo) {
 		return mapper.myReview(memberNo);
 	}
 
@@ -46,7 +46,7 @@ public class MypageReviewServiceImpl implements MypageReviewService {
 	 *
 	 */
 	@Override
-	public List<OrderProduct> myWrittenReview(Long memberNo) {
+	public List<Review> myWrittenReview(Long memberNo) {
 		return mapper.myWrittenReview(memberNo);
 	}
 

@@ -8,3 +8,4 @@ create table `faq` (
 	`faq_order`	int	null
 );
 
+
