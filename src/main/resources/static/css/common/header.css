@@ -141,17 +141,16 @@ label[for='menuList'] {
 }
 
 /* 검색창 */
-#searchCheckbox + #query {
-  width: 0px;
+#query {
   position: absolute;
   bottom: 12px;
   right: 135px;
 }
+#searchCheckbox + #query { 
+  width: 0px;
+}
 #searchCheckbox:checked + #query {
   width: 200px;
-  position: absolute;
-  bottom: 12px;
-  right: 135px;
   transition-duration: 0.3s;
 }
 
