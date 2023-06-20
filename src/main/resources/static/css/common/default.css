@@ -56,12 +56,12 @@ button{
 }
 
 
-/* pagenation */
+/* pagination */
 .pagination {
   list-style: none;
   display: flex;
   justify-content: center;
-  margin: 50px 0;
+  margin: 80px 0 50px 0;
 }
 .pagination li {
   width: 20px;

@@ -22,9 +22,10 @@ public interface ProductService {
     
     /**
      * 카테고리 전체 상품 목록 조회
+     * @param map
      * @return productList
      */
-    List<Product> selectCategoryProductList(int categoryNo, long memberNo, String ordering);
+    Map<String, Object> selectCategoryProductList(Map<String, Object> map);
     
     /**
      * 카테고리 상품 목록 조회(갯수제한)
@@ -54,12 +55,10 @@ public interface ProductService {
 	
 	/**
 	 * 상품별 검색
-	 * @param query
-	 * @param ordering 
-	 * @param memberNo 
-	 * @return productList
+	 * @param map 
+	 * @return map
 	 */
-	List<Product> search(String query, String ordering, long memberNo);
+	Map<String, Object> search(Map<String, Object> map);
 
 	/**
 	 * 카테고리 이름 조회

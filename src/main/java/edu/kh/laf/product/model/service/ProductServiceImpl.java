@@ -1,7 +1,9 @@
 package edu.kh.laf.product.model.service;
 
+import edu.kh.laf.product.model.dto.Pagination;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.mapper.ProductMapper;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -33,26 +35,39 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectWeeklyBest(map);
 	}
 
-    // 카테고리 전체 상품 목록 조회
+    // 카테고리 상품 목록 조회
     @Override
-    public List<Product> selectCategoryProductList(int categoryNo, long memberNo, String ordering) {
-    	Map<String, Object> map = new HashMap<>();
-    	map.put("categoryNo", categoryNo);
-    	map.put("memberNo", memberNo);
-    	map.put("ordering", ordering);
+    public Map<String, Object> selectCategoryProductList(Map<String, Object> paramMap) {
     	
-    	return mapper.selectCategoryProductList(map);
+    	int listCount = mapper.getListCount((int)paramMap.get("categoryNo"));
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"));
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		List<Product> productList = mapper.selectCategoryProductList(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("productList", productList);
+    	
+    	return resultMap;
     }
     
 	// 상품 검색
 	@Override
-	public List<Product> search(String query, String ordering, long memberNo) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("query", query);
-		map.put("memberNo", memberNo);
-		map.put("ordering", ordering);
+	public Map<String, Object> search(Map<String, Object> paramMap) {
+		int listCount = mapper.getSearchListCount((String)paramMap.get("query"));
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"));
 		
-		return mapper.search(map);
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		List<Product> productList = mapper.search(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("productList", productList);
+    	
+    	return resultMap;
 	}
 
     
@@ -86,7 +101,7 @@ public class ProductServiceImpl implements ProductService {
 
 	// 카테고리 이름 조회
 	@Override
-	public String selectCategoryName(int category) {
-		return mapper.selectCategoryName(category);
+	public String selectCategoryName(int categoryNo) {
+		return mapper.selectCategoryName(categoryNo);
 	}
 }

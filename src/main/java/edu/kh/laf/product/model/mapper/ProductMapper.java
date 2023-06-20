@@ -2,6 +2,7 @@ package edu.kh.laf.product.model.mapper;
 
 import edu.kh.laf.product.model.dto.Product;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,13 @@ public interface ProductMapper {
     List<Product> selectWeeklyBest(Map<String, Object> map);
     
     /**
-     * 카테고리별 상품 목록 조회
+     * 카테고리별 상품 목록 조회(전체)
      * @return productList
+     */
+    List<Product> selectCategoryProductList(Map<String, Object> map, RowBounds rowBounds);
+    
+    /**
+     * 카테고리별 상품 목록 조회(갯수제한)
      */
     List<Product> selectCategoryProductList(Map<String, Object> map);
 
@@ -51,15 +57,30 @@ public interface ProductMapper {
 	
 	/**
      * 상품 검색 결과
+	 * @param rowBounds 
      * @param query
      * @return productList
      */
-	List<Product> search(Map<String, Object> map);
+	List<Product> search(Map<String, Object> map, RowBounds rowBounds);
 
 	/**
 	 * 카테고리 이름 조회
 	 * @param category
 	 * @return categoryName
 	 */
-	String selectCategoryName(int category);
+	String selectCategoryName(int categoryNo);
+
+	/**
+	 * 카테고리 상품 갯수 조회
+	 * @param category
+	 * @return count
+	 */
+	int getListCount(int categoryNo);
+	
+	/**
+	 * 카테고리 상품 갯수 조회
+	 * @param query
+	 * @return count
+	 */
+	int getSearchListCount(String query);
 }

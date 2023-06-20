@@ -121,6 +121,6 @@ SELECT * FROM `option`;
 
 
 
-UPDATE `option` SET stock = 10 WHERE option_no = 7;
+UPDATE `option` SET stock = stock-1 WHERE option_no = 7;
 
 SELECT * FROM `option` WHERE option_no = 7;
