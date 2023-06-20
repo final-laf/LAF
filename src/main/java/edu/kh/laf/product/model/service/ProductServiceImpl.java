@@ -82,4 +82,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		return mapper.search(map);
 	}
+
+	// 카테고리 이름 조회
+	@Override
+	public String selectCategoryName(int category) {
+		return mapper.selectCategoryName(category);
+	}
 }

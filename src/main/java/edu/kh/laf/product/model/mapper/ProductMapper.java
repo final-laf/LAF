@@ -55,4 +55,11 @@ public interface ProductMapper {
      * @return productList
      */
 	List<Product> search(Map<String, Object> map);
+
+	/**
+	 * 카테고리 이름 조회
+	 * @param category
+	 * @return categoryName
+	 */
+	String selectCategoryName(int category);
 }

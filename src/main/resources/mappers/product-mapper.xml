@@ -195,5 +195,9 @@
 			</if>
 	</select>
 	
+	<!-- 카테고리 이름 조회 -->
+	<select id="selectCategoryName">
+		select parent_category_name from `parent_category_cd` where parent_category_no = ${categoryNo}
+	</select>
 </mapper>
 

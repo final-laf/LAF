@@ -57,11 +57,11 @@
 
     <!-- 회원 -->
     <div th:if="${session.loginMember}" class="header-nav-icon">
-      <!-- <input id="searchCheckbox" class="hidden" type="checkbox"> -->
+      <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
-      <!-- <label for="searchCheckbox"> -->
+      <label id="searchImgLabel" for="searchCheckbox">
         <img id="searchImg" src="/images/common/search.svg">
-      <!-- </label> -->
+      </label>
       <a href="/myPage"><img src="/images/common/user.svg"></a>
       <a href="/cart"><img src="/images/common/cart.svg"></a>
     </div>

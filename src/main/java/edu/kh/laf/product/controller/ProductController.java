@@ -39,6 +39,7 @@ public class ProductController {
 		long memberNo = loginMember == null ? -1 : loginMember.getMemberNo();
 		model.addAttribute("productList", productService.selectCategoryProductList(category, memberNo));
 		model.addAttribute("bestList", productService.selectWeeklyBest(category, 10));
+		model.addAttribute("categoryName", productService.selectCategoryName(category));
 		return "/shopping/categoryList";
 	}
 	

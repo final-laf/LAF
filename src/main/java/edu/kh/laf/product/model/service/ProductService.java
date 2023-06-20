@@ -60,4 +60,11 @@ public interface ProductService {
 	 * @return productList
 	 */
 	List<Product> search(String query, String ordering, long memberNo);
+
+	/**
+	 * 카테고리 이름 조회
+	 * @param category
+	 * @return categoryName
+	 */
+	String selectCategoryName(int category);
 }
