@@ -36,6 +36,7 @@
   <form action="/logout" method="get">
     <button style="width: 50px; height: 20px; background-color: #ccc;">logout</button>
   </form>
+  <div style="font-size: 1.2rem; margin-top: 5px;" th:if="${session.loginMember}" th:text="${session.loginMember.memberName} + '님 환영합니다!!'"></div>
 </div>
 </header>
 

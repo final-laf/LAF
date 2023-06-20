@@ -1,8 +1,5 @@
 package edu.kh.laf.order.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
@@ -112,36 +108,15 @@ public class OrderController {
 		order.setOrderNo(orderNo);
 		
 		// 상품별 서비스처리
-		for(OrderProduct op : orderProductList) {
-			// orderNo세팅
-			op.setOrderNo(orderNo);
-			// order_product 테이블 추가
-			int opResult = service.insertOrderProduct(op);
-			if(opResult == 0) {
-				System.out.println("추가 실패");
-				break; // 실패 처리
-			}
-			// 상품 재고 최신화
-			int ocUpResult = service.optionCountUpdate(op);
-			if(ocUpResult == 0) {
-				System.out.println("최신화 실패");
-				break; // 실패 처리
-			}
-			// 상품 모든 재고조회 
-			int productAllStock = service.selectAllStock(op);
-			if(productAllStock == 0) { // 재고가 0이면 품절로 상품상태 업데이트
-				int soldOut = service.updateSoldOut(op);
-				if(soldOut == 0) {
-					System.out.println("품절 전환 실패");
-					break; // 실패 처리
-				}
-			}
+		int productResult = service.changeProduct(orderNo, orderProductList);
+		if(productResult == 0) { // 실패처리
+			return "redirect:/cart";
 		}
 		
 		// 회원일경우
 		if(loginMember != null) {
 			// 포인트 서비스(적립 및 사용)
-			int result = service.changePoint(order);
+			int pointResult = service.changePoint(order);
 
 			// 5.쿠폰을 썻다면 쿠폰 테이블 업데이트 / 사용여부
 			

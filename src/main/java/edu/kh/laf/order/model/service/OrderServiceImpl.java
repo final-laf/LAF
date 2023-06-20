@@ -148,28 +148,44 @@ public class OrderServiceImpl implements OrderService{
 		return mapper.selectOrderNo(orderKey);
 	}
 	
-	// 주문상품목록테이블 추가
+	// 상품별 서비스
 	@Override
-	public int insertOrderProduct(OrderProduct op) {
-		return mapper.insertOrderProduct(op);
-	}
-	
-	// 상품 재고 최신화
-	@Override
-	public int optionCountUpdate(OrderProduct op) {
-		return mapper.optionCountUpdate(op);
-	}
-	
-	// 상품 모든 재고조회
-	@Override
-	public int selectAllStock(OrderProduct op) {
-		return mapper.selectAllStock(op);
-	}
-	
-	// 상품 품절 전환
-	@Override
-	public int updateSoldOut(OrderProduct op) {
-		return mapper.updateSoldOut(op);
+	public int changeProduct(int orderNo, List<OrderProduct> orderProductList) {
+		
+		int productResult = 0;
+		
+		for(OrderProduct op : orderProductList) {
+			// orderNo세팅
+			op.setOrderNo(orderNo);
+			// 주문상품목록테이블 추가
+			int opResult = mapper.insertOrderProduct(op);
+			if(opResult == 0) {
+				productResult = 0;
+				break; // 실패 처리
+			}else { // 추가성공시
+				// 상품 재고 최신화
+				int ocUpResult = mapper.optionCountUpdate(op);
+				if(ocUpResult == 0) {
+					productResult = 0;
+					break; // 실패 처리
+				}else { // 재고 최신화 성공시
+					productResult = 1;
+				}
+			}
+			
+			// 상품 모든 재고조회 
+			int productAllStock = mapper.selectAllStock(op);
+			if(productAllStock == 0) { // 재고가 0이면 품절로 상품상태 업데이트
+				// 상품 품절 전환
+				int soldOut = mapper.updateSoldOut(op);
+				if(soldOut == 0) {
+					break; // 실패 처리
+				}else {
+					productResult = 1;
+				}
+			}
+		}
+		return productResult;
 	}
 	
 	// 포인트서비스
@@ -194,7 +210,7 @@ public class OrderServiceImpl implements OrderService{
 		gainPoint.setPointContent("구매에 대한 적립금");
 		gainPoint.setOrderNo(order.getOrderNo());
 		// 적립금 내역 테이블 데이터 삽입	
-		
+		System.out.println(gainPoint);
 		// 적립된 적립금 추가 후 적립번호 가져오기
 		
 		// 2.포인트 사용한 경우
@@ -207,7 +223,7 @@ public class OrderServiceImpl implements OrderService{
 			usePoint.setPointDate(payDate);
 			usePoint.setPointContent("상품구매시 사용한 적립금");
 			usePoint.setOrderNo(order.getOrderNo());
-			
+			System.out.println(usePoint);
 //					int pointUse = mapper.insertUsePoint(order.getPointNoUse());
 			
 			// 사용한 적립금 추가 후 적립번호 가져오기
