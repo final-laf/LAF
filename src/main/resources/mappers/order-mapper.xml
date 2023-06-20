@@ -50,9 +50,9 @@
 	</select>
 	
 	<!-- 비회원 생성 -->
-	<insert id="createNonMember">
+	<insert id="createNonMember" useGeneratedKeys="true" keyProperty="memberNo">
 		INSERT INTO `member`
-		VALUES (NULL, 
+		VALUES (Null,
 				#{memberId}, 
 				#{memberPw}, 
 				#{memberName}, 
@@ -93,7 +93,7 @@
 			   #{orderRecvName},
 			   #{orderRecvAdd},
 			   #{orderRecvPhone},
-			   NULL,
+			   Null,
 			   #{orderTotalPrice},
 			   #{orderPayment},
 			   DEFAULT,
@@ -116,7 +116,7 @@
 	
 	<!--주문상품목록테이블 추가 insertOrderProduct-->
 	<insert id="insertOrderProduct">
-		INSERT INTO `order`
+		INSERT INTO `order_product`
 		VALUES(#{orderNo},
 			   #{productNo},
 			   #{optionNo},

@@ -80,5 +80,11 @@ public interface OrderService {
 	 */
 	int updateSoldOut(OrderProduct op);
 
+	/** 포인트서비스
+	 * @param order
+	 * @return
+	 */
+	int changePoint(Order order);
+
 
 }
