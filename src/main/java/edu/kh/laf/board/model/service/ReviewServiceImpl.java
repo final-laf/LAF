@@ -37,5 +37,14 @@ public class ReviewServiceImpl implements ReviewService{
 	public Product reviewProduct(long productNo) {
 		return mapper.reviewProduct(productNo);
 	}
+	
+	
+	/** 리뷰 개별 조회
+	 *
+	 */
+	@Override
+	public Review detailReview(String reviewNo) {
+		return mapper.detailReview(reviewNo);
+	}
 
 }

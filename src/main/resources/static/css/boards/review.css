@@ -221,6 +221,11 @@
   height: 60px;
 }
 
+.reviewListDetail{
+  font-size: 18px;
+  font-weight: bolder;
+}
+
 
 
 /* 모달창 */

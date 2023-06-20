@@ -49,17 +49,14 @@ public class MypageQnaController {
 			String[] subQna = search.split("-");
 			Map<String, String> qnaMap = new HashMap<>();
 			qnaMap.put("memberNo", String.valueOf(loginMember.getMemberNo()));
-			System.out.println(subQna[0]);
 			qnaMap.put("type", subQna[0]);
 			qnaMap.put("content", subQna[1]);
-			System.out.println(qnaMap);
 			List<Qna> qna = new ArrayList<>();
 			qna = qnaService.searchQnaList(qnaMap);
 			List<Qna> answeredQna = new ArrayList<>();
 			answeredQna = qnaService.searchAnsweredQna(qnaMap);
 			model.addAttribute("qnaList", qna);
 			model.addAttribute("answeredQnaList", answeredQna);
-			System.out.println(qna);
 		}
 		
 		return "/myPage/myPageBoard/myPageQuestion";
@@ -75,29 +72,23 @@ public class MypageQnaController {
 	public List<Qna> qnaCategory(String category, @SessionAttribute("loginMember") Member loginMember, @SessionAttribute String searchQna
 			) {
 		List<Qna> qna = new ArrayList<>();
-		System.out.println(category);
 		if(category.equals("write")) {
 			//PathVariable 없을 때
 			if(searchQna == null) {
 				List<Qna> qnaW = new ArrayList<>();
 				qna = qnaService.qnaList(loginMember.getMemberNo());
-				System.out.println(qna);
 				
 			//PathVariable 있을 때
 			}else {
 				String[] subQna = searchQna.split("-");
 				Map<String, String> qnaMap = new HashMap<>();
 				qnaMap.put("memberNo", String.valueOf(loginMember.getMemberNo()));
-				System.out.println(subQna[0]);
 				qnaMap.put("type", subQna[0]);
 				qnaMap.put("content", subQna[1]);
-				System.out.println(qnaMap);
 				List<Qna> qnaW = new ArrayList<>();
 				qna = qnaService.searchQnaList(qnaMap);
-				System.out.println(qna);
 			}
 		}else {
-			System.out.println("답변 유무별");
 			qna=qnaService.categoryAnsweredQna(loginMember.getMemberNo());
 		}
 		return qna;
