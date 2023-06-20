@@ -1,3 +1,9 @@
+// 취소 버튼 클릭 시 마이페이지 대시보드로 이동
+document.getElementById("cancelButton").addEventListener("click", () => {
+  location.href="/myPage";
+});
+
+
 /* DB에 있는 값이 미리 셀렉트 되어있게*/
 /* 성별 */
 const options = document.querySelector("[name=memberGender]").options;
@@ -172,6 +178,7 @@ let tempEmail;
 
 sendAuthKeyBtn.addEventListener("click", function(){
   
+  const memberEmail = document.getElementById("mypageSignUpMail");
   
   // 기존의 이메일과 지금의 이메일 주소가 같을 경우
   if(loginMember.memberEmail == document.getElementById("mypageSignUpMail").value ) {
@@ -358,7 +365,6 @@ document.getElementById("mypageSignUpMonth").addEventListener("input", () => {
 //생년월일(일)
 document.getElementById("mypageSignUpDay").addEventListener("input", () => {
   const mypageSignUpBirth = document.getElementById("mypageSignUpDay");
-  const regEx = /^[0-9]$/;
   const regEx1 = /^[0-2][0-9]$/;
   const regEx2 = /^3[0-1]$/;
 
@@ -379,7 +385,7 @@ document.getElementById("mypageSignUpDay").addEventListener("input", () => {
   return;
   }
 
-  if(regEx.test(mypageSignUpBirth.value)||regEx1.test(mypageSignUpBirth.value)||regEx2.test(mypageSignUpBirth.value) ){
+  if(regEx1.test(mypageSignUpBirth.value)||regEx2.test(mypageSignUpBirth.value) ){
     mypageSignUpBirth.classList.remove("error");
     mypageSignUpBirth.classList.add("confirm");
     checkObj.mypageSignUpDay = true;
@@ -467,3 +473,38 @@ const memberAddress = document.querySelectorAll('input[name="memberAddress"]');
 
 
 
+/* 회원 탈퇴 모달 */
+const cuponModal = document.getElementById("memberDeleteModalOverlay")
+const deleteMember = document.getElementById("deleteMember");
+
+/* 회원 탈퇴 버튼 클릭 시 */
+deleteMember.addEventListener('click', () => {
+    cuponModal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
+});
+
+
+/* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
+cuponModal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("member-cupon-modal-overlay")) {
+        cuponModal.style.display = "none";
+        document.body.style.removeProperty('overflow');
+    }
+});
+
+/* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
+window.addEventListener("keyup", e => {
+    if(cuponModal.style.display === "flex" && e.key === "Escape") {
+        cuponModal.style.display = "none"
+        document.body.style.removeProperty('overflow');
+    }
+});
+
+
+/* 모달창 내부 닫기 버튼 */
+const modalClose = document.getElementById("modalClose")
+modalClose.addEventListener("click", e => {
+    cuponModal.style.display = "none";
+    document.body.style.removeProperty('overflow');
+});

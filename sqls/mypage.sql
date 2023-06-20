@@ -78,32 +78,29 @@ select * from `product` where product_no = 1;
 select * from `option` where OPTION_NO = 8;
 
 SELECT * from `member`;
+COMMIT;
+update `member`
+SET member_birth = "20230101"
+WHERE member_no = 2;
 
 update `member`
-SET member_name
-	member_address 
-	member_phone 
-	member_email 
-	member_birth 
-	성별
-	예금주
-	은행명
-	계좌번호
+SET member_birth = (SELECT STR_TO_DATE('20160501', '%Y%m%d') date_type FROM DUAL)
+WHERE member_no = 2;
+
+COMMIT;
+
 	
-	/* authority key 업데이트 */
-UPDATE `confirm_email`
-SET authority_key = 152444,
-	authority_time = datetime
-WHERE authority_email = 'user01@kh.or.kr';
+SELECT STR_TO_DATE('2016-03-15 10:39:30', '%Y-%m-%d %H:%i:%s') date_type FROM DUAL;
 
 
 
 
+/* 멤버 비밀번호 업데이트 */
+UPDATE `member`
+SET member_pw = '$2a$10$b31aOrHqrQQ2ThS/Avq2zelLtMg.SL.N5ncm3b2MOk3qiDcuuvGKy'
+WHERE member_no  = 5;
 
-
-
-
-
+COMMIT;
 
 
 

@@ -51,7 +51,20 @@
 		WHERE member_no = #{memberNo}
   	</update>
 
-	
+     <!-- 회원조회(마이페이지-정보관리-회원정보변경) -->
+     <select id="selectMember" resultType="Member">
+	  SELECT *
+	  FROM `member`
+	  WHERE MEMBER_DEL_FL = 'N'
+	  AND MEMBER_NO = #{memberNo}
+     </select>
+     
+     <!--비밀번호 변경(마이페이지-정보관리-비밀번호변경)-->
+	<update id="changePw">
+		update `member`
+		SET member_pw = #{memberPw}
+		WHERE member_no = #{memberNo};
+	</update>	
 
 
 

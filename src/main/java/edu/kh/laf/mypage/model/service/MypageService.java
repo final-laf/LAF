@@ -85,6 +85,22 @@ public interface MypageService {
 	int editMyPageInfo(Member inputMember);
 
 
+	/** 회원 정보 조회
+	 * @param memberId
+	 * @return loginMember
+	 */
+	Member selectMember(Long memberNo);
+
+
+	/** 비밀번호 변경
+	 * @param memberPw
+	 * @param newMemberPw
+	 * @param loginMember
+	 * @return result
+	 */
+	int changePw(String memberPw, String newMemberPw, Member loginMember);
+
+
 
 
 	
