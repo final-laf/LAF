@@ -114,3 +114,13 @@ COMMIT;
 -- -------------------------------------------------------------------------
 
 SELECT * FROM `option`;
+
+SELECT * FROM cart WHERE member_no = 3;
+
+SELECT * FROM `option` WHERE product_no = 2 AND option_no = 7;
+ROLLBACK;
+-- 상품재고업데이트
+UPDATE `option` SET stock = stock - 1, sell_count = sell_count + 1 WHERE product_no = 2 AND option_no = 7;
+
+SELECT stock FROM `option` WHERE product_no = 2;
+SELECT sum(stock) FROM `option` WHERE product_no = 2;

@@ -110,8 +110,6 @@ public class OrderServiceImpl implements OrderService{
 				order.setMemberNo(nonMemberNo);
 			}
 		}
-		System.out.println(order);
-		
 		
 		// 주문고유번호 세팅
 		// 주문고유번호 중복확인
@@ -132,7 +130,6 @@ public class OrderServiceImpl implements OrderService{
 		// 주문상태 세팅(주문접수)
 		order.setOrderState("A");
 		
-		System.out.println(order);
 		// 주문내역 추가
 		int result = mapper.insertOrder(order);
 		if(result == 0) {
@@ -147,8 +144,29 @@ public class OrderServiceImpl implements OrderService{
 		return mapper.selectOrderNo(orderKey);
 	}
 	
+	// 주문상품목록테이블 추가
+	@Override
+	public int insertOrderProduct(OrderProduct op) {
+		return mapper.insertOrderProduct(op);
+	}
 	
+	// 상품 재고 최신화
+	@Override
+	public int optionCountUpdate(OrderProduct op) {
+		return mapper.optionCountUpdate(op);
+	}
 	
+	// 상품 모든 재고조회
+	@Override
+	public int selectAllStock(OrderProduct op) {
+		return mapper.selectAllStock(op);
+	}
+	
+	// 상품 품절 전환
+	@Override
+	public int updateSoldOut(OrderProduct op) {
+		return mapper.updateSoldOut(op);
+	}
 	
 	// 랜덤 값 생성
     public String createAuthKey() {
