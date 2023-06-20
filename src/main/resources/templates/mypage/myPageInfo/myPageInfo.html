@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LAF :: 회원가입</title>
+  <title>LAF :: 회원 정보 변경</title>
 
   <link rel="stylesheet" href="/css/myPage/myPageInfo/myPageInfo.css">
 </head>
@@ -13,127 +13,140 @@
   <th:block th:replace="~{/common/nav}"></th:block>
   
   <main>
-    <!-- 개인화면 대쉬보드 전체 틀 -->
-    <section class="mypageEditInfo-editInfo">
-      <div class="mypageEditInfo-editInfo-info"> <!-- width 1200px, 상단 마진 50px, 중앙정렬  -->
-        <form action="" method="post" id="mypageEditInfoSubmit">
+    <section class="mypageSignUp-signUp" th:object="${session.loginMember}">
+      <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+      <div class="mypageSignUp-signUp-info"> <!-- width 1000px, 상단 마진 50px, 중앙정렬  -->
+        <form th:action="@{/myPage/info}" method="post" id="mypageSignUpSubmit">
           <div>
-          <div class="mypageEditInfo-info-content"><!-- 기본정보 -->
-            <div>
-              <Strong>기본정보</Strong>
-              <div>*필수입력사항</div>
-            </div>
-            <table class="mypageEditInfo-content-table">
+            <div class="mypageSignUp-info-intro"><span>회원 정보 변경</span></div>
+          <div class="mypageSignUp-info-signUpInfo reqired-information"><!-- 기본정보 -->
+            <Strong>기본정보</Strong>
+            <table class="mypageSignUp-signUpInfo-table">
               <tr>
-                <th>아이디*</th>
+                <th><div class="for-flex-signUp"><span>아이디</span></div></th>
                 <td>
-                  <div class="mypageEditInfo-table-inputTd">
-                    <input type="text" name="memberId" id="mypageEditInfo" required>
-                    <div>　(영문소문자/숫자, 4~16자)</div>
+                  <div class="mypageSignUp-table-inputTd">
+                    <div th:text="*{memberId}">로그인 회원 아이디</div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <th>비밀번호*</th>
+                <th><div class="for-flex-signUp"><span>이름</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
-                  <div class="mypageEditInfo-table-inputTd">
-                    <input type="password" name="memberPw" id="mypageSignUpPw" required>
-                    <div>　(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</div>
-                  </div>
+                  <input type="text" name="memberName" id="mypageSignUpName"  maxlength="10" th:value="*{memberName}">
                 </td>
               </tr>
               <tr>
-                <th>비밀번호 확인*</th>
-                <td>
-                  <input type="password"  name="memberPw2" id="mypageSignUpPwConfirm" required>
-                </td>
-              </tr>
-              <tr>
-                <th>이름*</th>
-                <td>
-                  <input type="text" name="memberName" id="mypageSignUpName" required maxlength="10">
-                </td>
-              </tr>
-              <tr>
-                <th>주소*</th>
+                <th><div class="for-flex-signUp"><span>주소</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
                   <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
-                  <div class="mypageEditInfo-table-address">
-                    <input type="text" required class="mypageEditInfo-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
-                    <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                  <div class="mypageSignUp-table-address">
+                    <input type="text"  class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="sample6_postcode" readonly>
+                    <button type="button" onclick="sample6_execDaumPostcode('sample6')">주소검색</button>
                   </div>
-                  <div class="mypageEditInfo-table-address">
-                    <input type="text" required name="memberAddress" placeholder="  기본 주소" id="sample6_address" readonly>
+                  <div class="mypageSignUp-table-address">
+                    <input type="text"  name="memberAddress" placeholder=""  기본 주소 id="sample6_address" readonly>
                   </div>
-                  <div class="mypageEditInfo-table-address">
-                    <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="sample6_detailAddress">
+                  <div class="mypageSignUp-table-address">
+                    <input type="text"  name="memberAddress" placeholder=""  상세 주소 id="sample6_detailAddress">
                   </div>
                 </td>
               </tr>
               <tr>
-                <th>전화번호*</th>
-                <td class="mypageEditInfo-table-tel">
-                  <input type="text" placeholder="010" maxlength="3"  name="memberName">
-                  -
-                  <input type="text"  maxlength="4"  name="memberName">
-                  -
-                  <input type="text"  maxlength="4" name="memberName">
+                <th><div class="for-flex-signUp"><span>전화번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td class="mypageSignUp-table-tel">
+                  <input type="text" id="mypageSignUpTelF" maxlength="11"  name="memberPhone" th:value="*{memberPhone}">
+                  <span id="phoneMessage">'-'를 제외한 숫자만 입력 바랍니다.</span>
                 </td>
               </tr>
               <tr>
-                <th>이메일*</th>
+                <th><div class="for-flex-signUp"><span>이메일</span><div class="required-for-signUp"><span>*</span></div></div></th>
                 <td>
-                  <input type="text" required id="mypageSignUpMail" name="memberEmail">
+                  <input type="text"  id="mypageSignUpMail" name="memberEmail" th:value="*{memberEmail}">
+                  <button class="signUp-button" id="sendAuthKeyBtn" type="button">인증 메일 전송</button>
+                  <span id="emailMessage"></span>
+                </td>
+              </tr>
+              <tr>
+                <th><div class="for-flex-signUp"><span>이메일 인증 번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td>
+                  <input type="text" id="authKey" name="authKey" maxlength="6" autocomplete="off">
+                  <button class="signUp-button" id="checkAuthKeyBtn" type="button">인증하기</button>
+                  <span id="authKeyMessage"></span>
                 </td>
               </tr>
             </table>
           </div>
 
-          <div  class="mypageEditInfo-info-content"><!-- 추가 정보 -->
+          <div  class="mypageSignUp-info-signUpInfo"><!-- 추가 정보 -->
             <Strong>추가정보</Strong>
-            <table class="mypageEditInfo-content-table">
-              <tr class="mypageEditInfo-table-birth">
-                  <th>생년월일</th>
+            <table class="mypageSignUp-signUpInfo-table modify-margin-bottom">
+              <tr class="mypageSignUp-table-birth">
+                  <td>생년월일</td>
                   <td>
-                      <input type="text" maxlength="4" id="mypageSignUpYear" name="memberBirth" style="width:100px">년
-                      <input type="text" maxlength="2" id="mypageSignUpMonth" name="memberBirth">월
-                      <input type="text" maxlength="2" id="mypageSignUpDay" name="memberBirth">일
+                      <input type="text" maxlength="4" id="mypageSignUpYear" name="memberBirth" style="width:100px" th:value="${#strings.substring(loginMember.memberBirth,0,4)}">년
+                      <input type="text" maxlength="2" id="mypageSignUpMonth" name="memberBirth" th:value="${#strings.substring(loginMember.memberBirth,5,7)}">월
+                      <input type="text" maxlength="2" id="mypageSignUpDay" name="memberBirth" th:value="${#strings.substring(loginMember.memberBirth,8,10)}">일
+                  </td>
+                  <td>성별</td>
+                  <td>
+                    <select name="memberGender" th:value="*{memberGender}">
+                      <option value="n">선택</option>
+                      <option value="F">여자</option>
+                      <option value="M">남자</option>
+                    </select>
                   </td>
               </tr>
-              <tr class="mypageEditInfo-table-Refund">
-                <th>환불계좌 정보</th>
-                <td>
-                  <div> 예금주　 
-                    <input type="text" id="mypageSignUpRefundName" name="memberPw">
-                  </div>
-                  <hr>
-                  <div> 은행명　 
-                    <select name="bankName" size="1"> 
-                      <option>- 은행 선택 -</option>
-                      <option value="ori">우리은행</option>
-                      <option value="kuk">국민은행</option> 
-                      <option value="nong">농협은행</option> 
-                    </select>
-                  </div>
-                  <hr>
-                  <div>
-                    <span>- 계좌번호</span>
-                    <input type="text" name="memberPw" id="mypageSignUpRefundNo">
-                    ('-'와 숫자만 입력해주세요.)
+              <tr class="mypageSignUp-table-Refund">
+                <td rowspan="3">환불계좌 정보</td>
+                <td colspan="3">
+                  <div> 예금주
+                    <input type="text" id="mypageSignUpRefundName" name="refundName" th:value="*{refundName}">
                   </div>
                 </td>
               </tr>
+              <tr>
+                <td colspan="3"> 은행명
+                  <select name="refundBank" size="1" th:value="*{refundBank}"> 
+                    <option value="0">- 은행 선택 -</option>
+                    <option value="1">국민은행</option> 
+                    <option value="2">농협은행</option> 
+                    <option value="3">우리은행</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <span>계좌번호</span>
+                  <input type="text" name="refundAccount" id="mypageSignUpRefundNo"  placeholder="'-' 을 제외한 숫자만 입력해주세요" th:value="*{refundAccount}">
+                </td>
+              </tr>
             </table>
+            <div>
+              <button type="button" id="deleteMember">회원탈퇴</button>
+            </div>
+            <!-- 회원 탈퇴 모달창 -->
+            <div class="myPage-delete-modal-overlay" id="memberDeleteModalOverlay">
+              <div class="myPage-delete-modal-window">
+                <div>
+                  <div>혜택 내역</div>
+                  <div class="delete-confirm-message-box">
+                    <div>
+                      <div>회원 탈퇴시 가지고 계시는 적립금/쿠폰이 삭제됩니다.</div>
+                      <div>현재 예치금 : 0원</div>
+                      <div>현재 쿠폰 : 0개</div>
+                    </div>
+                  </div>
+                  <div>이 모든 혜택을 버리고 탈퇴하시겠습니까?</div>
+                </div>
+                <!-- 하단 버튼 영역 -->
+                <div class="myPage-delete-btn-area">
+                  <button type="button" class="button member-cupon-modal-close">탈퇴</button>
+                  <button type="button" class="button member-cupon-modal-close" id="modalClose">닫기</button>
+                </div>
+              </div>
+            </div>
           </div> 
-          <div>
-            <div class="mypageEditInfo-info-member">
-              <button id="mypageEditWithdrawal">회원탈퇴</button>
-            </div>
-            <div id="mypageEditInfoSubmitButton">
-              <button>회원정보수정</button>
-              <a href="/my"><button type="button">취소</button></a>
-            </div>
-          </div>
+          <div id="mypageSignUpSubmitButton"><button id="signUpButton">회원정보수정</button><button type="button" id="cancelButton">취소</button></div>
         </form>
       </div>
     </section>
@@ -141,8 +154,10 @@
 
   <th:block th:replace="~{/common/footer}"></th:block>
 
+  
+  <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/js/common/api/address.js"></script>
-  <script src="/js/myPage/myPageInfo/mypageEditInfo.js"></script>
+  <script src="/js/myPage/myPageInfo.js"></script>
 </body>
 </html>

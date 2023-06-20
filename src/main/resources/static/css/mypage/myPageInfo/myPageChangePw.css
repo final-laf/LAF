@@ -1,0 +1,145 @@
+/* 회원가입 정규식 확인 */
+.confirm{color : #666;}
+.error{color : red;}
+
+
+input {
+  outline: none;
+}
+
+.mypageSignUp-signUp{
+  display: flex;
+  justify-content: center;
+}
+.mypageSignUp-signUp-info{
+    margin-top: 50px;
+    display: flex;
+    width: 1000px;
+}
+.mypageSignUp-info-intro{
+  color: #666;
+  display: flex;
+  font-size: 17px;
+  align-items: flex-end;
+  margin-bottom: 30px;
+}
+
+.mypageSignUp-info-intro span{
+  color: black;
+  font-weight: bold;
+  margin-right: 10px;
+  display: flex;
+  font-size: 2.0rem;
+}
+
+.mypageSignUp-info-signUpInfo{
+    display: block;
+}
+
+.mypageSignUp-signUpInfo-table{
+    margin: 20px 0;
+    margin-bottom: 50px;
+}
+
+.mypageSignUp-signUpInfo-table th{
+    padding-left: 10px;
+    height: 30px;
+    width: 150px;
+    background-color: #fafafa;
+    border-top: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+    border-right: 0.5px solid #eee;
+    text-align: left;
+}
+.mypageSignUp-signUpInfo-table td{
+    width: 1200px;
+    padding-left: 10px;
+    border-top: 0.5px solid #eee;
+    border-left: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+
+}
+.mypageSignUp-signUpInfo-table tr{
+    
+    height: 70px;
+}
+.mypageSignUp-signUpInfo-table input{
+  border: 0.5px solid #eee;
+    width: 300px;
+    height: 45px;
+}
+.mypageSignUp-table-inputTd{
+    display: flex;
+    align-items: center;
+}
+.mypageSignUp-table-inputTd > div{
+  color: #666;
+  margin-left: 10px;
+} 
+
+
+/* 수정, 취소 버튼 */
+#mypageSignUpSubmit {
+  width: 100%;
+}
+
+#mypageSignUpSubmitButton{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  height: 50px
+}
+
+#mypageSignUpSubmitButton button {
+  border: none;
+  height: 50px;
+  width: 200px;
+  margin: 10px;
+}
+
+#signUpButton {
+  background-color: #7F7698;
+  font-weight: bold;
+}
+
+#cancelButton {
+  background-color: #ccc;
+  font-weight: bold;
+}
+
+
+/* 필수 입력값 첫뻔째 열 */
+#mypageSignUpSubmit > div > div:nth-child(2) > table > tbody > tr > th {
+  width: 15%;
+}
+
+
+/* 필수입력값을 알리는 '*' */
+.required-for-signUp {
+  display: flex;
+  align-items: flex-start;
+}
+
+.required-for-signUp > span {
+  margin-left: 5px;
+  font-size: 2px;
+  color: red;
+}
+
+.for-flex-signUp {
+  display: flex;
+  flex-direction: row;
+}
+
+.signUp-button {
+  margin-left: 10px;
+}
+
+.mypageSignUp-signUpInfo-table tr:nth-child(6) {
+  display: none;
+}
+
+#mypageSignUpSubmit > div > div:nth-child(3) > div {
+  display: flex;
+  justify-content: end;
+}
