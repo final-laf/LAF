@@ -41,7 +41,7 @@
             <td class="item-choose">선택</td>
           </tr>
           <!-- 작성 가능 리뷰 없을때 -->
-          <tr th:if="${myOrder==null}">
+          <tr th:if="${review?.size==0}">
             <td colspan="6" class="item-empty">작성 가능한 리뷰가 없습니다.</td>
           </tr>
           <!-- 작성 가능 리뷰 있을 때 -->
@@ -67,8 +67,8 @@
               <div class="item-price" th:text="${r.product.productPrice}">가격</div>
             </td>
             <td class="item-choose">
-              <button>리뷰수정</button>
-              <button>&times; 삭제</button>
+              <button type="button">리뷰 작성</button>
+              <button type="button">&times; 삭제</button>
             </td>
           </tr>
         </table>
@@ -100,7 +100,7 @@
       </div>
     </section>
   </main>
-
+  <th:block th:replace="~{/boards/review/reviewModifyModal}"></th:block>
   <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>
