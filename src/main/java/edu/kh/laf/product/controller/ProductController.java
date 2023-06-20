@@ -39,6 +39,7 @@ public class ProductController {
 			Model model, 
 			@PathVariable("category") int categoryNo, String ordering,
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			@RequestParam(value="cc", required=false, defaultValue="0") long cc,
 			@SessionAttribute(name="loginMember", required=false) Member loginMember) {
 		
 		Map<String, Object> paramMap = new HashMap<>();
@@ -46,13 +47,16 @@ public class ProductController {
 		paramMap.put("memberNo", loginMember == null ? -1 : loginMember.getMemberNo());
 		paramMap.put("ordering", ordering);
 		paramMap.put("cp", cp);
+		paramMap.put("cc", cc);		
 		
 		Map<String, Object> resultMap = productService.selectCategoryProductList(paramMap);
 		model.addAttribute("productList", resultMap.get("productList"));
 		model.addAttribute("pagination", resultMap.get("pagination"));
 		model.addAttribute("bestList", productService.selectWeeklyBest(categoryNo, 10));
 		model.addAttribute("categoryName", productService.selectCategoryName(categoryNo));
+		model.addAttribute("childCategoryList", productService.selectChildCategoryList(categoryNo));
 		model.addAttribute("ordering", ordering);
+		model.addAttribute("cc", cc);
 		
 		return "/shopping/categoryList";
 	}
@@ -129,6 +133,6 @@ public class ProductController {
 		model.addAttribute("ordering", ordering);
 		model.addAttribute("query", query);
 		
-		return "/shopping/categoryList";
+		return "/shopping/searchResult";
 	}
 }
