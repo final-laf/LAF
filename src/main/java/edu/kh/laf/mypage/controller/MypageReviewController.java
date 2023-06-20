@@ -24,7 +24,6 @@ public class MypageReviewController {
 		List<Review> myOrder = new ArrayList<>();
 		myOrder = reviewService.myReview(loginMember.getMemberNo());
 		for(Review review : myOrder) {
-			System.out.println(review);
 //			옵션 설정
 			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
 //			상품 설정
@@ -52,7 +51,6 @@ public class MypageReviewController {
 			review.setProduct(reviewService.myOrderProduct(review.getProductNo()));
 		}
 		List<Review> myOrder = reviewService.myReview(loginMember.getMemberNo());
-		System.out.println(myWrittenReview);
 		model.addAttribute("myOrder", myOrder);
 		model.addAttribute("myWrittenReview", myWrittenReview);
 		return "/myPage/myPageBoard/myPageReviewQueue";

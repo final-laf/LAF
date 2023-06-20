@@ -28,4 +28,10 @@ public interface ReviewMapper {
 	 */
 	Product reviewProduct(long productNo);
 
+	/** 리뷰 개별 조회
+	 * @param reviewNo
+	 * @return
+	 */
+	Review detailReview(String reviewNo);
+
 }

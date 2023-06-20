@@ -44,10 +44,8 @@ public class QnaController {
 			model.addAttribute("searchQna", search);
 			String[] subQna = search.split("-");
 			Map<String, String> qnaMap = new HashMap<>();
-			System.out.println(subQna[0]);
 			qnaMap.put("type", subQna[0]);
 			qnaMap.put("content", subQna[1]);
-			System.out.println(qnaMap);
 			List<Qna> qna = new ArrayList<>();
 //			qna = qnaService.searchQnaList(qnaMap);
 			List<Qna> answeredQna = new ArrayList<>();
@@ -66,18 +64,12 @@ public class QnaController {
 		return "/boards/qna/qnaDetail";
 	}
 	
-	// 1:1 문의 글쓰기 컨트롤러
-	@GetMapping("/qna/write")
-	public String writeQna() {
-		return "/boards/qna/qnaWrite";
-	}
 	
 	// 1:1 문의 수정 컨트롤러
 	@GetMapping("/qna/modify/{no:[0-9]+}")
 	public String modifyQna(@PathVariable String no, Model model) {
 		Qna qna = qnaService.detailQna(no);
 		model.addAttribute("qna", qna);
-		System.out.println(qna);
 		return "/boards/qna/qnaModify";
 	}
 	
@@ -86,7 +78,6 @@ public class QnaController {
 	public String answerQna(@PathVariable String no, Model model) {
 		Qna qna = qnaService.detailQna(no);
 		model.addAttribute("qna", qna);
-		System.out.println(qna);
 		return "/boards/qna/qnaAnswer";
 	}
 	
@@ -96,7 +87,6 @@ public class QnaController {
 	public String insert(Qna qna, @RequestHeader(value = "referer") String referer
 			,Model model){
 		
-		System.out.println(qna);
 		if(qna.getMemberNo()==0) {
 			qna.setMemberNo(35);
 		}
@@ -109,7 +99,6 @@ public class QnaController {
 		if(qna.getQnaPw()=="") {
 			qna.setQnaPw(null);
 		}
-		System.out.println(qna);
 		if(qna.getQnaLockFl()!=null) {
 			if(qna.getQnaLockFl().equals("on")) {
 				qna.setQnaLockFl("y");
@@ -125,7 +114,6 @@ public class QnaController {
 			qna.setQnaCategory("배송");
 		}
 		
-		System.out.println(qna);
 		int writeNotice = qnaService.writeQna(qna);
 		
 		return "redirect:/qna";
@@ -138,7 +126,6 @@ public class QnaController {
 		String path = "redirect:/qna/detail/";
 		path+=qna.getQnaNo();
 		
-		System.out.println(qna);
 		if(qna.getMemberNo()==0) {
 			qna.setMemberNo(35);
 		}
@@ -151,7 +138,6 @@ public class QnaController {
 		if(qna.getQnaPw()=="") {
 			qna.setQnaPw(null);
 		}
-		System.out.println(qna);
 		if(qna.getQnaLockFl()!=null) {
 			if(qna.getQnaLockFl().equals("on")) {
 				qna.setQnaLockFl("y");
@@ -167,7 +153,6 @@ public class QnaController {
 			qna.setQnaCategory("배송");
 		}
 		
-		System.out.println(qna);
 		int writeNotice = qnaService.updateQna(qna);
 		
 		return path;
@@ -180,7 +165,6 @@ public class QnaController {
 		String path = "redirect:/qna/detail/";
 		path+=qna.getQnaNo();
 		
-		System.out.println(qna);
 		int answerNotice = qnaService.answerQna(qna);
 		
 		return path;
@@ -196,7 +180,6 @@ public class QnaController {
 	@GetMapping(value="/qna/delete",produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteQna(String qnaNo){
-		System.out.println(qnaNo);
 		int no = qnaService.deleteQna(qnaNo);
 		String n= "";
 		return n;
@@ -206,14 +189,11 @@ public class QnaController {
 	@PostMapping("/qna/qnaLockNo")
 	@ResponseBody
 	public int detail(@RequestBody Qna qna) {
-		System.out.println("qna= "+qna);
 		Qna check = qnaService.confirmLockNo(qna);
-		System.out.println("check = " + check);
 		int checkSecretPw=1;
 		if(check==null) {
 			checkSecretPw=-1;
 		}
-		System.out.println(checkSecretPw);
 		return checkSecretPw;
 	}
 	

@@ -30,7 +30,6 @@ public class NoticeController {
 		List<Notice> notice = new ArrayList<>();
 		notice = service.noticeList();
 		model.addAttribute("noticeList", notice);
-		System.out.println(notice);
 		
 		return "/boards/notice/notice";
 	}
@@ -58,7 +57,6 @@ public class NoticeController {
 	public String insert(Notice notice, @RequestHeader(value = "referer") String referer
 			,Model model, @SessionAttribute("loginMember") Member loginMember){
 		notice.setMemberNo(loginMember.getMemberNo());
-		System.out.println(notice);
 		int writeNotice = service.writeNotice(notice);
 		model.addAttribute("writeNotice",writeNotice);
 		
@@ -71,7 +69,6 @@ public class NoticeController {
 	@GetMapping(value="/notice/delete",produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteNotice(String noticeNo){
-		System.out.println(noticeNo);
 		int no = service.deleteNotice(noticeNo);
 		String n= "";
 		return n;
