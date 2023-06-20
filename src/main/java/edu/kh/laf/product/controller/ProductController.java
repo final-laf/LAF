@@ -90,7 +90,7 @@ public class ProductController {
 		model.addAttribute("colorList", optionNames.get("colorList"));
 		model.addAttribute("sizeList", optionNames.get("sizeList"));
 		
-		// 회원인 경우 좋아요 여부 확인
+		// 회원인 경우 찜 여부 확인
 		if(loginMember != null) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("productNo", productNo);
