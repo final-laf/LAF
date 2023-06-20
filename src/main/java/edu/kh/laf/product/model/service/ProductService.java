@@ -1,5 +1,6 @@
 package edu.kh.laf.product.model.service;
 
+import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Product;
 
 import java.util.List;
@@ -66,4 +67,11 @@ public interface ProductService {
 	 * @return categoryName
 	 */
 	String selectCategoryName(int category);
+
+	/**
+	 * 자식카테고리 조회
+	 * @param categoryNo
+	 * @return childCategoryList
+	 */
+	List<Category> selectChildCategoryList(int categoryNo);
 }

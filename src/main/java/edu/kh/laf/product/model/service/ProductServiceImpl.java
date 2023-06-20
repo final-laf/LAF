@@ -1,5 +1,6 @@
 package edu.kh.laf.product.model.service;
 
+import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Pagination;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.mapper.ProductMapper;
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Map<String, Object> selectCategoryProductList(Map<String, Object> paramMap) {
     	
-    	int listCount = mapper.getListCount((int)paramMap.get("categoryNo"));
+    	int listCount = mapper.getListCount(paramMap);
 		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"));
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -56,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 	// 상품 검색
 	@Override
 	public Map<String, Object> search(Map<String, Object> paramMap) {
-		int listCount = mapper.getSearchListCount((String)paramMap.get("query"));
+		int listCount = mapper.getSearchListCount(paramMap);
 		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"));
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
@@ -103,5 +104,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public String selectCategoryName(int categoryNo) {
 		return mapper.selectCategoryName(categoryNo);
+	}
+
+	// 자식 카테고리 조회
+	@Override
+	public List<Category> selectChildCategoryList(int categoryNo) {
+		return mapper.selectChildCategoryList(categoryNo);
 	}
 }

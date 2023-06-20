@@ -66,10 +66,12 @@
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
 				JOIN `product_category` ON `product`.product_no = `product_category`.product_no
 		WHERE  thumb_fl  = 'Y'
-				AND parent_category_no = ${categoryNo}
 				and product_state = 'O'
-				<if test='query != nll'>
-					AND `product`.product_name like '%${query}%'
+				<if test="cc lte 0">
+					AND parent_category_no = ${categoryNo}
+				</if>
+				<if test='cc gt 0'>
+					AND child_category_no = ${cc}
 				</if>
 		ORDER BY 
 			<if test='ordering == null or ordering.isEmpty() or ordering.equals("new")'>
@@ -212,17 +214,33 @@
 	
 	<!-- 카테고리 상품 갯수 조회 -->
 	<select id="getListCount">
-		select count(*) 
-		from `product_category` 
-		where parent_category_no = ${categoryNo} 
+		select 	count(*) 
+		from 	`product_category` 
+				join `product` on `product`.product_no = `product_category`.product_no
+		where product_state = 'O'
+		<if test="cc lte 0">
+			AND parent_category_no = ${categoryNo}
+		</if>
+		<if test='cc gt 0'>
+			AND child_category_no = ${cc}
+		</if>
 	</select>
 	
 	<!-- 검색 상품 갯수 조회 -->
 	<select id="getSearchListCount">
 		SELECT count(*)
 		FROM   `product`
-		WHERE  `product`.product_name like '%${query}%' and product_state = 'O'
-
+		WHERE  `product`.product_name like '%${query}%' 
+				and product_state = 'O';
+	</select>
+	
+	<!-- 자식 카테고리 조회 -->
+	<select id="selectChildCategoryList" resultType="Category">
+		select 	child_category_no as category_no,
+				child_category_name as category_name,
+				parent_category_no
+		from 	`child_category_cd`
+		where 	parent_category_no = ${categoryNo}
 	</select>
 </mapper>
 

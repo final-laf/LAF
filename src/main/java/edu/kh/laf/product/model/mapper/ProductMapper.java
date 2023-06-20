@@ -1,5 +1,6 @@
 package edu.kh.laf.product.model.mapper;
 
+import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -75,12 +76,19 @@ public interface ProductMapper {
 	 * @param category
 	 * @return count
 	 */
-	int getListCount(int categoryNo);
+	int getListCount(Map<String, Object> paramMap);
 	
 	/**
 	 * 카테고리 상품 갯수 조회
-	 * @param query
+	 * @param paramMap
 	 * @return count
 	 */
-	int getSearchListCount(String query);
+	int getSearchListCount(Map<String, Object> paramMap);
+
+	/**
+	 * 자식 카테고리 조회
+	 * @param categoryNo
+	 * @return childCategoryList
+	 */
+	List<Category> selectChildCategoryList(int categoryNo);
 }
