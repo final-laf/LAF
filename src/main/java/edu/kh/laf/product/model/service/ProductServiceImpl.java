@@ -1,7 +1,10 @@
 package edu.kh.laf.product.model.service;
 
+import edu.kh.laf.product.model.dto.Category;
+import edu.kh.laf.product.model.dto.Pagination;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.mapper.ProductMapper;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -33,15 +36,41 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectWeeklyBest(map);
 	}
 
-    // 카테고리 전체 상품 목록 조회
+    // 카테고리 상품 목록 조회
     @Override
-    public List<Product> selectCategoryProductList(int categoryNo, long memberNo) {
-    	Map<String, Object> map = new HashMap<>();
-    	map.put("categoryNo", categoryNo);
-    	map.put("memberNo", memberNo);
+    public Map<String, Object> selectCategoryProductList(Map<String, Object> paramMap) {
     	
-    	return mapper.selectCategoryProductList(map);
+    	int listCount = mapper.getListCount(paramMap);
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"));
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		List<Product> productList = mapper.selectCategoryProductList(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("productList", productList);
+    	
+    	return resultMap;
     }
+    
+	// 상품 검색
+	@Override
+	public Map<String, Object> search(Map<String, Object> paramMap) {
+		int listCount = mapper.getSearchListCount(paramMap);
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"));
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		List<Product> productList = mapper.search(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("productList", productList);
+    	
+    	return resultMap;
+	}
+
     
     // 카테고리 상품 목록 조회(갯수제한)
 	@Override
@@ -71,15 +100,15 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectRecommendList(productNo);
 	}
 
-	// 상품 검색
+	// 카테고리 이름 조회
 	@Override
-	public List<Product> search(String query, String ordering, long memberNo) {
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("query", query);
-		map.put("memberNo", memberNo);
-		map.put("ordering", ordering);
-		
-		return mapper.search(map);
+	public String selectCategoryName(int categoryNo) {
+		return mapper.selectCategoryName(categoryNo);
+	}
+
+	// 자식 카테고리 조회
+	@Override
+	public List<Category> selectChildCategoryList(int categoryNo) {
+		return mapper.selectChildCategoryList(categoryNo);
 	}
 }

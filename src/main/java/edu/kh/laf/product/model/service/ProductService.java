@@ -1,5 +1,6 @@
 package edu.kh.laf.product.model.service;
 
+import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Product;
 
 import java.util.List;
@@ -22,9 +23,10 @@ public interface ProductService {
     
     /**
      * 카테고리 전체 상품 목록 조회
+     * @param map
      * @return productList
      */
-    List<Product> selectCategoryProductList(int categoryNo, long memberNo);
+    Map<String, Object> selectCategoryProductList(Map<String, Object> map);
     
     /**
      * 카테고리 상품 목록 조회(갯수제한)
@@ -54,10 +56,22 @@ public interface ProductService {
 	
 	/**
 	 * 상품별 검색
-	 * @param query
-	 * @param ordering 
-	 * @param memberNo 
-	 * @return productList
+	 * @param map 
+	 * @return map
 	 */
-	List<Product> search(String query, String ordering, long memberNo);
+	Map<String, Object> search(Map<String, Object> map);
+
+	/**
+	 * 카테고리 이름 조회
+	 * @param category
+	 * @return categoryName
+	 */
+	String selectCategoryName(int category);
+
+	/**
+	 * 자식카테고리 조회
+	 * @param categoryNo
+	 * @return childCategoryList
+	 */
+	List<Category> selectChildCategoryList(int categoryNo);
 }

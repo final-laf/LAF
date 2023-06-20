@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -22,7 +23,7 @@ import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"loginMember", "likeList"})
 public class ProductController {
 
 	@Autowired
@@ -34,11 +35,29 @@ public class ProductController {
 	
 	// 카테고리 상품목록 조회
 	@GetMapping("/{category:[0-9]+}")
-	public String category(Model model, @PathVariable("category") int category,
+	public String category(
+			Model model, 
+			@PathVariable("category") int categoryNo, String ordering,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			@RequestParam(value="cc", required=false, defaultValue="0") long cc,
 			@SessionAttribute(name="loginMember", required=false) Member loginMember) {
-		long memberNo = loginMember == null ? -1 : loginMember.getMemberNo();
-		model.addAttribute("productList", productService.selectCategoryProductList(category, memberNo));
-		model.addAttribute("bestList", productService.selectWeeklyBest(category, 10));
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("categoryNo", categoryNo);
+		paramMap.put("memberNo", loginMember == null ? -1 : loginMember.getMemberNo());
+		paramMap.put("ordering", ordering);
+		paramMap.put("cp", cp);
+		paramMap.put("cc", cc);		
+		
+		Map<String, Object> resultMap = productService.selectCategoryProductList(paramMap);
+		model.addAttribute("productList", resultMap.get("productList"));
+		model.addAttribute("pagination", resultMap.get("pagination"));
+		model.addAttribute("bestList", productService.selectWeeklyBest(categoryNo, 10));
+		model.addAttribute("categoryName", productService.selectCategoryName(categoryNo));
+		model.addAttribute("childCategoryList", productService.selectChildCategoryList(categoryNo));
+		model.addAttribute("ordering", ordering);
+		model.addAttribute("cc", cc);
+		
 		return "/shopping/categoryList";
 	}
 	
@@ -71,7 +90,7 @@ public class ProductController {
 		model.addAttribute("colorList", optionNames.get("colorList"));
 		model.addAttribute("sizeList", optionNames.get("sizeList"));
 		
-		// 회원인 경우 좋아요 여부 확인
+		// 회원인 경우 찜 여부 확인
 		if(loginMember != null) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("productNo", productNo);
@@ -98,16 +117,22 @@ public class ProductController {
 	
 	// 상품검색(전체)
 	@GetMapping("/search")
-	public String navSearch(
+	public String search(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 			String query, String ordering, Model model) {
 
-		long MemberNo = loginMember == null ? -1 : loginMember.getMemberNo();
-		List<Product> productList = productService.search(query, ordering, MemberNo);
-		model.addAttribute("productList", productList);
-		model.addAttribute("query", query);
-		model.addAttribute("ordering", ordering);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNo", loginMember == null ? -1 : loginMember.getMemberNo());
+		paramMap.put("ordering", ordering);
+		paramMap.put("cp", cp);
 		
-		return "/shopping/search";
+		Map<String, Object> resultMap = productService.search(paramMap);
+		model.addAttribute("productList", resultMap.get("productList"));
+		model.addAttribute("pagination", resultMap.get("pagination"));
+		model.addAttribute("ordering", ordering);
+		model.addAttribute("query", query);
+		
+		return "/shopping/searchResult";
 	}
 }

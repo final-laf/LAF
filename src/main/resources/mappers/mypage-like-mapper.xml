@@ -25,6 +25,13 @@
 		where member_no = #{memberNo}
 			  and product_no = #{productNo}
 	</select>
+	
+	<!-- 찜한 상품 목록 조회 -->
+	<select id="selectLikeList" resultType="long">
+		select 	product_no
+		from   `like`
+		where 	member_no = #{memberNo}
+	</select>
 
 </mapper>
 

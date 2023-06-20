@@ -1,5 +1,6 @@
 package edu.kh.laf.mypage.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MypageLikeServcie {
@@ -24,5 +25,12 @@ public interface MypageLikeServcie {
 	 * @return result ( 1: true, 0: false)
 	 */
 	int checkLike(Map<String, Object> map);
+
+	/**
+	 * 찜한 상품 목록 조회
+	 * @param memberNo
+	 * @return likeList
+	 */
+	List<Long> selectLikeList(Long memberNo);
 	
 }

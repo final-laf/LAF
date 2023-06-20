@@ -109,8 +109,10 @@
 }
 .hover-info .item-additional-info {
   display: flex;
+  font-size: 1.2rem;
   align-items: center;
   margin-top: 3px;
+  
 }
 .hover-info .item-additional-info * {
   font-size: 1.2rem;

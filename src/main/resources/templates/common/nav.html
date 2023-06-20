@@ -48,7 +48,7 @@
     <div th:unless="${session.loginMember}" class="header-nav-icon">
       <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
-      <label for="searchCheckbox">
+      <label id="searchImgLabel" for="searchCheckbox">
         <img id="searchImg" src="/images/common/search.svg">
       </label>
       <a href="/login"><img src="/images/common/user.svg"></a>
@@ -59,7 +59,7 @@
     <div th:if="${session.loginMember}" class="header-nav-icon">
       <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
-      <label for="searchCheckbox">
+      <label id="searchImgLabel" for="searchCheckbox">
         <img id="searchImg" src="/images/common/search.svg">
       </label>
       <a href="/myPage"><img src="/images/common/user.svg"></a>
@@ -88,10 +88,21 @@
   var loginMember = /*[[${session.loginMember}]]*/ "";
 
   // 검색 아이콘 클릭 시 검색어 입력창 출력
-  document.getElementById('searchImg').addEventListener('click', () => {
+  document.getElementById('searchImgLabel').addEventListener('click', () => {
     const input = document.getElementById('query');
-    input.classList.toggle('hidden');
-    input.value = '';
-    input.focus();
+    if(input.classList.contains('hidden')) {
+      input.classList.remove('hidden');
+      // input.style.transitionDuration = '0.2s';
+      // input.style.width = '200px';
+      input.focus();
+    } else {
+      input.classList.add('hidden');
+      // input.style.width = '0px';
+      input.value = '';
+    }
+
+    // input.classList.toggle('hidden');
+    // input.value = '';
+    // input.focus();
   });
 </script>

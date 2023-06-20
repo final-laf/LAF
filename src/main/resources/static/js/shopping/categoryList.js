@@ -1,11 +1,11 @@
 /* 베스트 아이템 마우스오버 시 정보 출력 */
-const bestItemImages = document.querySelectorAll('.categoryList-best-item img');
+const bestItemImages = document.querySelectorAll('.categoryList-best-item .thumbnail');
 const itemDescriptions = document.getElementsByClassName('item-description');
 for (let i = 0; i < bestItemImages.length; i++) {
-  bestItemImages[i].addEventListener('mouseover', e => {
+  bestItemImages[i].addEventListener('mouseover', () => {
     itemDescriptions[i].classList.remove('hidden');
   });
-  bestItemImages[i].addEventListener('mouseout', e => {
+  bestItemImages[i].addEventListener('mouseout', () => {
     itemDescriptions[i].classList.add('hidden');
   });
 }
@@ -53,23 +53,3 @@ for (let like of likeImages) {
     }
   });
 }
-
-/* 검색 정렬 순서 변경 */
-// const orderingList = document.querySelector('#orderingList');
-// const orderingOptions = orderingList.querySelectorAll('li');
-// for(let o of orderingOptions) {
-//   o.addEventListener('click', e => {
-//     document.querySelector('#orderingList > li.current').classList.remove('current');
-//     e.target.classList.add('current');
-
-//     const query = decodeURI(location.search.split('=')[1]);
-//     const ordering = e.target.getAttribute('value');
-
-//     fetch("/search?query=" + query + "&ordering=" + ordering)
-//     .then(resp => resp.json())
-//     .then(productList => {
-//       console.log(productList);
-//     }) 
-//     .catch(err => console.log(err));
-//   });
-// }

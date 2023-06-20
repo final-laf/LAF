@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/shopping/categoryList.css}">
+  <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
+  <title th:text="|LAF :: ${query}|"></title>
+</head>
+
+<body>
+
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
+
+  <main>
+
+    <!-- 검색일 때 -->
+    <section id="searchSection">
+      <div class="section-title"><span th:text="|'${query}'|"></span> 검색 결과</div>
+      <form action="/search">
+        <input type="text" name="query" placeholder="검색어를 입력해주세요">
+        <button class="submit">검색</button>
+      </form>
+    </section>
+
+    <!-- PRODUCTS LIST -->
+    <section id="categoryList-product-container">
+
+      <!-- 아이템 목록 상단(상품 갯수, 정렬방법) -->
+      <div class="categoryList-product-header">
+        <div class="product-count"><span th:text="${pagination.listCount}"></span> 개의 상품</div>
+
+        <ul class="categoryList-order">
+          <!-- 현재 정렬방식에 current 클래스 추가 -->
+          <li><a th:href="@{/search(ordering=new, query=${query})}"
+            th:classappend="${ordering == 'new'} or ${ordering == null} ? 'current'">
+            신상품 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=name, query=${query})}" 
+            th:classappend="${ordering == 'name'} ? 'current'">
+            상품명 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=low, query=${query})}" 
+            th:classappend="${ordering == 'low'} ? 'current'">
+            낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=high, query=${query})}" 
+            th:classappend="${ordering == 'high'} ? 'current'">
+            높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=pop, query=${query})}" 
+            th:classappend="${ordering == 'pop'} ? 'current'">
+            인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=rev, query=${query})}" 
+            th:classappend="${ordering == 'rev'} ? 'current'">
+            사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
+        </ul>
+      </div>
+
+
+
+
+      <!-- 아이템 목록 -->
+      <ul class="categoryList-product-item-container">
+
+        <li class="categoryList-product-item" th:each="product : ${productList}" th:productNo="${product.productNo}">
+          <a class="link" th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+            <img th:src="${product.thumbnailPath}">
+          </a>
+          <img class="like"
+            th:if="${session.likeList == null} or ${!#lists.contains(session.likeList, product.productNo)}"
+            th:src="@{/images/common/like-grey.svg}">
+          <img class="like"
+            th:if="${session.likeList != null} and ${#lists.contains(session.likeList, product.productNo)}"
+            th:src="@{/images/common/like-fill.svg}" value="like">
+          <div class="item-description-bottom-container">
+
+            <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
+              <div class="item-name" th:text="${product.productName}">제품 이름</div>
+            </a>
+
+            <div class="item-description-bottom">
+              <div class="item-price-set">
+                <span class="item-price"
+                  th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">할인가</span>
+                <span class="item-price-discount" th:unless="${product.productSale == 0}"
+                  th:text="${product.productSale + '%'}">할인율</span>
+                <span class="item-price-origin" th:unless="${product.productSale == 0}"
+                  th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</span>
+              </div>
+
+              <div class="item-additional-info">
+                <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
+                <img th:src="@{/images/common/like-fill.svg}">
+                <span th:text="${product.likeCount}"></span>
+              </div>
+            </div>
+
+          </div>
+        </li>
+
+      </ul>
+
+
+
+
+      <!-- 페이징 -->
+      <div class="pagination-area">
+
+        <!-- 검색결과 -->
+        <ul class="pagination">
+
+          <!-- 첫 페이지로 이동 -->
+          <li><a th:href="@{/search(cp=1, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/first-page.svg}">
+            </a></li>
+
+          <!-- 이전 목록 마지막 번호로 이동 -->
+          <li><a th:href="@{/search(cp=${pagination.prevPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/prev-page.svg}">
+            </a></li>
+
+          <!-- 특정 페이지로 이동 -->
+          <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <!-- 현재 보고있는 페이지 -->
+            <li th:if="${i == pagination.currentPage}">
+              <a class="current" th:text="${i}">현재 페이지</a>
+            </li>
+
+            <!-- 현재 페이지를 제외한 나머지 -->
+            <li th:unless="${i == pagination.currentPage}">
+              <a th:href="@{/search(cp=${i}, query=${query}, ordering=${ordering})}" th:text="${i}"></a>
+            </li>
+          </th:block>
+
+          <!-- 다음 목록 시작 번호로 이동 -->
+          <li><a th:href="@{/search(cp=${pagination.nextPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/next-page.svg}">
+            </a></li>
+
+          <!-- 끝 페이지로 이동 -->
+          <li><a th:href="@{/search(cp=${pagination.maxPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/last-page.svg}">
+            </a></li>
+        </ul>
+      </div>
+
+    </section>
+  </main>
+
+  <th:block th:replace="~{/common/footer}"></th:block>
+  <script th:src="@{/js/shopping/categoryList.js}"></script>
+</body>
+
+</html>

@@ -7,7 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" th:href="@{/css/shopping/categoryList.css}">
   <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
-  <title th:text="|LAF :: ${categoryName}|"></title>
+  <title th:if=${categoryName} th:text="|LAF :: ${categoryName}|"></title>
+  <title th:if=${query} th:text="|LAF :: ${query}|"></title>
 </head>
 
 <body>
@@ -17,7 +18,7 @@
 
   <main>
     <!-- BEST ITEMS 일반 조회일 때 -->
-    <section id="categoryList-best-items">
+    <section th:if=${categoryName} id="categoryList-best-items">
 
       <!-- 섹션 헤더(제목, 설명) -->
       <div class="section-header best">
@@ -55,6 +56,15 @@
 
     </section>
 
+    <!-- 검색일 때 -->
+    <section th:if=${query} id="searchSection">
+      <div class="section-title"><span th:text="|'${query}'|"></span> 검색 결과</div>
+      <form action="/search">
+        <input type="text" name="query" placeholder="검색어를 입력해주세요">
+        <button class="submit">검색</button>
+      </form>
+    </section>
+
     <!-- PRODUCTS LIST -->
     <section id="categoryList-product-container">
       <div th:if=${categoryName} class="section-header">
@@ -62,14 +72,10 @@
       </div>
       <div th:if=${categoryName} class="sub-category-container">
         <!-- 현재 카테고리에 current 클래스 추가 -->
-          <a class="sub-category"
-            th:href="@{/{c}(c=${category}, ordering=${ordering})}"
-            th:classappend="!${cc}? 'current'">전체</a>
-          <a class="sub-category"
-            th:each="childCate : ${childCategoryList}"
-            th:classappend="${cc == childCate.categoryNo}? 'current'"
-            th:href="@{/{c}(c=${category}, cc=${childCate.categoryNo}, ordering=${ordering})}"
-            th:text="${childCate.categoryName}">카테고리 이름</a>
+        <div class="sub-category current">전체</div>
+        <div class="sub-category">가디건</div>
+        <div class="sub-category">니트</div>
+        <div class="sub-category">베스트</div>
       </div>
 
       <!-- 아이템 목록 상단(상품 갯수, 정렬방법) -->
@@ -79,28 +85,48 @@
         <!-- 일반 조회 -->
         <ul th:if=${categoryName} class="categoryList-order">
           <!-- 현재 정렬방식에 current 클래스 추가 -->
-          <li><a th:href="@{/{c}(c=${category})}"
-              th:classappend="!${ordering} or ${#strings.length(ordering) == 0} or ${ordering == 'new'} ? 'current'">
+          <li><a th:href="@{/{category}(category=${category}, ordering=new)}"
+              th:classappend="${ordering == 'new'} or ${ordering == null} ? 'current'">
               신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
-          <li><a th:href="@{/{c}(c=${category}, ordering=name, cc=${cc})}"
+          <li><a th:href="@{/{category}(category=${category}, ordering=name)}"
               th:classappend="${ordering == 'name'} ? 'current'">
               상품명 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{c}(c=${category}, ordering=low, cc=${cc})}"
+          <li><a th:href="@{/{category}(category=${category}, ordering=low)}"
               th:classappend="${ordering == 'low'} ? 'current'">
               낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{c}(c=${category}, ordering=high, cc=${cc})}"
+          <li><a th:href="@{/{category}(category=${category}, ordering=high)}"
               th:classappend="${ordering == 'high'} ? 'current'">
               높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{c}(c=${category}, ordering=pop, cc=${cc})}"
+          <li><a th:href="@{/{category}(category=${category}, ordering=pop)}"
               th:classappend="${ordering == 'pop'} ? 'current'">
               인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{c}(c=${category}, ordering=rev, cc=${cc})}"
+          <li><a th:href="@{/{category}(category=${category}, ordering=rev)}"
               th:classappend="${ordering == 'rev'} ? 'current'">
+              사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
+        </ul>
+
+        <!-- 검색 -->
+        <ul th:if=${query} class="categoryList-order">
+          <!-- 현재 정렬방식에 current 클래스 추가 -->
+          <li><a th:href="@{/search(ordering=new, query=${query})}"
+              th:classappend="${ordering == 'new'} or ${ordering == null} ? 'current'">
+              신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
+          <li><a th:href="@{/search(ordering=name, query=${query})}" th:classappend="${ordering == 'name'} ? 'current'">
+              상품명 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=low, query=${query})}" th:classappend="${ordering == 'low'} ? 'current'">
+              낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=high, query=${query})}" th:classappend="${ordering == 'high'} ? 'current'">
+              높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=pop, query=${query})}" th:classappend="${ordering == 'pop'} ? 'current'">
+              인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/search(ordering=rev, query=${query})}" th:classappend="${ordering == 'rev'} ? 'current'">
               사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
         </ul>
       </div>
 
-    
+
+
+
       <!-- 아이템 목록 -->
       <ul class="categoryList-product-item-container">
 
@@ -109,10 +135,10 @@
             <img th:src="${product.thumbnailPath}">
           </a>
           <img class="like"
-            th:if="!${session.likeList} or ${!#lists.contains(session.likeList, product.productNo)}"
+            th:if="${session.likeList == null} or ${!#lists.contains(session.likeList, product.productNo)}"
             th:src="@{/images/common/like-grey.svg}">
           <img class="like"
-            th:if="${session.likeList} and ${#lists.contains(session.likeList, product.productNo)}"
+            th:if="${session.likeList != null} and ${#lists.contains(session.likeList, product.productNo)}"
             th:src="@{/images/common/like-fill.svg}" value="like">
           <div class="item-description-bottom-container">
 
@@ -143,17 +169,21 @@
       </ul>
 
 
+
+
       <!-- 페이징 -->
       <div class="pagination-area">
+
+        <!-- 일반조회 -->
         <ul th:if=${categoryName} class="pagination">
 
           <!-- 첫 페이지로 이동 -->
-          <li><a th:href="@{/{c}(c=${category}, cp=1, ordering=${ordering})}">
+          <li><a th:href="@{/{category}(category=${category}, cp=1, ordering=${ordering})}">
               <img th:src="@{/images/common/paging/first-page.svg}">
             </a></li>
 
           <!-- 이전 목록 마지막 번호로 이동 -->
-          <li><a th:href="@{/{c}(c=${category}, cp=${pagination.prevPage}, ordering=${ordering})}">
+          <li><a th:href="@{/{category}(category=${category}, cp=${pagination.prevPage}, ordering=${ordering})}">
               <img th:src="@{/images/common/paging/prev-page.svg}">
             </a></li>
 
@@ -166,22 +196,60 @@
 
             <!-- 현재 페이지를 제외한 나머지 -->
             <li th:unless="${i == pagination.currentPage}">
-              <a th:href="@{/{c}(c=${category}, cp=${i}, ordering=${ordering})}" th:text="${i}"></a>
+              <a th:href="@{/{category}(category=${category}, cp=${i}, ordering=${ordering})}" th:text="${i}"></a>
             </li>
           </th:block>
 
           <!-- 다음 목록 시작 번호로 이동 -->
-          <li><a th:href="@{/{c}(c=${category}, cp=${pagination.nextPage}, ordering=${ordering})}">
+          <li><a th:href="@{/{category}(category=${category}, cp=${pagination.nextPage}, ordering=${ordering})}">
               <img th:src="@{/images/common/paging/next-page.svg}">
             </a></li>
 
           <!-- 끝 페이지로 이동 -->
-          <li><a th:href="@{/{c}(c=${category}, cp=${pagination.maxPage}, ordering=${ordering})}">
+          <li><a th:href="@{/{category}(category=${category}, cp=${pagination.maxPage}, ordering=${ordering})}">
               <img th:src="@{/images/common/paging/last-page.svg}">
             </a></li>
         </ul>
-        
+
+
+        <!-- 검색결과 -->
+        <ul th:if=${query} class="pagination">
+
+          <!-- 첫 페이지로 이동 -->
+          <li><a th:href="@{/search(cp=1, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/first-page.svg}">
+            </a></li>
+
+          <!-- 이전 목록 마지막 번호로 이동 -->
+          <li><a th:href="@{/search(cp=${pagination.prevPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/prev-page.svg}">
+            </a></li>
+
+          <!-- 특정 페이지로 이동 -->
+          <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <!-- 현재 보고있는 페이지 -->
+            <li th:if="${i == pagination.currentPage}">
+              <a class="current" th:text="${i}">현재 페이지</a>
+            </li>
+
+            <!-- 현재 페이지를 제외한 나머지 -->
+            <li th:unless="${i == pagination.currentPage}">
+              <a th:href="@{/search(cp=${i}, query=${query}, ordering=${ordering})}" th:text="${i}"></a>
+            </li>
+          </th:block>
+
+          <!-- 다음 목록 시작 번호로 이동 -->
+          <li><a th:href="@{/search(cp=${pagination.nextPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/next-page.svg}">
+            </a></li>
+
+          <!-- 끝 페이지로 이동 -->
+          <li><a th:href="@{/search(cp=${pagination.maxPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/last-page.svg}">
+            </a></li>
+        </ul>
       </div>
+
     </section>
   </main>
 
