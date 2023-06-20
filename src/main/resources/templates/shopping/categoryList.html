@@ -30,7 +30,7 @@
           <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
             <img class="thumbnail" th:src="${product.thumbnailPath}">
           </a>
-          <div class="item-description hidden">
+          <div class="hover-info item-description hidden">
             <div class="item-name" th:if="${#strings.length(product.productName) > 26}" 
               th:text="${#strings.substring(product.productName, 0, 26) + '…'}">제품 이름</div>
             <div class="item-name" th:unless="${#strings.length(product.productName) > 26}" 
@@ -72,12 +72,24 @@
         <div class="product-count"><span th:text="${#lists.size(productList)}"></span> 개의 상품</div>
         <ul class="categoryList-order">
           <!-- 현재 정렬방식에 current 클래스 추가 -->
-          <li><a th:href="@{/{category}?ordering=new(category=${category})}" class="current">신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
-          <li><a th:href="@{/{category}?ordering=name(category=${category})}">상품명 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{category}?ordering=low(category=${category})}">낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{category}?ordering=high(category=${category})}">높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{category}?ordering=pop(category=${category})}">인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a th:href="@{/{category}?ordering=rev(category=${category})}">사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=new#categoryList-product-container(category=${category})}"
+            th:classappend="${ordering == 'new'} or ${ordering == null} ? 'current'">
+            신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
+          <li><a th:href="@{/{category}?ordering=name#categoryList-product-container(category=${category})}"
+            th:classappend="${ordering == 'name'} ? 'current'">
+            상품명 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=low#categoryList-product-container(category=${category})}"
+            th:classappend="${ordering == 'low'} ? 'current'">
+            낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=high#categoryList-product-container(category=${category})}"
+            th:classappend="${ordering == 'high'} ? 'current'">
+            높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=pop#categoryList-product-container(category=${category})}"
+            th:classappend="${ordering == 'pop'} ? 'current'">
+            인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=rev#categoryList-product-container(category=${category})}"
+            th:classappend="${ordering == 'rev'} ? 'current'">
+            사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
         </ul>
       </div>
       <!-- 아이템 목록 -->

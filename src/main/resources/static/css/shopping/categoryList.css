@@ -41,7 +41,7 @@
 }
 
 /* 사진 마우스 오버 시 출력되는 설명 */
-.categoryList-best-item .item-description {
+.hover-info {
   position: absolute;
   bottom: 0;
 
@@ -58,51 +58,52 @@
   pointer-events: none;
 }
 
-.item-description * {
+.hover-info * {
   font-size: 1.2rem;
 }
 
-.item-description .item-name {
+.hover-info .item-name {
   line-height: 140%;
-
   word-break: break-all;
 }
 
-.item-description .item-price {
+.hover-info .item-price {
   font-size: 1.6rem !important;
   font-weight: bold;
 }
 
-.item-description .item-price-origin {
+.hover-info .item-price-origin {
   color: #666;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   text-decoration: line-through;
 }
 
-.item-description .item-rieview-count {
+.hover-info .item-rieview-count {
   line-height: 120%;
   color: #666;
 }
 
-.item-description .item-rieview-count>span {
+.hover-info .item-rieview-count>span {
   color: #666;
 }
 
-.item-description img {
+.hover-info img {
   display: block;
   height: 10px;
   width: auto;
   margin: 0 5px 0 10px;
 }
 
-.item-description .item-additional-info {
+.hover-info .item-additional-info {
   display: flex;
   align-items: center;
   margin-top: 3px;
+  font-size: 1.2rem;
+  color: #666;
 }
 
-.item-description .item-additional-info * {
-  font-size: 1.2rem;
+.hover-info .item-additional-info * {
+  font-size: 1rem;
   color: #666;
 }
 
@@ -169,7 +170,7 @@
   font-size: 10pt;
 }
 
-/* 상품 */
+/* 상품 이미지 */
 .categoryList-product-item-container {
   width: 100%;
   display: flex;
@@ -197,7 +198,7 @@
 }
 
 
-
+/* 상품 정보 */
 .item-description-bottom-container {
   display: flex;
   flex-direction: column;
@@ -238,12 +239,11 @@
   margin: 0 5px 0 10px;
 }
 
+.item-description-bottom .item-additional-info * {
+  font-size: 1.2rem;
+  color: #666;
+}
 .item-description-bottom .item-additional-info {
   display: flex;
   align-items: center;
-}
-
-.item-description-bottom .item-additional-info * {
-  font-size: 1.4rem;
-  color: #666;
 }

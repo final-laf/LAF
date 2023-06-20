@@ -40,6 +40,7 @@ public class ProductController {
 		model.addAttribute("productList", productService.selectCategoryProductList(category, memberNo, ordering));
 		model.addAttribute("bestList", productService.selectWeeklyBest(category, 10));
 		model.addAttribute("categoryName", productService.selectCategoryName(category));
+		model.addAttribute("ordering", ordering);
 		return "/shopping/categoryList";
 	}
 	
