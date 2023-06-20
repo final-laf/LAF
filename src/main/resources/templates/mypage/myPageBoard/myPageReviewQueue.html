@@ -8,7 +8,7 @@
     <title>LAF :: 내 리뷰 관리</title>
 </head>
 
-<body>
+<body th:with="review=${myReview}, writtenReview=${myWrittenReview}">
   <th:block th:replace="~{/common/header}"></th:block>
   <th:block th:replace="~{/common/nav}"></th:block>
     
@@ -27,7 +27,7 @@
         <div class="sub-category-container">
           <!-- 현재 카테고리에 current 클래스 추가 -->
           <a href="/myPage/review"><div class="sub-category ">작성 가능한 리뷰(<span th:text="${myOrder.size}">수량</span>)</div></a>
-          <a href="/myPage/review/list"><div class="sub-category current">작성한 리뷰(<span th:if="${writtenReview}" th:text="${writtenReview?.size}">수량</span><span th:if="${writtenReview==null}">0</span>)</div></a>
+          <a href="/myPage/review/list"><div class="sub-category current">작성한 리뷰(<span th:if="${myWrittenReview}" th:text="${myWrittenReview.size}">수량</span><span th:if="${myWrittenReview==null}">0</span>)</div></a>
         </div>
 
         <section id="reviewList">
@@ -41,11 +41,11 @@
               <td class="item-choose">선택</td>
             </tr>
             <!-- 작성 가능 리뷰 없을때 -->
-            <tr th:unless="${writtenReview==null}">
-              <td colspan="6" class="item-empty">작성 가능한 리뷰가 없습니다.</td>
+            <tr th:if="${myWrittenReview?.size==null}">
+              <td colspan="6" class="item-empty">작성한 리뷰가 없습니다.</td>
             </tr>
             <!-- 작성 가능 리뷰 있을 때 -->
-            <tr th:each="r:${writtenReview}">
+            <tr th:each="r:${myWrittenReview}">
               <td class="item-order-info" >
                 <div class="item-order-no" th:text="${r.orderNo}">[23060400001001]</div>
               </td>
@@ -67,8 +67,8 @@
                 <div class="item-price" th:text="${orderTotalPrice}">가격</div>
               </td>
               <td class="item-choose">
-                <button>리뷰수정</button>
-                <button>&times; 삭제</button>
+                <button type="button">리뷰수정</button>
+                <button type="button">&times; 삭제</button>
               </td>
             </tr>
           </table>
@@ -101,7 +101,8 @@
       </div>
     </section>
   </main>
-
+  <th:block th:replace="~{/boards/review/reviewDetailModal}"></th:block>
+  <th:block th:replace="~{/boards/review/reviewModifyModal}"></th:block>
   <th:block th:replace="~{/common/footer}"></th:block>
 </body>
 </html>

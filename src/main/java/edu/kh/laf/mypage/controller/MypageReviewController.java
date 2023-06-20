@@ -44,7 +44,6 @@ public class MypageReviewController {
 		List<Review> myWrittenReview = new ArrayList<>();
 		myWrittenReview = reviewService.myWrittenReview(loginMember.getMemberNo());
 		for(Review review : myWrittenReview) {
-			System.out.println(review);
 //			옵션 설정
 			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
 //			상품 설정
