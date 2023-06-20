@@ -43,7 +43,6 @@ public class OrderController {
 						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList,
 						Model model
 						) {
-		System.out.println(orderProductList);
 		// 주문자정보
 		Member orderMember = new Member();
 		
@@ -108,29 +107,26 @@ public class OrderController {
 			return "redirect:/cart";
 		}
 		
-		// 주문번호조회
+		// 주문번호조회 후 order에 담기
 		int orderNo = service.selectOrderNo(orderKey);
-
+		order.setOrderNo(orderNo);
+		
 		// 상품별 서비스처리
 		for(OrderProduct op : orderProductList) {
-			
 			// orderNo세팅
 			op.setOrderNo(orderNo);
-			
 			// order_product 테이블 추가
 			int opResult = service.insertOrderProduct(op);
 			if(opResult == 0) {
 				System.out.println("추가 실패");
 				break; // 실패 처리
 			}
-			
 			// 상품 재고 최신화
 			int ocUpResult = service.optionCountUpdate(op);
 			if(ocUpResult == 0) {
 				System.out.println("최신화 실패");
 				break; // 실패 처리
 			}
-
 			// 상품 모든 재고조회 
 			int productAllStock = service.selectAllStock(op);
 			if(productAllStock == 0) { // 재고가 0이면 품절로 상품상태 업데이트
@@ -140,60 +136,16 @@ public class OrderController {
 					break; // 실패 처리
 				}
 			}
-			
 		}
 		
 		// 회원일경우
 		if(loginMember != null) {
-			// 1.포인트 적립
-			// 날짜 생성
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
-			String payDate = dateFormat.format(new Date()); // 현재 날짜
-			
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(new Date());
-			calendar.add(Calendar.YEAR, 1); // 현재 날짜에 1년을 더함
-			String payDateYear = dateFormat.format(calendar.getTime());
-			
-			// 적립금 내역 테이블 데이터 삽입		
-//			// 적립될 적립금 내역 추가(수정해야됨 밑에꺼 복붙함)
-			Point gainPoint = new Point();
-			gainPoint.setMemberNo(order.getMemberNo());
-			gainPoint.setPointSort("G");
-			gainPoint.setPointAmount(order.getPointNoUse());
-			gainPoint.setPointDate(payDate);
-			gainPoint.setPointDueDate(payDateYear);
-			gainPoint.setPointContent("상품구매시 사용한 적립금");
-			gainPoint.setOrderNo(orderNo);
-			// 적립된 적립금 추가 후 적립번호 가져오기
-			
-			
-			// 2.포인트 사용한 경우
-//			// 사용한 적립금 내역 추가
-			Point usePoint = new Point();
-			usePoint.setMemberNo(order.getMemberNo());
-			usePoint.setPointSort("U");
-			usePoint.setPointAmount(order.getPointNoUse());
-			usePoint.setPointDate(payDate);
-			usePoint.setPointContent("상품구매시 사용한 적립금");
-			
-//					int pointUse = mapper.insertUsePoint(order.getPointNoUse());
-			
-			// 사용한 적립금 추가 후 적립번호 가져오기
-//					int pointGain = 0;
-			
-			
-			// 3.order테이블 적립/사용 적립번호 업데이트
-			// 4.회원테이블 적립금 최신화 / 적립금, 누적구매액
-			
-			
+			// 포인트 서비스(적립 및 사용)
+			int result = service.changePoint(order);
+
 			// 5.쿠폰을 썻다면 쿠폰 테이블 업데이트 / 사용여부
 			
-			
 		}
-		
-
-		
 		
 		// 6.
 		// 장바구니 삭제하기 - 테이블 제거
