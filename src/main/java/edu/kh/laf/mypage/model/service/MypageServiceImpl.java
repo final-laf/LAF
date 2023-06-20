@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.member.model.dto.Address;
@@ -19,6 +21,9 @@ public class MypageServiceImpl implements MypageService {
 	@Autowired
 	private MypageMapper mapper;
 	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+	
 	
 	// ---------------------------- MyPage Dashboard ---------------------------- 
 	
@@ -29,6 +34,52 @@ public class MypageServiceImpl implements MypageService {
 		return mapper.selectMyPageOrderList(loginMember);
 	}
 	
+
+	// ---------------------------- MyPage info ---------------------------- 
+
+	
+	// 회원 정보 수정
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int editMyPageInfo(Member inputMember) {
+		return mapper.editMyPageInfo(inputMember);
+	}
+	
+	// 회원 정보 조회
+	@Override
+	public Member selectMember(Long memberNo) {
+		return mapper.selectMember(memberNo);
+	}
+	
+	// 비밀번호 변경
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int changePw(String memberPw, String newMemberPw, Member loginMember) {
+		
+		int result;
+		
+		// 로그인 멤버의 비밀번호 조회
+		String beforePw = mapper.selectMember(loginMember.getMemberNo()).getMemberPw();
+		
+		// 입력한 비밀번호와, 로그인 멤버의 비밀번호가 일치하면
+		if(bcrypt.matches(memberPw,beforePw)) {
+			// 새로운 비밀번호로 업데이트 
+			Member member = new Member();
+			member.setMemberNo(loginMember.getMemberNo());
+			member.setMemberPw(bcrypt.encode(newMemberPw));
+			
+			result = mapper.changePw(member);
+			
+		} else {
+		// 일치하지 않으면
+			result = 0;
+		}
+		
+		
+		
+		return result;
+	}
+
 	
 	// ---------------------------- MyPage Order ---------------------------- 
 	
@@ -98,6 +149,11 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
+
+
+
+
 
 
 

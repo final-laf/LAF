@@ -56,5 +56,35 @@ public interface OrderService {
 	 */
 	int selectOrderNo(String orderKey);
 
+	/** 주문상품목록테이블 추가
+	 * @param op
+	 * @return
+	 */
+	int insertOrderProduct(OrderProduct op);
+
+	/** 상품 재고 최신화
+	 * @param count
+	 * @return
+	 */
+	int optionCountUpdate(OrderProduct op);
+
+	/** 상품 모든 재고조회
+	 * @param op
+	 * @return
+	 */
+	int selectAllStock(OrderProduct op);
+
+	/** 상품 품절 전환
+	 * @param op
+	 * @return
+	 */
+	int updateSoldOut(OrderProduct op);
+
+	/** 포인트서비스
+	 * @param order
+	 * @return
+	 */
+	int changePoint(Order order);
+
 
 }

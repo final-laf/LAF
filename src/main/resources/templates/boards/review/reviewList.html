@@ -8,7 +8,8 @@
       <div>
         <div>
           <span>상품평수</span>
-          <span>102,334개</span>
+          <span th:text="${reviewList.size}">개수</span>
+          <span>개</span>
         </div>
         <input type="text">
       </div>
@@ -43,7 +44,7 @@
           </div>
         </div>
         <div class="reviews-item-review-images">
-          <div>더보기&gt;</div>
+          <div class="reviewListDetail" th:value="${r.reviewNo}">더보기 &gt;&gt;</div>
           <img src="/images/sample/230605001.jpg">
           <img src="/images/sample/230605001.jpg">
           <img src="/images/sample/230605001.jpg">

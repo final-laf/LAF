@@ -50,9 +50,9 @@
 	</select>
 	
 	<!-- 비회원 생성 -->
-	<insert id="createNonMember">
+	<insert id="createNonMember" useGeneratedKeys="true" keyProperty="memberNo">
 		INSERT INTO `member`
-		VALUES (NULL, 
+		VALUES (Null,
 				#{memberId}, 
 				#{memberPw}, 
 				#{memberName}, 
@@ -93,7 +93,7 @@
 			   #{orderRecvName},
 			   #{orderRecvAdd},
 			   #{orderRecvPhone},
-			   NULL,
+			   Null,
 			   #{orderTotalPrice},
 			   #{orderPayment},
 			   DEFAULT,
@@ -114,6 +114,33 @@
 		SELECT order_no FROM `order` WHERE order_uno = #{orderUno}
 	</select>
 	
+	<!--주문상품목록테이블 추가 insertOrderProduct-->
+	<insert id="insertOrderProduct">
+		INSERT INTO `order_product`
+		VALUES(#{orderNo},
+			   #{productNo},
+			   #{optionNo},
+			   #{count}
+			   )
+	</insert>
+	
+	<!-- 상품 재고 최신화optionCountUpdate-->
+	<update id="optionCountUpdate">
+		UPDATE `option`
+		SET stock = stock - ${count}, sell_count = sell_count + ${count}
+		WHERE product_no = ${productNo}
+		AND option_no = ${optionNo}
+	</update>
+	
+	<!-- 상품 모든 재고조회 -->
+	<select id="selectAllStock" resultType="int">
+		SELECT sum(stock) FROM `option` WHERE product_no = ${productNo}
+	</select>
+	
+	<!-- 상품 품절 전환updateSoldOut -->
+	<update id="updateSoldOut">
+		UPDATE product SET product_state = 'S' WHERE product_no = #{product_no}
+	</update>
 	
 </mapper>
 

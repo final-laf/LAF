@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 
@@ -46,6 +47,18 @@ public interface OrderMapper {
 	
 	// 주문번호조회
 	public int selectOrderNo(String orderKey);
+
+	// 주문상품목록테이블 추가
+	public int insertOrderProduct(OrderProduct op);
+
+	// 상품 재고 최신화
+	public int optionCountUpdate(OrderProduct op);
+
+	// 상품 모든 재고조회
+	public int selectAllStock(OrderProduct op);
+
+	// 상품 품절 전환
+	public int updateSoldOut(OrderProduct op);
 
 
 	

@@ -45,3 +45,21 @@ INSERT INTO `review` VALUES (DEFAULT, '이야 진짜 괜히 샀다', DEFAULT, 5,
 -- 리뷰 조회
 SELECT DISTINCT  r.review_no, m.member_id, r.review_content, r.review_create_date, r.review_score, r.order_no, r.product_no, r.option_no, `count`, TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no LEFT JOIN `member` m ON o.member_no = m.member_no LEFT JOIN order_product op ON o.order_no=op.order_no ;
 COMMIT;
+
+
+-- 개별 리뷰 조회
+SELECT DISTINCT  r.review_no, m.member_id, 
+        				 r.review_content, 
+        				 r.review_create_date, 
+        				 r.review_score, 
+        				 r.order_no, 
+        				 r.product_no, 
+        				 r.option_no, 
+        				 o.order_uno,
+        				 `count`, 
+        				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
+        				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
+        FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
+        			  LEFT JOIN `member` m ON o.member_no = m.member_no 
+        			  LEFT JOIN order_product op ON o.order_no=op.order_no
+        WHERE r.review_no = #{reviewNo}

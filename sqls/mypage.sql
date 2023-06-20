@@ -70,13 +70,62 @@ commit;
 
 
 SELECT * from `order`;
-/* 내가 가져와야 할 형태 */
-/* 주문번호, 주문일자, 대표 상품 이미지, 대표 상품 이름, 대표 상품 옵션, 전체 상품 개수, 전체 상품 구문 금액(할인 전, 할인 후), 주문처리상태 */
-/* 로그인멤버의 주문을 받아 와 리스트형식으로, 그 주문별로 일치하는 오더프로덕트를 조회 해 와 리스트형으로, 맵 형식으로 각 주문과 각 리스트를 매핑? */
 
 SELECT * from `order_product` where order_no = 12;
 
 select * from `product` where product_no = 1;
 
 select * from `option` where OPTION_NO = 8;
+
+SELECT * from `member`;
+COMMIT;
+update `member`
+SET member_birth = "20230101"
+WHERE member_no = 2;
+
+update `member`
+SET member_birth = (SELECT STR_TO_DATE('20160501', '%Y%m%d') date_type FROM DUAL)
+WHERE member_no = 2;
+
+COMMIT;
+
+	
+SELECT STR_TO_DATE('2016-03-15 10:39:30', '%Y-%m-%d %H:%i:%s') date_type FROM DUAL;
+
+
+
+
+/* 멤버 비밀번호 업데이트 */
+UPDATE `member`
+SET member_pw = '$2a$10$b31aOrHqrQQ2ThS/Avq2zelLtMg.SL.N5ncm3b2MOk3qiDcuuvGKy'
+WHERE member_no  = 5;
+
+COMMIT;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,146 +1,311 @@
 /* 회원가입 정규식 확인 */
-.confirm{color : green;}
+.confirm{color : #666;}
 .error{color : red;}
-/*  */
 
-.mypageEditInfo-editInfo{
-  margin-top: 50px;
+
+input {
+  outline: none;
+}
+
+.mypageSignUp-signUp{
   display: flex;
   justify-content: center;
 }
-.mypageEditInfo-editInfo-info{
+.mypageSignUp-signUp-info{
     margin-top: 50px;
     display: flex;
-    width: 1200px;
+    width: 1000px;
 }
-.mypageEditInfo-info-intro{
+.mypageSignUp-info-intro{
   color: #666;
   display: flex;
   font-size: 17px;
-  padding: 10px 0;
   align-items: flex-end;
+  margin-bottom: 30px;
 }
-.mypageEditInfo-info-intro span{
+
+.mypageSignUp-info-intro span{
   color: black;
   font-weight: bold;
   margin-right: 10px;
   display: flex;
-  font-size: 40px;
+  font-size: 2.0rem;
 }
 
-.mypageEditInfo-info-content{
+.mypageSignUp-info-signUpInfo{
     display: block;
 }
-.mypageEditInfo-content-table{
+
+.mypageSignUp-signUpInfo-table{
     margin: 20px 0;
+    margin-bottom: 50px;
 }
-.mypageEditInfo-content-table th{
-    padding-left: 20px;
-    height: 20px;
+
+.mypageSignUp-signUpInfo-table th{
+    padding-left: 10px;
+    height: 30px;
     width: 150px;
     background-color: #fafafa;
-    /* border-top: 0.5px solid #eee;
+    border-top: 0.5px solid #eee;
     border-bottom: 0.5px solid #eee;
-    border-right: 0.5px solid #eee; */
-    border: 0.5px solid #eee;
+    border-right: 0.5px solid #eee;
     text-align: left;
-  }
-  .mypageEditInfo-content-table td{
+}
+.mypageSignUp-signUpInfo-table td{
     width: 1200px;
     padding-left: 10px;
-    /* border-top: 0.5px solid #eee;
+    border-top: 0.5px solid #eee;
     border-left: 0.5px solid #eee;
-    border-bottom: 0.5px solid #eee; */
-    border: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+
 }
-.mypageEditInfo-content-table tr{
+.mypageSignUp-signUpInfo-table tr{
     
-    height: 50px;
+    height: 70px;
 }
-.mypageEditInfo-content-table input{
+.mypageSignUp-signUpInfo-table input{
   border: 0.5px solid #eee;
     width: 300px;
-    height: 35px;
+    height: 45px;
 }
-.mypageEditInfo-table-inputTd{
+.mypageSignUp-table-inputTd{
     display: flex;
     align-items: center;
 }
-.mypageEditInfo-table-inputTd div{
+.mypageSignUp-table-inputTd > div{
   color: #666;
+  margin-left: 10px;
 } 
 
-.mypageEditInfo-table-address input{
+.mypageSignUp-table-address input{
     margin: 10px 0;
 }
 
-.mypageEditInfo-table-address button{
-    height: 35px;
+.mypageSignUp-table-address button{
+    height: 45px;
     width: 100px;
     border: 0.5px solid #eee;
     background-color: #fafafa;
 }
-.mypageEditInfo-address-postal{
+.mypageSignUp-address-postal{
     width: 100px !important;
 }
-.mypageEditInfo-table-tel input{
-    font-size: 15px;
-    text-align: center;
-    width: 100px;
+.mypageSignUp-table-tel input{
+    text-align: left;
+    width: 300px;
 }
-.mypageEditInfo-table-tel span{
-    font-size: 30px;
-    font-weight: bolder;
-}
-.mypageEditInfo-table-birth input{
+
+.mypageSignUp-table-birth input{
   border: 0.5px solid #eee;
   width: 50px;
   margin-right: 5px;
+  text-align: right;
+  padding-right: 10px;
 }
-.mypageEditInfo-table-birth input:not(:first-child) {
+
+.mypageSignUp-table-birth input:not(:first-child) {
   margin-left: 10px;
 }
 
-.mypageEditInfo-table-Refund div{
+.mypageSignUp-table-Refund div{
     padding: 15px 0;
 }
-.mypageEditInfo-table-Refund select{
+.mypageSignUp-table-Refund select{
   border: 0.5px solid #eee;
   text-align: center;
   height: 45px;
   width: 170px;
 }
-.mypageEditInfo-table-Refund option{
+.mypageSignUp-table-Refund option{
   text-align: center;
   height: 45px;
   width: 170px;
 }
-.mypageEditInfo-table-Refund td {
-  padding: 0;
-}
-.mypageEditInfo-table-Refund td > div {
+.mypageSignUp-table-Refund td {
   padding-left: 10px;
 }
-.mypageEditInfo-info-member{
-  display: flex;
-  justify-content: flex-end;
+
+#mypageSignUpSubmit {
+  width: 100%;
 }
-#mypageEditInfoSubmitButton{
+
+#mypageSignUpSubmitButton{
+  margin-top: 50px;
   display: flex;
   justify-content: center;
+  height: 50px
 }
-#mypageEditInfoSubmitButton button {
-  background-color: #eee;
+
+#mypageSignUpSubmitButton button {
   border: none;
   height: 50px;
-  width: 150px;
-  margin: 0 5px;
+  width: 200px;
+  margin: 10px;
 }
-#mypageEditInfoSubmitButton button:nth-child(1) {
-  background-color: #666;
+
+#signUpButton {
+  background-color: #7F7698;
+}
+
+#cancelButton {
+  background-color: #ccc;
+}
+
+/* 필수 입력값 첫뻔째 열 */
+#mypageSignUpSubmit > div > div:nth-child(2) > table > tbody > tr > th {
+  width: 15%;
+}
+
+
+
+
+/* 추가정보 각 행별 설정 */
+#mypageSignUpSubmit > div > div:nth-child(3) > table > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {
+  font-weight: bold;
+  width: 10%;
+  background-color: #fafafa;
+}
+
+.mypageSignUp-table-birth > td:nth-child(2) {
+  width: 40%;
+}
+
+.mypageSignUp-table-birth > td:nth-child(3) {
+  width: 10%;
+  font-weight: bold;
+  background-color: #fafafa;
+}
+
+.mypageSignUp-table-birth > td:nth-child(4) {
+  width: 40%;
+}
+
+.mypageSignUp-table-birth > td:nth-child(4) > select {
+  width: 100px;
+}
+
+
+#mypageSignUpRefundName {
+  margin-left: 10px;
+}
+
+[name="refundBank"] {
+  margin-left: 10px;
+}
+
+
+
+
+/* 유효성 검사 메세지(id, phone, email) */
+#mypageSignUpRefundNo, #emailMessage, #phoneMessage {
+  margin-left: 10px;
+  color: #666;
+}
+
+/* 필수입력값을 알리는 '*' */
+.required-for-signUp {
+  display: flex;
+  align-items: flex-start;
+}
+
+.required-for-signUp > span {
+  margin-left: 5px;
+  font-size: 2px;
+  color: red;
+}
+
+.for-flex-signUp {
+  display: flex;
+  flex-direction: row;
+}
+
+.signUp-button {
+  margin-left: 10px;
+}
+
+.mypageSignUp-signUpInfo-table tr:nth-child(6) {
+  display: none;
+}
+
+#mypageSignUpSubmit > div > div:nth-child(3) > div {
+  display: flex;
+  justify-content: end;
+}
+
+
+/* 회원 탈퇴 버튼 위치 조정 */
+.modify-margin-bottom {
+  margin-bottom: 10px;
+}
+
+
+
+
+/* 회원 탈퇴 모달창 */
+/* 모달창 오버레이 */
+.myPage-delete-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 101;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 모달창 */
+.myPage-delete-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 500px;
+  height: 500px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* 버튼 영역 */
+.myPage-delete-btn-area *{
   color: white;
-  border: none;
-  height: 50px;
-  width: 150px;
   margin: 0 5px;
+  width: 70px;
 }
+
+.myPage-delete-btn-area>button:nth-child(1){background-color: #7f7698;}
+.myPage-delete-btn-area>button:nth-child(2){background-color: #ccc;}
+
+
+.delete-confirm-message-box {
+  padding: 10px;
+  border: 0.5px solid #eee;
+  border-radius: 5px;
+  width: 100%;
+  height: 300px;
+}
+
+.myPage-delete-modal-window > div > div:first-child {
+  font-size: 2.0rem;
+}
+

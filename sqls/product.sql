@@ -179,4 +179,10 @@ SELECT `product`.product_no,
 				AND parent_category_no = 1
 				and product_state = 'O' -- 판매중
 		ORDER BY click_count asc, product_sale_price desc
-		LIMIT 20
+		LIMIT 20;
+		
+		
+-- 상품 재고 없을시 품절상태로 전환
+SELECT * FROM product;
+UPDATE product SET product_state = 'S' WHERE product_no = #{product_no};
+		

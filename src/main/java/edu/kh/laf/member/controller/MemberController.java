@@ -113,10 +113,6 @@ public class MemberController {
 				, String[] memberBirth
 				, RedirectAttributes ra) {
 		
-		
-		System.out.println(inputMember.getRefundAccount());
-		System.out.println(inputMember.getRefundBank());
-		
 	
 		// 분리된 주소값 구분자를 넣어 String으로 변환, 입력
 		// 만약 주소를 입력하지 않은 경우(,,) null로 변경
@@ -136,7 +132,7 @@ public class MemberController {
 			inputMember.setMemberBirth(null);
 			
 		}else {
-			// 주소 요소 사이에 "^^^" 추가
+			// 생일 요소 사이에 "^^^" 추가
 			String birth =  Arrays.stream(memberBirth).collect(Collectors.joining());
 			inputMember.setMemberBirth(birth);
 		}

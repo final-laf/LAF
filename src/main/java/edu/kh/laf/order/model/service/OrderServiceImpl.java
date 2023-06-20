@@ -2,16 +2,19 @@ package edu.kh.laf.order.model.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.mapper.OrderMapper;
@@ -85,6 +88,7 @@ public class OrderServiceImpl implements OrderService{
 	// 주문테이블추가
 	@Override
 	@Transactional(rollbackFor = Exception.class)
+	@Options(useGeneratedKeys = true, keyProperty = "nonMember.memberNo")
 	public String insertOrder(Order order, Map<String, Object> orderData, Member loginMember) {
 	
 		// 주문자 번호 세팅
@@ -105,13 +109,12 @@ public class OrderServiceImpl implements OrderService{
 			int result = mapper.createNonMember(nonMember);
 			
 			// 회원번호 가져오기
+			
 			if(result > 0) {
-				int nonMemberNo = mapper.selectNonMember((String)orderData.get("orderEmail"));
-				order.setMemberNo(nonMemberNo);
+				long memberNo = nonMember.getMemberNo();
+				order.setMemberNo(memberNo);
 			}
 		}
-		System.out.println(order);
-		
 		
 		// 주문고유번호 세팅
 		// 주문고유번호 중복확인
@@ -131,8 +134,6 @@ public class OrderServiceImpl implements OrderService{
 		
 		// 주문상태 세팅(주문접수)
 		order.setOrderState("A");
-		
-		System.out.println(order);
 		// 주문내역 추가
 		int result = mapper.insertOrder(order);
 		if(result == 0) {
@@ -145,6 +146,79 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public int selectOrderNo(String orderKey) {
 		return mapper.selectOrderNo(orderKey);
+	}
+	
+	// 주문상품목록테이블 추가
+	@Override
+	public int insertOrderProduct(OrderProduct op) {
+		return mapper.insertOrderProduct(op);
+	}
+	
+	// 상품 재고 최신화
+	@Override
+	public int optionCountUpdate(OrderProduct op) {
+		return mapper.optionCountUpdate(op);
+	}
+	
+	// 상품 모든 재고조회
+	@Override
+	public int selectAllStock(OrderProduct op) {
+		return mapper.selectAllStock(op);
+	}
+	
+	// 상품 품절 전환
+	@Override
+	public int updateSoldOut(OrderProduct op) {
+		return mapper.updateSoldOut(op);
+	}
+	
+	// 포인트서비스
+	@Override
+	public int changePoint(Order order) {
+
+		// 날짜 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+		String payDate = dateFormat.format(new Date()); // 현재 날짜
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.YEAR, 1); // 현재 날짜에 1년을 더함
+		String payDateYear = dateFormat.format(calendar.getTime());
+		
+		// 적립될 적립금 내역 추가
+		Point gainPoint = new Point();
+		gainPoint.setMemberNo(order.getMemberNo());
+		gainPoint.setPointSort("G");
+		gainPoint.setPointAmount(order.getPointNoGain());
+		gainPoint.setPointDate(payDate);
+		gainPoint.setPointDueDate(payDateYear);
+		gainPoint.setPointContent("구매에 대한 적립금");
+		gainPoint.setOrderNo(order.getOrderNo());
+		// 적립금 내역 테이블 데이터 삽입	
+		
+		// 적립된 적립금 추가 후 적립번호 가져오기
+		
+		// 2.포인트 사용한 경우
+		if(order.getPointNoUse() != 0) {
+			// 사용한 적립금 내역 추가
+			Point usePoint = new Point();
+			usePoint.setMemberNo(order.getMemberNo());
+			usePoint.setPointSort("U");
+			usePoint.setPointAmount(order.getPointNoUse());
+			usePoint.setPointDate(payDate);
+			usePoint.setPointContent("상품구매시 사용한 적립금");
+			usePoint.setOrderNo(order.getOrderNo());
+			
+//					int pointUse = mapper.insertUsePoint(order.getPointNoUse());
+			
+			// 사용한 적립금 추가 후 적립번호 가져오기
+//					int pointGain = 0;
+		}
+		
+		
+		// 3.order테이블 적립/사용 적립번호 업데이트
+		// 4.회원테이블 적립금 최신화 / 적립금, 누적구매액
+		
+		return 0;
 	}
 	
 	
