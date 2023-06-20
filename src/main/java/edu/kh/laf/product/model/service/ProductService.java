@@ -24,7 +24,7 @@ public interface ProductService {
      * 카테고리 전체 상품 목록 조회
      * @return productList
      */
-    List<Product> selectCategoryProductList(int categoryNo, long memberNo);
+    List<Product> selectCategoryProductList(int categoryNo, long memberNo, String ordering);
     
     /**
      * 카테고리 상품 목록 조회(갯수제한)

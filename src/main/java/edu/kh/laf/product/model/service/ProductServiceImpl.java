@@ -35,13 +35,26 @@ public class ProductServiceImpl implements ProductService {
 
     // 카테고리 전체 상품 목록 조회
     @Override
-    public List<Product> selectCategoryProductList(int categoryNo, long memberNo) {
+    public List<Product> selectCategoryProductList(int categoryNo, long memberNo, String ordering) {
     	Map<String, Object> map = new HashMap<>();
     	map.put("categoryNo", categoryNo);
     	map.put("memberNo", memberNo);
+    	map.put("ordering", ordering);
     	
     	return mapper.selectCategoryProductList(map);
     }
+    
+	// 상품 검색
+	@Override
+	public List<Product> search(String query, String ordering, long memberNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("query", query);
+		map.put("memberNo", memberNo);
+		map.put("ordering", ordering);
+		
+		return mapper.search(map);
+	}
+
     
     // 카테고리 상품 목록 조회(갯수제한)
 	@Override
@@ -69,18 +82,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> selectRecommendList(long productNo) {
 		return mapper.selectRecommendList(productNo);
-	}
-
-	// 상품 검색
-	@Override
-	public List<Product> search(String query, String ordering, long memberNo) {
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("query", query);
-		map.put("memberNo", memberNo);
-		map.put("ordering", ordering);
-		
-		return mapper.search(map);
 	}
 
 	// 카테고리 이름 조회

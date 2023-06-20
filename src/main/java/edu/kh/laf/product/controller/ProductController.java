@@ -22,7 +22,7 @@ import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"loginMember", "likeList"})
 public class ProductController {
 
 	@Autowired
@@ -34,10 +34,10 @@ public class ProductController {
 	
 	// 카테고리 상품목록 조회
 	@GetMapping("/{category:[0-9]+}")
-	public String category(Model model, @PathVariable("category") int category,
+	public String category(Model model, @PathVariable("category") int category, String ordering,
 			@SessionAttribute(name="loginMember", required=false) Member loginMember) {
 		long memberNo = loginMember == null ? -1 : loginMember.getMemberNo();
-		model.addAttribute("productList", productService.selectCategoryProductList(category, memberNo));
+		model.addAttribute("productList", productService.selectCategoryProductList(category, memberNo, ordering));
 		model.addAttribute("bestList", productService.selectWeeklyBest(category, 10));
 		model.addAttribute("categoryName", productService.selectCategoryName(category));
 		return "/shopping/categoryList";

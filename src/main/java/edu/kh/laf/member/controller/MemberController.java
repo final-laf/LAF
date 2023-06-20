@@ -3,12 +3,14 @@ package edu.kh.laf.member.controller;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.member.model.service.MemberServiceImpl;
+import edu.kh.laf.mypage.model.service.MypageLikeServcie;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.mysql.cj.Session;
 
 @Controller
-@SessionAttributes({"loginMember"})
+@SessionAttributes({"loginMember", "likeList"})
 public class MemberController {
 
     @Autowired
     private MemberService service;
+    @Autowired
+    private MypageLikeServcie likeServcie;
     
     // 로그인 페이지 이동
 	@GetMapping("/login")
@@ -71,6 +75,10 @@ public class MemberController {
 
 			path += "/"; // 메인페이지로 리다이렉트
 			model.addAttribute("loginMember", loginMember);
+			
+			// 로그인한 회원의 찜 목록 리스트(productNo)
+			List<Long> likeLikst = likeServcie.selectLikeList(loginMember.getMemberNo());
+			model.addAttribute("likeList", likeLikst);
 			
 			
 //			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());

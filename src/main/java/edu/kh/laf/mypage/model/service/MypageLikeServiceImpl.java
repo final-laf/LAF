@@ -1,5 +1,6 @@
 package edu.kh.laf.mypage.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,11 @@ public class MypageLikeServiceImpl implements MypageLikeServcie {
 	@Override
 	public int checkLike(Map<String, Object> map) {
 		return mapper.checkLike(map);
+	}
+
+	// 찜한 상품 목록 조회
+	@Override
+	public List<Long> selectLikeList(Long memberNo) {
+		return mapper.selectLikeList(memberNo);
 	}
 }

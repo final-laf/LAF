@@ -69,18 +69,17 @@
 
       <!-- 아이템 목록 상단(상품 갯수, 정렬방법) -->
       <div class="categoryList-product-header">
-        <div class="product-count"><span>72</span> 개의 상품</div>
+        <div class="product-count"><span th:text="${#lists.size(productList)}"></span> 개의 상품</div>
         <ul class="categoryList-order">
           <!-- 현재 정렬방식에 current 클래스 추가 -->
-          <li><a href="#" class="current">신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
-          <li><a href="#">상품명 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
-          <li><a href="#">사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=new(category=${category})}" class="current">신상품 <i class="fa-solid fa-angle-down"></i></a></li><!-- 기본정렬 -->
+          <li><a th:href="@{/{category}?ordering=name(category=${category})}">상품명 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=low(category=${category})}">낮은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=high(category=${category})}">높은가격 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=pop(category=${category})}">인기상품 <i class="fa-solid fa-angle-down"></i></a></li>
+          <li><a th:href="@{/{category}?ordering=rev(category=${category})}">사용후기 <i class="fa-solid fa-angle-down"></i></a></li>
         </ul>
       </div>
-
       <!-- 아이템 목록 -->
       <ul class="categoryList-product-item-container">
 
@@ -88,8 +87,8 @@
           <a class="link" th:href="@{/product/{productNo}(productNo=${product.productNo})}">
             <img th:src="${product.thumbnailPath}">
           </a>
-          <img class="like" th:if="${product.likeCount > 0}" th:src="@{/images/common/like-fill.svg}" value="like">
-          <img class="like" th:unless="${product.likeCount > 0}" th:src="@{/images/common/like-grey.svg}">
+          <img class="like" th:if="${session.likeList == null} or ${!#lists.contains(session.likeList, product.productNo)}" th:src="@{/images/common/like-grey.svg}">
+          <img class="like" th:if="${session.likeList != null} and ${#lists.contains(session.likeList, product.productNo)}" th:src="@{/images/common/like-fill.svg}" value="like">
           <div class="item-description-bottom-container">
 
             <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
