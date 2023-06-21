@@ -1,39 +1,44 @@
-<div class="review-modal-overlay" id="review-modal-overlay">
-  <div class="review-modal-window">
-    <div class="review-modal-close">x</div>
-    <div class="review-modal-top">
-      <div>
-        <img src="/images/review/review_image_upload.png">
-      </div>
-      <div>
-        <div class="review-modal-product">
-          <div>
-            <img src="/images/sample/230605001.jpg">
+<form action="">
+
+  <div class="review-modal-overlay" id="review-modal-overlay">
+    <div class="review-modal-window">
+      <div class="review-modal-close">x</div>
+      <div class="review-modal-top">
+        <div>
+          <img src="/images/review/review_image_upload.png">
+        </div>
+        <div>
+          <div class="review-modal-product">
+            <div>
+              <img src="/images/sample/230605001.jpg">
+            </div>
+            <div class="review-modal-product-desc">
+              <div id="reviewModifyModalProductName">착용감best✨[98project/2만장돌파] 쿨 스트레이트 트레이닝 팬츠..</div>
+              <div><span class="review-modal-subtitle" id="reviewModifyModalProductSalePrice">28,500</span><span class="review-grey" id="reviewModifyModalProductPrice">55,500</span></div>
+              <div><span>리뷰개수:</span><span id="reviewModifyModalReviewCount"></span>개</div>
+            </div>
           </div>
-          <div class="review-modal-product-desc">
-            <div id="reviewModifyModalProductName">착용감best✨[98project/2만장돌파] 쿨 스트레이트 트레이닝 팬츠..</div>
-            <div><span class="review-modal-subtitle" id="reviewModifyModalProductSalePrice">28,500</span><span class="review-grey" id="reviewModifyModalProductPrice">55,500</span></div>
-            <div><span>리뷰개수:12개</span><span id="reviewModifyModalReviewCount"></span></div>
+          <div class="write-review-modal-grade">
+            <div><span>[상품 평점] </span></div>
+            <div>
+              <input type="range" min="0" max="5" step="0.1" name="reviewScore" value="5" id="reviewModifyModalStar">　<img id="reviewModalStar" src="/images/common/star.svg">　<span>0점</span></img>
+            </div>
+          </div>
+          <div class="write-review-modal-contents">
+            <textarea id="reviewModifyModalContent">잘 받았습니다 빠른 배송 감사합니다 여러 벌 샀는데 이 옷이 가장 마음에 들어요. 맞는 옷이 이거밖에 없거든요. 이걸 사람 입으라고 만든건지 강아지 옷으로 만든건지</textarea>
           </div>
         </div>
-        <div class="write-review-modal-grade">
-          <div><span>평점</span></div>
-          <div><button>5점</button><button class="submit">4점</button><button>3점</button><button>2점</button><button>1점</button></div>
-        </div>
-        <div class="write-review-modal-contents">
-          <textarea id="reviewModifyModalContent">잘 받았습니다 빠른 배송 감사합니다 여러 벌 샀는데 이 옷이 가장 마음에 들어요. 맞는 옷이 이거밖에 없거든요. 이걸 사람 입으라고 만든건지 강아지 옷으로 만든건지</textarea>
-        </div>
       </div>
-    </div>
-    <div class="write-review-modal-middle">
-      <img src="/images/review/review_image_upload_s.png">
-      <img src="/images/review/review_image_upload_s.png">
-      <img src="/images/review/review_image_upload_s.png">
-      <img src="/images/review/review_image_upload_s.png">
-    </div>
-    <div class="btn-container">
-      <button>작성</button>
-      <button class="submit">삭제</button>
+      <div class="write-review-modal-middle">
+        <img src="/images/review/review_image_upload_s.png">
+        <img src="/images/review/review_image_upload_s.png">
+        <img src="/images/review/review_image_upload_s.png">
+        <img src="/images/review/review_image_upload_s.png">
+      </div>
+      <div class="btn-container">
+        <button>수정</button>
+        <button type="button" class="submit">삭제</button>
+      </div>
     </div>
   </div>
-</div>
+</form>

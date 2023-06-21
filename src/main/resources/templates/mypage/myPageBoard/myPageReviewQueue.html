@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/boards/review.css">
     <link rel="stylesheet" href="/css/myPage/myPageBoard/myPageReview.css">
     <title>LAF :: 내 리뷰 관리</title>
 </head>
@@ -47,11 +48,11 @@
             <!-- 작성 가능 리뷰 있을 때 -->
             <tr th:each="r:${myWrittenReview}">
               <td class="item-order-info" >
-                <div class="item-order-no" th:text="${r.orderNo}">[23060400001001]</div>
+                <div class="item-order-no" th:text="${r.orderUno}">[23060400001001]</div>
               </td>
               <td class="item-image">
                 <a href="/product/1">
-                  <img src="${r.product.thumbnailPath}">
+                  <img th:src="${r.product.thumbnailPath}">
                 </a>
               </td>
               <td class="item-product">
@@ -64,11 +65,11 @@
               </td>
               <td class="item-count" th:text="${r.count}">2</td>
               <td class="item-price-set">
-                <div class="item-price" th:text="${orderTotalPrice}">가격</div>
+                <div class="item-price" th:text="${r.product.productPrice}">가격</div>
               </td>
               <td class="item-choose">
-                <button type="button">리뷰수정</button>
-                <button type="button">&times; 삭제</button>
+                <button type="button" class="myPageReviewModify" th:value="${r.reviewNo}">리뷰 수정</button>
+                <button type="button" th:value="${r.orderNo}">&times; 삭제</button>
               </td>
             </tr>
           </table>
@@ -104,5 +105,6 @@
   <th:block th:replace="~{/boards/review/reviewDetailModal}"></th:block>
   <th:block th:replace="~{/boards/review/reviewModifyModal}"></th:block>
   <th:block th:replace="~{/common/footer}"></th:block>
+  <script src="/js/mypage/myPageReview.js"></script>
 </body>
 </html>

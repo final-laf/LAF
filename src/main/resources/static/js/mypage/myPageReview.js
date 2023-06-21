@@ -1,6 +1,6 @@
 /* 리뷰 상세 모달 */
-const modal = document.getElementsByClassName("review-modal-overlay")[0];
-const reviewDetail = document.getElementsByClassName("reviewListDetail");
+const modal = document.getElementsByClassName("review-modal-overlay")[1];
+const reviewDetail = document.getElementsByClassName("myPageReviewModify");
 console.log(modal);
 let memberName = "";
 let reviewCreateDate = "";
@@ -14,20 +14,20 @@ for(let review of reviewDetail) {
   /* 리뷰 아이템 클릭시 */
   review.addEventListener('click', e => {
     const reviewNo = e.target.getAttribute("value");
+    console.log(reviewNo)
+    console.log(modal)
     modal.style.display = "flex";
     document.body.style.overflowY = "hidden";
 
     fetch("/review/detail?reviewNo="+reviewNo)  
     .then(response => response.json()) 
     .then(review => {
-      document.getElementById("reviewDetailModalName").innerText=review.memberName;
-      document.getElementById("reviewDetailModalDate").innerText=review.reviewCreateDate;
-      document.getElementById("reviewDetailModalOption").innerText=review.option.color+"/"+review.option.size;
-      document.getElementById("reviewDetailModalProductName").innerText=review.product.productName;
-      document.getElementById("reviewDetailModalProductPrice").innerText=review.product.productPrice;
-      document.getElementById("reviewDetailModalProductSalePrice").innerText=review.product.productSalePrice;
-      document.getElementById("reviewDetailModalReviewCount").innerText=review.reviewCount;
-      document.getElementById("reviewDetailModalContent").innerText=review.reviewContent;
+      document.getElementById("reviewModifyModalProductName").innerText=review.product.productName;
+      document.getElementById("reviewModifyModalProductPrice").innerText=review.product.productPrice;
+      document.getElementById("reviewModifyModalProductSalePrice").innerText=review.product.productSalePrice;
+      document.getElementById("reviewModifyModalReviewCount").innerText=review.reviewCount;
+      document.getElementById("reviewModifyModalContent").innerText=review.reviewContent;
+      review.
       memberName = review.memberName
       reviewCreateDate = review.reviewCreateDate
       option = review.option.color+"/"+review.option.size
@@ -36,6 +36,12 @@ for(let review of reviewDetail) {
       productSalePrice =review.product.productSalePrice
       reviewCount = review.reviewCount
       reviewContent = review.reviewContent
+      console.log(review.reviewScore)
+      switch(review.reviewScore){
+        case 5 :
+          asd.classList
+          break;
+      }
       // document.getElementById("reviewModalName").innerText="review.memberName";
     }) 
     .catch (e => { console.log(e)}); 
