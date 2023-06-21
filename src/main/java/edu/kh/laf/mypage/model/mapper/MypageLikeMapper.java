@@ -23,6 +23,13 @@ public interface MypageLikeMapper {
 	int deleteLike(Map<String, Object> map);
 
 	/**
+	 * 찜 목록 여러개 삭제
+	 * @param map
+	 * @return result
+	 */
+	int deleteSelectedLike(Map<String, Object> map);
+	
+	/**
 	 * 찜 여부 확인
 	 * @param map
 	 * @return result (1: true, 0: false)
@@ -35,5 +42,6 @@ public interface MypageLikeMapper {
 	 * @return likeList
 	 */
 	List<Long> selectLikeList(Long memberNo);
+
 	
 }

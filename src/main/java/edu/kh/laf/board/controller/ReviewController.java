@@ -23,21 +23,22 @@ public class ReviewController {
 	public String review(Model model) {
 		List<Review> reviewList = new ArrayList<>();
 		reviewList = service.reviewList();
-//		reviewList에서 하나씩 옵션 및 상품 설정
+
+		// reviewList에서 하나씩 옵션 및 상품 설정
 		for(Review review : reviewList) {
 			int num = review.getMemberId().length()/2;
 			int uNum = review.getOrderUno().length()/2;
+			
 			String blind = "";
 			for(int i=0; i<num; i++) {blind += "*";}
-			review.setMemberId(review.getMemberId().substring(0, num)+blind);
+			review.setMemberId(review.getMemberId().substring(0, num) + blind);
+			
 			blind = "";
 			for(int i=0; i<uNum; i++) {blind += "*";}
-			review.setOrderUno(review.getOrderUno().substring(0, uNum)+blind);
+			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
 			
-//			옵션 설정
-			review.setOption(service.reviewOption(review.getOptionNo()));
-//			상품 설정
-			review.setProduct(service.reviewProduct(review.getProductNo()));
+			review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
 		}
 		model.addAttribute("reviewList", reviewList);
 		return "/boards/review/review";
@@ -51,18 +52,17 @@ public class ReviewController {
 		System.out.println(review);
 		int num = review.getMemberId().length()/2;
 		int uNum = review.getOrderUno().length()/2;
+		
 		String blind = "";
 		for(int i=0; i<num; i++) {blind += "*";}
 		review.setMemberId(review.getMemberId().substring(0, num)+blind);
+		
 		blind = "";
 		for(int i=0; i<uNum; i++) {blind += "*";}
 		review.setOrderUno(review.getOrderUno().substring(0, uNum)+blind);
 		
-//		옵션 설정
-		review.setOption(service.reviewOption(review.getOptionNo()));
-//		상품 설정
-		review.setProduct(service.reviewProduct(review.getProductNo()));
-		System.out.println(review);
+		review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
+		review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
 		
 		return review;
 	}

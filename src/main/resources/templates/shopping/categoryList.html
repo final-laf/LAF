@@ -133,7 +133,7 @@
               <div class="item-additional-info">
                 <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
                 <img th:src="@{/images/common/like-fill.svg}">
-                <span th:text="${product.likeCount}"></span>
+                <span class="like-count" th:text="${product.likeCount}"></span>
               </div>
             </div>
 
@@ -145,10 +145,10 @@
 
       <!-- 페이징 -->
       <div class="pagination-area">
-        <ul th:if=${categoryName} class="pagination">
+        <ul class="pagination">
 
           <!-- 첫 페이지로 이동 -->
-          <li><a th:href="@{/{c}(c=${category}, cp=1, ordering=${ordering})}">
+          <li><a th:href="@{/{c}(c=${category}, ordering=${ordering})}">
               <img th:src="@{/images/common/paging/first-page.svg}">
             </a></li>
 
@@ -166,7 +166,7 @@
 
             <!-- 현재 페이지를 제외한 나머지 -->
             <li th:unless="${i == pagination.currentPage}">
-              <a th:href="@{/{c}(c=${category}, cp=${i}, ordering=${ordering})}" th:text="${i}"></a>
+              <a th:href="@{/{c}(c=${category}, cp=${i}, ordering=${ordering})}" th:text="${i}">다른 페이지</a>
             </li>
           </th:block>
 

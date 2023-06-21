@@ -29,6 +29,12 @@ public class MypageLikeServiceImpl implements MypageLikeServcie {
 		return mapper.deleteLike(map);
 	}
 
+	// 찜 목록 여러개 삭제
+	@Override
+	public int deleteSelectedLike(Map<String, Object> map) {
+		return mapper.deleteSelectedLike(map);
+	}
+	
 	// 찜 여부 확인
 	@Override
 	public int checkLike(Map<String, Object> map) {
@@ -40,4 +46,5 @@ public class MypageLikeServiceImpl implements MypageLikeServcie {
 	public List<Long> selectLikeList(Long memberNo) {
 		return mapper.selectLikeList(memberNo);
 	}
+
 }

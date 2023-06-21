@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.product.model.dto.Option;
 
@@ -31,4 +32,11 @@ public interface OptionMapper {
 	 */
 	Option selectOption(long optionNo);
 	
+	/**
+	 * 상품 번호 여러개로 해당 상품의 모든 옵션 조회
+	 * @param paramMap
+	 * @param rowBounds 
+	 * @return optionList
+	 */
+	List<Option> selectOptionListBySeveralKeys(Map<String, Object> paramMap, RowBounds rowBounds);
 }

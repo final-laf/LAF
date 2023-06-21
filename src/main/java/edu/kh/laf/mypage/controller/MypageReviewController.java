@@ -32,7 +32,6 @@ public class MypageReviewController {
 			
 		}
 		List<Review> myWrittenReview = reviewService.myWrittenReview(loginMember.getMemberNo());
-		System.out.println(myOrder);
 		model.addAttribute("myOrder", myOrder);
 		model.addAttribute("myWrittenReview", myWrittenReview);
 		return "/myPage/myPageBoard/myPageReview";

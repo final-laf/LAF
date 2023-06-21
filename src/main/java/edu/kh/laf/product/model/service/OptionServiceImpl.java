@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.mapper.OptionMapper;
 
 @Service
@@ -78,6 +81,23 @@ public class OptionServiceImpl implements OptionService {
 	@Override
 	public Option selectOption(long optionNo) {
 		return mapper.selectOption(optionNo);
+	}
+
+	// 옵션 번호 여러개로 해당 상품의 모든 옵션 조회
+	@Override
+	public Map<String, Object> selectOptionListBySeveralKeys(Map<String, Object> paramMap) {
+		int listCount = ((List<Long>)paramMap.get("likeList")).size();
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		List<Option> optionList = mapper.selectOptionListBySeveralKeys(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("optionList", optionList);
+		
+		return resultMap;
 	}
 
 }

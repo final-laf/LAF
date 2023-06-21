@@ -33,8 +33,12 @@ nav {
   position: sticky;
   top: 0;
 
-  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
-  z-index: 99;
+  /* box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25); */
+  box-shadow: 0 1px 1px rgba(0,0,0,0.08), 
+  0 2px 2px rgba(0,0,0,0.08), 
+  0 4px 4px rgba(0,0,0,0.08), 
+  0 8px 8px rgba(0,0,0,0.08);
+  z-index: 101;
   background-color: white;
 }
 
@@ -145,6 +149,7 @@ label[for='menuList'] {
   position: absolute;
   bottom: 12px;
   right: 135px;
+  background-color: white;
 }
 #searchCheckbox + #query { 
   width: 0px;
@@ -153,6 +158,19 @@ label[for='menuList'] {
   width: 200px;
   transition-duration: 0.3s;
 }
+
+/* 로그인 시 출력되는 환영문구 */
+#searchCheckbox + #query + #welcome { 
+  position: absolute;
+  right: 130px;
+  bottom: 15px;
+}
+#searchCheckbox:checked + #query + #welcome {
+  /* transform: translateX(-220px); */
+  transform: translateY(-27px);
+  transition-duration: 0.2s;
+}
+
 
 /* quick menu */
 .quick-menu {

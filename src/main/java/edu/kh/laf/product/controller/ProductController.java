@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.board.model.service.ReviewService;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
 import edu.kh.laf.product.model.dto.Option;
@@ -32,6 +34,8 @@ public class ProductController {
 	private OptionService optionService;
 	@Autowired
 	private MypageLikeServcie likeServcie;
+	@Autowired
+	private ReviewService reviewService;
 	
 	// 카테고리 상품목록 조회
 	@GetMapping("/{category:[0-9]+}")
@@ -97,6 +101,26 @@ public class ProductController {
 			map.put("memberNo", loginMember.getMemberNo());
 			model.addAttribute("checkLike", likeServcie.checkLike(map));
 		}
+		
+		// 리뷰 내역 조회
+		List<Review> reviewList = reviewService.reviewProductList(productNo);
+		for(Review review : reviewList) {
+			int num = review.getMemberId().length()/2;
+			int uNum = review.getOrderUno().length()/2;
+			
+			String blind = "";
+			for(int i=0; i<num; i++) {blind += "*";}
+			review.setMemberId(review.getMemberId().substring(0, num) + blind);
+			
+			blind = "";
+			for(int i=0; i<uNum; i++) {blind += "*";}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
+			
+			review.setOption(reviewService.reviewOption(review.getOptionNo()));
+			review.setProduct(reviewService.reviewProduct(review.getProductNo()));
+		}
+		model.addAttribute("reviewList", reviewList);
+		
 		
 		return "/shopping/product";
 	}

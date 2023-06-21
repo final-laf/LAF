@@ -72,7 +72,7 @@ public interface ProductMapper {
 	String selectCategoryName(int categoryNo);
 
 	/**
-	 * 카테고리 상품 갯수 조회
+	 * 부모 카테고리 상품 갯수 조회
 	 * @param category
 	 * @return count
 	 */
@@ -91,4 +91,19 @@ public interface ProductMapper {
 	 * @return childCategoryList
 	 */
 	List<Category> selectChildCategoryList(int categoryNo);
+
+	/**
+	 * 부모 카테고리 조회
+	 * @return categoryList
+	 */
+	List<Category> selectCategoryList();
+
+	/**
+	 * 키 목록으로 상품 목록 조회
+	 * @param paramMap
+	 * @param rowBounds 
+	 * @return productList
+	 */
+	List<Product> selectProductBySeveralKeys(Map<String, Object> paramMap, RowBounds rowBounds);
+	
 }

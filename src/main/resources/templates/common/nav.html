@@ -30,16 +30,9 @@
 
   <div class="header-nav-catagory">
     <ul class="header-nav-catagory-menu">
-      <li><a href="#">BEST50</a></li>
-      <li><a href="#">LAFPROJECT</a></li>
-      <li><a href="#">NEW10%</a></li>
-      <li><a th:href="@{/1}">TOP</a></li>
-      <li><a th:href="@{/2}">PANTS</a></li>
-      <li><a th:href="@{/3}">OUTER</a></li>
-      <li><a th:href="@{/4}">DRESS</a></li>
-      <li><a th:href="@{/5}">SKIRTS</a></li>
-      <li><a th:href="@{/9}">ACC</a></li>
-      <li><a th:href="@{/6}">SALE</a></li>
+      <li th:each="cate : ${application.category}">
+        <a th:href="@{/{c}(c=${cate.categoryNo})}" th:text="${cate.categoryName}">카테고리 이름</a>
+      </li>
     </ul>
   </div>
 
@@ -59,6 +52,7 @@
     <div th:if="${session.loginMember}" class="header-nav-icon">
       <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
+      <div id="welcome" style="font-size: 1.2rem; margin-top: 5px;" th:if="${session.loginMember}" th:text="|${session.loginMember.memberName} 님 방문을 환영합니다! ╰(*°▽°*)╯ |"></div>
       <label id="searchImgLabel" for="searchCheckbox">
         <img id="searchImg" src="/images/common/search.svg">
       </label>
@@ -71,7 +65,7 @@
     <ul>
       <li><a href="#"><img src="/images/common/topup.svg"></a></li>
       <li><a href="/review"><img src="/images/common/edit.svg"></a></li>
-      <li><a href="/myPage/like"><img src="/images/common/like-black.svg"></a></li>
+      <li><a href="/myPage/like"><img src="/images/common/like-fill.svg"></a></li>
       <li><a href="/qna"><img src="/images/common/question.svg"></a></li>
       <li class="recent-view">
         <span class="recent-view-lbtn"><img src="/images/common/allowBtnLeft-white.svg"></span>
@@ -92,17 +86,10 @@
     const input = document.getElementById('query');
     if(input.classList.contains('hidden')) {
       input.classList.remove('hidden');
-      // input.style.transitionDuration = '0.2s';
-      // input.style.width = '200px';
       input.focus();
     } else {
       input.classList.add('hidden');
-      // input.style.width = '0px';
       input.value = '';
     }
-
-    // input.classList.toggle('hidden');
-    // input.value = '';
-    // input.focus();
   });
 </script>

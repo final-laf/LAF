@@ -32,6 +32,15 @@
 		from   `like`
 		where 	member_no = #{memberNo}
 	</select>
+	
+	<!-- 찜 목록 여러개 삭제 -->
+	<delete id="deleteSelectedLike">
+		delete from `like`
+		where member_no = #{memberNo} and 
+		<foreach collection="productNoList" item="productNo" open="(" close=")" separator="or">
+			product_no = #{productNo}
+		</foreach>  
+	</delete>
 
 </mapper>
 

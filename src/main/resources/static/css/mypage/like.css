@@ -56,12 +56,8 @@ table tr:not(:first-child) > td {
 .item-empty { width: 100%; }
 tr:not(:first-child) > .item-product {
   /* 테이블 헤더 제외하고 적용 */
-  padding: 10px 10px 10px 0;
-  
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  padding: 0 10px;
+  justify-content: flex-start;
 }
 .item-image img {
   height: 94px;
