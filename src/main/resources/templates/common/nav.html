@@ -52,6 +52,7 @@
     <div th:if="${session.loginMember}" class="header-nav-icon">
       <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
+      <div id="welcome" style="font-size: 1.2rem; margin-top: 5px;" th:if="${session.loginMember}" th:text="|${session.loginMember.memberName} 님 방문을 환영합니다! ╰(*°▽°*)╯ |"></div>
       <label id="searchImgLabel" for="searchCheckbox">
         <img id="searchImg" src="/images/common/search.svg">
       </label>
@@ -85,12 +86,9 @@
     const input = document.getElementById('query');
     if(input.classList.contains('hidden')) {
       input.classList.remove('hidden');
-      // input.style.transitionDuration = '0.2s';
-      // input.style.width = '200px';
       input.focus();
     } else {
       input.classList.add('hidden');
-      // input.style.width = '0px';
       input.value = '';
     }
 
