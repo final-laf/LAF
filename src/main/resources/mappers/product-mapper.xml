@@ -204,7 +204,7 @@
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
 		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
 				and product_state = 'O' -- 판매중
-				<if test='query != nll'>
+				<if test='query != null'>
 					AND `product`.product_name like '%${query}%'
 				</if>
 		ORDER BY 
