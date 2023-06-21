@@ -101,6 +101,13 @@ public interface MypageService {
 	int changePw(String memberPw, String newMemberPw, Member loginMember);
 
 
+	/** 회원 탈퇴
+	 * @param memberNo
+	 * @return result
+	 */
+	int deleteMember(Long memberNo);
+
+
 
 
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.laf.member.model.dto.Address;
@@ -22,6 +23,7 @@ import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.service.OrderService;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @SessionAttributes({"loginMember"})
@@ -66,7 +68,13 @@ public class MypageMemberController {
 	
 	// 회원정보 수정 페이지 이동  
 	@GetMapping("/myPage/info") 
-	public String info() {
+	public String info(Model model
+					  ,@SessionAttribute("loginMember") Member loginMember) {
+		
+		// 로그인멤버의 쿠폰 정보 조회
+		List<Coupon> couponList = orderService.selectCouponList(loginMember.getMemberNo());
+		model.addAttribute("couponList", couponList);
+		
 		return "/myPage/myPageInfo/myPageInfo";
 	}
 	
@@ -119,6 +127,39 @@ public class MypageMemberController {
 		return "redirect:" + referer ;
 	}
 	
+	
+	// 회원 탈퇴
+	@PostMapping("/myPage/delete")
+	public String deleteMember(@SessionAttribute("loginMember") Member loginMember
+								,SessionStatus status
+								,HttpServletResponse resp
+								,RedirectAttributes ra) {
+		
+		Long memberNo = loginMember.getMemberNo();
+		int result = service.deleteMember(memberNo);
+		
+		String path = "redirect:";
+		String message = null;
+		
+		//탈퇴 성공 시
+		if(result > 0) {
+			message = "탈퇴 되었습니다";
+			path += "/";
+			status.setComplete();
+//			Cookie cookie = new Cookie("saveId", ""); 
+//			cookie.setMaxAge(0);
+//			cookie.setPath("/"); 
+//			resp.addCookie(cookie); 
+		}
+		//탈퇴 실패 시
+		else {
+			message = "현재 비밀번호가 일치하지 않습니다";
+			path += "/myPage/delete";
+		}
+		
+		ra.addFlashAttribute("message",message);
+		return path;
+	}
 	
 	// 비밀번호 수정 페이지 이동  
 	@GetMapping("/myPage/changePw") 

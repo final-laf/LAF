@@ -63,9 +63,16 @@
 	<update id="changePw">
 		update `member`
 		SET member_pw = #{memberPw}
-		WHERE member_no = #{memberNo};
+		WHERE member_no = #{memberNo}
 	</update>	
-
+	
+	
+	<!--회원 탈퇴(마이페이지-정보관리-회원정보변경-회원탈퇴)-->
+	<update id="deleteMember">
+		update `member`
+		SET member_del_fl = 'Y'
+		WHERE member_no = #{memberNo}
+	</update>
 
 
 	<!--주문 상품 조회(마이페이지-주문조회)-->
