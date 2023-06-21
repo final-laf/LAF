@@ -151,7 +151,7 @@ public class OrderController {
 		req.getSession().removeAttribute("orderProductList");
 		
 		 //주문상세조회로 넘어가기 - 주문번호
-		return "/order/" + orderNo;
+		return "redirect:/order/" + orderNo;
 	}
 	
 	

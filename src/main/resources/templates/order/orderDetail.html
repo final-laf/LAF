@@ -17,7 +17,7 @@
   
   <main>
       <!-- 개인화면 대쉬보드 전체 틀 -->
-    <section class="orderDetail-mainFrame">
+    <section class="orderDetail-mainFrame" th:object="${order}">
       <div class="orderDetail-mainFrame-order">
         <div class="orderDetail-order-text">주문상세조회</div>
         <div>주문정보</div>
@@ -26,19 +26,15 @@
         <table>
           <tr>
             <th width="170px">주문번호</th>
-            <td>156343-14654456</td>
+            <td th:text="*{orderUno}">156343-14654456</td>
           </tr>
           <tr>
             <th>주문일자</th>
-            <td>2023-05-31 18:03:20</td>
-          </tr>
-          <tr>
-            <th>주문자</th>
-            <td>ㅇㅇㅇ</td>
+            <td th:text="*{orderUno}">2023-05-31 18:03:20</td>
           </tr>
           <tr>
             <th>주문처리상태</th>
-            <td>배송전</td>
+            <td th:text="*{orderState}">배송전</td>
           </tr>
         </table>
         <!-- 결제 정보 -->
