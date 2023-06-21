@@ -157,6 +157,8 @@
 
       <!-- 사용자 리뷰(최신순) 게시판 -->
       <div layout:fragment="content" th:replace="~{/boards/review/reviewList}"></div>
+      <th:block th:replace="~{/boards/review/reviewDetailModal}"></th:block>
+      <th:block th:replace="~{/boards/review/reviewModifyModal}"></th:block>
 
     </section>
   </main>

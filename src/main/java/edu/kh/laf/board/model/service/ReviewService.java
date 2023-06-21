@@ -31,4 +31,11 @@ public interface ReviewService {
 	 */
 	Review detailReview(String reviewNo);
 
+	/**
+	 * 특정 상품에 대한 모든 리뷰 조회
+	 * @param productNo
+	 * @return reviewList
+	 */
+	List<Review> reviewProductList(long productNo);
+
 }

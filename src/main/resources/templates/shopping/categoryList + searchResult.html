@@ -138,7 +138,7 @@
             th:if="${session.likeList == null} or ${!#lists.contains(session.likeList, product.productNo)}"
             th:src="@{/images/common/like-grey.svg}">
           <img class="like"
-            th:if="${session.likeList != null} and ${#lists.contains(session.likeList, product.productNo)}"
+            th:if="${#lists?.contains(session.likeList, product.productNo)}"
             th:src="@{/images/common/like-fill.svg}" value="like">
           <div class="item-description-bottom-container">
 
