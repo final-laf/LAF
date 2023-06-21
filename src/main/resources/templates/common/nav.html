@@ -30,16 +30,9 @@
 
   <div class="header-nav-catagory">
     <ul class="header-nav-catagory-menu">
-      <li><a href="#">BEST50</a></li>
-      <li><a href="#">LAFPROJECT</a></li>
-      <li><a href="#">NEW10%</a></li>
-      <li><a th:href="@{/1}">TOP</a></li>
-      <li><a th:href="@{/2}">PANTS</a></li>
-      <li><a th:href="@{/3}">OUTER</a></li>
-      <li><a th:href="@{/4}">DRESS</a></li>
-      <li><a th:href="@{/5}">SKIRTS</a></li>
-      <li><a th:href="@{/9}">ACC</a></li>
-      <li><a th:href="@{/6}">SALE</a></li>
+      <li th:each="cate : ${application.category}">
+        <a th:href="@{/{c}(c=${cate.categoryNo})}" th:text="${cate.categoryName}">카테고리 이름</a>
+      </li>
     </ul>
   </div>
 

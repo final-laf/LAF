@@ -100,6 +100,12 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectRecommendList(productNo);
 	}
 
+	// 부모 카테고리 목록 조회
+	@Override
+	public List<Category> selectCategoryList() {
+		return mapper.selectCategoryList();
+	}
+	
 	// 카테고리 이름 조회
 	@Override
 	public String selectCategoryName(int categoryNo) {
@@ -111,4 +117,5 @@ public class ProductServiceImpl implements ProductService {
 	public List<Category> selectChildCategoryList(int categoryNo) {
 		return mapper.selectChildCategoryList(categoryNo);
 	}
+
 }

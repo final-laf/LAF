@@ -62,11 +62,11 @@ public interface ProductService {
 	Map<String, Object> search(Map<String, Object> map);
 
 	/**
-	 * 카테고리 이름 조회
+	 * 부모 카테고리 조회
 	 * @param category
-	 * @return categoryName
+	 * @return categoryList
 	 */
-	String selectCategoryName(int category);
+	List<Category> selectCategoryList();
 
 	/**
 	 * 자식카테고리 조회
@@ -74,4 +74,12 @@ public interface ProductService {
 	 * @return childCategoryList
 	 */
 	List<Category> selectChildCategoryList(int categoryNo);
+
+	/**
+	 * 부모 카테고리 이름 조회
+	 * @param categoryNo
+	 * @return
+	 */
+	String selectCategoryName(int categoryNo);
+
 }
