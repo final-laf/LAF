@@ -1,11 +1,11 @@
 .orderDetail-mainFrame{
   display: flex;
   margin: 0 auto;
-  width: 1200px;
+  width: 970px;
 }
 
 .orderDetail-mainFrame-order{
-  width: 1200px;
+  width: 970px;
   margin: 80px 0 0 30px;
 }
 
@@ -16,13 +16,11 @@
   justify-content: center;
   margin-bottom: 30px;
 }
-.orderDetail-mainFrame-order div{
-  font-weight: bold;
-  padding: 20px 0 10px 10px;
-}
+
 .orderDetail-mainFrame-order table{
   border: 0.5px solid #eee;
-  width: 1200px;
+  width: 970px;
+  margin: 20px 0;
 }
 .orderDetail-mainFrame-order th{
   padding-left: 15px;
@@ -37,15 +35,18 @@
   height: 45px;
 }
 
-.orderDetail-order-payment tr:nth-child(1){
-  background-color: #fafafa;
+.orderDetail-order-payment tr:nth-child(4) td:nth-child(2){
 }
-.orderDetail-order-payment tr:nth-child(2){
-  font-weight: bold;
-  background-color: #fafafa;
-}
-.orderDetail-order-payment td{
-  padding-left: 10px;
+
+.orderDetail-order-payment tr:nth-child(4) td:nth-child(2)>div{
+  width: 150px;
+  height: 10px;
+
+  margin: 20px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .orderDetail-order-info th{
@@ -57,26 +58,42 @@
   background-color: white;
   text-align: center;
 }
+.orderDetail-order-info td:nth-child(1) img{
+  margin: 10px 0;
+}
 .orderDetail-order-info td:nth-child(2){
   background-color: white;
   text-align: left;
 }
-.orderDetail-order-info tr:nth-child(3) th{
-  background-color: white;
-  text-align: right;
+.orderDetail-order-info td:nth-child(2)>div{
+  margin-top: 10px;
+  margin-left: 20px;
 }
-.orderDetail-order-info tr:nth-child(2) > td:nth-child(2){
-  padding-left: 10px;
+.orderDetail-order-info td:nth-child(2) span{
+  color: #ccc;
 }
-.orderDetail-order-info tr:nth-child(3) >th >div{
+.orderDetail-order-info td>div:nth-child(1){
+  font-weight: bold;
+}
+.orderDetail-order-info td:nth-child(4)>div:nth-child(2){
+  margin-top: 5px;
+  color: #ccc;
+  text-decoration: line-through;
+}
+
+.orderDetail-order-info tr:last-child >th >div{
+  border: 1px solid black;
   background-color: #fafafa;
+  margin: auto;
+  width: 400px;
   display: flex;
-  padding-top: 0px;
-  padding-left: 10px;
-  padding-right: 10px;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: start;
+}
+.orderDetail-order-info tr:last-child >th >div>div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .orderDetail-order-shipping tr th{
@@ -89,4 +106,15 @@
 }
 .orderDetail-shipping-shippinglist button{
   background-color: #fafafa;
+}
+
+.mypageDetail-order-shipping th{
+  width: 200px;
+}
+
+.order-detail-subtitle{
+  margin-left: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #666;
 }

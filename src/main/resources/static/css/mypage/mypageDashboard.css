@@ -72,10 +72,13 @@
     font-weight: bold;
 }
 
-#mypageDashPoint, #mypageDashCoupon {
+#mypageDashCoupon {
     font-size: 2.0rem;
 }
 
+.mypageDashPoint {
+    font-size: 2.0rem;
+}
 
 .mypageDash-myMain-Shipping{
     border: 0.5px solid #eee;

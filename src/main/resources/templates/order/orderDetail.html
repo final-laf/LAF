@@ -20,100 +20,116 @@
     <section class="orderDetail-mainFrame" th:object="${order}">
       <div class="orderDetail-mainFrame-order">
         <div class="orderDetail-order-text">주문상세조회</div>
-        <div>주문정보</div>
-        <div th:text="${order}"></div>
-        <div th:text="${odpList}"></div>
+        <div class="order-detail-subtitle">주문정보</div>
         <table>
           <tr>
             <th width="170px">주문번호</th>
-            <td th:text="*{orderUno}">156343-14654456</td>
+            <td th:text="*{orderUno}">주문고유번호</td>
           </tr>
           <tr>
             <th>주문일자</th>
-            <td th:text="*{orderUno}">2023-05-31 18:03:20</td>
+            <td th:text="*{orderDate}">주문일자</td>
           </tr>
           <tr>
             <th>주문처리상태</th>
-            <td th:text="*{orderState}">배송전</td>
+            <td id="orderState">주문처리상태</td>
           </tr>
         </table>
         <!-- 결제 정보 -->
-        <div>결제정보</div>
+        <div class="order-detail-subtitle">결제정보</div>
         <table class="orderDetail-order-payment">
           <tr>
             <th width="170px">총 주문금액</th>
-            <td>35,500</td>
+            <td th:text="*{#numbers.formatInteger(orderTotalPrice, 3, 'COMMA')} + '원'">35,500</td>
           </tr>
           <tr>
             <th>총 결제금액</th>
-            <td>35,500</td>
+            <td th:text="*{#numbers.formatInteger(orderPayment, 3, 'COMMA')} + '원'">35,500</td>
+          </tr>
+          <tr>
+            <th>배송비</th>
+            <td>2,500원</td>
+          </tr>
+          <tr colspan="3">
+            <th>할인혜택</th>
+            <td>
+              <div><div>상품할인</div><div>-45,000원</div></div>
+              <div><div>쿠폰할인</div><div>-45,000원</div></div>
+              <div><div>적립금사용</div><div>-45,000원</div></div>
+            </td>
           </tr>
           <tr>
             <th>결제수단</th>
-            <td>ㅇㅇㅇ</td>
+            <td id="payment">방법/은행</td>
+          </tr>
+          <tr>
+            <th>구매확정시 예상적립금</th>
+            <td>1,560원</td>
           </tr>
         </table>
         <!-- 주문 상품 정보 -->
-        <div>주문 상품 정보</div>
+        <div class="order-detail-subtitle">주문 상품 정보</div>
         <table class="orderDetail-order-info">
           <tr>
-            <th width="70px">이미지</th>
-            <th width="600px">상품정보</th>
-            <th width="30px">수량</th>
-            <th width="80px">상품구매금액</th>
-            <th width="100px">주문처리상태</th>
-            <th width="100px">취소/교환/반품</th>
+            <th width="90px">이미지</th>
+            <th width="500px">상품정보</th>
+            <th width="70px">구매수량</th>
+            <th width="90px">상품구매금액</th>
           </tr>
-          <tr>
-            <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
-            <td>[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</td>
-            <td>1</td>
-            <td>35,500</td>
-            <td>상품준비중</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <th colspan="6">
+          <tr th:each="odp : ${odpList}">
+            <td width="80px"><img width="80px" th:src="${odp.product.thumbnailPath}"></td>
+            <td>
+              <div th:text="${odp.product.productName}">상품명</div>
               <div>
-                <div>상품 구매금액 33,000 </div><div>+</div>
-                <div>배송비 2,500 </div><div>= 합계 :</div> 
-                <div>35,500</div>
+                <span th:text="${odp.option.color}"></span>
+                <span th:if="${odp.option.size}" th:text="' | ' +${odp.option.size}"></span>
               </div>
-            </th>
+            </td>
+            <td th:text="${odp.count}">1</td>
+            <td>
+              <div th:text="${#numbers.formatInteger(odp.product.productSalePrice, 3, 'COMMA')} + '원'">할인액</div>
+              <div th:if="${(odp.product.productPrice - odp.product.productSalePrice) != 0}" th:text="${#numbers.formatInteger(odp.product.productPrice, 3, 'COMMA')} + '원'">원가</div>
+            </td>
           </tr>
         </table>
         <!-- 배송지 정보 -->
-        <div>배송지정보</div>
+        <div class="order-detail-subtitle">배송지정보</div>
         <table class="mypageDetail-order-shipping">
           <tr>
             <th>받으시는분</th>
-            <td>ㅇㅇㅇ</td>
+            <td th:text="*{orderRecvName}">ㅇㅇㅇ</td>
           </tr>
           <tr>
             <th>우편번호</th>
-            <td>12345</td>
+            <td id="recvAddNo">우편번호</td>
           </tr>
           <tr>
             <th>주소</th>
-            <td>서울시 강남콩 카라라라 빌라 123-1234</td>
+            <td id="recvAdd">주소</td>
           </tr>
           <tr>
             <th>휴대전화</th>
-            <td>010-1234-1234</td>
+            <td th:text="*{orderRecvPhone}">전화번호</td>
           </tr>
           <tr>
-            <th>배송메시지</th>
-            <td>문앞에 놔둬주세요</td>
+            <th>배송요청사항</th>
+            <td th:text="*{orderRecvRequire} ? *{orderRecvRequire} : '없음'">요청사항</td>
           </tr>
         </table>
-      <div class="orderDetail-shipping-shippinglist">
+      <div th:if="${session.loginMember}" class="orderDetail-shipping-shippinglist">
         <button>주문목록보기</button>
       </div>
       </div>
     </section>
   </main>
-
   <th:block th:replace="~{/common/footer}"></th:block>
+
+  <script th:inline="javascript">
+    const order = /*[[${order}]]*/ "주문정보";
+    const odpList = /*[[${odpList}]]*/ "주문상품정보";
+  </script>
+
+  <script src="/js/order/orderDetail.js"></script>
 
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

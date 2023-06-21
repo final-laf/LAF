@@ -35,8 +35,6 @@ public class MypageMemberController {
 	@Autowired
 	private OrderService orderService;
 	
-	@Autowired
-	private MemberService memberService;
 
 	// 마이페이지 대쉬보드
 	@GetMapping("/myPage")
@@ -66,6 +64,8 @@ public class MypageMemberController {
 		return "/myPage/myPageDashboard";
 	}
 	
+	
+	
 	// 회원정보 수정 페이지 이동  
 	@GetMapping("/myPage/info") 
 	public String info(Model model
@@ -77,6 +77,8 @@ public class MypageMemberController {
 		
 		return "/myPage/myPageInfo/myPageInfo";
 	}
+	
+	
 	
 	// 회원정보 수정
 	@PostMapping("/myPage/info")

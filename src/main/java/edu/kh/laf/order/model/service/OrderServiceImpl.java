@@ -294,7 +294,7 @@ public class OrderServiceImpl implements OrderService{
 
     	// 주문한 상품목록조회
     	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
-    	// for돌려서 상품, 옵션, 수량정보 담기
+    	// 상품, 옵션, 수량정보 담기
     	for(OrderProduct odp : odpList) {
     		// 상품정보조회
     		Product product = mapper.selectOrderProduct(odp.getProductNo());
@@ -306,7 +306,16 @@ public class OrderServiceImpl implements OrderService{
     		option = mapper.selectOrderProductOption(option);
     		odp.setOption(option);
     	}
-    	
     	return odpList;
+    }
+    
+    // 사용된 쿠폰할인액조회
+    @Override
+    public List<Map> selectDiscount(long couponNo) {
+    	
+    	List<Map> dc = new ArrayList<>();
+    	int couponAmount = mapper.selectCouponAmount(couponNo);
+    	
+    	return dc;
     }
 }

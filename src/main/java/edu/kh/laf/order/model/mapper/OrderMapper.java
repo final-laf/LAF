@@ -82,4 +82,7 @@ public interface OrderMapper {
 	// 주문한 상품목록조회
 	public List<OrderProduct> selectOrderDetailProductList(int no);
 
+	// 사용된 쿠폰할인액조회
+	public int selectCouponAmount(long couponNo);
+
 }

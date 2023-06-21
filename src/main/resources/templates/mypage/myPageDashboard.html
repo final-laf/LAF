@@ -64,7 +64,8 @@
               <div class="mypageDash-mySave-Point">
                 <div>적립금</div>
                 <div>
-                  <span id="mypageDashPoint" th:text="*{memberPoint}">포인트</span>
+                  <span class="mypageDashPoint" th:if="${session.loginMember.memberPoint != 0}" th:text="|${#numbers.formatInteger(session.loginMember.memberPoint, 3, 'COMMA')}|">포인트</span>
+                  <span class="mypageDashPoint" th:unless="${session.loginMember.memberPoint != 0}" th:text="${session.loginMember.memberPoint}">포인트</span>
                   <span>원</span>
                 </div>
               </div>

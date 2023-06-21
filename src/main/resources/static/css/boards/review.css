@@ -285,10 +285,13 @@
   justify-content: center;
 }
 
-.review-modal-top > div:first-child > img {
+.review-modal-top > label:first-child > img {
   width: 300px;
   height: 400px;
   display: block;
+}
+.review-modal-top > input {
+  display: none;
 }
 
 .review-modal-top > div:last-child {
@@ -346,23 +349,70 @@
 .review-modal-contents > div{
   text-align: left;
 }
-
-[type="range"] {
-  width: 100%;
-  height: 25px;
-  outline: none;
-  opacity: 0.2;
-  -webkit-transition: .2s;
+#reviewScoreColor{
   position: fixed;
 }
-#reviewModifyModalStar{
-  width: 150px;
-}
-#reviewModalStar{
-  /* display: none; */
+/* 평점 */
+[type="range"] {
+  z-index: 12;
+  margin-left: 6px;
+  width: 100px;
   height: 25px;
+  outline: none;
+  opacity: 0;
+  -webkit-transition: .2s;
+  position: fixed;
+  border-radius: 8px;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
 }
 
+#reviewModifyModalStar::-webkit-slider-runnable-track{
+  -webkit-appearance: none;
+  height: 15px;
+}
+
+#reviewModifyModalStar::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  background: blue;
+  width: 1px;
+  height: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#reviewModifyModalStar{
+  width: 140px;
+}
+
+
+#reviewModalStar{
+  height: 25px;
+  z-index: 10;
+}
+#reviewScoreBack{
+  display: flex;
+  z-index: 8;
+}
+#reviewScoreColor{
+  background-color: rgb(255, 255, 255);
+  width: 0px;
+  display: flex;
+  height: 25px;
+  z-index: 9;
+  transition-duration: 2s;
+}
+
+#reviewModalTextScore{
+  border : none;
+  width: 35px;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 /* 모달 리뷰창 가운데 */
 .review-modal-middle {
@@ -471,10 +521,17 @@
   justify-content: space-between;
 }
 
-.write-review-modal-middle > img {
+.write-review-modal-middle > div {
   margin-top: 20px;
   width: 70px;
   height: 90px;
+}
+.write-review-modal-middle > div >label> img {
+  width: 70px;
+  height: 90px;
+}
+.write-review-modal-middle input {
+  display: none;
 }
 
 .write-review-modal-grade {
@@ -489,6 +546,8 @@
 .write-review-modal-grade > div {
   display: flex;
   align-items: center;
+  height: 35px;
+  border: 10px;
 }
 
 .write-review-modal-grade > div > span {

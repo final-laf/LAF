@@ -148,8 +148,6 @@ label {
 }
 
 [type="radio"] {
-  vertical-align: middle;
-  appearance: none;
   border: max(2px, 0.1em) solid gray;
   border-radius: 50%;
   width: 1.25em;
@@ -158,4 +156,5 @@ label {
 
 #reviewModifyModalStar{
   /* display: none; */
+  color: rgb(238, 206, 74);
 }

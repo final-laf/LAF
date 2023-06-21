@@ -224,6 +224,11 @@
 		WHERE order_no = #{orderNo}
 	</select>
 	
-	
+	<!-- 사용된 쿠폰할인액조회 -->
+	<select id="selectCouponAmount" resultType="int">
+		SELECT coupon_amount
+		FROM coupon
+		WHERE coupon_no = #{couponNo}
+	</select>
 </mapper>
 
