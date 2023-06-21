@@ -22,16 +22,22 @@ import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.service.OrderService;
 import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.service.CartService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @SessionAttributes({"loginMember", "orderProductList"})
 public class OrderController {
 	
 	@Autowired
-	private OrderService service;
+	private OrderService service; // 주문서비스
 	
 	@Autowired
 	private MypageService service2; // 배송지정보조회
+	
+	@Autowired
+	private CartService service3; // 장바구니삭제
 
 	// 주문정보 입력 페이지
 	@GetMapping("/order")
@@ -93,13 +99,15 @@ public class OrderController {
 	public String payment(Order order,
 						@RequestParam Map<String, Object> orderData ,
 						@SessionAttribute(value = "loginMember", required = false) Member loginMember,
-						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList) {
+						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList,
+						HttpServletRequest req) {
 		
 		// 주문테이블추가 후 주문고유번호 가져오기
 		String orderKey = service.insertOrder(order,orderData,loginMember);
 
 		if(orderKey == "") {
 			// 결제실패시 장바구니로 리다이렉트
+			System.out.println("결제실패");
 			return "redirect:/cart";
 		}
 		
@@ -109,27 +117,41 @@ public class OrderController {
 		
 		// 상품별 서비스처리
 		int productResult = service.changeProduct(orderNo, orderProductList);
-		if(productResult == 0) { // 실패처리
+		if(productResult == 0) { // 실패시 장바구니로 리다이렉트
+			System.out.println("상품처리실패");
 			return "redirect:/cart";
 		}
 		
 		// 회원일경우
 		if(loginMember != null) {
-			// 포인트 서비스(적립 및 사용)
+			// 포인트 서비스(적립 및 사용, 회원업데이트)
 			int pointResult = service.changePoint(order);
-
-			// 5.쿠폰을 썻다면 쿠폰 테이블 업데이트 / 사용여부
-			
+			if(pointResult == 0) { // 실패시 장바구니로 리다이렉트
+				return "redirect:/cart";
+			}
+			// 쿠폰을 썻다면 쿠폰 테이블 업데이트 / 사용여부
+			if(order.getCouponNo() != 0) {
+				int couponResult = service.updateCouponFL(order);
+				if(couponResult == 0) { // 실패시 장바구니로 리다이렉트
+					System.out.println("쿠폰업데이트 실패");
+					return "redirect:/cart";
+				}
+			}
 		}
 		
-		// 6.
-		// 장바구니 삭제하기 - 테이블 제거
-		// 장바구니 삭제하기 - 세션값 제거
-		// 장바구니 삭제하기 - 쿠키값 제거 비회원
+		// [회원] 결제완료 후 장바구니 상품 삭제
+		service3.deleteCartAfterOrder(orderProductList);
 		
+		// [비회원] 결제완료 후 장바구니 상품 삭제
+		Cookie[] cookies = req.getCookies();
+		service3.deleteCart2AfterOrder(cookies, orderProductList);
+		
+		// 장바구니 삭제하기 - 세션값 제거
+		req.getSession().removeAttribute("orderProductList");
 		
 		// 7.주문테이블 조회해서 번호얻어와서 이동할 번호 path - 주문번호
-		return "/order/orderDetail"; //주문상세조회로 넘어가기
+		
+		return "/order/" + orderNo; //주문상세조회로 넘어가기
 	}
 	
 	

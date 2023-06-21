@@ -68,5 +68,11 @@ public interface OrderService {
 	 */
 	int changeProduct(int orderNo, List<OrderProduct> orderProductList);
 
+	/** 쿠폰 상태 업데이트
+	 * @param order
+	 * @return
+	 */
+	int updateCouponFL(Order order);
+
 
 }

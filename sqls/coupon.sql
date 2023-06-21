@@ -38,5 +38,6 @@ INSERT INTO coupon VALUES (NULL,3,'10% 할인', '2023-01-01', '2045-04-07', '10'
 
 UPDATE coupon SET coupon_max_discount = '5000' WHERE coupon_no = 2 ;
 UPDATE coupon SET coupon_condition = '500000' WHERE coupon_no = 1 ;
+UPDATE coupon SET coupon_fl = 'N' WHERE coupon_no = 4 ;
 COMMIT;
 
