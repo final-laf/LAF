@@ -42,8 +42,22 @@ references `option` (
 
 -- ------------------------------------------------------------------------------------------------------------- --
 
-
+SELECT * FROM `member`;
 SELECT * FROM `point`;
+-- 포인트 적립시
+INSERT INTO `point`
+VALUES(NULL, 3, 'U', 300, NULL, NULL,23-06-06, '상품구매시 사용한 적립금', NULL,NULL);
+
 -- 포인트 사용시
 INSERT INTO `point`
 VALUES(NULL, 3, 'U', 300, NULL, NULL,23-06-06, '상품구매시 사용한 적립금', NULL,NULL);
+
+DELETE FROM `point` WHERE point_no = 2;
+
+COMMIT;
+
+
+
+
+
+

@@ -118,6 +118,7 @@ COMMIT;
 SELECT * FROM product;
 SELECT * FROM `option`;
 SELECT * FROM `order`;
+SELECT * FROM `member`;
 
 -- 주문내역 추가
 INSERT INTO `order`
@@ -142,8 +143,10 @@ VALUES(NULL,
 
 -- 주문번호조회
 SELECT order_no FROM `order` WHERE order_uno = '230619-3-Q8KNWH';
+-- 적립/사용 적립번호 업데이트
+UPDATE `order` SET point_no_gain = 2, point_no_use = 3 WHERE order_no = 2;
 
+-- 회원 적립금, 누적구매액 최신화
+UPDATE `member`SET member_point = member_point + 20 - 20, member_totalpay = member_totalpay + 20  WHERE member_no = 2;
 
-
-
-
+ROLLBACK;

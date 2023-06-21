@@ -88,7 +88,6 @@ public class OrderServiceImpl implements OrderService{
 	// 주문테이블추가
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	@Options(useGeneratedKeys = true, keyProperty = "nonMember.memberNo")
 	public String insertOrder(Order order, Map<String, Object> orderData, Member loginMember) {
 	
 		// 주문자 번호 세팅
@@ -109,7 +108,6 @@ public class OrderServiceImpl implements OrderService{
 			int result = mapper.createNonMember(nonMember);
 			
 			// 회원번호 가져오기
-			
 			if(result > 0) {
 				long memberNo = nonMember.getMemberNo();
 				order.setMemberNo(memberNo);
@@ -191,6 +189,14 @@ public class OrderServiceImpl implements OrderService{
 	// 포인트서비스
 	@Override
 	public int changePoint(Order order) {
+		
+		int result = 0;
+		
+		// 회원 적립금, 누적구매액 최신화
+		int umResult = mapper.updateMemberPTP(order);
+		if(umResult > 0) {
+			System.out.println("업데이트성공");
+		}
 
 		// 날짜 생성
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
@@ -210,10 +216,15 @@ public class OrderServiceImpl implements OrderService{
 		gainPoint.setPointContent("구매에 대한 적립금");
 		gainPoint.setOrderNo(order.getOrderNo());
 		// 적립금 내역 테이블 데이터 삽입	
-		System.out.println(gainPoint);
+		int gpResult = mapper.insertGainPoint(gainPoint);
 		// 적립된 적립금 추가 후 적립번호 가져오기
+		if(gpResult > 0) {
+			long gainPointNo = gainPoint.getPointNo();
+			// order에 세팅
+			order.setPointNoGain(gainPointNo);
+		}
 		
-		// 2.포인트 사용한 경우
+		// 포인트 사용한 경우
 		if(order.getPointNoUse() != 0) {
 			// 사용한 적립금 내역 추가
 			Point usePoint = new Point();
@@ -223,21 +234,30 @@ public class OrderServiceImpl implements OrderService{
 			usePoint.setPointDate(payDate);
 			usePoint.setPointContent("상품구매시 사용한 적립금");
 			usePoint.setOrderNo(order.getOrderNo());
-			System.out.println(usePoint);
-//					int pointUse = mapper.insertUsePoint(order.getPointNoUse());
-			
+			// 사용한 적립금 내역 삽입	
+			int upResult = mapper.insertUsePoint(usePoint);
 			// 사용한 적립금 추가 후 적립번호 가져오기
-//					int pointGain = 0;
+			if(upResult > 0) {
+				long usePointNo = usePoint.getPointNo();
+				// order에 세팅
+				order.setPointNoUse(usePointNo);
+			}
+		}
+				
+		// order테이블 적립/사용 적립번호 업데이트
+		int uoResult = mapper.updateOrderPointNo(order) ;
+		if(uoResult > 0) { // 성공시
+			result = 1;
 		}
 		
-		
-		// 3.order테이블 적립/사용 적립번호 업데이트
-		// 4.회원테이블 적립금 최신화 / 적립금, 누적구매액
-		
-		return 0;
+		return result;
 	}
 	
-	
+	// 쿠폰 상태 업데이트
+	@Override
+	public int updateCouponFL(Order order) {
+		return mapper.updateCouponFL(order);
+	}
 	
 	
 	// 랜덤 값 생성

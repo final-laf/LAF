@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
@@ -60,6 +61,19 @@ public interface OrderMapper {
 	// 상품 품절 전환
 	public int updateSoldOut(OrderProduct op);
 
+	// 적립금 적립
+	public int insertGainPoint(Point gainPoint);
 
-	
+	// 사용한 적립금 내역 삽입
+	public int insertUsePoint(Point usePoint);
+
+	// order테이블 적립/사용 적립번호 업데이트
+	public int updateOrderPointNo(Order order);
+
+	// 회원 적립금, 누적구매액 최신화
+	public int updateMemberPTP(Order order);
+
+	// 쿠폰 사용상태 업데이트
+	public int updateCouponFL(Order order);
+
 }
