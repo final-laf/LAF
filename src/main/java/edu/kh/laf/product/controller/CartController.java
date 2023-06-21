@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
@@ -226,6 +227,18 @@ public class CartController {
 		}
 		
 		model.addAttribute("orderProductList", orderProductList);
+		return "redirect:/order";
+	}
+	
+	@GetMapping("/cart/orderNow")
+	public String orderNow(
+			String data, Model model,
+			@SessionAttribute(name="loginMember", required=false) Member loginMember) {
+		
+		long memberNo = loginMember == null ? -1 : loginMember.getMemberNo();
+		List<OrderProduct> orderProductList = cartService.jsonToOrderProductList(data, memberNo);
+		model.addAttribute("orderProductList", orderProductList);
+		
 		return "redirect:/order";
 	}
 }

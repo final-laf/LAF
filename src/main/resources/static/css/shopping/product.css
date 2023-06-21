@@ -170,7 +170,7 @@ hr { margin: 20px 0; }
   font-weight: normal;
 }
 
-/* 찜 목록 추가 */
+/* 장바구니 담기, 구매하기 버튼 */
 #productCurrentButton {
   display: flex;
   align-items: stretch;
@@ -181,10 +181,10 @@ hr { margin: 20px 0; }
   height: 50px;
   font-size: 16px;
 }
-#addLikeBtn {
+#addCartBtn {
   margin-right: 10px;
 }
-#addCartBtn {
+#orderNow {
   margin-left: 10px;
 }
 

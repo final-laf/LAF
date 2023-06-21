@@ -80,4 +80,12 @@ public interface CartService {
 	 * @return cookie
 	 */
 	Cookie deleteCart2AfterOrder(Cookie[] cookies, List<OrderProduct> orderList);
+	
+	/**
+	 * 상품페이지에서 바로 주문 요청
+	 * @param data
+	 * @param memberNo
+	 * @return 
+	 */
+	List<OrderProduct> jsonToOrderProductList(String data, Long memberNo);
 }

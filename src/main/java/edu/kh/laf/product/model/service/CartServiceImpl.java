@@ -240,4 +240,26 @@ public class CartServiceImpl implements CartService {
 		
 		return cookie;
 	}
+	
+	// 상품페이지에서 바로 주문 요청
+	@Override
+	public List<OrderProduct> jsonToOrderProductList(String data, Long memberNo) {
+		
+		// 배열 형태 JSON data parsing
+		BasicJsonParser parser = new BasicJsonParser();
+		List<Object> list = parser.parseList(data);
+
+		// Cart 타입 리스트에 담기
+		List<OrderProduct> orderProductList = new ArrayList<>();
+		for(Object obj : list) {			
+			OrderProduct op = new OrderProduct();	
+			Map<String, String> map = (Map<String, String>)(obj);
+			if(memberNo != -1) op.setMemberNo(memberNo);
+			op.setProductNo(Long.parseLong(map.get("productNo")));
+			op.setOptionNo(Long.parseLong(map.get("optionNo")));
+			orderProductList.add(op);
+		}
+	
+		return orderProductList;
+	}
 }

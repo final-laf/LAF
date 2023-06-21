@@ -52,7 +52,7 @@ public class MypageOrderController {
 		return "/myPage/myPageOrder/myPageOrderList";
 	}
 	
-	
+  
 	// 적립금 및 쿠폰 : 적립금
 	@GetMapping("/myPage/point")
 	public String point(@SessionAttribute(value = "loginMember", required = false) Member loginMember
