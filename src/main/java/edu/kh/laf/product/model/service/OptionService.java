@@ -48,4 +48,12 @@ public interface OptionService {
 	 * @return option
 	 */
 	Option selectOption(long optionNo);
+	
+	/**
+	 * 상품 번호 여러개로 해당 상품의 모든 옵션 조회
+	 * @param paramMap
+	 * @return resultMap
+	 */
+	public Map<String, Object> selectOptionListBySeveralKeys(Map<String, Object> paramMap);
+	
 }

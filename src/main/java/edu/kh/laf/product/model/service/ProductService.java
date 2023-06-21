@@ -82,4 +82,11 @@ public interface ProductService {
 	 */
 	String selectCategoryName(int categoryNo);
 
+	/**
+	 * 키 목록으로 상품 조회
+	 * @param paramMap
+	 * @return resultMap
+	 */
+	Map<String, Object> selectProductBySeveralKeys(Map<String, Object> paramMap);
+
 }

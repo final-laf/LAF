@@ -22,6 +22,27 @@
 				and product_state = 'O' -- 판매중
 	</select>
 	
+	<!-- 상품 번호 여러개로 상품 정보 조회 -->
+	<select id="selectProductBySeveralKeys" resultType="Product">
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				(select count(*) from `like` where  `product`.product_no = `like`.product_no) AS like_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE	1=1 and			
+			<foreach collection="likeList" item="productNo" open="(" close=")" separator="or">
+				`product`.product_no = ${productNo}
+    		</foreach>			
+	</select>
+	
 	<!-- 카테고리 별 주간 판매량 순위 -->
 	<!-- TODO: 주문 집계가 되면 판매량으로 재정렬 필요 -->
 	<select id="selectWeeklyBest" resultType="Product">

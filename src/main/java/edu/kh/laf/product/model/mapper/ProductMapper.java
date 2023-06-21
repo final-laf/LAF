@@ -97,5 +97,13 @@ public interface ProductMapper {
 	 * @return categoryList
 	 */
 	List<Category> selectCategoryList();
+
+	/**
+	 * 키 목록으로 상품 목록 조회
+	 * @param paramMap
+	 * @param rowBounds 
+	 * @return productList
+	 */
+	List<Product> selectProductBySeveralKeys(Map<String, Object> paramMap, RowBounds rowBounds);
 	
 }

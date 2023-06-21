@@ -118,4 +118,23 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectChildCategoryList(categoryNo);
 	}
 
+	// 키 목록으로 상품 조회
+	@Override
+	public Map<String, Object> selectProductBySeveralKeys(Map<String, Object> paramMap) {
+		int listCount = ((List<Long>)paramMap.get("likeList")).size();
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		List<Product> productList = null;
+		if(listCount != 0)
+			productList = mapper.selectProductBySeveralKeys(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("productList", productList);
+		
+		return resultMap;
+	}
+
 }
