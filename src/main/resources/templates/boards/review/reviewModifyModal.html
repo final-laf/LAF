@@ -1,12 +1,13 @@
-<form action="">
+<form action="/review/reviewInsert" method="get" enctype="multipart/form-data">
 
   <div class="review-modal-overlay" id="review-modal-overlay">
     <div class="review-modal-window">
       <div class="review-modal-close">x</div>
       <div class="review-modal-top">
-        <div>
+        <label for="thumbnailUpload">
           <img src="/images/review/review_image_upload.png">
-        </div>
+        </label>
+        <input type="file" id="thumbnailUpload">
         <div>
           <div class="review-modal-product">
             <div>
@@ -21,7 +22,13 @@
           <div class="write-review-modal-grade">
             <div><span>[상품 평점] </span></div>
             <div>
-              <input type="range" min="0" max="5" step="0.1" name="reviewScore" value="5" id="reviewModifyModalStar">　<img id="reviewModalStar" src="/images/common/star.svg">　<span>0점</span></img>
+              <input type="range" min="0" max="5" step="0.1" value="0" name="reviewScore" id="reviewModifyModalStar">
+              　<span id="reviewScoreBack">
+                  <span id="reviewScoreColor">
+                  </span>
+                  <img id="reviewModalStar" src="/images/common/star.svg"></img>
+                </span>
+              　<input type="number" min="0" max="5" step="0.1" id="reviewModalTextScore" onKeypress="javascript:if(event.keyCode==13) {event.preventDefault()}" onkeyup="scoreValue(this.value)"></input>점
             </div>
           </div>
           <div class="write-review-modal-contents">
@@ -30,10 +37,31 @@
         </div>
       </div>
       <div class="write-review-modal-middle">
-        <img src="/images/review/review_image_upload_s.png">
-        <img src="/images/review/review_image_upload_s.png">
-        <img src="/images/review/review_image_upload_s.png">
-        <img src="/images/review/review_image_upload_s.png">
+        <div>
+          <label for="thumbnailUpload">
+            <img src="/images/review/review_image_upload.png">
+          </label>
+          <input type="file" id="thumbnailUpload">
+        </div>
+        <div>
+          <label for="thumbnailUpload">
+            <img src="/images/review/review_image_upload.png">
+          </label>
+          <input type="file" id="thumbnailUpload">
+        </div>
+        <div>
+          <label for="thumbnailUpload">
+            <img src="/images/review/review_image_upload.png">
+          </label>
+          <input type="file" id="thumbnailUpload">
+        </div>
+        <div>
+          <label for="thumbnailUpload">
+            <img src="/images/review/review_image_upload.png">
+          </label>
+          <input type="file" id="thumbnailUpload">
+        </div>
+        
       </div>
       <div class="btn-container">
         <button>수정</button>

@@ -13,6 +13,7 @@ let reviewContent = "";
 for(let review of reviewDetail) {
   /* 리뷰 아이템 클릭시 */
   review.addEventListener('click', e => {
+
     const reviewNo = e.target.getAttribute("value");
     console.log(reviewNo)
     console.log(modal)
@@ -27,7 +28,6 @@ for(let review of reviewDetail) {
       document.getElementById("reviewModifyModalProductSalePrice").innerText=review.product.productSalePrice;
       document.getElementById("reviewModifyModalReviewCount").innerText=review.reviewCount;
       document.getElementById("reviewModifyModalContent").innerText=review.reviewContent;
-      review.
       memberName = review.memberName
       reviewCreateDate = review.reviewCreateDate
       option = review.option.color+"/"+review.option.size
@@ -37,16 +37,9 @@ for(let review of reviewDetail) {
       reviewCount = review.reviewCount
       reviewContent = review.reviewContent
       console.log(review.reviewScore)
-      switch(review.reviewScore){
-        case 5 :
-          asd.classList
-          break;
-      }
       // document.getElementById("reviewModalName").innerText="review.memberName";
     }) 
     .catch (e => { console.log(e)}); 
-  
-
   });
 };
   
@@ -73,7 +66,6 @@ modalClose.addEventListener("click", e => {
   modal.style.display = "none";
   document.body.style.removeProperty('overflow');
 });
-
 
 
 // 수정하기 모달~*************************************
@@ -123,3 +115,61 @@ if (modifyModalClose!=null) {
   });
   
 }
+
+// 리뷰 별점///////////////////////
+const score = document.getElementById("reviewModifyModalStar");
+
+// 1. 클릭 중인지 아닌지를 나타내는 상태변수 `isClicked` 를 추가한다.
+let isClicked = false;
+// 2. 마우스를 계속 누르고 있으면 상태를 바꾼다.
+score.addEventListener("mousedown", (e) => {
+      isClicked = true;
+	});
+// 3. `isClicked == true` 일 때만 `mousemove` 이벤트가 시작한다.
+score.addEventListener("mousemove", (e) => {
+      if (isClicked) {
+        console.log(e.target.value);
+        let i = (123/5*e.target.value);
+        document.getElementById("reviewScoreColor").style.width=i+"px";
+        document.getElementById("reviewModalTextScore").value = e.target.value;
+        let color = Math.abs(74/5* e.target.value - 160)
+        console.log(color)
+        // document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206, 74)';
+        document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
+        
+      }
+    });
+    
+    score.addEventListener("change", (e) => {
+      console.log(e.target.value);
+      let i = ((123/5)*e.target.value);
+      document.getElementById("reviewScoreColor").style.width=i+"px";
+      document.getElementById("reviewModalTextScore").value = e.target.value;
+      let color = Math.abs(74/5* e.target.value - 160)
+      console.log(color)
+      // document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206, 74)';
+      document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
+    });
+    
+    // 4. 마우스에서 손을 땠을 때의 이벤트 `mouseup` 을 추가한다.
+    window.addEventListener("mouseup", () => {
+      isClicked = false;
+    });
+    
+    
+    function scoreValue(score){
+      let scoreNum = score;
+      if(score>5){
+        document.getElementById("reviewModalTextScore").value=5;
+        scoreNum = 5;
+      }
+      document.getElementById("reviewModifyModalStar").value=scoreNum;
+      let i = (123/5*scoreNum);
+      document.getElementById("reviewScoreColor").style.width=i+"px";
+      let color = Math.abs(74/5* scoreNum - 160);
+      document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
+      // document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206, 74)';
+
+}
+// 74 160
+
