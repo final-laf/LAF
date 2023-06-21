@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
@@ -120,6 +122,29 @@ public interface MypageMapper {
 	 * @return result
 	 */
 	int deleteMember(Long memberNo);
+
+
+
+	/** 회원 번호로 적립금 사용 개수 조회
+	 * @param paramMap
+	 * @return listCount
+	 */
+	int getListCount(Map<String, Object> paramMap);
+
+
+	/** 로우바운드가 적용된 포인트 적립 내역 조회
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return pointList
+	 */
+	List<Point> selectPointList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+
+	/** 포인트 누적액. 누적 사용액 조회
+	 * @param paramMap
+	 * @return sumList
+	 */
+	List<Map<String, Long>> selectAccumulatedPoints(Map<String, Object> paramMap);
 
 
 

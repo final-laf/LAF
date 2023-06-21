@@ -6,6 +6,7 @@ import java.util.Map;
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 
@@ -106,6 +107,15 @@ public interface MypageService {
 	 * @return result
 	 */
 	int deleteMember(Long memberNo);
+
+
+	/** 회원 포인트 조회(전체, 페이지네이션, 누적액 계산)
+	 * @param paramMap
+	 * @return resultMap
+	 */
+	Map<String, Object> selectPoint(Map<String, Object> paramMap);
+
+
 
 
 
