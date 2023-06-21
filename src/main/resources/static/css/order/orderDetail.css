@@ -35,15 +35,18 @@
   height: 45px;
 }
 
-.orderDetail-order-payment tr:nth-child(1){
-  background-color: #fafafa;
+.orderDetail-order-payment tr:nth-child(4) td:nth-child(2){
 }
-.orderDetail-order-payment tr:nth-child(2){
-  font-weight: bold;
-  background-color: #fafafa;
-}
-.orderDetail-order-payment td{
-  padding-left: 10px;
+
+.orderDetail-order-payment tr:nth-child(4) td:nth-child(2)>div{
+  width: 150px;
+  height: 10px;
+
+  margin: 20px 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .orderDetail-order-info th{
@@ -55,24 +58,24 @@
   background-color: white;
   text-align: center;
 }
-.orderDetail-mainFrame-order td:nth-child(1) img{
+.orderDetail-order-info td:nth-child(1) img{
   margin: 10px 0;
 }
 .orderDetail-order-info td:nth-child(2){
   background-color: white;
   text-align: left;
 }
-.orderDetail-mainFrame-order td:nth-child(2)>div{
+.orderDetail-order-info td:nth-child(2)>div{
   margin-top: 10px;
   margin-left: 20px;
 }
 .orderDetail-order-info td:nth-child(2) span{
   color: #ccc;
 }
-.orderDetail-mainFrame-order td>div:nth-child(1){
+.orderDetail-order-info td>div:nth-child(1){
   font-weight: bold;
 }
-.orderDetail-mainFrame-order td:nth-child(4)>div:nth-child(2){
+.orderDetail-order-info td:nth-child(4)>div:nth-child(2){
   margin-top: 5px;
   color: #ccc;
   text-decoration: line-through;

@@ -86,5 +86,11 @@ public interface OrderService {
 	 */
 	List<OrderProduct> selectOrderDetailProductList(int no);
 
+	/** 사용된 쿠폰할인액조회
+	 * @param couponNo
+	 * @return
+	 */
+	List<Map> selectDiscount(long couponNo);
+
 
 }
