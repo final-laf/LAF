@@ -1,4 +1,4 @@
-package edu.kh.laf.product.model.dto;
+package edu.kh.laf.common.utility;
 
 // 페이징 처리에 필요한 모든 값들을 저장 하고있는 객체
 public class Pagination {
@@ -6,7 +6,7 @@ public class Pagination {
 	private int currentPage;		// 현재 페이지 번호
 	private int listCount;			// 전체 게시글 수
 	
-	private int limit = 16;			// 한 페이지 목록에 보여지는 게시글 수
+	private int limit = 20;			// 한 페이지 목록에 보여지는 게시글 수
 	private int pageSize = 10;		// 보여질 페이지 번호 개수
 	
 	private int maxPage;			// 마지막 페이지 번호
@@ -17,9 +17,10 @@ public class Pagination {
 	private int nextPage;			// 다음 페이지의 페이지 번호 맨 앞
 	
 	
-	public Pagination(int listCount, int currentPage) {
+	public Pagination(int listCount, int currentPage, int limit) {
 		this.listCount = listCount;
 		this.currentPage = currentPage;
+		this.limit = limit;
 		
 		// 객체 생성 시 전달 받은 값을 이용해
 		// 나머지 필드 값 생성
