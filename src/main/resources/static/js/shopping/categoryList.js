@@ -10,10 +10,11 @@ for (let i = 0; i < bestItemImages.length; i++) {
   });
 }
 
-/* 좋아요(♡) 클릭 시 이미지 변경 + 찜 목록에 추가 */
+/* 좋아요(♡) 클릭 시 이미지 변경 + 찜 목록에 추가 + 찜 갯수 실시간 반영 */
 const likeImages = document.querySelectorAll('img.like');
-for (let like of likeImages) {
-  like.addEventListener('click', e => {
+const likeCountList = document.querySelectorAll('.like-count')
+for (let i=0; i<likeImages.length; i++) {
+  likeImages[i].addEventListener('click', e => {
 
     // 비회원인 경우 로그인 화면으로 이동 유도
     if (loginMember == undefined) {
@@ -24,13 +25,14 @@ for (let like of likeImages) {
 
     // 찜 목록 추가
     const productNo = e.target.parentElement.getAttribute('productNo');
-    if (like.getAttribute('value') != 'like') {
+    if (e.target.getAttribute('value') != 'like') {
       fetch("/like/add?productNo=" + productNo)
       .then(resp => resp.text())
       .then(result => {
         if (result > 0) {
-          like.setAttribute('src', '/images/common/like-fill.svg');
-          like.setAttribute('value', 'like');
+          e.target.setAttribute('src', '/images/common/like-fill.svg');
+          e.target.setAttribute('value', 'like');
+          likeCountList[i].innerText = Number(likeCountList[i].innerText) + 1;
         } else {
           alert("찜 목록 추가 실패");
         }
@@ -43,8 +45,9 @@ for (let like of likeImages) {
       .then(resp => resp.text())
       .then(result => {
         if(result > 0) {
-          like.setAttribute('src', '/images/common/like-grey.svg');
-          like.removeAttribute('value');
+          e.target.setAttribute('src', '/images/common/like-grey.svg');
+          e.target.removeAttribute('value');
+          likeCountList[i].innerText = Number(likeCountList[i].innerText) - 1;
         } else {
           alert("찜 목록 삭제 실패");
         }
