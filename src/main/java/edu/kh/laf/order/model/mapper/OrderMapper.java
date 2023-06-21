@@ -76,4 +76,10 @@ public interface OrderMapper {
 	// 쿠폰 사용상태 업데이트
 	public int updateCouponFL(Order order);
 
+	// 주문한 내역조회
+	public Order selectOrder(int no);
+	
+	// 주문한 상품목록조회
+	public List<OrderProduct> selectOrderDetailProductList(int no);
+
 }

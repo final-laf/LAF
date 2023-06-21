@@ -259,7 +259,6 @@ public class OrderServiceImpl implements OrderService{
 		return mapper.updateCouponFL(order);
 	}
 	
-	
 	// 랜덤 값 생성
     public String createAuthKey() {
         String key = "";
@@ -279,5 +278,35 @@ public class OrderServiceImpl implements OrderService{
             }
         }
         return key;
+    }
+    
+    // 주문 상세페이지 서비스 시작 ------------------------------------------
+    
+    // 주문한 내역조회
+    @Override
+    public Order selectOrder(int no) {
+    	return mapper.selectOrder(no);
+    }
+    
+    // 주문한 상품목록조회
+    @Override
+    public List<OrderProduct> selectOrderDetailProductList(int no) {
+
+    	// 주문한 상품목록조회
+    	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
+    	// for돌려서 상품, 옵션, 수량정보 담기
+    	for(OrderProduct odp : odpList) {
+    		// 상품정보조회
+    		Product product = mapper.selectOrderProduct(odp.getProductNo());
+    		odp.setProduct(product);
+    		// 옵션정보조회
+    		Option option = new Option();
+    		option.setProductNo(odp.getProductNo());
+    		option.setOptionNo(odp.getOptionNo());
+    		option = mapper.selectOrderProductOption(option);
+    		odp.setOption(option);
+    	}
+    	
+    	return odpList;
     }
 }

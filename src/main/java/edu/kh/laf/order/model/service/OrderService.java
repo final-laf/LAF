@@ -74,5 +74,17 @@ public interface OrderService {
 	 */
 	int updateCouponFL(Order order);
 
+	/** 주문한 내역조회
+	 * @param no
+	 * @return
+	 */
+	Order selectOrder(int no);
+
+	/** 주문한 상품목록조회
+	 * @param no
+	 * @return
+	 */
+	List<OrderProduct> selectOrderDetailProductList(int no);
+
 
 }
