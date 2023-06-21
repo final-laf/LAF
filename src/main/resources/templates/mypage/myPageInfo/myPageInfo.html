@@ -124,32 +124,48 @@
             <div>
               <button type="button" id="deleteMember">회원탈퇴</button>
             </div>
-            <!-- 회원 탈퇴 모달창 -->
-            <div class="myPage-delete-modal-overlay" id="memberDeleteModalOverlay">
-              <div class="myPage-delete-modal-window">
-                <div>
-                  <div>혜택 내역</div>
-                  <div class="delete-confirm-message-box">
-                    <div>
-                      <div>회원 탈퇴시 가지고 계시는 적립금/쿠폰이 삭제됩니다.</div>
-                      <div>현재 예치금 : 0원</div>
-                      <div>현재 쿠폰 : 0개</div>
-                    </div>
-                  </div>
-                  <div>이 모든 혜택을 버리고 탈퇴하시겠습니까?</div>
-                </div>
-                <!-- 하단 버튼 영역 -->
-                <div class="myPage-delete-btn-area">
-                  <button type="button" class="button member-cupon-modal-close">탈퇴</button>
-                  <button type="button" class="button member-cupon-modal-close" id="modalClose">닫기</button>
-                </div>
-              </div>
-            </div>
           </div> 
           <div id="mypageSignUpSubmitButton"><button id="signUpButton">회원정보수정</button><button type="button" id="cancelButton">취소</button></div>
         </form>
       </div>
     </section>
+     <!-- 회원 탈퇴 모달창 -->
+     <div class="myPage-delete-modal-overlay" id="memberDeleteModalOverlay">
+      <div class="myPage-delete-modal-window">
+        <div>
+          <div>회원 탈퇴</div>
+          <div class="delete-confirm-message-box">
+            <div>
+              <div>
+                <div>
+                  <div class="myPage-delete-modal-subtext">아직 사용하지 않은 혜택이 많이 있습니다.</div>
+                </div>
+                <div>
+                  <span>미사용 적립금</span>
+                  <div class="not-used-point-coupon">
+                    <span th:text="${session.loginMember.memberPoint}">적립금액</span><span>원</span>
+                  </div>
+                </div>
+                <div>
+                  <span>미사용 쿠폰</span>
+                  <div class="not-used-point-coupon">
+                    <span th:text="${#lists.size(couponList)}">쿠폰개수</span><span>개</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="myPage-delete-modal-subtext">정말로 탈퇴하시겠습니까?</div>
+        </div>
+        <!-- 하단 버튼 영역 -->
+        <form th:action="@{/myPage/delete}" method="post" id="mypageSignUpSubmit">
+          <div class="myPage-delete-btn-area">
+            <button class="button member-cupon-modal-close">탈퇴</button>
+            <button type="button" class="button member-cupon-modal-close" id="modalClose">닫기</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>

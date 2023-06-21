@@ -74,11 +74,16 @@ public class MypageServiceImpl implements MypageService {
 		// 일치하지 않으면
 			result = 0;
 		}
-		
-		
-		
 		return result;
 	}
+	
+	
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(Long memberNo) {
+		return mapper.deleteMember(memberNo);
+	}
+
 
 	
 	// ---------------------------- MyPage Order ---------------------------- 
@@ -149,6 +154,8 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
+
 
 
 

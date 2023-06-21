@@ -115,6 +115,13 @@ public interface MypageMapper {
 	int changePw(Member member);
 
 
+	/** 회원 탈퇴
+	 * @param memberNo
+	 * @return result
+	 */
+	int deleteMember(Long memberNo);
+
+
 
 
 
