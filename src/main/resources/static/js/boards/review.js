@@ -117,3 +117,9 @@ if (modifyModalClose!=null) {
   });
   
 }
+
+// 리뷰 별점///////////////////////
+const score = document.getElementById("reviewModifyModalStar");
+
+score.addEventListener("change", (e) => console.log(e.target.value))
+score.addEventListener("mousemove", (e) => console.log(e.target.value));
