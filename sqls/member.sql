@@ -179,7 +179,9 @@ VALUES (NULL,
 		NULL);
 
 SELECT * FROM `member`;	
+
 COMMIT;
+
 DELETE FROM `member` WHERE member_no = 45;
 
 
@@ -188,4 +190,30 @@ DELETE FROM `member` WHERE member_no = 45;
 UPDATE `member`
 SET member_not = 'Y'
 WHERE member_no  = 38;
+
+
+COMMIT;
+SELECT * FROM `point`;
+SELECT * FROM `point`;
+SELECT * FROM `order`;
+
+SELECT point_no , p.member_no , point_sort , point_amount , point_date , point_content , order_no , order_uno 
+FROM `point` p 
+LEFT JOIN `order` USING (order_no)
+WHERE p.member_no = 3
+;
+
+
+
+
+SELECT sum(point_amount) accumulatedPoint
+FROM `point`p 
+LEFT JOIN `order` 
+USING (order_no)
+WHERE p.member_no = 3 AND point_sort = 'g';
+
+
+
+
+
 

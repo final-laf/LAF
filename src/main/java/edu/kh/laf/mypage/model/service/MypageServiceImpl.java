@@ -1,16 +1,20 @@
 package edu.kh.laf.mypage.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.board.model.dto.Qna;
+import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
@@ -84,7 +88,6 @@ public class MypageServiceImpl implements MypageService {
 		return mapper.deleteMember(memberNo);
 	}
 
-
 	
 	// ---------------------------- MyPage Order ---------------------------- 
 	
@@ -104,6 +107,37 @@ public class MypageServiceImpl implements MypageService {
 		
 		return myPageOrderProductList;
 	}
+	
+	
+	// 회원 포인트 조회(전체, 페이지네이션, 누적액 계산)
+	@Override
+	public Map<String, Object> selectPoint(Map<String, Object> paramMap) {
+		
+		// 회원 적립 내역 개수 조회
+	 	int listCount = mapper.getListCount(paramMap);
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 로우바운드가 적용된 포인트 적립 내역 조회
+		List<Point> pointList = mapper.selectPointList(paramMap, rowBounds);
+		
+		// 포인트 누적액. 누적 사용액 조회
+		List<Map<String, Long>> sumList = mapper.selectAccumulatedPoints(paramMap);
+		long accumulatedPoint = Long.parseLong(String.valueOf(sumList.get(0).get("pointSum")));
+		long accumulatedUsedPoint = Long.parseLong(String.valueOf(sumList.get(1).get("pointSum")));
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("pointList", pointList);
+		resultMap.put("accumulatedPoint", accumulatedPoint);
+		resultMap.put("accumulatedUsedPoint", accumulatedUsedPoint);
+		return resultMap;
+	}
+
+
+	
 
 	// -------------------------------------------------------------------------- 
 
@@ -154,6 +188,9 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
+
+
 
 
 

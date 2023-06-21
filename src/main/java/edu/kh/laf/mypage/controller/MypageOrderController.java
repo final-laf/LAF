@@ -1,14 +1,18 @@
 package edu.kh.laf.mypage.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
@@ -48,15 +52,26 @@ public class MypageOrderController {
 		return "/myPage/myPageOrder/myPageOrderList";
 	}
 	
-	// 찜 목록
-	@GetMapping("/myPage/like")
-	public String like() {
-		return "/myPage/like";
-	}
 	
 	// 적립금 및 쿠폰 : 적립금
 	@GetMapping("/myPage/point")
-	public String point() {
+	public String point(@SessionAttribute(value = "loginMember", required = false) Member loginMember
+						,@RequestParam(value="cp", required=false, defaultValue="1") int cp			
+						,Model model) {
+		
+		// 회원번호로 적립금 적립/사용 내역 조회(전체)
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNo", loginMember.getMemberNo());
+		paramMap.put("cp", cp);
+		
+		Map<String, Object> resultMap = service.selectPoint(paramMap);
+		
+		model.addAttribute("pointList", resultMap.get("pointList"));
+		model.addAttribute("accumulatedPoint", resultMap.get("accumulatedPoint"));
+		model.addAttribute("accumulatedUsedPoint", resultMap.get("accumulatedUsedPoint"));
+		model.addAttribute("pagination", resultMap.get("pagination"));
+
 		return "/myPage/myPageOrder/myPagePoint";
 	}
 	

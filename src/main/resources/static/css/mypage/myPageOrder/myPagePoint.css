@@ -22,27 +22,6 @@
     margin: 30px 0;
 }
 
-/* .mypagePoint-point-button{
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 30px;
-}
-.mypagePoint-point-button button{
-    background-color: #666;
-    color: white;
-    width: 140px;
-    height: 35px;
-    border-radius: 0;
-}
-.mypagePoint-point-button div a:nth-child(2) button{
-    background-color: #eee;
-    color: black;
-    width: 140px;
-    height: 35px;
-    border-radius: 0;
-} */
-
 .mypagePoint-point-statistics{
     border: 3px solid #eee;
     display: flex;
@@ -55,7 +34,6 @@
     padding: 15px 40px;
 }
 .mypagePoint-statistics-content div{
-
     padding: 3px;
     display: flex;
     justify-content: space-between
@@ -66,6 +44,7 @@
     width: 100%;
     display: flex;
 }
+
 .mypagePoint-point-detail th{
     background-color: #fafafa;
     border: 1px solid #eee;
@@ -79,7 +58,26 @@
 .mypagePoint-detail-list td {
     padding: 0 10px 0 0;
     text-align: center;
+    font-size: 1.2rem;
 }
-.mypagePoint-detail-list td:nth-child(2) {text-align: end;}
-.mypagePoint-detail-list td:nth-child(4) {text-align: left}
 
+/* 적립금 내역 테이블 */
+.mypagePoint-detail-list td:nth-child(1) {
+    width: 15%;
+}
+.mypagePoint-detail-list td:nth-child(2) {
+    width: 10%;
+}
+.mypagePoint-detail-list td:nth-child(3) {
+    width: 15%;
+}
+.mypagePoint-detail-list td:nth-child(4) {
+    width: 20%;
+}
+.mypagePoint-detail-list td:nth-child(5) {
+    width: 40%;
+}
+
+.point-is-not-exists {
+    text-align: center;
+}
