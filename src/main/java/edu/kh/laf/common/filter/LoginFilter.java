@@ -26,14 +26,14 @@ public class LoginFilter implements Filter {
 		
 		HttpSession session = req.getSession();
 		
-//		if(session.getAttribute("loginMember") == null) {
-//			resp.sendRedirect("/error/login");
-//		} else {
-//			chain.doFilter(request, response);
-//		}
+		if(session.getAttribute("loginMember") == null) {
+			resp.sendRedirect("/error/login");
+		} else {
+			chain.doFilter(request, response);
+		}
 		
-		// 필터 기능 임시 중지
-		chain.doFilter(request, response);
+//		// 필터 기능 임시 중지
+//		chain.doFilter(request, response);
 	}
 	
 }
