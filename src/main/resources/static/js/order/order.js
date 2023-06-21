@@ -314,7 +314,4 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
         document.getElementById("orderSubmit").submit();
       }
     });
-    
-
-
 });
