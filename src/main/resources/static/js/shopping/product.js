@@ -14,22 +14,36 @@ const colorBtns = document.querySelectorAll('button[name="color"]');
 const sizeBtns = document.querySelectorAll('button[name="size"]');
 const productNo = location.href.split('/')[4];
 
+// 옵션별 재고량
+let stocks = [];
+
 // 특정 컬러의 모든 사이즈가 품절인 경우 컬러 선택 버튼 비활성화
 (() => {
   fetch("/getOption?" + "productNo=" + productNo)
   .then(resp => resp.json())
   .then(optionList => {
-    for (let btn of colorBtns)
-    for (let op of optionList)
-    if  (btn.innerText == op.color && op.stock > 0) {
-      btn.disabled = false;
+    for(let btn of colorBtns)
+    for(let op of optionList) {
 
-      // 단일 사이즈 상품인 경우 컬러 버튼에 옵션 정보 추가
-      if(sizeBtns.length <= 1) {
-        btn.removeAttribute("option-no");
-        btn.setAttribute("option-no", op.optionNo);
+      // 재고 있는 옵션 버튼 활성화
+      if(btn.innerText == op.color && op.stock > 0) {
+        btn.disabled = false;
+        
+        // 단일 사이즈 상품인 경우 컬러 버튼에 옵션 정보 추가
+        if(sizeBtns.length <= 1) {
+          btn.removeAttribute("option-no");
+          btn.setAttribute("option-no", op.optionNo);
+        }
       }
     }
+
+    for(let op of optionList) {
+      stocks.push({
+        'optionNo': op.optionNo,
+        'stock': op.stock
+      });
+    }
+
   })
   .catch(e => console.log(e));
 })();
@@ -68,7 +82,7 @@ function updateTotal() {
   let totalPrice = 0;
   let totalCount = 0;
   for(let li of liList) {
-    const price = Number(li.querySelector('.current-price').innerText.replace(',', ''));
+    const price = Number(li.querySelector('.current-price').innerText.replaceAll(',', ''));
     const count = Number(li.querySelector('.current-count > span').innerText);
     totalPrice += price;
     totalCount += count;
@@ -141,6 +155,15 @@ for(let btn of eventBtns) {
       if(curCount.innerText == '100') {
         alert('최대 주문 수량은 99개 입니다.');
         curCount.innerText = 99;
+      }
+
+      for(let s of stocks) {
+        if(s.optionNo == optionNo) {
+          if(curCount.innerText > s.stock) {
+            alert('재고량을 초과했습니다. 현재 최대 주문 수량은 ' + s.stock + '개 입니다.');
+            curCount.innerText = s.stock;
+          }
+        }
       }
 
       const selectPrice = e.target.parentElement.parentElement.querySelector('.current-price');
@@ -268,8 +291,7 @@ addCartBtn.addEventListener('click', () => {
     fetch("/cart/list")
     .then(resp => resp.json())
     .then(cartList => {
-      console.log(cartList);
-      console.log(cartList.length);
+
       for(let cart of cartList) {
         for(let i=0; i<data.length; i++) {
           // 장바구니에 이미 담긴 상품일 경우 제외
@@ -278,7 +300,6 @@ addCartBtn.addEventListener('click', () => {
             flag = true;
           }
         }
-        console.log(data.length);
       }
 
       // 장바구니에 새로 추가할 상품이 없는 경우 함수 종료
@@ -340,12 +361,6 @@ orderNowBtn.addEventListener('click', () => {
 
   const dataStr = encodeURIComponent(JSON.stringify(data));
   location.href = "/cart/orderNow?data=" + dataStr;
-  
-  // // 서버 전송
-  // fetch()
-  // .then(resp => resp.text())
-  // .then() 
-  // .catch(err => console.log(err));
 });
 
 /* 하트 모양 이미지로 찜 목록 추가/삭제 */
@@ -393,15 +408,3 @@ img.addEventListener('click', () => {
     
   } else { like(productNo); }
 });
-
-// /* 찜 목록 추가 버튼 이벤트 */
-// const likeBtn = document.querySelector('#addLikeBtn');
-// const liked = img.getAttribute('value') == 'like';
-// likeBtn.addEventListener('click', e => {
-//   if( liked ) {
-//     alert('이미 찜 목록에 추가된 상품입니다.');
-//   } else {
-//     if( like(productNo) )
-//       alert('찜 목록에 추가되었습니다.');
-//   }
-// })

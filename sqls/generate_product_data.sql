@@ -25,6 +25,8 @@ SELECT max(`product`.product_no) from `product`;
 INSERT INTO `option` VALUES (NULL, 23, NULL, '스카이', 10, '이천', 10);
 INSERT INTO `option` VALUES (NULL, 23, NULL, '그레이', 10, '이천', 10);
 
+INSERT INTO `option` VALUES (NULL, 21, NULL, '아이보리', 10, '이천', 10);
+
 
 
 
