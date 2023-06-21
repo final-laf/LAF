@@ -48,12 +48,6 @@ public class MypageOrderController {
 		return "/myPage/myPageOrder/myPageOrderList";
 	}
 	
-	// 찜 목록
-	@GetMapping("/myPage/like")
-	public String like() {
-		return "/myPage/like";
-	}
-	
 	// 적립금 및 쿠폰 : 적립금
 	@GetMapping("/myPage/point")
 	public String point() {

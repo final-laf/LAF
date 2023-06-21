@@ -194,8 +194,8 @@ for(let btn of eventBtns) {
 }
 
 /* 장바구니 담기 */
-const submitBtn = document.getElementById('addCartBtn');
-submitBtn.addEventListener('click', e => {
+const addCartBtn = document.getElementById('addCartBtn');
+addCartBtn.addEventListener('click', () => {
   const curItems = document.getElementById('productCurrentItem').querySelectorAll('li');
   const selectedColorBtn = document.querySelector('button[name="color"].selected');
   const selectedSizeBtn = document.querySelector('button[name="size"].selected');
@@ -306,6 +306,48 @@ submitBtn.addEventListener('click', e => {
 
 });
 
+
+/* 주문하기 */
+const orderNowBtn = document.getElementById('orderNow');
+orderNowBtn.addEventListener('click', () => {
+  const curItems = document.getElementById('productCurrentItem').querySelectorAll('li');
+  const selectedColorBtn = document.querySelector('button[name="color"].selected');
+  const selectedSizeBtn = document.querySelector('button[name="size"].selected');
+  const sizeBtns = document.querySelectorAll('button[name="size"]');
+
+  const productNo = location.href.split('/')[4];
+
+  // 선택한 상품이 없을 경우
+  if(curItems.length == 0 && selectedColorBtn == null) {
+    alert('색상을 선택해 주세요');
+    return;
+  } else if(curItems.length == 0 && sizeBtns && selectedSizeBtn == null) {
+    alert('사이즈를 선택해 주세요');
+    return;
+  }
+
+  if(!confirm('선택하신 상품을 주문하시겠습니까?')) return;
+
+  // 선택한 상품 object 데이터로 변환
+  let data = [];
+  for(let item of curItems) {
+    data.push({
+      "productNo": productNo,
+      "optionNo": item.getAttribute('option-no'),
+      "count": item.querySelector('.current-count span').innerText
+    });
+  }
+
+  const dataStr = encodeURIComponent(JSON.stringify(data));
+  location.href = "/cart/orderNow?data=" + dataStr;
+  
+  // // 서버 전송
+  // fetch()
+  // .then(resp => resp.text())
+  // .then() 
+  // .catch(err => console.log(err));
+});
+
 /* 하트 모양 이미지로 찜 목록 추가/삭제 */
 const img = document.querySelector('#productLike > img');
 
@@ -352,14 +394,14 @@ img.addEventListener('click', () => {
   } else { like(productNo); }
 });
 
-/* 찜 목록 추가 버튼 이벤트 */
-const likeBtn = document.querySelector('#addLikeBtn');
-const liked = img.getAttribute('value') == 'like';
-likeBtn.addEventListener('click', e => {
-  if( liked ) {
-    alert('이미 찜 목록에 추가된 상품입니다.');
-  } else {
-    if( like(productNo) )
-      alert('찜 목록에 추가되었습니다.');
-  }
-})
+// /* 찜 목록 추가 버튼 이벤트 */
+// const likeBtn = document.querySelector('#addLikeBtn');
+// const liked = img.getAttribute('value') == 'like';
+// likeBtn.addEventListener('click', e => {
+//   if( liked ) {
+//     alert('이미 찜 목록에 추가된 상품입니다.');
+//   } else {
+//     if( like(productNo) )
+//       alert('찜 목록에 추가되었습니다.');
+//   }
+// })
