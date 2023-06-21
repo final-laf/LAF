@@ -27,10 +27,10 @@ switch (order.paymentBank){
     case "3" : paymentBank = "우리은행"; break;
 }
 document.getElementById("payment").innerText = payment + ' ('+paymentBank+')';
-
 // 계산식 세팅
 
-
+console.log(odpList);
+console.log(order);
 
 
 // 우편번호, 주소 세팅

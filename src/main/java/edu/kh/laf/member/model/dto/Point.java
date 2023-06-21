@@ -17,6 +17,8 @@ public class Point {
 	private String pointDate;    	// 날짜
 	private String pointDueDate;  	// 만료일
 	private String pointContent;    // 적립사용사유
+	
+	
 	private long orderNo;  			// 주문번호
 	private String orderUno;  		// 주문고유번호
 }

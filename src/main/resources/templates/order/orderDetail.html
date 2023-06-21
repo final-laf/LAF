@@ -24,15 +24,15 @@
         <table>
           <tr>
             <th width="170px">주문번호</th>
-            <td th:text="*{orderUno}">156343-14654456</td>
+            <td th:text="*{orderUno}">주문고유번호</td>
           </tr>
           <tr>
             <th>주문일자</th>
-            <td th:text="*{orderUno}">2023-05-31 18:03:20</td>
+            <td th:text="*{orderDate}">주문일자</td>
           </tr>
           <tr>
             <th>주문처리상태</th>
-            <td id="orderState">배송전</td>
+            <td id="orderState">주문처리상태</td>
           </tr>
         </table>
         <!-- 결제 정보 -->
@@ -47,18 +47,34 @@
             <td th:text="*{#numbers.formatInteger(orderPayment, 3, 'COMMA')} + '원'">35,500</td>
           </tr>
           <tr>
+            <th>배송비</th>
+            <td>2,500원</td>
+          </tr>
+          <tr colspan="3">
+            <th>할인혜택</th>
+            <td>
+              <div><div>상품할인</div><div>-45,000원</div></div>
+              <div><div>쿠폰할인</div><div>-45,000원</div></div>
+              <div><div>적립금사용</div><div>-45,000원</div></div>
+            </td>
+          </tr>
+          <tr>
             <th>결제수단</th>
             <td id="payment">방법/은행</td>
+          </tr>
+          <tr>
+            <th>구매확정시 예상적립금</th>
+            <td>1,560원</td>
           </tr>
         </table>
         <!-- 주문 상품 정보 -->
         <div class="order-detail-subtitle">주문 상품 정보</div>
         <table class="orderDetail-order-info">
           <tr>
-            <th width="70px">이미지</th>
-            <th width="550px">상품정보</th>
-            <th width="50px">구매수량</th>
-            <th width="80px">상품구매금액</th>
+            <th width="90px">이미지</th>
+            <th width="500px">상품정보</th>
+            <th width="70px">구매수량</th>
+            <th width="90px">상품구매금액</th>
           </tr>
           <tr th:each="odp : ${odpList}">
             <td width="80px"><img width="80px" th:src="${odp.product.thumbnailPath}"></td>
@@ -66,7 +82,7 @@
               <div th:text="${odp.product.productName}">상품명</div>
               <div>
                 <span th:text="${odp.option.color}"></span>
-                <th:block th:if="${odp.option.size}" th:text="' | ' +${odp.option.size}"></th:block>
+                <span th:if="${odp.option.size}" th:text="' | ' +${odp.option.size}"></span>
               </div>
             </td>
             <td th:text="${odp.count}">1</td>
@@ -74,33 +90,6 @@
               <div th:text="${#numbers.formatInteger(odp.product.productSalePrice, 3, 'COMMA')} + '원'">할인액</div>
               <div th:if="${(odp.product.productPrice - odp.product.productSalePrice) != 0}" th:text="${#numbers.formatInteger(odp.product.productPrice, 3, 'COMMA')} + '원'">원가</div>
             </td>
-          </tr>
-          <tr>
-            <th colspan="6">
-              <div>
-                <div>
-                  <span>상품금액</span>
-                  <span>153,100</span>
-                </div>
-                <div>
-                  <span>상품할인</span>
-                  <span>-46,000</span>
-                </div>
-                <div>
-                  <span>쿠폰할인</span>
-                  <span>-2,500원</span>
-                </div>
-                <div>
-                  <span>배송비</span>
-                  <span>2,500원</span>
-                </div>
-                <div>
-                  <span>합계</span>
-                  <span>66,500원</span>
-                </div>
-                
-              </div>
-            </th>
           </tr>
         </table>
         <!-- 배송지 정보 -->
@@ -137,6 +126,7 @@
 
   <script th:inline="javascript">
     const order = /*[[${order}]]*/ "주문정보";
+    const odpList = /*[[${odpList}]]*/ "주문상품정보";
   </script>
 
   <script src="/js/order/orderDetail.js"></script>

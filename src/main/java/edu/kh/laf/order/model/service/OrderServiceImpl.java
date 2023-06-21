@@ -306,7 +306,16 @@ public class OrderServiceImpl implements OrderService{
     		option = mapper.selectOrderProductOption(option);
     		odp.setOption(option);
     	}
-    	
     	return odpList;
+    }
+    
+    // 사용된 쿠폰할인액조회
+    @Override
+    public List<Map> selectDiscount(long couponNo) {
+    	
+    	List<Map> dc = new ArrayList<>();
+    	int couponAmount = mapper.selectCouponAmount(couponNo);
+    	
+    	return dc;
     }
 }

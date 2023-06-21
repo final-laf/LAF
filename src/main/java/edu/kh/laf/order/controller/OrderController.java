@@ -167,6 +167,10 @@ public class OrderController {
 		List<OrderProduct> odpList = service.selectOrderDetailProductList(no);
 		model.addAttribute("odpList",odpList);
 		
+		// 쿠폰 할인액, 적립금, 사용된 적립금 조회
+		List<Map> dc = service.selectDiscount(order.getCouponNo());
+		model.addAttribute("dc",dc);
+		
 		return "/order/orderDetail";
 	}
 	
