@@ -30,10 +30,10 @@
             </div>
 
             <div class="mypageCoupon-coupon-detail">
-              <div>
+              <div class="mypageCoupon-coupon-detail-top">
                 <div>쿠폰 목록</div> 
                 <div>사용가능한 쿠폰 : 
-                  <div>3장</div>
+                  <div th:text="|${listCount} 장|">쿠폰개수</div>
                 </div> 
               </div>
               <table>
@@ -41,45 +41,79 @@
                   <th width="60px">번호</th>
                   <th width="320px">쿠폰명</th>
                   <th width="150px">쿠폰 혜택</th>
-                  <th width="150px">구매금액</th>
+                  <th width="150px">사용 조건</th>
                   <th width="150px">최대 할인 금액</th>
-                  <th width="180px">다른 쿠폰과 중복 사용</th>
                   <th width="230px">사용가능 기간</th>
                 </tr>
-                <!-- 항목 추가~ -->
-                <tr class="mypageCoupon-detail-list">
-                  <td>1</td>
-                  <td>3000원</td>
-                  <td>100%할인</td>
-                  <td>15,000</td>
-                  <td>30,000</td>
-                  <td>불가</td>
+                <!-- 항목 추가 -->
+                <!-- 사용가능한 쿠폰이 없을 때 -->
+                <tr th:if="${listCount == 0}">
+                  <td colspan="5" class="coupon-is-not-exists">쿠폰 내역이 존재하지 않습니다.</td>
+                </tr>
+                <!-- 사용가능한 쿠폰이 있을 때 -->
+                <tr th:unless="${listCount == 0}" th:each="coupon, index: ${couponList}" class="mypageCoupon-detail-list">
+                  <td th:text="${index.index+1}">번호</td>
+                  <td th:text="${coupon.couponName}">쿠폰명</td>
                   <td>
-                    <div>2023-05-31 17:59:57</div> ~ <div>2023-05-31 17:59:57</div>
+                    <!-- 퍼센트일 경우 -->
+                    <div th:if="${coupon.couponUnit == 'P'}">
+                      <span th:text="${coupon.couponAmount}"></span>
+                      <span>%</span>
+                    </div>
+                    <!-- 금액일 경우 -->
+                    <div th:unless="${coupon.couponUnit == 'P'}">
+                      <span th:text="|${#numbers.formatInteger(coupon.couponAmount, 3, 'COMMA')}|"></span>
+                      <span>원</span>
+                    </div>
+                  </td>
+                  <td th:text="|${#numbers.formatInteger(coupon.couponCondition, 3, 'COMMA')} 원|">사용 조건</td>
+                  <td th:text="|${#numbers.formatInteger(coupon.couponMaxDiscount, 3, 'COMMA')} 원|">최대 할인 금액</td>
+                  <td>
+                    <div>
+                      <div th:text="${#strings.substring(coupon.couponGetDate,0,11)}">발급일</div>
+                      <div>~</div>
+                      <div th:text="${#strings.substring(coupon.couponDueDate,0,11)}">만료일</div>
+                    </div>
                   </td>
                 </tr>
-                <!-- ~~~~~~~~~~~~~~~ -->
               </table>
-              <!-- 페이징 -->
-              <div class="pagination-area">
-                <ul class="pagination">
-                    <!-- 첫 페이지로 이동 -->
-                    <li><a><img src="/resources/image/common/paging/first-page.svg"></a></li>
-                    <!-- 이전 목록 마지막 번호로 이동 -->
-                    <li><a><img src="/resources/image/common/paging/prev-page.svg"></a></li>
-                    <li><a class="current">1</a></li>
-                    <li><a>2</a></li>
-                    <li><a>3</a></li>
-                    <li><a>4</a></li>
-                    <li><a>5</a></li>
-                    <li><a>6</a></li>
-                    <!-- 다음 목록 시작 번호로 이동 -->
-                    <li><a><img src="/image/common/paging/next-page.svg"></a></li>
-                    <!-- 끝 페이지로 이동 -->
-                    <li><a><img src="/image/common/paging/last-page.svg"></a></li>
-                </ul>
-              </div>
+             <!-- 페이징 -->
+             <div class="pagination-area">
+              <ul th:unless="${listCount == 0}" class="pagination">
+                <!-- 첫 페이지로 이동 -->
+                <li><a th:href="@{/myPage/coupon(cp=1)}">
+                    <img th:src="@{/images/common/paging/first-page.svg}">
+                  </a></li>
 
+                <!-- 이전 목록 마지막 번호로 이동 -->
+                <li><a th:href="@{/myPage/coupon(cp=${pagination.prevPage})}">
+                    <img th:src="@{/images/common/paging/prev-page.svg}">
+                  </a></li>
+
+                <!-- 특정 페이지로 이동 -->
+                <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+                  <!-- 현재 보고있는 페이지 -->
+                  <li th:if="${i == pagination.currentPage}">
+                    <a class="current" th:text="${i}">현재 페이지</a>
+                  </li>
+
+                  <!-- 현재 페이지를 제외한 나머지 -->
+                  <li th:unless="${i == pagination.currentPage}">
+                    <a th:href="@{/myPage/coupon(cp=${i})}" th:text="${i}"></a>
+                  </li>
+                </th:block>
+
+                <!-- 다음 목록 시작 번호로 이동 -->
+                <li><a th:href="@{/myPage/coupon(cp=${pagination.nextPage})}">
+                    <img th:src="@{/images/common/paging/next-page.svg}">
+                  </a></li>
+
+                <!-- 끝 페이지로 이동 -->
+                <li><a th:href="@{//myPage/coupon(cp=${pagination.maxPage})}">
+                    <img th:src="@{/images/common/paging/last-page.svg}">
+                  </a></li>
+              </ul>
+            </div>
             </div>
       
           </div>

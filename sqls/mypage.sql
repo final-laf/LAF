@@ -100,10 +100,22 @@ UPDATE `member`
 SET member_pw = '$2a$10$b31aOrHqrQQ2ThS/Avq2zelLtMg.SL.N5ncm3b2MOk3qiDcuuvGKy'
 WHERE member_no  = 5;
 
+
 COMMIT;
 
 
+SELECT * FROM `coupon`;
 
+
+/* 멤버 수로 쿠폰 수 조회 */
+SELECT count(*) 
+FROM `coupon`
+WHERE member_no = 3
+AND coupon_fl = 'N';
+
+SELECT *
+FROM `coupon` 
+WHERE member_no = 3;
 
 
 

@@ -58,14 +58,16 @@
                   <th width="300px">관련 주문</th>
                   <th width="430px">내용</th>
                 </tr>
-                <!-- 항목 추가~ -->
+                <!-- 항목 추가 -->
+                <!-- 적립 내역이 없을 때 -->
                 <tr th:if="${#lists.size(pointList) == 0}">
                   <td colspan="5" class="point-is-not-exists">적립 내역이 존재하지 않습니다.</td>
                 </tr>
+                <!-- 적립 내역이 있을 때 -->
                 <tr th:unless="${#lists.size(pointList) == 0}" class="mypagePoint-detail-list" th:each="point : ${pointList}">
                   <td th:text="${#strings.substring(point.pointDate,0,11)}">주문날짜</td>
-                  <td th:if='${point.pointSort == "G"}' th:text="적립">적립/사용</td>
-                  <td th:if='${point.pointSort == "U"}' th:text="사용">적립/사용</td>
+                  <td th:if='${point.pointSort == "G"}' th:text="적립">적립된 적립금일 경우</td>
+                  <td th:if='${point.pointSort == "U"}' th:text="사용">사용된 적립금일 경우</td>
                   <td th:text="${point.pointAmount}">적립금</td>
                   <td th:text="${point.orderUno}">관련 주문</td>
                   <td th:text="${point.pointContent}">내용</td>
@@ -75,7 +77,7 @@
               <div class="pagination-area">
                 <ul th:unless="${#lists.size(pointList) == 0}" class="pagination">
                   <!-- 첫 페이지로 이동 -->
-                  <li><a th:href="@{/{c}(c=${category}, cp=1, ordering=${ordering})}">
+                  <li><a th:href="@{/myPage/point(cp=1)}">
                       <img th:src="@{/images/common/paging/first-page.svg}">
                     </a></li>
 
@@ -103,7 +105,7 @@
                     </a></li>
 
                   <!-- 끝 페이지로 이동 -->
-                  <li><a th:href="@{//myPage/point(cp=${pagination.maxPage})}">
+                  <li><a th:href="@{/myPage/point(cp=${pagination.maxPage})}">
                       <img th:src="@{/images/common/paging/last-page.svg}">
                     </a></li>
                 </ul>

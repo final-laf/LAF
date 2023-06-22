@@ -147,6 +147,20 @@ public interface MypageMapper {
 	List<Map<String, Long>> selectAccumulatedPoints(Map<String, Object> paramMap);
 
 
+	/** 사용가능한 쿠폰 개수 조회
+	 * @param paramMap
+	 * @return listCount
+	 */
+	int getCouponListCount(Map<String, Object> paramMap);
+
+
+	/** 로우바운드가 적용된 쿠폰 적립 내역 조회
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return resultMap
+	 */
+	List<Point> selectCouponList(Map<String, Object> paramMap, RowBounds rowBounds);
+
 
 
 
