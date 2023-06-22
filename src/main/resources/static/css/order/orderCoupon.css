@@ -60,10 +60,18 @@
 }
 
 /* 테이블 구간 */
+.orderCoupon-main-coupon{
+    height: 500px;
+}
+
+.orderCoupon-main-coupon>div{
+    height: 450px;
+    overflow: auto;
+}
+
 .orderCoupon-main-coupon table{
     margin: 20px 0 0 0;
     width: 100%;
-    display: flex;
 }
 
 .orderCoupon-main-coupon th{

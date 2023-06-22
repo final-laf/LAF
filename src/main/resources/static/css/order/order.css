@@ -201,8 +201,8 @@
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div {
   margin-right: 10px;
 }
-#mypageOrderDiscount > tbody> tr:last-child {
-  padding-right: 78px;
+#mypageOrderDiscount > tbody> tr:last-child div{
+  margin-right: 10px;
 }
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
   width: 550px;

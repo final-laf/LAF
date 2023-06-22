@@ -68,7 +68,7 @@
               <td>
                 <select id="refundBank" name="paymentBank">
                   <option value="1">국민은행</option>
-                  <option value="2">농협</option>
+                  <option value="2">농협은행</option>
                   <option value="3">우리은행</option>
                 </select>
               </td>
@@ -159,7 +159,7 @@
             <tr>
               <td colspan="6">
                 <div>
-                  <div>총 금액</div>
+                  <div>총금액(상품할인적용)</div>
                   <div id="totalPrice">0원</div>
                 </div>
                 <div th:if="${session.loginMember}">
@@ -172,7 +172,7 @@
                     <span>배송비</span>
                     <span>(100,000원 이상 결제 시 무료배송!)</span>
                   </div>
-                  <div id="deliveryPrice">+2,500원</div>
+                  <div id="deliveryPrice">+3,000원</div>
                 </div>
               </td>
             </tr>
@@ -208,7 +208,10 @@
             </tr>
             <tr>
               <th>할인 적용 금액</th>
-              <th class="mypageOrderDiscountRed" id="applyDiscount" value="0">-0원</th>
+              <th>
+                <div class="mypageOrderDiscountRed" id="applyDiscount" value="0">-0원</div>
+                <button id="discountClearBtn" type="button">적용취소</button>
+              </th>
             </tr>
           </table>
         </div>
