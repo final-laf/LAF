@@ -204,13 +204,19 @@ WHERE p.member_no = 3
 ;
 
 
+SELECT point_sort, SUM(point_amount) point_sum
+FROM `point` 
+GROUP BY point_sort ;
+
 
 
 SELECT sum(point_amount) accumulatedPoint
 FROM `point`p 
 LEFT JOIN `order` 
 USING (order_no)
-WHERE p.member_no = 3 AND point_sort = 'g';
+WHERE p.member_no = 3 AND point_sort = 'G';
+
+;
 
 
 

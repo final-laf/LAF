@@ -5,7 +5,7 @@
 }
 
 .mypagePoint-dashFrame-myMain{
-    height: 482px;
+    height: 530px;
     width: 1020px;
     margin: 80px 0 0 30px;
 }
@@ -26,6 +26,7 @@
     border: 3px solid #eee;
     display: flex;
 }
+
 .mypagePoint-point-statistics >div{
     justify-content: space-around;
     width: 50%;
@@ -38,6 +39,7 @@
     display: flex;
     justify-content: space-between
 }
+
 
 .mypagePoint-point-detail table{
     padding: 20px 0 0 0;
@@ -78,6 +80,10 @@
     width: 40%;
 }
 
-.point-is-not-exists {
-    text-align: center;
+.pagination {
+    margin: 30px 0px !important;
+}
+
+body > main > section > div > div.mypagePoint-myMain-point > div.mypagePoint-point-statistics {
+    margin-bottom: 10px;
 }
