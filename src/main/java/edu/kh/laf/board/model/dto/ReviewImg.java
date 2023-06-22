@@ -7,11 +7,8 @@ import lombok.Data;
 
 @Data
 public class ReviewImg {
+	private long reviewImgNo;
 	private long reviewNo;
-	
-	
-	private Order order;
-	private Product product; 		 // 상품
-	private Option option; 			 // 옵션
-	private long count;
+	private String reviewPath;
+	private int reviewOrder;
 }

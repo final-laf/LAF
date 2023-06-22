@@ -228,6 +228,9 @@ input{
 
   outline: none;
 }
+textarea{
+  outline: none;
+}
 
 select{
   width: auto;

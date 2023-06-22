@@ -13,3 +13,4 @@ references `review` (
 	`review_no`
 );
 
+SELECT * FROM `review_img`; 

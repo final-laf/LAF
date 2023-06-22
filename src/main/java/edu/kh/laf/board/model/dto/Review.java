@@ -13,7 +13,7 @@ public class Review {
 	private long reviewNo; 			 // 리뷰 번호
 	private String reviewContent; 	 // 리뷰 내용
 	private String reviewCreateDate; // 리뷰 생성일
-	private int reviewScore; 		 // 후기 점수
+	private float reviewScore; 		 // 후기 점수
 	private long orderNo;			 // 주문 번호
 	private long productNo;			 // 상품 번호
 	private long optionNo;			 // 옵션 번호
