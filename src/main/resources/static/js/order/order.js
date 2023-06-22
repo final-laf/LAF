@@ -286,7 +286,49 @@ if(loginMember != null){ // 로그인한 회원일시
 
 // -----------------------------------------------------------------------------
 
+// 결제동의
+function agreeCheck(){ // 둘다체크시 모두동의 체크
+  const agreePays = document.querySelectorAll("#agreePay");
+  const agreePayAll = document.getElementById('agreePayAll');
+  let agreeFL = 0;
+  agreePays.forEach( e => {
+    if(e.checked) agreeFL += 1;
+  })
+  if(agreeFL == 2)agreePayAll.checked = true;
+  else agreePayAll.checked = false;
+}
+
+function agreePayAllCheck() { // 모두동의 체크해제시 둘다체크해제
+  const agreePays = document.querySelectorAll("#agreePay");
+  const agreePayAll = document.getElementById('agreePayAll');
+  agreePays.forEach(e => {
+    e.checked = agreePayAll.checked;
+  });
+}
+
+// 변화감지하면 함수호출
+const checkboxes = document.querySelectorAll("#agreePay, #agreePayAll");
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener("change", function() {
+    if (checkbox.id === "agreePayAll")agreePayAllCheck();
+    else agreeCheck();
+  });
+});
+
 // 유효성검사
+const checkObj = {
+  "orderName" : false,
+  "orderEmail" : false,
+  "orderTel" : false,
+  "orderAdd" : false,
+  "refundName" : false,
+  "refundBank" : false,
+  "refundAccount" : false,
+  "recvName" : false,
+  "recvAdd" : false,
+  "recvTel" : false,
+  "paymentName" : false
+};
 
 // 회원 가입 form태그가 제출 되었을 때
 document.getElementById("orderSubmit").addEventListener("submit", e => {
