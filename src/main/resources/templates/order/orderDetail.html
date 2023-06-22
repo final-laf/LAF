@@ -46,25 +46,25 @@
             <th>총 결제금액</th>
             <td th:text="*{#numbers.formatInteger(orderPayment, 3, 'COMMA')} + '원'">35,500</td>
           </tr>
-          <tr>
+          <tr class="deliveryCost">
             <th>배송비</th>
-            <td>2,500원</td>
+            <td>+2,500원</td>
           </tr>
-          <tr colspan="3">
+          <tr colspan="3" th:if="${dc != null or productDc != null}">
             <th>할인혜택</th>
             <td>
-              <div><div>상품할인</div><div>-45,000원</div></div>
-              <div><div>쿠폰할인</div><div>-45,000원</div></div>
-              <div><div>적립금사용</div><div>-45,000원</div></div>
+              <div th:if="${productDc}"><div>상품할인</div><div th:text="'-'+${#numbers.formatInteger(productDc, 3, 'COMMA')}+'원'">상품할인액</div></div>
+              <div th:if="${dc != null and dc.containsKey('couponUnit')}"><div>쿠폰할인</div><div id="discountCoupon">쿠폰할인액</div></div>
+              <div th:if="${dc != null and dc.containsKey('usePoint')}"><div>적립금사용</div><div th:text="'-'+${#numbers.formatInteger(dc.usePoint, 3, 'COMMA')}+'원'">적립금사용</div></div>
             </td>
           </tr>
           <tr>
             <th>결제수단</th>
             <td id="payment">방법/은행</td>
           </tr>
-          <tr>
+          <tr th:if="${dc != null and dc.containsKey('gainPoint')}">
             <th>구매확정시 예상적립금</th>
-            <td>1,560원</td>
+            <td th:text="${#numbers.formatInteger(dc.gainPoint, 3, 'COMMA')}+ '원'">예상적립금</td>
           </tr>
         </table>
         <!-- 주문 상품 정보 -->
@@ -90,6 +90,14 @@
               <div th:text="${#numbers.formatInteger(odp.product.productSalePrice, 3, 'COMMA')} + '원'">할인액</div>
               <div th:if="${(odp.product.productPrice - odp.product.productSalePrice) != 0}" th:text="${#numbers.formatInteger(odp.product.productPrice, 3, 'COMMA')} + '원'">원가</div>
             </td>
+          </tr>
+          <tr class="deliveryCost">
+            <th colspan="6">
+              <div>
+                <div>배송비</div>
+                <div>+2,500원</div>
+              </div>
+            </th>
           </tr>
         </table>
         <!-- 배송지 정보 -->
@@ -117,7 +125,7 @@
           </tr>
         </table>
       <div th:if="${session.loginMember}" class="orderDetail-shipping-shippinglist">
-        <button>주문목록보기</button>
+        <button id="orderListBtn">주문목록보기</button>
       </div>
       </div>
     </section>
@@ -126,7 +134,7 @@
 
   <script th:inline="javascript">
     const order = /*[[${order}]]*/ "주문정보";
-    const odpList = /*[[${odpList}]]*/ "주문상품정보";
+    const dc = /*[[${dc}]]*/ "주문상품정보";
   </script>
 
   <script src="/js/order/orderDetail.js"></script>

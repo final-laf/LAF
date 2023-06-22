@@ -83,6 +83,9 @@ public interface OrderMapper {
 	public List<OrderProduct> selectOrderDetailProductList(int no);
 
 	// 사용된 쿠폰할인액조회
-	public int selectCouponAmount(long couponNo);
+	public Coupon selectCoupon(long couponNo);
+
+	// 적립/사용된 적립금 조회
+	public String selectPoint(long couponNo);
 
 }

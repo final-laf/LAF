@@ -88,9 +88,17 @@ public interface OrderService {
 
 	/** 사용된 쿠폰할인액조회
 	 * @param couponNo
+	 * @param pointUseNo 
+	 * @param pointGainNo 
 	 * @return
 	 */
-	List<Map> selectDiscount(long couponNo);
+	Map<String, String> selectDiscount(long couponNo, long pointGainNo, long pointUseNo);
+
+	/** 상품 할인액 계산
+	 * @param odpList
+	 * @return
+	 */
+	int productDc(List<OrderProduct> odpList);
 
 
 }

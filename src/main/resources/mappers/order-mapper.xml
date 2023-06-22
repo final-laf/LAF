@@ -225,10 +225,17 @@
 	</select>
 	
 	<!-- 사용된 쿠폰할인액조회 -->
-	<select id="selectCouponAmount" resultType="int">
-		SELECT coupon_amount
+	<select id="selectCoupon" resultType="Coupon">
+		SELECT *
 		FROM coupon
 		WHERE coupon_no = #{couponNo}
+	</select>
+	
+	<!-- 적립/사용된 적립금 조회 -->
+	<select id="selectPoint" resultType="String">
+		SELECT point_amount
+		FROM `point`
+		WHERE point_no = #{pointNo}
 	</select>
 </mapper>
 
