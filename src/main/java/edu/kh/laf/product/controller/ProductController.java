@@ -149,6 +149,7 @@ public class ProductController {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("memberNo", loginMember == null ? -1 : loginMember.getMemberNo());
 		paramMap.put("ordering", ordering);
+		paramMap.put("query", query);
 		paramMap.put("cp", cp);
 		
 		Map<String, Object> resultMap = productService.search(paramMap);
