@@ -27,13 +27,38 @@ switch (order.paymentBank){
     case "3" : paymentBank = "우리은행"; break;
 }
 document.getElementById("payment").innerText = payment + ' ('+paymentBank+')';
-// 계산식 세팅
 
-console.log(odpList);
-console.log(order);
-
+// 쿠폰할인세팅
+let discountCoupon = "";
+if(dc != null){
+    discountCoupon = dc.couponAmount;
+    if(discountCoupon != undefined){
+        if(dc.couponUnit == 'P'){
+            discountCoupon = order.orderTotalPrice * dc.couponAmount * 0.01;
+        }
+        const result = '-' + parseInt(discountCoupon).toLocaleString() + '원';
+        console.log(result);
+        document.getElementById("discountCoupon").innerText = result;
+    }
+}
 
 // 우편번호, 주소 세팅
 const arr = order.orderRecvAdd.split("^^^");
 document.getElementById("recvAddNo").innerText = arr[0];
 document.getElementById("recvAdd").innerText = arr[1] + " " + arr[2];
+
+// 배송비 설정
+const deliveryCost = document.querySelectorAll('.deliveryCost');
+if(parseInt(order.orderTotalPrice) > 100000){
+    deliveryCost.forEach( e => {
+        e.style.display = 'none';
+    });
+}
+
+// 주문목록버튼 - 마이페이지 주문조회 리다이렉트
+const orderListBtn = document.getElementById("orderListBtn");
+if(orderListBtn != null){
+    orderListBtn.addEventListener('click', () => {
+        window.location.href = "/myPage/order"
+    });
+}

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -309,12 +310,45 @@ public class OrderServiceImpl implements OrderService{
     	return odpList;
     }
     
-    // 사용된 쿠폰할인액조회
+    // 상품 할인액 계산
     @Override
-    public List<Map> selectDiscount(long couponNo) {
+    public int productDc(List<OrderProduct> odpList) {
+    	int productDc = 0;
+    	for(OrderProduct odp : odpList) {
+    		productDc += (int)(odp.getProduct().getProductPrice() - odp.getProduct().getProductSalePrice());
+    	}
+    	return productDc;
+    }
+    
+    @Override
+    public Map<String, String> selectDiscount(long couponNo, long pointGainNo, long pointUseNo) {
     	
-    	List<Map> dc = new ArrayList<>();
-    	int couponAmount = mapper.selectCouponAmount(couponNo);
+    	Map<String, String> dc = new HashMap<>();
+    	
+    	// 사용된 쿠폰할인액조회
+    	if(couponNo != 0) {
+    		Coupon coupon = mapper.selectCoupon(couponNo);
+    		if(coupon != null) {
+    			dc.put("couponAmount", String.valueOf(coupon.getCouponAmount()) );
+    			dc.put("couponUnit", coupon.getCouponUnit());
+    		}
+    	}
+    	// 적립된 적립금 조회
+    	if(pointGainNo != 0) {
+    		String gainPoint = mapper.selectPoint(pointGainNo);
+       		if(gainPoint != null) {
+       			dc.put("gainPoint", gainPoint);
+       		}
+    	}
+    	// 사용된 적립금 조회
+    	if(pointUseNo != 0) {
+    		String usePoint = mapper.selectPoint(pointUseNo);
+       		if(usePoint != null) {
+       			dc.put("usePoint", usePoint);
+       		}
+    	}
+    
+    	System.out.println(dc);
     	
     	return dc;
     }

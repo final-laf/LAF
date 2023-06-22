@@ -157,7 +157,8 @@ public class OrderController {
 	
 	// 주문상세조회
 	@GetMapping("/order/{no:[0-9]+}")
-	public String detail(@PathVariable int no, Model model) {
+	public String detail(@PathVariable int no, Model model,
+						@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
 		// 주문한 내역조회
 		Order order = service.selectOrder(no);
@@ -167,9 +168,22 @@ public class OrderController {
 		List<OrderProduct> odpList = service.selectOrderDetailProductList(no);
 		model.addAttribute("odpList",odpList);
 		
-		// 쿠폰 할인액, 적립금, 사용된 적립금 조회
-		List<Map> dc = service.selectDiscount(order.getCouponNo());
-		model.addAttribute("dc",dc);
+		// 상품 할인액 계산
+		int productDc = service.productDc(odpList);
+		if(productDc > 0) {
+			model.addAttribute("productDc",productDc);
+		}
+		
+		if(loginMember != null) { // 로그인 회원인 경우
+			// 쿠폰 할인액, 적립금, 사용된 적립금 조회
+			long couponNo = order.getCouponNo();
+			long pointGainNo = order.getPointNoGain();
+			long pointUseNo = order.getPointNoUse();
+			if((couponNo + pointGainNo + pointUseNo) != 0 ) {
+				Map<String, String> dc = service.selectDiscount(couponNo,pointGainNo,pointUseNo);
+				model.addAttribute("dc",dc);
+			}
+		}
 		
 		return "/order/orderDetail";
 	}

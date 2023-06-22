@@ -56,6 +56,8 @@ DELETE FROM `point` WHERE point_no = 2;
 
 COMMIT;
 
+SELECT point_amount FROM `point` WHERE point_no = 4;
+
 
 
 
