@@ -116,6 +116,13 @@ public interface MypageService {
 	Map<String, Object> selectPoint(Map<String, Object> paramMap);
 
 
+	/** 회원 쿠폰 조회(사용 가능한 쿠폰 전체)
+	 * @param paramMap
+	 * @return resultMap
+	 */
+	Map<String, Object> selectCoupon(Map<String, Object> paramMap);
+
+
 
 
 

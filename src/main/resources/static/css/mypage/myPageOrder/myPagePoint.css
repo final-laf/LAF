@@ -84,6 +84,7 @@
     margin: 30px 0px !important;
 }
 
+/* 적립금 내역 상부 마진 조정 */
 body > main > section > div > div.mypagePoint-myMain-point > div.mypagePoint-point-statistics {
     margin-bottom: 10px;
 }

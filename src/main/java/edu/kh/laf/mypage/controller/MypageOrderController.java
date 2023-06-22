@@ -59,14 +59,12 @@ public class MypageOrderController {
 						,@RequestParam(value="cp", required=false, defaultValue="1") int cp			
 						,Model model) {
 		
-		// 회원번호로 적립금 적립/사용 내역 조회(전체)
-		
+		// 회원번호로 적립금 적립/사용 내역 조회
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("memberNo", loginMember.getMemberNo());
 		paramMap.put("cp", cp);
 		
 		Map<String, Object> resultMap = service.selectPoint(paramMap);
-		
 		model.addAttribute("pointList", resultMap.get("pointList"));
 		model.addAttribute("accumulatedPoint", resultMap.get("accumulatedPoint"));
 		model.addAttribute("accumulatedUsedPoint", resultMap.get("accumulatedUsedPoint"));
@@ -77,7 +75,20 @@ public class MypageOrderController {
 	
 	// 적립금 및 쿠폰 : 쿠폰
 	@GetMapping("/myPage/coupon")
-	public String coupon() {
+	public String coupon(@SessionAttribute(value = "loginMember", required = false) Member loginMember
+						,@RequestParam(value="cp", required=false, defaultValue="1") int cp			
+						,Model model) {
+		
+		// 회원번호로 쿠폰 내역 조회
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNo", loginMember.getMemberNo());
+		paramMap.put("cp", cp);
+		
+		Map<String, Object> resultMap = service.selectCoupon(paramMap);
+		model.addAttribute("couponList", resultMap.get("couponList"));
+		model.addAttribute("pagination", resultMap.get("pagination"));
+		model.addAttribute("listCount", resultMap.get("listCount"));
+		
 		return "/myPage/myPageOrder/myPageCoupon";
 	}
 

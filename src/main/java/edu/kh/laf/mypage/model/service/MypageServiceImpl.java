@@ -136,7 +136,26 @@ public class MypageServiceImpl implements MypageService {
 		return resultMap;
 	}
 
-
+	//	회원 쿠폰 조회(사용 가능한 쿠폰)
+	@Override
+	public Map<String, Object> selectCoupon(Map<String, Object> paramMap) {
+		
+		// 사용가능한 쿠폰 개수 조회
+		int listCount = mapper.getCouponListCount(paramMap);
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
+				
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 로우바운드가 적용된 쿠폰 적립 내역 조회
+		List<Point> couponList = mapper.selectCouponList(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("couponList", couponList);
+		resultMap.put("listCount", listCount);
+		return resultMap;
+	}
 	
 
 	// -------------------------------------------------------------------------- 

@@ -98,24 +98,41 @@
 		WHERE p.member_no = #{memberNo}
 	</select>
 	
-	<!--페이지네이션이 적용된 적립금 개수 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
+	<!--페이지네이션이 적용된 적립금 리스트 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
 	<select id="selectPointList" resultType="Point">
 		SELECT point_no , p.member_no , point_sort , point_amount , point_date , point_content , order_no , order_uno 
 		FROM `point` p 
 		LEFT JOIN `order` USING (order_no)
 		WHERE p.member_no = #{memberNo}
+		ORDER BY 1 DESC
 	</select>
 	
-	<!-- 회원 누적액(마이페이지-주문관리-적립금 및 쿠폰) -->
+	<!-- 회원 적립금 적립/사용 누적액(마이페이지-주문관리-적립금 및 쿠폰) -->
 	<resultMap type="map" id="sumPoint_rm">
       <result column="point_sort" property="pointSort"/>
       <result column="point_sum" property="pointSum"/>
     </resultMap>
-    
+        
 	<select id="selectAccumulatedPoints" resultMap="sumPoint_rm">
 		SELECT point_sort, SUM(point_amount) point_sum
 		FROM `point` 
 		GROUP BY point_sort
+	</select>
+    
+    <!--쿠폰 개수 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
+	<select id="getCouponListCount" resultType="_int">
+		SELECT count(*) 
+		FROM `coupon`
+		WHERE member_no = #{memberNo}
+		AND coupon_fl = 'N'
+	</select>
+	
+	<!--페이지네이션이 적용된 사용가능한 쿠폰 리스트 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
+	<select id="selectCouponList" resultType="Coupon">
+		SELECT *
+		FROM `coupon` 
+		WHERE member_no = #{memberNo}
+		ORDER BY coupon_due_date
 	</select>
 	
 	<!--상품 번호로 상품 조회-->
