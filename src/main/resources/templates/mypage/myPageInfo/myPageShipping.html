@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/shopping/categoryList.css">
   <link rel="stylesheet" href="/css/myPage/myPageInfo/myPageShipping.css">
-  <title>LAF :: 마이페이지</title>
+  <title>LAF :: 배송지 관리</title>
 
 </head>
 <body>
@@ -17,8 +17,46 @@
     <section class="mypageShipping-mainFrame">
       <th:block th:replace="~{/mypage/mypageSide}"></th:block>
       <!-- 마이페이지 중앙 대쉬보드 -->
-      <th:block th:replace="~{order/orderShipping}"></th:block>
+      <div class="orderShipping-MyMain-Shipping">
+        <div class="orderShipping-myMain-text">배송지 관리</div>
+        <table>
+          <tr>
+            <th width="30px"> <input type="checkbox"> </th>
+            <th width="130px">배송지명</th>
+            <th width="100px">수령인</th>
+            <th width="130px">휴대전화</th>
+            <th width="550px">주소</th>
+            <th width="60px">수정</th>
+          </tr>
+          <!-- 항목 추가~ -->
+          <tr th:if="${session.loginMember}" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
+            <td><input type="checkbox"></td>
+            <td th:text="${address.addressName}">배송지명</td>
+            <td th:text="${address.addressReceiver}">수령인</td>
+            <td th:text="${address.addressTel}">전화번호</td>
+            <td th:text="${address.address}">주소</td>
+            <td><button type="button" class="selected-modifying-shipping">수정</button></td>
+          </tr>
+          <!-- ~~~~~~~~~~~~~~~ -->
+        </table>
+        <div class="orderShipping-Shipping-button">
+            <button type="button">선택 주소록 삭제</button>
+            <button type="button" id="openEnrollShippingModal">새로운 배송지 등록</button>
+        </div>
+        <table class="orderShipping-Shipping-notice">
+          <tr>
+            <th>배송주소록 유의사항 </th>
+          </tr>
+          <tr>
+            <td>
+              <div>❶ 배송 주소록은 최대 3개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</div>
+              <div>❷ 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </section>
+    <th:block th:replace="~{/myPage/myPageInfo/myPageShippingModal}"></th:block>
   </main>
   <th:block th:replace="~{/common/footer}"></th:block>
 </body>

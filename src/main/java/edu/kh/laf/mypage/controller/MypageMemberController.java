@@ -163,6 +163,7 @@ public class MypageMemberController {
 		return path;
 	}
 	
+	
 	// 비밀번호 수정 페이지 이동  
 	@GetMapping("/myPage/changePw") 
 	public String changePw() {
@@ -205,6 +206,8 @@ public class MypageMemberController {
 
 		return "/myPage/myPageInfo/myPageShipping";
 	}
+	
+	
 	
 	// 배송지 관리 : 배송지 등록
 	@GetMapping("/myPage/shipping/add")

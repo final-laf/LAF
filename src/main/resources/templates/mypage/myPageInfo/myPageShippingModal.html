@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/myPage/myPageInfo/myPageShippingModal.css">
+</head>
+<body>
+  
+  
+<!-- 배송지 등록 모달창 -->
+<div class="shipping-enroll-modal-overlay" id="ShippingEnrollModalOverlay">
+  <div class="shipping-enroll-modal-window">
+    <div>
+      <!-- 배송지 관리 -->
+      <div class="mypageAddShipping-myMain-text">배송지 등록
+      </div>
+      <form action="" method="post">
+        <div class="mypageAddShipping-myMain-shipping">
+          <table>
+            <tr>
+              <th>배송지명</th>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <th>성명</th>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <th>주소</th>
+              <td>
+                <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                <div class="mypageAddShipping-shipping-address">
+                  <input type="text" required class="mypageAddShipping-address-content" name="memberAddress" maxlength="6" id="sample6_postcode" readonly>
+                  <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                </div>
+                <div class="mypageAddShipping-shipping-address">
+                  <input type="text" required name="memberAddress" id="sample6_address" readonly>
+                </div>
+                <div class="mypageAddShipping-shipping-address">
+                  <input type="text" required name="memberAddress"  id="sample6_detailAddress">
+                </div>
+              </td>
+            </tr>
+            <tr class="mypageAddShipping-shipping-tel">
+              <th>휴대전화</th>
+              <td>
+                <input type="text">-
+                <input type="text">-
+                <input type="text">
+              </td>
+            </tr>
+          </table>
+          <div class="mypageAddShipping-shipping-confirm">
+            <div>
+              <input type="checkbox"><span>기본 배송지로 저장</span>
+            </div>
+            <div class="mypageAddShipping-Shipping-notice">
+              <div>배송주소록 유의사항</div>
+              <div>- 배송 주소록은 최대 3개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</div>
+              <div>- 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
+            </div>
+            <div class="shipping-enroll-modal-btn-area">
+              <button class="button shipping-enroll-modal-close">등록</button>
+              <button type="button" class="button shipping-enroll-modal-close" id="enrollShippingModalClose">취소</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 배송지 수정 모달창 -->
+<div class="shipping-modify-modal-overlay" id="ShippingModifyModalOverlay">
+  <div class="shipping-modify-modal-window">
+    <div>
+      <!-- 배송지 관리 -->
+      <div class="mypageAddShipping-myMain-text">배송지 수정
+      </div>
+      <form action="" method="post">
+        <div class="mypageAddShipping-myMain-shipping">
+          <table>
+            <tr>
+              <th>배송지명</th>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <th>성명</th>
+              <td><input type="text"></td>
+            </tr>
+            <tr>
+              <th>주소</th>
+              <td>
+                <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
+                <div class="mypageAddShipping-shipping-address">
+                  <input type="text" required class="mypageAddShipping-address-content" name="memberAddress" maxlength="6" id="sample6_postcode" readonly>
+                  <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                </div>
+                <div class="mypageAddShipping-shipping-address">
+                  <input type="text" required name="memberAddress" id="sample6_address" readonly>
+                </div>
+                <div class="mypageAddShipping-shipping-address">
+                  <input type="text" required name="memberAddress"  id="sample6_detailAddress">
+                </div>
+              </td>
+            </tr>
+            <tr class="mypageAddShipping-shipping-tel">
+              <th>휴대전화</th>
+              <td>
+                <input type="text">-
+                <input type="text">-
+                <input type="text">
+              </td>
+            </tr>
+          </table>
+          <div class="mypageAddShipping-shipping-confirm">
+            <div>
+              <input type="checkbox"><span>기본 배송지로 저장</span>
+            </div>
+            <div class="mypageAddShipping-Shipping-notice">
+              <div>배송주소록 유의사항</div>
+              <div>- 배송 주소록은 최대 3개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</div>
+              <div>- 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
+            </div>
+            <div class="shipping-enroll-modal-btn-area">
+              <button class="button shipping-modify-modal-close">수정</button>
+              <button type="button" class="button shipping-modify-modal-close" id="modifyShippingModalClose">취소</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/common/api/address.js"></script>
+<script src="/js/myPage/myPageShipping.js"></script>
+</body>
+</html>
+

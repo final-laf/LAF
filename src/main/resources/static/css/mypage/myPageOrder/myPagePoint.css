@@ -88,3 +88,7 @@
 body > main > section > div > div.mypagePoint-myMain-point > div.mypagePoint-point-statistics {
     margin-bottom: 10px;
 }
+
+.point-is-not-exists {
+    text-align: center;
+}

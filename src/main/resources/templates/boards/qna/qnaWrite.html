@@ -17,7 +17,7 @@
 
     <form action="/qna/insert" method="post">
 
-      <input th:value="${session.loginMember.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
+      <input th:value="${session.loginMember?.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
       <section class="board-list">
         <div class="section-header">
           <div class="section-title">1:1문의</div>
