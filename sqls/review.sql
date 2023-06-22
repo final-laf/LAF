@@ -34,6 +34,7 @@ references `order_product` (
 -- 리뷰
 SELECT * FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no LEFT JOIN `member` m ON o.member_no = m.member_no;
 SELECT * FROM `order`; 
+SELECT * FROM `review_img`; 
 SELECT * FROM `review`; 
 SELECT * FROM order_product op ; 
 SELECT * FROM product JOIN product_img;
@@ -48,18 +49,22 @@ COMMIT;
 
 
 -- 개별 리뷰 조회
-SELECT DISTINCT  r.review_no, m.member_id, 
-        				 r.review_content, 
-        				 r.review_create_date, 
-        				 r.review_score, 
-        				 r.order_no, 
-        				 r.product_no, 
-        				 r.option_no, 
-        				 o.order_uno,
-        				 `count`, 
-        				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
-        				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
-        FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
-        			  LEFT JOIN `member` m ON o.member_no = m.member_no 
-        			  LEFT JOIN order_product op ON o.order_no=op.order_no
-        WHERE r.review_no = #{reviewNo}
+-- SELECT DISTINCT  r.review_no, m.member_id, 
+--         				 r.review_content, 
+--         				 r.review_create_date, 
+--         				 r.review_score, 
+--         				 r.order_no, 
+--         				 r.product_no, 
+--         				 r.option_no, 
+--         				 o.order_uno,
+--         				 `count`, 
+--         				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
+--         				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
+--         FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
+--         			  LEFT JOIN `member` m ON o.member_no = m.member_no 
+--         			  LEFT JOIN order_product op ON o.order_no=op.order_no
+--         WHERE r.review_no = #{reviewNo}
+        
+        
+--         
+UPDATE `review`	SET review_content='리뷰내용 수정', review_score= 2.2 WHERE review_no = 28

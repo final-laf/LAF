@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 
@@ -47,5 +48,24 @@ public interface ReviewMapper {
 	 * @return reviewList
 	 */
 	int selectReviewProductCount(long productNo);
+
+	/** 리뷰 작성
+	 * @param review
+	 * @return
+	 */
+	int InsertReview(Review review);
+
+	/** 리뷰 수정하기
+	 * @param review
+	 * @return
+	 */
+	int updateReview(Review review);
+
+	/** 이미지 업데이트
+	 * @param img
+	 * @return
+	 */
+	int imageUpdate(ReviewImg img);
+
 
 }
