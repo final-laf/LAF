@@ -27,14 +27,14 @@ public class AdminFilter implements Filter {
 		
 		HttpSession session = req.getSession();
 		
-		if(((Member)session.getAttribute("loginMember")).getMemberNo() != 1L) {
-			resp.sendRedirect("/error/admin");
-		} else {
-			chain.doFilter(request, response);
-		}
+//		if(((Member)session.getAttribute("loginMember")).getMemberNo() != 1L) {
+//			resp.sendRedirect("/error/admin");
+//		} else {
+//			chain.doFilter(request, response);
+//		}
 		
-//		// 필터 기능 임시 중지
-//		chain.doFilter(request, response);
+		// 필터 기능 임시 중지
+		chain.doFilter(request, response);
 	}
 
 }

@@ -55,5 +55,12 @@ public interface OptionService {
 	 * @return resultMap
 	 */
 	public Map<String, Object> selectOptionListBySeveralKeys(Map<String, Object> paramMap);
+
+	/**
+	 * 옵션 번호로 재고량 조회
+	 * @param optionNo
+	 * @return stock
+	 */
+	int selectStock(long optionNo);
 	
 }

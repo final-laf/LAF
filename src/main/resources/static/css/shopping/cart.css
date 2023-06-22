@@ -23,6 +23,7 @@ table tr:last-child {
 }
 table td {
   padding: 3px 0;
+  min-height: 34px;;
   
   display: inline-flex;
   align-items: center;
@@ -30,6 +31,9 @@ table td {
 }
 table tr:not(:first-child) > td {
   height: 100px;
+}
+input[name='checkbox']:disabled {
+  cursor: default;
 }
 
 /* 버튼 컨테이너 공통설정 */
@@ -85,15 +89,44 @@ tr:not(:first-child) > .cart-item-product {
   color: #666;
   text-decoration: line-through;
 }
+.cart-item-count {
+  position: relative;
+}
 #cartItemList .cart-item-count button {
   width: 20px;
   height: 20px;
   /* margin: 0 10px; */
 }
-.cart-item-count > span {
+.count {
   /* 주문수량 출력부 */
+  /* display: inline-block; */
   text-align: center;
   width: 40px;  
+}
+.out-of-stock {
+  color: #D66600;
+}
+#emptyStockRemoveBtn span {
+  color: #D66600;
+  font-size: inherit;
+}
+.option-change-btn:disabled {
+  cursor: default;
+}
+.cart-item-count {
+  display: inline-flex;
+  /* flex-direction: column; */
+}
+.out-of-stock-2 {
+  color: #D66600;
+}
+.out-of-stock-3 {
+  color: #D66600;
+  font-size: 1.1rem;
+  margin-top: 3px;
+  position: absolute;
+  bottom: 20px;
+  margin: 0 auto;
 }
 
 /* 결제예상금액 */

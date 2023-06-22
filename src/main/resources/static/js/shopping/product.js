@@ -125,14 +125,15 @@ for(let btn of eventBtns) {
     minusBtn.setAttribute("type", "button");
     minusBtn.classList.add("count-down");
     minusBtn.innerText = "-";
+    minusBtn.disabled = true;
     minusBtn.addEventListener('click', e => {
       const curCount = e.target.parentElement.querySelector('span');
       const newCount = Number(curCount.innerText) - 1;
       curCount.innerText = newCount;
       
-      if(curCount.innerText == '0') {
-        alert('최소 주문 수량은 1개 입니다.');
-        curCount.innerText = 1;
+      e.target.parentElement.querySelector('.count-up').disabled = false;
+      if(curCount.innerText == '1') {
+        e.target.disabled = true;
       }
 
       const selectPrice = e.target.parentElement.parentElement.querySelector('.current-price');
@@ -150,20 +151,17 @@ for(let btn of eventBtns) {
     plusBtn.innerText = "+";
     plusBtn.addEventListener('click', e => {
       const curCount = e.target.parentElement.querySelector('span');
-      const newCount = Number(curCount.innerText) + 1;
+      let newCount = Number(curCount.innerText) + 1;
       curCount.innerText = newCount;
-      if(curCount.innerText == '100') {
-        alert('최대 주문 수량은 99개 입니다.');
-        curCount.innerText = 99;
+      if(curCount.innerText == '99') {
+        e.target.disabled = true;
       }
 
+      e.target.parentElement.querySelector('.count-down').disabled = false;
       for(let s of stocks) {
-        if(s.optionNo == optionNo) {
-          if(curCount.innerText > s.stock) {
-            alert('재고량을 초과했습니다. 현재 최대 주문 수량은 ' + s.stock + '개 입니다.');
-            curCount.innerText = s.stock;
+        if(s.optionNo == optionNo && curCount.innerText == s.stock) {
+            e.target.disabled = true;
           }
-        }
       }
 
       const selectPrice = e.target.parentElement.parentElement.querySelector('.current-price');
@@ -263,11 +261,11 @@ addCartBtn.addEventListener('click', () => {
     fetch("/cart/add2?data=" + cookieStr)
     .then(resp => resp.text())
     .then(result => {
-      if(result > 0) {
+      if(result == "성공") {
         if(flag) alert("중복된 상품을 제외하고 장바구니에 추가하였습니다.");
         else alert("선택한 상품을 장바구니에 담았습니다.");
       } else {
-        alert("장바구니 담기 실패");
+        alert(result);
       }
     }) 
     .catch(err => console.log(err));
@@ -285,42 +283,13 @@ addCartBtn.addEventListener('click', () => {
         "count": item.querySelector('.current-count span').innerText
       });
     }
-    
-    // 장바구니 데이터 가져와서 중복 있는지 확인
-    let flag = false;
-    fetch("/cart/list")
-    .then(resp => resp.json())
-    .then(cartList => {
 
-      for(let cart of cartList) {
-        for(let i=0; i<data.length; i++) {
-          // 장바구니에 이미 담긴 상품일 경우 제외
-          if(data[i].optionNo == cart.optionNo) {
-            data.splice(i, 1);
-            flag = true;
-          }
-        }
-      }
-
-      // 장바구니에 새로 추가할 상품이 없는 경우 함수 종료
-      if(data.length <= 0 && flag) {
-        alert("이미 추가된 상품입니다. 새로 추가할 상품이 없습니다.");
-        return;
-      }
-      
-      // 장바구니 정보 DB에 저장 
-      const dataStr = encodeURIComponent(JSON.stringify(data));
-      fetch("/cart/add?data=" + dataStr)
-      .then(resp => resp.text())
-      .then(result => {
-        if(result > 0) {
-          if(flag) alert("중복된 상품을 제외하고 장바구니에 추가하였습니다.");
-          else alert("선택한 상품을 장바구니에 담았습니다.");
-        } else {
-          alert("장바구니 담기 실패")
-        }
-      }) 
-      .catch(err => console.log(err));
+    // 장바구니 정보 DB에 저장 
+    const dataStr = encodeURIComponent(JSON.stringify(data));
+    fetch("/cart/add?data=" + dataStr)
+    .then(resp => resp.text())
+    .then(result => {
+      alert(result);
     }) 
     .catch(err => console.log(err));
   }
