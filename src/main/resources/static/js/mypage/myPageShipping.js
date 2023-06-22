@@ -36,6 +36,16 @@ enrollShippingModalClose.addEventListener("click", e => {
 
 
 
+
+
+
+
+
+
+
+
+
+
 /* 배송지 수정 모달 */
 const modifyShippingModal = document.getElementById("ShippingModifyModalOverlay")
 const selectedshippings = document.getElementsByClassName("selected-modifying-shipping")
@@ -44,7 +54,34 @@ const selectedshippings = document.getElementsByClassName("selected-modifying-sh
 for(let shipping of selectedshippings) {
 
   /* 회원 목록에서 한 회원 클릭시 */
-  shipping.addEventListener('click', () => {
+  shipping.addEventListener('click', (e) => {
+
+    const shippingData = e.target.getAttribute("value");
+
+    /* 정규식으로 키=밸류값 한 쌍을 가져옴 */
+    const regex = /(\w+)=(.+?)(?=, \w+=|$)/g;
+
+    /* 키 값을 저장할 객체 */
+    const shippingValues = {};
+
+    /* 가져온 address의 value들을 values에 저장 */
+    let match;
+    while ((match = regex.exec(shippingData)) !== null) {
+        const shippingKey = match[1]; // 
+        const shippingValue = match[2]; // 속성값
+        shippingValues[shippingKey] = shippingValue; // 객체에 속성과 값을 저장
+    }
+
+    // 주소 객체의 속성 값들을 출력
+    console.log(shippingValues.addressNo); // 출력: 1
+    console.log(shippingValues.memberNo); // 출력: 3
+    console.log(shippingValues.addressName); // 출력: 집
+    console.log(shippingValues.addressReceiver); // 출력: 유저이
+    console.log(shippingValues.address); // 출력: 주소
+    console.log(shippingValues.addressTel); // 출력: 전화번호
+
+    document.getElementById("addressName").value = shippingValues.addressReceiver
+    
     modifyShippingModal.style.display = "flex";
     document.body.style.overflowY = "hidden";
   });
@@ -75,3 +112,7 @@ modifyShippingModalClose.addEventListener("click", e => {
     modifyShippingModal.style.display = "none";
     document.body.style.removeProperty('overflow');
 });
+
+
+
+
