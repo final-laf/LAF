@@ -20,29 +20,30 @@
       </tr>
     </table>
     <div class="orderCoupon-main-coupon">
-      <table>
-        <tr>
-          <th width="330px">쿠폰명</th>
-          <th width="130px">유효기간</th>
-          <th width="60px">사용</th>
-        </tr>
-        <!-- 항목 추가~ -->
-        <tr th:each="coupon, i : ${couponList}" class="orderCoupon-coupon-list">
-          <td>
-            <div th:value="${coupon.couponNo}" th:text="${coupon.couponName}">쿠폰명</div>
-            <div th:value="${coupon.couponCondition}" th:text="${#numbers.formatInteger(coupon.couponCondition, 3, 'COMMA')} + '원 이상 구매시'">쿠폰적용가능 최소결제금액</div>
-            <input type="hidden" th:value="${coupon.couponUnit}">
-            <input type="hidden" th:value="${coupon.couponAmount}">
-            <input type="hidden" th:value="${coupon.couponMaxDiscount}">
-          </td>
-          <td th:text="${#strings.substring(coupon.couponDueDate,0,10)}">23-06-01</td>
-          <td>
-            <input type="radio" name="useCoupon" th:id="'useCoupon'+${i.index}">
-            <label th:attr="for='useCoupon' + ${i.index}"><div>사용가능</div></label>
-          </td>
-        </tr>
-        <!-- ~~~~~~~~~~~~~~~ -->
-      </table>
+      <div>
+        <table>
+          <tr>
+            <th>쿠폰명</th>
+            <th>유효기간</th>
+            <th>사용여부</th>
+          </tr>
+          <!-- 항목 추가~ -->
+          <tr th:each="coupon, i : ${couponList}" class="orderCoupon-coupon-list">
+            <td>
+              <div th:value="${coupon.couponNo}" th:text="${coupon.couponName}">쿠폰명</div>
+              <div th:value="${coupon.couponCondition}" th:text="${#numbers.formatInteger(coupon.couponCondition, 3, 'COMMA')} + '원 이상 구매시'">쿠폰적용가능 최소결제금액</div>
+              <input type="hidden" th:value="${coupon.couponUnit}">
+              <input type="hidden" th:value="${coupon.couponAmount}">
+              <input type="hidden" th:value="${coupon.couponMaxDiscount}">
+            </td>
+            <td th:text="${#strings.substring(coupon.couponDueDate,0,10)}">23-06-01</td>
+            <td>
+              <input type="radio" name="useCoupon" th:id="'useCoupon'+${i.index}">
+              <label th:attr="for='useCoupon' + ${i.index}"><div>사용가능</div></label>
+            </td>
+          </tr>
+        </table>
+      </div>
       <div class="orderCoupon-coupon-button">
         <div>
           <button type="button" id="applyBtn">쿠폰 적용하기</button>
