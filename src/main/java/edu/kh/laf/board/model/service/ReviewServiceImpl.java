@@ -24,12 +24,12 @@ import edu.kh.laf.product.model.dto.Product;
 @PropertySource("classpath:/db.properties")
 public class ReviewServiceImpl implements ReviewService{
 
-	@Value("${my.review.webpath}")
-	private String webPath;
-	
-	@Value("${my.review.location}")
-	private String filePath;
-	
+//	@Value("${my.review.webpath}")
+//	private String webPath;
+//	
+//	@Value("${my.review.location}")
+//	private String filePath;
+//	
 	@Autowired
 	private ReviewMapper mapper;
 	
@@ -89,78 +89,78 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	
-	/** 리뷰 작성하기
-	 *
-	 */
-	@Override
-	public int insertReview(Review review, List<MultipartFile> images) {
-		int result = mapper.InsertReview(review);
-		if(result==0) return 0;
-		long reviewNo=review.getReviewNo();
-		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
-		for(int i = 0; i < images.size(); i++) {
-			if(images.get(i).getSize()>0) {
-				ReviewImg img = new ReviewImg();
-				
-				img.setReviewPath(webPath + "review");
-				img.setReviewNo(reviewNo);
-				img.setReviewImgNo(i);
-				uploadList.add(img);
-				result = mapper.imageUpdate(img);
-				if(result==0) {
-//					result=mapper.imageInsert(img);
-				}
-				
-			}
-		}
-		
-		if(!uploadList.isEmpty()) {
-			for(int i=0; i<uploadList.size(); i++) {
-//				int index = uploadList.get(i).get
-			}
-		}
-		return 1;
-		
-		
-		
-	}
-
-	
-	
-	/** 리뷰 수정하기
-	 *
-	 */
-	@Override
-	public int updateReview(Review review, List<MultipartFile> images) {
-		int result = mapper.updateReview(review);
-		if(result==0) return 0;
-		long reviewNo=review.getReviewNo();
-		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
-		for(int i = 0; i < images.size(); i++) {
-			if(images.get(i).getSize()>0) {
-				ReviewImg img = new ReviewImg();
-				
-				img.setReviewPath(webPath + "review");
-				img.setReviewNo(reviewNo);
-				img.setReviewImgNo(i);
-				uploadList.add(img);
-				result = mapper.imageUpdate(img);
-				if(result==0) {
-//					result=mapper.imageInsert(img);
-				}
-				
-			}
-		}
-		
-		if(!uploadList.isEmpty()) {
-			for(int i=0; i<uploadList.size(); i++) {
-//				int index = uploadList.get(i).get
-			}
-		}
-		return 1;
-				
-		
-	}
+//	/** 리뷰 작성하기
+//	 *
+//	 */
+//	@Override
+//	public int insertReview(Review review, List<MultipartFile> images) {
+//		int result = mapper.InsertReview(review);
+//		if(result==0) return 0;
+//		long reviewNo=review.getReviewNo();
+//		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
+//		for(int i = 0; i < images.size(); i++) {
+//			if(images.get(i).getSize()>0) {
+//				ReviewImg img = new ReviewImg();
+//				
+//				img.setReviewPath(webPath + "review");
+//				img.setReviewNo(reviewNo);
+//				img.setReviewImgNo(i);
+//				uploadList.add(img);
+//				result = mapper.imageUpdate(img);
+//				if(result==0) {
+////					result=mapper.imageInsert(img);
+//				}
+//				
+//			}
+//		}
+//		
+//		if(!uploadList.isEmpty()) {
+//			for(int i=0; i<uploadList.size(); i++) {
+////				int index = uploadList.get(i).get
+//			}
+//		}
+//		return 1;
+//		
+//		
+//		
+//	}
+//
+//	
+//	
+//	/** 리뷰 수정하기
+//	 *
+//	 */
+//	@Override
+//	public int updateReview(Review review, List<MultipartFile> images) {
+//		int result = mapper.updateReview(review);
+//		if(result==0) return 0;
+//		long reviewNo=review.getReviewNo();
+//		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
+//		for(int i = 0; i < images.size(); i++) {
+//			if(images.get(i).getSize()>0) {
+//				ReviewImg img = new ReviewImg();
+//				
+//				img.setReviewPath(webPath + "review");
+//				img.setReviewNo(reviewNo);
+//				img.setReviewImgNo(i);
+//				uploadList.add(img);
+//				result = mapper.imageUpdate(img);
+//				if(result==0) {
+////					result=mapper.imageInsert(img);
+//				}
+//				
+//			}
+//		}
+//		
+//		if(!uploadList.isEmpty()) {
+//			for(int i=0; i<uploadList.size(); i++) {
+////				int index = uploadList.get(i).get
+//			}
+//		}
+//		return 1;
+//				
+//		
+//	}
 
 
 

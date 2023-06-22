@@ -69,24 +69,24 @@ public class ReviewController {
 		return review;
 	}
 	
-	@GetMapping("/review/insert")
-	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
-		System.out.println(review);
-		int i = service.insertReview(review, images);
-		
-		System.out.println(i);
-		
-		return "redirect:/myPage/review/list"; 
-	}
+//	@GetMapping("/review/insert")
+//	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
+//		System.out.println(review);
+//		int i = service.insertReview(review, images);
+//		
+//		System.out.println(i);
+//		
+//		return "redirect:/myPage/review/list"; 
+//	}
+//
+//	@GetMapping("/review/update")
+//	public String update(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
+//		System.out.println(review);
+//		int i = service.updateReview(review, images);
+//		
+//		System.out.println(i);
+//		
+//		return "redirect:/myPage/review/list"; 
 
-	@GetMapping("/review/update")
-	public String update(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
-		System.out.println(review);
-		int i = service.updateReview(review, images);
-		
-		System.out.println(i);
-		
-		return "redirect:/myPage/review/list"; 
-	}
 	
 }
