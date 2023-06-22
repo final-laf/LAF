@@ -208,17 +208,16 @@ main {
   font-weight: bold;
   font-size: 1.3rem;
   letter-spacing: 3px;
-  background-color: #f9f4f5;
   cursor: pointer;
   /* transition-duration: 0.2s; */
   border-radius: 0;
 }
-.weekly-title button:hover {
-  background-color: white;
-  transition-duration: 0.2s;
+.weekly-title button.current {
+  background-color: #f9f4f5;
 }
-button.current {
-  background-color: white;
+.weekly-title button:hover {
+  background-color: white !important;
+  transition-duration: 0.2s;
   border-bottom: 2px solid #f9f4f5 !important;
 }
 #weeklyProductContainer {
