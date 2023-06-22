@@ -19,7 +19,9 @@ public class FilterConfig {
 		FilterRegistrationBean<LoginFilter> resiRegistrationBean = new FilterRegistrationBean<LoginFilter>();
 		resiRegistrationBean.setFilter(new LoginFilter());
 		
-		String[] url = { "/myPage/*", "/admin/*" };
+		// 개발 간 관리자 필터 해제
+//		String[] url = { "/myPage/*", "/admin/*" };
+		String[] url = { "/myPage/*" };
 		resiRegistrationBean.setUrlPatterns(Arrays.asList(url));
 		resiRegistrationBean.setName("loginFilter");
 		resiRegistrationBean.setOrder(1);
