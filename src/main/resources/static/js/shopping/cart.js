@@ -47,10 +47,10 @@ function estimate() {
     }
   }
 
-  const shippingCalc = totalPaymentCalc >= 100000 ? 0 : 3000;
+  const shippingCalc = (totalPaymentCalc >= 100000 || totalPaymentCalc == 0) ? 0 : 3000;
   totalOrigin.innerText = numberWithCommas(totalOriginCalc);
   totalDiscount.innerText = '- ' + numberWithCommas(totalOriginCalc - totalPaymentCalc);
-  shipping.innerText = '+ ' + numberWithCommas(shippingCalc);
+  shipping.innerText = '+ ' + (numberWithCommas(shippingCalc));
   totalPayment.innerText = numberWithCommas(totalPaymentCalc + shippingCalc);
 }
 
@@ -64,11 +64,11 @@ for(let checkbox of checkboxList) {
 // 전체선택 체크박스
 const checkboxSelectAll = document.getElementById('checkboxSelectAll');
 checkboxSelectAll.addEventListener('click', e => {
-  const checkboxList = document.querySelectorAll('[name="checkbox"]');
+  const checkboxList = document.querySelectorAll('[name="checkbox"]:not(:disabled)');
   
   if(e.target.checked == true) {
     for(let ch of checkboxList)
-    ch.checked = true;
+    if(ch.disabled == false ) ch.checked = true;
   } else {
     for(let ch of checkboxList)
     ch.checked = false;
@@ -112,7 +112,7 @@ function getSelectedData() {
 }
 
 // 상품 삭제하기 버튼(개별)
-const deleteBtns = document.querySelectorAll('.cart-item-choose > button');
+const deleteBtns = document.querySelectorAll('.cart-item-choose button');
 for(let btn of deleteBtns) {
   btn.addEventListener('click', e => {
     if(!confirm("해당 상품을 정말로 삭제하시겠습니까?")) return;
@@ -164,18 +164,24 @@ for(let btn of deleteBtns) {
 // 상품 전체 삭제
 const clearCartBtn = document.getElementById('clearCartBtn');
 clearCartBtn.addEventListener('click', () => {
-  if(!confirm("장바구니를 비우시겠습니까?")) return;
-
-  // [회원]
+  
   const data = getAllData();
+  if(data == null || data.length == 0) {
+    alert('장바구니가 비어있습니다.');
+    return;
+  }
+
+  if(!confirm("장바구니를 비우시겠습니까?")) return;
+  
+  // [회원]
   const dataStr = encodeURIComponent(JSON.stringify(data));
   let url = "/cart/delete?data=" + dataStr;
-
+  
   // [비회원]
   if(loginMember == undefined) {
     url = "/cart/delete2All"
   }
-
+  
   fetch(url)
   .then(resp => resp.text())
   .then(result => {
@@ -274,10 +280,10 @@ orderSelectedBtn.addEventListener('click', e => {
   const rowList = document.querySelectorAll('.data-tr');
   let flag = true; // 아무것도 체크 안했을 때 확인
   for(let row of rowList) {
-    const checkbox = row.querySelector('[name="checkbox"]');
-    const productNoInput = row.querySelector('input[name="productNo"]');
-    const optionNoInput = row.querySelector('input[name="optionNo"]');
-    const countInput = row.querySelector('input[name="count"]');
+    const checkbox = row.querySelector('[name="checkbox"]:not(:disabled)');
+    const productNoInput = row.querySelector('input[name="productNo"]:not(:disabled)');
+    const optionNoInput = row.querySelector('input[name="optionNo"]:not(:disabled)');
+    const countInput = row.querySelector('input[name="count"]:not(:disabled)');
 
     if(checkbox.checked == false) {
       productNoInput.disabled = true;
@@ -297,26 +303,49 @@ orderSelectedBtn.addEventListener('click', e => {
 });
 
 // 장바구니 상품 수량 변경
-const countBtns = document.querySelectorAll('.cart-item-count > button');
-for(let btn of countBtns) {
-  btn.addEventListener('click', e => {
-    const countText = e.target.parentElement.querySelector('span');
-    const countInput = e.target.parentElement.parentElement.querySelector('input[name="count"]');
+const countBtns = document.querySelectorAll('.cart-item-count button');
+const upBtns = document.querySelectorAll('.plus-btn');
+const downBtns = document.querySelectorAll('.minus-btn');
+const count = document.querySelectorAll('.cart-item-count span');
+const countInput = document.querySelectorAll('input[name="count"]');
 
-    let count = Number(countInput.value);
-    if(btn.classList.contains('minus-btn')) count--;
-    else count++;
+for(let i=0; i<upBtns.length; i++) {
+  // 수량변경 버튼 초기설정
+  if( count[i].innerText == '1' ) downBtns[i].disabled = true;
+  if( Number(count[i].innerText) >= Number(count[i].getAttribute('max')) ) upBtns[i].disabled = true;
 
-    if(count <= 0) {
-      alert('최소 주문 수량은 1개 입니다.');
-      count = 1;
-    } else if(count >= 100) {
-      alert('최대 주문 수량은 99개 입니다.');
-      count = 99;
+  // [+] 버튼 이벤트 추가
+  upBtns[i].addEventListener('click', e => {
+    downBtns[i].disabled = false;
+    count[i].innerText = countInput[i].value = Number(count[i].innerText) + 1;
+    if(Number(count[i].innerText) >= Number(count[i].getAttribute('max'))) {
+      e.target.disabled = true;
+    } 
+
+    updateCart();
+    estimate();
+  });
+
+  // [-] 버튼 이벤트 추가
+  downBtns[i].addEventListener('click', e => {
+    count[i].innerText = countInput[i].value = Number(count[i].innerText) - 1;
+    if(count[i].innerText == '1') {
+      e.target.disabled = true;
+    } else {
+      
+      // 재고 부족 경고 없애기
+      if(Number(count[i].innerText) == Number(count[i].getAttribute('max'))) {
+        const stockAlert = e.target.parentElement.parentElement.querySelector('.out-of-stock-3');
+        if(stockAlert != null) {
+          stockAlert.remove();
+          count[i].classList.remove('out-of-stock-2');
+        }
+
+      // 재고량 이하로 떨어졌을 때만 [+] 버튼 활성화
+      } else if(Number(count[i].innerText) < Number(count[i].getAttribute('max'))) {
+        upBtns[i].disabled = false;
+      }
     }
-
-    countText.innerText = count;
-    countInput.value = count;
 
     updateCart();
     estimate();
@@ -353,11 +382,11 @@ for(let btn of optionChangeBtns) {
       for (let op of optionList) {
         if(color.indexOf(op.color) == -1) {
           color.push(op.color);
-          stock.push(false);
+          stock.push(op.stock);
           opNo.push(op.optionNo);
         }
-        if(op.stock > 0)
-        stock[color.indexOf(op.color)] = true;
+        // if(op.stock > 0)
+          // stock[color.indexOf(op.color)] = true;
       }
       
       // select option 생성
@@ -375,8 +404,9 @@ for(let btn of optionChangeBtns) {
         option.classList.add('bubble-content');
         option.value = color[i];
         option.innerText = color[i];
-        option.disabled = !stock[i];
+        option.disabled = stock[i] <= 0;
         option.setAttribute('opno', opNo[i]);
+        option.setAttribute('max', stock[i]);
         colorSelector.append(option);
       }
     })
@@ -396,6 +426,7 @@ colorSelector.addEventListener('change', e => {
   const productNo = e.target.getAttribute('productNo');
   const optionNo = e.target.getAttribute('optionNo');
   const color = e.target.value;
+  let max = null;
 
   const optionInput = document.querySelector('input[name="optionNo"][value="' + optionNo + '"]');
   const optionText = optionInput.parentElement.querySelector('.cart-item-selected-option');
@@ -411,7 +442,7 @@ colorSelector.addEventListener('change', e => {
     for (let op of optionList) {
       if(op.color == color && (op.size == null || size.indexOf(op.size) == -1)) {
         if(op.size != null) size.push(op.size);
-        stock.push(op.stock > 0 ? op.stock : 0);
+        stock.push(op.stock);
         opNo.push(op.optionNo);
       }
     }
@@ -421,8 +452,10 @@ colorSelector.addEventListener('change', e => {
       
       let newOpNo = -1;
       for(let o of e.target.children) {
-        if(o.innerText == color)
+        if(o.innerText == color) {
           newOpNo = o.getAttribute('opNo');
+          max = o.getAttribute('max');
+        }
       }
 
       // 장바구니에 있는 상품인지 검사
@@ -436,6 +469,25 @@ colorSelector.addEventListener('change', e => {
         }
       }
 
+      // 옵션 변경에 따른 정보 변경
+      const countInput = optionText.parentElement.parentElement.parentElement.querySelector('input[name="count"]');
+      const countContainer = optionText.parentElement.parentElement.parentElement.querySelector('.cart-item-count');
+      const plusBtn = countContainer.querySelector('.plus-btn');
+      const minusBtn = countContainer.querySelector('.minus-btn');
+      const alertMessage = countContainer.querySelector('.out-of-stock-3');
+      const countText = countContainer.querySelector('.count');
+      
+      // 주문수량 제한을 위한 재고량 저장
+      countText.setAttribute('max', max);
+      
+      // 수량버튼 초기화
+      countText.innerText = '1';
+      countInput.value = 1;
+      minusBtn.disabled = true;
+      plusBtn.disabled = max < 1;
+      if(alertMessage) alertMessage.remove();
+      countText.classList.remove('out-of-stock-2');
+      
       // DB, 쿠키 업데이트
       optionInput.value = newOpNo;
       optionText.innerText = '[옵션 : ' + color + ']';
@@ -460,8 +512,10 @@ colorSelector.addEventListener('change', e => {
       let size = e.target.value;
       let newOpNo = -1;
       for(let o of e.target.children) {
-        if(o.innerText == size)
+        if(o.innerText == size) {
           newOpNo = o.getAttribute('opNo');
+          max = o.getAttribute('max');
+        }
       }
 
       // 장바구니에 있는 상품인지 검사
@@ -475,6 +529,25 @@ colorSelector.addEventListener('change', e => {
           return;
         }
       }
+
+      // 옵션 변경에 따른 정보 변경
+      const countInput = optionText.parentElement.parentElement.parentElement.querySelector('input[name="count"]');
+      const countContainer = optionText.parentElement.parentElement.parentElement.querySelector('.cart-item-count');
+      const plusBtn = countContainer.querySelector('.plus-btn');
+      const minusBtn = countContainer.querySelector('.minus-btn');
+      const alertMessage = countContainer.querySelector('.out-of-stock-3');
+      const countText = countContainer.querySelector('.count');
+      
+      // 주문수량 제한을 위한 재고량 저장
+      countText.setAttribute('max', max);
+      
+      // 수량버튼 초기화
+      countText.innerText = '1';
+      countInput.value = 1;
+      minusBtn.disabled = true;
+      plusBtn.disabled = max < 1;
+      if(alertMessage) alertMessage.remove();
+      countText.classList.remove('out-of-stock-2');
 
       // DB, 쿠키 업데이트
       optionInput.value = newOpNo;
@@ -491,6 +564,7 @@ colorSelector.addEventListener('change', e => {
       option.innerText = size[i];
       option.disabled = !stock[i];
       option.setAttribute('opno', opNo[i]);
+      option.setAttribute('max', stock[i]);
       select.append(option);
     }
 
@@ -510,4 +584,97 @@ modalOverlay.addEventListener("click", e => {
       if(sizeChangeSelector != null)
         sizeChangeSelector.remove();
   }
+});
+
+/* 품절 상품 삭제 */
+const emptyStockRemoveBtn = document.getElementById('emptyStockRemoveBtn');
+emptyStockRemoveBtn.addEventListener('click', () => {
+  
+  let data = [];
+  const rowList = document.querySelectorAll('.data-tr');
+  for(let i=0; i<rowList.length; i++) {
+    if(rowList[i].querySelector('.out-of-stock') != null) {
+      data.push({
+        "productNo": rowList[i].querySelector('input[name="productNo"]').value,
+        "optionNo": rowList[i].querySelector('input[name="optionNo"]').value,
+        "count": rowList[i].querySelector('input[name="count"]').value
+      });
+      flag = true;
+    }
+  }
+  
+  if(data.length == 0) {
+    alert('품절 상품이 없습니다.');
+    return;
+  }
+
+  if(!confirm('품절 상품을 일괄 삭제하시겠습니까?')) return;
+  
+  // 회원인 경우
+  let url = "/cart/delete?data=" + encodeURIComponent(JSON.stringify(data));
+  
+  // 비회원인 경우
+  if(loginMember == undefined) {
+    url = "/cart/delete2?data=";
+    for(let d of data) {
+      url += d.productNo + "-" + d.optionNo + "-" + d.count + "@";
+    }
+  }
+  
+  fetch(url)
+  .then(resp => resp.text())
+  .then(result => {
+    if(result > 0) {
+
+      console.log(url);
+      // 삭제한 행 제거
+      const rowList = document.querySelectorAll('.data-tr');
+      for(let el of rowList) {
+        if(el.querySelector('.out-of-stock') != null) {
+          el.remove();
+        }
+      }
+      estimate();
+
+      // 장바구니에 남은 상품이 하나도 없을 경우 비어있는 행 추가
+      const table = document.querySelector('#cartItemList > table');
+      if(table.querySelector('.data-tr') == null) {
+        const td = document.createElement('td');
+        td.classList.add('cart-item-empty');
+        td.colspan = 7;
+        td.innerText = '장바구니가 비어 있습니다.';
+        const tr = document.createElement('tr');
+        tr.append(td);
+        table.append(tr);
+      }
+
+      // 스크롤 맨 위로 이동
+      window.scrollTo(0, 0);
+      alert('품절 상품을 삭제했습니다.');
+    } else {
+      alert("삭제 실패");
+    }
+  })
+  .catch(err => console.log(err));
+});
+
+/* 품절상품 input 비활성화 */
+const soldOutList = document.querySelectorAll('.out-of-stock');
+for(let el of soldOutList) {
+  const inputs = el.parentElement.parentElement.querySelectorAll("input");
+  for(let i of inputs) i.disabled=true;
+}
+
+// 품절상품 제외하고 주문하기
+const form = document.getElementById('cartFrm');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  const inputs = form.querySelectorAll('input[name="productNo"]:not(:disabled)');
+  if(inputs.length == 0) {
+    alert('주문 가능한 상품이 없습니다.');
+    return;
+  }
+
+  e.target.submit();
 });

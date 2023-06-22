@@ -29,6 +29,7 @@ public interface CartService {
 	 * @return result
 	 */
 	int insertCart(String data, Long memberNo);
+	int insertCart(List<Cart> cartList);
 
 	/**
 	 * [비회원] 장바구니에 상품 추가
@@ -85,7 +86,8 @@ public interface CartService {
 	 * 상품페이지에서 바로 주문 요청
 	 * @param data
 	 * @param memberNo
-	 * @return 
+	 * @return orderProductList
 	 */
 	List<OrderProduct> jsonToOrderProductList(String data, Long memberNo);
+
 }

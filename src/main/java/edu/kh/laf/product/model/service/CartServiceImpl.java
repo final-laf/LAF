@@ -63,6 +63,13 @@ public class CartServiceImpl implements CartService {
 		return mapper.insertCart(cartList);
 	}
 	
+	// [회원] 장바구니에 상품 추가2
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int insertCart(List<Cart> cartList) {
+		return mapper.insertCart(cartList);
+	}
+	
 	// [비회원] 장바구니에 상품 추가
 	@Override
 	public Cookie insertCart2(Cookie[] cookies, String data) {
@@ -257,6 +264,7 @@ public class CartServiceImpl implements CartService {
 			if(memberNo != -1) op.setMemberNo(memberNo);
 			op.setProductNo(Long.parseLong(map.get("productNo")));
 			op.setOptionNo(Long.parseLong(map.get("optionNo")));
+			op.setCount(Integer.parseInt(map.get("count")));
 			orderProductList.add(op);
 		}
 	

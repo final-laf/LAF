@@ -100,4 +100,10 @@ public class OptionServiceImpl implements OptionService {
 		return resultMap;
 	}
 
+	// 옵션 번호로 재고량 조회
+	@Override
+	public int selectStock(long optionNo) {
+		return mapper.selectStock(optionNo);
+	}
+
 }
