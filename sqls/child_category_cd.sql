@@ -14,3 +14,13 @@ references `parent_category_cd` (
 );
 
 -- -------------------------------------------------------------------------------------------------------------------------- --
+-- 데이터 삽입
+insert into child_category_cd values(NULL, '니트', 1);
+insert into child_category_cd values(NULL, '티셔츠', 1);
+insert into child_category_cd values(NULL, '맨투맨/후드', 1);
+insert into child_category_cd values(NULL, '셔츠/블라우스', 1);
+insert into child_category_cd values(NULL, '슬리브리스', 1);
+
+
+
+-- 부모카테고리로 자식카테고리 모두 조회

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,145 +9,101 @@
   <link rel="stylesheet" href="/css/admin/adminProduct/productenroll.css">
   <title>관리자 :: 상품조회</title>
 </head>
+
 <body>
 
   <th:block th:replace="~{/admin/adminHeader}"></th:block>
-  
+
   <main>
     <section class="admin-container">
       <div class="control-classify">
         <a href="/admin/product"><span class="control-classify-select">상품 조회</span></a>
         <a href="/admin/product/enroll"><span>상품 등록</span></a>
       </div>
+
+      <!-- 상품 조회 -->
       <div class="product-select">
-        <div>
-          <span class="product-select-title">상품 조회</span>
-        </div>
+        <span class="product-select-title">상품 조회</span>
         <div class="product-select-box">
-          <table class="product-select-top">
-            <tr>
-              <td>검색어</td>
-              <td>
-                <select>
-                  <option>전체</option>
-                  <option>전체</option>
-                  <option>전체</option>
-                </select>
-                <input type="text">
-              </td>
-            </tr>
-            <tr>
-              <td>카테고리</td>
-              <td>
-                <select>
-                  <option>1차 분류</option>
-                  <option>상의</option>
-                  <option>하의</option>
-                </select>
-                <select>
-                  <option>2차 분류</option>
-                  <option>자켓</option>
-                  <option>티셔츠</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>판매상태</td>
-              <td>
-                <div>
-                  <input type="checkbox">전체
-                  <input type="checkbox">공개
-                  <input type="checkbox">품절
-                  <input type="checkbox">비공개
-                </div>
-              </td>
-            </tr>
-          </table>
-          <div class="product-select-btn">
-            <button type="button">검색</button>
-            <button type="button">초기화</button>
-          </div>
+
+          <form>
+            <table class="product-select-top">
+              <tr>
+                <td>검색어</td>
+                <td>
+                  <select id="queryKey">
+                    <option>전체</option>
+                    <option>상품명</option>
+                    <option>상품번호</option>
+                  </select>
+                  <div id="queryContainer">
+                    <input id="query" name="query" type="text" placeholder="검색어를 입력하세요">
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>카테고리</td>
+                <td>
+                  <select class="select-category" id="parentCategory">
+                    <option>1차 분류</option>
+                    <option>상의</option>
+                    <option>하의</option>
+                  </select>
+                  <select class="select-category" id="childCategory">
+                    <option>2차 분류</option>
+                    <option>자켓</option>
+                    <option>티셔츠</option>
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <td>판매상태</td>
+                <td>
+                  <div>
+                    <label class="sales-state"><input type="checkbox" checked>전체</label>
+                    <label class="sales-state"><input type="checkbox" checked>공개</label>
+                    <label class="sales-state"><input type="checkbox" checked>품절</label>
+                    <label class="sales-state"><input type="checkbox" checked>비공개</label>
+                  </div>
+                </td>
+              </tr>
+
+            </table>
+
+            <div class="product-select-btn">
+              <button type="reset" id="resetBtn">초기화</button>
+              <button type="button" class="submit" id="submitBtn">검색</button>
+            </div>
+          </form>
+
+          <!-- 조회 결과 -->
           <div class="product-select-bottom-title">
             <div>최신순 / 판매량순 (검색결과 2 건)</div>
             <div><button type="button">일괄수정</button></div>
           </div>
           <table class="product-select-bottom">
             <tr>
-              <td></td>
-              <td>상품번호</td>
-              <td>상품명</td>
-              <td>가격</td>
-              <td>할인가</td>
-              <td>판매량</td>
-              <td>재고</td>
-              <td>등록일</td>
-              <td>상태</td>
-              <td>관리</td>
+              <td class="p-checkbox"><input id="checkboxSelectAll" type="checkbox"></td>
+              <td class="p-no">상품번호</td>
+              <td class="p-name">상품명</td>
+              <td class="p-price-origin">가격</td>
+              <td class="p-price-sale">할인가</td>
+              <td class="p-count">판매량</td>
+              <td class="p-stock">재고</td>
+              <td class="p-enroll">등록일</td>
+              <td class="p-state">상태</td>
+              <td class="p-manage">관리</td>
             </tr>
             <tr>
-              <td><input type="checkbox"></td>
+              <td><input name="checkbox" type="checkbox"></td>
               <td>15648</td>
-              <td>
-                <div>
-                  <div><img src="/images/sample/18889.gif"></div>
-                  <div>
-                    <p>노랑나랑 바람막이</p>
-                    <p>L/노랑</p>
-                  </div>
-                </div>
-              </td>
-              <td>36,000원</td>
-              <td>33,000원</td>
-              <td>63</td>
-              <td>8</td>
-              <td>23-06-01</td>
-              <td>
-                <select>
-                  <option>공개</option>
-                  <option>비공개</option>
-                </select>
-              </td>
-              <td>
-                <button type="button" class="modify-product">수정</button>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>15648</td>
-              <td>
-                <div>
-                  <div><img src="/images/sample/18889.gif"></div>
-                  <div>
-                    <p>노랑나랑 바람막이</p>
-                    <p>L/노랑</p>
-                  </div>
-                </div>
-              </td>
-              <td>36,000원</td>
-              <td>33,000원</td>
-              <td>63</td>
-              <td>8</td>
-              <td>23-06-01</td>
-              <td>
-                <select>
-                  <option>공개</option>
-                  <option>비공개</option>
-                </select>
-              </td>
-              <td>
-                <button type="button" class="modify-product">수정</button>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>15648</td>
-              <td>
-                <div>
-                  <div><img src="/images/sample/18889.gif"></div>
-                  <div>
-                    <p>노랑나랑 바람막이 일까요 아닐까요</p>
-                    <p>L/노랑</p>
-                  </div>
+              <td class="p-name">
+                <div class="image-container"><img src="/images/sample/18889.gif"></div>
+                <div class="p-info">
+                  <div>노랑나랑 바람막이람막이람막이람막이람막이 람막이람막이 노랑나랑 바람막이람막이람막이람막이람막이 람막이람막이</div>
+                  <div>옵션 : 1개</div>
                 </div>
               </td>
               <td>36,000원</td>
@@ -168,10 +125,11 @@
         </div>
       </div>
     </section>
-    <th:block th:replace="~{admin/adminProduct/productModal}"></th:block>
   </main>
-
+  
+  <th:block th:replace="~{admin/adminProduct/productModal}"></th:block>
   <th:block th:replace="~{/common/footer}"></th:block>
 
 </body>
+
 </html>
