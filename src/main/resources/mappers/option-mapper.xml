@@ -46,5 +46,12 @@
 		WHERE 	option_no = ${optionNo}
 	</select>
 	
+	<!-- 옵션 번호로 재고량 조회 -->
+	<select id="selectStock" resultType="int">
+		select stock
+		from `option`
+		where option_no = ${optionNo}
+	</select>
+	
 </mapper>
 

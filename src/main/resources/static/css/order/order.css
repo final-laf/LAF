@@ -201,8 +201,8 @@
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div {
   margin-right: 10px;
 }
-#mypageOrderDiscount > tbody> tr:last-child {
-  padding-right: 78px;
+#mypageOrderDiscount > tbody> tr:last-child div{
+  margin-right: 10px;
 }
 #mypageOrderDiscount > tbody> tr:nth-child(3) > th:nth-child(2) >div input {
   width: 550px;
@@ -283,33 +283,65 @@
   padding-left: 30px;
   width: 800px;
 }
-.mypageOrderTerms div{
-  display: flex;
-  align-items: center;
 
-  font-weight: bold;
-  padding:15px 0 15px 10px 
+/* 결제 동의 */
+.mypageOrderTerms{
+  display: flex;
+  flex-direction: column;
 }
-.mypageOrderTerms div>input{
-  margin-right: 5px;
+.mypageOrderTerms *{
+  vertical-align: middle;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.mypageOrderTerms input{
+  margin: 5px;
+}
+.mypageOrderTerms input+div{
+  height: 200px;
+  overflow-y: scroll;
+  border: 0.5px solid #eee;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.mypageOrderTerms pre{
+  font-size: 1.2rem;
+  white-space: pre-wrap;
+  font-weight: normal;
+}
+.mypageOrderTerms div:last-child{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+#agreePay + div {
+  display: block;
+}
+#agreePay:checked + div {
+  display: none;
 }
 
 /* 결제하기 버튼쪽 */
-.mypageOrderTerms div:nth-child(3){
+.submitBtn{
   display: flex;
   font-weight: bold;
   padding:15px 0 15px 10px; 
-  width: 500px;
   margin: 0 auto;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
-.mypageOrderTerms div:nth-child(3) button{
+.submitBtn>button{
   width: 300px;
   height: 50px;
   color: #eee;
   background-color: #7f7698;
+}
+#paymentBtn:hover{
+  background-color: #7f7698;
+  pointer-events: initial;
 }
 
 /* 회원가입 정규식 확인 */

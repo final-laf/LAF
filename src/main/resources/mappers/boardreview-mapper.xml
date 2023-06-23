@@ -77,7 +77,8 @@
 	
 	<!-- 개별 Review 조회 -->
      <select id="detailReview" resultType="Review">
-        SELECT DISTINCT  r.review_no, m.member_id, 
+        SELECT DISTINCT  r.review_no, 
+        				 m.member_id, 
         				 r.review_content, 
         				 DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS review_create_date, 
         				 r.review_score, 
@@ -95,6 +96,13 @@
         WHERE r.review_no = #{reviewNo}
     </select>
     
+    <update id="updateReview">
+		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore} WHERE review_no = #{reviewNo}
+	</update>
+    
+    <update id="updateImage">
+		UPDATE `review_img`	SET review_no=#{reviewNo}, review_path= #{reviewPath} WHERE review_no = #{reviewNo}
+	</update>
     
     
     

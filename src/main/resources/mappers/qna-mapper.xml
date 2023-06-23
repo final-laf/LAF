@@ -53,13 +53,9 @@
 	
 	<!-- qna문의 수정 -->
     <update id="updateQna" parameterType="Qna" >
-        UPDATE `qna` SET (#{qnaNo}, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, #{qnaCreateDate}, #{qnaLockFl}, #{qnaPw}, #{qnaAnswer}, #{qnaDeleteFl}) WHERE pna_no=#{qnaNo}
+        UPDATE `qna` SET order_no=#{orderNo}, product_no=#{productNo}, qna_category=#{qnaCategory}, qna_title=#{qnaTitle}, qna_content=#{qnaContent}, qna_lock_fl=#{qnaLockFl}, qna_pw=#{qnaPw} WHERE qna_no=#{qnaNo}
     </update>
 	
-	<!-- qna문의 수정 -->
-    <update id="answerQna" parameterType="Qna" >
-        UPDATE `qna` SET qna_answer =#{qnaAnswer} WHERE qna_No=#{qnaNo}
-    </update>
 	
 
 </mapper>

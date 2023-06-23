@@ -79,6 +79,7 @@ orderDetailNew.addEventListener('click', () => {
 // 상품 가격 계산
 const table = document.getElementById("mypageOrderProduct");
 let totalAmount = 0; // 총상품금액
+let totalDAmount = 0; // 총상품금액
 let totalDiscount = 0; // 총할인금액
 let totalPoint = 0; // 총적립금
 
@@ -90,26 +91,28 @@ for (let i = 1; i < table.rows.length - 1; i++) {
   let price = parseInt(row.cells[4].innerText.replace(",", ""));
   let rowAmount = quantity * price;
 
-  totalAmount += rowAmount; // 총상품금액
+  totalAmount += rowAmount; // 상품할인전 총금액
 
   if (row.cells[5] != null) {
     let discountAmount = Math.abs(parseInt(row.cells[5].innerText.replace(",", "")));
     totalDiscount += quantity * discountAmount; // 총할인금액
   }
-  totalPoint += point; // 총적립금
+  totalPoint += point; // 총예상적립금
 }
 
+totalDAmount = totalAmount-totalDiscount; // 상품할인 적용 총금액
+
 // 주문상품 총 금액 세팅
-document.getElementById("totalPrice").innerText = totalAmount.toLocaleString() + '원'; // 주문상품정보 총금액
-document.getElementById("totalAmount").innerText = totalAmount.toLocaleString() + '원'; // 결제정보의 주문상품
-document.querySelector("input[name=orderTotalPrice]").value = totalAmount; // 제출용 값 세팅
+document.getElementById("totalAmount").innerText = totalAmount.toLocaleString() + '원'; // 결제정보의 주문상품(상품할인전 총금액)
+document.getElementById("totalPrice").innerText = totalDAmount.toLocaleString() + '원'; // 주문상품정보 총금액
+document.querySelector("input[name=orderTotalPrice]").value = totalDAmount; // 제출용 값 세팅
 
 // 상품 총 할인 금액 세팅
 document.getElementById("totalDiscount").innerText = totalDiscount.toLocaleString() + '원'; // 주문상품정보 총할인금액
 
 // 배송비 세팅
-let delivery = 2500;
-if(totalAmount > 100000){
+let delivery = 3000;
+if(totalDAmount > 100000){
   delivery = 0;
   document.getElementById('deliveryPrice').style.color='#ccc';
   document.getElementById('deliveryPrice').style.textDecoration='line-through';
@@ -237,7 +240,25 @@ if(loginMember != null){ // 로그인한 회원일시
     document.getElementById("payment").innerText = payment.toLocaleString() + '원';
     document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
     document.querySelector("input[name=orderPayment]").value = payment;
+  });
 
+  // 할인 적용 취소
+  const discountClearBtn = document.getElementById('discountClearBtn');
+  discountClearBtn.addEventListener('click', () => {
+    document.querySelector("input[name=pointNoUse]").value = 0;
+    document.getElementById('usePoint').value = '';
+    cn.value = 0;
+    cp.innerText ='0';
+
+    // 할인적용 총 금액 세팅
+    document.getElementById("applyDiscount").innerText = '-' + (totalDiscount).toLocaleString() + '원';
+    document.getElementById("payDiscount").innerText = '-' + (totalDiscount).toLocaleString() + '원'; // 제출용
+
+    // 최종결제금액 세팅
+    const payment = totalAmount + delivery;
+    document.getElementById("payment").innerText = payment.toLocaleString() + '원';
+    document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
+    document.querySelector("input[name=orderPayment]").value = payment;
   });
 
   // 처음 페이지 로딩시--------------------------------------------------------------
@@ -265,7 +286,49 @@ if(loginMember != null){ // 로그인한 회원일시
 
 // -----------------------------------------------------------------------------
 
+// 결제동의
+function agreeCheck(){ // 둘다체크시 모두동의 체크
+  const agreePays = document.querySelectorAll("#agreePay");
+  const agreePayAll = document.getElementById('agreePayAll');
+  let agreeFL = 0;
+  agreePays.forEach( e => {
+    if(e.checked) agreeFL += 1;
+  })
+  if(agreeFL == 2)agreePayAll.checked = true;
+  else agreePayAll.checked = false;
+}
+
+function agreePayAllCheck() { // 모두동의 체크해제시 둘다체크해제
+  const agreePays = document.querySelectorAll("#agreePay");
+  const agreePayAll = document.getElementById('agreePayAll');
+  agreePays.forEach(e => {
+    e.checked = agreePayAll.checked;
+  });
+}
+
+// 변화감지하면 함수호출
+const checkboxes = document.querySelectorAll("#agreePay, #agreePayAll");
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener("change", function() {
+    if (checkbox.id === "agreePayAll")agreePayAllCheck();
+    else agreeCheck();
+  });
+});
+
 // 유효성검사
+const checkObj = {
+  "orderName" : false,
+  "orderEmail" : false,
+  "orderTel" : false,
+  "orderAdd" : false,
+  "refundName" : false,
+  "refundBank" : false,
+  "refundAccount" : false,
+  "recvName" : false,
+  "recvAdd" : false,
+  "recvTel" : false,
+  "paymentName" : false
+};
 
 // 회원 가입 form태그가 제출 되었을 때
 document.getElementById("orderSubmit").addEventListener("submit", e => {

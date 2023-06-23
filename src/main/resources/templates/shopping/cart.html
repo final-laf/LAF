@@ -45,7 +45,8 @@
             <input type="hidden" name="count" th:value="${cartList[productStat.index].count}">
             
             <td class="cart-item-checkbox">
-              <input type="checkbox" name="checkbox" class="checkbox-item">
+              <input th:if="${optionList[productStat.index].stock > 0}" type="checkbox" name="checkbox" class="checkbox-item">
+              <input th:unless="${optionList[productStat.index].stock > 0}" type="checkbox" name="checkbox" class="checkbox-item" disabled>
             </td>
             
             <td class="cart-item-image">
@@ -58,7 +59,8 @@
               <a th:href="@{/product/{productNo}(productNo = ${product.productNo})}" 
                 th:text="${product.productName}">상품명</a>
               <p class="cart-item-product-option">
-                <button class="option-change-btn" type="button">옵션변경</button>
+                <button class="option-change-btn" type="button" th:if="${optionList[productStat.index].stock > 0}">옵션변경</button>
+                <button class="option-change-btn" type="button" th:unless="${optionList[productStat.index].stock > 0}" disabled>옵션변경</button>
 
                 <!-- 사이즈가 있는 상품 -->
                 <span class="cart-item-selected-option" 
@@ -72,10 +74,28 @@
               </p>
             </td>
             
-            <td class="cart-item-count">
-              <button type="button" class="minus-btn">-</button>
-              <span th:text="${cartList[productStat.index].count}">주문수량</span>
-              <button type="button" class="plus-btn">+</button>
+            <!-- 정상 상태 -->
+            <td class="cart-item-count" th:if="${optionList[productStat.index].stock > 0} and ${optionList[productStat.index].stock >= cartList[productStat.index].count}">
+              <!-- <div class="count-btn-container"> -->
+                <button type="button" class="minus-btn">-</button>
+                <span class="count" th:text="${cartList[productStat.index].count}" th:max="${optionList[productStat.index].stock}">주문수량</span>
+                <button type="button" class="plus-btn">+</button>
+              <!-- </div> -->
+            </td>
+
+            <!-- 재고 부족 상태 -->
+            <td class="cart-item-count" th:if="${optionList[productStat.index].stock > 0} and ${optionList[productStat.index].stock lt cartList[productStat.index].count}">
+              <!-- <div class="count-btn-container"> -->
+                <button type="button" class="minus-btn">-</button>
+                <span th:text="${cartList[productStat.index].count}" th:max="${optionList[productStat.index].stock}" class="count out-of-stock-2">주문수량</span>
+                <button type="button" class="plus-btn">+</button>
+              <!-- </div> -->
+              <span class="out-of-stock-3">재고부족</span>
+            </td>
+
+            <!-- 품절 상태 -->
+            <td class="cart-item-count" th:unless="${optionList[productStat.index].stock > 0}">
+              <span class="out-of-stock">품절</span>
             </td>
             
             <td class="cart-item-price-set">
@@ -96,6 +116,7 @@
         </table>
 
         <div class="btn-container">
+          <button type="button" id="emptyStockRemoveBtn"><span>품절</span>상품 일괄삭제</button>
           <button type="button" id="deleteSelectedBtn">선택상품삭제</button>
           <button type="button" id="clearCartBtn">장바구니비우기</button>
         </div>

@@ -22,11 +22,13 @@ alter table `qna` add constraint `fk_member_to_qna` foreign key (`member_no`) re
 
 SELECT * FROM qna;
 
+
 -- insert구문
 -- INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);
 -- INSERT INTO `qna` VALUES (default, 2, null, null, 2, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);
 INSERT INTO qna VALUES (default, 2, 1, 1, '배송', '배송', '배송', default, 'y', null, null, 'n');
 
+UPDATE `qna` SET order_no=null, product_no=NULL , qna_category='일반', qna_title='ㅋㅋ', qna_content='ㄴㄴ', qna_lock_fl='n', qna_pw=123 WHERE qna_no=9999;
 
 -- qna 목록 조회
 SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer, q.qna_lock_fl, qna_create_date qna_order_by FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='n' ORDER BY qna_order_by DESC;

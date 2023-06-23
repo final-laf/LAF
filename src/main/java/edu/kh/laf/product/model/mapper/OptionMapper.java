@@ -39,4 +39,11 @@ public interface OptionMapper {
 	 * @return optionList
 	 */
 	List<Option> selectOptionListBySeveralKeys(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	/**
+	 * 옵션 번호로 재고량 조회
+	 * @param optionNo
+	 * @return stock
+	 */
+	int selectStock(long optionNo);
 }

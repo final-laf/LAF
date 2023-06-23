@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.service.ReviewService;
@@ -66,4 +68,25 @@ public class ReviewController {
 		
 		return review;
 	}
+	
+//	@GetMapping("/review/insert")
+//	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
+//		System.out.println(review);
+//		int i = service.insertReview(review, images);
+//		
+//		System.out.println(i);
+//		
+//		return "redirect:/myPage/review/list"; 
+//	}
+//
+//	@GetMapping("/review/update")
+//	public String update(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
+//		System.out.println(review);
+//		int i = service.updateReview(review, images);
+//		
+//		System.out.println(i);
+//		
+//		return "redirect:/myPage/review/list"; 
+
+	
 }

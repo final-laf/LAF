@@ -80,6 +80,11 @@ public class QnaController {
 		model.addAttribute("qna", qna);
 		return "/boards/qna/qnaAnswer";
 	}
+	// 1:1 문의 글쓰기 컨트롤러
+	@GetMapping("/qna/write")
+	public String write() {
+		return "/boards/qna/qnaWrite";
+	}
 	
 	// 기능: 1:1 문의 글쓰기
 	@PostMapping("/qna/insert")
@@ -138,10 +143,8 @@ public class QnaController {
 		if(qna.getQnaPw()=="") {
 			qna.setQnaPw(null);
 		}
-		if(qna.getQnaLockFl()!=null) {
-			if(qna.getQnaLockFl().equals("on")) {
-				qna.setQnaLockFl("y");
-			}
+		if(qna.getQnaLockFl().equals("on")) {
+			qna.setQnaLockFl("y");
 		}else {
 			qna.setQnaLockFl("n");
 		}
