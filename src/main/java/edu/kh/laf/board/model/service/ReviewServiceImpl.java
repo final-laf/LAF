@@ -1,5 +1,7 @@
 package edu.kh.laf.board.model.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +26,12 @@ import edu.kh.laf.product.model.dto.Product;
 @PropertySource("classpath:/db.properties")
 public class ReviewServiceImpl implements ReviewService{
 
-//	@Value("${my.review.webpath}")
-//	private String webPath;
-//	
-//	@Value("${my.review.location}")
-//	private String filePath;
-//	
+	@Value("${my.review.webpath}")
+	private String webPath;
+	
+	@Value("${my.review.location}")
+	private String filePath;
+	
 	@Autowired
 	private ReviewMapper mapper;
 	
@@ -84,83 +86,98 @@ public class ReviewServiceImpl implements ReviewService{
 	 *
 	 */
 	@Override
-	public Review detailReview(String reviewNo) {
-		return mapper.detailReview(reviewNo);
+	public Review detailReview(String orderNo) {
+		return mapper.detailReview(orderNo);
 	}
 
 	
-//	/** 리뷰 작성하기
-//	 *
-//	 */
-//	@Override
-//	public int insertReview(Review review, List<MultipartFile> images) {
-//		int result = mapper.InsertReview(review);
-//		if(result==0) return 0;
-//		long reviewNo=review.getReviewNo();
-//		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
+	/** 리뷰 작성하기
+	 *
+	 */
+	@Override
+	public int insertReview(Review review, List<MultipartFile> images) {
+		int result = mapper.InsertReview(review);
+		System.out.println("번호 확인");
+		System.out.println(result);
+//		리뷰 번호 조회
+		int i = mapper.setReviewNo(review);
+		System.out.println(i);
+		System.out.println(result);
+		if(result==0) return 0;
+		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
 //		for(int i = 0; i < images.size(); i++) {
 //			if(images.get(i).getSize()>0) {
 //				ReviewImg img = new ReviewImg();
-//				
-//				img.setReviewPath(webPath + "review");
-//				img.setReviewNo(reviewNo);
+//				String fileName = images.get(i).getOriginalFilename();
+//				img.setReviewPath(webPath + fileName);
+//				img.setReviewNo(reviewNo.getReviewNo());
 //				img.setReviewImgNo(i);
 //				uploadList.add(img);
+//				System.out.println("*********"+img);
 //				result = mapper.imageUpdate(img);
 //				if(result==0) {
-////					result=mapper.imageInsert(img);
+//					result=mapper.imageInsert(img);
 //				}
 //				
 //			}
 //		}
-//		
+		
 //		if(!uploadList.isEmpty()) {
 //			for(int i=0; i<uploadList.size(); i++) {
-////				int index = uploadList.get(i).get
-//			}
-//		}
-//		return 1;
-//		
-//		
-//		
-//	}
-//
-//	
-//	
-//	/** 리뷰 수정하기
-//	 *
-//	 */
-//	@Override
-//	public int updateReview(Review review, List<MultipartFile> images) {
-//		int result = mapper.updateReview(review);
-//		if(result==0) return 0;
-//		long reviewNo=review.getReviewNo();
-//		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
-//		for(int i = 0; i < images.size(); i++) {
-//			if(images.get(i).getSize()>0) {
-//				ReviewImg img = new ReviewImg();
-//				
-//				img.setReviewPath(webPath + "review");
-//				img.setReviewNo(reviewNo);
-//				img.setReviewImgNo(i);
-//				uploadList.add(img);
-//				result = mapper.imageUpdate(img);
-//				if(result==0) {
-////					result=mapper.imageInsert(img);
+//				int index = uploadList.get(i).getReviewImgOrder();
+//				try {
+//					images.get(index).transferTo(new File(uploadList.get(i).getReviewPath()));
+//				} catch (IllegalStateException e) {
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					e.printStackTrace();
 //				}
-//				
+//				System.out.println(uploadList);
+//				System.out.println("asd");
 //			}
 //		}
-//		
-//		if(!uploadList.isEmpty()) {
-//			for(int i=0; i<uploadList.size(); i++) {
-////				int index = uploadList.get(i).get
-//			}
-//		}
-//		return 1;
-//				
-//		
-//	}
+		return 1;
+		
+		
+		
+	}
+
+	
+	
+	/** 리뷰 수정하기
+	 *
+	 */
+	@Override
+	public int updateReview(Review review, List<MultipartFile> images) {
+		int result = mapper.updateReview(review);
+		if(result==0) return 0;
+		long reviewNo=review.getReviewNo();
+		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
+		for(int i = 0; i < images.size(); i++) {
+			if(images.get(i).getSize()>0) {
+				ReviewImg img = new ReviewImg();
+				
+				img.setReviewPath(webPath + "review");
+				img.setReviewNo(reviewNo);
+				img.setReviewImgNo(i);
+				uploadList.add(img);
+				result = mapper.imageUpdate(img);
+				if(result==0) {
+					result=mapper.imageInsert(img);
+				}
+				
+			}
+		}
+		
+		if(!uploadList.isEmpty()) {
+			for(int i=0; i<uploadList.size(); i++) {
+//				int index = uploadList.get(i).get
+			}
+		}
+		return 1;
+				
+		
+	}
 
 
 

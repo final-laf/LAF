@@ -1,5 +1,6 @@
-<form action="/review/write" method="get" enctype="multipart/form-data">
-  <input id="reviewModifyModalReviewNo" name="reviewNo" type="hidden" >
+<form action="/review/insert" method="POST" enctype="multipart/form-data">
+  <input id="reviewModifyModalProductNo" name="productNo" type="hidden" >
+  <input id="reviewModifyModalOptionNo" name="optionNo" type="hidden" >
   <input id="reviewModifyModalOrderNo" name="orderNo" type="hidden" >
   <div class="review-modal-overlay" id="review-modal-overlay">
     <div class="review-modal-window">
@@ -18,8 +19,8 @@
               <img src="/images/sample/230605001.jpg">
             </div>
             <div class="review-modal-product-desc">
-              <div id="reviewModifyModalProductName">착용감best✨[98project/2만장돌파] 쿨 스트레이트 트레이닝 팬츠..</div>
-              <div><span class="review-modal-subtitle" id="reviewModifyModalProductSalePrice">28,500</span><span class="review-grey" id="reviewModifyModalProductPrice">55,500</span></div>
+              <div id="reviewModifyModalProductName">상품이름</div>
+              <div><span class="review-modal-subtitle" id="reviewModifyModalProductSalePrice">할인 후 금액</span><span class="review-grey" id="reviewModifyModalProductPrice">할인 전 금액</span></div>
               <div><span>리뷰개수:</span><span id="reviewModifyModalReviewCount"></span>개</div>
             </div>
           </div>
@@ -36,7 +37,7 @@
             </div>
           </div>
           <div class="write-review-modal-contents">
-            <textarea id="reviewModifyModalContent" name="reviewContent">내용</textarea>
+            <textarea id="reviewModifyModalContent" name="reviewContent"></textarea>
           </div>
         </div>
       </div>
@@ -72,7 +73,7 @@
         
       </div>
       <div class="btn-container">
-        <button>수정</button>
+        <button >작성</button>
         <button type="button" class="submit">삭제</button>
       </div>
     </div>

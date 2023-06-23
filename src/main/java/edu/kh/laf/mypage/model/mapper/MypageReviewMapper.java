@@ -39,5 +39,11 @@ public interface MypageReviewMapper {
 	 * @return
 	 */
 	List<Review> myWrittenReview(Long memberNo);
+
+	/** 내가 작성 가능한 리뷰 조회
+	 * @param orderProduct
+	 * @return
+	 */
+	Review detailReview(Review orderProduct);
 	
 }

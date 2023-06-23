@@ -35,41 +35,19 @@
         </div>
         <div class="faq-content">
           <ul>
-            <li>
-              <div th:each="f:${faqList}">
-                <div class="faq-item-title">
-                  <div><img src="/images/common/Q.png"></div>
-                  <div class="faq-classify">배송관련</div>
-                  <div>업데이트 하자마자 구매했는데 바로배송 가능한가요?</div>
-                  <div><img src="/images/common/allowBottom-ccc.svg"></div>
-                </div>
-                <div class="faq-item-content hidden">
-                  <div><img src="/images/common/A.png"></div>
-                  <div>입금 후 공장측 원단문제로 더 이상 제작이 어려운 경우 저희 98도씨에서는 빠른 배송을 위해 품절 상품 취소처리 도와드리고 있는 점 양해부탁드립니다</div>
-                </div>
-              </div>
-            </li>
-            <li>
+            <li th:each="f:${faqList}">
               <div class="faq-item-title">
                 <div><img src="/images/common/Q.png"></div>
-                <div class="faq-classify">기타관련</div>
-                <div>적립금 예치금은 어떻게 쓰나요?</div>
+                <div class="faq-classify" th:if="${f.faqCategory}==2">배송</div>
+                <div class="faq-classify" th:if="${f.faqCategory}==1">상품</div>
+                <div class="faq-classify" th:if="${f.faqCategory}==3">교환/반품</div>
+                <div class="faq-classify" th:if="${f.faqCategory}==4">기타</div>
+                <div th:text="${f.faqTitle}">업데이트 하자마자 구매했는데 바로배송 가능한가요?</div>
                 <div><img src="/images/common/allowBottom-ccc.svg"></div>
               </div>
               <div class="faq-item-content hidden">
                 <div><img src="/images/common/A.png"></div>
-                <div>
-                  ▶ 적립금 <br>
-                  - 상품금액 30,000원 이상 구매 시 사용 가능 <br>
-                  - 적립금 1회 사용 시 2,000원 부터 사용 가능 <br> 
-                  - 적립금 + 쿠폰 동시 사용 불가 <br><br>
-                  
-                  ▶ 예치금 <br>
-                  - 1원부터 사용 가능 <br>
-                  - 적립금+예치금 동시사용 가능 <br>
-                  - 쿠폰 + 예치금 동시 사용 가능 <br>
-                  - 모든 환불 처리는 초기 결제해 주신 수단 또는 예치금 환불 처리만 가능합니다. <br>
-                  (예치금으로 환불 진행 시 환불 철회 불가 한 점 참고 부탁드립니다 )</div>
+                <div th:text="${f.faqContent}">입금 후 공장측 원단문제로 더 이상 제작이 어려운 경우 저희 98도씨에서는 빠른 배송을 위해 품절 상품 취소처리 도와드리고 있는 점 양해부탁드립니다</div>
               </div>
             </li>
           </ul>

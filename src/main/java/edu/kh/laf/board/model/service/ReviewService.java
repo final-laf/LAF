@@ -40,19 +40,19 @@ public interface ReviewService {
 	 */
 	List<Review> reviewProductList(long productNo);
 
-//	/** 리뷰 작성
-//	 * @param review
-//	 * @param images
-//	 * @return
-//	 */
-//	int insertReview(Review review, List<MultipartFile> images);
-//
-//	/** 리뷰 수정하기
-//	 * @param review
-//	 * @param images 
-//	 * @return
-//	 */
-//	int updateReview(Review review, List<MultipartFile> images);
+	/** 리뷰 작성
+	 * @param review
+	 * @param images
+	 * @return
+	 */
+	int insertReview(Review review, List<MultipartFile> images);
+
+	/** 리뷰 수정하기
+	 * @param review
+	 * @param images 
+	 * @return
+	 */
+	int updateReview(Review review, List<MultipartFile> images);
 
 
 }
