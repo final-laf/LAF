@@ -34,8 +34,8 @@ public class MypageOrderController {
 		// 로그인멤버의 주문 조회(최근 3개월 이내의)
 		List<Order> Orders = service.selectMyPageOrderList(loginMember);
 		// 주문 상품목록 조회
-//		List<OrderProduct> OrderProducts = service.selectOrderProducts(Orders);
-//		System.out.println(OrderProducts);
+		List<OrderProduct> OrderProducts = service.selectOrderProducts(Orders);
+		System.out.println(OrderProducts);
 		
 		// 주문 리스트와, 각 주문별 상품목록 리스트를 모델로 전달
 //		model.addAttribute("Orders", Orders);

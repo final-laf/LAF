@@ -104,7 +104,7 @@
 	</select>
 	<!-- 옵션조회 -->
 	<select id="selectOption" resultType="Option">
-		SELECT * FROM option WHERE option_no = #{orderNo} 
+		SELECT * FROM `option` WHERE option_no = #{optionNo} 
 	</select>
 	
 	<!--포인트 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
