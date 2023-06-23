@@ -1,5 +1,6 @@
 package edu.kh.laf.mypage.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,31 +84,41 @@ public class MypageServiceImpl implements MypageService {
 	
 	
 	// 회원 탈퇴
+	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public int deleteMember(Long memberNo) {
 		return mapper.deleteMember(memberNo);
 	}
+	
+	// 배송지 등록
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int insertAddress(Address address) {
+		return mapper.insertAddress(address);
+	}
+
 
 	
 	// ---------------------------- MyPage Order ---------------------------- 
 	
-	
-	// 주문번호로 order_product 테이블에서 해당 상품 조회
+	// 주문 상품 조회
 	@Override
-	public List<OrderProduct> selectMyPageOrderProductList(long orderNo) {
+	public List<OrderProduct> selectOrderProducts(List<Order> orders) {
 		
-		// 조회한 상품번호와 옵션을 Product와 option테이블에서 조회해 값 추가
-		List<OrderProduct> myPageOrderProductList = mapper.selectMyPageOrderProductList(orderNo);
-		for(OrderProduct myPageOrderProduct : myPageOrderProductList) {
-			if(myPageOrderProduct != null) {
-				myPageOrderProduct.setProduct(mapper.selectMyPageProduct(myPageOrderProduct.getProductNo()));
-				myPageOrderProduct.setOption(mapper.selectMyPageProductOption(myPageOrderProduct.getOptionNo()));
+		List<OrderProduct> OrderProducts = new ArrayList<>();
+		
+		for(Order order : orders) {
+			OrderProduct OrderProduct = mapper.selectOrderProduct(order.getOrderNo());
+			if(OrderProduct != null) {
+			OrderProduct.setProduct(mapper.selectProduct(OrderProduct.getProductNo()));
+			OrderProduct.setOption(mapper.selectOption(OrderProduct.getOptionNo()));
+			OrderProducts.add(OrderProduct);
 			}
 		}
 		
-		return myPageOrderProductList;
+		return null;
 	}
-	
+
 	
 	// 회원 포인트 조회(전체, 페이지네이션, 누적액 계산)
 	@Override
@@ -207,6 +218,7 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
 
 
 

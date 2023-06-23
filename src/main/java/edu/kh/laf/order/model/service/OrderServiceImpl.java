@@ -195,8 +195,32 @@ public class OrderServiceImpl implements OrderService{
 		
 		// 회원 적립금, 누적구매액 최신화
 		int umResult = mapper.updateMemberPTP(order);
-		if(umResult > 0) {
-			System.out.println("업데이트성공");
+		if(umResult == 0) { // 실패시 처리
+			return result;
+		}
+		// 회원 등급 최신화(누적구매액 기준)
+		long memberNo = order.getMemberNo(); // 주문한 회원번호
+		// 누적구매액 조회
+		int totalpay = mapper.selectTotalPay(memberNo);
+		
+		// 회원 등급 판단
+		String grade = "";
+		if (totalpay < 100000) {
+		  grade = "B"; // 브론즈
+		} else if (totalpay < 1000000) {
+		  grade = "S"; // 실버
+		} else if (totalpay < 5000000) {
+		  grade = "G"; // 골드
+		} else {
+		  grade = "D"; // 다이아
+		}
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		member.setMemberGrade(grade);
+		// 회원 등급 업데이트
+		int upGrade = mapper.updateGrade(member);
+		if(upGrade == 0) { // 실패시 처리
+			return result;
 		}
 
 		// 날짜 생성
@@ -348,8 +372,6 @@ public class OrderServiceImpl implements OrderService{
        		}
     	}
     
-    	System.out.println(dc);
-    	
     	return dc;
     }
 }

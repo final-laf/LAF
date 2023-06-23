@@ -286,12 +286,219 @@ if(loginMember != null){ // 로그인한 회원일시
 
 // -----------------------------------------------------------------------------
 
+// 결제동의
+function agreeCheck(){ // 둘다체크시 모두동의 체크
+  const agreePays = document.querySelectorAll("#agreePay");
+  const agreePayAll = document.getElementById('agreePayAll');
+  let agreeFL = 0;
+  agreePays.forEach( e => {
+    if(e.checked) agreeFL += 1;
+  })
+  if(agreeFL == 2)agreePayAll.checked = true;
+  else agreePayAll.checked = false;
+}
+
+function agreePayAllCheck() { // 모두동의 체크해제시 둘다체크해제
+  const agreePays = document.querySelectorAll("#agreePay");
+  const agreePayAll = document.getElementById('agreePayAll');
+  agreePays.forEach(e => {
+    e.checked = agreePayAll.checked;
+  });
+}
+
+// 변화감지하면 함수호출
+const checkboxes = document.querySelectorAll("#agreePay, #agreePayAll");
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener("change", function() {
+    if (checkbox.id === "agreePayAll")agreePayAllCheck();
+    else agreeCheck();
+  });
+});
+
 // 유효성검사
+const checkObj = {
+  "orderName" : false,
+  "orderEmail" : false,
+  "orderTel" : false,
+  "memberAddress" : false,
+  "refundName" : false,
+  "refundAccount" : false,
+  "orderRecvName" : false,
+  "receiverAddress" : false,
+  "recvTel" : false,
+  "paymentName" : false,
+  "agreePayAll" : false
+};
+
+// 미리 입력되어 있는 값 확인[이름]
+function namePreCheck(inputName) {
+  const eName = document.getElementById(inputName);
+  if (eName.value.trim().length > 0) {
+    const regEx = /^[a-zA-Z가-힣]{1,20}$/;
+    if (regEx.test(eName.value)) {
+      checkObj[inputName] = true;
+    } else {
+      checkObj[inputName] = false;
+    }
+  }
+}
+
+// 입력시 값 확인[이름]
+function nameCheck(inputName) {
+  const eName = document.getElementById(inputName);
+  eName.addEventListener("input", () => {
+    if (eName.value.trim().length === 0) {
+      eName.value = "";  // 띄어쓰기 못 넣게 하기
+      checkObj[inputName] = false;
+      return;
+    }
+    const regEx = /^[a-zA-Z가-힣]{1,20}$/;
+    if (regEx.test(eName.value)) {
+      checkObj[inputName] = true;
+    } else {
+      checkObj[inputName] = false;
+    }
+  });
+}
+nameCheck("orderName");
+nameCheck("refundName");
+nameCheck("orderRecvName");
+nameCheck("paymentName");
+
+// 이메일 유효성 검사
+const orderEmail = document.getElementById("orderEmail");
+orderEmail.addEventListener("input", () => {
+  // 이메일이 입력되지 않은 경우
+  if(orderEmail.value.trim().length == 0) {
+    orderEmail.value = ""; // 띄어쓰기 못 넣게 하기
+    emailMessage.innerText=""
+    checkObj.orderEmail = false; // 빈칸 == 유효하지 않다
+    return;
+  }
+  const regEx = /^[A-Za-z\d\-\_]{4,}@[가-힣\w\-\_]+(\.\w+){1,3}$/;
+  if (regEx.test(orderEmail.value)) {
+    checkObj.orderEmail = true;
+  } else {
+    checkObj.orderEmail = false;
+  }
+});
+
+// 미리 입력되어 있는 값 확인[전화번호]
+function telPreCheck(inputTel) {
+  const eTel = document.getElementById(inputTel);
+  if (eTel.value.trim().length > 0) {
+    const regEx = /^0(1[01679]|2|[3-6][1-5]|70)[1-9]\d{2,3}\d{4}$/;
+    if (regEx.test(eTel.value)) {
+      checkObj[inputTel] = true;
+    } else {
+      checkObj[inputTel] = false;
+    }
+  }
+}
+
+// 입력시 값 확인[전화번호]
+function telCheck(inputTel) {
+  const eTel = document.getElementById(inputTel);
+  eTel.addEventListener("input", () => {
+    if (eTel.value.trim().length === 0) {
+      eTel.value = "";  // 띄어쓰기 못 넣게 하기
+      checkObj[inputTel] = false;
+      return;
+    }
+    const regEx = /^0(1[01679]|2|[3-6][1-5]|70)[1-9]\d{2,3}\d{4}$/;
+    if (regEx.test(eTel.value)) {
+      checkObj[inputTel] = true;
+    } else {
+      checkObj[inputTel] = false;
+    }
+  });
+}
+telCheck("orderTel");
+telCheck("recvTel");
+
+// 비어 있는지 값 확인[주소]
+function addCheck(inputAdd) {
+  const addList = document.querySelectorAll(`input[name="${inputAdd}"]`);
+  for (let add of addList) {
+    if (add.value.trim().length === 0) {
+      checkObj[inputAdd] = false;
+    } else {
+      checkObj[inputAdd] = true;
+    }
+  }
+}
 
 // 회원 가입 form태그가 제출 되었을 때
 document.getElementById("orderSubmit").addEventListener("submit", e => {
-  e.preventDefault(); 
-
+  // 미리 입력되어 있는 값 확인[이름]함수호출
+  namePreCheck("orderName");
+  namePreCheck("refundName");
+  namePreCheck("orderRecvName");
+  namePreCheck("paymentName");
+  // 미리 입력되어 있는 값 확인[이메일]
+  const orderEmail = document.getElementById("orderEmail");
+  if (orderEmail.value.trim().length > 0) {
+    const regEx = /^[A-Za-z\d\-\_]{4,}@[가-힣\w\-\_]+(\.\w+){1,3}$/;
+    if (regEx.test(orderEmail.value)) {
+      checkObj.orderEmail = true;
+    } else {
+      checkObj.orderEmail = false;
+    }
+  }
+  // 미리 입력되어 있는 값 확인[전화번호]함수호출
+  telPreCheck("orderTel");
+  telPreCheck("recvTel");
+  // 비어 있는지 값 확인[주소]함수호출
+  addCheck("memberAddress");
+  addCheck("receiverAddress");
+  // 계좌번호 체크
+  const refundAccount = document.getElementById("refundAccount");
+  if (refundAccount.value.trim().length > 0) {
+    const regEx = /^[0-9\-]{10,20}$/;
+    if (regEx.test(refundAccount.value)) {
+      checkObj.refundAccount = true;
+    } else {
+      checkObj.refundAccount = false;
+    }
+  }
+  // 결제동의 체크
+  const agreePayAll = document.getElementById('agreePayAll');
+  if(agreePayAll.checked){
+    checkObj.agreePayAll = true;
+  }
+  // 유효성검사
+  for(let key in checkObj){
+    if(!checkObj[key]){ // 각 key에 대한 value(true/false)를 얻어와
+      // false인 경우 == 유효하지 않다!
+      switch(key){
+        case "orderName": 
+        alert("주문자가 유효하지 않습니다"); break;
+        case "refundName": 
+        alert("환불자가 유효하지 않습니다"); break;
+        case "orderRecvName":
+        alert("받는사람이 유효하지 않습니다"); break;
+        case "paymentName":
+        alert("입금자명이 유효하지 않습니다"); break;
+        case "orderEmail":
+        alert("주문자 이메일이 유효하지 않습니다"); break;
+        case "orderTel":
+        alert("주문자 전화번호가 유효하지 않습니다"); break;
+        case "recvTel":
+        alert("받는사람 전화번호가 유효하지 않습니다"); break;
+        case "memberAddress":
+        alert("주문자 상세 주소까지 주소를 다 적어 주시기 바랍니다"); break;
+        case "receiverAddress":
+        alert("받는사람 상세 주소까지 주소를 다 적어 주시기 바랍니다"); break;
+        case "refundAccount":
+        alert("환불계좌번호가 유효하지 않습니다"); break;
+        case "agreePayAll":
+        alert("주문 내용을 확인하였으며 약관에 동의해주세요"); break;
+      }
+      e.preventDefault(); // form 태그 기본 이벤트 제거
+      return; // 함수 종료
+    }
+  }
+      
   // 주문자 주소 세팅
   const memberAddress = document.querySelectorAll("input[name='memberAddress']"); // 배송지주소
   const orderAdd = document.querySelector('[name="orderAdd"]'); // 제출용세팅
@@ -302,6 +509,8 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
   orderRecvAdd.value = deliveryAdd[0].value + "^^^" + deliveryAdd[1].value + "^^^" + deliveryAdd[2].value;
 
   // 상품 품절확인
+  e.preventDefault(); 
+
   let orderState = [];
   let fetchEnds = [];
   for(order of orderList){

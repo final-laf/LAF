@@ -61,11 +61,29 @@ public interface ReviewMapper {
 	 */
 	int updateReview(Review review);
 
+	/** 리뷰 넘버 조회
+	 * @param review
+	 * @return
+	 */
+	Review reviewNo(Review review);
+
+	
+	/** 이미지 추가하기
+	 * @param img
+	 * @return
+	 */
+	int imageInsert(ReviewImg img);
+	
 	/** 이미지 업데이트
 	 * @param img
 	 * @return
 	 */
 	int imageUpdate(ReviewImg img);
+
+	/** 리뷰 넘버 설정
+	 * @param review
+	 */
+	int setReviewNo(Review review);
 
 
 }

@@ -50,6 +50,14 @@ public class MypageReviewServiceImpl implements MypageReviewService {
 		return mapper.myWrittenReview(memberNo);
 	}
 
+	/** 내가 작성 가능한 리뷰 개별 조회
+	 *
+	 */
+	@Override
+	public Review detailReview(Review orderProduct) {
+		return mapper.detailReview(orderProduct);
+	}
+
 
 	
 	

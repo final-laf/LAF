@@ -34,4 +34,10 @@ public interface MypageReviewService {
 	 */
 	List<Review> myWrittenReview(Long memberNo);
 
+	/** 내가 작성 가능한 리뷰 개별 조회
+	 * @param orderProduct
+	 * @return
+	 */
+	Review detailReview(Review orderProduct);
+
 }

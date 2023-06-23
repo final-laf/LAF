@@ -86,7 +86,7 @@
         				 r.product_no, 
         				 r.option_no, 
         				 o.order_uno,
-        				 `count`, 
+        				 op.count count, 
         				 m.member_name,
         				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
         				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
@@ -96,15 +96,29 @@
         WHERE r.review_no = #{reviewNo}
     </select>
     
+    <insert id="InsertReview"  useGeneratedKeys="true" keyProperty="reviewNo" >
+		INSERT INTO `review` VALUES (NULL, #{reviewContent}, DEFAULT, #{reviewScore}, #{orderNo}, #{productNo}, #{optionNo})
+	</insert>
+    
     <update id="updateReview">
-		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore} WHERE review_no = #{reviewNo}
+		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore} 
+		WHERE review_no = #{reviewNo}
 	</update>
     
     <update id="updateImage">
-		UPDATE `review_img`	SET review_no=#{reviewNo}, review_path= #{reviewPath} WHERE review_no = #{reviewNo}
+		UPDATE `review_img`	SET review_no=#{reviewNo}, review_path= #{reviewPath} 
+		WHERE review_no = #{reviewNo}
 	</update>
     
+    <select id="reviewNo">
+		SELECT review_no FROM review 
+		WHERE order_no = #{orderNo} AND product_no =#{productNo} AND option_no =#{optionNo}
+	</select>
     
+    <update id="setReviewNo">
+		UPDATE `order_product` SET review_no=#{reviewNo} 
+		WHERE order_no = #{orderNo} AND product_no =#{productNo} AND option_no =#{optionNo}
+	</update>
     
 
 </mapper>

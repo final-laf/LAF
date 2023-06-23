@@ -74,10 +74,37 @@
 		WHERE member_no = #{memberNo}
 	</update>
 
-
 	<!--주문 상품 조회(마이페이지-주문관리-주문조회)-->
-	<select id="selectMyPageOrderProductList" resultType="OrderProduct">
-		SELECT * from `order_product` where order_no = #{orderNo}
+	<select id="selectOrderProduct" resultType="OrderProduct">
+		SELECT order_no, 
+				(SELECT sum(count) FROM order_product WHERE order_no = 30 GROUP BY order_no) count,
+				product_no,
+				option_no
+		FROM order_product
+		WHERE order_no = #{orderNo} 
+		LIMIT 1
+	</select>
+	<!-- 상품조회 -->
+	<select id="selectProduct" resultType="Product">
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				click_count,
+				img_path AS thumbnail_path,
+				(select count(*) from `like` where  `product`.product_no = `like`.product_no) AS like_count
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		WHERE  `product`.product_no = #{productNo}
+				AND thumb_fl  = 'Y'
+	</select>
+	<!-- 옵션조회 -->
+	<select id="selectOption" resultType="Option">
+		SELECT * FROM `option` WHERE option_no = #{optionNo} 
 	</select>
 	
 	<!--포인트 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
@@ -134,6 +161,22 @@
 		WHERE member_no = #{memberNo}
 		ORDER BY coupon_due_date
 	</select>
+	
+	<!--배송지 등록(마이페이지-정보관리-배송지 관리)-->	
+	<insert id="insertAddress">
+		INSERT INTO `address` 
+		VALUES (null, 
+				#{memberNo}, 
+				#{addressName}, 
+				#{addressReceiver}, 
+				#{address}, 
+				#{addressTel}, 
+				<!--기본배송지 등록-->
+				<!--기본배송지 등록 값이 없으면-->
+				<if test='addressDefaultFL == null'> default) </if>
+				<!--기본배송지 등록 값이 있으면-->
+				<if test='addressDefaultFL != null'> #{addressDefaultFL}) </if>
+	</insert>
 	
 	<!--상품 번호로 상품 조회-->
 	<select id="selectMyPageProduct" resultType="Product">

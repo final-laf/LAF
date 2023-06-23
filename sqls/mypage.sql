@@ -119,11 +119,23 @@ WHERE member_no = 3;
 
 
 
+SELECT *
+FROM `coupon` 
+WHERE member_no = 3
+ORDER BY coupon_due_date;
 
 
-
-
-
+SELECT * FROM `address`;
+/*배송지 추가*/
+INSERT INTO `address` 
+VALUES (null, 
+		2, 
+		"집", 
+		"수신자", 
+		"12041^^^경기도 의왕시 고천공업로 5^^^155-52", 
+		"01043214321", 
+		default);
+	
 
 
 

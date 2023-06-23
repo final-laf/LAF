@@ -218,8 +218,10 @@ WHERE p.member_no = 3 AND point_sort = 'G';
 
 ;
 
+SELECT * FROM `member` WHERE member_no = 3;
 
+UPDATE `member` SET member_grade = 'S' WHERE member_no = 2;
 
-
+COMMIT;
 
 

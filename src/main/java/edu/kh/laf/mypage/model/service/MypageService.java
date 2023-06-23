@@ -26,13 +26,7 @@ public interface MypageService {
 	// ---------------------------- MyPage Order ---------------------------- 
 	
 	
-	
-	/** 주문번호로 order_product 테이블에서 해당 상품 조회
-	 * @param orderNo
-	 * @return myPageOrderProductList
-	 */
-	List<OrderProduct> selectMyPageOrderProductList(long orderNo);
-	
+
 	
 	
 	// -------------------------------------------------------------------------- 
@@ -121,6 +115,21 @@ public interface MypageService {
 	 * @return resultMap
 	 */
 	Map<String, Object> selectCoupon(Map<String, Object> paramMap);
+
+
+
+	/** 배송지 등록
+	 * @param address
+	 * @return result
+	 */
+	int insertAddress(Address address);
+
+	/** 주문 상품 조회
+	 * @param orders
+	 * @return
+	 */
+	List<OrderProduct> selectOrderProducts(List<Order> orders);
+
 
 
 

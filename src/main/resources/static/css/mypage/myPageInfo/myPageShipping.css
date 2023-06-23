@@ -17,90 +17,136 @@
     justify-content: center;
     margin-bottom: 30px;
 }
-.orderShipping-myMain-text div{
-    display: flex;
-    align-items: flex-end;
+
+.orderShipping-MyMain-Shipping {
+    width: 100%;
+    margin-top: 80px;
 }
 
 /* 테이블 구간 */
-.orderShipping-MyMain-Shipping table{
-    margin: 20px 0 0 0;
+.shipping-list-table {
     width: 100%;
-    display: flex;
-}
-
-.orderShipping-MyMain-Shipping th{
-    background-color: #fafafa;
-    border: 1px solid #eee;
-    font-size: 12px;
-}
-
-.orderShipping-MyMain-Shipping tr{
-    border: 1px solid #eee;
-    height: 40px;
-}
-
-.orderShipping-Shipping-list td {
-    font-size: 12px;
     text-align: center;
+    border: 0.5px solid #eee;
+    margin-bottom: 10px;
 }
-.orderShipping-Shipping-list td:nth-child(5) {
-    padding-left: 10px;
+
+.shipping-list-table * {
+    font-size: 1.2rem;
+}
+
+/* 열 설정 */
+.shipping-list-table > tbody > tr {
+    height: 40px;
+    border-bottom: 0.5px solid #eee;
+}
+
+/* 첫번째 열 */
+.shipping-list-table > tbody > tr:first-child {
+    font-weight: bold;
+    background-color: #fafafa;
+}
+
+.shipping-list-table > tbody > tr:first-child > td {
+    border-right: 0.5px solid #eee;
+}
+
+
+/* 각 행별 설정 */
+.shipping-list-table > tbody > tr > th:nth-child(1) {
+    width: 5%;
+}
+
+.shipping-list-table > tbody > tr > td:nth-child(2) {
+    width: 10%;
+}
+
+.shipping-list-table > tbody > tr > td:nth-child(3) {
+    width: 10%;
+}
+
+.shipping-list-table > tbody > tr > td:nth-child(4) {
+    width: 20%;
+}
+
+.shipping-list-table > tbody > tr > td:nth-child(5) {
+    width: 45%;
     text-align: left;
+    padding-left: 10px;
 }
-#orderShippingDefault{
-    border: 1px solid #eee;
-    background-color: #58aeff;
-    color: white;
-    width: 40px;
+
+.shipping-list-table > tbody > tr > td:nth-child(5) > div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.shipping-list-table > tbody > tr > td:nth-child(6) {
+    width: 10%;
+}
+
+/* 배송 주소록 유의사항 */
+.mypageAddShipping-Shipping-notice{
+    margin-bottom: 10px;
+    width: 100%;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
     
+    border: 1px solid #eee;
+    background-color: #fafafa;
 }
 
+.mypageAddShipping-Shipping-notice div{
+    width: 100%;
+    
+    text-align: left;
+    font-size: 1.2rem;
+    line-height: 2.0rem;
+}
 
-.orderShipping-Shipping-search{
+.mypageAddShipping-Shipping-notice div:first-child{
+    width: 100%;
+    margin-bottom: 10px;
+    
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.mypageAddShipping-shipping-confirm div{
+    display: flex;
+    align-items: center;
+}
+
+.mypageAddShipping-shipping-confirm input{width: 10px}
+
+
+/* 버튼 영역 */
+.orderShipping-Shipping-button{
     display: flex;
     justify-content: center;
 }
-.orderShipping-Shipping-search button{
-    background-color: #eee;
-    margin-left: 10px;
-}
-.orderShipping-Shipping-search select{
 
-    background-color: #fafafa;
-    border: 1px solid #eee;
-    text-align: center;
-    width: 100px;
-    margin-right: 10px;
-}
-.orderShipping-Shipping-search input{
-    border: 1px solid #eee;
-    width: 350px;
+.orderShipping-Shipping-button > button{
+    margin: 5px;
 }
 
-.orderShipping-Shipping-button{
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-}
+
 .orderShipping-Shipping-button button:nth-child(2){
-    background-color: #666;
+    background-color: #7F7698;
     color: white;
     display: flex;
     justify-content: space-between;
 }
 
-.orderShipping-Shipping-notice{
-    display: block;
-}
-.orderShipping-Shipping-notice th{
-    padding-left: 10px;
-    text-align: left;
-}
-.orderShipping-Shipping-notice td{
-    width: 970px;
-    padding: 20px;
-}
-.orderShipping-Shipping-notice div{
-    color: #666;
-}
+/* 기본배송지 라벨 */
+.p-category-item {
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    background-color: #eee;
+    margin-right: 10px;
+  }
