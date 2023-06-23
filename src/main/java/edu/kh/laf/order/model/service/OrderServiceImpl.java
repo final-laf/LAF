@@ -195,8 +195,8 @@ public class OrderServiceImpl implements OrderService{
 		
 		// 회원 적립금, 누적구매액 최신화
 		int umResult = mapper.updateMemberPTP(order);
-		if(umResult > 0) {
-			System.out.println("업데이트성공");
+		if(umResult == 0) { // 실패시 처리
+			return result;
 		}
 
 		// 날짜 생성
@@ -348,8 +348,6 @@ public class OrderServiceImpl implements OrderService{
        		}
     	}
     
-    	System.out.println(dc);
-    	
     	return dc;
     }
 }

@@ -39,7 +39,7 @@
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input name="orderTel" type="text" th:value="*{memberPhone}">
+                <input name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
               </td>
             </tr>
             <tr>
@@ -47,21 +47,21 @@
               <td>
                 <!-- 주소 api 이용 (스크립트) -->
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="order_postcode" readonly>
+                  <input type="text" class="mypageSignUp-address-postal" name="memberAddress" placeholder="우편번호" maxlength="6" id="order_postcode" readonly>
                   <button type="button" onclick="sample6_execDaumPostcode('order')">주소검색</button>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="memberAddress" placeholder="  기본 주소" id="order_address" readonly>
+                  <input type="text" name="memberAddress" placeholder="  기본 주소" id="order_address" readonly>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="memberAddress" placeholder="  나머지 주소" id="order_detailAddress">
+                  <input type="text" name="memberAddress" placeholder="  나머지 주소" id="order_detailAddress">
                 </div>
               </td>
             </tr>
             <tr>
               <th rowspan="3">환불정보</th>
               <td>
-                <input name="refundName" type="text" th:value="*{refundName}" placeholder="예금주">
+                <input name="refundName" id="refundName" type="text" th:value="*{refundName}" placeholder="예금주">
               </td>
             </tr>
             <tr>
@@ -75,7 +75,7 @@
             </tr>
             <tr>
               <td>
-                <input name="refundAccount" type="text" th:value="*{refundAccount}" placeholder="계좌번호">
+                <input id="refundAccount" name="refundAccount" type="text" th:value="*{refundAccount}" placeholder="계좌번호">
               </td>
             </tr>
           </table>
@@ -97,28 +97,28 @@
             </tr>
             <tr>
               <th width="100px">받는 사람</th>
-              <td><input type="text" name="orderRecvName"></td>
+              <td><input type="text" name="orderRecvName" id="orderRecvName"></td>
             </tr>
             <tr>
               <th>주소<input type="hidden" name="orderRecvAdd"></th>
               <td>
                 <!-- 주소 api 이용 (스크립트) -->
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required class="mypageSignUp-address-postal" name="receiverAddress" placeholder="우편번호" maxlength="6" id="recv_postcode" readonly>
+                  <input type="text" class="mypageSignUp-address-postal" name="receiverAddress" placeholder="우편번호" maxlength="6" id="recv_postcode" readonly>
                   <button type="button" onclick="sample6_execDaumPostcode('recv')">주소검색</button>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="receiverAddress" placeholder="  기본 주소" id="recv_address" readonly>
+                  <input type="text" name="receiverAddress" placeholder="  기본 주소" id="recv_address" readonly>
                 </div>
                 <div class="mypageSignUp-table-address">
-                  <input type="text" required name="receiverAddress" placeholder="  나머지 주소" id="recv_detailAddress">
+                  <input type="text" name="receiverAddress" placeholder="  나머지 주소" id="recv_detailAddress">
                 </div>  
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input type="text" name="orderRecvPhone">
+                <input id="recvTel" type="text" name="orderRecvPhone">
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
@@ -262,7 +262,7 @@
                 </div>
                 <div>
                   <div>입금자명</div>
-                  <input name="paymentName" type="text" placeholder="입금하시는 분의 성함을 적어주세요">
+                  <input name="paymentName" id="paymentName" type="text" placeholder="입금하시는 분의 성함을 적어주세요">
                 </div>
               </th>
             </tr>
