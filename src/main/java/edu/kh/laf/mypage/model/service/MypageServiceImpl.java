@@ -83,10 +83,19 @@ public class MypageServiceImpl implements MypageService {
 	
 	
 	// 회원 탈퇴
+	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public int deleteMember(Long memberNo) {
 		return mapper.deleteMember(memberNo);
 	}
+	
+	// 배송지 등록
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int insertAddress(Address address) {
+		return mapper.insertAddress(address);
+	}
+
 
 	
 	// ---------------------------- MyPage Order ---------------------------- 
@@ -207,6 +216,7 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
 
 
 

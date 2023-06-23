@@ -135,6 +135,22 @@
 		ORDER BY coupon_due_date
 	</select>
 	
+	<!--배송지 등록(마이페이지-정보관리-배송지 관리)-->	
+	<insert id="insertAddress">
+		INSERT INTO `address` 
+		VALUES (null, 
+				#{memberNo}, 
+				#{addressName}, 
+				#{addressReceiver}, 
+				#{address}, 
+				#{addressTel}, 
+				<!--기본배송지 등록-->
+				<!--기본배송지 등록 값이 없으면-->
+				<if test='addressDefaultFL == null'> default) </if>
+				<!--기본배송지 등록 값이 있으면-->
+				<if test='addressDefaultFL != null'> #{addressDefaultFL}) </if>
+	</insert>
+	
 	<!--상품 번호로 상품 조회-->
 	<select id="selectMyPageProduct" resultType="Product">
 		select * from `product` where product_no = #{productNo}
