@@ -11,6 +11,13 @@ import java.util.Map;
 @Mapper
 public interface ProductMapper {
 
+	/**
+	 * 모든 상품 목록 조회
+	 * @param paramMap
+	 * @return productList
+	 */
+	List<Product> selectProductList(Map<String, Object> map, RowBounds rowBounds);
+
     /**
      * 상품 번호로 상품 정보 조회
      * @param productNo
@@ -105,5 +112,26 @@ public interface ProductMapper {
 	 * @return productList
 	 */
 	List<Product> selectProductBySeveralKeys(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	/**
+	 * 전체 상품 갯수 조회
+	 * @param paramMap
+	 * @return count
+	 */
+	int getProductCount();
+
+	/**
+	 * 상품이 포함된 카테고리 조회
+	 * @param productList
+	 * @return categoryList
+	 */
+	List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList);
+
+	/**
+	 * 상품 상태 변경
+	 * @param map
+	 * @return result
+	 */
+	int updateState(Map<String, Object> map);
 	
 }

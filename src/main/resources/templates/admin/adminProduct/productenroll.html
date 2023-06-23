@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/admin/adminProduct/productEnroll.css">
   <title>관리자 :: 상품등록</title>
+  <style>
+    .sidebar li.sub.product:not(.last) { height: 30px !important; }
+    .sidebar li.sub.product.last { height: 10px !important; }
+  </style>
 </head>
 <body>
 
@@ -13,10 +17,6 @@
   
   <main>
     <section class="admin-container">
-      <div class="control-classify">
-        <a href="/admin/product"><span>상품 조회</span></a>
-        <a href="/admin/product/enroll"><span class="control-classify-select">상품 등록</span></a>
-      </div>
       <div class="product-enroll">
         <div>
           <span class="product-enroll-title">상품 등록</span>
@@ -129,8 +129,6 @@
       </div>
     </section>
   </main>
-
-  <th:block th:replace="~{/common/footer}"></th:block>
 
 </body>
 </html>

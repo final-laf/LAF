@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.dto.Product;
 
 @Mapper
 public interface OptionMapper {
@@ -46,4 +47,11 @@ public interface OptionMapper {
 	 * @return stock
 	 */
 	int selectStock(long optionNo);
+
+	/**
+	 * 상품 번호 여러개로 해당 상품의 재고량 조회
+	 * @param productList
+	 * @return stockList
+	 */
+	List<Map<String, Object>> selectStockListBySeveralKeys(List<Product> productList);
 }

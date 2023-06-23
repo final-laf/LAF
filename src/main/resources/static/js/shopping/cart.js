@@ -61,20 +61,6 @@ for(let checkbox of checkboxList) {
   });
 }
 
-// 전체선택 체크박스
-const checkboxSelectAll = document.getElementById('checkboxSelectAll');
-checkboxSelectAll.addEventListener('click', e => {
-  const checkboxList = document.querySelectorAll('[name="checkbox"]:not(:disabled)');
-  
-  if(e.target.checked == true) {
-    for(let ch of checkboxList)
-    if(ch.disabled == false ) ch.checked = true;
-  } else {
-    for(let ch of checkboxList)
-    ch.checked = false;
-  }
-});
-
 // 장바구니 기본값 : 전체선택
 checkboxSelectAll.click();
 

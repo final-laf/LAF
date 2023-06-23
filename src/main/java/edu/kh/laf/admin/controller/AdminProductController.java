@@ -1,15 +1,86 @@
 package edu.kh.laf.admin.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.dto.Product;
+import edu.kh.laf.product.model.service.OptionService;
+import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
 public class AdminProductController {
 
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private OptionService optionService;
+	
 	// 상품관리 : 상품조회
 	@GetMapping("/admin/product")
-	public String product() {
+	public String product(
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			String ordering, 
+			Model model) {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("ordering", ordering);
+		paramMap.put("cp", cp);
+		
+		Map<String, Object> resultMap = productService.selectProductList(paramMap);
+		List<Product> productList = (List<Product>)resultMap.get("productList");
+		List<Map<String, Object>> categoryList = productService.selectCategoryListByProductNo(productList);
+		List<Map<String, Object>> stockList = optionService.selectStockListBySeveralKeys(productList);
+				
+		model.addAttribute("productList", productList);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("stockList", stockList);
+		
+		model.addAttribute("pagination", resultMap.get("pagination"));
+		model.addAttribute("ordering", ordering);
+		
 		return "/admin/adminProduct/productselect";
+	}
+	
+	// 상품검색
+	@GetMapping("/admin/product/search")
+	public String productSearch(
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			String query, 
+			String ordering, 
+			Model model) {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("query", query);
+		paramMap.put("ordering", ordering);
+		paramMap.put("cp", cp);
+		
+		Map<String, Object> resultMap = productService.selectProductList(paramMap);
+		List<Product> productList = (List<Product>)resultMap.get("productList");	
+		List<Map<String, Object>> categoryList = productService.selectCategoryListByProductNo(productList);
+				
+		model.addAttribute("productList", productList);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("pagination", resultMap.get("pagination"));
+		model.addAttribute("ordering", ordering);
+		model.addAttribute("query", query);
+		
+		return "/admin/adminProduct/productselect";
+	}
+	
+	// 상품 상태 변경
+	@GetMapping("/admin/product/update/state")
+	@ResponseBody
+	public int updateState(long productNo, String state) {
+		return productService.updateState(productNo, state);
 	}
 	
 	// 상품관리 : 상품등록

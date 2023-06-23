@@ -2,6 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.laf.product.model.mapper.ProductMapper">
 
+	<!-- 모든 상품 목록 조회 -->
+	<select id="selectProductList" resultType="Product">
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				product_date as product_date_for_ordering,
+				img_path AS thumbnail_path
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+		ORDER BY 
+			<if test='ordering == null or ordering.isEmpty() or ordering.equals("new")'>
+				product_date_for_ordering desc
+			</if>
+			<if test='ordering != null and ordering.equals("old")'>
+				product_date_for_ordering
+			</if>
+			<if test='ordering != null and ordering.equals("name")'>
+				product_name asc
+			</if>
+			<if test='ordering != null and ordering.equals("sales")'>
+				sales desc
+			</if>
+	</select>
+	
+	<!-- 전체 상품 갯수 조회 -->
+	<select id="getProductCount">
+		select count(*) from `product`;
+	</select>
+
 	<!-- 상품 번호로 상품 정보 조회 -->
 	<select id="selectProduct" resultType="Product">
 		SELECT `product`.product_no,
@@ -274,5 +308,46 @@
 		from 	`child_category_cd`
 		where 	parent_category_no = ${categoryNo}
 	</select>
+	
+	<!-- 상품이 포함된 카테고리 조회 -->
+<!--	<select id="selectCategoryListByProductNo" resultType="map">
+		select 	`product_category`.product_no, 
+				`product_category`.parent_category_no,
+				 parent_category_name, 
+				 IFNULL(`product_category`.child_category_no,'') child_category_no,
+				 IFNULL(child_category_name,'') child_category_name,
+				 parent_category_order
+		from 	`product_category` 
+				JOIN 		`parent_category_cd` ON `product_category`.parent_category_no = `parent_category_cd`.parent_category_no
+				LEFT JOIN 	`child_category_cd` ON `product_category`.child_category_no = `child_category_cd`.child_category_no
+		<where>
+			<foreach collection="list" item="product" separator="or">
+				`product_category`.product_no = ${product.productNo}
+    		</foreach>	
+		</where>
+		order by parent_category_order
+	</select>-->
+	<select id="selectCategoryListByProductNo" resultType="map">
+		select 	`product_category`.product_no, 
+				`product_category`.parent_category_no,
+				 parent_category_name,
+				 parent_category_order
+		from 	`product_category` 
+				JOIN 		`parent_category_cd` ON `product_category`.parent_category_no = `parent_category_cd`.parent_category_no
+		<where>
+			<foreach collection="list" item="product" separator="or">
+				`product_category`.product_no = ${product.productNo}
+    		</foreach>	
+		</where>
+		order by parent_category_order
+	</select>
+	
+	<!-- 상품 상태 변경 -->
+	<update id="updateState">
+		update `product`
+		set		product_state = #{state}
+		where 	product_no = ${productNo}
+	</update>
+	
 </mapper>
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.dto.Product;
 
 public interface OptionService {
 
@@ -54,7 +55,7 @@ public interface OptionService {
 	 * @param paramMap
 	 * @return resultMap
 	 */
-	public Map<String, Object> selectOptionListBySeveralKeys(Map<String, Object> paramMap);
+//	public List<Option> selectOptionListBySeveralKeys(List<Product> productList);
 
 	/**
 	 * 옵션 번호로 재고량 조회
@@ -62,5 +63,12 @@ public interface OptionService {
 	 * @return stock
 	 */
 	int selectStock(long optionNo);
+
+	/**
+	 * 상품 번호 여러개로 해당 상품의 모든 재고 조회
+	 * @param productList
+	 * @return stockList
+	 */
+	List<Map<String, Object>> selectStockListBySeveralKeys(List<Product> productList);
 	
 }
