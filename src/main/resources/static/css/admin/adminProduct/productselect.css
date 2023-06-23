@@ -148,13 +148,13 @@ td {
   text-align: center;
 }
 
-.product-select-bottom td{
+/* .product-select-bottom td{
   padding: 0 5px;
-}
+} */
 
-.product-select-bottom input{
+/* .product-select-bottom input{
   margin-right: 5px;
-}
+} */
 
 .product-select-bottom img{
   height: 60px;
@@ -167,35 +167,102 @@ td {
 }
 
 
+/* 테이블 상단 */
+.result-info {
+  display: flex;
+  align-items: flex-end;
+}
+.result-ordering {
+  display: flex;
 
+}
+.result-ordering-item {
+  font-size: 1.3rem;
+}
+.result-ordering-item i {
+  font-size: 1rem;
+  margin-left: 2px;
+}
+.result-ordering-item:first-child {
+  margin-right: 10px;
+}
+.result-ordering-item.current {
+  font-weight: bold;
+}
+.result-count {
+  margin-left: 3px;
+  font-size: 1.2rem;
+  color: #666;
+}
 
 /* 테이블 전체 비율 설정 */
-.p-checkbox { width: 5%; }
+.p-checkbox { width: 3.5%; }
 .p-no { width: 7%; }
-.p-name { width: 32%; }
-.p-price-origin { width: 10%; }
-.p-price-sale { width: 10%; }
+/* .p-name { width: 32%; } */
+.p-price-origin { width: 8%; }
+.p-price-sale { width: 8%; }
 .p-count { width: 5%; }
 .p-stock { width: 5%; }
 .p-enroll { width: 10%; }
-.p-state { width: 8%; }
-.p-manage { width: 8%; }
+.p-state { width: 10%; }
+.p-manage { width: 5%; }
+
+/* 테이블 헤더 설정 */
+tr:first-child {
+  height: 34px;
+}
 
 /* 테이블 컬럼별 설정 */
 tr:not(:first-child) .p-name {
   display: flex;
   align-items: center;
 }
+.p-checkbox {
+  text-align: right;
+}
+.input-checkbox {
+  /* display: inline-block; */
+  margin: 0;
+  padding: 0;
+  height: auto;
+}
 .p-name .image-container {
   display: flex; 
   align-items: center;
   justify-self: center;
   padding: 3px 0;
-  margin: 0 8px;
+  margin-right: 10px;
 }
 .p-name img {
   display: block;
+  margin-right: 3px;
 }
 .p-info {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.p-info-name {
+  height: 34.55px;
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+}
+.p-category-item {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  background-color: #eee;
+  margin: 3px 0 0 0;
+}
+.p-category-item:hover {
+  background-color: #ccc;
+  transition-duration: 0.2s;
+} 
+
+/* 페이지네이션 overriding */
+.pagination {
+  margin: 10px !important;
 }

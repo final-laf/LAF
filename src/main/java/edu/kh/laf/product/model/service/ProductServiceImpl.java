@@ -19,6 +19,24 @@ public class ProductServiceImpl implements ProductService {
     public ProductServiceImpl(ProductMapper mapper) {
         this.mapper = mapper;
     }
+    
+    // 모든 상품 목록 조회
+	@Override
+	public Map<String, Object> selectProductList(Map<String, Object> paramMap) {
+		
+		int listCount = mapper.getProductCount();
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		List<Product> productList = mapper.selectProductList(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("productList", productList);
+		
+		return resultMap;
+	}
 
     // 상품 번호로 상품 정보 조회
     @Override
@@ -135,6 +153,22 @@ public class ProductServiceImpl implements ProductService {
 		resultMap.put("productList", productList);
 		
 		return resultMap;
+	}
+
+	// 상품이 포함된 카테고리 조회
+	@Override
+	public List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList) {
+		return mapper.selectCategoryListByProductNo(productList);
+	}
+
+	// 상품 정보 변경
+	@Override
+	public int updateState(long productNo, String state) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("productNo", productNo);
+		map.put("state", state);
+		
+		return mapper.updateState(map);
 	}
 
 }

@@ -84,26 +84,32 @@ public class OptionServiceImpl implements OptionService {
 	}
 
 	// 옵션 번호 여러개로 해당 상품의 모든 옵션 조회
-	@Override
-	public Map<String, Object> selectOptionListBySeveralKeys(Map<String, Object> paramMap) {
-		int listCount = ((List<Long>)paramMap.get("likeList")).size();
-		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
-		
-		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-		List<Option> optionList = mapper.selectOptionListBySeveralKeys(paramMap, rowBounds);
-		
-		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("pagination", pagination);
-		resultMap.put("optionList", optionList);
-		
-		return resultMap;
-	}
+//	@Override
+//	public Map<String, Object> selectOptionListBySeveralKeys(List<Product> productList) {
+//		int listCount = ((List<Long>)paramMap.get("likeList")).size();
+//		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
+//		
+//		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+//		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+//		List<Option> optionList = mapper.selectOptionListBySeveralKeys(paramMap, rowBounds);
+//		
+//		Map<String, Object> resultMap = new HashMap<>();
+//		resultMap.put("pagination", pagination);
+//		resultMap.put("optionList", optionList);
+//		
+//		return resultMap;
+//	}
 
 	// 옵션 번호로 재고량 조회
 	@Override
 	public int selectStock(long optionNo) {
 		return mapper.selectStock(optionNo);
+	}
+
+	// 옵션 번호 여러개로 해당 상품의 재고량 조회
+	@Override
+	public List<Map<String, Object>> selectStockListBySeveralKeys(List<Product> productList) {
+		return mapper.selectStockListBySeveralKeys(productList);
 	}
 
 }

@@ -25,10 +25,25 @@
 				location,
 				sell_count
 		FROM   `option`
-		WHERE 	1=1 and
-			<foreach collection="likeList" item="productNo" open="(" close=")" separator="or">
-				option_no = <if test="optionNo == null">-1</if><if test="optionNo != null">${optionNo}</if>
+		<where>
+			<foreach collection="list" item="product" separator="or">
+				product_no = ${product.productNo}
     		</foreach>
+    	</where>
+	</select>
+	
+	<!-- 상품 번호 여러개로 해당 상품의 재고 조회 -->
+	<select id="selectStockListBySeveralKeys" resultType="map">
+		SELECT   product_no, 
+				 sum(stock) as stock, 
+				 sum(sell_count) AS sales
+		from    `option`
+		<where>
+			<foreach collection="list" item="product" separator="or">
+				product_no = ${product.productNo}
+    		</foreach>
+    	</where>
+    	group by product_no
 	</select>
 	
 	<!-- 색상 선택 시 해당 색상 사이즈 목록 조회 -->

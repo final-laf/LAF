@@ -20,14 +20,16 @@ function getCookie(key) {
 // 상위 체크박스 id="checkboxSelectAll"
 // 하위 체크박스 name="checkbox"
 const checkboxSelectAll = document.getElementById('checkboxSelectAll');
-checkboxSelectAll.addEventListener('click', e => {
-  const checkboxList = document.querySelectorAll('[name="checkbox"]:not(:disabled)');
-  
-  if(e.target.checked == true) {
-    for(let ch of checkboxList)
-    if(ch.disabled == false ) ch.checked = true;
-  } else {
-    for(let ch of checkboxList)
-    ch.checked = false;
-  }
-});
+if(checkboxSelectAll != null) {
+  checkboxSelectAll.addEventListener('click', e => {
+    const checkboxList = document.querySelectorAll('[name="checkbox"]:not(:disabled)');
+    
+    if(e.target.checked == true) {
+      for(let ch of checkboxList)
+      if(ch.disabled == false ) ch.checked = true;
+    } else {
+      for(let ch of checkboxList)
+      ch.checked = false;
+    }
+  });
+}

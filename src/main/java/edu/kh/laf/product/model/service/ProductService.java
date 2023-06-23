@@ -7,7 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
-
+	
+	/**
+	 * 모든 상품 목록 조회
+	 * @param map
+     * @return productList
+	 */
+	 Map<String, Object> selectProductList(Map<String, Object> map);
+	
 	/**
      * 상품 번호로 상품 정보 조회
      * @param productNo
@@ -88,5 +95,20 @@ public interface ProductService {
 	 * @return resultMap
 	 */
 	Map<String, Object> selectProductBySeveralKeys(Map<String, Object> paramMap);
+
+	/**
+	 * 상품이 포함된 카테고리 조회
+	 * @param productList
+	 * @return categoryList
+	 */
+	List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList);
+
+	/**
+	 * 상품 상태 변경
+	 * @param productNo
+	 * @param state
+	 * @return result
+	 */
+	int updateState(long productNo, String state);
 
 }
