@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/shopping/categoryList.css">
   <link rel="stylesheet" href="/css/myPage/myPageOrder/myPageCoupon.css">
-  <title>LAF :: 마이페이지</title>
+  <title>LAF :: 적립금 및 쿠폰</title>
 
 </head>
 <body>
@@ -48,7 +48,7 @@
                 <!-- 항목 추가 -->
                 <!-- 사용가능한 쿠폰이 없을 때 -->
                 <tr th:if="${listCount == 0}">
-                  <td colspan="5" class="coupon-is-not-exists">쿠폰 내역이 존재하지 않습니다.</td>
+                  <td colspan="6" class="coupon-is-not-exists">쿠폰 내역이 존재하지 않습니다.</td>
                 </tr>
                 <!-- 사용가능한 쿠폰이 있을 때 -->
                 <tr th:unless="${listCount == 0}" th:each="coupon, index: ${couponList}" class="mypageCoupon-detail-list">

@@ -49,7 +49,8 @@
 
 .mypagePoint-point-detail th{
     background-color: #fafafa;
-    border: 1px solid #eee;
+    border: 0.5px solid #eee;
+    font-size: 1.2rem;
 }
 
 .mypagePoint-point-detail tr{
@@ -64,6 +65,7 @@
 }
 
 /* 적립금 내역 테이블 */
+/* 각 행별 설정 */
 .mypagePoint-detail-list td:nth-child(1) {
     width: 15%;
 }
@@ -87,4 +89,8 @@
 /* 적립금 내역 상부 마진 조정 */
 body > main > section > div > div.mypagePoint-myMain-point > div.mypagePoint-point-statistics {
     margin-bottom: 10px;
+}
+
+.point-is-not-exists {
+    text-align: center;
 }

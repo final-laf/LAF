@@ -1,0 +1,191 @@
+/* 배송지 등록 모달창 */
+/* 모달창 오버레이 */
+.shipping-enroll-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 101;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+  
+  
+  /* 모달창 */
+.shipping-enroll-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 700px;
+  height: 580px;
+
+  padding: 40px;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* 배송 주소록 등록 본문 */
+.mypageAddShipping-mainFrame{
+  display: flex;
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.mypageAddShipping-mainFrame-myMain{
+  height: 482px;
+  width: 1020px;
+  margin: 80px 0 0 30px;
+}
+
+.mypageAddShipping-myMain-text{
+  font-weight: bold;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.mypageAddShipping-myMain-text div{
+  display: flex;
+  align-items: flex-end;
+}
+.mypageAddShipping-myMain-shipping table{
+  border: 0.5px solid #eee;
+  width: 100%;
+}
+.mypageAddShipping-myMain-shipping tr{
+  border: 0.5px solid #eee;
+  height: 40px;
+  width: 970px;
+}
+.mypageAddShipping-myMain-shipping th{
+  padding-left: 20px;
+  text-align: left;
+  background-color: #fafafa;
+  border: 0.5px solid #eee;
+  height: 40px;
+  width: 100px;
+}
+.mypageAddShipping-myMain-shipping input{
+  border: 0.5px solid #eee;
+  height: 30px;
+  margin: 3px;
+}
+
+.addressName {
+  width: 40%;
+}
+
+#addressReceiver {
+  width: 30%;
+}
+
+#sample6_postcode{
+  width: 20%;
+}
+
+#sample6_address {
+  width: 98%;
+}
+
+#sample6_detailAddress {
+  width: 50%;
+}
+
+#addressTel {
+  width: 20%;
+}
+
+/* 기본 배송지로 저장 */
+.mypageAddShipping-shipping-confirm > div:first-child {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 2px;
+}
+
+.mypageAddShipping-shipping-confirm > div:first-child > * {
+  margin-left: 5px;
+}
+
+/* 버튼 영역 */
+.shipping-enroll-modal-btn-area {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.shipping-enroll-modal-btn-area * {
+  color: white;
+  margin: 0 5px;
+  width: 70px;
+}
+
+.shipping-enroll-modal-btn-area>button:nth-child(1){background-color: #7f7698;}
+.shipping-enroll-modal-btn-area>button:nth-child(2){background-color: #ccc;}
+
+
+
+
+
+
+
+  /* 배송지 수정 모달창 */
+/* 모달창 오버레이 */
+.shipping-modify-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 101;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 모달창 */
+.shipping-modify-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 700px;
+  height: 580px;
+
+  padding: 40px;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+}

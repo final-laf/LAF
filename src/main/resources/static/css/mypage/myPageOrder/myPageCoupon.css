@@ -98,12 +98,10 @@
     padding: 0px 30px;
 }
 
-
-
-
-
-
 .pagination {
     margin: 30px 0px !important;
 }
 
+.coupon-is-not-exists {
+    text-align: center;
+}
