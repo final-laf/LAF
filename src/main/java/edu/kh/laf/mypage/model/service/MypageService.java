@@ -117,11 +117,19 @@ public interface MypageService {
 	Map<String, Object> selectCoupon(Map<String, Object> paramMap);
 
 
+
+	/** 배송지 등록
+	 * @param address
+	 * @return result
+	 */
+	int insertAddress(Address address);
+
 	/** 주문 상품 조회
 	 * @param orders
 	 * @return
 	 */
 	List<OrderProduct> selectOrderProducts(List<Order> orders);
+
 
 
 

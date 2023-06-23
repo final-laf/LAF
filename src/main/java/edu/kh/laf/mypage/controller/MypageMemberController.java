@@ -195,7 +195,7 @@ public class MypageMemberController {
 
 	// 배송지 관리
 	@GetMapping("/myPage/shipping")
-	public String ship(@SessionAttribute("loginMember") Member loginMember
+	public String manageAddress(@SessionAttribute("loginMember") Member loginMember
 					, Model model) {
 		// 배송지 목록 조회
 		List<Address> addressList = service.selectAddressList(loginMember.getMemberNo());
@@ -206,9 +206,28 @@ public class MypageMemberController {
 	
 	
 	// 배송지 관리 : 배송지 등록
-	@GetMapping("/myPage/shipping/add")
-	public String shipEnroll() {
-		return "/myPage/myPageInfo/myPageAddShipping";
+	@PostMapping("/myPage/shipping/add")
+	public String addAddress(@SessionAttribute("loginMember") Member loginMember
+							,Address inputaddress
+							,String[] address
+							,Model model
+							,RedirectAttributes ra) {
+		
+		// 배송지 등록
+		// 주소값에 구분자 추가
+		String addr = String.join("^^^", address);
+		// 입력한 배송지값에 구분자를 추가한 주소값과 로그인 멤버의 memberNo 추가
+		inputaddress.setAddress(addr);
+		inputaddress.setMemberNo(loginMember.getMemberNo());
+
+		int result = service.insertAddress(inputaddress);
+		
+		String message;
+		if(result > 0) message = "배송지 등록 완료";
+		else 		   message = "배송지 등록 실패";
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/myPage/shipping";
 	}
 	
 	

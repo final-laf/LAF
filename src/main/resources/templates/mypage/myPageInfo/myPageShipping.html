@@ -28,13 +28,22 @@
             <td>주소</td>
             <td>수정</td>
           </tr>
-          <!-- 항목 추가~ -->
-          <tr th:if="${session.loginMember}" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
+          <!-- 배송지가 없을 경우 -->
+          <tr th:unless="${#lists.size(addressList) != 0}" class="orderShipping-Shipping-list">
+            <td colspan="5"> 저장된 배송지가 존재하지 않습니다.</td>
+          </tr>
+          <!-- 배송지가 있을 경우 -->
+          <tr th:if="${#lists.size(addressList) != 0}" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
             <td><input type="checkbox"></td>
             <td th:text="${address.addressName}">배송지명</td>
             <td th:text="${address.addressReceiver}">수령인</td>
             <td th:text="${address.addressTel}">전화번호</td>
-            <td class="myPage-shipping-address">주소</td>
+            <td>
+              <div>
+                <div class="myPage-shipping-address">주소</div>
+                <div th:if="${address.addressDefaultFL == 'Y'}" class="p-category-item">기본배송지</div>
+              </div>
+            </td>
             <td><button type="button" class="selected-modifying-shipping" th:value="${address}">수정</button></td>
           </tr>
         </table>
@@ -52,8 +61,9 @@
     <th:block th:replace="~{/myPage/myPageInfo/myPageShippingModal}"></th:block>
   </main>
   <th:block th:replace="~{/common/footer}"></th:block>
+
   <script th:inline="javascript">
-  /* 주소값 입력 */
+  /* 주소값 구분자 제거 후 가져오기 */
   const addressList = /*[[${addressList}]]*/ [];
   const inputAddress = document.getElementsByClassName("myPage-shipping-address");
   for(let i = 0; i < addressList.length; i++) {

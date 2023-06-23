@@ -71,6 +71,13 @@
 
 .shipping-list-table > tbody > tr > td:nth-child(5) {
     width: 45%;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.shipping-list-table > tbody > tr > td:nth-child(5) > div{
+    display: flex;
+    justify-content: space-between;
 }
 
 .shipping-list-table > tbody > tr > td:nth-child(6) {
@@ -133,3 +140,13 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* 기본배송지 라벨 */
+.p-category-item {
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    background-color: #eee;
+    margin-right: 10px;
+  }

@@ -92,7 +92,7 @@
   width: 40%;
 }
 
-#addressReceiver {
+.addressReceiver {
   width: 30%;
 }
 
@@ -108,7 +108,7 @@
   width: 50%;
 }
 
-#addressTel {
+.addressTel {
   width: 20%;
 }
 

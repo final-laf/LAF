@@ -172,6 +172,13 @@ public interface MypageMapper {
 	List<Point> selectCouponList(Map<String, Object> paramMap, RowBounds rowBounds);
 
 
+	/** 배송지 등록
+	 * @param address
+	 * @return result
+	 */
+	int insertAddress(Address address);
+
+
 
 
 
