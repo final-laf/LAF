@@ -64,7 +64,7 @@
       </div>
       <section id="orderList">
         <div class="table-title">주문상품정보</div>
-        <table th:unless="${orderMap}">
+        <table>
           <tr>
             <td class="item-order-info">주문정보</td>
             <td class="item-image">이미지</td>
@@ -75,20 +75,6 @@
             <td class="item-choose">선택</td>
           </tr>
           <tr>
-            <td colspan="7" class="item-empty">주문 내역이 없습니다.</td>
-          </tr>
-        </table>
-        <table th:if="${Orders}">
-          <tr>
-            <td class="item-order-info">주문정보</td>
-            <td class="item-image">이미지</td>
-            <td class="item-product header">상품정보</td>
-            <td class="item-count">수량</td>
-            <td class="item-price-set">구매금액</td>
-            <td class="item-order-state header">주문처리상태</td>
-            <td class="item-choose">선택</td>
-          </tr>
-          <tr th:each="order : ${Orders}">
             <th:block>
               <td class="item-order-info">
                 <div class="item-order-date">주문날짜</div>
@@ -147,6 +133,7 @@
           <li><a><img src="/images/common/paging/last-page.svg"></a></li>
         </ul>
       </div>
+      
     </section>
   </main>
 
