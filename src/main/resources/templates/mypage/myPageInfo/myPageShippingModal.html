@@ -21,7 +21,7 @@
           <table>
             <tr>
               <th>배송지명</th>
-              <td><input type="text"></td>
+              <td><input class="addressName"></td>
             </tr>
             <tr>
               <th>성명</th>
@@ -46,9 +46,7 @@
             <tr class="mypageAddShipping-shipping-tel">
               <th>휴대전화</th>
               <td>
-                <input type="text">-
-                <input type="text">-
-                <input type="text">
+                <input required id="addressTel">
               </td>
             </tr>
           </table>
@@ -84,34 +82,32 @@
           <table>
             <tr>
               <th>배송지명</th>
-              <td><input id="addressTitle"></td>
+              <td><input class="addressName" id="addressName"></td>
             </tr>
             <tr>
               <th>성명</th>
-              <td><input id="addressName"></td>
+              <td><input id="addressReceiver"></td>
             </tr>
             <tr>
               <th>주소</th>
               <td>
                 <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
-                <div class="mypageAddShipping-shipping-address">
-                  <input type="text" required class="mypageAddShipping-address-content" name="memberAddress" maxlength="6" id="sample6_postcode" readonly>
+                <div>
+                  <input type="text" required class="modyfy-shipping-address" name="memberAddress" maxlength="6" id="sample6_postcode" readonly>
                   <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
                 </div>
-                <div class="mypageAddShipping-shipping-address">
-                  <input type="text" required name="memberAddress" id="sample6_address" readonly>
+                <div>
+                  <input type="text" required class="modyfy-shipping-address" name="memberAddress" id="sample6_address" readonly>
                 </div>
-                <div class="mypageAddShipping-shipping-address">
-                  <input type="text" required name="memberAddress"  id="sample6_detailAddress">
+                <div>
+                  <input type="text" required class="modyfy-shipping-address" name="memberAddress"  id="sample6_detailAddress">
                 </div>
               </td>
             </tr>
             <tr class="mypageAddShipping-shipping-tel">
               <th>휴대전화</th>
               <td>
-                <input type="text">-
-                <input type="text">-
-                <input type="text">
+                <input required id="addressTel">
               </td>
             </tr>
           </table>

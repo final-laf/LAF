@@ -199,14 +199,10 @@ public class MypageMemberController {
 					, Model model) {
 		// 배송지 목록 조회
 		List<Address> addressList = service.selectAddressList(loginMember.getMemberNo());
-		for(Address add : addressList) {
-			add.setAddress(add.getAddress().replace("^^^", " "));
-		}
 		model.addAttribute("addressList", addressList);
 
 		return "/myPage/myPageInfo/myPageShipping";
 	}
-	
 	
 	
 	// 배송지 관리 : 배송지 등록
@@ -214,6 +210,8 @@ public class MypageMemberController {
 	public String shipEnroll() {
 		return "/myPage/myPageInfo/myPageAddShipping";
 	}
+	
+	
 	
 	
 }

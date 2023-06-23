@@ -119,7 +119,10 @@ WHERE member_no = 3;
 
 
 
-
+SELECT *
+FROM `coupon` 
+WHERE member_no = 3
+ORDER BY coupon_due_date;
 
 
 

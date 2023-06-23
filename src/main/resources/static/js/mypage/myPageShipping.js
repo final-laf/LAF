@@ -36,16 +36,6 @@ enrollShippingModalClose.addEventListener("click", e => {
 
 
 
-
-
-
-
-
-
-
-
-
-
 /* 배송지 수정 모달 */
 const modifyShippingModal = document.getElementById("ShippingModifyModalOverlay")
 const selectedshippings = document.getElementsByClassName("selected-modifying-shipping")
@@ -58,7 +48,7 @@ for(let shipping of selectedshippings) {
 
     const shippingData = e.target.getAttribute("value");
 
-    /* 정규식으로 키=밸류값 한 쌍을 가져옴 */
+    /* 정규식으로 키=값 이렇게 한 쌍이 되는 형식을 검증 */
     const regex = /(\w+)=(.+?)(?=, \w+=|$)/g;
 
     /* 키 값을 저장할 객체 */
@@ -72,16 +62,21 @@ for(let shipping of selectedshippings) {
         shippingValues[shippingKey] = shippingValue; // 객체에 속성과 값을 저장
     }
 
-    // 주소 객체의 속성 값들을 출력
-    console.log(shippingValues.addressNo); // 출력: 1
-    console.log(shippingValues.memberNo); // 출력: 3
-    console.log(shippingValues.addressName); // 출력: 집
-    console.log(shippingValues.addressReceiver); // 출력: 유저이
-    console.log(shippingValues.address); // 출력: 주소
-    console.log(shippingValues.addressTel); // 출력: 전화번호
-
-    document.getElementById("addressName").value = shippingValues.addressReceiver
     
+    // 배송지명, 수신자이름, 전화번호 입력
+    document.getElementById("addressName").value = shippingValues.addressName
+    document.getElementById("addressReceiver").value = shippingValues.addressReceiver
+    document.getElementById("addressTel").value = shippingValues.addressTel
+
+    // 주소 입력
+    const arr = shippingValues.address.split("^^^");
+    console.log(arr);
+    const inputAddress =  document.getElementsByClassName("modyfy-shipping-address");
+    inputAddress[0].value = arr[0];
+    inputAddress[1].value = arr[1];
+    inputAddress[2].value = arr[2];
+
+    // 모달 열기
     modifyShippingModal.style.display = "flex";
     document.body.style.overflowY = "hidden";
   });
