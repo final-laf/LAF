@@ -10,5 +10,5 @@ public class ReviewImg {
 	private long reviewImgNo;
 	private long reviewNo;
 	private String reviewPath;
-	private int reviewOrder;
+	private int reviewImgOrder;
 }

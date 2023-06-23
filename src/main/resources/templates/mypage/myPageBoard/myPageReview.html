@@ -68,7 +68,7 @@
               <div class="item-price" th:text="${r.product.productPrice}">가격</div>
             </td>
             <td class="item-choose">
-              <button type="button" class="myPageReviewBtn" th:value="${r.reviewNo}">리뷰 작성</button>
+              <button type="button" class="myPageReviewBtn" th:orderNo="${r.orderNo}" th:productNo="${r.productNo}" th:optionNo="${r.optionNo}">리뷰 작성</button>
             </td>
           </tr>
         </table>

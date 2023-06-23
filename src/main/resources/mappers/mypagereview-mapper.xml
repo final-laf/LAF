@@ -3,24 +3,19 @@
 <mapper namespace="edu.kh.laf.mypage.model.mapper.MypageReviewMapper">
 
 	
-	<!-- myReviewList -->
+	<!-- 마이페이지 오더 List -->
      <select id="myReview" resultType="Review">
-        SELECT DISTINCT  r.review_no, 
-        m.member_id, 
-        				 r.review_content, 
-        				 r.review_create_date, 
-        				 r.review_score, 
-        				 r.order_no, 
-        				 r.product_no, 
-        				 r.option_no, 
-        				 o.order_uno,
-        				 `count`, 
-        				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
-        				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
-        FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
-        			  LEFT JOIN `member` m ON o.member_no = m.member_no 
-        			  LEFT JOIN order_product op ON o.order_no=op.order_no  
-        WHERE m.member_no=#{memberNo} AND o.review_no IS null
+        SELECT op.order_no,
+			   op.product_no, 
+			   op.option_no, 
+			   (SELECT order_uno FROM `order`o WHERE member_no=#{memberNo} AND op.order_no=o.order_no) order_uno,
+			   op.count, 
+			   TRUNCATE((SELECT AVG(review_score) FROM review r WHERE op.product_no =r.product_no),1) review_score_avg, 
+			   (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
+		FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no 
+		WHERE op.order_no=(SELECT so.order_no FROM `order` so WHERE member_no=#{memberNo} AND op.order_no=so.order_no)
+		AND op.review_no IS NULL 
+		ORDER BY order_date DESC
     </select>
     
 	<!-- myReviewOption -->
@@ -28,7 +23,7 @@
         SELECT * FROM `option` o WHERE option_no=#{optionNo}
     </select>
     
-	<!-- myReviewOption -->
+	<!-- myOrderProduct -->
      <select id="myOrderProduct" resultType="Product">
         SELECT `product`.product_no,
 				product_name,
@@ -45,23 +40,35 @@
     
     <!-- myReviewList -->
      <select id="myWrittenReview" resultType="Review">
-        SELECT DISTINCT  r.review_no, m.member_id, 
-        				 r.review_content, 
-        				 r.review_create_date, 
-        				 r.review_score, 
-        				 r.order_no, 
-        				 r.product_no, 
-        				 r.option_no, 
-        				 o.order_uno,
-        				 `count`, 
-        				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
-        				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
-        FROM `order` o LEFT JOIN review r ON r.order_no =o.order_no 
-        			  LEFT JOIN `member` m ON o.member_no = m.member_no 
-        			  LEFT JOIN order_product op ON o.order_no=op.order_no  
-        WHERE m.member_no=#{memberNo} AND o.review_no IS NOT null
+        SELECT r.review_no, 
+	           m.member_id, 
+			   r.review_content, 
+			   r.review_create_date, 
+			   r.review_score, 
+			   r.order_no, 
+			   r.product_no, 
+			   r.option_no, 
+			   o.order_uno,
+			   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
+			   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
+		FROM review r LEFT JOIN order_product op ON r.review_no = op.review_no 
+					  JOIN `order` o ON r.order_no = o.order_no 
+					  JOIN `member`m ON o.member_no = m.member_no 
+		WHERE o.member_no=#{memberNo}
+		ORDER BY o.order_date DESC
     </select>
     
-
+		<!-- 내가 작성 가능한 리뷰 개별 조회 -->
+     <select id="detailReview" resultType="Review">
+        SELECT op.order_no,
+			   op.product_no, 
+			   op.option_no, 
+			   op.count, 
+			   TRUNCATE((SELECT AVG(review_score) FROM review r WHERE op.product_no =r.product_no),1) review_score_avg, 
+			   (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
+		FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no 
+		WHERE op.order_no = #{orderNo} AND op.product_no =#{productNo} AND op.option_no =#{optionNo}
+    </select>
+    
 </mapper>
 

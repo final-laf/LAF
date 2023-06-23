@@ -1,12 +1,16 @@
 package edu.kh.laf.board.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,12 +50,11 @@ public class ReviewController {
 		return "/boards/review/review";
 	}
 	
-	@GetMapping("/review/detail")
+	@GetMapping("/review/detailReview")
 	@ResponseBody
 	public Review detail(String reviewNo) {
 		Review review = new Review();
 		review = service.detailReview(reviewNo);
-		System.out.println(review);
 		int num = review.getMemberId().length()/2;
 		int uNum = review.getOrderUno().length()/2;
 		
@@ -65,28 +68,32 @@ public class ReviewController {
 		
 		review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
 		review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
+		System.out.println(review);
 		
 		return review;
 	}
 	
-//	@GetMapping("/review/insert")
-//	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
-//		System.out.println(review);
-//		int i = service.insertReview(review, images);
-//		
-//		System.out.println(i);
-//		
-//		return "redirect:/myPage/review/list"; 
-//	}
-//
-//	@GetMapping("/review/update")
-//	public String update(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
-//		System.out.println(review);
-//		int i = service.updateReview(review, images);
-//		
-//		System.out.println(i);
-//		
-//		return "redirect:/myPage/review/list"; 
+	@PostMapping("/review/insert")
+	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images)throws IllegalStateException, IOException {
+		System.out.println("리뷰 추가");
+		System.out.println(review);
+		System.out.println(images);
+		int i = service.insertReview(review, images);
+		
+		System.out.println(i);
+		
+		return "redirect:/myPage/review/list"; 
+	}
 
+	@PostMapping("/review/update")
+	public String update(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images) {
+		System.out.println(review);
+		System.out.println(review);
+		int i = service.updateReview(review, images);
+		
+		System.out.println(i);
+		
+		return "redirect:/myPage/review/list"; 
+	}
 	
 }
