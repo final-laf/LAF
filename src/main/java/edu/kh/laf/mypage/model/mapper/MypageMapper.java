@@ -38,6 +38,16 @@ public interface MypageMapper {
 	 */
 	List<OrderProduct> selectMyPageOrderProductList(long orderNo);
 
+
+	/** 주문 상품 조회
+	 * @param orderNo
+	 * @return
+	 */
+	OrderProduct selectOrderProduct(long orderNo);
+	// 상품조회
+	Product selectProduct(long productNo);
+	// 옵션조회
+	Option selectOption(long optionNo);
 	
 	// -------------------------------------------------------------------------- 
 	
@@ -160,6 +170,13 @@ public interface MypageMapper {
 	 * @return resultMap
 	 */
 	List<Point> selectCouponList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+
+
+
+
+
+
 
 
 

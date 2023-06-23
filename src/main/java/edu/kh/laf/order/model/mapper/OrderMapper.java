@@ -88,4 +88,10 @@ public interface OrderMapper {
 	// 적립/사용된 적립금 조회
 	public String selectPoint(long couponNo);
 
+	// 누적구매액 조회
+	public int selectTotalPay(long memberNo);
+
+	// 회원 등급 업데이트
+	public int updateGrade(Member member);
+
 }

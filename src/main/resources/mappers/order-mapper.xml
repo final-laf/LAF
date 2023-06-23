@@ -23,7 +23,7 @@
 				(select count(*) from `like` where  `product`.product_no = `like`.product_no) AS like_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
-		WHERE  `product`.product_no = #{memberNo}
+		WHERE  `product`.product_no = #{productNo}
 				AND thumb_fl  = 'Y'
 	</select>
    
@@ -115,7 +115,6 @@
 			   #{payment},
 			   #{paymentBank},
 			   #{paymentName},
-			   NULL,
 			   #{orderState},
 			   <if test="couponNo == 0"> NULL</if>
 			   <if test="couponNo != 0">#{couponNo}</if>
@@ -135,7 +134,8 @@
 		VALUES(#{orderNo},
 			   #{productNo},
 			   #{optionNo},
-			   #{count}
+			   #{count},
+			   NUll
 			   )
 	</insert>
 	
@@ -237,5 +237,18 @@
 		FROM `point`
 		WHERE point_no = #{pointNo}
 	</select>
+	
+	<!-- 누적구매액 조회 -->
+	<select id="selectTotalPay" resultType="int">
+		SELECT member_totalpay
+		FROM `member`
+		WHERE member_no = #{memberNo}
+	</select>
+	<!-- 회원 등급 업데이트 -->
+	<update id="updateGrade">
+		UPDATE `member`
+		SET member_grade = #{memberGrade}
+		WHERE member_no = #{memberNo}
+	</update>
 </mapper>
 

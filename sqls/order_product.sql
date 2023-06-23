@@ -36,3 +36,26 @@ references `option` (
 
 -- ---------------------------------------------------------------------------------------
 SELECT * FROM order_product ;
+
+SELECT order_no, 
+		(SELECT sum(count) FROM order_product WHERE order_no = 30 GROUP BY order_no) count,
+		product_no,
+		option_no
+FROM order_product op
+WHERE order_no = 30 LIMIT 1;
+
+
+SELECT product_no FROM order_product WHERE order_no = 30 LIMIT 1;  
+SELECT option_no FROM order_product WHERE order_no = 30 LIMIT 1;
+
+SELECT * FROM product WHERE product_no = (SELECT product_no FROM order_product WHERE order_no = 30 LIMIT 1);
+SELECT * FROM product WHERE product_no = (SELECT option_no FROM order_product WHERE order_no = 30 LIMIT 1);
+
+SELECT * FROM `order`;
+SELECT member_grade FROM `member` WHERE member_no = 3;
+
+COMMIT;
+
+UPDATE `member`
+SET member_grade = 'G'
+WHERE member_no = 3;
