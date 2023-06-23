@@ -99,17 +99,15 @@ public class MypageServiceImpl implements MypageService {
 		List<OrderProduct> OrderProducts = new ArrayList<>();
 		
 		for(Order order : orders) {
-			OrderProduct OrderProduct = new OrderProduct(); 
-			OrderProduct = mapper.selectOrderProduct(order.getOrderNo());
-			
-			System.out.println(OrderProduct.getProductNo());
-//			OrderProduct.setProduct(mapper.selectProduct(OrderProduct.getProductNo()));
-//			OrderProduct.setOption(mapper.selectOption(OrderProduct.getOptionNo()));
-			
-//			OrderProducts.add(OrderProduct);
+			OrderProduct OrderProduct = mapper.selectOrderProduct(order.getOrderNo());
+			if(OrderProduct != null) {
+			OrderProduct.setProduct(mapper.selectProduct(OrderProduct.getProductNo()));
+			OrderProduct.setOption(mapper.selectOption(OrderProduct.getOptionNo()));
+			OrderProducts.add(OrderProduct);
+			}
 		}
 		
-		return OrderProducts;
+		return null;
 	}
 
 	
