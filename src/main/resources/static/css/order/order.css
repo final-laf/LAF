@@ -343,7 +343,3 @@
   background-color: #7f7698;
   pointer-events: initial;
 }
-
-/* 회원가입 정규식 확인 */
-.confirm{color : #666;}
-.error{color : red;}
