@@ -115,10 +115,10 @@ public interface ProductMapper {
 
 	/**
 	 * 전체 상품 갯수 조회
-	 * @param paramMap
+	 * @param paramMap 
 	 * @return count
 	 */
-	int getProductCount();
+	int getProductCount(Map<String, Object> paramMap);
 
 	/**
 	 * 상품이 포함된 카테고리 조회
@@ -133,5 +133,11 @@ public interface ProductMapper {
 	 * @return result
 	 */
 	int updateState(Map<String, Object> map);
+
+	/**
+	 * 모든 카테고리 정보 조회
+	 * @return categoryList
+	 */
+	List<Category> selectAllCategoryList();
 	
 }

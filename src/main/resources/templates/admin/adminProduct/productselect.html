@@ -21,41 +21,47 @@
 
   <main>
     <section class="admin-container">
-
       <!-- 상품 조회 -->
       <div class="product-select" id="top">
         <span class="product-select-title">상품 조회</span>
         <div class="product-select-box">
-
-          <form th:action="@{/admin/product}">
+          <form th:action="@{/admin/product}" id="searchForm">
             <table class="product-select-top">
               <tr>
                 <td>검색어</td>
                 <td>
-                  <select id="queryKey">
-                    <option>전체</option>
-                    <option>상품명</option>
-                    <option>상품번호</option>
+                  <select id="queryKey" name="qk">
+                    <option name="qk" value="">전체</option>
+                    <option name="qk" value="name">상품명</option>
+                    <option name="qk" value="no">상품번호</option>
                   </select>
                   <div id="queryContainer">
-                    <input id="query" name="query" type="text" placeholder="검색어를 입력하세요">
+                    <input id="query" name="query" type="text" placeholder="검색어를 입력하세요" th:value="${query}">
                   </div>
                 </td>
               </tr>
-
               <tr>
                 <td>카테고리</td>
                 <td>
-                  <select class="select-category" id="parentCategory">
-                    <option>1차 분류</option>
-                    <option>상의</option>
-                    <option>하의</option>
+
+                  <select class="select-category" id="parentCategory" name="pc">
+                    <option name="pc" value="">1차 분류</option>
+                    <option name="pc" 
+                      th:each="category : ${categoryList}"
+                      th:if="${category.parentCategoryNo == 0}"
+                      th:value="${category.categoryNo}"
+                      th:text="${category.categoryName}">부모 카테고리 이름</option>
                   </select>
-                  <select class="select-category" id="childCategory">
-                    <option>2차 분류</option>
-                    <option>자켓</option>
-                    <option>티셔츠</option>
+
+                  <select class="select-category" id="childCategory" name="cc" disabled>
+                    <option name="cc" value="">2차 분류</option>
+                    <option name="pc"
+                      th:each="category : ${categoryList}"
+                      th:if="${#maps.containsKey(paramMap, 'pc')} and ${#strings.toString(category.parentCategoryNo) == #strings.toString(paramMap.pc)}"
+                      th:value="${category.categoryNo}"
+                      th:text=" ${category.categoryName}">자식 카테고리 이름</option>
                   </select>
+
                 </td>
               </tr>
 
@@ -63,10 +69,10 @@
                 <td>판매상태</td>
                 <td>
                   <div>
-                    <label class="sales-state"><input type="checkbox" id="checkboxStateSelectAll" name="checkboxState" checked>전체</label>
-                    <label class="sales-state"><input type="checkbox" name="checkboxState" checked>공개</label>
-                    <label class="sales-state"><input type="checkbox" name="checkboxState" checked>품절</label>
-                    <label class="sales-state"><input type="checkbox" name="checkboxState" checked>비공개</label>
+                    <label class="sales-state"><input type="checkbox" name="state" value="" id="checkboxStateSelectAll" checked>전체</label>
+                    <label class="sales-state"><input type="checkbox" name="state" value="O" checked>공개</label>
+                    <label class="sales-state"><input type="checkbox" name="state" value="S" checked>전체품절</label>
+                    <label class="sales-state"><input type="checkbox" name="state" value="N" checked>비공개</label>
                   </div>
                 </td>
               </tr>
@@ -75,7 +81,7 @@
 
             <div class="product-select-btn">
               <button type="reset" id="resetBtn">초기화</button>
-              <button type="button" class="submit" id="submitBtn">검색</button>
+              <button type="submit" class="submit" id="submitBtn">검색</button>
             </div>
           </form>
 
@@ -85,8 +91,21 @@
             <!-- 정렬, 검색결과 갯수 -->
             <div class="result-info">
               <div class="result-ordering">
-                <a th:href="@{/admin/product/search(query=${query}, ordering=new)}"><div class="result-ordering-item current">최신순<i class="fa-solid fa-angle-down"></i></div></a>
-                <a th:href="@{/admin/product/search(query=${query}, ordering=sale)}"><div class="result-ordering-item">판매량순<i class="fa-solid fa-angle-down"></i></div></a>
+                <a th:href="@{/admin/product(ordering=new)}">
+                  <div class="result-ordering-item current" value="new">
+                    최신순<i class="fa-solid fa-angle-down"></i>
+                  </div>
+                </a>
+                <a th:href="@{/admin/product(ordering=sales)}">
+                  <div class="result-ordering-item" value="sales">
+                    판매량순<i class="fa-solid fa-angle-down"></i>
+                  </div>
+                </a>
+                <a th:href="@{/admin/product(ordering=stock)}">
+                  <div class="result-ordering-item" value="stock">
+                    재고량 적은순<i class="fa-solid fa-angle-down"></i>
+                  </div>
+                </a>
               </div>
               <div class="result-count" th:text="|(검색결과 ${pagination.listCount} 건)|"></div>
             </div>
@@ -115,6 +134,10 @@
               <td class="p-manage">관리</td>
             </tr>
 
+            <tr th:if="${#lists.size(productList) == 0}">
+              <td class="no-result" colspan="10">검색 결과가 없습니다.</td>
+            </tr>
+
             <tr th:each="product : ${productList}">
               <td class="p-checkbox"><input class="input-checkbox" name="checkbox" type="checkbox"></td>
               <td class="p-no" th:text="${product.productNo}">상품번호</td>
@@ -123,27 +146,19 @@
                 <div class="p-info">
                   <div class="p-info-name" th:text="${product.productName}">상품명</div>
                   <div class="p-info-category">
-                    <a th:each="category : ${categoryList}" th:if="${category.product_no == product.productNo}" href="#">
+                    <a th:each="category : ${resultCategoryList}" 
+                      th:if="${category.product_no == product.productNo}" 
+                      th:href="@{/admin/product(pc=${category.parent_category_no})}">
                       <span class="p-category-item"
                         th:text="${category.parent_category_name}">카테고리 이름</span>
-                      <!-- <span class="p-category-item"
-                        th:if="${#strings.length(category.child_category_name) == 0}"
-                        th:text="${category.parent_category_name}">카테고리 이름</span>
-                      <span class="p-category-item"
-                        th:if="${#strings.length(category.child_category_name) > 0}"
-                        th:text="|${category.parent_category_name} > ${category.child_category_name}|">카테고리 이름</span> -->
                     </a>
                   </div>
                 </div>
               </td>
               <td th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</td>
               <td th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">할인가</td>
-              <th:block th:each="stock : ${stockList}">
-                <td th:if="${stock.product_no == product.productNo}" 
-                  th:text="${#numbers.formatInteger(stock.sales, 1, 'COMMA')}">판매량</td>
-                <td th:if="${stock.product_no == product.productNo}"
-                  th:text="${#numbers.formatInteger(stock.stock, 1, 'COMMA')}">재고</td>
-              </th:block>
+                <td th:text="${#numbers.formatInteger(product.sales, 1, 'COMMA')}">판매량</td>
+                <td th:text="${#numbers.formatInteger(product.stock, 1, 'COMMA')}">재고</td>
               <td th:text="${product.productDate}">23-06-01</td>
               <td>
                 <select class="product-state" th:value="${product.productState}">
@@ -164,12 +179,12 @@
           <ul class="pagination">
 
             <!-- 첫 페이지로 이동 -->
-            <li><a th:href="@{/admin/product(query=${query}, ordering=${ordering})}">
+            <li><a th:href="@{/admin/product}">
                 <img th:src="@{/images/common/paging/first-page.svg}">
               </a></li>
 
             <!-- 이전 목록 마지막 번호로 이동 -->
-            <li><a th:href="@{/admin/product(query=${query}, cp=${pagination.prevPage}, ordering=${ordering})}">
+            <li><a th:href="@{/admin/product(cp=${pagination.prevPage})}">
                 <img th:src="@{/images/common/paging/prev-page.svg}">
               </a></li>
 
@@ -182,17 +197,17 @@
 
               <!-- 현재 페이지를 제외한 나머지 -->
               <li th:unless="${i == pagination.currentPage}">
-                <a th:href="@{/admin/product(query=${query}, cp=${i}, ordering=${ordering})}" th:text="${i}">다른 페이지</a>
+                <a th:href="@{/admin/product(cp=${i})}" th:text="${i}">다른 페이지</a>
               </li>
             </th:block>
 
             <!-- 다음 목록 시작 번호로 이동 -->
-            <li><a th:href="@{/admin/product(query=${query}, cp=${pagination.nextPage}, ordering=${ordering})}">
+            <li><a th:href="@{/admin/product(cp=${pagination.nextPage})}">
                 <img th:src="@{/images/common/paging/next-page.svg}">
               </a></li>
 
             <!-- 끝 페이지로 이동 -->
-            <li><a th:href="@{/admin/product(query=${query}, cp=${pagination.maxPage}, ordering=${ordering})}">
+            <li><a th:href="@{/admin/product(cp=${pagination.maxPage})}">
                 <img th:src="@{/images/common/paging/last-page.svg}">
               </a></li>
           </ul>
@@ -202,7 +217,7 @@
       </div>
     </section>
   </main>
-  
+
   <th:block th:replace="~{admin/adminProduct/productModal}"></th:block>
 
   <script th:src="@{/js/common/common.js}"></script>  

@@ -24,8 +24,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> selectProductList(Map<String, Object> paramMap) {
 		
-		int listCount = mapper.getProductCount();
-		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
+		int listCount = mapper.getProductCount(paramMap);
+		int cp = (paramMap.get("cp") == null) ? 1 : Integer.parseInt((String)paramMap.get("cp"));
+		Pagination pagination = new Pagination(listCount, cp, 10);
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
@@ -134,6 +135,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Category> selectChildCategoryList(int categoryNo) {
 		return mapper.selectChildCategoryList(categoryNo);
+	}
+	
+	// 모든 카테고리 조회
+	@Override
+	public List<Category> selectAllCategoryList() {
+		return mapper.selectAllCategoryList();
 	}
 
 	// 키 목록으로 상품 조회
