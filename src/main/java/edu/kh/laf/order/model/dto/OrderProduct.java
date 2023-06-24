@@ -12,6 +12,7 @@ public class OrderProduct {
 	private long memberNo; 			 // 회원번호
 	private long optionNo; 			 // 옵션변호
 	private int count; 				 // 수량
+	private String orderProductDeleteFl; // 삭제여부
 	
 	private Product product; 		 // 상품
 	private Option option; 			 // 옵션
