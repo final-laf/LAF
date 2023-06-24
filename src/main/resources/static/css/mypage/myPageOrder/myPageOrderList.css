@@ -197,3 +197,8 @@ td {
 .item-choose > button:first-child {
   margin-bottom: 2px;
 }
+
+#orderUno{
+  font-size: 1rem;
+  letter-spacing: -0.5px;
+}

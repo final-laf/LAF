@@ -31,13 +31,24 @@ public interface MypageMapper {
 	
 	// ---------------------------- MyPage Order ---------------------------- 
 	
+	/** 기간내 주문목록개수
+	 * @param object
+	 * @return
+	 */
+	int getOrderListCount(Map<String, Object> map);
+	
+	/** 기간내 주문목록
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Order> selectSearchOrderList(Map<String, Object> paramMap, RowBounds rowBounds);
 	
 	/** 주문번호로 order_product 테이블에서 해당 상품 조회
 	 * @param orderNo
 	 * @return myPageOrderProductList
 	 */
 	List<OrderProduct> selectMyPageOrderProductList(long orderNo);
-
 
 	/** 주문 상품 조회
 	 * @param orderNo
@@ -177,6 +188,12 @@ public interface MypageMapper {
 	 * @return result
 	 */
 	int insertAddress(Address address);
+
+
+
+
+
+
 
 
 

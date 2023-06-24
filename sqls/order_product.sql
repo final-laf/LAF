@@ -35,14 +35,15 @@ references `option` (
 );
 
 -- ---------------------------------------------------------------------------------------
+ALTER TABLE `order_product` ADD `ORDER_PRODUCT_DELETE_FL`	CHAR(1) NOT NULL	DEFAULT 'N'	COMMENT 'Y(삭제됨), N(삭제안됨)';
 SELECT * FROM order_product ;
 
 SELECT order_no, 
-		(SELECT sum(count) FROM order_product WHERE order_no = 30 GROUP BY order_no) count,
+		(SELECT sum(count) FROM order_product WHERE order_no = 46 GROUP BY order_no) count,
 		product_no,
 		option_no
 FROM order_product op
-WHERE order_no = 30 LIMIT 1;
+WHERE order_no = 46 LIMIT 1;
 
 
 SELECT product_no FROM order_product WHERE order_no = 30 LIMIT 1;  

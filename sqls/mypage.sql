@@ -139,9 +139,13 @@ VALUES (null,
 
 
 
+SELECT *  FROM `order` 
+WHERE member_no = 3 
+and order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW();
 
-
-
+SELECT COUNT(order_no)  FROM `order` 
+WHERE member_no = 3 
+and order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -3 MONTH) AND NOW();
 
 
 
