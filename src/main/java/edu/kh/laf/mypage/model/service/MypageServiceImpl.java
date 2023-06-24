@@ -104,7 +104,7 @@ public class MypageServiceImpl implements MypageService {
 	
 	// 기간별 주문목록 조회
 	@Override
-	public List<Order> selectSearchOrderList(Map<String, Object> paramMap) {
+	public Map<String, Object> selectSearchOrderList(Map<String, Object> paramMap) {
 		
 		int listCount = mapper.getOrderListCount(paramMap); // 기간내 주문목록개수
 		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
@@ -112,8 +112,13 @@ public class MypageServiceImpl implements MypageService {
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		// 기간내 주문목록
-		List<Order> Orders = mapper.selectSearchOrderList(paramMap, rowBounds);
-		return Orders;
+		List<Order> orders = mapper.selectSearchOrderList(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("orders", orders);
+		
+		return resultMap;
 	}
 	
 	// 주문 상품 조회

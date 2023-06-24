@@ -77,8 +77,8 @@
           </tr>
           <tr th:each="orderMap : ${orderMaps}" th:object="${orderMap}">
             <td class="item-order-info">
-              <div class="item-order-date" th:text="*{order.orderDate}">주문날짜</div>
-              <div class="item-order-no"><a th:href="*{order.orderNo}"><span th:text="*{order.orderUno}">주문번호</span></a></div>
+              <div class="item-order-date" th:text="*{#strings.substring(order.orderDate,0,10)}">주문날짜</div>
+              <div class="item-order-no"><a th:href="'/order/'+*{order.orderNo}"><p id="orderUno" th:text="'[ ' + *{order.orderUno}+' ]'">주문번호</p></a></div>
             </td>
             <td class="item-image">
               <a th:href="'/product/' + *{orderProduct.product.productNo}">
@@ -90,7 +90,7 @@
                 <span th:text="*{orderProduct.product.productName}">제품명</span>
               </a>
               <p class="item-product-option">
-                [옵션 : <span class="item-selected-option" th:text="*{orderProduct.option.size}?*{orderProduct.option.color} +'/'+*{orderProduct.option.size} : *{orderProduct.option.color}">블랙/L</span>]
+                [ 옵션 : <span class="item-selected-option" th:text="*{orderProduct.option.size}?' '+*{orderProduct.option.color} +' '+*{orderProduct.option.size+' '} : *{orderProduct.option.color}+' '">블랙/L</span>]
               </p>
             </td>
             <td class="item-count" th:text="*{orderProduct.count}">1</td>
@@ -110,26 +110,41 @@
       <!-- 페이징 -->
       <div class="pagination-area">
 
+        <!-- 검색결과 -->
         <ul class="pagination">
-        
+
           <!-- 첫 페이지로 이동 -->
-          <li><a><img src="/images/common/paging/first-page.svg"></a></li>
+          <li><a th:href="@{/myPage/order(cp=1, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/first-page.svg}">
+            </a></li>
 
           <!-- 이전 목록 마지막 번호로 이동 -->
-          <li><a><img src="/images/common/paging/prev-page.svg"></a></li>
+          <li><a th:href="@{/myPage/order(cp=${pagination.prevPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/prev-page.svg}">
+            </a></li>
 
-          <li><a class="current">1</a></li>
-          <li><a>2</a></li>
-          <li><a>3</a></li>
-          <li><a>4</a></li>
-          <li><a>5</a></li>
-          <li><a>6</a></li>
+          <!-- 특정 페이지로 이동 -->
+          <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+            <!-- 현재 보고있는 페이지 -->
+            <li th:if="${i == pagination.currentPage}">
+              <a class="current" th:text="${i}">현재 페이지</a>
+            </li>
+
+            <!-- 현재 페이지를 제외한 나머지 -->
+            <li th:unless="${i == pagination.currentPage}">
+              <a th:href="@{/myPage/order(cp=${i}, query=${query}, ordering=${ordering})}" th:text="${i}"></a>
+            </li>
+          </th:block>
 
           <!-- 다음 목록 시작 번호로 이동 -->
-          <li><a><img src="/images/common/paging/next-page.svg"></a></li>
-          
+          <li><a th:href="@{/myPage/order(cp=${pagination.nextPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/next-page.svg}">
+            </a></li>
+
           <!-- 끝 페이지로 이동 -->
-          <li><a><img src="/images/common/paging/last-page.svg"></a></li>
+          <li><a th:href="@{/myPage/order(cp=${pagination.maxPage}, query=${query}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/last-page.svg}">
+            </a></li>
         </ul>
       </div>
       

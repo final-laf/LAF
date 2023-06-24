@@ -38,11 +38,13 @@ public class MypageOrderController {
 		paramMap.put("cp", cp);
 		
 		// 로그인멤버의 주문 조회(최근 3개월 이내의) 페이지네이션 적용된 리스트 조회
-		List<Order> Orders = service.selectSearchOrderList(paramMap);
+		Map<String, Object> resultMap = service.selectSearchOrderList(paramMap);
+		List<Order> orders = (List<Order>) resultMap.get("orders");
 		// 주문 상품목록 조회 위에서 조회된거 기준으로 다시 조회(주문 리스트와, 각 주문별 상품목록 리스트)
-		List<Map<String, Object>> orderMaps = service.selectOrderProducts(Orders);
+		List<Map<String, Object>> orderMaps = service.selectOrderProducts(orders);
 		
 		model.addAttribute("orderMaps", orderMaps);
+		model.addAttribute("pagination", resultMap.get("pagination"));
 		
 		return "/myPage/myPageOrder/myPageOrderList";
 	}

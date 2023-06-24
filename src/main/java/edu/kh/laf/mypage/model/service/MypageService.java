@@ -131,7 +131,7 @@ public interface MypageService {
 	 * @param cp
 	 * @return
 	 */
-	List<Order> selectSearchOrderList(Map<String, Object> paramMap);
+	Map<String, Object> selectSearchOrderList(Map<String, Object> paramMap);
 
 	/** 주문 상품 조회
 	 * @param orders
