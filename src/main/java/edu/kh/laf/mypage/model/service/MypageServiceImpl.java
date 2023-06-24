@@ -19,6 +19,7 @@ import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
+import edu.kh.laf.product.model.dto.Product;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -33,7 +34,7 @@ public class MypageServiceImpl implements MypageService {
 	// ---------------------------- MyPage Dashboard ---------------------------- 
 	
 	
-	// 로그인 멤버의 주문 조회
+	// 로그인 멤버의 3개월 주문 조회
 	@Override
 	public List<Order> selectMyPageOrderList(Member loginMember) {
 		return mapper.selectMyPageOrderList(loginMember);
@@ -101,22 +102,41 @@ public class MypageServiceImpl implements MypageService {
 	
 	// ---------------------------- MyPage Order ---------------------------- 
 	
+	// 기간별 주문목록 조회
+	@Override
+	public List<Order> selectSearchOrderList(Map<String, Object> paramMap) {
+		
+		int listCount = mapper.getOrderListCount(paramMap); // 기간내 주문목록개수
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		// 기간내 주문목록
+		List<Order> Orders = mapper.selectSearchOrderList(paramMap, rowBounds);
+		return Orders;
+	}
+	
 	// 주문 상품 조회
 	@Override
-	public List<OrderProduct> selectOrderProducts(List<Order> orders) {
+	public List<Map<String, Object>> selectOrderProducts(List<Order> orders) {
 		
-		List<OrderProduct> OrderProducts = new ArrayList<>();
+		List<Map<String, Object>> orderMaps = new ArrayList<>();
 		
 		for(Order order : orders) {
-			OrderProduct OrderProduct = mapper.selectOrderProduct(order.getOrderNo());
-			if(OrderProduct != null) {
-			OrderProduct.setProduct(mapper.selectProduct(OrderProduct.getProductNo()));
-			OrderProduct.setOption(mapper.selectOption(OrderProduct.getOptionNo()));
-			OrderProducts.add(OrderProduct);
+			OrderProduct orderProduct = mapper.selectOrderProduct(order.getOrderNo());
+			if(orderProduct != null) {
+				Map<String, Object> orderMap = new HashMap<>();
+				
+				orderProduct.setProduct(mapper.selectProduct(orderProduct.getProductNo()));
+				orderProduct.setOption(mapper.selectOption(orderProduct.getOptionNo()));
+				
+				orderMap.put("orderProduct", orderProduct);
+				orderMap.put("order", order);
+				orderMaps.add(orderMap);
 			}
 		}
 		
-		return null;
+		return orderMaps;
 	}
 
 	

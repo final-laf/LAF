@@ -21,6 +21,7 @@
       <!-- 섹션 헤더(제목, 설명) -->
       <div class="section-header">
         <div class="section-title">주문조회</div>
+        <div th:each="orderMap : ${orderMaps}"></div>
       </div>
 
       <!-- 주문조회 필터링 -->
@@ -74,36 +75,34 @@
             <td class="item-order-state header">주문처리상태</td>
             <td class="item-choose">선택</td>
           </tr>
-          <tr>
-            <th:block>
-              <td class="item-order-info">
-                <div class="item-order-date">주문날짜</div>
-                <div class="item-order-no"><a href="#">주문번호</a></div>
-              </td>
-              <td class="item-image">
-                <a href="/product/1">
-                  <img>
-                </a>
-              </td>
-              <td class="item-product">
-                <a href="/product/1">
-                제품명
-                </a>
-                <p class="item-product-option">
-                  [옵션 : <span class="item-selected-option">블랙/L</span>]
-                </p>
-              </td>
-              <td class="item-count">1</td>
-              <td class="item-price-set">
-                <div class="item-price">제품가격</div>
-              </td>
-              <td class="item-order-state">
-                <p>주문처리상태</p>
-              </td>
-              <td class="item-choose">
-                <button>주문취소</button> <!-- 배송 전까지만 출력 -->
-              </td>
-          </th:block>
+          <tr th:each="orderMap : ${orderMaps}" th:object="${orderMap}">
+            <td class="item-order-info">
+              <div class="item-order-date" th:text="*{order.orderDate}">주문날짜</div>
+              <div class="item-order-no"><a th:href="*{order.orderNo}"><span th:text="*{order.orderUno}">주문번호</span></a></div>
+            </td>
+            <td class="item-image">
+              <a th:href="'/product/' + *{orderProduct.product.productNo}">
+                <img width="70px" th:src="*{orderProduct.product.thumbnailPath}">
+              </a>
+            </td>
+            <td class="item-product">
+              <a th:href="'/product/' + *{orderProduct.product.productNo}">
+                <span th:text="*{orderProduct.product.productName}">제품명</span>
+              </a>
+              <p class="item-product-option">
+                [옵션 : <span class="item-selected-option" th:text="*{orderProduct.option.size}?*{orderProduct.option.color} +'/'+*{orderProduct.option.size} : *{orderProduct.option.color}">블랙/L</span>]
+              </p>
+            </td>
+            <td class="item-count" th:text="*{orderProduct.count}">1</td>
+            <td class="item-price-set">
+              <div class="item-price" th:text="${#numbers.formatInteger(orderMap.order.orderPayment, 3, 'COMMA')} + '원'">제품가격</div>
+            </td>
+            <td class="item-order-state">
+              <p class="orderState" th:text="*{order.orderState}">주문처리상태</p>
+            </td>
+            <td class="item-choose">
+              <button>주문취소</button> <!-- 배송 전까지만 출력 -->
+            </td>
           </tr>
         </table>
       </section>
@@ -138,5 +137,7 @@
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>
+
+  <script src="/js/myPage/myPageOrderList.js"></script>
 </body>
 </html>

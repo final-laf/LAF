@@ -73,7 +73,21 @@
 		SET member_del_fl = 'Y'
 		WHERE member_no = #{memberNo}
 	</update>
-
+	
+	<!-- 기간별 주문목록개수 -->
+	<select id="getOrderListCount" resultType="int">
+		SELECT COUNT(order_no)  FROM `order` 
+		WHERE member_no = #{memberNo}
+		and (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+	</select>
+	
+	<!-- 기간별 주문목록 -->
+	<select id="selectSearchOrderList" resultType="Order">
+		SELECT *  FROM `order` 
+		WHERE member_no = #{memberNo}
+		and (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+	</select>
+	
 	<!--주문 상품 조회(마이페이지-주문관리-주문조회)-->
 	<select id="selectOrderProduct" resultType="OrderProduct">
 		SELECT order_no, 

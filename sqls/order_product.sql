@@ -35,6 +35,7 @@ references `option` (
 );
 
 -- ---------------------------------------------------------------------------------------
+ALTER TABLE `order_product` ADD `ORDER_PRODUCT_DELETE_FL`	CHAR(1) NOT NULL	DEFAULT 'N'	COMMENT 'Y(삭제됨), N(삭제안됨)';
 SELECT * FROM order_product ;
 
 SELECT order_no, 

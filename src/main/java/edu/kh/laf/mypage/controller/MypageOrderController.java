@@ -28,18 +28,21 @@ public class MypageOrderController {
 	// 나의 주문목록 조회
 	@GetMapping("/myPage/order") 
 	public String order(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+						@RequestParam(value="cp", required=false, defaultValue="5") int cp,
+						@RequestParam(value="sd", required=false, defaultValue="3") int sd,
 						Model model) {
 		
-		// 첫 페이지
-		// 로그인멤버의 주문 조회(최근 3개월 이내의)
-		List<Order> Orders = service.selectMyPageOrderList(loginMember);
-		// 주문 상품목록 조회
-		List<OrderProduct> OrderProducts = service.selectOrderProducts(Orders);
-		System.out.println(OrderProducts);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNo", loginMember.getMemberNo());
+		paramMap.put("sd", sd); // 검색 기간
+		paramMap.put("cp", cp);
 		
-		// 주문 리스트와, 각 주문별 상품목록 리스트를 모델로 전달
-//		model.addAttribute("Orders", Orders);
-//		model.addAttribute("OrderProducts", OrderProducts);
+		// 로그인멤버의 주문 조회(최근 3개월 이내의) 페이지네이션 적용된 리스트 조회
+		List<Order> Orders = service.selectSearchOrderList(paramMap);
+		// 주문 상품목록 조회 위에서 조회된거 기준으로 다시 조회(주문 리스트와, 각 주문별 상품목록 리스트)
+		List<Map<String, Object>> orderMaps = service.selectOrderProducts(Orders);
+		
+		model.addAttribute("orderMaps", orderMaps);
 		
 		return "/myPage/myPageOrder/myPageOrderList";
 	}
