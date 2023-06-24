@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/admin/adminOrder/ordercurrent.css">
   <title>관리자 :: 주문현황</title>
+  <style>
+    .sidebar li.sub.adminOrder:not(.last) { height: 30px !important; }
+    .sidebar li.sub.adminOrder.last { height: 10px !important; }
+  </style>
 </head>
 <body>
 
@@ -13,10 +17,6 @@
   
   <main>
     <section class="admin-container">
-      <div class="control-classify">
-        <a href="/admin/order/cur"><span class="control-classify-select">주문 현황</span></a>
-        <a href="/admin/order"><span>주문 조회</span></a>
-      </div>
       <div class="order-current">
         <div>
           <span class="order-current-title">주문 현황</span>
@@ -169,7 +169,6 @@
               </td>
             </tr>
           </table>
-          </table>
           <table class="recent-order-table">
             <tr class="modify-order">
               <td>
@@ -242,8 +241,6 @@
     </section>
     <th:block th:replace="~{admin/adminOrder/orderModal}"></th:block>
   </main>
-
-  <th:block th:replace="~{/common/footer}"></th:block>
 
 </body>
 </html>

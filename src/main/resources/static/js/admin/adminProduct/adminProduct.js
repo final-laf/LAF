@@ -44,7 +44,7 @@ for(let p of productStateSelects) {
 
   // 상품 상태 변경 이벤트 추가
   p.addEventListener('change', e => {
-    const productNo = e.target.getAttribute('pno');
+    const productNo = e.target.parentElement.parentElement.querySelector('.p-no').innerText;
     const state = e.target.value;
 
     fetch("/admin/product/update/state?productNo=" + productNo + "&state=" + state)

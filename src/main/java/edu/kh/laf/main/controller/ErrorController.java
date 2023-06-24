@@ -12,7 +12,6 @@ public class ErrorController {
 	// 로그인 에러
 	@GetMapping("")
 	public String test(RedirectAttributes ra) {
-		ra.addFlashAttribute("message", "test");
 		return "redirect:/";
 	}
 

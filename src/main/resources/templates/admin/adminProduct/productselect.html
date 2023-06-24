@@ -11,6 +11,7 @@
   <title>관리자 :: 상품조회</title>
   <style>
     .sidebar li.sub.product:not(.last) { height: 30px !important; }
+    .sidebar li.sub.product.last { height: 10px !important; }
   </style>
 </head>
 
@@ -137,7 +138,6 @@
               </td>
               <td th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</td>
               <td th:text="${#numbers.formatInteger(product.productSalePrice, 3, 'COMMA')}">할인가</td>
-              <!-- [[${stockList}]] -->
               <th:block th:each="stock : ${stockList}">
                 <td th:if="${stock.product_no == product.productNo}" 
                   th:text="${#numbers.formatInteger(stock.sales, 1, 'COMMA')}">판매량</td>
@@ -204,14 +204,9 @@
   </main>
   
   <th:block th:replace="~{admin/adminProduct/productModal}"></th:block>
-  <!-- <th:block th:replace="~{/common/footer}"></th:block> -->
 
   <script th:src="@{/js/common/common.js}"></script>  
   <script th:src="@{/js/admin/adminProduct/adminProduct.js}"></script>
-  <script th:inline="javascript">
-    const message = /*[[${message}]]*/ "전달 받은 message";
-    if(message !=null ) alert(message);
-  </script>
 
 </body>
 

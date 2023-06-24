@@ -98,11 +98,11 @@ main{
 }
 .sidebar li.sub {
     font-size: 1.6rem;
-    color: #666;
+    color: #999;
     border: none;
     height: 0;
     overflow:hidden;
-    transition:height ease-out 0.2s;
+    transition:height ease-out 0.3s;
 }
 .sidebar li.sub:hover {
     background-color: white !important;
