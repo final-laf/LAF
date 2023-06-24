@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/admin/adminMain/category.css">
   <title>관리자 :: 카테고리관리</title>
+  <style>
+    .sidebar li.sub.banner:not(.last) { height: 30px !important; }
+    .sidebar li.sub.banner.last { height: 10px !important; }
+  </style>
 </head>
 <body>
 
@@ -13,10 +17,6 @@
   
   <main>
     <section class="admin-container">
-      <div class="control-classify">
-        <a href="/admin/banner"><span>메인 이미지</span></a>
-        <a href="/admin/category"><span class="control-classify-select">메인 카테고리</span></a>
-      </div>
       <div class="main-category">
         <div>
           <span class="main-category-title">메인 화면 관리</span>
@@ -118,8 +118,5 @@
       </div>
     </section>
   </main>
-
-  <th:block th:replace="~{/common/footer}"></th:block>
-
 </body>
 </html>

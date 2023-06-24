@@ -1,22 +1,3 @@
-// 전체선택 체크박스
-const checkboxSelectAll = document.getElementById('checkboxSelectAll');
-checkboxSelectAll.addEventListener('click', e => {
-  const checkboxList = document.querySelectorAll('[name="checkbox"]');
-  
-  if(e.target.checked == true) {
-    for(let ch of checkboxList)
-    ch.checked = true;
-  } else {
-    for(let ch of checkboxList)
-    ch.checked = false;
-  }
-});
-
-// 선택상품 데이터 추출
-function getSelectedData() {
-  
-}
-
 // 상품 삭제하기 버튼(개별)
 const deleteBtns = document.querySelectorAll('.item-choose > button');
 for(let btn of deleteBtns) {

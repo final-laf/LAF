@@ -13,7 +13,7 @@
       <a href="/admin"><li>대시보드</li></a>
       <a href="/admin/banner"><li name="banner">메인 화면 관리</li></a>
       <a href="/admin/banner"><li class="banner sub">메인 이미지 변경</li></a>
-      <a href="/admin/banner/category"><li class="banner sub">카테고리 변경</li></a>
+      <a href="/admin/category"><li class="banner sub">카테고리 변경</li></a>
       <a><li class="banner sub last"></li></a>
       <a href="/admin/member"><li>회원 관리</li></a>
       <a href="/admin/product"><li name="product">상품 관리</li></a>
@@ -22,15 +22,18 @@
       <a><li class="product sub last"></li></a>
       <a href="/admin/order/cur"><li name="adminOrder">주문 관리</li></a>
       <a href="/admin/order/cur"><li class="adminOrder sub">주문 현황</li></a>
-      <a href="/admin/order/"><li class="adminOrder sub">주문 조회</li></a>
+      <a href="/admin/order"><li class="adminOrder sub">주문 조회</li></a>
       <a><li class="adminOrder sub last"></li></a>
       <a href="/qna"><li>1 대 1 문의</li></a>
     </ul>
   </div>
 </section>
 
-<script>
-  
+<script th:inline="javascript">
+  // 서버 메시지 출력
+  const message = /*[[${message}]]*/ "전달 받은 message";
+  if(message !=null ) alert(message);
+
   // 사이드바 드롭다운
   const mainCategory = document.querySelectorAll('.sidebar-content li:not(.sub)');
   for(let el of mainCategory) {
@@ -38,21 +41,18 @@
     // 하위 카테고리 열기
     el.addEventListener('mouseover', e => {
       const name = e.target.getAttribute('name');
-      const subCategories = document.querySelectorAll('.sidebar-content li.sub.' + name);
+      const subCategories = document.querySelectorAll('.sidebar-content li.sub');
+
       for(let sub of subCategories) {
-        if(sub.classList.contains('last')) sub.style.height = '10px';
-        else sub.style.height = '30px';
+        if(sub.classList.contains(name) && sub.classList.contains('last')) {
+          sub.style.height = '10px';
+        } else if(sub.classList.contains(name)) {
+          sub.style.height = '30px';
+        } else {
+          sub.style.height = '0px';
+        }
       }
     });
   }
-
-  // 하위 카테고리 닫기
-  const sidebar = document.querySelector('.sidebar-content');
-  sidebar.addEventListener('mouseout', e => {
-    const subCategories = document.querySelectorAll('.sidebar-content li.sub:not(.current)');
-    for(let sub of subCategories) {
-      sub.style.height = '0px';
-    }
-  });
   
 </script>
