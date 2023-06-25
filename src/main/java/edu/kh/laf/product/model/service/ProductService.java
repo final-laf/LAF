@@ -117,4 +117,13 @@ public interface ProductService {
 	 */
 	List<Category> selectAllCategoryList();
 
+	/**
+	 * 선택 상품 상태 일괄 변경
+	 * @param productNo
+	 * @param state
+	 * @param data
+	 * @return result
+	 */
+	int updateAllState(String data, String state);
+
 }

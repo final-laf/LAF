@@ -139,5 +139,12 @@ public interface ProductMapper {
 	 * @return categoryList
 	 */
 	List<Category> selectAllCategoryList();
+
+	/**
+	 * 선택 상품의 상태 일괄 변경
+	 * @param map
+	 * @return result
+	 */
+	int updateStateList(Map<String, Object> map);
 	
 }

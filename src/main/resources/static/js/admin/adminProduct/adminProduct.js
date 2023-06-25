@@ -113,7 +113,7 @@ if(checkboxStateSelectAll != null) {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 // 상품 판매상태 초기값 설정 + 변경 이벤트 설정
-const productStateSelects = document.querySelectorAll('.product-state');
+const productStateSelects = document.querySelectorAll('.product-state:not(.all)');
 for(let p of productStateSelects) {
   const state = p.getAttribute('value');
   switch(state) {
@@ -135,6 +135,42 @@ for(let p of productStateSelects) {
     .catch (e => console.log(e));
   });
 }
+
+// 상품 판매상태 일괄변경
+const changeSelectedBtn = document.getElementById('changeSelectedBtn');
+changeSelectedBtn.addEventListener('click', () => {
+
+  // 선택 상품 추출
+  const checkboxList = document.querySelectorAll('.p-checkbox > .input-checkbox:checked:not(#checkboxSelectAll)');
+  if(checkboxList.length == 0) {
+    alert('선택상품이 없습니다.');
+    return;
+  }
+
+  // 전송할 데이터 생성
+  let data = '';
+  for(const ch of checkboxList) {
+      data += ch.parentElement.parentElement.querySelector('.p-no').innerText + '-';
+  }
+  const state = document.getElementById('allProductState').value;
+
+  // 서비스 요청
+  fetch("/admin/product/updateAll/state?data=" + data + "&state=" + state)
+  .then(response => response.text()) 
+  .then(res => {
+    if(res <= 0) alert('변경 실패');
+    else alert('변경되었습니다.');
+
+    for(const ch of checkboxList) {
+      const options = ch.parentElement.parentElement.querySelectorAll('.product-state > option');
+      for(const o of options) {
+        if(o.value == state)
+          o.selected = true;
+      }
+    }
+  }) 
+  .catch (e => console.log(e));
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////
 

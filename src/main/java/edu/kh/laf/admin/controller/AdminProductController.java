@@ -61,6 +61,13 @@ public class AdminProductController {
 		return productService.updateState(productNo, state);
 	}
 	
+	// 선택상품 상태 일괄 변경
+	@GetMapping("/admin/product/updateAll/state")
+	@ResponseBody
+	public int updateAllState(String data, String state) {
+		return productService.updateAllState(data, state);
+	}
+	
 	// 상품관리 : 상품등록
 	@GetMapping("/admin/product/enroll")
 	public String productEnroll() {
