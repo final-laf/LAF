@@ -1,3 +1,24 @@
+/* 스크롤바 이동 효과 */
+
+const scrollTop = document.querySelector('.scroll-top');
+const scroll = document.querySelector('.scroll');
+
+const fullHeight = document.documentElement.scrollHeight;
+const windowHeight = window.innerHeight;
+const maxScroll = fullHeight - windowHeight;
+const scrollHeight = windowHeight - maxScroll;
+scroll.style.height = scrollHeight + 'px';
+
+window.addEventListener('scroll', () => { 
+  scroll.style.backgroundColor = '#493e5d80';
+  scrollTop.style.height = window.scrollY + 'px';
+  setTimeout(() => {
+    scroll.style.backgroundColor = '#493e5d00';
+  }, 1000);
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
 /* 검색조건 : 판매상태 */
 const salesStateCheckboxList = document.querySelectorAll('input[name="state"]');
 let uri = decodeURI(location.search);

@@ -138,7 +138,7 @@ productModal.addEventListener("click", e => {
     const evTarget = e.target
     if(evTarget.classList.contains("product-modal-overlay")) {
       productModal.style.display = "none";
-        document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
     }
 });
 
@@ -146,7 +146,7 @@ productModal.addEventListener("click", e => {
 window.addEventListener("keyup", e => {
     if(productModal.style.display === "flex" && e.key === "Escape") {
       productModal.style.display = "none"
-        document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow');
     }
 });
 
@@ -154,6 +154,6 @@ window.addEventListener("keyup", e => {
 const productModalClose = document.getElementsByClassName("product-modal-close")[0];
 productModalClose.addEventListener("click", e => {
   productModal.style.display = "none";
-    document.body.style.removeProperty('overflow');
+  document.body.style.removeProperty('overflow');
 });
 </script>

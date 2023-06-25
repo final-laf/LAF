@@ -1,3 +1,25 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+.admin-container {
+  width: 100%;
+}
+
+.scroll-box {
+  position: fixed;
+  right: 0;
+  height: 100%;
+  width: 12px;
+  z-index: 999;
+  padding: 2px;
+
+}
+.scroll {
+  background-color: #493e5d00;
+  transition-duration: 0.5s;
+  border-radius: 50px;
+}
+
 td {
   padding: 3px 0;
 }
