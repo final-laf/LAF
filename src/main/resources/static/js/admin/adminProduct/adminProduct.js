@@ -1,5 +1,4 @@
 /* 스크롤바 이동 효과 */
-
 const scrollTop = document.querySelector('.scroll-top');
 const scroll = document.querySelector('.scroll');
 
@@ -219,3 +218,59 @@ parentCategorySelector.addEventListener('change', e => {
   })
   .catch (e => console.log(e));
 });
+
+
+/* 상품 수정 버튼 클릭 */
+const modBtnList = document.querySelectorAll('.modify-product');
+for(const btn of modBtnList) {
+  btn.addEventListener('click', e => {
+    const productNo = e.target.parentElement.parentElement.querySelector('.p-no').innerText;
+    console.log(productNo);
+    fetch("/admin/product/modify?productNo=" + productNo)
+    .then(resp => resp.json())
+    .then(map => {
+      console.log(map);
+    });
+  });
+}
+
+//////////////////////////////////////// M O D A L //////////////////////////////////////////////
+
+/* 상품 상세 모달 */
+const productModal = document.getElementById("productModalOverlay")
+const selectedProduct = document.getElementsByClassName("modify-product")
+
+
+/* 상품 목록 클릭시 */
+for(let product of selectedProduct) {
+  product.addEventListener('click', () => {
+    productModal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
+  });
+};
+    
+/* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
+productModal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("product-modal-overlay")) {
+      productModal.style.display = "none";
+      document.body.style.removeProperty('overflow');
+    }
+});
+
+/* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
+window.addEventListener("keyup", e => {
+    if(productModal.style.display === "flex" && e.key === "Escape") {
+      productModal.style.display = "none"
+      document.body.style.removeProperty('overflow');
+    }
+});
+
+/* 모달창 내부 닫기 버튼 */
+const productModalClose = document.getElementsByClassName("product-modal-close")[0];
+productModalClose.addEventListener("click", e => {
+  productModal.style.display = "none";
+  document.body.style.removeProperty('overflow');
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////

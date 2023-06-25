@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/admin/adminProduct/productselect.css}">
-  <link rel="stylesheet" th:href="@{/css/admin/adminProduct/productenroll.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/adminProduct/productSelect.css}">
   <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
   <title>관리자 :: 상품조회</title>
   <style>
@@ -223,7 +222,19 @@
     </section>
   </main>
 
-  <th:block th:replace="~{admin/adminProduct/productModal}"></th:block>
+  <!-- 회원 상세 모달창 -->
+  <div class="product-modal-overlay" id="productModalOverlay">
+    <form class="product-modal-window">
+      <div class="product-enroll-title">상품 수정</div>
+      <th:block th:replace="~{admin/adminProduct/productDetail}"></th:block>
+
+      <!-- 폼 제출 버튼 -->
+      <div class="enroll-completted-btn">
+        <button type="button">수정</button>
+        <button type="button" class="product-modal-close">취소</button>
+      </div>
+    </form>
+  </div>
 
   <script th:src="@{/js/common/common.js}"></script>  
   <script th:src="@{/js/admin/adminProduct/adminProduct.js}"></script>
