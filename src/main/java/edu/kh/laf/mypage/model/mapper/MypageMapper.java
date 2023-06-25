@@ -22,6 +22,8 @@ public interface MypageMapper {
 	// ---------------------------- MyPage Dashboard ---------------------------- 
 
 	
+
+
 	/** 로그인 멤버의 주문 조회
 	 * @param loginMember
 	 * @return myPageOrderList
@@ -30,6 +32,7 @@ public interface MypageMapper {
 	
 	
 	// ---------------------------- MyPage Order ---------------------------- 
+	
 	
 	
 	/** 주문번호로 order_product 테이블에서 해당 상품 조회
@@ -49,92 +52,6 @@ public interface MypageMapper {
 	// 옵션조회
 	Option selectOption(long optionNo);
 	
-	// -------------------------------------------------------------------------- 
-	
-
-	/** 내 qna조회
-	 * @param memberNo
-	 * @return
-	 */
-	List<Qna> qnaList(Long memberNo);
-
-	/** 답변 qna
-	 * @param memberNo
-	 * @return
-	 */
-	List<Qna> categoryAnsweredQna(Long memberNo);
-
-	/** 검색어를 포함한 qna
-	 * @param memberNo
-	 * @param search
-	 * @return
-	 */
-	List<Qna> searchQnaList(Map<String, String> qnaMap);
-
-	/** 배송지정보조회
-	 * @param memberNo
-	 * @return
-	 */
-	List<Address> selectAddressList(Long memberNo);
-
-	
-	
-	/** 답변이 달린 qna
-	 * @param memberNo
-	 * @return
-	 */
-	List<Qna> answeredQna(Long memberNo);
-
-	/** 검색어를 포함한 답변이 달린 qna
-	 * @param qnaMap
-	 * @return
-	 */
-	List<Qna> searchAnsweredQna(Map<String, String> qnaMap);
-
-
-	/** 상품 번호로 상품 조회
-	 * @param productNo
-	 * @return product
-	 */
-	Product selectMyPageProduct(long productNo);
-
-
-	/** 옵션 번호로 옵션 조회
-	 * @param optionNo
-	 * @return option
-	 */
-	Option selectMyPageProductOption(long optionNo);
-
-
-	/** 회원 정보 수정
-	 * @param inputMember
-	 * @return result
-	 */
-	int editMyPageInfo(Member inputMember);
-
-
-	/** 회원 정보 조회
-	 * @param memberId
-	 * @return loginMember
-	 */
-	Member selectMember(Long memberNo);
-
-
-	/** 비밀번호 변경
-	 * @param member
-	 * @return result
-	 */
-	int changePw(Member member);
-
-
-	/** 회원 탈퇴
-	 * @param memberNo
-	 * @return result
-	 */
-	int deleteMember(Long memberNo);
-
-
-
 	/** 회원 번호로 적립금 사용 개수 조회
 	 * @param paramMap
 	 * @return listCount
@@ -170,13 +87,135 @@ public interface MypageMapper {
 	 * @return resultMap
 	 */
 	List<Point> selectCouponList(Map<String, Object> paramMap, RowBounds rowBounds);
+	
+	// ---------------------------- MyPage info ---------------------------- 
+	
+	
+	/** 회원 정보 수정
+	 * @param inputMember
+	 * @return result
+	 */
+	int editMyPageInfo(Member inputMember);
 
+	/** 회원 정보 조회
+	 * @param memberId
+	 * @return loginMember
+	 */
+	Member selectMember(Long memberNo);
+
+	/** 비밀번호 변경
+	 * @param member
+	 * @return result
+	 */
+	int changePw(Member member);
+
+	/** 회원 탈퇴
+	 * @param memberNo
+	 * @return result
+	 */
+	int deleteMember(Long memberNo);
+	
+	/** 배송지정보조회
+	 * @param memberNo
+	 * @return
+	 */
+	List<Address> selectAddressList(Long memberNo);
 
 	/** 배송지 등록
 	 * @param address
 	 * @return result
 	 */
 	int insertAddress(Address address);
+	
+	/** 기존의 기본 배송지 유무 검색
+	 * @param memberNo
+	 * @return existingAddressNo
+	 */
+	Address selectDefaultAddress(long memberNo);
+	
+	/** 기존의 기본배송지를 "N"으로 변경
+	 * @param addressNo
+	 */
+	void updateDefaultAddress(long addressNo);
+
+	/** 배송지 삭제
+	 * @param addressNo
+	 * @return result
+	 */
+	int deleteAddress(String[] addressNo);
+
+	/** 배송지 수정
+	 * @param inputaddress
+	 * @return return
+	 */
+	int updateAddress(Address inputaddress);
+
+	
+	// -------------------------------------------------------------------------- 
+	
+
+	/** 내 qna조회
+	 * @param memberNo
+	 * @return
+	 */
+	List<Qna> qnaList(Long memberNo);
+
+	/** 답변 qna
+	 * @param memberNo
+	 * @return
+	 */
+	List<Qna> categoryAnsweredQna(Long memberNo);
+
+	/** 검색어를 포함한 qna
+	 * @param memberNo
+	 * @param search
+	 * @return
+	 */
+	List<Qna> searchQnaList(Map<String, String> qnaMap);
+
+
+
+	
+	
+	/** 답변이 달린 qna
+	 * @param memberNo
+	 * @return
+	 */
+	List<Qna> answeredQna(Long memberNo);
+
+	/** 검색어를 포함한 답변이 달린 qna
+	 * @param qnaMap
+	 * @return
+	 */
+	List<Qna> searchAnsweredQna(Map<String, String> qnaMap);
+
+
+	/** 상품 번호로 상품 조회
+	 * @param productNo
+	 * @return product
+	 */
+	Product selectMyPageProduct(long productNo);
+
+
+	/** 옵션 번호로 옵션 조회
+	 * @param optionNo
+	 * @return option
+	 */
+	Option selectMyPageProductOption(long optionNo);
+
+
+
+
+
+
+
+
+
+	
+
+
+	
+
 
 
 

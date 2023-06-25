@@ -58,7 +58,7 @@ function add_sample6_execDaumPostcode() {
 
 
 /* 배송지 등록 유효성 검사 */
-const checkObj = {
+const addCheckObj = {
   "addAddressName" : false,
   "addRessReceiver" : false,
   "addAddressTel" : false,
@@ -69,36 +69,26 @@ const checkObj = {
 const addAddressName = document.getElementById("addAddressName");
 addAddressName.addEventListener("input", () => {
 
-// 30자 이내 (한글, 영문, 숫자 가능)
-const regEx = /^[a-zA-Z가-힣0-9]{1,30}$/;
+  // 30자 이내 (한글, 영문, 숫자 가능)
+  const regEx = /^[a-zA-Z가-힣0-9]{1,30}$/;
 
-// 정규식을 통과한다면
-if(regEx.test(addAddressName.value)){
-  
-  
-  // 배송지명 중복 검사(수정필요)
-  const existingAddressNames = document.querySelectorAll(".shipping-list-table > tbody > tr > td:nth-child(2)");
-  for(let existingName of existingAddressNames) {
-    console.log(existingName.innerText)
-    console.log(addAddressName.value)
-    if(existingName.innerText == addAddressName.value) {
-      console.log("같잖아")
-      checkObj.addAddressName = false;
+  // 정규식을 통과한다면
+  if(regEx.test(addAddressName.value)){
+    // 배송지명 중복 검사
+    const existingAddressNames = document.querySelectorAll(".shipping-list-table > tbody > tr > td:nth-child(2)");
+    for(let existingName of existingAddressNames) {
+      if(existingName.innerText == addAddressName.value) {
+        addCheckObj.addAddressName = false;
+        return;
+      } else {
+        addCheckObj.addAddressName = true;
+      }
     }
-    return;
+  // 통과하지 않는다면
+  }else{
+      addCheckObj.addAddressName = false;
   }
-  checkObj.addAddressName = true;
-
-
-// 통과하지 않는다면
-}else{
-    checkObj.addAddressName = false;
-}
-
 });
-
-
-
 
 
 // 받는 사람 성명 정규식 확인
@@ -110,11 +100,11 @@ addRessReceiver.addEventListener("input", () => {
 
   // 정규식을 통과한다면
   if(regEx.test(addRessReceiver.value)){
-      checkObj.addRessReceiver = true;
+      addCheckObj.addRessReceiver = true;
 
   // 통과하지 않는다면
   }else{
-      checkObj.addRessReceiver = false;
+      addCheckObj.addRessReceiver = false;
   }
 });
 
@@ -127,31 +117,33 @@ addAddressTel.addEventListener("input", () => {
   // 정규표현식으로 유효성 검사
   const regEx = /^0(1[01679]|2|[3-6][1-5]|70)[1-9]\d{2,3}\d{4}$/;
   if(regEx.test(addAddressTel.value)) {
-      checkObj.addAddressTel = true;
+      addCheckObj.addAddressTel = true;
     } else {
-      checkObj.addAddressTel = false;
+      addCheckObj.addAddressTel = false;
     } 
 });
 
 // 배송지가 3개 이상이면 false
 const addAddressCounts = document.getElementsByClassName("orderShipping-Shipping-list")
 if(addAddressCounts.length < 3) {
-  checkObj.addAddressCounts = true;
+  addCheckObj.addAddressCounts = true;
 }
 
 
 // 배송지 등록 form태그가 제출 되었을 때
 document.getElementById("submitAddShipping").addEventListener("submit", e=>{
-
-
+  console.log("제출됨")
   // 체크 되어 있으면 default flag가 Y로
+  let addAddressDefaultFL = document.getElementById("addAddressDefaultFL")
   if(addAddressDefaultFL.checked) addAddressDefaultFL.value = "Y"  
 
-  for(let key in checkObj){
-      if(!checkObj[key]){ 
+  for(let key in addCheckObj){
+    console.log("체크obj들어옴")
+    if(!addCheckObj[key]){ 
+        console.log("false일 경우")
       switch(key){
           case "addAddressName":
-          alert("배송지명은 30자 이내의 한글, 영문, 숫자만 입력 가능합니다."); break;
+          alert("배송지명은 중복되지 않으며 30자 이내의 한글, 영문, 숫자만 입력 가능합니다."); break;
           case "addRessReceiver":
           alert("성명은 20자 이내의 한글, 영문만 입력 가능합니다."); break;
           case "addAddressTel" : 
@@ -162,9 +154,23 @@ document.getElementById("submitAddShipping").addEventListener("submit", e=>{
       e.preventDefault(); // form 태그 기본 이벤트 제거
       return; // 함수 종료
       }
+      console.log("true일 경우")
   }
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* 배송지 수정 모달 */
@@ -193,11 +199,11 @@ for(let shipping of selectedshippings) {
         shippingValues[shippingKey] = shippingValue; // 객체에 속성과 값을 저장
     }
 
-    
-    // 배송지명, 수신자이름, 전화번호 입력
-    document.getElementById("addressName").value = shippingValues.addressName
-    document.getElementById("addressReceiver").value = shippingValues.addressReceiver
-    document.getElementById("addressTel").value = shippingValues.addressTel
+    // 배송지명, 수신자이름, 전화번호, 배송지번호 입력
+    document.getElementById("modifyAddressName").value = shippingValues.addressName
+    document.getElementById("modifyAddressReceiver").value = shippingValues.addressReceiver
+    document.getElementById("modifyAddressTel").value = shippingValues.addressTel
+    document.getElementById("addressNo").value = shippingValues.addressNo
 
     // 주소 입력
     const arr = shippingValues.address.split("^^^");
@@ -212,7 +218,14 @@ for(let shipping of selectedshippings) {
   });
 
 };
-    
+
+
+
+// 아무것도 수정하지 않고 값을 넘겼을 경우를 위한 기존값 저장
+const prevAddressName = document.getElementById("modifyAddressName").value
+const prevAddress = document.getElementById("modifyAddressReceiver").value
+const prevAddressTel = document.getElementById("modifyAddressTel").value
+
 
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
 modifyShippingModal.addEventListener("click", e => {
@@ -239,3 +252,124 @@ modifyShippingModalClose.addEventListener("click", e => {
 });
 
 
+/* 배송지 수정 시 다음 주소검색 api 활용 */
+function modify_sample6_execDaumPostcode() {
+  new daum.Postcode({
+      oncomplete: function(data) {
+          var addr = ''; // 주소 변수
+
+          //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+          if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+              addr = data.roadAddress;
+          } else { // 사용자가 지번 주소를 선택했을 경우(J)
+              addr = data.jibunAddress;
+          }
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById('modify_sample6_postcode').value = data.zonecode;
+          document.getElementById("modify_sample6_address").value = addr;
+          // 커서를 상세주소 필드로 이동한다.
+          document.getElementById("modify_sample6_detailAddress").focus();
+      }
+  }).open();
+}
+
+
+/* 배송지 등록 유효성 검사 */
+const modifyCheckObj = {
+  "modifyAddressName" : false,
+  "modifyAddressReceiver" : false,
+  "modifyAddressTel" : false,
+};
+
+
+// 배송지명 정규식 확인
+const modifyAddressName = document.getElementById("modifyAddressName");
+modifyAddressName.addEventListener("input", () => {
+
+  // 30자 이내 (한글, 영문, 숫자 가능)
+  const regEx = /^[a-zA-Z가-힣0-9]{1,30}$/;
+
+  // 정규식을 통과한다면
+  if(regEx.test(modifyAddressName.value)){
+    // 배송지명 중복 검사
+    const existingAddressNames = document.querySelectorAll(".shipping-list-table > tbody > tr > td:nth-child(2)");
+    for(let existingName of existingAddressNames) {
+      if(existingName.innerText == modifyAddressName.value) {
+        modifyCheckObj.modifyAddressName = false;
+        return;
+      }
+    }
+    // 중복되는 이름이 없다면
+    modifyCheckObj.modifyAddressName = true;
+  // 통과하지 않는다면
+  }else{
+    modifyCheckObj.modifyAddressName = false;
+  }
+});
+
+
+
+
+// 받는 사람 성명 정규식 확인
+const modifyAddressReceiver = document.getElementById("modifyAddressReceiver");
+modifyAddressReceiver.addEventListener("input", () => {
+
+  // 20자 이내 (한글, 영문 가능)
+  const regEx = /^[a-zA-Z가-힣]{1,20}$/;
+  // 정규식을 통과한다면
+  if(regEx.test(modifyAddressReceiver.value)){
+    modifyCheckObj.modifyAddressReceiver = true;
+  // 통과하지 않는다면
+  }else{
+    modifyCheckObj.modifyAddressReceiver = false;
+  }
+});
+
+
+// 전화번호 유효성 검사
+const modifyAddressTel = document.getElementById("modifyAddressTel");
+modifyAddressTel.addEventListener("input", () => {
+  const regEx = /^0(1[01679]|2|[3-6][1-5]|70)[1-9]\d{2,3}\d{4}$/;
+  if(regEx.test(modifyAddressTel.value)) {
+    modifyCheckObj.modifyAddressTel = true;
+    } else {
+      modifyCheckObj.modifyAddressTel = false;
+    }
+});
+
+console.log(modifyCheckObj.modifyAddressName)
+console.log(modifyCheckObj.modifyAddressReceiver)
+console.log(modifyCheckObj.modifyAddressTel)
+
+// 배송지 수정 form태그가 제출 되었을 때
+document.getElementById("submitModifyShipping").addEventListener("submit", e => {
+
+  // 체크 되어 있으면 default flag가 Y로
+  let modifyAddressDefaultFL = document.getElementById("modifyAddressDefaultFL");
+  if (modifyAddressDefaultFL.checked) modifyAddressDefaultFL.value = "Y";
+
+  // 기존값과 동일하면 true 
+  if (modifyAddressName == prevAddressName) modifyCheckObj.modifyAddressName = true;
+  if (modifyAddressReceiver == prevAddreprevAddressssName) modifyCheckObj.modifyAddressReceiver = true;
+  if (modifyAddressTel == prevAddressTel) modifyCheckObj.modifyAddressTel = true;
+
+  console.log(modifyCheckObj.modifyAddressName)
+  console.log(modifyCheckObj.modifyAddressReceiver)
+  console.log(modifyCheckObj.modifyAddressTel)
+
+  for(let key in modifyCheckObj){
+      if(!modifyCheckObj[key]){ 
+      switch(key){
+          case "modifyAddressName":
+          alert("배송지명은 중복되지 않으며 30자 이내의 한글, 영문, 숫자만 입력 가능합니다."); break;
+          case "modifyAddressReceiver":
+          alert("성명은 20자 이내의 한글, 영문만 입력 가능합니다."); break;
+          case "modifyAddressTel" : 
+          alert("휴대전화는 '-'를 제외한 숫자 11자리로 입력해주시기 바랍니다."); break;
+      }
+      e.preventDefault(); // form 태그 기본 이벤트 제거
+      return; // 함수 종료
+      }
+  }
+
+});

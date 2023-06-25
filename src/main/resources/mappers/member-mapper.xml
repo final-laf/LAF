@@ -71,8 +71,20 @@
 		AND member_del_fl  = 'N'
 	</select>
 	
-  	
-  	
+	<!--아이디, 이메일주소로 회원 검색-->
+  	<select id="selectMatch" resultType="Member">
+		select * 
+		from `member`
+		where member_email = #{memberEmail}
+		and member_id = #{memberId}
+	</select>
+	
+  	<update id="findPw">
+		update `member`
+		set member_pw = #{encPw}
+		where member_email = #{memberEmail}
+		and member_id = #{memberId}
+	</update>
   	
 </mapper>
 

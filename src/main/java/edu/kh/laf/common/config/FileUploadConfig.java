@@ -51,7 +51,8 @@ public class FileUploadConfig implements WebMvcConfigurer  {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		String webPath = "/images/**";
-		String resourcePath = "file:///D:/LAF/src/main/resources/static/images/";
+		/* String resourcePath = "file:///D:/LAF/src/main/resources/static/images/"; */
+		String resourcePath = "file:///C:/final_project/LostAndFound/src/main/resources/static/images/";
 		
 		registry.addResourceHandler(webPath).addResourceLocations(resourcePath);
 		

@@ -1,0 +1,43 @@
+.findnPw-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.findPw-box {
+    width: 20%;
+}
+
+.findPw-box > div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 15px 0px;
+}
+
+.findPw-box > div > div:first-child {
+    width: 30%;
+}
+
+.findPw-box > div > div:last-child {
+    width: 70%;
+}
+
+.findPw-box > div > div:last-child > input {
+    width: 100%;
+}
+
+.findPw-box > div:last-child {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.findPw-box > div:last-child > button{
+    width: 100px;
+}
+

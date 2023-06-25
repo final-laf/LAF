@@ -178,6 +178,46 @@
 				<if test='addressDefaultFL != null'> #{addressDefaultFL}) </if>
 	</insert>
 	
+	<!--기존의 기본배송지 유무 확인(마이페이지-정보관리-배송지 관리-배송지 등록)-->	
+	<select id="selectDefaultAddress" resultType="Address">
+		select * from `address`
+		where member_no = #{memberNo}
+		and address_default_fl = "Y"
+	</select>
+	
+	<!--기존 기본배송지 업데이트(마이페이지-정보관리-배송지 관리-배송지 등록)-->	
+	<update id="updateDefaultAddress">
+		update `address`
+		set address_default_fl = default
+		where address_no = #{addressNo}
+	</update>
+	
+	<!--배송지 삭제(마이페이지-정보관리-배송지관리)-->
+	<delete id="deleteAddress">
+		delete from `address`
+		where address_no in
+      <foreach collection="array"   item="no" open="(" separator="," close=")">
+             #{no} 
+      </foreach> 
+	</delete>
+	
+	<!--배송지 수정(마이페이지-정보관리-배송지관리)-->
+	<update id="updateAddress">
+		update `address`
+		SET address_name = #{addressName},
+			address_receiver = #{addressReceiver},
+			address = #{address},
+			address_tel = #{addressTel},
+			<!--기본배송지 등록-->
+			address_default_fl =
+			<!--기본배송지 등록 값이 없으면-->
+			<if test='addressDefaultFL == null'> default </if>
+			<!--기본배송지 등록 값이 있으면-->
+			<if test='addressDefaultFL != null'> #{addressDefaultFL} </if>
+		WHERE address_no = #{addressNo}
+	</update>
+	
+	
 	<!--상품 번호로 상품 조회-->
 	<select id="selectMyPageProduct" resultType="Product">
 		select * from `product` where product_no = #{productNo}
