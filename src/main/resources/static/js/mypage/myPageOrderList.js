@@ -1,4 +1,37 @@
-// 주문 상태 세팅
+// 주문 조회 날짜필터
+const dateFilterBtn = document.querySelectorAll('#dateFilterBtn>li');
+const dateFilter = document.querySelectorAll('#dateFilter>input');
+
+dateFilterBtn.forEach((button, index) => {
+  button.addEventListener('click', () => {
+    const currentDate = new Date();
+    const startDate = new Date();
+
+    if (index === 0) startDate.setDate(currentDate.getDate());
+    else if (index === 1)startDate.setDate(currentDate.getDate() - 7);
+    else if (index === 2)startDate.setMonth(currentDate.getMonth() - 1);
+    else if (index === 3) startDate.setMonth(currentDate.getMonth() - 3);
+    else if (index === 4)  startDate.setMonth(currentDate.getMonth() - 6);
+    
+    dateFilter[0].value = formatDate(startDate);
+    dateFilter[1].value = formatDate(currentDate);
+  });
+});
+
+// "YYYY-MM-DD" 형식으로 변환
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
+
+
+
+
+// 주문 상품정보 주문처리상태 세팅
 const preOrderStates = document.querySelectorAll(".orderState");
 
 for(let preOrderState of preOrderStates){
