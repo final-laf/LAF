@@ -45,13 +45,11 @@ for(let a of paginationLinks) {
 // 정렬 순서 링크 설정
 const orderingLinks = document.querySelectorAll('.result-info a');
 for(let a of orderingLinks) {
-  
   const queryStr = addQueryStringParams('ordering');
+  if(queryStr.length == 0) continue;
 
-  // if(queryStr.length == 0) continue;
-
-  // if(a.href.indexOf('?') == -1) a.href += "?" + queryStr;
-  // else                          a.href += "&" + queryStr;
+  if(a.href.indexOf('?') == -1) a.href += "?" + queryStr;
+  else                          a.href += "&" + queryStr;
 }
 
 // 쿼리 스트링 파라미터 셋팅
@@ -60,12 +58,9 @@ function addQueryStringParams(except) {
   const result = new URLSearchParams();
   new URLSearchParams(location.search).forEach((value, key) => {
     if(value == '') return;
-
     result.append(key, value);
-    // string += '&' + key + '=' + value;
   })
 
-  // return string.substring(1);
   if(except != null) result.delete(except);
   return result;
 }
