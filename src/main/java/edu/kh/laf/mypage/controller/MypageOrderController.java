@@ -1,6 +1,8 @@
 package edu.kh.laf.mypage.controller;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
-import edu.kh.laf.order.model.dto.OrderProduct;
 
 @Controller
 public class MypageOrderController {
@@ -28,15 +28,20 @@ public class MypageOrderController {
 	// 나의 주문목록 조회
 	@GetMapping("/myPage/order") 
 	public String order(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
-						@RequestParam(value="cp", required=false, defaultValue="5") int cp,
-						@RequestParam(value="sd", required=false, defaultValue="3") int sd,
+						@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+						@RequestParam(value="sd", required=false, defaultValue="3") String sd,
+						@RequestParam(value="ed", required=false, defaultValue="null") String ed,
+						@RequestParam(value="os", required=false, defaultValue="null") String os,
 						Model model) {
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("memberNo", loginMember.getMemberNo());
-		paramMap.put("sd", sd); // 검색 기간
-		paramMap.put("cp", cp);
-		
+		paramMap.put("os", os); // 주문상태
+		paramMap.put("cp", cp); // 현재페이지
+		paramMap.put("sd", sd); // 검색 기간 시작
+		paramMap.put("ed", ed); // 검색 기간 끝
+
+		System.out.println(paramMap);
 		// 로그인멤버의 주문 조회(최근 3개월 이내의) 페이지네이션 적용된 리스트 조회
 		Map<String, Object> resultMap = service.selectSearchOrderList(paramMap);
 		List<Order> orders = (List<Order>) resultMap.get("orders");
@@ -45,6 +50,9 @@ public class MypageOrderController {
 		
 		model.addAttribute("orderMaps", orderMaps);
 		model.addAttribute("pagination", resultMap.get("pagination"));
+		
+		
+		
 		
 		return "/myPage/myPageOrder/myPageOrderList";
 	}

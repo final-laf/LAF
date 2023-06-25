@@ -78,14 +78,30 @@
 	<select id="getOrderListCount" resultType="int">
 		SELECT COUNT(order_no)  FROM `order` 
 		WHERE member_no = #{memberNo}
-		and (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+		<if test="os != null">
+			AND order_state = #{os} 
+		</if>
+		<if test="sd == '3'">
+			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+		</if>
+		<if test="sd != '3'">
+			AND order_date BETWEEN  STR_TO_DATE(${sd}, '%Y-%m-%d') AND STR_TO_DATE(${ed}, '%Y-%m-%d')
+		</if>
 	</select>
 	
 	<!-- 기간별 주문목록 -->
 	<select id="selectSearchOrderList" resultType="Order">
 		SELECT *  FROM `order` 
 		WHERE member_no = #{memberNo}
-		and (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+		<if test="os != null">
+			AND order_state = #{os} 
+		</if>
+		<if test="sd == '3'">
+			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+		</if>
+		<if test="sd != '3'">
+			AND order_date BETWEEN  STR_TO_DATE(${sd}, '%Y-%m-%d') AND STR_TO_DATE(${ed}, '%Y-%m-%d')
+		</if>
 	</select>
 	
 	<!--주문 상품 조회(마이페이지-주문관리-주문조회)-->

@@ -145,10 +145,16 @@ and order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW();
 
 SELECT COUNT(order_no)  FROM `order` 
 WHERE member_no = 3 
-and order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -3 MONTH) AND NOW();
+AND order_state = 'A' 
+AND order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -3 MONTH) AND NOW();
+
+SELECT COUNT(order_no)  FROM `order` 
+WHERE member_no = 3 
+AND order_state = 'A' 
+AND order_date BETWEEN  '2023-06-01' AND '2023-06-01';
 
 
-
+COMMIT;
 
 
 

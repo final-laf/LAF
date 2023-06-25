@@ -25,8 +25,8 @@
       </div>
 
       <!-- 주문조회 필터링 -->
-      <form action="#" id="orderFilter">
-        <select name="orderState" id="orderStateSelect">
+      <form action="/myPage/order" method="get" id="orderFilter">
+        <select name="os" id="orderStateSelect">
           <option value="">전체</option>
           <option value="A">주문접수</option>
           <option value="B">결제확인</option>
@@ -51,9 +51,9 @@
         </ul>
 
         <div id="dateFilter">
-          <input type="date" name="startDate">
+          <input type="date" name="sd">
           ~
-          <input type="date" name="endDate">
+          <input type="date" name="ed">
         </div>
 
         <button class="submit">조회</button>
@@ -78,7 +78,7 @@
           <tr th:each="orderMap : ${orderMaps}" th:object="${orderMap}">
             <td class="item-order-info">
               <div class="item-order-date" th:text="*{#strings.substring(order.orderDate,0,10)}">주문날짜</div>
-              <div class="item-order-no"><a th:href="'/order/'+*{order.orderNo}"><p id="orderUno" th:text="'[ ' + *{order.orderUno}+' ]'">주문번호</p></a></div>
+              <div class="item-order-no"><a th:href="'/order/'+*{order.orderNo}"><p id="orderNum" th:text="'[ ' + *{order.orderUno}+' ]'">주문번호</p></a></div>
             </td>
             <td class="item-image">
               <a th:href="'/product/' + *{orderProduct.product.productNo}">
@@ -87,7 +87,8 @@
             </td>
             <td class="item-product">
               <a th:href="'/product/' + *{orderProduct.product.productNo}">
-                <span th:text="*{orderProduct.product.productName}">제품명</span>
+                <span th:text="*{orderProduct.product.productName}"></span>
+                <span id="orderNum" th:text=" *{orderProduct.count - 1} > 0?' 외 ' + *{orderProduct.count - 1} + ' 개'">제품명</span>
               </a>
               <p class="item-product-option">
                 [ 옵션 : <span class="item-selected-option" th:text="*{orderProduct.option.size}?' '+*{orderProduct.option.color} +' '+*{orderProduct.option.size+' '} : *{orderProduct.option.color}+' '">블랙/L</span>]
@@ -114,12 +115,12 @@
         <ul class="pagination">
 
           <!-- 첫 페이지로 이동 -->
-          <li><a th:href="@{/myPage/order(cp=1, query=${query}, ordering=${ordering})}">
+          <li><a th:href="@{/myPage/order(cp=1, os=${os}, sd=${sd}, ed=${ed})}">
               <img th:src="@{/images/common/paging/first-page.svg}">
             </a></li>
 
           <!-- 이전 목록 마지막 번호로 이동 -->
-          <li><a th:href="@{/myPage/order(cp=${pagination.prevPage}, query=${query}, ordering=${ordering})}">
+          <li><a th:href="@{/myPage/order(cp=${pagination.prevPage}, os=${os}, sd=${sd}, ed=${ed})}">
               <img th:src="@{/images/common/paging/prev-page.svg}">
             </a></li>
 
@@ -132,17 +133,17 @@
 
             <!-- 현재 페이지를 제외한 나머지 -->
             <li th:unless="${i == pagination.currentPage}">
-              <a th:href="@{/myPage/order(cp=${i}, query=${query}, ordering=${ordering})}" th:text="${i}"></a>
+              <a th:href="@{/myPage/order(cp=${i}, os=${os}, sd=${sd}, ed=${ed})}" th:text="${i}"></a>
             </li>
           </th:block>
 
           <!-- 다음 목록 시작 번호로 이동 -->
-          <li><a th:href="@{/myPage/order(cp=${pagination.nextPage}, query=${query}, ordering=${ordering})}">
+          <li><a th:href="@{/myPage/order(cp=${pagination.nextPage}, os=${os}, sd=${sd}, ed=${ed})}">
               <img th:src="@{/images/common/paging/next-page.svg}">
             </a></li>
 
           <!-- 끝 페이지로 이동 -->
-          <li><a th:href="@{/myPage/order(cp=${pagination.maxPage}, query=${query}, ordering=${ordering})}">
+          <li><a th:href="@{/myPage/order(cp=${pagination.maxPage}, os=${os}, sd=${sd}, ed=${ed})}">
               <img th:src="@{/images/common/paging/last-page.svg}">
             </a></li>
         </ul>
