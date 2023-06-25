@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
@@ -45,5 +46,11 @@ public interface MypageReviewMapper {
 	 * @return
 	 */
 	Review detailReview(Review orderProduct);
+	
+	/** 리뷰 이미지 조회
+	 * @param reviewNo
+	 * @return
+	 */
+	List<ReviewImg> reviewImg(long reviewNo);
 	
 }

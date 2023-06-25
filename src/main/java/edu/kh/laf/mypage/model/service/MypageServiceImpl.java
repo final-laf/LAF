@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.board.model.dto.Qna;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
@@ -243,6 +244,8 @@ public class MypageServiceImpl implements MypageService {
 	public List<Address> selectAddressList(Long memberNo) {
 		return mapper.selectAddressList(memberNo);
 	}
+
+
 
 
 
