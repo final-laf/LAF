@@ -392,5 +392,16 @@
 		where 	product_no = ${productNo}
 	</update>
 	
+	<!-- 선택 상품 상태 일괄 변경-->
+	<update id="updateStateList">
+		update `product`
+		set		product_state = #{state}
+		<where>
+			<foreach collection="productNoList" item="productNo" separator="or">
+				product_no = ${productNo}			
+			</foreach>
+		</where>
+	</update>
+	
 </mapper>
 

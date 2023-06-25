@@ -52,7 +52,10 @@
     <div th:if="${session.loginMember}" class="header-nav-icon">
       <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
-      <div id="welcome" style="font-size: 1.2rem; margin-top: 5px;" th:if="${session.loginMember}" th:text="|${session.loginMember.memberName} 님 방문을 환영합니다! ╰(*°▽°*)╯ |"></div>
+      <div id="welcome" >
+        <div style="font-size: 1.2rem; margin-top: 5px;" th:if="${session.loginMember}" th:text="|${session.loginMember.memberName} 님 방문을 환영합니다!|"></div>
+        <div id="welcomeEmoji">✧₊⁎ ╰(*°▽°*)╯ ⁎⁺✧</div>
+      </div>
       <label id="searchImgLabel" for="searchCheckbox">
         <img id="searchImg" src="/images/common/search.svg">
       </label>
@@ -92,4 +95,25 @@
       input.value = '';
     }
   });
+
+  // 환영문구 애니메이션 효과
+  const welcome = document.getElementById('welcomeEmoji');
+  let welcomeCount = 1;
+  if(welcome != null) {
+    setInterval(() => {
+      let str = '';
+      switch(welcomeCount) {
+        case 0:
+          str = "(*°▽°*)";
+          welcomeCount++;
+          break;
+        case 1:
+          str = "✧₊⁎ ╰(*°▽°*)╯ ⁎⁺✧";
+          welcomeCount=0;
+          break;
+      }
+
+      welcome.innerText = str;
+    }, 500);
+  }
 </script>

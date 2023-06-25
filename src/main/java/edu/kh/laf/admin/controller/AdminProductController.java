@@ -51,7 +51,7 @@ public class AdminProductController {
 		model.addAttribute("pagination", resultMap.get("pagination"));
 		model.addAttribute("paramMap", paramMap);
 		
-		return "/admin/adminProduct/productselect";
+		return "/admin/adminProduct/productSelect";
 	}
 	
 	// 상품 상태 변경
@@ -61,10 +61,22 @@ public class AdminProductController {
 		return productService.updateState(productNo, state);
 	}
 	
+	// 선택상품 상태 일괄 변경
+	@GetMapping("/admin/product/updateAll/state")
+	@ResponseBody
+	public int updateAllState(String data, String state) {
+		return productService.updateAllState(data, state);
+	}
+	
 	// 상품관리 : 상품등록
 	@GetMapping("/admin/product/enroll")
-	public String productEnroll() {
-		return "/admin/adminProduct/productenroll";
+	public String productEnroll(Model model) {
+		
+		List<Category> categoryList = productService.selectAllCategoryList();
+	
+		model.addAttribute("categoryList", categoryList);
+		
+		return "/admin/adminProduct/productEnroll";
 	}
 	
 	// 부모 카테고리 선택 시 자식 카테고리 목록 반환
