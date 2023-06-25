@@ -192,7 +192,6 @@ button {
 }
 button:disabled {
   color: #eee;
-  cursor: default;
 }
 button:hover:not(:disabled) {
   background-color: #eee;
@@ -225,9 +224,6 @@ input {
   justify-content: center;
   outline: none;
 }
-input:disabled {
-  cursor: default;
-}
 textarea{
   outline: none;
 }
@@ -247,4 +243,7 @@ select{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+*:disabled {
+  cursor: default;
 }
