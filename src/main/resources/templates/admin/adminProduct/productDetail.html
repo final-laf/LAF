@@ -14,12 +14,8 @@
     <tr>
       <td rowspan="5" class="enroll-thumbnail">
         <img th:src="@{/images/common/no-image.png}">
-        <div class="enroll-img-btn">
-          <button type="button">파일 업로드</button>
-          <button type="button">삭제</button>
-        </div>
       </td>
-      <td class="enroll-table-header table-header">카테고리</td>
+      <td rowspan="2" class="enroll-table-header table-header">카테고리</td>
       <td id="enrollCategory">
         <select class="select-category" id="detailParentCategory" name="pc">
           <option name="pc" value="">1차 분류</option>
@@ -42,15 +38,15 @@
     </tr>
 
     <tr>
+      <td id="selectedCategory">
+        <span>TOP > 티셔츠</span>
+        <span>MD 추천</span>
+        <span>클릭해서 삭제</span>
+      </td>
+    </tr>
+
+    <tr>
       <td rowspan="3" class="enroll-table-header table-header">가격</td>
-      <!-- <td class="enroll-price">
-        <p><span>판매가</span><input type="text">원</p>
-        <p><span>할인율</span><input type="text">%</p>
-        <p>
-          <span>최종할인가</span><input type="text" th:value="${0}" disabled>원
-          <label><input class="checkbox" type="checkbox" checked> 자동계산</label>
-        </p>
-      </td> -->
       <td class="enroll-price">
         <span>판매가</span><input type="text">원
       </td>
@@ -65,57 +61,46 @@
     <tr>
       <td class="enroll-price">
         <span>최종할인가</span><input type="text" th:value="${0}" disabled>원
-        <label><input class="checkbox" type="checkbox" checked>자동계산</label>
+        <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(100원 단위 절삭)</span>
       </td>
     </tr>
 
     <tr>
+      <td class="enroll-img-btn">
+        <button id="enrollImgBtn" type="button">파일 업로드</button>
+        <button id="deleteImgBtn" type="button">삭제</button>
+      </td>
       <td class="enroll-table-header table-header">적립금</td>
       <td class="enroll-point">
         <input type="text" th:value="${0}" disabled>원
-        <label><input class="checkbox" type="checkbox" checked>자동계산</label>
+        <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(최종할인가의 1%)</span>
       </td>
     </tr>
   </table>
 
   <!-- 상품 옵션 등록 -->
+  <button type="button" id="addOptionBtn">옵션 추가</button>
   <table class="enroll-middle-table">
     <tr>
-      <td>옵션</td>
-      <td>크기</td>
-      <td>색상</td>
-      <td>가격</td>
-      <td>재고 수량</td>
-      <td>재고 실 위치</td>
-      <td><button type="button">옵션 추가</button></td>
+      <td class="middle-table-checkbox"><input type="checkbox" name="" id=""></td>
+      <td class="middle-table-size">사이즈</td>
+      <td class="middle-table-color">색상</td>
+      <td class="middle-table-stock">재고</td>
+      <td class="middle-table-palce">재고 실 위치</td>
+      <td class="middle-table-state">판매상태</td>
     </tr>
-
+    
     <tr>
       <td><input type="checkbox"></td>
-      <td><input type="text" value="S"></td>
-      <td><input type="text" value="블랙"></td>
-      <td><input type="text" value="35,000">원</td>
-      <td><input type="text" value="20">개</td>
-      <td><input type="text" value="A창고 25-3"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
       <td>
         <select>
           <option>판매중</option>
           <option>품절</option>
-        </select>
-      </td>
-    </tr>
-
-    <tr>
-      <td><input type="checkbox"></td>
-      <td><input type="text" value="S"></td>
-      <td><input type="text" value="블랙"></td>
-      <td><input type="text" value="35,000">원</td>
-      <td><input type="text" value="20">개</td>
-      <td><input type="text" value="A창고 25-3"></td>
-      <td>
-        <select>
-          <option>판매중</option>
-          <option>품절</option>
+          <option selected>비공개</option>
         </select>
       </td>
     </tr>

@@ -26,7 +26,7 @@
 /* enroll-top-table */
 .enroll-top-table{
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .enroll-top-table tr {
@@ -65,26 +65,25 @@
 
 
 /* 썸네일 */
+.table-header.thumbnail {
+  border-left: none;
+}
 .enroll-thumbnail {
   text-align: center;
 }
-.table-header.thumbnail {
-  border-left : none;
+.enroll-top-table img {
+  height: 210px;
+  width: auto;
+  display: block;
+  margin: auto;
 }
-.enroll-top-table img{
-  height: 170px;
-}
-
 .enroll-img-btn {
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
-
-.enroll-img-btn button{
+#enrollImgBtn, #deleteImgBtn {
   width: 80px;
-  margin-top: 5px;
 }
-.enroll-img-btn button:first-child {
+#enrollImgBtn {
   margin-right: 5px;
 }
 
@@ -101,6 +100,26 @@
 #enrollCategory select:first-child {
   margin-bottom: 5px;
 }
+#selectedCategory {
+  padding-right: 10px;
+}
+#selectedCategory > span:not(:last-child) {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  background-color: #eee;
+}
+#selectedCategory > span:not(:last-child):hover {
+  background-color: #ccc;
+  transition-duration: 0.2s;
+  cursor: pointer;
+} 
+#selectedCategory > span:last-child {
+  font-size: 1.2rem;
+  color: #666;
+  margin-left: 5px;
+}
 
 /* 가격 */
 .enroll-price span {
@@ -112,6 +131,14 @@
   width: 250px;
   text-align: right;
 }
+.enroll-price label + span.info,
+.enroll-point label + span.info {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: #666;
+  width: 200px;
+  margin-left: 5px;
+}
 
 /* 적립금 */
 .enroll-point input[type='text'] {
@@ -119,20 +146,32 @@
   text-align: right;
 }
 
-/* enroll-middle-table */
+/* 옵션 정보 입력 테이블 */
+#addOptionBtn {
+  float: right;
+  margin: 5px 0;
+}
+
+.middle-table-checkbox { width: 5%; }
+.middle-table-size { width: 20%; }
+.middle-table-color { width: 25%; }
+.middle-table-stock { width: 15%; }
+.middle-table-palce { width: 25%; }
+.middle-table-state { width: 10%; }
 
 .enroll-middle-table{
   width: 100%;
-  margin-bottom: 50px;
 }
 
-.enroll-middle-table td{
-  padding: 10px;
+.enroll-middle-table td {
+  /* padding: 10px; */
   text-align: center;
+  
 }
 
 .enroll-middle-table tr{
-  height: 40px;
+  /* height: 40px; */
+  height: 38px;
   border-top: 1px solid #eee;
 }
 
@@ -141,26 +180,27 @@
 }
 
 .enroll-middle-table input[type=text]{
-  width: 70%;
-  height: 30px;
+  width: 90%;
+  /* height: 30px; */
   margin-right: 5px;
   text-align: center;
 }
 
-.enroll-middle-table select{
-  height: 30px;
-  margin-right: 10px;
+.enroll-middle-table select {
+  width: 80%;
+  /* height: 30px; */
+  /* margin-right: 10px; */
 }
 
 .enroll-middle-table option{
-  height: 30px;
+  /* height: 30px; */
 }
 
 .enroll-middle-table tr:nth-child(1){
   background-color: #fafafa;
 }
 
-.enroll-middle-table tr:nth-child(1) > td:nth-child(1){
+/* .enroll-middle-table tr:nth-child(1) > td:nth-child(1){
   width: 120px;
 }
 
@@ -178,26 +218,27 @@
 }
 .enroll-middle-table tr:nth-child(1) > td:nth-child(6){
   width: 450px;
-}
+} */
 
-.enroll-middle-table tr:nth-child(1) button{
+/* .enroll-middle-table tr:nth-child(1) button{
   background-color: #666;
   color: white;
   width: 100px;
   height: 30px;
-}
+} */
 
 /* enroll-bottom-table */
-.enroll-bottom-table{
+.enroll-bottom-table {
+  margin-top: 50px;
   width: 100%;
 }
 
-.enroll-bottom-table td{
+.enroll-bottom-table td {
   padding: 10px;
 }
 
-.enroll-bottom-table tr{
-  height: 40px;
+.enroll-bottom-table tr {
+  /* height: 40px; */
   border-top: 1px solid #eee;
 }
 
