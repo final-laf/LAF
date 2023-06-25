@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.mypage.model.mapper.MypageReviewMapper;
 import edu.kh.laf.order.model.dto.OrderProduct;
@@ -59,7 +60,13 @@ public class MypageReviewServiceImpl implements MypageReviewService {
 	}
 
 
-	
+	/** 이미지 조회
+	 *
+	 */
+	@Override
+	public List<ReviewImg> reviewImg(long reviewNo) {
+		return mapper.reviewImg(reviewNo);
+	}
 	
 
 }

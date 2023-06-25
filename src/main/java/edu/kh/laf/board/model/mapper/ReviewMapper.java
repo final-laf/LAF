@@ -1,6 +1,7 @@
 package edu.kh.laf.board.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -53,7 +54,7 @@ public interface ReviewMapper {
 	 * @param review
 	 * @return
 	 */
-	int InsertReview(Review review);
+	int insertReview(Review review);
 
 	/** 리뷰 수정하기
 	 * @param review
@@ -72,18 +73,38 @@ public interface ReviewMapper {
 	 * @param img
 	 * @return
 	 */
-	int imageInsert(ReviewImg img);
+	int insertImage(ReviewImg img);
 	
 	/** 이미지 업데이트
 	 * @param img
 	 * @return
 	 */
-	int imageUpdate(ReviewImg img);
+	int updateImage(ReviewImg img);
 
 	/** 리뷰 넘버 설정
 	 * @param review
 	 */
 	int setReviewNo(Review review);
+
+
+	/** 리뷰 이미지 조회
+	 * @param reviewNo
+	 * @return
+	 */
+	List<ReviewImg> reviewImg(long reviewNo);
+
+	/** 리뷰 이미지 삭제
+	 * @param deleteMap
+	 * @return
+	 */
+
+	int deleteImage(Map<String, Object> deleteMap);
+
+	/** 리뷰 삭제하기
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteReview(long reviewNo);
 
 
 }

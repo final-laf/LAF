@@ -17,9 +17,13 @@ for(let review of reviewDetail) {
     modal.style.display = "flex";
     document.body.style.overflowY = "hidden";
 
-    fetch("/review/detail?reviewNo="+reviewNo)  
+    fetch("/review/detailReview?reviewNo="+reviewNo)  
     .then(response => response.json()) 
     .then(review => {
+      for (let i = 0; i < 5; i++) {
+        document.getElementsByClassName("preview")[i].style.display= "none";
+
+      }
       document.getElementById("reviewDetailModalName").innerText=review.memberName;
       document.getElementById("reviewDetailModalDate").innerText=review.reviewCreateDate;
       document.getElementById("reviewDetailModalOption").innerText=review.option.color+"/"+review.option.size;
@@ -28,6 +32,11 @@ for(let review of reviewDetail) {
       document.getElementById("reviewDetailModalProductSalePrice").innerText=review.product.productSalePrice;
       document.getElementById("reviewDetailModalReviewCount").innerText=review.reviewCount;
       document.getElementById("reviewDetailModalContent").innerText=review.reviewContent;
+      for (let i = 0; i < review.reviewImg.length; i++) {
+        document.getElementsByClassName("preview")[i].src = review.reviewImg[i].reviewPath;
+        document.getElementsByClassName("preview")[i].style.display= "flex";
+
+      }
       memberName = review.memberName
       reviewCreateDate = review.reviewCreateDate
       option = review.option.color+"/"+review.option.size
@@ -125,5 +134,3 @@ const score = document.getElementById("reviewModifyModalStar");
 score.addEventListener("change", (e) => console.log(e.target.value))
 score.addEventListener("mousemove", (e) => console.log(e.target.value));
 
-
-// f
