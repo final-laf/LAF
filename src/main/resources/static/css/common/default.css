@@ -209,7 +209,7 @@ button:hover.submit {
   background-color: #493e5d;
 }
 
-input{
+input {
   width: auto;
   height: 27px;
   padding: 0px 8px;
@@ -223,10 +223,10 @@ input{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  cursor: default;
-
   outline: none;
+}
+input:disabled {
+  cursor: default;
 }
 textarea{
   outline: none;
