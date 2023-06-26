@@ -27,9 +27,14 @@ function formatDate(date) {
 }
 
 
+// 조회 조건 유지
+const orderStates = document.querySelectorAll('#orderStateSelect>option');
 
-
-
+for(let orderState of orderStates){
+  if(orderState.value == os){
+    orderState.selected = true;
+  }
+}
 
 // 주문 상품정보 주문처리상태 세팅
 const preOrderStates = document.querySelectorAll(".orderState");

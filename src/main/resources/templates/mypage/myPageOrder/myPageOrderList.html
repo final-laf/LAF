@@ -51,9 +51,11 @@
         </ul>
 
         <div id="dateFilter">
-          <input type="date" name="sd">
+          <input th:unless="${sd}" type="date" name="sd">
+          <input th:if="${sd}" type="date" name="sd" th:value="${sd}">
           ~
-          <input type="date" name="ed">
+          <input th:unless="${ed}" type="date" name="ed">
+          <input th:if="${ed}" type="date" name="ed" th:value="${ed}">
         </div>
 
         <button class="submit">조회</button>
@@ -148,12 +150,13 @@
             </a></li>
         </ul>
       </div>
-      
     </section>
   </main>
 
   <th:block th:replace="~{/common/footer}"></th:block>
-
+  <script th:inline="javascript">
+    const os = /*[[${os}]]*/ "주문조회";
+  </script>
   <script src="/js/myPage/myPageOrderList.js"></script>
 </body>
 </html>
