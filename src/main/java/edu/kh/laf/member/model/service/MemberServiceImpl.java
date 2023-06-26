@@ -146,6 +146,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	// 아이디와 주문번호로 비회원 주문 조회
+	@Override
+	public int selectNotMemberOrder(Map<String, String> paramMap) {
+		return mapper.selectNotMemberOrder(paramMap);
+	}
+
+
 	
 
 

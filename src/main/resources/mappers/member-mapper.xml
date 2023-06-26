@@ -71,7 +71,7 @@
 		AND member_del_fl  = 'N'
 	</select>
 	
-	<!--아이디, 이메일주소로 회원 검색-->
+	<!--아이디, 이메일주소로 회원 검색(로그인-비밀번호 찾기)-->
   	<select id="selectMatch" resultType="Member">
 		select * 
 		from `member`
@@ -79,12 +79,22 @@
 		and member_id = #{memberId}
 	</select>
 	
+	<!--아이디, 이메일주소로 새로 생성한 비밀번호 업데이트(로그인-비밀번호 찾기)-->
   	<update id="findPw">
 		update `member`
 		set member_pw = #{encPw}
 		where member_email = #{memberEmail}
 		and member_id = #{memberId}
 	</update>
+	
+	<!--전화번호, 주문번호로 비회원 주문 조회(로그인-비회원 주문조회)-->
+	<select id="selectNotMemberOrder" resultType="_int">
+		SELECT order_no
+		FROM `order` 
+		LEFT JOIN `member` USING (member_no)
+		WHERE member_phone = #{memberPhone}
+		AND order_uno = #{orderUno}
+	</select>
   	
 </mapper>
 
