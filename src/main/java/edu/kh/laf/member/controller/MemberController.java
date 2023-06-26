@@ -113,6 +113,20 @@ public class MemberController {
 	    status.setComplete(); 
 	    return "redirect:/";
 	}
+	
+	// 아이디 중복 검사
+	@GetMapping("/dupCheck/id")
+	@ResponseBody
+	public int checkId(String memberId) {
+		return service.checkId(memberId);
+	}
+	
+	// 이메일 중복 검사
+	@GetMapping("/dupCheck/email")
+	@ResponseBody
+	public int checkEmail(String memberEmail) {
+		return  service.checkEmail(memberEmail);
+	}
    
 	// 회원 가입 진행
 	@PostMapping("/signUp")
@@ -165,21 +179,7 @@ public class MemberController {
 		return path;
 	}
 	
-	
-	
-	// 아이디 중복 검사
-	@GetMapping("/dupCheck/id")
-	@ResponseBody
-	public int checkId(String memberId) {
-		return service.checkId(memberId);
-	}
-	
-	// 이메일 중복 검사
-	@GetMapping("/dupCheck/email")
-	@ResponseBody
-	public int checkEmail(String memberEmail) {
-		return  service.checkEmail(memberEmail);
-	}
+
 	
 	// 비밀번호 찾기
 	@PostMapping("/findpw")
@@ -221,6 +221,40 @@ public class MemberController {
 		ra.addFlashAttribute("message", message);
 		return path;
 	}
+	
+	
+	// 아이디와 주문번호로 비회원 주문 조회
+	@PostMapping("/notmember")
+	public String signUp(String memberPhone
+				  		,String orderUno
+				  		,RedirectAttributes ra) {
+		
+		String path;
+		// orderNo Long 타입으로 바꿔주기
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("memberPhone", memberPhone);
+		paramMap.put("orderUno", orderUno);
+		
+		// orderNo를 받아옴
+		long orderNo = service.selectNotMemberOrder(paramMap);
+		if(orderNo > 0) {
+			path = "redirect:/order/" + orderNo;
+		} else {
+			path = "redirect:/login";
+			String message = "전화번호 또는 이메일 주소가 일치하지 않습니다.";
+			ra.addFlashAttribute("message", message);
+		}
+		return path;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

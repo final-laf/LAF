@@ -48,4 +48,10 @@ public interface MemberMapper {
 	 * @return result
 	 */
 	int findPw(Map<String, String> paramMap);
+
+	/** 아이디와 주문번호로 비회원 주문 조회
+	 * @param paramMap
+	 * @return orderNo
+	 */
+	int selectNotMemberOrder(Map<String, String> paramMap);
 }
