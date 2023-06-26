@@ -78,29 +78,41 @@
 	<select id="getOrderListCount" resultType="int">
 		SELECT COUNT(order_no)  FROM `order` 
 		WHERE member_no = #{memberNo}
-		<if test="os != null">
-			AND order_state = #{os} 
-		</if>
-		<if test="sd == '3'">
+		
+		<if test='sd == "3"'>
 			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
 		</if>
-		<if test="sd != '3'">
-			AND order_date BETWEEN  STR_TO_DATE(${sd}, '%Y-%m-%d') AND STR_TO_DATE(${ed}, '%Y-%m-%d')
+		<if test='sd != "3"'>
+			AND order_date BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
 		</if>
+		
+		<if test='os != null'>
+			AND order_state = #{os}
+		</if>
+		<if test='os == null || os.length() == 0'>
+			AND order_state = 'A'
+		</if>
+
+		
 	</select>
 	
 	<!-- 기간별 주문목록 -->
 	<select id="selectSearchOrderList" resultType="Order">
 		SELECT *  FROM `order` 
 		WHERE member_no = #{memberNo}
-		<if test="os != null">
-			AND order_state = #{os} 
-		</if>
-		<if test="sd == '3'">
+
+		<if test='sd == "3"'>
 			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
 		</if>
-		<if test="sd != '3'">
-			AND order_date BETWEEN  STR_TO_DATE(${sd}, '%Y-%m-%d') AND STR_TO_DATE(${ed}, '%Y-%m-%d')
+		<if test='sd != "3"'>
+			AND order_date BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+		</if>
+		
+		<if test='os != null'>
+			AND order_state = #{os}
+		</if>
+		<if test='os == null || os.length() == 0'>
+			AND order_state = 'A'
 		</if>
 	</select>
 	

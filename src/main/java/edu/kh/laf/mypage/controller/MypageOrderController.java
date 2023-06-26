@@ -30,18 +30,22 @@ public class MypageOrderController {
 	public String order(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 						@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 						@RequestParam(value="sd", required=false, defaultValue="3") String sd,
-						@RequestParam(value="ed", required=false, defaultValue="null") String ed,
-						@RequestParam(value="os", required=false, defaultValue="null") String os,
+						@RequestParam(value="ed", required=false) String ed,
+						@RequestParam(value="os", required=false) String os,
 						Model model) {
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("memberNo", loginMember.getMemberNo());
-		paramMap.put("os", os); // 주문상태
 		paramMap.put("cp", cp); // 현재페이지
 		paramMap.put("sd", sd); // 검색 기간 시작
-		paramMap.put("ed", ed); // 검색 기간 끝
+		
+		if(os == null || os.length() != 0) {
+			paramMap.put("os", os); // 주문상태
+		}
+		if(ed == null || ed.length() != 0) {
+			paramMap.put("ed", ed); // 검색 기간 끝
+		}
 
-		System.out.println(paramMap);
 		// 로그인멤버의 주문 조회(최근 3개월 이내의) 페이지네이션 적용된 리스트 조회
 		Map<String, Object> resultMap = service.selectSearchOrderList(paramMap);
 		List<Order> orders = (List<Order>) resultMap.get("orders");
@@ -50,9 +54,13 @@ public class MypageOrderController {
 		
 		model.addAttribute("orderMaps", orderMaps);
 		model.addAttribute("pagination", resultMap.get("pagination"));
-		
-		
-		
+		if(os == null || os.length() != 0) {
+			model.addAttribute("os", os); // 주문상태
+		}
+		if(ed == null || ed.length() != 0) {
+			model.addAttribute("sd", sd);
+			model.addAttribute("ed", ed);
+		}
 		
 		return "/myPage/myPageOrder/myPageOrderList";
 	}
