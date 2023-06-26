@@ -13,55 +13,39 @@
   font-size: 2.5rem;
 }
 
-.order-list{
+.order-table{
   padding: 50px 70px;
 }
 
-.order-list>span{
+.order-table>span{
   display: block;
   font-size: 2rem;
   margin-bottom: 10px;
 }
 
-.order-list *{
-  font-size: 1.6rem;
+.order-table table{
+  width: 100%;
 }
 
-.order-list li{
-  display: flex;
-  height: 50px;
-  border-bottom: 1px solid #eee;
+.order-table table *{
+  text-align: center;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
 }
 
-.order-list li:nth-child(1){
-  border-top: 1px solid #eee;
-}
-
-.order-list li div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.order-cat{
-  width: 170px;
-  background-color: #fafafa;;
-}
-
-.order-count{
-  width: 500px;
-  justify-content: end !important;
-  padding-right: 50px;
-}
-
-.order-count-num{
-  font-size: 2rem;
+.order-table table tr:nth-child(1){
   font-weight: bold;
-  margin-right: 5px;
+  background-color: #fafafa;
 }
+
+.order-table table td{
+  border: 1px solid #eee;
+  height: 40px;
+}
+
 /* .recent-order-list */
 .recent-order-list{
-  padding: 50px 70px;
+  padding: 20px 70px;
 }
 
 .recent-order-table-title>div:nth-child(1){
@@ -73,13 +57,12 @@
 .recent-order-table-title{
   display: flex;
   justify-content: space-between;
-  align-items: end;
-  margin: 10px;
+  align-items: center;
+  margin: 10px 0;
   border: 1px ;
 }
 
 .recent-order-table-title button{
-  margin: 0 5px;
   width: 100px;
   height: 30px;
   background-color: #7f7698;
@@ -98,47 +81,48 @@
 
 .recent-order-table tr{
   height: 50px;
+  border-bottom: 1px solid #eee;
 }
 
 .recent-order-table td{
-  padding: 5px;
+  padding: 10px;
+  border-left: 1px solid #eee;
 }
 
 .recent-order-table tr:nth-child(1){
   background-color: #fafafa;
   text-align: center;
+  letter-spacing: 2px;
 }
 
-.recent-order-table tr:nth-child(2)>td:nth-child(1),
-.recent-order-table tr:nth-child(2)>td:nth-child(4),
-.recent-order-table tr:nth-child(2)>td:nth-child(6){
+.recent-order-table td:nth-child(1),
+.recent-order-table td:nth-child(4),
+.recent-order-table td:nth-child(5),
+.recent-order-table td:nth-child(6){
   text-align: center;
 }
 
-.recent-order-table tr:nth-child(2)>td:nth-child(5){
-  text-align: end;
-}
 
 .recent-order-table input{
   margin-right: 5px;
 }
 
 .recent-order-table img{
-  width: 100px;
+  width: 70px;
   margin-right: 5px;
 }
 
-.recent-order-table tr:nth-child(2)>td:nth-child(2)>div{
+.recent-order-table td:nth-child(2)>div{
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.recent-order-table tr:nth-child(2)>td:nth-child(3) p{
+.recent-order-table td:nth-child(3) p{
   width: 230px;
 }
 
-.recent-order-table tr:nth-child(2)>td:nth-child(3) p:nth-child(2){
+.recent-order-table td:nth-child(3) p:nth-child(2){
   color: #ccc;
   margin-top: 5px;
 }
