@@ -224,13 +224,20 @@ COMMIT;
 
 SELECT * FROM `member`;
 
+ DELETE FROM `member` WHERE member_no = 72;
+COMMIT;
+
+
+SELECT * FROM `order`;
 
 
 
-
-
-
-
+SELECT order_no
+FROM `order` 
+LEFT JOIN `member` USING (member_no)
+WHERE member_phone = '01043214321'
+AND order_uno = '230621-3-VRZI2P'
+;
 
 
 

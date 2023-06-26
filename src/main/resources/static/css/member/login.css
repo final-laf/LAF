@@ -1,35 +1,36 @@
 .mypageLogin-login{
+    margin-top: 70px;
     display: flex;
 }
+
+.mypageLogin-login *{
+    font-size: 1.2rem;
+}
+
+
 .mypageLogin-login > div{
-    width: 1200px;
+    width: 700px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
 }
-.mypageLogin-login-memberLogin{
-    margin-right: 50px;
-    display: block;
-    width: 530px;
+
+.mypageLogin-login input{
+    height: 20px;
+    margin-top: 10px;
 }
 
-.mypageLogin-login-memberLogin p{
-    margin: 20px 0;
-    font-size: 30px;
-    font-weight: bold;
+
+/* 회원 로그인 */
+.mypageLogin-login-memberLogin{
+    padding-right: 50px;
+    display: block;
+    width: 50%;
 }
 
 .mypageLogin-login-memberLogin div{
-    font-size: 18px;
     padding: 10px 0 0 0;
     
-}
-
-.mypageLogin-login-noMember{
-    display: block;
-    background-color: blue;
-    width: 100%;
-    height: 570px;
 }
 
 .mypageLogin-memberLogin-member{
@@ -37,46 +38,62 @@
 }
 
 .mypageLogin-memberLogin-member div{
-    color: #c49677;
+    color: #7F7698;
 }
-.mypageLogin-memberLogin-member input{
-    height: 50px;
-}
-#mypageLoginLogin{
+
+/* 모든 버튼 */
+.mypage-button{
     border: none;
-    font-size: 20px;
-    background-color: brown;
+    font-weight: bold;
+    font-size: 1.4rem;
+    background-color: #fafafa;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
     margin-top: 30px;
     padding-left: 20px;
-    width: 520px;
-    height: 60px;
     text-align: center;
+    
+    width: 100%;
+    height: 40px;
+}
+
+/* 로그인 버튼 */
+.mypage-login-button {
+    background-color: #7F7698;
 }
 
 .mypageLogin-memberLogin-other{
-    margin: 10px 0 50px 0;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    height: 20px;
+    margin-bottom: 5px;
 }
-.mypageLogin-memberLogin-other input {
-    margin-right: 10px;
+
+.mypageLogin-memberLogin-other > div:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mypageLogin-memberLogin-other input{
+    margin: 0;
+    padding: 0;
+}
+
+.mypageLogin-memberLogin-other > div:first-child > *{
+    margin-right: 5px;
 }
 
 .mypageLogin-login-notMember{
     padding-left: 50px;
     border-left: 0.5px solid #eee;
     display: block;
-    width: 530px;
-}
-
-.mypageLogin-login-notMember p{
-    margin: 20px 0;
-    font-size: 30px;
-    font-weight: bold;
+    width: 50%;
 }
 
 .mypageLogin-login-notMember div{
-    font-size: 18px;
     padding: 10px 0 0 0;
     
 }
@@ -88,6 +105,24 @@
     background-color: #fafafa;
     margin-top: 30px;
     padding-left: 20px;
-    width: 520px;
+    width: 100%;
     height: 60px;
+}
+
+.login-title {
+    font-size: 25px;
+    margin: 4px 0;
+}
+
+.login-subtitle {
+    color: #666;
+    font-size: 12px;
+}
+
+.mypageLogin-login-signup {
+    margin-top: 20px;
+}
+
+.login-subtitle > div {
+    line-height: 10px;
 }
