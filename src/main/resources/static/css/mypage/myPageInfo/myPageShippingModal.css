@@ -96,15 +96,15 @@
   width: 30%;
 }
 
-#sample6_postcode{
+#add_sample6_postcode{
   width: 20%;
 }
 
-#sample6_address {
+#add_sample6_address {
   width: 98%;
 }
 
-#sample6_detailAddress {
+#add_sample6_detailAddress {
   width: 50%;
 }
 
@@ -188,4 +188,28 @@
 
   display: flex;
   flex-direction: column;
+}
+
+.modifyAddressName {
+  width: 40%;
+}
+
+.modifyAddressReceiver {
+  width: 30%;
+}
+
+#modify_sample6_postcode{
+  width: 20%;
+}
+
+#modify_sample6_address {
+  width: 98%;
+}
+
+#modify_sample6_detailAddress {
+  width: 50%;
+}
+
+.addressTel {
+  width: 20%;
 }
