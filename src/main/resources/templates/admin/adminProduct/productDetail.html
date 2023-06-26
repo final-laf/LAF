@@ -1,0 +1,131 @@
+<link rel="stylesheet" th:href="@{/css/admin/adminProduct/productDetail.css}">
+
+<div class="enroll-container">
+
+  <!-- 상품정보 등록 -->
+  <table class="enroll-top-table">
+    
+    <tr>
+      <td class="enroll-table-header table-header thumbnail">썸네일 이미지</td>
+      <td class="enroll-table-header table-header">상품명</td>
+      <td><input id="productName" name="productName" type="text"></td>
+    </tr>
+
+    <tr>
+      <td rowspan="5" class="enroll-thumbnail">
+        <img th:src="@{/images/common/no-image.png}">
+      </td>
+      <td rowspan="2" class="enroll-table-header table-header">카테고리</td>
+      <td id="enrollCategory">
+        <select class="select-category" id="detailParentCategory" name="pc">
+          <option name="pc" value="">1차 분류</option>
+          <option name="pc" 
+            th:each="category : ${categoryList}"
+            th:if="${category.parentCategoryNo == 0}"
+            th:value="${category.categoryNo}"
+            th:text="${category.categoryName}">부모 카테고리 이름</option>
+        </select>
+
+        <select class="select-category" id="detailChildCategory" name="cc" disabled>
+          <option name="cc" value="">2차 분류</option>
+          <option name="pc"
+            th:each="category : ${categoryList}"
+            th:if="${category.parentCategoryNo > 0}"
+            th:value="${category.categoryNo}"
+            th:text=" ${category.categoryName}">자식 카테고리 이름</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td id="selectedCategory">
+        <span>TOP > 티셔츠</span>
+        <span>MD 추천</span>
+        <span>클릭해서 삭제</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td rowspan="3" class="enroll-table-header table-header">가격</td>
+      <td class="enroll-price">
+        <span>판매가</span><input type="text">원
+      </td>
+    </tr>
+
+    <tr>
+      <td class="enroll-price">
+        <span>할인율</span><input type="text">%
+      </td>
+    </tr>
+
+    <tr>
+      <td class="enroll-price">
+        <span>최종할인가</span><input type="text" th:value="${0}" disabled>원
+        <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(100원 단위 절삭)</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="enroll-img-btn">
+        <button id="enrollImgBtn" type="button">파일 업로드</button>
+        <button id="deleteImgBtn" type="button">삭제</button>
+      </td>
+      <td class="enroll-table-header table-header">적립금</td>
+      <td class="enroll-point">
+        <input type="text" th:value="${0}" disabled>원
+        <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(최종할인가의 1%)</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- 상품 옵션 등록 -->
+  <button type="button" id="addOptionBtn">옵션 추가</button>
+  <table class="enroll-middle-table">
+    <tr>
+      <td class="middle-table-checkbox"><input type="checkbox" name="" id=""></td>
+      <td class="middle-table-size">사이즈</td>
+      <td class="middle-table-color">색상</td>
+      <td class="middle-table-stock">재고</td>
+      <td class="middle-table-palce">재고 실 위치</td>
+      <td class="middle-table-state">판매상태</td>
+    </tr>
+    
+    <tr>
+      <td><input type="checkbox"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td><input type="text"></td>
+      <td>
+        <select>
+          <option>판매중</option>
+          <option>품절</option>
+          <option selected>비공개</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <!-- 상품 상세 이미지/설명 등록 -->
+  <table class="enroll-bottom-table">
+    <tr>
+      <td>
+        <div>
+          <div>상세 이미지</div>
+          <div class="enroll-detail-img-btn">
+            <button type="button">파일업로드</button>
+            <button type="button">취소</button>
+          </div>
+        </div>
+      </td>
+      <td>상세 설명</td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <textarea cols="30" rows="15">상품 상세설명을 적어주세요</textarea>
+      </td>
+    </tr>
+  </table>
+</div>

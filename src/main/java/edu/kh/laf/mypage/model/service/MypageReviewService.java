@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
@@ -39,5 +40,11 @@ public interface MypageReviewService {
 	 * @return
 	 */
 	Review detailReview(Review orderProduct);
+
+		/** 리뷰 이미지 리스트
+	 * @param reviewNo
+	 * @return
+	 */
+	List<ReviewImg> reviewImg(long reviewNo);
 
 }

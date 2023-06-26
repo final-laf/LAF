@@ -73,11 +73,53 @@
 		SET member_del_fl = 'Y'
 		WHERE member_no = #{memberNo}
 	</update>
+	
+	<!-- 기간별 주문목록개수 -->
+	<select id="getOrderListCount" resultType="int">
+		SELECT COUNT(order_no)  FROM `order` 
+		WHERE member_no = #{memberNo}
+		
+		<if test='sd == "3"'>
+			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+		</if>
+		<if test='sd != "3"'>
+			AND order_date BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+		</if>
+		
+		<if test='os != null'>
+			AND order_state = #{os}
+		</if>
+		<if test='os == null || os.length() == 0'>
+			AND order_state = 'A'
+		</if>
 
+		
+	</select>
+	
+	<!-- 기간별 주문목록 -->
+	<select id="selectSearchOrderList" resultType="Order">
+		SELECT *  FROM `order` 
+		WHERE member_no = #{memberNo}
+
+		<if test='sd == "3"'>
+			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
+		</if>
+		<if test='sd != "3"'>
+			AND order_date BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+		</if>
+		
+		<if test='os != null'>
+			AND order_state = #{os}
+		</if>
+		<if test='os == null || os.length() == 0'>
+			AND order_state = 'A'
+		</if>
+	</select>
+	
 	<!--주문 상품 조회(마이페이지-주문관리-주문조회)-->
 	<select id="selectOrderProduct" resultType="OrderProduct">
 		SELECT order_no, 
-				(SELECT sum(count) FROM order_product WHERE order_no = 30 GROUP BY order_no) count,
+				(SELECT sum(count) FROM order_product WHERE order_no = #{orderNo} GROUP BY order_no) count,
 				product_no,
 				option_no
 		FROM order_product

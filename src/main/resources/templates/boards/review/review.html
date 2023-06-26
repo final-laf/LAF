@@ -34,9 +34,10 @@
         <div class="best-content">
           <ul class="best-list">
             <!-- 베스트 리뷰 하나 하나 -->
-            <li th:each="r:${reviewList}" start="1" end="5">
+            <li th:each="r, status:${reviewList}" th:if="${status.count<6}" >
               <a href="#" id="review-bestThum">
-                <img class="best-img" th:src="${r.product.thumbnailPath}">
+                <img class="best-img" th:each="img,status:${r.reviewImg}" th:if="${status.first}" th:src="${img.reviewPath}">
+                <img class="best-img" th:if="${#lists.isEmpty(r.reviewImg)}" th:src="${r.product.thumbnailPath}">
               </a>
               <div class="review-content">
                 <p class="review-title" th:text="${r.reviewContent}">(리뷰 내용)</p>

@@ -13,27 +13,54 @@
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				product_date as product_date_for_ordering,
+				sale_sum as sales,
+				stock,
 				img_path AS thumbnail_path
 		FROM   `product`
-				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+				join `product_img` on `product`.product_no = `product_img`.product_no
+				join (select sum(sell_count) sale_sum, sum(stock) stock, product_no from `option` group by product_no) as `sales` on `product`.product_no = `sales`.product_no
+				<if test="pc != null or cc != null">join `product_category` on `product`.product_no = `product_category`.product_no</if>
+				<if test="pc != null">join `parent_category_cd` on `product_category`.parent_category_no = `parent_category_cd`.parent_category_no</if>
+				<if test="cc != null">join `child_category_cd` on `product_category`.child_category_no = `child_category_cd`.child_category_no</if>
+		where 1=1
+			<if test="query != null and qk == null">and (product_name like '%${query}%' or `product`.product_no like '%${query}%')</if>
+			<if test="query != null and qk != null and qk.equals('name')">and product_name like '%${query}%'</if>
+			<if test="query != null and qk != null and qk.equals('no')">and `product`.product_no like '%${query}%'</if>
+			<if test="state != null">
+				<foreach collection="state" item="s" open="and (" close=")" separator="or">
+					product_state = #{s}
+				</foreach>
+			</if>
+			<if test="pc != null">and `product_category`.parent_category_no = #{pc}</if>
+			<if test="cc != null">and `product_category`.child_category_no = #{cc}</if>
 		ORDER BY 
-			<if test='ordering == null or ordering.isEmpty() or ordering.equals("new")'>
-				product_date_for_ordering desc
-			</if>
-			<if test='ordering != null and ordering.equals("old")'>
-				product_date_for_ordering
-			</if>
-			<if test='ordering != null and ordering.equals("name")'>
-				product_name asc
-			</if>
-			<if test='ordering != null and ordering.equals("sales")'>
-				sales desc
-			</if>
+			<if test='ordering == null or ordering.isEmpty() or ordering.equals("new")'>product_date_for_ordering desc</if>
+			<if test='ordering != null and ordering.equals("old")'>product_date_for_ordering</if>
+			<if test='ordering != null and ordering.equals("name")'>product_name asc</if>
+			<if test='ordering != null and ordering.equals("sales")'>sales desc</if>
+			<if test='ordering != null and ordering.equals("stock")'>stock</if>
 	</select>
 	
 	<!-- 전체 상품 갯수 조회 -->
 	<select id="getProductCount">
-		select count(*) from `product`;
+		select count(*) 
+		FROM   `product`
+				join `product_img` on `product`.product_no = `product_img`.product_no
+				join (select sum(sell_count) sale_sum, sum(stock) stock, product_no from `option` group by product_no) as `sales` on `product`.product_no = `sales`.product_no
+				<if test="pc != null or cc != null">join `product_category` on `product`.product_no = `product_category`.product_no</if>
+				<if test="pc != null">join `parent_category_cd` on `product_category`.parent_category_no = `parent_category_cd`.parent_category_no</if>
+				<if test="cc != null">join `child_category_cd` on `product_category`.child_category_no = `child_category_cd`.child_category_no</if>
+		where 1=1
+			<if test="query != null and qk == null">and (product_name like '%${query}%' or `product`.product_no like '%${query}%')</if>
+			<if test="query != null and qk != null and qk.equals('name')">and product_name like '%${query}%'</if>
+			<if test="query != null and qk != null and qk.equals('no')">and `product`.product_no like '%${query}%'</if>
+			<if test="state != null">
+				<foreach collection="state" item="s" open="and (" close=")" separator="or">
+					product_state = #{s}
+				</foreach>
+			</if>
+			<if test="pc != null">and `product_category`.parent_category_no = #{pc}</if>
+			<if test="cc != null">and `product_category`.child_category_no = #{cc}</if>
 	</select>
 
 	<!-- 상품 번호로 상품 정보 조회 -->
@@ -291,6 +318,22 @@
 				and product_state = 'O';
 	</select>
 	
+	<!-- 모든 카테고리 조회 -->
+	<select id="selectAllCategoryList">
+		(select 	 parent_category_no as category_no,
+				 parent_category_name as category_name,
+				 0 as parent_category_no,
+				 parent_category_order  as category_order
+		from 	`parent_category_cd`	
+		order by parent_category_no)
+		union	 			
+		(select 	 child_category_no  as category_no,
+				 child_category_name as category_name,
+				 parent_category_no as parent_category_no,
+				  0  as category_order
+		from 	`child_category_cd`)
+	</select>
+	
 	<!-- 부모 카테고리 조회 -->
 	<select id="selectCategoryList" resultType="Category">
 		select 	parent_category_no as category_no,
@@ -347,6 +390,17 @@
 		update `product`
 		set		product_state = #{state}
 		where 	product_no = ${productNo}
+	</update>
+	
+	<!-- 선택 상품 상태 일괄 변경-->
+	<update id="updateStateList">
+		update `product`
+		set		product_state = #{state}
+		<where>
+			<foreach collection="productNoList" item="productNo" separator="or">
+				product_no = ${productNo}			
+			</foreach>
+		</where>
 	</update>
 	
 </mapper>

@@ -164,11 +164,19 @@ label[for='menuList'] {
   position: absolute;
   right: 130px;
   bottom: 15px;
+
+  display: flex;
+  align-items: center;
 }
 #searchCheckbox:checked + #query + #welcome {
   /* transform: translateX(-220px); */
   transform: translateY(-27px);
   transition-duration: 0.2s;
+}
+#welcomeEmoji {
+  text-align: center;
+  font-size: 1.2rem;
+  width: 120px;
 }
 
 

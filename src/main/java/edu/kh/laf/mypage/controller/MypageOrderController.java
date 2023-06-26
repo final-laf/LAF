@@ -1,6 +1,8 @@
 package edu.kh.laf.mypage.controller;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
-import edu.kh.laf.order.model.dto.OrderProduct;
 
 @Controller
 public class MypageOrderController {
@@ -28,18 +28,39 @@ public class MypageOrderController {
 	// 나의 주문목록 조회
 	@GetMapping("/myPage/order") 
 	public String order(@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+						@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+						@RequestParam(value="sd", required=false, defaultValue="3") String sd,
+						@RequestParam(value="ed", required=false) String ed,
+						@RequestParam(value="os", required=false) String os,
 						Model model) {
 		
-		// 첫 페이지
-		// 로그인멤버의 주문 조회(최근 3개월 이내의)
-		List<Order> Orders = service.selectMyPageOrderList(loginMember);
-		// 주문 상품목록 조회
-		List<OrderProduct> OrderProducts = service.selectOrderProducts(Orders);
-		System.out.println(OrderProducts);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNo", loginMember.getMemberNo());
+		paramMap.put("cp", cp); // 현재페이지
+		paramMap.put("sd", sd); // 검색 기간 시작
 		
-		// 주문 리스트와, 각 주문별 상품목록 리스트를 모델로 전달
-//		model.addAttribute("Orders", Orders);
-//		model.addAttribute("OrderProducts", OrderProducts);
+		if(os == null || os.length() != 0) {
+			paramMap.put("os", os); // 주문상태
+		}
+		if(ed == null || ed.length() != 0) {
+			paramMap.put("ed", ed); // 검색 기간 끝
+		}
+
+		// 로그인멤버의 주문 조회(최근 3개월 이내의) 페이지네이션 적용된 리스트 조회
+		Map<String, Object> resultMap = service.selectSearchOrderList(paramMap);
+		List<Order> orders = (List<Order>) resultMap.get("orders");
+		// 주문 상품목록 조회 위에서 조회된거 기준으로 다시 조회(주문 리스트와, 각 주문별 상품목록 리스트)
+		List<Map<String, Object>> orderMaps = service.selectOrderProducts(orders);
+		
+		model.addAttribute("orderMaps", orderMaps);
+		model.addAttribute("pagination", resultMap.get("pagination"));
+		if(os == null || os.length() != 0) {
+			model.addAttribute("os", os); // 주문상태
+		}
+		if(ed == null || ed.length() != 0) {
+			model.addAttribute("sd", sd);
+			model.addAttribute("ed", ed);
+		}
 		
 		return "/myPage/myPageOrder/myPageOrderList";
 	}

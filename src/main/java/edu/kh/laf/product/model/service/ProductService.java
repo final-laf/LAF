@@ -111,4 +111,19 @@ public interface ProductService {
 	 */
 	int updateState(long productNo, String state);
 
+	/**
+	 * 모든 카테고리 목록 조회
+	 * @return categoryList
+	 */
+	List<Category> selectAllCategoryList();
+
+	/**
+	 * 선택 상품 상태 일괄 변경
+	 * @param productNo
+	 * @param state
+	 * @param data
+	 * @return result
+	 */
+	int updateAllState(String data, String state);
+
 }

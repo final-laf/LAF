@@ -1,5 +1,7 @@
 package edu.kh.laf.board.model.dto;
 
+import java.util.List;
+
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
@@ -17,7 +19,7 @@ public class Review {
 	private long orderNo;			 // 주문 번호
 	private long productNo;			 // 상품 번호
 	private long optionNo;			 // 옵션 번호
-	private ReviewImg reviewImg;     // 리뷰 이미지
+	private List<ReviewImg> reviewImg;     // 리뷰 이미지
 	
 	private Product product; 		 // 상품
 	private Option option; 			 // 옵션

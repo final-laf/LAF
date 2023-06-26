@@ -73,25 +73,43 @@ UPDATE `review`	SET review_content='리뷰내용 수정', review_score= 2.2 WHER
 
 
 SELECT * FROM `order` r2 ;
+SELECT * FROM `order_product` r2 ;
 SELECT * FROM review r2 ;
 
-SELECT r.review_no, 
-        	   m.member_id, 
-			r.review_content, 
-			 r.review_create_date, 
-				 r.review_score, 
-				 r.order_no, 
-				 op.product_no, 
-				 op.option_no, 
-				 o.order_uno,
-				 `count`, 
-				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
-				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
-        FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
-        			  JOIN `member` m ON o.member_no = m.member_no 
-        			  JOIN order_product op ON o.order_no=op.order_no  
-        WHERE m.member_no=2 AND o.review_no IS not null ORDER BY o.order_date DESC;
+
+-- 리뷰 없는 오더 리스트
+SELECT  op.review_no,
+		r.review_delete_fl,
+		op.order_no,
+	   op.product_no, 
+	   op.option_no, 
+	   (SELECT order_uno FROM `order`o WHERE member_no=2 AND op.order_no=o.order_no) order_uno,
+	   op.count, 
+	   TRUNCATE((SELECT AVG(review_score) FROM review r WHERE op.product_no =r.product_no),1) review_score_avg, 
+	   (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
+FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no LEFT JOIN review r ON op.review_no=r.review_no
+WHERE op.order_no=(SELECT so.order_no FROM `order` so WHERE member_no=2 AND op.order_no=so.order_no)
+AND (r.review_delete_fl = 'y' OR op.review_no IS NULL) 
+ORDER BY order_date DESC;
         
+-- 내 리뷰 리스트 
+        SELECT r.review_no, 
+	           m.member_id, 
+			   r.review_content, 
+			   r.review_create_date, 
+			   r.review_score, 
+			   r.order_no, 
+			   r.product_no, 
+			   r.option_no, 
+			   o.order_uno,
+			   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
+			   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
+		FROM review r LEFT JOIN order_product op ON r.review_no = op.review_no 
+					  JOIN `order` o ON r.order_no = o.order_no 
+					  JOIN `member`m ON o.member_no = m.member_no 
+		WHERE o.member_no=2 AND r.review_delete_fl = 'n'
+		ORDER BY o.order_date DESC
+
 SELECT * FROM `order` r2 ;
 SELECT * FROM `review` r2 ;
 SELECT o.review_no, 

@@ -96,24 +96,24 @@
         WHERE r.review_no = #{reviewNo}
     </select>
     
-    <insert id="InsertReview"  useGeneratedKeys="true" keyProperty="reviewNo" >
-		INSERT INTO `review` VALUES (NULL, #{reviewContent}, DEFAULT, #{reviewScore}, #{orderNo}, #{productNo}, #{optionNo})
+    <insert id="insertReview"  useGeneratedKeys="true" keyProperty="reviewNo" >
+		INSERT INTO `review` VALUES (NULL, #{reviewContent}, DEFAULT, #{reviewScore}, #{orderNo}, #{productNo}, #{optionNo}, DEFAULT)
 	</insert>
     
     <update id="updateReview">
-		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore} 
+		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore}, review_delete_fl='N'
 		WHERE review_no = #{reviewNo}
 	</update>
     
     <update id="updateImage">
-		UPDATE `review_img`	SET review_no=#{reviewNo}, review_path= #{reviewPath} 
-		WHERE review_no = #{reviewNo}
+		UPDATE `review_img`	SET review_img_order=#{reviewImgOrder}, review_path= #{reviewPath} 
+		WHERE review_img_order = #{reviewImgOrder} AND review_no=#{reviewNo}
 	</update>
     
-    <select id="reviewNo">
-		SELECT review_no FROM review 
-		WHERE order_no = #{orderNo} AND product_no =#{productNo} AND option_no =#{optionNo}
-	</select>
+	<insert id="insertImage"  useGeneratedKeys="true" keyProperty="reviewNo" >
+		INSERT INTO `review_img` VALUES (DEFAULT, #{reviewNo}, #{reviewPath}, #{reviewImgOrder} )
+	</insert>
+    
     
     <update id="setReviewNo">
 		UPDATE `order_product` SET review_no=#{reviewNo} 
@@ -121,5 +121,25 @@
 	</update>
     
 
+     	<!-- 리뷰 이미지 조회 -->
+    <select id="reviewImg" resultType="ReviewImg">
+	    SELECT * FROM `review_img` WHERE review_no=#{reviewNo}
+	</select>
+    
+    <!-- 이미지 삭제 -->
+	<delete id="deleteImage">
+		DELETE FROM `review_img` WHERE review_no = #{reviewNo} AND review_img_order IN (${deleteList})	
+	</delete>
+    
+    
+    <!-- 리뷰 삭제 -->
+	<update id="deleteReview">
+		UPDATE `review` SET review_delete_fl='Y'
+		WHERE review_no=#{reviewNo} 	
+	</update>
+    
+    
+    
+    
 </mapper>
 

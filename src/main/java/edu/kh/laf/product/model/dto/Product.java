@@ -21,4 +21,6 @@ public class Product {
     // additional data
     private int likeCount; 			// 찜목록에 담긴 횟수
     private int reviewCount; 		// 리뷰 갯수
+    private int sales;				// 총 판매량
+    private int stock;				// 총 재고
 }

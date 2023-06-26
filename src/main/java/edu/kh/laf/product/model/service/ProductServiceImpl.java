@@ -7,6 +7,7 @@ import edu.kh.laf.product.model.mapper.ProductMapper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> selectProductList(Map<String, Object> paramMap) {
 		
-		int listCount = mapper.getProductCount();
-		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
+		int listCount = mapper.getProductCount(paramMap);
+		int cp = (paramMap.get("cp") == null) ? 1 : Integer.parseInt((String)paramMap.get("cp"));
+		Pagination pagination = new Pagination(listCount, cp, 10);
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
@@ -135,6 +137,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<Category> selectChildCategoryList(int categoryNo) {
 		return mapper.selectChildCategoryList(categoryNo);
 	}
+	
+	// 모든 카테고리 조회
+	@Override
+	public List<Category> selectAllCategoryList() {
+		return mapper.selectAllCategoryList();
+	}
 
 	// 키 목록으로 상품 조회
 	@Override
@@ -169,6 +177,21 @@ public class ProductServiceImpl implements ProductService {
 		map.put("state", state);
 		
 		return mapper.updateState(map);
+	}
+
+	// 선택 상품 상태 일괄 변경
+	@Override
+	public int updateAllState(String data, String state) {
+		String[] tmp = data.split("-");
+		List<Long> productNoList = new ArrayList<>(); 
+		for(String str : tmp) {
+			productNoList.add(Long.parseLong(str));
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("productNoList", productNoList);
+		map.put("state", state);
+		return  mapper.updateStateList(map);
 	}
 
 }

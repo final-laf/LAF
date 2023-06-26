@@ -18,7 +18,7 @@
     <!-- 사용자 리뷰 게시글 하나하나 -->
     <div class="reviews-item" th:each="r:${reviewList}">
       <div class="reviews-item-product">
-        <img th:src="${r.product.thumbnailPath}">
+        <img th:each="img, status:${r.reviewImg}" th:if="${status.first}" th:src="${img.reviewPath}">
         <div>
           <div id="reviewListProductName" th:text="${r.product.productName}">제품명</div>
           <div class="review-grey">
@@ -38,9 +38,9 @@
         </div>
         <div class="reviews-item-review-images">
           <div class="reviewListDetail" th:value="${r.reviewNo}">더보기 &gt;&gt;</div>
-          <img src="/images/sample/230605001.jpg">
-          <img src="/images/sample/230605001.jpg">
-          <img src="/images/sample/230605001.jpg">
+          <div>
+            <img th:each="img, status:${r.reviewImg}" th:if="${0<status.count}" th:src="${img.reviewPath}">
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-.product-enroll{
+.product-enroll {
   width: 1200px;
 
   /* margin: 0 30px; */
@@ -10,122 +10,168 @@
   background-color: white;
 }
 
-.product-enroll-title{
+.product-enroll-title {
   font-size: 2.5rem;
 }
-
-.enroll-search-box{
+.enroll-container {
   width: 95%;
   margin: 50px auto 80px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }
+.enroll-table-header {
+  text-align: center;
+}
 
 /* enroll-top-table */
 .enroll-top-table{
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
-.enroll-top-table tr{
-  height: 50px;
+.enroll-top-table tr {
   border-bottom: 1px solid #eee;
 }
 
-.enroll-top-table td{
-  padding: 10px 20px;
+.enroll-top-table td {
+  padding: 6px 10px;
+  min-height: 38px;
 }
 
-.enroll-top-table input{
+.enroll-top-table input:not(.checkbox) {
   margin-right: 5px;
+  height: 27px;
+}
+
+.checkbox {
+  height: auto;
+  margin: 0 5px 0 10px;
 }
 
 .enroll-top-table tr:nth-child(1) > td:nth-child(1){
   background-color: #fafafa;
-  width: 360px;
+  width: 220px;
 }
 
 .enroll-top-table tr:nth-child(2) > td:nth-child(1){
-  padding: 20px;
+  padding: 5px 0;
 }
 
-.enroll-top-table tr:nth-child(1) > td:nth-child(2),
-.enroll-top-table tr:nth-child(2) > td:nth-child(2),
-.enroll-top-table tr:nth-child(3) > td:nth-child(1),
-.enroll-top-table tr:nth-child(4) > td:nth-child(1){
+.table-header {
   background-color: #fafafa;
   border-left: 1px solid #eee;
   width: 120px;
 }
+
+
 /* 썸네일 */
-.enroll-top-table img{
-  height: 280px;
-  margin-left: 53px;
+.table-header.thumbnail {
+  border-left: none;
 }
-
-.enroll-img-btn{
-  display: flex;
-  justify-content: center;
+.enroll-thumbnail {
+  text-align: center;
 }
-
-.enroll-img-btn button{
-  width: 100px;
-  height: 40px;
-
-  margin-top: 10px;
-  color: white;
-  letter-spacing: 3px;
+.enroll-top-table img {
+  height: 210px;
+  width: auto;
+  display: block;
+  margin: auto;
 }
-
-.enroll-img-btn>button:nth-child(1){background-color: #7f7698;}
-.enroll-img-btn>button:nth-child(2){background-color: #666;}
+.enroll-img-btn {
+  text-align: center;
+}
+#enrollImgBtn, #deleteImgBtn {
+  width: 80px;
+}
+#enrollImgBtn {
+  margin-right: 5px;
+}
 
 /* 상품명 */
-.enroll-top-table tr:nth-child(1) > td:nth-child(3) input{
-  width: 60%;
-  height: 30px;
+#productName {
+  width: 100%;
 }
 
-.enroll-top-table select{
-  width: 150px;
-  height: 30px;
-  margin-right: 10px;
+/* 카테고리 */
+#enrollCategory select {
+  display: block;
+  width: 275px;
 }
-
-.enroll-top-table option{
-  height: 30px;
+#enrollCategory select:first-child {
+  margin-bottom: 5px;
+}
+#selectedCategory {
+  padding-right: 10px;
+}
+#selectedCategory > span:not(:last-child) {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  background-color: #eee;
+}
+#selectedCategory > span:not(:last-child):hover {
+  background-color: #ccc;
+  transition-duration: 0.2s;
+  cursor: pointer;
+} 
+#selectedCategory > span:last-child {
+  font-size: 1.2rem;
+  color: #666;
+  margin-left: 5px;
 }
 
 /* 가격 */
-.enroll-price *{
-  margin: 10px 0;
-}
-
-.enroll-price p{
-  display: flex;
-  align-items: center;
-}
-
-.enroll-price span{
-  display: block;
+.enroll-price span {
+  display: inline-block;
   width: 80px;
   margin-left: 10px;
 }
+.enroll-price input[type='text'] {
+  width: 250px;
+  text-align: right;
+}
+.enroll-price label + span.info,
+.enroll-point label + span.info {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: #666;
+  width: 200px;
+  margin-left: 5px;
+}
 
-/* enroll-middle-table */
+/* 적립금 */
+.enroll-point input[type='text'] {
+  width: 340px;
+  text-align: right;
+}
+
+/* 옵션 정보 입력 테이블 */
+#addOptionBtn {
+  float: right;
+  margin: 5px 0;
+}
+
+.middle-table-checkbox { width: 5%; }
+.middle-table-size { width: 20%; }
+.middle-table-color { width: 25%; }
+.middle-table-stock { width: 15%; }
+.middle-table-palce { width: 25%; }
+.middle-table-state { width: 10%; }
 
 .enroll-middle-table{
   width: 100%;
-  margin-bottom: 50px;
 }
 
-.enroll-middle-table td{
-  padding: 10px;
+.enroll-middle-table td {
+  /* padding: 10px; */
   text-align: center;
+  
 }
 
 .enroll-middle-table tr{
-  height: 40px;
+  /* height: 40px; */
+  height: 38px;
   border-top: 1px solid #eee;
 }
 
@@ -134,26 +180,27 @@
 }
 
 .enroll-middle-table input[type=text]{
-  width: 70%;
-  height: 30px;
+  width: 90%;
+  /* height: 30px; */
   margin-right: 5px;
   text-align: center;
 }
 
-.enroll-middle-table select{
-  height: 30px;
-  margin-right: 10px;
+.enroll-middle-table select {
+  width: 80%;
+  /* height: 30px; */
+  /* margin-right: 10px; */
 }
 
 .enroll-middle-table option{
-  height: 30px;
+  /* height: 30px; */
 }
 
 .enroll-middle-table tr:nth-child(1){
   background-color: #fafafa;
 }
 
-.enroll-middle-table tr:nth-child(1) > td:nth-child(1){
+/* .enroll-middle-table tr:nth-child(1) > td:nth-child(1){
   width: 120px;
 }
 
@@ -171,26 +218,27 @@
 }
 .enroll-middle-table tr:nth-child(1) > td:nth-child(6){
   width: 450px;
-}
+} */
 
-.enroll-middle-table tr:nth-child(1) button{
+/* .enroll-middle-table tr:nth-child(1) button{
   background-color: #666;
   color: white;
   width: 100px;
   height: 30px;
-}
+} */
 
 /* enroll-bottom-table */
-.enroll-bottom-table{
+.enroll-bottom-table {
+  margin-top: 50px;
   width: 100%;
 }
 
-.enroll-bottom-table td{
+.enroll-bottom-table td {
   padding: 10px;
 }
 
-.enroll-bottom-table tr{
-  height: 40px;
+.enroll-bottom-table tr {
+  /* height: 40px; */
   border-top: 1px solid #eee;
 }
 
@@ -217,11 +265,10 @@
 }
 
 .enroll-detail-img-btn button{
-  width: 100px;
+  width: 80px;
   height: 30px;
 
   color: white;
-  letter-spacing: 3px;
 }
 
 .enroll-detail-img-btn>button:nth-child(1){background-color: #7f7698;}
@@ -252,7 +299,6 @@
 
   margin-top: 10px;
   color: white;
-  letter-spacing: 3px;
 }
 
 .enroll-completted-btn>button:nth-child(1){background-color: #7f7698;}

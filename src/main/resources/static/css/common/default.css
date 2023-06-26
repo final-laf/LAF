@@ -192,7 +192,6 @@ button {
 }
 button:disabled {
   color: #eee;
-  cursor: default;
 }
 button:hover:not(:disabled) {
   background-color: #eee;
@@ -209,7 +208,7 @@ button:hover.submit {
   background-color: #493e5d;
 }
 
-input{
+input {
   width: auto;
   height: 27px;
   padding: 0px 8px;
@@ -223,9 +222,6 @@ input{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  cursor: default;
-
   outline: none;
 }
 textarea{
@@ -247,4 +243,7 @@ select{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+*:disabled {
+  cursor: default;
 }

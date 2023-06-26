@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.laf.board.model.dto.Qna;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.dto.Point;
@@ -133,11 +134,20 @@ public interface MypageService {
 	 */
 	List<Qna> searchAnsweredQna(Map<String, String> qnaMap);
 
+
+
+	/** 기간별 주문목록 조회
+	 * @param loginMember
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectSearchOrderList(Map<String, Object> paramMap);
+
 	/** 주문 상품 조회
 	 * @param orders
 	 * @return
 	 */
-	List<OrderProduct> selectOrderProducts(List<Order> orders);
+	List<Map<String, Object>> selectOrderProducts(List<Order> orders);
 
 
 
