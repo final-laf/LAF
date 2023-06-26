@@ -58,7 +58,7 @@
 
     <tr>
       <td class="enroll-price">
-        <span>최종할인가</span><input name="productSalePrice" type="text" th:value="${0}" disabled>원
+        <span>최종할인가</span><input name="productSalePrice" type="text"  placeholder="0" disabled>원
         <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(100원 단위 절삭)</span>
       </td>
     </tr>
@@ -70,7 +70,7 @@
       </td>
       <td class="enroll-table-header table-header">적립금</td>
       <td class="enroll-point">
-        <input type="text" name="productPoint" th:value="${0}" disabled>원
+        <input type="text" name="productPoint" placeholder="0" disabled>원
         <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(최종할인가의 1%)</span>
       </td>
     </tr>

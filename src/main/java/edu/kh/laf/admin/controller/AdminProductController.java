@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -68,7 +70,7 @@ public class AdminProductController {
 		return productService.updateAllState(data, state);
 	}
 	
-	// 상품관리 : 상품등록
+	// 상품관리 : 상품등록 화면 이동
 	@GetMapping("/admin/product/enroll")
 	public String productEnroll(Model model) {
 		
@@ -79,11 +81,26 @@ public class AdminProductController {
 		return "/admin/adminProduct/productEnroll";
 	}
 	
+	// 상품관리 : 상품등록
+	@PostMapping("/admin/product/enroll/submit")
+	public String productEnrollSubmit(
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam String[] size,
+			@RequestParam String[] color,
+			@RequestParam String[] stock,
+			@RequestParam String[] location,
+			@RequestParam String[] state,
+			Model model) {
+		
+		
+	
+		return null;
+	}
+
 	// 부모 카테고리 선택 시 자식 카테고리 목록 반환
 	@GetMapping("/admin/product/getChildCategories")
 	@ResponseBody
 	public List<Category> getChildCategories(int categoryNo) {
-		System.out.println("들어는 옴");
 		return productService.selectChildCategoryList(categoryNo);
 	}
 	

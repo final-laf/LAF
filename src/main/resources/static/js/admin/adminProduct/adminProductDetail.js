@@ -274,19 +274,8 @@ const discountInput = document.querySelector('input[name="productSale"]');
 const salePriceInput = document.querySelector('input[name="productSalePrice"]');
 const pointInput = document.querySelector('input[name="productPoint"]');
 
-/* 금액 입력 시 자동으로 , 찍어줌 */
-priceInput.addEventListener('input', e => {
-  const number = e.target.value.replaceAll(",", "");
-  e.target.value = numberWithCommas(number);
-  salePriceInput.value = calcSalePrice();
-  pointInput.value = calcPoint();
-});
-
-/* 할인율 입력 시 자동계산 */
-discountInput.addEventListener('input', e => {
-  salePriceInput.value = calcSalePrice();
-  pointInput.value = calcPoint();
-});
+const salePriceAutoCheck = document.querySelector('.enroll-price .checkbox');
+const pointAutoCheck = document.querySelector('.enroll-point .checkbox');
 
 /* 할인가 자동계산 */
 function calcSalePrice() {
@@ -298,20 +287,56 @@ function calcSalePrice() {
 
 /* 포인트 자동계산 */
 function calcPoint() {
-  const originPrice = Number(priceInput.value.replaceAll(",", ""));
-  const discount = Number(discountInput.value);
-  const result = Math.floor((originPrice - (originPrice / 100 * discount)) / 100);
+  const salePrice = Number(salePriceInput.value.replaceAll(",", ""));
+  const result = Math.floor(salePrice / 100);
   return numberWithCommas(result);
 }
 
-/* 할인가, 적립금 자동계산 설정/해제 */
-const salePriceAutoCheck = document.querySelector('.enroll-price .checkbox');
+/* 금액 입력 시 자동으로 , 찍어줌 */
+priceInput.addEventListener('input', e => {
+  const number = e.target.value.replaceAll(",", "");
+  e.target.value = numberWithCommas(number);
+  if(salePriceAutoCheck.checked) salePriceInput.value = calcSalePrice();
+  if(pointAutoCheck.checked) pointInput.value = calcPoint();
+});
+
+/* 할인율 입력 시 자동계산 */
+discountInput.addEventListener('input', () => {
+  salePriceInput.value = calcSalePrice();
+  pointInput.value = calcPoint();
+});
+
+/* 최종할인가 수동입력 시 , 추가 + 적립금 자동계산 */
+salePriceInput.addEventListener('input', e => {
+  const number = e.target.value.replaceAll(",", "");
+  e.target.value = numberWithCommas(number);
+  if(pointAutoCheck.checked) pointInput.value = calcPoint();
+});
+
+/* 적립금 수동입력 시 , 추가 */
+pointInput.addEventListener('input', e => {
+  const number = e.target.value.replaceAll(",", "");
+  e.target.value = numberWithCommas(number); 
+});
+
+
+/* 할인가 자동계산 설정/해제 */
 salePriceAutoCheck.addEventListener('click', e => {
   if(e.target.checked) {
     salePriceInput.disabled = true;
     salePriceInput.value = calcSalePrice();
   } else {
     salePriceInput.disabled = false;
+  }
+});
+
+/* 적립금 자동계산 설정/해제 */
+pointAutoCheck.addEventListener('click', e => {
+  if(e.target.checked) {
+    pointInput.disabled = true;
+    pointInput.value = calcPoint();
+  } else {
+    pointInput.disabled = false;
   }
 });
 
