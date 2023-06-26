@@ -6,6 +6,8 @@ import edu.kh.laf.product.model.dto.Product;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public interface ProductService {
 	
 	/**
@@ -125,5 +127,28 @@ public interface ProductService {
 	 * @return result
 	 */
 	int updateAllState(String data, String state);
+
+	/**
+	 * 상품 등록
+	 * @param paramMap
+	 * @return productNo
+	 */
+	long insertProduct(Map<String, Object> paramMap);
+
+	/**
+	 * 상품 등록 중 카테고리 정보 등록
+	 * @param paramMap
+	 * @return result
+	 */
+	int insertProductCategory(Map<String, Object> paramMap);
+
+	/**
+	 * 상품 이미지 등록
+	 * @param paramMap
+	 * @return result
+	 */
+	int insertProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
+
+	int productEnroll(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
 
 }

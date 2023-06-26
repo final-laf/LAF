@@ -146,5 +146,25 @@ public interface ProductMapper {
 	 * @return result
 	 */
 	int updateStateList(Map<String, Object> map);
+
+	/**
+	 * 상품 등록
+	 * @param product
+	 * @return result
+	 */
+	int insertProduct(Product product);
+
+	/**
+	 * 전체 자식 카테고리 조회
+	 * @return childCategoryList
+	 */
+	List<Category> selectAllChildCategoryList();
+
+	/**
+	 * 상품 등록 중 카테고리 정보 등록
+	 * @param productCategoryList
+	 * @return
+	 */
+	int insertProductCategory(List<Map<String, Object>> productCategoryList);
 	
 }

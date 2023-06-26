@@ -17,7 +17,7 @@
 				stock,
 				img_path AS thumbnail_path
 		FROM   `product`
-				join `product_img` on `product`.product_no = `product_img`.product_no
+				left join `product_img` on `product`.product_no = `product_img`.product_no
 				join (select sum(sell_count) sale_sum, sum(stock) stock, product_no from `option` group by product_no) as `sales` on `product`.product_no = `sales`.product_no
 				<if test="pc != null or cc != null">join `product_category` on `product`.product_no = `product_category`.product_no</if>
 				<if test="pc != null">join `parent_category_cd` on `product_category`.parent_category_no = `parent_category_cd`.parent_category_no</if>
@@ -404,6 +404,45 @@
 			</foreach>
 		</where>
 	</update>
+	
+	<!-- 상품 등록 -->
+	<insert id="insertProduct" useGeneratedKeys="true" keyProperty="productNo" parameterType="Product">
+		insert into `product`
+		values (
+			NULL,
+			#{productName},
+			${productPrice},
+			${productSalePrice},
+			${productSale},
+			${productPoint},
+			default,
+			default,
+			default
+		)
+	</insert>
+	
+	<!-- 전체 자식 카테고리 목록 조회 -->
+	<select id="selectAllChildCategoryList" resultType="Category">
+		select 	 child_category_no as category_no,
+			 	 child_category_name as category_name,
+				 parent_category_no
+		from    `child_category_cd` 
+		order by category_no
+	</select>
+	
+	<!-- 상품 등록 중 카테고리 정보 등록 -->
+	<insert id="insertProductCategory">
+		insert into `product_category`
+		values
+		<foreach collection="list" item="item" separator=",">
+		(
+			${item.productNo},
+			${item.parentCategoryNo},
+			<if test="item.childCategoryNo == null">NULL</if> 
+			<if test="item.childCategoryNo != null">${item.childCategoryNo}</if>
+		)
+		</foreach>
+	</insert>
 	
 </mapper>
 

@@ -21,11 +21,11 @@ window.addEventListener('scroll', () => {
 /* 검색조건 : 판매상태 */
 const salesStateCheckboxList = document.querySelectorAll('input[name="state"]');
 let uri = decodeURI(location.search);
-let index = uri.indexOf('state=');
+let stateIndex = uri.indexOf('state=');
 
 // 기존에 선택한 게 없을 경우 항상 모두 선택
 for(let c of salesStateCheckboxList) {
-  c.checked = index == -1;
+  c.checked = stateIndex == -1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -90,12 +90,12 @@ function addQueryStringParams(except) {
 /* 체크박스(일반) */
 
 // 전체선택 체크박스
-const checkboxStateSelectAll = document.getElementById('checkboxStateSelectAll');
-if(checkboxStateSelectAll != null) {
+const adminCheckboxStateSelectAll = document.getElementById('checkboxStateSelectAll');
+if(adminCheckboxStateSelectAll != null) {
   const checkboxList = document.querySelectorAll('[name="state"]:not(:disabled):not(#checkboxStateSelectAll)');
 
   // 전체선택 체크박스 클릭 -> 모든 체크박스 선택
-  checkboxStateSelectAll.addEventListener('click', e => {
+  adminCheckboxStateSelectAll.addEventListener('click', e => {
     
     if(e.target.checked == true) {
       for(let ch of checkboxList)
@@ -117,7 +117,7 @@ if(checkboxStateSelectAll != null) {
         for(let c of checkboxList) {
           if(c.checked == false) flag = false;
         }
-        if(flag) checkboxStateSelectAll.checked = true;
+        if(flag) adminCheckboxStateSelectAll.checked = true;
       }
     });
   }
@@ -127,7 +127,7 @@ if(checkboxStateSelectAll != null) {
   for(let c of checkboxList) {
     if(c.checked == false) flag = false;
   }
-  if(flag) checkboxStateSelectAll.checked = true;
+  if(flag) adminCheckboxStateSelectAll.checked = true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +161,7 @@ const changeSelectedBtn = document.getElementById('changeSelectedBtn');
 changeSelectedBtn.addEventListener('click', () => {
 
   // 선택 상품 추출
-  const checkboxList = document.querySelectorAll('.p-checkbox > .input-checkbox:checked:not(#checkboxSelectAll)');
+  const checkboxList = document.querySelectorAll('.p-checkbox > .input-checkbox:checked:not(#adminCheckboxStateSelectAll)');
   if(checkboxList.length == 0) {
     alert('선택상품이 없습니다.');
     return;

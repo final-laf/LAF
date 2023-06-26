@@ -132,24 +132,25 @@ addOptionBtn.addEventListener('click', () => {
     const td5 = document.createElement('td');
     td5.append(input5);
 
-    const option1 = document.createElement('option');
-    option1.innerText = '판매중';
-    option1.setAttribute('value', 'O');
-    const option2 = document.createElement('option');
-    option2.innerText = '품절';
-    option2.setAttribute('value', 'S');
-    const option3 = document.createElement('option');
-    option3.innerText = '비공개';
-    option3.setAttribute('value', 'N');
-    option3.selected = true;
-    const select = document.createElement('select');
-    select.name = "productState";
-    select.append(option1, option2, option3);
-    const td6 = document.createElement('td');
-    td6.append(select);
+    // const option1 = document.createElement('option');
+    // option1.innerText = '판매중';
+    // option1.setAttribute('value', 'O');
+    // const option2 = document.createElement('option');
+    // option2.innerText = '품절';
+    // option2.setAttribute('value', 'S');
+    // const option3 = document.createElement('option');
+    // option3.innerText = '비공개';
+    // option3.setAttribute('value', 'N');
+    // option3.selected = true;
+    // const select = document.createElement('select');
+    // select.name = "productState";
+    // select.append(option1, option2, option3);
+    // const td6 = document.createElement('td');
+    // td6.append(select);
 
     const tr = document.createElement('tr');
-    tr.append(td1, td2, td3, td4, td5, td6);
+    // tr.append(td1, td2, td3, td4, td5, td6);
+    tr.append(td1, td2, td3, td4, td5);
     optionTable.append(tr);
 });
 
@@ -166,8 +167,8 @@ function getSelectedOption() {
       'size': tr.querySelector('[name="size"]').value,
       'color': tr.querySelector('[name="color"]').value,
       'stock': tr.querySelector('[name="stock"]').value,
-      'location': tr.querySelector('[name="location"]').value,
-      'productState': tr.querySelector('[name="productState"]').value
+      'location': tr.querySelector('[name="location"]').value
+      // 'productState': tr.querySelector('[name="productState"]').value
     });
   }
   
@@ -215,24 +216,25 @@ cpOptionBtn.addEventListener('click', () => {
     const td5 = document.createElement('td');
     td5.append(input5);
 
-    const option1 = document.createElement('option');
-    option1.innerText = '판매중';
-    option1.setAttribute('value', 'O');
-    const option2 = document.createElement('option');
-    option2.innerText = '품절';
-    option2.setAttribute('value', 'S');
-    const option3 = document.createElement('option');
-    option3.innerText = '비공개';
-    option3.setAttribute('value', 'N');
-    option3.selected = true;
-    const select = document.createElement('select');
-    select.name = "productState";
-    select.append(option1, option2, option3);
-    const td6 = document.createElement('td');
-    td6.append(select);
+    // const option1 = document.createElement('option');
+    // option1.innerText = '판매중';
+    // option1.setAttribute('value', 'O');
+    // const option2 = document.createElement('option');
+    // option2.innerText = '품절';
+    // option2.setAttribute('value', 'S');
+    // const option3 = document.createElement('option');
+    // option3.innerText = '비공개';
+    // option3.setAttribute('value', 'N');
+    // option3.selected = true;
+    // const select = document.createElement('select');
+    // select.name = "productState";
+    // select.append(option1, option2, option3);
+    // const td6 = document.createElement('td');
+    // td6.append(select);
 
     const tr = document.createElement('tr');
-    tr.append(td1, td2, td3, td4, td5, td6);
+    // tr.append(td1, td2, td3, td4, td5, td6);
+    tr.append(td1, td2, td3, td4, td5);
     optionTable.append(tr);
   } 
 });
@@ -248,7 +250,8 @@ rmOptionBtn.addEventListener('click', () => {
     const tr = document.createElement('tr');
     const td = document.createElement('td');
     td.innerText = "옵션을 추가해주세요.";
-    td.colSpan = '6';
+    // td.colSpan = '6';
+    td.colSpan = '5';
     td.classList.add("no-data");
     tr.append(td);
     optionTable.append(tr);
@@ -323,20 +326,21 @@ pointInput.addEventListener('input', e => {
 /* 할인가 자동계산 설정/해제 */
 salePriceAutoCheck.addEventListener('click', e => {
   if(e.target.checked) {
-    salePriceInput.disabled = true;
+    salePriceInput.readOnly = true;
     salePriceInput.value = calcSalePrice();
+    if(pointAutoCheck.checked) pointInput.value = calcPoint();
   } else {
-    salePriceInput.disabled = false;
+    salePriceInput.readOnly = false;
   }
 });
 
 /* 적립금 자동계산 설정/해제 */
 pointAutoCheck.addEventListener('click', e => {
   if(e.target.checked) {
-    pointInput.disabled = true;
+    pointInput.readOnly = true;
     pointInput.value = calcPoint();
   } else {
-    pointInput.disabled = false;
+    pointInput.readOnly = false;
   }
 });
 
@@ -472,7 +476,15 @@ detailImgInput.addEventListener('change', e => {
       const value = container.getAttribute('value');
       e.target.parentElement.remove();
       document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]').remove();
+      
+      // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
+      const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');
+        if(imgNameList.length > 0) {
+          imgNameList[0].querySelector('.up').disabled = true;
+          imgNameList[imgNameList.length - 1].querySelector('.down').disabled = true;
+        }
 
+      // 남은 요소가 하나도 없을 경우
       if(detailImgNameTr.querySelector('td > div') == null) {
         detailImgNameTr.innerHTML = '<td id="noDetailImgInfo">업로드한 이미지가 없습니다</td>';
         detailImgTd.remove();
@@ -504,6 +516,14 @@ detailImgInput.addEventListener('change', e => {
         e.target.parentElement.remove();
         document.querySelector('#detailImgNameTr .detailImgNameContainer[value="' + value + '"]').remove();
 
+        // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
+        const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');
+        if(imgNameList.length > 0) {
+          imgNameList[0].querySelector('.up').disabled = true;
+          imgNameList[imgNameList.length - 1].querySelector('.down').disabled = true;
+        }
+
+        // 남은 요소가 하나도 없을 경우
         if(detailImgNameTr.querySelector('td > div') == null) {
           detailImgNameTr.innerHTML = '<td id="noDetailImgInfo">업로드한 이미지가 없습니다</td>';
           detailImgTd.remove();

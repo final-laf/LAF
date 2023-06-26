@@ -155,10 +155,10 @@
 
 .middle-table-checkbox { width: 5%; }
 .middle-table-size { width: 20%; }
-.middle-table-color { width: 25%; }
-.middle-table-stock { width: 15%; }
+.middle-table-color { width: 30%; }
+.middle-table-stock { width: 20%; }
 .middle-table-palce { width: 25%; }
-.middle-table-state { width: 10%; }
+/* .middle-table-state { width: 10%; } */
 
 .enroll-middle-table{
   width: 100%;

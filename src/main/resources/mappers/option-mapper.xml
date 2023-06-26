@@ -68,5 +68,23 @@
 		where option_no = ${optionNo}
 	</select>
 	
+	<!-- 상품 등록 중 옵션 정보 등록 -->
+	<insert id="insertOptionList" parameterType="Option">
+		insert into `option`
+		values 
+		<foreach collection="list" item="option" separator=",">
+		(
+			NULL,
+			${option.productNo},
+			<if test="option.size == null">NULL,</if> 
+			<if test="option.size != null">#{option.size},</if>
+			#{option.color}, 
+			${option.stock}, 
+			#{option.location}, 
+			default
+		)
+		</foreach>
+	</insert>
+	
 </mapper>
 

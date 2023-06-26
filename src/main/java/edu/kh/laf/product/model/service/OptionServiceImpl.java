@@ -1,6 +1,7 @@
 package edu.kh.laf.product.model.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -110,6 +111,32 @@ public class OptionServiceImpl implements OptionService {
 	@Override
 	public List<Map<String, Object>> selectStockListBySeveralKeys(List<Product> productList) {
 		return mapper.selectStockListBySeveralKeys(productList);
+	}
+
+	// 상품 등록 중 옵션 등록
+	@Override
+	public int insertOptionList(Map<String, Object> paramMap) {
+		List<Option> optionList = new ArrayList<>();
+		int length = ((String[])paramMap.get("size")).length;
+		
+		long productNo = Long.parseLong(String.valueOf(paramMap.get("productNo")));
+		String[] color = (String[])paramMap.get("color");
+		String[] size = (String[])paramMap.get("size");
+		String[] stockTmp = (String[])paramMap.get("stock");
+		int[] stock = Arrays.stream(stockTmp).mapToInt(Integer::parseInt).toArray();
+		String[] location = (String[])paramMap.get("location");
+		
+		for(int i=0; i<length; i++) {
+			Option op = new Option();
+			op.setProductNo(productNo);
+			op.setColor(color[i]);
+			op.setSize(size[i]);
+			op.setStock(stock[i]);
+			op.setLocation(location[i]);
+			optionList.add(op);
+		}
+		
+		return mapper.insertOptionList(optionList);
 	}
 
 }
