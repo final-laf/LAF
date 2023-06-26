@@ -3,21 +3,73 @@
 <mapper namespace="edu.kh.laf.board.model.mapper.QnaMapper">
 	
 	
-	<!-- qnaList 전체 목록 조회 -->
-    <select id="qnaListCount" resultType="Qna">
-        SELECT count(*) FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='n' ORDER BY qna_order_by DESC
+	<!-- qnaList 전체 목록 조회(count) -->
+    <select id="qnaListCount">
+        SELECT count(*) FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='N'
     </select>
+    <!-- 검색어를 포함한 전체 목록 조회(count)-->
+    <select id="getListCountSearch" resultType="_int">
+		SELECT COUNT(*) FROM `qna` q 
+		<!-- 작성자 검색 -->
+		<if test='key == "w"'>
+			JOIN `member` m ON q.member_no = m.member_no
+		</if> 
+		WHERE qna_delete_fl='N'
+		<choose>
+			<when test='key=="t"'>
+				AND qna_title LIKE '%${query}%'
+			</when> 
+			<when test='key=="c"'>
+				AND qna_content LIKE '%${query}%' 
+			</when>
+			<when test='key=="tc"'>
+				AND (qna_title LIKE '%${query}%' OR qna_content LIKE '%${query}%')
+			</when>
+			<when test='key=="w"'>
+				AND member_name LIKE '%${query}%'
+			</when>
+		</choose> 
+	</select>
+    
     <select id="qnaList" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer, q.qna_lock_fl, qna_create_date qna_order_by FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='n' ORDER BY qna_order_by DESC
+        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer, q.qna_lock_fl, qna_create_date qna_order_by FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='N' ORDER BY qna_order_by DESC
     </select>
-     
+    
     <!-- 검색어를 포함한 qna조회결과  -->
     <select id="searchQnaList" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer 
-        FROM `qna` q  
-        JOIN `member` m ON q.member_no = m.member_no 
-        WHERE `${type}` LIKE '%${content}%' ORDER BY qna_create_date DESC
+        SELECT  qna_no, 
+		        q.member_no, 
+		        qna_category, 
+		        qna_title, 
+		        member_name, 
+		        SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, 
+		        q.qna_answer, q.qna_lock_fl, 
+		        qna_create_date qna_order_by 
+        FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no 
+        WHERE qna_delete_fl='N' 
+	        <choose>
+				<when test='key=="t"'>
+					AND qna_title LIKE '%${query}%'
+				</when> 
+				<when test='key=="c"'>
+					AND qna_content LIKE '%${query}%' 
+				</when>
+				<when test='key=="tc"'>
+					AND (qna_title LIKE '%${query}%' OR qna_content LIKE '%${query}%')
+				</when>
+				<when test='key=="w"'>
+					AND member_name LIKE '%${query}%'
+				</when>
+			</choose> 
+        ORDER BY qna_order_by DESC
     </select>
+    
+    
+    
+    
+    
+    
+     
     
     	<!-- answered qnaList -->
     <select id="answeredQna" resultType="Qna">

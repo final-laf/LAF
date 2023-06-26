@@ -2,6 +2,7 @@ package edu.kh.laf.board.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -25,12 +27,21 @@ public class NoticeController {
 	
 	// 공지사항 목록
 	@GetMapping("/notice")
-	public String notice(Model model)
-			 {
-		List<Notice> notice = new ArrayList<>();
-		notice = service.noticeList();
-		model.addAttribute("noticeList", notice);
-		
+	public String qna(
+			Model model
+			, @RequestParam(value="cp", required=false, defaultValue="1") int cp
+			, @RequestParam Map<String, Object> paramMap
+			) {
+		// 검색어 없을 때
+		if(paramMap.get("key") == null) { 
+			Map<String, Object> resultMap = service.noticeList(cp);
+			model.addAttribute("resultMap", resultMap);
+			
+		//검색어 있을 때
+		}else {
+			Map<String, Object> resultMap = service.noticeList(paramMap, cp);
+			model.addAttribute("resultMap", resultMap);
+		}
 		return "/boards/notice/notice";
 	}
 	

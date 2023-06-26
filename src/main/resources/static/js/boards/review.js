@@ -11,6 +11,9 @@ let productSalePrice = "";
 let reviewCount = "";
 let reviewContent = "";
 let reviewScore = "";
+let reviewNum = "";
+let orderNo = "";
+let img = [];
 for(let review of reviewDetail) {
   /* 작성된 모든 리뷰 상세 클릭시 */
   review.addEventListener('click', e => {
@@ -22,13 +25,12 @@ for(let review of reviewDetail) {
     .then(response => response.json()) 
     .then(review => {
       for (let i = 0; i < 5; i++) {
-        document.getElementsByClassName("preview")[i].style.display= "none";
+        document.getElementsByClassName("Detailpreview")[i].style.display= "none";
       }
-      document.getElementById("reviewModifyModalStar").value="";
-      document.getElementById("reviewModalTextScore").value="";
-      document.getElementById("reviewModifyModalStar").value="";
-      document.getElementById("reviewScoreColor").style.width=0+"px";
-      document.getElementById("reviewScoreColor").style.backgroundColor = "white";
+      document.getElementById("reviewDetailModalStar").value="";
+      document.getElementById("reviewDetailModalStar").value="";
+      document.getElementById("reviewDetailScoreColor").style.width=0+"px";
+      document.getElementById("reviewDetailScoreColor").style.backgroundColor = "white";
 
       document.getElementById("reviewDetailModalName").innerText=review.memberName;
       document.getElementById("reviewDetailModalDate").innerText=review.reviewCreateDate;
@@ -54,20 +56,16 @@ for(let review of reviewDetail) {
         for (let index = 0; index < 5; index++) {
           if (review.reviewImg[i].reviewImgOrder==index) {
             console.log("asd")
+            document.getElementsByClassName("Detailpreview")[index].src = review.reviewImg[i].reviewPath;
             document.getElementsByClassName("preview")[index].src = review.reviewImg[i].reviewPath;
-            document.getElementsByClassName("preview")[index].style.display = "block";
+            document.getElementsByClassName("Detailpreview")[index].style.display = "block";
           }
         }
       }
       let i = (123/5*review.reviewScore);
       let color = Math.abs(74/5* review.reviewScore - 160)
-      document.getElementById("reviewScoreColor").style.width=i+"px";
-      document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
-      if (review.reviewScore==5) {
-        document.getElementById("reviewScorePoint").innerText="점 ╰(*°▽°*╰)"
-      }else{
-        document.getElementById("reviewScorePoint").innerText="점"
-      }
+      document.getElementById("reviewDetailScoreColor").style.width=i+"px";
+      document.getElementById("reviewDetailScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
       memberName = review.memberName
       reviewCreateDate = review.reviewCreateDate
       option = review.option.color+"/"+review.option.size
@@ -77,6 +75,11 @@ for(let review of reviewDetail) {
       reviewCount = review.reviewCount
       reviewContent = review.reviewContent
       reviewScore=review.reviewScore
+      reviewNum=review.reviewNo
+      orderNo=review.orderNo
+      for (const i of review.reviewPath) {
+        
+      }
       // document.getElementById("reviewModalName").innerText="review.memberName";
     }) 
     .catch (e => { console.log(e)}); 
@@ -125,11 +128,19 @@ if (document.getElementById("reviewDetailModalModifyBtn")!=null) {
     document.getElementById("reviewModifyModalProductSalePrice").innerText=productSalePrice;
     document.getElementById("reviewModifyModalReviewCount").innerText=reviewCount;
     document.getElementById("reviewModifyModalContent").innerText=reviewContent;
+    document.getElementById("reviewModifyModalReviewNo").value=reviewNum;
+      document.getElementById("reviewModifyModalOrderNo").value=orderNo;
+
 
     console.log(reviewScore)
     document.getElementById("reviewModifyModalStar").value=reviewScore;
     document.getElementById("reviewModalTextScore").value=reviewScore;
     document.getElementById("reviewModifyModalStar").value=reviewScore;
+
+    let i = (123/5*reviewScore);
+    let color = Math.abs(74/5* reviewScore - 160)
+    document.getElementById("reviewScoreColor").style.width=i+"px";
+    document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
   })
 }
 

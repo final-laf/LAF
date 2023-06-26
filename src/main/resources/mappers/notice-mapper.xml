@@ -3,10 +3,57 @@
 <mapper namespace="edu.kh.laf.board.model.mapper.NoticeMapper">
 	
 	
+	<!-- 공지사항 count-->
+    <select id="noticeListCount">
+        SELECT count(*) FROM `notice` WHERE notice_delete_fl='N' ORDER BY notice_date DESC;
+    </select>
+    
+    <!-- 검색어를 포함한 전체 목록 조회(count)-->
+    <select id="noticeListCountSearch" resultType="_int">
+		SELECT COUNT(*) FROM `notice` q 
+		<!-- 작성자 검색 -->
+		WHERE notice_delete_fl='N'
+		<choose>
+			<when test='key=="t"'>
+				AND notice_title LIKE '%${query}%'
+			</when> 
+			<when test='key=="c"'>
+				AND notice_content LIKE '%${query}%' 
+			</when>
+			<when test='key=="tc"'>
+				AND (notice_title LIKE '%${query}%' OR notice_content LIKE '%${query}%')
+			</when>
+		</choose> 
+	</select>
+	
 	<!--공지사항 목록 조회-->
     <select id="noticeList" resultType="Notice">
-        SELECT * FROM `notice` WHERE notice_delete_fl='n' ORDER BY notice_date DESC;
+        SELECT * FROM `notice` WHERE notice_delete_fl='N' ORDER BY notice_date DESC;
     </select>
+    
+    <!-- 검색어를 포함한  공지사항 조회결과  -->
+    <select id="searchNoticeList" resultType="Notice">
+        SELECT * FROM `notice` q 
+		<!-- 작성자 검색 -->
+		WHERE notice_delete_fl='N'
+		<choose>
+			<when test='key=="t"'>
+				AND notice_title LIKE '%${query}%'
+			</when> 
+			<when test='key=="c"'>
+				AND notice_content LIKE '%${query}%' 
+			</when>
+			<when test='key=="tc"'>
+				AND (notice_title LIKE '%${query}%' OR notice_content LIKE '%${query}%')
+			</when>
+		</choose> 
+		ORDER BY notice_date DESC;
+    </select>
+    
+    
+    
+    
+    
     
 	<!--공지사항 상세 조회-->
     <select id="detailNotice" resultType="Notice">

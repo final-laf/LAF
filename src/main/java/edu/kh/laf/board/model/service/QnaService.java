@@ -11,10 +11,17 @@ public interface QnaService {
 	 * @param paramMap 
 	 * @return
 	 */
-	Map<String, Object> qnaList(Map<String, Object> paramMap);
+	Map<String, Object> qnaList(int cp);
 
 	
-	
+
+
+	/** 검색어를 포함한 목록 전체 조회
+	 * @param paramMap
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> qnaList(Map<String, Object> paramMap, int cp);
 	
 	
 	/** qna 상세정보 조회
@@ -72,6 +79,12 @@ public interface QnaService {
 	 * @return
 	 */
 	int answerQna(Qna qna);
+
+
+
+
+
+
 
 
 }
