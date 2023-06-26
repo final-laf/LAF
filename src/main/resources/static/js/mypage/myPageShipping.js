@@ -132,15 +132,12 @@ if(addAddressCounts.length < 3) {
 
 // 배송지 등록 form태그가 제출 되었을 때
 document.getElementById("submitAddShipping").addEventListener("submit", e=>{
-  console.log("제출됨")
   // 체크 되어 있으면 default flag가 Y로
   let addAddressDefaultFL = document.getElementById("addAddressDefaultFL")
   if(addAddressDefaultFL.checked) addAddressDefaultFL.value = "Y"  
 
   for(let key in addCheckObj){
-    console.log("체크obj들어옴")
     if(!addCheckObj[key]){ 
-        console.log("false일 경우")
       switch(key){
           case "addAddressName":
           alert("배송지명은 중복되지 않으며 30자 이내의 한글, 영문, 숫자만 입력 가능합니다."); break;
@@ -154,7 +151,6 @@ document.getElementById("submitAddShipping").addEventListener("submit", e=>{
       e.preventDefault(); // form 태그 기본 이벤트 제거
       return; // 함수 종료
       }
-      console.log("true일 경우")
   }
 
 });
@@ -215,16 +211,18 @@ for(let shipping of selectedshippings) {
     // 모달 열기
     modifyShippingModal.style.display = "flex";
     document.body.style.overflowY = "hidden";
+    
+    // 아무것도 수정하지 않고 값을 넘겼을 경우를 위한 기존값 저장
+  prevAddressName = document.getElementById("modifyAddressName").value
+  prevAddress = document.getElementById("modifyAddressReceiver").value
+  prevAddressTel = document.getElementById("modifyAddressTel").value
   });
 
 };
 
 
 
-// 아무것도 수정하지 않고 값을 넘겼을 경우를 위한 기존값 저장
-const prevAddressName = document.getElementById("modifyAddressName").value
-const prevAddress = document.getElementById("modifyAddressReceiver").value
-const prevAddressTel = document.getElementById("modifyAddressTel").value
+
 
 
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
@@ -337,9 +335,6 @@ modifyAddressTel.addEventListener("input", () => {
     }
 });
 
-console.log(modifyCheckObj.modifyAddressName)
-console.log(modifyCheckObj.modifyAddressReceiver)
-console.log(modifyCheckObj.modifyAddressTel)
 
 // 배송지 수정 form태그가 제출 되었을 때
 document.getElementById("submitModifyShipping").addEventListener("submit", e => {
@@ -349,13 +344,9 @@ document.getElementById("submitModifyShipping").addEventListener("submit", e => 
   if (modifyAddressDefaultFL.checked) modifyAddressDefaultFL.value = "Y";
 
   // 기존값과 동일하면 true 
-  if (modifyAddressName == prevAddressName) modifyCheckObj.modifyAddressName = true;
-  if (modifyAddressReceiver == prevAddreprevAddressssName) modifyCheckObj.modifyAddressReceiver = true;
-  if (modifyAddressTel == prevAddressTel) modifyCheckObj.modifyAddressTel = true;
-
-  console.log(modifyCheckObj.modifyAddressName)
-  console.log(modifyCheckObj.modifyAddressReceiver)
-  console.log(modifyCheckObj.modifyAddressTel)
+  if (modifyAddressName.value == prevAddressName) { modifyCheckObj.modifyAddressName = true;}
+  if (modifyAddressReceiver.value == prevAddress) { modifyCheckObj.modifyAddressReceiver = true;}
+  if (modifyAddressTel.value == prevAddressTel) { modifyCheckObj.modifyAddressTel = true; }
 
   for(let key in modifyCheckObj){
       if(!modifyCheckObj[key]){ 
