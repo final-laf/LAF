@@ -75,8 +75,8 @@ item.forEach( e => {
         })
         .then(resp => resp.text())
         .then(message => {
-          
           alert(message)
+          window.location.href = "/order/" + orderNo.orderNo
         }) 
         .catch( err => {
             console.log(err);

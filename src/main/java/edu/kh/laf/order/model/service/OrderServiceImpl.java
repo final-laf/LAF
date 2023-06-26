@@ -391,7 +391,7 @@ public class OrderServiceImpl implements OrderService{
     		}
         	// 상품 모든 재고조회 
     		int productAllStock = mapper.selectAllStock(op);
-    		if(productAllStock != 0) { // 재고가 0이면 품절로 상품상태 업데이트
+    		if(productAllStock != 0) { // 재고가 0이 아니면 품절로 상품상태 업데이트
     			// 상품 판매중 전환
     			int soldOut = mapper.updateSell(op);
     			if(soldOut == 0) {
@@ -433,62 +433,78 @@ public class OrderServiceImpl implements OrderService{
 		calendar.add(Calendar.YEAR, 1); // 현재 날짜에 1년을 더함
 		String payDateYear = dateFormat.format(calendar.getTime());
     	
-    	// 적립된 포인트 내역 조회
-    	String gainPoint = mapper.selectPoint(order.getPointNoGain());
-    	
+    	// 적립된 포인트 적립금 조회
+    	String selectGainPoint = mapper.selectPoint(order.getPointNoGain());
     	
     	// 적립된 포인트 반환 내역 추가
-		Point usePoint = new Point();
-		usePoint.setMemberNo(order.getMemberNo());
-		usePoint.setPointSort("U");
-		usePoint.setPointAmount(Long.parseLong(gainPoint));
-		usePoint.setPointDate(payDate);
-		usePoint.setPointContent("상품구매시 사용한 적립금");
-		usePoint.setOrderNo(order.getOrderNo());
-		// 사용한 적립금 내역 삽입	
-//		int upResult = mapper.insertUsePoint(usePoint);
+		Point gainResetPoint = new Point();
+		gainResetPoint.setMemberNo(order.getMemberNo());
+		gainResetPoint.setPointSort("C");
+		gainResetPoint.setPointAmount(Long.parseLong(selectGainPoint));
+		gainResetPoint.setPointDate(payDate);
+		gainResetPoint.setPointContent("주문취소로 인한 적립 취소");
+		gainResetPoint.setOrderNo(order.getOrderNo());
+		// 적립된 포인트 반환 내역 삽입	
+		int gprResult = mapper.insertResetGainPoint(gainResetPoint);
+    	if(gprResult == 0) { // 실패 처리
+    		result = 0;
+    	}
+		// 사용된 포인트가 있을 경우 적립금 조회
+    	String selectUsePoint = "";
+    	if(order.getPointNoUse() != 0) {
+    		selectUsePoint = mapper.selectPoint(order.getPointNoUse());
+    		
+    		// 사용된 포인트 반환 내역 추가
+    		Point useResetPoint = new Point();
+    		useResetPoint.setMemberNo(order.getMemberNo());
+    		useResetPoint.setPointSort("C");
+    		useResetPoint.setPointAmount(Long.parseLong(selectUsePoint));
+    		useResetPoint.setPointDate(payDate);
+    		useResetPoint.setPointDueDate(payDateYear);
+    		useResetPoint.setPointContent("주문취소로 인한 사용 취소");
+    		useResetPoint.setOrderNo(order.getOrderNo());
+    		// 사용된 포인트 반환 내역 삽입	
+    		int uprResult = mapper.insertResetUsePoint(useResetPoint);
+    		if(uprResult == 0) { // 실패 처리
+        		result = 0;
+        	}
+    	}
     	
-//		// 사용된 포인트가 있을 경우 내역 조회
-//    	if(order.getPointNoUse() != 0) {
-//    		String usePoint = mapper.selectPoint(order.getPointNoUse());
-//    	}
+    	order.setPointNoGain(Long.parseLong(selectUsePoint));
+    	order.setPointNoUse(Long.parseLong(selectGainPoint));
     	
+    	// 회원 적립금, 누적구매액 최신화
+		int umResult = mapper.updateMemberPTP(order);
+		if(umResult == 0) { // 실패시 처리
+			return result;
+		}
     	
+    	// 회원 등급 최신화(누적구매액 기준)
+		long memberNo = order.getMemberNo(); // 주문한 회원번호
+		// 누적구매액 조회
+		int totalpay = mapper.selectTotalPay(memberNo);
+		
+		// 회원 등급 판단
+		String grade = "";
+		if (totalpay < 100000) {
+		  grade = "B"; // 브론즈
+		} else if (totalpay < 1000000) {
+		  grade = "S"; // 실버
+		} else if (totalpay < 5000000) {
+		  grade = "G"; // 골드
+		} else {
+		  grade = "D"; // 다이아
+		}
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		member.setMemberGrade(grade);
+		// 회원 등급 업데이트
+		int upGrade = mapper.updateGrade(member);
+		if(upGrade == 0) { // 실패시 처리
+			return result;
+		}
     	
-    	
-    	
-//    	// 회원 적립금, 누적구매액 최신화
-//		int umResult = mapper.updateMemberPTP(order);
-//		if(umResult == 0) { // 실패시 처리
-//			return result;
-//		}
-//    	
-//    	// 회원 등급 최신화(누적구매액 기준)
-//		long memberNo = order.getMemberNo(); // 주문한 회원번호
-//		// 누적구매액 조회
-//		int totalpay = mapper.selectTotalPay(memberNo);
-//		
-//		// 회원 등급 판단
-//		String grade = "";
-//		if (totalpay < 100000) {
-//		  grade = "B"; // 브론즈
-//		} else if (totalpay < 1000000) {
-//		  grade = "S"; // 실버
-//		} else if (totalpay < 5000000) {
-//		  grade = "G"; // 골드
-//		} else {
-//		  grade = "D"; // 다이아
-//		}
-//		Member member = new Member();
-//		member.setMemberNo(memberNo);
-//		member.setMemberGrade(grade);
-//		// 회원 등급 업데이트
-//		int upGrade = mapper.updateGrade(member);
-//		if(upGrade == 0) { // 실패시 처리
-//			return result;
-//		}
-    	
-    	
+    	result = 1; // 모두 성공시
     	
     	return result;
     }

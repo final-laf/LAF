@@ -167,24 +167,24 @@
 		INSERT INTO `point`
 		VALUES(NULL,
 			   #{memberNo},
-			   'G',
+			   #{pointSort},
 			   #{pointAmount},
 			   #{pointDate},
 			   #{pointDueDate},
-			   '구매에 대한 적립금',
+			   #{pointContent},
 			   #{orderNo})
 	</insert>
 	
-	<!-- 적립금 적립 -->
+	<!-- 적립금 사용 -->
 	<insert id="insertUsePoint" useGeneratedKeys="true" keyProperty="pointNo">
 		INSERT INTO `point`
 		VALUES(NULL,
 			   #{memberNo},
-			   'U',
+			   #{pointSort},
 			   #{pointAmount},
 			   #{pointDate},
 			   NULL,
-			   '상품구매시 사용한 적립금',
+			   #{pointContent},
 			   #{orderNo})
 	</insert>
 	
@@ -252,8 +252,6 @@
 		WHERE member_no = #{memberNo}
 	</update>
 	
-	
-	
 	<!-- 주문취소 -->
 	<!-- 주문상태업데이트(취소중) -->
 	<update id="updateOrderCancle">
@@ -281,13 +279,34 @@
 	<update id="updateSell">
 		UPDATE product
 		SET product_state = 'O'
-		WHERE product_no = #{product_no}
+		WHERE product_no = #{productNo}
 	</update>
 	
+	<!-- 적립된 적립금 반환 -->
+	<insert id="insertResetGainPoint">
+		INSERT INTO `point`
+		VALUES(NULL,
+			   #{memberNo},
+			   #{pointSort},
+			   #{pointAmount},
+			   #{pointDate},
+			   NULL,
+			   #{pointContent},
+			   #{orderNo})
+	</insert>
 	
-	
-	
-	
+	<!-- 사용된 적립금 반환 -->
+	<insert id="insertResetUsePoint">
+		INSERT INTO `point`
+		VALUES(NULL,
+			   #{memberNo},
+			   #{pointSort},
+			   #{pointAmount},
+			   #{pointDate},
+			   #{pointDueDate},
+			   #{pointContent},
+			   #{orderNo})
+	</insert>
 	
 	
 	
