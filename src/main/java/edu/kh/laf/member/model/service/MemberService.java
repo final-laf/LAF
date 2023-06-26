@@ -63,6 +63,18 @@ public interface MemberService {
 	 */
 	int selectNotMemberOrder(Map<String, String> paramMap);
 
+	/** 회원관리 : 회원조회
+	 * @param cp
+	 * @return resultMap
+	 */
+	Map<String, Object> selectAllMemberList(int cp);
+
+	/** 회원 정보 비동기 조회
+	 * @param memberId
+	 * @return member
+	 */
+	Member selectMemberDetail(Long memberNo);
+
 
 
 

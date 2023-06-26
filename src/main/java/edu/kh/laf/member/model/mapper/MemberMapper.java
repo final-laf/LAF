@@ -1,10 +1,13 @@
 package edu.kh.laf.member.model.mapper;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 @Mapper
 public interface MemberMapper {
@@ -54,4 +57,22 @@ public interface MemberMapper {
 	 * @return orderNo
 	 */
 	int selectNotMemberOrder(Map<String, String> paramMap);
+
+	/** 전체 회원의 수 조회
+	 * @param cp
+	 * @return listCount
+	 */
+	int getAllMemberCount(int cp);
+
+	/** 로우바운드가 적용된 전체 회원 조회
+	 * @param cp
+	 * @param rowBounds
+	 * @return resultMap
+	 */
+	List<Member> selectAllMemberList(int cp, RowBounds rowBounds);
+
+	/** 회원 정보 비동기 조회
+	 * @return member
+	 */
+	Member selectMemberDetail(Long memberNo);
 }

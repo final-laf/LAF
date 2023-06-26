@@ -184,7 +184,9 @@ where member_id = 'user01'
 
 rollback;
 
-
+SELECT * FROM `member`
+WHERE member_no = 2
+;
 
 
 

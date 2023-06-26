@@ -1,5 +1,6 @@
 package edu.kh.laf.member.model.service;
 
+import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.mapper.MemberMapper;
 import jakarta.mail.Message;
@@ -7,8 +8,10 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -150,6 +153,32 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int selectNotMemberOrder(Map<String, String> paramMap) {
 		return mapper.selectNotMemberOrder(paramMap);
+	}
+
+	// 회원관리 : 회원조회
+	@Override
+	public Map<String, Object> selectAllMemberList(int cp) {
+		// 회원수 조회
+		int listCount = mapper.getAllMemberCount(cp);
+		Pagination pagination = new Pagination(listCount, cp, 10);
+				
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 로우바운드가 적용된 전체 회원 조회
+		List<Member> memberList = mapper.selectAllMemberList(cp, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("memberList", memberList);
+		resultMap.put("listCount", listCount);
+		return resultMap;
+	}
+
+	// 회원 정보 비동기 조회
+	@Override
+	public Member selectMemberDetail(Long memberNo) {
+		return mapper.selectMemberDetail(memberNo);
 	}
 
 

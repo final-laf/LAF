@@ -241,5 +241,10 @@ AND order_uno = '230621-3-VRZI2P'
 
 
 
+UPDATE `member`
+SET member_no = DEFAULT 
+WHERE member_no = 2;
 
-
+SELECT * FROM `member`
+WHERE member_not = "N"
+;

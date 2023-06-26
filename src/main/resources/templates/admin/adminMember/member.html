@@ -18,33 +18,42 @@
           <span class="member-content-title">회원 관리</span>
         </div>
         <div class="member-search-box">
-          <div class="member-search">
-            <div>검색어</div>
-            <div>
-              <select>
-                <option>전체</option>
-                <option>이름</option>
-                <option>아이디</option>
-                <option>이메일</option>
-              </select>
+          <form action="/admin/">
+            <div class="member-search">
+              <div>검색어</div>
+              <div>
+                <select id="queryKey" name="qk">
+                  <option name="qk" value="">전체</option>
+                  <option name="qk" value="name">이름</option>
+                  <option name="qk" value="id">아이디</option>
+                  <option name="qk" value="email">이메일</option>
+                </select>
+              </div>
+              <div>
+                <input id="query" name="query" type="text" placeholder="검색어를 입력하세요" th:value="${query}">
+              </div>
+              <div class="member-search-btn">
+                <button type="button" id="restBtn">초기화</button>
+                <button type="submit" id="submitBtn">검색</button>
+              </div>
             </div>
-            <div>
-              <input type="text">
-            </div>
-            <div class="member-search-btn">
-              <button type="button">검색</button>
-              <button type="button">초기화</button>
-            </div>
-          </div>
+          </form>
         </div>
+        <!-- 조회 결과 -->
         <div class="member-result-box">
+          <!-- 검색결과 갯수, 적립금 지급, 쿠폰 지급 -->
           <div class="member-result-top">
-            <div>최근가입일순(검색결과 7 건)</div>
+            <div>
+              <span>최근가입일순(검색결과</span>
+              <span th:text="${listCount}">회원수</span>
+              <span>건)</span>
+            </div>
             <div>
               <button type="button" id="OpenPointModal">적립금 지급</button>
               <button type="button" id="OpenCuponModal">쿠폰 지급</button>
             </div>
           </div>
+          <!-- 검색결과 테이블 -->
           <table class="member-result">
             <tr class="pretr">
               <td><input type="checkbox"></td>
@@ -53,50 +62,73 @@
               <td>이름</td>
               <td>이메일</td>
               <td>등급</td>
+              <td>상태</td>
               <td>적립금</td>
               <td>가입일</td>
             </tr>
-            <tr class="selected-member">
+            <tr th:unless="${listCount == 0}" th:each="member : ${memberList}" class="selected-member">
               <td><input type="checkbox"></td>
-              <td>76</td>
-              <td>USER01</td>
-              <td>유저일</td>
-              <td>user01.kh.or.kr</td>
-              <td>일반</td>
-              <td>2,000</td>
-              <td>2023-06-08</td>
-            </tr>
-            <tr class="selected-member">
-              <td><input type="checkbox"></td>
-              <td>76</td>
-              <td>USER01</td>
-              <td>유저일</td>
-              <td>user01.kh.or.kr</td>
-              <td>일반</td>
-              <td>2,000</td>
-              <td>2023-06-08</td>
-            </tr>
-            <tr class="selected-member">
-              <td><input type="checkbox"></td>
-              <td>76</td>
-              <td>USER01</td>
-              <td>유저일</td>
-              <td>user01.kh.or.kr</td>
-              <td>일반</td>
-              <td>2,000</td>
-              <td>2023-06-08</td>
-            </tr>
-            <tr class="selected-member">
-              <td><input type="checkbox"></td>
-              <td>76</td>
-              <td>USER01</td>
-              <td>유저일</td>
-              <td>user01.kh.or.kr</td>
-              <td>일반</td>
-              <td>2,000</td>
-              <td>2023-06-08</td>
+              <td th:text="${member.memberNo}">번호</td>
+              <td th:text="${member.memberId}">아이디</td>
+              <td th:text="${member.memberName}">이름</td>
+              <td th:text="${member.memberEmail}">이메일</td>
+              <td>
+                <th:block th:switch="*{member.memberGrade}">
+                  <span th:case="B">BRONZE</span>
+                  <span th:case="S">SILVER</span>
+                  <span th:case="G">GOLD</span>
+                  <span th:case="D">DIAMOND</span>
+                  <span th:case="A">ADMIN</span>
+                </th:block>
+              </td>
+              <td>
+                <th:block th:switch="*{member.memberDelFL}">
+                  <span th:case="n">일반회원</span>
+                  <span th:case="Y">탈퇴회원</span>
+                </th:block>
+              </td>
+              <td th:if="${member.memberPoint != 0}" th:text="|${#numbers.formatInteger(member.memberPoint, 3, 'COMMA')} 원|">적립금</td>
+              <td th:unless="${member.memberPoint != 0}">0 원</td>
+              <td th:text="${#strings.substring(member.memberEnrollDate,0,11)}">가입일</td>
             </tr>
           </table>
+        </div>
+        <!-- 페이징 -->
+        <div class="pagination-area">
+          <ul th:unless="${listCount == 0}" class="pagination">
+            <!-- 첫 페이지로 이동 -->
+            <li><a th:href="@{/admin/member(cp=1)}">
+                <img th:src="@{/images/common/paging/first-page.svg}">
+              </a></li>
+
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li><a th:href="@{/admin/member(cp=${pagination.prevPage})}">
+                <img th:src="@{/images/common/paging/prev-page.svg}">
+              </a></li>
+
+            <!-- 특정 페이지로 이동 -->
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+              <!-- 현재 보고있는 페이지 -->
+              <li th:if="${i == pagination.currentPage}">
+                <a class="current" th:text="${i}">현재 페이지</a>
+              </li>
+
+              <!-- 현재 페이지를 제외한 나머지 -->
+              <li th:unless="${i == pagination.currentPage}">
+                <a th:href="@{/admin/member(cp=${i})}" th:text="${i}"></a>
+              </li>
+            </th:block>
+
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li><a th:href="@{/admin/member(cp=${pagination.nextPage})}">
+                <img th:src="@{/images/common/paging/next-page.svg}">
+              </a></li>
+
+            <!-- 끝 페이지로 이동 -->
+            <li><a th:href="@{/admin/member(cp=${pagination.maxPage})}">
+                <img th:src="@{/images/common/paging/last-page.svg}">
+              </a></li>
+          </ul>
         </div>
       </div>
     </section>

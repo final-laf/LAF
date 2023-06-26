@@ -6,10 +6,33 @@ const selectedMembers = document.getElementsByClassName("selected-member")
 for(let member of selectedMembers) {
 
   /* 회원 목록에서 한 회원 클릭시 */
-  member.addEventListener('click', () => {
-    modal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
-  });
+  member.addEventListener('click', e => {
+
+  // const memberNo = e.target.getAttribute("memberNo");
+  // console.log(e.target.getAttribute("memberNo"))
+  // console.log(memberNo)
+      // fetch("/admin/member/memberdetail",{
+      // method : "POST", 
+      // headers : {"Content-Type" : "application/json; charset=UTF-8"},
+      // body : JSON.stringify(memberNo)
+      // })
+      // .then(response => response.json()) 
+      // .then(member => {
+      
+      // document.getElementById("selectedMemberName").innerText = member.memberName;
+      // document.getElementById("selectedMemberInvironment").innerText= member.memberSocial;
+      // document.getElementById("selectedMemberEnrollDate").innerText= member.memberEnrollDate;
+      // document.getElementById("selectedMemberStatus").innerText= member.memberDelFL;
+      // document.getElementById("selectedMemberGrade").innerText= member.memberGrade;
+      // document.getElementById("selectedMemberId").innerText = member.memberId;
+      // document.getElementById("selectedMemberBirth").innerText = member.memberBirth;
+      // document.getElementById("selectedMemberAddress").innerText = member.memberAddress;
+      // // 기본 주소지 필요
+      // }) 
+      // .catch (e => { console.log(e)}); 
+  modal.style.display = "flex";
+  document.body.style.overflowY = "hidden";
+});
 
 };
     

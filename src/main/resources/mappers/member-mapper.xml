@@ -95,6 +95,23 @@
 		WHERE member_phone = #{memberPhone}
 		AND order_uno = #{orderUno}
 	</select>
-  	
+	
+	<!--전체 회원의 수 조회(관리자-회원관리)-->
+	<select id="getAllMemberCount" resultType="_int">
+		SELECT count(*) FROM `member`
+		WHERE member_not = "N"
+	</select>
+	
+	<!--전체 회원 조회(관리자-회원관리)-->
+	<select id="selectAllMemberList" resultType="Member">
+		SELECT * FROM `member`
+		WHERE member_not = "N"
+	</select>
+	
+	<!--회원번호로 회원 정보 조회(관리자-회원관리-회원관리상세. 비동기)-->
+  	<select id="selectMemberDetail">
+		SELECT * FROM `member`
+		WHERE member_no = #{memberNo}
+	</select>
 </mapper>
 
