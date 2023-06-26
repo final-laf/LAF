@@ -61,6 +61,23 @@
     font-size: 1.2rem;
     text-align: center;
 }
+.orderShipping-Shipping-list td div{
+    font-size: 1.2rem;
+    vertical-align: middle;
+    padding: 3px 5px;
+}
+#addressItem{
+    display: flex;
+}
+.p-category-item {
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    background-color: #eee;
+    margin-left: 40px;
+}
+
 .orderShipping-Shipping-list td:nth-child(5) {
     padding-left: 10px;
     text-align: left;
@@ -92,15 +109,17 @@
 }
 
 .orderShipping-Shipping-button{
-    margin-top: 5px;
+    margin-top: 15px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+}
+.orderShipping-Shipping-button button{
+    margin: 0 10px;
 }
 .orderShipping-Shipping-button button:nth-child(2){
-    background-color: #666;
+    background-color: #7F7698;
     color: white;
     display: flex;
-    justify-content: space-between;
 }
 
 .orderShipping-Shipping-notice{

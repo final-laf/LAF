@@ -10,27 +10,29 @@
     <div class="orderShipping-MyMain-Shipping">
       <table>
         <tr>
-          <th width="30px"> <input type="checkbox"> </th>
+          <th width="60px"> <input type="checkbox"> </th>
           <th width="130px">배송지명</th>
           <th width="100px">수령인</th>
           <th width="130px">휴대전화</th>
           <th width="550px">주소</th>
-          <th width="60px">수정</th>
         </tr>
         <!-- 항목 추가~ -->
-        <tr th:if="${session.loginMember}" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
-          <td><input type="checkbox"></td>
+        <tr id="addressList" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
+          <td><input type="radio" name="addSelect"></td>
           <td th:text="${address.addressName}">배송지명</td>
           <td th:text="${address.addressReceiver}">수령인</td>
           <td th:text="${address.addressTel}">전화번호</td>
-          <td th:text="${address.address}">주소</td>
-          <td><a href="/my/ship/enroll"><button type="button">수정</button></a></td>
+          <td>
+            <div id="addressItem">
+              <div class="order-shipping-address" th:text="${address.address}">주소</div>
+              <span th:if="${address.addressDefaultFL == 'Y'}" class="p-category-item">기본배송지</span>
+            </div>
+          </td>
         </tr>
-        <!-- ~~~~~~~~~~~~~~~ -->
       </table>
       <div class="orderShipping-Shipping-button">
-          <button >선택 주소록 삭제</button>
-          <button >선택 주소록 선택</button>
+          <button id="myShippingBtn">주소록 관리</button>
+          <button id="shippingSelectBtn">선택 주소록 선택</button>
       </div>
       <table class="orderShipping-Shipping-notice">
         <tr>
@@ -38,7 +40,7 @@
         </tr>
         <tr>
           <td>
-            <div>❶ 배송 주소록은 최대 3개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</div>
+            <div>❶ 배송 주소록은 최대 3개까지 등록할 수 있습니다.</div>
             <div>❷ 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
           </td>
         </tr>
@@ -46,3 +48,12 @@
     </div>
   </div>
 </section>
+
+<script th:inline="javascript">
+  /* 주소값 구분자 제거 후 가져오기 */
+  const addressList = /*[[${addressList}]]*/ [];
+  const innerAddress = document.getElementsByClassName("order-shipping-address");
+  for(let i = 0; i < addressList.length; i++) {
+    innerAddress[i].innerText =  (addressList[i].address.replaceAll("^^^", " "));
+  }
+  </script>

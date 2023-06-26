@@ -56,7 +56,7 @@ public class OrderController {
 			// 배송지정보조회
 			List<Address> addressList = service2.selectAddressList(loginMember.getMemberNo());
 			for(Address add : addressList) {
-				add.setAddress(add.getAddress().replace("^^^", " "));
+				add.setAddress(add.getAddress());
 			}
 			model.addAttribute("addressList", addressList);
 			// 쿠폰정보조회
