@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.laf.board.model.dto.Notice;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.product.model.dto.Option;
@@ -13,10 +15,15 @@ import edu.kh.laf.product.model.dto.Product;
 @Mapper
 public interface ReviewMapper {
 
+	/** 리뷰 리스트 count
+	 * @return
+	 */
+	int reviewListCount();
+	
 	/** 모든 리뷰 조회
 	 * @return
 	 */
-	List<Review> reviewList();
+	List<Review> reviewList(RowBounds rowBounds);
 
 	/** 리뷰 옵션 조회
 	 * @param optionNo
@@ -105,6 +112,9 @@ public interface ReviewMapper {
 	 * @return
 	 */
 	int deleteReview(long reviewNo);
+
+
+
 
 
 }

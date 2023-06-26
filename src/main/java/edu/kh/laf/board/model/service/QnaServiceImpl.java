@@ -24,23 +24,48 @@ public class QnaServiceImpl implements QnaService {
 	 *
 	 */
 	@Override
-	public Map<String, Object> qnaList(Map<String, Object> paramMap) {
-		int listCount = mapper.qnaListCount(paramMap);
-		int cp = (paramMap.get("cp") == null) ? 1 : Integer.parseInt((String)paramMap.get("cp"));
+	public Map<String, Object> qnaList(int cp) {
+		int listCount = mapper.qnaListCount();
+		
 		Pagination pagination = new Pagination(listCount, cp, 10);
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-		List<Qna> qnaList = mapper.qnaList(paramMap, rowBounds);
+		
+		List<Qna> qnaList = mapper.qnaList(rowBounds);
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("pagination", pagination);
 		resultMap.put("qnaList", qnaList);
 		
-		
-		
 		return resultMap;
 	}
+	
+	
+	/** qna 검색어를 포함한 전체 목록 조회
+	 *
+	 */
+	@Override
+	public Map<String, Object> qnaList(Map<String, Object> paramMap, int cp) {
+		int listCount = mapper.getListCountSearch(paramMap); // 오버로딩
+		// 2. 1번 조회 결과 + cp를 이용해서 Pagination 객체 생성
+		// -> 내부 필드가 모두 계산되어 초기화됨
+		Pagination pagination = new Pagination(listCount, cp, 10);
+		// 1) offset 계산
+		int offset = (pagination.getCurrentPage() - 1 ) * pagination.getLimit();
+			
+		// 2) Rowbounds 객체 생성
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Qna> qnaList = mapper.searchQnaList(paramMap, rowBounds);
+		
+		// 4. pagination, boardList를 Map에 담아서 반환
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pagination", pagination);
+		map.put("qnaList", qnaList);
+		return map;
+	}
+	
 
 	/** qna 상세 정보 조회
 	 *
@@ -86,6 +111,8 @@ public class QnaServiceImpl implements QnaService {
 	public int answerQna(Qna qna) {
 		return mapper.answerQna(qna);
 	}
+
+
 
 
 

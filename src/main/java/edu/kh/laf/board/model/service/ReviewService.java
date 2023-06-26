@@ -2,6 +2,7 @@ package edu.kh.laf.board.model.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,7 @@ public interface ReviewService {
 	/** 모든 리뷰 조회
 	 * @return
 	 */
-	List<Review> reviewList();
+	Map<String, Object> reviewList(int cp);
 
 	/** 리뷰 옵션 조회
 	 * @param optionNo
@@ -71,5 +72,7 @@ public interface ReviewService {
 	 * @return
 	 */
 	int deleteReview(long reviewNo);
+
+
 
 }

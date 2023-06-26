@@ -3,6 +3,12 @@
 <mapper namespace="edu.kh.laf.board.model.mapper.ReviewMapper">
 
 	
+	
+	<!-- 리뷰 count-->
+    <select id="reviewListCount">
+        SELECT count(*) FROM `review` WHERE review_delete_fl='N' ORDER BY review_create_date DESC;
+    </select>
+	
 	<!-- ReviewList -->
      <select id="reviewList" resultType="Review">
         SELECT DISTINCT  r.review_no, m.member_id, 
@@ -19,6 +25,8 @@
         FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
         			  LEFT JOIN `member` m ON o.member_no = m.member_no 
         			  LEFT JOIN order_product op ON o.order_no=op.order_no
+        WHERE review_delete_fl='N' 
+        ORDER BY review_create_date DESC
     </select>
     
 	<!-- 특정 상품에 대한 모든 리뷰 조회 -->

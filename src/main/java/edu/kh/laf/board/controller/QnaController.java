@@ -27,40 +27,21 @@ public class QnaController {
 	
 
 	// 1:1 문의 목록
-	@GetMapping(value = {"/qna/{search}","/qna"})
+	@GetMapping("/qna")
 	public String qna(
-			Model model,
-			@PathVariable(required = false) String search,
-			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-			@RequestParam(value="cc", required=false, defaultValue="0") long cc
+			Model model
+			, @RequestParam(value="cp", required=false, defaultValue="1") int cp
+			, @RequestParam Map<String, Object> paramMap
 			) {
-		//PathVariable 없을 때
-		if(search == null) {
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("cp", cp);
-			paramMap.put("cc", cc);	
-			List<Qna> qna = new ArrayList<>();
-			Map<String, Object> resultMap = qnaService.qnaList(paramMap);
-			
-			List<Qna> answeredQna = new ArrayList<>();
-			model.addAttribute("searchQna", "");
-			model.addAttribute("qnaList", qna);
+		// 검색어 없을 때
+		if(paramMap.get("key") == null) { 
+			Map<String, Object> resultMap = qnaService.qnaList(cp);
+			model.addAttribute("resultMap", resultMap);
 			
 		//PathVariable 있을 때
 		}else {
-			Map<String, Object> paramMap = new HashMap<>();
-			paramMap.put("search", search);
-			paramMap.put("cp", cp);
-			paramMap.put("cc", cc);	
-			
-			model.addAttribute("searchQna", search);
-			String[] subQna = search.split("-");
-			Map<String, String> qnaMap = new HashMap<>();
-			qnaMap.put("type", subQna[0]);
-			qnaMap.put("content", subQna[1]);
-			List<Qna> qna = new ArrayList<>();
-			List<Qna> answeredQna = new ArrayList<>();
-			model.addAttribute("qnaList", qna);
+			Map<String, Object> resultMap = qnaService.qnaList(paramMap, cp);
+			model.addAttribute("resultMap", resultMap);
 		}
 		return "/boards/qna/qna";
 	}

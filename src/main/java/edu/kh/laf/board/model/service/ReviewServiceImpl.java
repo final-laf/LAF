@@ -16,6 +16,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.laf.board.model.dto.Notice;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.mapper.ReviewMapper;
@@ -40,8 +41,45 @@ public class ReviewServiceImpl implements ReviewService{
 	 *
 	 */
 	@Override
-	public List<Review> reviewList() {
-		return mapper.reviewList();
+	public Map<String, Object> reviewList(int cp) {
+		int listCount = mapper.reviewListCount();
+		
+		Pagination pagination = new Pagination(listCount, cp, 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Review> reviewList = mapper.reviewList(rowBounds);
+		// reviewList에서 하나씩 옵션 및 상품 설정
+		
+		for(Review review : reviewList) {
+			int num = review.getMemberId().length()/2;
+			int uNum = review.getOrderUno().length()/2;
+			
+			String blind = "";
+			for(int i=0; i<num; i++) {blind += "*";}
+			review.setMemberId(review.getMemberId().substring(0, num) + blind);
+			
+			blind = "";
+			for(int i=0; i<uNum; i++) {blind += "*";}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
+			
+			review.setOption(mapper.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(mapper.reviewProduct(review.getProductNo()));
+			if (review.getReviewNo()!=0) {
+				List<ReviewImg> imgList = new ArrayList<>();
+				imgList=mapper.reviewImg(review.getReviewNo());
+				review.setReviewImg(imgList);
+			}// 상품 설정
+		}
+		
+		
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("reviewList", reviewList);
+		
+		return resultMap;
 	}
 	
 	/** 특정 상품에 대한 모든 리뷰 조회
@@ -226,6 +264,8 @@ public class ReviewServiceImpl implements ReviewService{
 	public int deleteReview(long reviewNo) {
 		return mapper.deleteReview(reviewNo);
 	}
+
+
 
 
 }
