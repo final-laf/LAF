@@ -80,3 +80,10 @@
     font-size: 1.2rem;
     margin: 0 10px;
 }
+
+.choose-category{
+    display: none;
+}
+.allCategory{
+    display : block;
+}

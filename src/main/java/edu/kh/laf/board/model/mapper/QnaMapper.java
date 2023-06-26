@@ -1,18 +1,28 @@
 package edu.kh.laf.board.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.board.model.dto.Qna;
 
 @Mapper
 public interface QnaMapper {
 
-	/** qna 목록 조회
+	/** qna 목록 개수
+	 * @param paramMap
 	 * @return
 	 */
-	List<Qna> qnaList();
+	int qnaListCount(Map<String, Object> paramMap);
+	
+	/** qna 목록 조회
+	 * @param rowBounds 
+	 * @param paramMap 
+	 * @return
+	 */
+	List<Qna> qnaList(Map<String, Object> paramMap, RowBounds rowBounds);
 
 	/** qna 상세 정보 조회
 	 * @param no
@@ -49,5 +59,7 @@ public interface QnaMapper {
 	 * @return
 	 */
 	int answerQna(Qna qna);
+
+
 
 }
