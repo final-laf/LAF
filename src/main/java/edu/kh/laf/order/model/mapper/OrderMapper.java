@@ -106,4 +106,10 @@ public interface OrderMapper {
 	// 상품 판매중 전환
 	public int updateSell(OrderProduct op);
 
+	// 적립된 포인트 반환 내역 삽입	
+	public int insertResetGainPoint(Point usePoint);
+
+	// 사용된 포인트 반환 내역 삽입	
+	public int insertResetUsePoint(Point useResetPoint);
+
 }

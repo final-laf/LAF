@@ -52,11 +52,14 @@ SELECT option_no FROM order_product WHERE order_no = 30 LIMIT 1;
 SELECT * FROM product WHERE product_no = (SELECT product_no FROM order_product WHERE order_no = 30 LIMIT 1);
 SELECT * FROM product WHERE product_no = (SELECT option_no FROM order_product WHERE order_no = 30 LIMIT 1);
 
-SELECT * FROM `order`;
-SELECT member_grade FROM `member` WHERE member_no = 3;
+SELECT * FROM `order` ORDER BY order_no DESC;
+SELECT member_grade FROM `member` WHERE member_no = 3
+ORDER BY order_no DESC;
 
 COMMIT;
 
 UPDATE `member`
 SET member_grade = 'G'
 WHERE member_no = 3;
+
+SELECT * FROM `point` ORDER BY point_no DESC;
