@@ -21,6 +21,19 @@ insert into child_category_cd values(NULL, '맨투맨/후드', 1);
 insert into child_category_cd values(NULL, '셔츠/블라우스', 1);
 insert into child_category_cd values(NULL, '슬리브리스', 1);
 
+insert into child_category_cd values(NULL, '면바지', 2);
+insert into child_category_cd values(NULL, '데님', 2);
+insert into child_category_cd values(NULL, '슬랙스', 2);
+insert into child_category_cd values(NULL, '반바지', 2);
+insert into child_category_cd values(NULL, '트레이닝/조거', 2);
+
+insert into child_category_cd values(NULL, '코트', 3);
+insert into child_category_cd values(NULL, '자켓', 3);
+insert into child_category_cd values(NULL, '점퍼', 3);
+insert into child_category_cd values(NULL, '카디건', 3);
+
+insert into child_category_cd values(NULL, '신발', 9);
+insert into child_category_cd values(NULL, '가방', 9);
 
 
 -- 부모카테고리로 자식카테고리 모두 조회

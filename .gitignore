@@ -76,3 +76,7 @@ bin/
 ### Server 관련 ###
 Servers/
 *_jsp.java
+
+
+### LAF 프로젝트 개별 설정파일 ###
+FileUploadConfig.java

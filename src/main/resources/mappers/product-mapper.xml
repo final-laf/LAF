@@ -291,9 +291,10 @@
 	
 	<!-- 부모 카테고리 이름 조회 -->
 	<select id="selectCategoryName">
-		select 	parent_category_name 
+		select 	parent_category_name, parent_category_order
 		from 	`parent_category_cd` 
 		where 	parent_category_no = ${categoryNo}
+		order by parent_category_order
 	</select>
 	
 	<!-- 카테고리 상품 갯수 조회 -->
@@ -323,7 +324,7 @@
 		(select 	 parent_category_no as category_no,
 				 parent_category_name as category_name,
 				 0 as parent_category_no,
-				 parent_category_order  as category_order
+				 parent_category_order as category_order
 		from 	`parent_category_cd`	
 		order by parent_category_no)
 		union	 			
@@ -332,6 +333,7 @@
 				 parent_category_no as parent_category_no,
 				  0  as category_order
 		from 	`child_category_cd`)
+		order by category_order
 	</select>
 	
 	<!-- 부모 카테고리 조회 -->
