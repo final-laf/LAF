@@ -199,7 +199,7 @@ public class MemberController {
 		// 일치하지 않으면
 		if(member == null) {
 			message = "아이디 또는 비밀번호가 일치하지 않습니다.";
-			path =  "redirect:/findPw";
+			path =  "redirect:/findpw";
 		} else {
 		// 일치하면
 			// 랜덤한 비밀번호 생성
@@ -209,13 +209,16 @@ public class MemberController {
 			int result = service.findPw(paramMap);
 			// 랜덤으로 생성한 번호를 메일로 보내기
 			if(result > 0) {
-				//service.
+				service.sendNewPw(memberEmail, memberPw, "비밀번호 찾기");
+				message = "새로운 비밀번호가 이메일로 전송되었습니다.";
+				path = "redirect:/login";
 			} else {
-				message = "비밀번호 찾기 실패.";
-				path =  "redirect:/findPw";
+				message = "새로운 비밀번호가 이메일로 전송되지 않았습니다. 다시 시도해주시기 바랍니다.";
+				path =  "redirect:/";
 			}
-			path = "redirect:/";
 		}
+		
+		ra.addFlashAttribute("message", message);
 		return path;
 	}
 	

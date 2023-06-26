@@ -49,6 +49,14 @@ public interface MemberService {
 	 */
 	int findPw(Map<String, String> paramMap);
 
+	/** 비밀번호 찾기(이메일 전송)
+	 * @param memberEmail
+	 * @param memberPw
+	 * @param string
+	 * @return emailResult
+	 */
+	int sendNewPw(String memberEmail, String memberPw, String string);
+
 
 
 

@@ -6,38 +6,40 @@
 }
 
 .findPw-box {
-    width: 20%;
+    width: 250px;
 }
 
 .findPw-box > div {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
     margin: 15px 0px;
 }
 
+.findPw-box > div > div {
+    width: 100%;
+}
+
 .findPw-box > div > div:first-child {
-    width: 30%;
+    width: 100%;
+    margin-bottom: 5px;
 }
 
 .findPw-box > div > div:last-child {
-    width: 70%;
+    width: 100%;
+    text-align: right;
 }
 
 .findPw-box > div > div:last-child > input {
     width: 100%;
+    height: 35px;
 }
 
 .findPw-box > div:last-child {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .findPw-box > div:last-child > button{
-    width: 100px;
+    width: 120px;
 }
 
