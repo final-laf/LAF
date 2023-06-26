@@ -68,6 +68,7 @@
                   <td th:text="${#strings.substring(point.pointDate,0,11)}">주문날짜</td>
                   <td th:if='${point.pointSort == "G"}' th:text="적립">적립된 적립금일 경우</td>
                   <td th:if='${point.pointSort == "U"}' th:text="사용">사용된 적립금일 경우</td>
+                  <td th:if='${point.pointSort == "C"}' th:text="취소">사용된 적립금일 경우</td>
                   <td th:text="${point.pointAmount}">적립금</td>
                   <td th:text="${point.orderUno}">관련 주문</td>
                   <td th:text="${point.pointContent}">내용</td>

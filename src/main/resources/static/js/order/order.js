@@ -144,10 +144,12 @@ if(loginMember != null){ // 로그인한 회원일시
       couponSelect.children[1].children[0].innerText= '적용불가'
       couponSelect.style.pointerEvents = 'none';
     }else{ // 사용가능시 쿠폰적용할인금액 계산
-      if(couponUnit == 'p'){ // 할인율일때
+      if(couponUnit == 'P'){ // 할인율일때
         if(totalAmount * couponAmount * 0.01 < couponMaxDiscount){
           couponMaxDiscount = totalAmount * couponAmount * 0.01
         }
+      }else{
+        couponMaxDiscount = couponAmount
       }
     }
     couponNoC.push([couponNo,couponMaxDiscount])
@@ -226,7 +228,6 @@ if(loginMember != null){ // 로그인한 회원일시
     if(pointInput.value != ""){
       point = parseInt(pointInput.value.replace(",", ""));
     };
-    console.log(point);
     // 사용한 포인트 금액 세팅(제출용)
     document.querySelector("input[name=pointNoUse]").value = point;
     // 쿠폰 할인 금액
