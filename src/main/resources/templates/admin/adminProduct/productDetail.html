@@ -7,13 +7,13 @@
     
     <tr>
       <td class="enroll-table-header table-header thumbnail">썸네일 이미지</td>
-      <td class="enroll-table-header table-header">상품명</td>
+      <td class="enroll-table-header table-header" required>상품명</td>
       <td><input id="productName" name="productName" type="text" placeholder="상품명을 입력해주세요 (최대 100자)" maxlength="100"></td>
     </tr>
 
     <tr>
       <td rowspan="5" class="enroll-thumbnail">
-        <img th:src="@{/images/common/no-image.png}">
+        <img id="thumbnailImagePreview" th:src="@{/images/common/no-image.png}">
       </td>
       <td rowspan="2" class="enroll-table-header table-header">카테고리</td>
       <td id="enrollCategory">
@@ -46,7 +46,7 @@
     <tr>
       <td rowspan="3" class="enroll-table-header table-header">가격</td>
       <td class="enroll-price">
-        <span>판매가</span><input name="productPrice" type="text">원
+        <span>판매가</span><input name="productPrice" type="text" required>원
       </td>
     </tr>
 
@@ -58,14 +58,15 @@
 
     <tr>
       <td class="enroll-price">
-        <span>최종할인가</span><input name="productSalePrice" type="text"  placeholder="0" disabled>원
+        <span>최종할인가</span><input name="productSalePrice" type="text"  placeholder="0" disabled required>원
         <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(100원 단위 절삭)</span>
       </td>
     </tr>
 
     <tr>
       <td class="enroll-img-btn">
-        <button id="enrollImgBtn" type="button">파일 업로드</button>
+        <button id="enrollImgBtn" type="button">파일업로드</button>
+        <input type="file" name="thumbnailPath" id="thumbnailPath" accept="image/*">
         <button id="deleteImgBtn" type="button">삭제</button>
       </td>
       <td class="enroll-table-header table-header">적립금</td>
@@ -115,14 +116,16 @@
         <div>
           <span>상세 이미지</span>
           <button id="uploadDetailImgBtn" type="button">파일업로드</button>
+          <input type="file" id="detailImgInput" multiple>
         </div>
       </td>
       <!-- <td>상세 설명</td> -->
     </tr>
 
-    <tr>
-      <td id="noDetailImg">업로드한 이미지가 없습니다</td>
+    <tr id="detailImgNameTr">
+      <td id="noDetailImgInfo">업로드한 이미지가 없습니다</td>
     </tr>
+    <tr id="detailImgTr"></tr>
   </table>
 </div>
 

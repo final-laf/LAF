@@ -82,6 +82,9 @@
 #enrollImgBtn {
   margin-right: 2px;
 }
+.enroll-img-btn input[type="file"] {
+  display: none;
+}
 
 /* 상품명 */
 #productName {
@@ -162,13 +165,10 @@
 }
 
 .enroll-middle-table td {
-  /* padding: 10px; */
   text-align: center;
-  
 }
 
 .enroll-middle-table tr{
-  /* height: 40px; */
   height: 38px;
   border-top: 1px solid #eee;
 }
@@ -179,51 +179,17 @@
 
 .enroll-middle-table input[type=text]{
   width: 90%;
-  /* height: 30px; */
   margin-right: 5px;
   text-align: center;
 }
 
 .enroll-middle-table select {
   width: 80%;
-  /* height: 30px; */
-  /* margin-right: 10px; */
-}
-
-.enroll-middle-table option{
-  /* height: 30px; */
 }
 
 .enroll-middle-table tr:nth-child(1){
   background-color: #fafafa;
 }
-
-/* .enroll-middle-table tr:nth-child(1) > td:nth-child(1){
-  width: 120px;
-}
-
-.enroll-middle-table tr:nth-child(1) > td:nth-child(2),
-.enroll-middle-table tr:nth-child(1) > td:nth-child(3){
-  width: 120px;
-}
-
-.enroll-middle-table tr:nth-child(1) > td:nth-child(4){
-  width: 350px;
-}
-
-.enroll-middle-table tr:nth-child(1) > td:nth-child(5){
-  width: 130px;
-}
-.enroll-middle-table tr:nth-child(1) > td:nth-child(6){
-  width: 450px;
-} */
-
-/* .enroll-middle-table tr:nth-child(1) button{
-  background-color: #666;
-  color: white;
-  width: 100px;
-  height: 30px;
-} */
 
 /* enroll-bottom-table */
 .enroll-bottom-table {
@@ -249,6 +215,9 @@
 .enroll-bottom-table img{
   width: 700px;
 }
+.enroll-bottom-table input[type="file"] {
+  display: none;
+}
 
 .enroll-bottom-table tr:nth-child(1) > td:nth-child(1)>div{
   display: flex;
@@ -264,8 +233,39 @@
   width: 80px;
   height: 30px;
 }
-#noDetailImg {
+#noDetailImgInfo {
   color: #666;
+}
+#detailImgNameTr td {
+  padding: 5px 10px;
+}
+#detailImgNameTr .detailImgNameContainer {
+  margin: 5px 0;
+}
+#detailImgNameTr button {
+  height: 20px;
+  width: 20px;
+}
+#detailImgNameTr button.up {
+  margin-right: 5px;
+}
+#detailImgNameTr button:last-child {
+  float: right;
+}
+#detailImgNameTr span {
+  margin-left: 10px;
+}
+#detailImgTr {
+  text-align: center;
+}
+.detailImgContainer {
+  position: relative;
+  display: inline-block;
+}
+.rmImgBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .enroll-bottom-table tr:nth-child(2) > td:nth-child(2) {
