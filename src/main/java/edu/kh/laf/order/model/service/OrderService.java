@@ -100,5 +100,17 @@ public interface OrderService {
 	 */
 	int productDc(List<OrderProduct> odpList);
 
+	/** 주문취소 서비스
+	 * @param no
+	 * @return
+	 */
+	int updateOrder(int no);
+
+	/** 포인트 취소 서비스
+	 * @param no
+	 * @return
+	 */
+	int updatePoint(int no);
+
 
 }

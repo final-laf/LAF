@@ -188,4 +188,43 @@ public class OrderController {
 		return "/order/orderDetail";
 	}
 	
+	// 주문취소
+	@PostMapping(value="/order/cancle", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String cancle(@RequestBody Map<String, String> orderNo,
+						@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+		
+		int no = Integer.parseInt(orderNo.get("orderNo"));
+		
+		String message = "";
+		
+		// 주문취소 서비스(상품)
+//		int updateOrderResult = service.updateOrder(no);
+//		if(updateOrderResult == 0) { // 실패처리
+//			message = "주문취소실패";
+//		}
+		
+		// 로그인
+		if(loginMember != null) { // 로그인 회원인 경우
+			
+			// 포인트 취소 서비스
+			int updatePointResult = service.updatePoint(no);
+			// 포인트 업데이트 적립취소 사용취소
+			// 포인트 번호로 조회해서 적립된 값을 가져오기
+			// 인설트 하기
+			
+			// 누적금액 되돌리기, 등급체크
+			
+		}
+		
+		
+		
+		
+		
+		message = "취소되었습니다.";
+		
+		return message;
+	}
+	
+	
 }
