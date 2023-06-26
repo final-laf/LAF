@@ -1,16 +1,16 @@
 package edu.kh.laf.member.controller;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.service.EmailService;
 import edu.kh.laf.member.model.service.MemberService;
-import edu.kh.laf.member.model.service.MemberServiceImpl;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.mysql.cj.Session;
 
 @Controller
 @SessionAttributes({"loginMember", "likeList"})
@@ -35,6 +34,9 @@ public class MemberController {
     private MemberService service;
     @Autowired
     private MypageLikeServcie likeServcie;
+    @Autowired
+    private EmailService emailService;
+    
     
     // 로그인 페이지 이동
 	@GetMapping("/login")
@@ -46,6 +48,12 @@ public class MemberController {
 	@GetMapping("/signup")
 	public String signup() {
 		return "/member/signUp";
+	}
+	
+	// 비밀번호 찾기 페이지 이동
+	@GetMapping("/findpw")
+	public String findPw() {
+		return "/member/findPw";
 	}
 	
 	// 로그인 기능
@@ -173,7 +181,46 @@ public class MemberController {
 		return  service.checkEmail(memberEmail);
 	}
 	
-	
+	// 비밀번호 찾기
+	@PostMapping("/findpw")
+	public String findPw(String memberId
+						,String memberEmail
+						,RedirectAttributes ra) {
+		
+		String message;
+		String path;
+		
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("memberId", memberId);
+		paramMap.put("memberEmail", memberEmail);
+		
+		// 아이디와 이메일번호가 일치하는지 확인
+		Member member = service.selectMatch(paramMap);
+		// 일치하지 않으면
+		if(member == null) {
+			message = "아이디 또는 비밀번호가 일치하지 않습니다.";
+			path =  "redirect:/findpw";
+		} else {
+		// 일치하면
+			// 랜덤한 비밀번호 생성
+			String memberPw = service.createPw();
+			// 비밀번호를 새로운 랜덤 비밀번호로 업데이트
+			paramMap.putIfAbsent("memberPw", memberPw);
+			int result = service.findPw(paramMap);
+			// 랜덤으로 생성한 번호를 메일로 보내기
+			if(result > 0) {
+				service.sendNewPw(memberEmail, memberPw, "비밀번호 찾기");
+				message = "새로운 비밀번호가 이메일로 전송되었습니다.";
+				path = "redirect:/login";
+			} else {
+				message = "새로운 비밀번호가 이메일로 전송되지 않았습니다. 다시 시도해주시기 바랍니다.";
+				path =  "redirect:/";
+			}
+		}
+		
+		ra.addFlashAttribute("message", message);
+		return path;
+	}
 	
 	
 }

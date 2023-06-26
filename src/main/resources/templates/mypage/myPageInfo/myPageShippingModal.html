@@ -77,49 +77,50 @@
       <!-- 배송지 관리 -->
       <div class="mypageAddShipping-myMain-text">배송지 수정
       </div>
-      <form action="" method="post">
+      <form action="/myPage/shipping/modify" method="post" id="submitModifyShipping">
         <div class="mypageAddShipping-myMain-shipping">
           <table>
             <tr>
               <th>배송지명</th>
-              <td><input class="addressName" id="addressName"></td>
+              <td><input class="modifyAddressName" id="modifyAddressName" name="addressName" required></td>
             </tr>
             <tr>
               <th>성명</th>
-              <td><input id="addressReceiver" class="addressReceiver"></td>
+              <td><input id="modifyAddressReceiver" class="modifyressName" name="addressReceiver" required></td>
             </tr>
             <tr>
               <th>주소</th>
               <td>
                 <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
                 <div>
-                  <input type="text" required class="modyfy-shipping-address" name="memberAddress" maxlength="6" id="sample6_postcode" readonly>
-                  <button type="button" onclick="sample6_execDaumPostcode()">주소검색</button>
+                  <input type="text" required class="modyfy-shipping-address" name="address" maxlength="6" id="modify_sample6_postcode" readonly>
+                  <button type="button" onclick="modify_sample6_execDaumPostcode()">주소검색</button>
                 </div>
                 <div>
-                  <input type="text" required class="modyfy-shipping-address" name="memberAddress" id="sample6_address" readonly>
+                  <input required class="modyfy-shipping-address" name="address" id="modify_sample6_address" readonly>
                 </div>
                 <div>
-                  <input type="text" required class="modyfy-shipping-address" name="memberAddress"  id="sample6_detailAddress">
+                  <input required class="modyfy-shipping-address" name="address"  id="modify_sample6_detailAddress">
                 </div>
               </td>
             </tr>
             <tr class="mypageAddShipping-shipping-tel">
               <th>휴대전화</th>
               <td>
-                <input required id="addressTel" class="addressTel">
+                <input id="modifyAddressTel" class="addressTel" name="addressTel" required>
               </td>
             </tr>
           </table>
           <div class="mypageAddShipping-shipping-confirm">
             <div>
-              <input type="checkbox"><span>기본 배송지로 저장</span>
+              <input type="checkbox" name="addressDefaultFL" id="modifyAddressDefaultFL"><span>기본 배송지로 저장</span>
             </div>
             <div class="mypageAddShipping-Shipping-notice">
               <div>배송주소록 유의사항</div>
               <div>- 배송 주소록은 최대 3개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트 됩니다.</div>
               <div>- 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
             </div>
+            <input type="hidden" name="addressNo" id="addressNo">
             <div class="shipping-enroll-modal-btn-area">
               <button class="button shipping-modify-modal-close">수정</button>
               <button type="button" class="button shipping-modify-modal-close" id="modifyShippingModalClose">취소</button>

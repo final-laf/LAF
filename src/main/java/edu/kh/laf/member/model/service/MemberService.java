@@ -1,5 +1,7 @@
 package edu.kh.laf.member.model.service;
 
+import java.util.Map;
+
 import edu.kh.laf.member.model.dto.Member;
 
 public interface MemberService {
@@ -29,6 +31,37 @@ public interface MemberService {
 	 * @return count
 	 */
 	int checkEmail(String email);
+	
+	/** 랜덤한 패스워드 생성
+	 * @return memberPw
+	 */
+	String createPw();
+
+	/** 아이디, 비밀번호가 일치하는 회원 찾기
+	 * @param paramMap
+	 * @return member
+	 */
+	Member selectMatch(Map<String, String> paramMap);
+
+	/** 비밀번호 찾기
+	 * @param paramMap
+	 * @return result
+	 */
+	int findPw(Map<String, String> paramMap);
+
+	/** 비밀번호 찾기(이메일 전송)
+	 * @param memberEmail
+	 * @param memberPw
+	 * @param string
+	 * @return emailResult
+	 */
+	int sendNewPw(String memberEmail, String memberPw, String string);
+
+
+
+
+
+
 	
 
 }

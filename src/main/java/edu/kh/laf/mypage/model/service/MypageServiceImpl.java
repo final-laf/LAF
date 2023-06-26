@@ -92,13 +92,58 @@ public class MypageServiceImpl implements MypageService {
 		return mapper.deleteMember(memberNo);
 	}
 	
+	// 배송지정보조회
+	@Override
+	public List<Address> selectAddressList(Long memberNo) {
+		return mapper.selectAddressList(memberNo);
+	}
+	
 	// 배송지 등록
 	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public int insertAddress(Address address) {
-		return mapper.insertAddress(address);
+		
+		int result = 0;
+		// address.addressDefaultFl() 값이 있는 경우, 없는 경우
+		if(address.getAddressDefaultFL() != null) {
+			if(address.getAddressDefaultFL().equals("Y")) {
+				// 기존의 기본 배송지가 있는 경우
+				Address existingAddress = mapper.selectDefaultAddress(address.getMemberNo());
+				if(existingAddress != null) {
+					mapper.updateDefaultAddress(existingAddress.getAddressNo()); // 기존의 기본배송지를 N으로 변경
+				}
+			}
+		}
+		result = mapper.insertAddress(address);
+		return result;
 	}
 
+	// 배송지 삭제
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int deleteAddress(String[] addressNo) {
+		return mapper.deleteAddress(addressNo);
+	}
+	
+	// 배송지 수정
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int updateAddress(Address inputaddress) {
+
+		int result = 0;
+		// address.addressDefaultFl() 값이 있는 경우, 없는 경우
+		if(inputaddress.getAddressDefaultFL() != null) {
+			if(inputaddress.getAddressDefaultFL().equals("Y")) {
+				// 기존의 기본 배송지가 있는 경우
+				Address existingAddress = mapper.selectDefaultAddress(inputaddress.getMemberNo());
+				if(existingAddress != null) {
+					mapper.updateDefaultAddress(existingAddress.getAddressNo()); // 기존의 기본배송지를 N으로 변경
+				}
+			}
+		}
+		result = mapper.updateAddress(inputaddress);
+		return result;
+	}
 
 	
 	// ---------------------------- MyPage Order ---------------------------- 
@@ -239,11 +284,8 @@ public class MypageServiceImpl implements MypageService {
 
 
 
-	// 배송지정보조회
-	@Override
-	public List<Address> selectAddressList(Long memberNo) {
-		return mapper.selectAddressList(memberNo);
-	}
+
+
 
 
 
