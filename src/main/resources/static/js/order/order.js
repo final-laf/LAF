@@ -546,3 +546,31 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
       }
     });
 });
+
+
+// 배송지 설정
+const myShippingBtn = document.getElementById('myShippingBtn');
+myShippingBtn.addEventListener('click', () => {
+  window.location.href = "/myPage/shipping"
+});
+
+const shippingSelectBtn = document.getElementById('shippingSelectBtn');
+
+const addSelect = document.querySelectorAll('[name="addSelect"]');
+const addLists = document.getElementsByClassName("order-shipping-address");
+shippingSelectBtn.addEventListener('click', () => {
+  addSelect.forEach( (e,i) => {
+    if(e.checked){
+      const add = addressList[i].address.split("^^^");
+      document.getElementById('orderRecvName').value = addressList[i].addressReceiver // 받는사람
+      document.querySelectorAll("input[name='receiverAddress']").forEach( (item, j) =>{ // 주소
+        item.value = add[j];
+      } )
+      document.getElementById('recvTel').value = addressList[i].addressTel // 받는사람전화번호
+
+      document.getElementById("orderShippingBack").style.display="none";
+      document.getElementById("orderShippingContent").style.display="none";
+      document.body.style.removeProperty('overflow');
+    }
+  })
+});
