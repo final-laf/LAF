@@ -17,14 +17,14 @@
   <main>
     <sectoin class="admin-container">
 
-      <form class="product-enroll">
+      <form class="product-enroll" th:action="@{/admin/product/enroll/submit}" method="POST">
         <div class="product-enroll-title">상품 등록</div>
 
         <th:block th:replace="~{admin/adminProduct/productDetail}"></th:block>
 
         <!-- 폼 제출 버튼 -->
-        <div class="enroll-completted-btn">
-          <button type="button">등록</button>
+        <div id="enrollSubmitBtnContainer">
+          <button id="enrollSubmitBtn">등록</button>
         </div>
       </form>
 

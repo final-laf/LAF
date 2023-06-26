@@ -214,7 +214,9 @@ parentCategorySelector.addEventListener('change', e => {
       option.innerText = c.categoryName;
       childCategorySelector.append(option);
     }
-    childCategorySelector.disabled = false;
+
+    // 자식카테고리가 있을 경우 selector 활성화
+    childCategorySelector.disabled = (categoryList.length <= 0);
   })
   .catch (e => console.log(e));
 });
@@ -225,7 +227,6 @@ const modBtnList = document.querySelectorAll('.modify-product');
 for(const btn of modBtnList) {
   btn.addEventListener('click', e => {
     const productNo = e.target.parentElement.parentElement.querySelector('.p-no').innerText;
-    console.log(productNo);
     fetch("/admin/product/modify?productNo=" + productNo)
     .then(resp => resp.json())
     .then(map => {

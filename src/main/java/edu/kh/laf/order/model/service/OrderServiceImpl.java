@@ -343,7 +343,7 @@ public class OrderServiceImpl implements OrderService{
     	}
     	return productDc;
     }
-    
+    // 쿠폰, 적립금 조회
     @Override
     public Map<String, String> selectDiscount(long couponNo, long pointGainNo, long pointUseNo) {
     	
@@ -374,4 +374,124 @@ public class OrderServiceImpl implements OrderService{
     
     	return dc;
     }
+    
+    // 주문취소 서비스(상품)
+    @Override
+    public int updateOrder(int no) {
+    	
+    	int result = 0;
+    	
+    	// 주문한 상품별 조회
+    	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
+    	// 재고 복구
+    	for(OrderProduct op : odpList) {
+    		int uop = mapper.updateStock(op);
+    		if(uop == 0) {
+    			return result;// 실패 처리
+    		}
+        	// 상품 모든 재고조회 
+    		int productAllStock = mapper.selectAllStock(op);
+    		if(productAllStock != 0) { // 재고가 0이면 품절로 상품상태 업데이트
+    			// 상품 판매중 전환
+    			int soldOut = mapper.updateSell(op);
+    			if(soldOut == 0) {
+    				return result;// 실패 처리
+    			}
+    		}
+    	}
+    	
+    	// 주문상태업데이트(취소중)
+    	int uor = mapper.updateOrderCancle(no);
+		if(uor == 0) { // 실패시
+			return result;
+		}
+    	// 주문상품목록업데이트(삭제)
+    	int uopr = mapper.updateOrderProductCancle(no);
+		if(uopr == 0) { // 실패시
+			return result;
+		}else {
+			result = 1;
+		}
+
+    	return result;
+    }
+    
+    // 포인트 취소 서비스
+    @Override
+    public int updatePoint(int no) {
+
+    	int result = 0;
+    	
+    	// 주문내역 조회
+    	Order order = mapper.selectOrder(no);
+    	
+		// 날짜 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+		String payDate = dateFormat.format(new Date()); // 현재 날짜
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.YEAR, 1); // 현재 날짜에 1년을 더함
+		String payDateYear = dateFormat.format(calendar.getTime());
+    	
+    	// 적립된 포인트 내역 조회
+    	String gainPoint = mapper.selectPoint(order.getPointNoGain());
+    	
+    	
+    	// 적립된 포인트 반환 내역 추가
+		Point usePoint = new Point();
+		usePoint.setMemberNo(order.getMemberNo());
+		usePoint.setPointSort("U");
+		usePoint.setPointAmount(Long.parseLong(gainPoint));
+		usePoint.setPointDate(payDate);
+		usePoint.setPointContent("상품구매시 사용한 적립금");
+		usePoint.setOrderNo(order.getOrderNo());
+		// 사용한 적립금 내역 삽입	
+//		int upResult = mapper.insertUsePoint(usePoint);
+    	
+//		// 사용된 포인트가 있을 경우 내역 조회
+//    	if(order.getPointNoUse() != 0) {
+//    		String usePoint = mapper.selectPoint(order.getPointNoUse());
+//    	}
+    	
+    	
+    	
+    	
+    	
+//    	// 회원 적립금, 누적구매액 최신화
+//		int umResult = mapper.updateMemberPTP(order);
+//		if(umResult == 0) { // 실패시 처리
+//			return result;
+//		}
+//    	
+//    	// 회원 등급 최신화(누적구매액 기준)
+//		long memberNo = order.getMemberNo(); // 주문한 회원번호
+//		// 누적구매액 조회
+//		int totalpay = mapper.selectTotalPay(memberNo);
+//		
+//		// 회원 등급 판단
+//		String grade = "";
+//		if (totalpay < 100000) {
+//		  grade = "B"; // 브론즈
+//		} else if (totalpay < 1000000) {
+//		  grade = "S"; // 실버
+//		} else if (totalpay < 5000000) {
+//		  grade = "G"; // 골드
+//		} else {
+//		  grade = "D"; // 다이아
+//		}
+//		Member member = new Member();
+//		member.setMemberNo(memberNo);
+//		member.setMemberGrade(grade);
+//		// 회원 등급 업데이트
+//		int upGrade = mapper.updateGrade(member);
+//		if(upGrade == 0) { // 실패시 처리
+//			return result;
+//		}
+    	
+    	
+    	
+    	return result;
+    }
+    
+    
 }

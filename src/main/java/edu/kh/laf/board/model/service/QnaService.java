@@ -1,15 +1,17 @@
 package edu.kh.laf.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.laf.board.model.dto.Qna;
 
 public interface QnaService {
 
-	/** qna 목록 전체 검색
+	/** qna 목록 전체 조회
+	 * @param paramMap 
 	 * @return
 	 */
-	List<Qna> qnaList();
+	Map<String, Object> qnaList(Map<String, Object> paramMap);
 
 	
 	

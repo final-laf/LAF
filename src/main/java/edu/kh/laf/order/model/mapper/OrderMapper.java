@@ -93,5 +93,17 @@ public interface OrderMapper {
 
 	// 회원 등급 업데이트
 	public int updateGrade(Member member);
+	
+	// 주문상태업데이트(취소중)
+	public int updateOrderCancle(int no);
+
+	// 주문상품목록업데이트(삭제)
+	public int updateOrderProductCancle(int no);
+
+	// 재고 복구
+	public int updateStock(OrderProduct op);
+
+	// 상품 판매중 전환
+	public int updateSell(OrderProduct op);
 
 }

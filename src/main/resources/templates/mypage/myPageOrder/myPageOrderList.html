@@ -51,8 +51,8 @@
         </ul>
 
         <div id="dateFilter">
-          <input th:unless="${sd}" type="date" name="sd">
-          <input th:if="${sd}" type="date" name="sd" th:value="${sd}">
+          <input th:unless="${sd != '3'}" type="date" name="sd">
+          <input th:if="${sd != '3'}" type="date" name="sd" th:value="${sd}">
           ~
           <input th:unless="${ed}" type="date" name="ed">
           <input th:if="${ed}" type="date" name="ed" th:value="${ed}">
@@ -103,8 +103,9 @@
             <td class="item-order-state">
               <p class="orderState" th:text="*{order.orderState}">주문처리상태</p>
             </td>
-            <td class="item-choose">
-              <button>주문취소</button> <!-- 배송 전까지만 출력 -->
+            <td class="item-choose" th:if="*{order.orderState == 'A' or order.orderState == 'B' or order.orderState == 'C'}">
+              <button id="cancleBtn">주문취소</button>
+              <input type="hidden" id="orderNo" th:value="*{order.orderNo}">
             </td>
           </tr>
         </table>

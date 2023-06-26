@@ -57,3 +57,33 @@ for(let preOrderState of preOrderStates){
   }
   preOrderState.innerText = orderState;
 }
+
+
+// 주문취소
+const item = document.querySelectorAll(".item-choose");
+
+item.forEach( e => {
+  e.addEventListener('click', (event) => {
+    if (event.target === e.children[0]) {
+      const orderNo = {orderNo : e.children[1].value};
+
+      if (confirm("정말 취소하시겠습니까?\n주문취소시 사용된 쿠폰은 반환되지 않습니다.")) {
+        fetch("/order/cancle", {
+          method: "POST",
+          headers: {"Content-Type": "application/json; charset=UTF-8"},
+          body: JSON.stringify(orderNo)
+        })
+        .then(resp => resp.text())
+        .then(message => {
+          
+          alert(message)
+        }) 
+        .catch( err => {
+            console.log(err);
+        } );
+      } else {
+        return;
+      }
+    }
+  });
+});

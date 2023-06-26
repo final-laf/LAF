@@ -114,6 +114,7 @@
 		<if test='os == null || os.length() == 0'>
 			AND order_state = 'A'
 		</if>
+		ORDER BY order_no DESC
 	</select>
 	
 	<!--주문 상품 조회(마이페이지-주문관리-주문조회)-->
