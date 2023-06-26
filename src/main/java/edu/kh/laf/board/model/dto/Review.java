@@ -11,6 +11,7 @@ import lombok.Data;
 public class Review {
 	private String memberId; 		 // 주문자 id
 	private String memberName; 		 // 주문자 네임
+	private long memberNo;
 	private String orderUno;		 // 주문고유번호
 	private long reviewNo; 			 // 리뷰 번호
 	private String reviewContent; 	 // 리뷰 내용

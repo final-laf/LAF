@@ -79,6 +79,7 @@
      <select id="detailReview" resultType="Review">
         SELECT DISTINCT  r.review_no, 
         				 m.member_id, 
+        				 m.member_no,
         				 r.review_content, 
         				 DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS review_create_date, 
         				 r.review_score, 

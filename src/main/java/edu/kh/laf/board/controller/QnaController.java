@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.laf.board.model.dto.Qna;
@@ -27,31 +28,39 @@ public class QnaController {
 
 	// 1:1 문의 목록
 	@GetMapping(value = {"/qna/{search}","/qna"})
-	public String qna(Model model,@PathVariable(required = false) String search
+	public String qna(
+			Model model,
+			@PathVariable(required = false) String search,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			@RequestParam(value="cc", required=false, defaultValue="0") long cc
 			) {
 		//PathVariable 없을 때
 		if(search == null) {
-			model.addAttribute("searchQna", "");
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("cp", cp);
+			paramMap.put("cc", cc);	
 			List<Qna> qna = new ArrayList<>();
-			qna = qnaService.qnaList();
+			Map<String, Object> resultMap = qnaService.qnaList(paramMap);
+			
 			List<Qna> answeredQna = new ArrayList<>();
-//			answeredQna = qnaService.answeredQna();
+			model.addAttribute("searchQna", "");
 			model.addAttribute("qnaList", qna);
-//			model.addAttribute("answeredQnaList", answeredQna);
 			
 		//PathVariable 있을 때
 		}else {
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("search", search);
+			paramMap.put("cp", cp);
+			paramMap.put("cc", cc);	
+			
 			model.addAttribute("searchQna", search);
 			String[] subQna = search.split("-");
 			Map<String, String> qnaMap = new HashMap<>();
 			qnaMap.put("type", subQna[0]);
 			qnaMap.put("content", subQna[1]);
 			List<Qna> qna = new ArrayList<>();
-//			qna = qnaService.searchQnaList(qnaMap);
 			List<Qna> answeredQna = new ArrayList<>();
-//			answeredQna = qnaService.searchAnsweredQna(qnaMap);
 			model.addAttribute("qnaList", qna);
-//			model.addAttribute("answeredQnaList", answeredQna);
 		}
 		return "/boards/qna/qna";
 	}

@@ -64,30 +64,51 @@
 
 
       
-      <!-- 하단 버튼 영역 -->
-      <div class="btn-area">
-        <button type="button" id="insertBtn">WRITE</button>                     
-      </div>
+      <!-- 페이징-->
+      <!-- <div class="pagination-area">
+        <ul class="pagination"> -->
 
-      <!-- 페이지네이션 영역 -->
-      <div class="pagination-area">
+          <!-- 첫 페이지로 이동 -->
+          <!-- <li>
+            <a th:href="@{/{c}(c=${category}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/first-page.svg}">
+            </a>
+          </li> -->
 
-        <ul class="pagination">
-          
           <!-- 이전 목록 마지막 번호로 이동 -->
-          <li><a href="#">&lt;</a></li>
+          <!-- <li><a th:href="@{/{c}(c=${category}, cp=${pagination.prevPage}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/prev-page.svg}">
+            </a>
+          </li> -->
 
           <!-- 특정 페이지로 이동 -->
-          <li><a class="current">1</a></li> <!-- 현재 페이지 -->
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
+          <!-- <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}"> -->
+            <!-- 현재 보고있는 페이지 -->
+            <!-- <li th:if="${i == pagination.currentPage}">
+              <a class="current" th:text="${i}">현재 페이지</a>
+            </li> -->
+
+            <!-- 현재 페이지를 제외한 나머지 -->
+            <!-- <li th:unless="${i == pagination.currentPage}">
+              <a th:href="@{/{c}(c=${category}, cp=${i}, ordering=${ordering})}" th:text="${i}">다른 페이지</a>
+            </li>
+          </th:block> -->
 
           <!-- 다음 목록 시작 번호로 이동 -->
-          <li><a href="#">&gt;</a></li>
+          <!-- <li>
+            <a th:href="@{/{c}(c=${category}, cp=${pagination.nextPage}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/next-page.svg}">
+            </a>
+          </li> -->
 
-        </ul>
+          <!-- 끝 페이지로 이동 -->
+          <!-- <li>
+            <a th:href="@{/{c}(c=${category}, cp=${pagination.maxPage}, ordering=${ordering})}">
+              <img th:src="@{/images/common/paging/last-page.svg}">
+            </a>
+          </li>
+        </ul> -->
+        
       </div>
       <!-- 검색창 -->
       <form id="boardSearch">

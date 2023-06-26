@@ -216,7 +216,7 @@
   margin-top: 40px;
 }
 
-.reviews-item-review-images > img {
+.reviews-item-review-images >div> img {
   width: 60px;
   height: 60px;
 }

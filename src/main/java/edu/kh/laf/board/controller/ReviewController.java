@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.service.ReviewService;
+import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageReviewService;
 
 @Controller
@@ -80,6 +82,7 @@ public class ReviewController {
 		review.setReviewImg(imgList);
 		review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
 		review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
+		
 		
 		return review;
 	}

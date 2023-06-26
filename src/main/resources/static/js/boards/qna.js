@@ -50,6 +50,8 @@ if (document.getElementById("qnaModalBtn")!=null) {
   document.getElementById("qnaModalBtn").addEventListener("click", e => {
     const pw = e.target.parentElement.parentElement.children[1].children[0].value
     const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
+    console.log(pw)
+    console.log(data)
     fetch("/qna/qnaLockNo",{
       method : "POST", headers : {"Content-Type" : "application/json"},
       body : JSON.stringify(data)

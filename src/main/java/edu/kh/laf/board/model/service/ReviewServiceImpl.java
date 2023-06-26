@@ -111,7 +111,7 @@ public class ReviewServiceImpl implements ReviewService{
 			if(images.get(i).getSize()>0) {
 				ReviewImg img = new ReviewImg();
 				fileName = images.get(i).getOriginalFilename();
-				img.setReviewPath(webPath +review.getReviewNo()+i+ fileName);
+				img.setReviewPath(webPath +review.getReviewNo()+fileName);
 				img.setReviewNo(review.getReviewNo());
 				img.setReviewImgOrder(i);
 				uploadList.add(img);
@@ -130,8 +130,8 @@ public class ReviewServiceImpl implements ReviewService{
 				for(int i=0; i<size; i++) {
 					System.out.println(i);
 					int index = uploadList.get(i).getReviewImgOrder();
-					fileName = images.get(i).getOriginalFilename();
-					images.get(index).transferTo(new File(filePath+ fileName));
+					fileName = review.getReviewNo()+images.get(i).getOriginalFilename();
+					images.get(index).transferTo(new File(filePath+fileName));
 					
 					System.out.println(i+"파일추가완료");
 				}
@@ -179,7 +179,7 @@ public class ReviewServiceImpl implements ReviewService{
 			if(images.get(i).getSize()>0) {
 				ReviewImg img = new ReviewImg();
 				fileName = images.get(i).getOriginalFilename();
-				img.setReviewPath(webPath +review.getReviewNo()+i+ fileName);
+				img.setReviewPath(webPath +review.getReviewNo()+fileName);
 				img.setReviewNo(review.getReviewNo());
 				img.setReviewImgOrder(i);
 				uploadList.add(img);
@@ -197,8 +197,7 @@ public class ReviewServiceImpl implements ReviewService{
 				for(int i=0; i<size; i++) {
 					System.out.println(i);
 					int index = uploadList.get(i).getReviewImgOrder();
-					fileName = review.getReviewNo()+i+images.get(i).getOriginalFilename();
-					System.out.println(filePath);
+					fileName = review.getReviewNo()+images.get(i).getOriginalFilename();
 					images.get(index).transferTo(new File(filePath+ fileName));
 					
 					System.out.println(i+"파일추가완료");
