@@ -1,12 +1,17 @@
 package edu.kh.laf.member.model.service;
 
 import edu.kh.laf.common.utility.Pagination;
+import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.mapper.MemberMapper;
+import edu.kh.laf.mypage.model.mapper.MypageMapper;
+import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.order.model.dto.OrderProduct;
 import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +29,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberMapper mapper;
+	
+	@Autowired
+	private MypageMapper myPageMapper;
 	
 	@Autowired // bean으로 등록된 객체 중 타입이 일치하는 객체를 DI
 	private BCryptPasswordEncoder bcrypt;
@@ -157,21 +165,23 @@ public class MemberServiceImpl implements MemberService {
 
 	// 회원관리 : 회원조회
 	@Override
-	public Map<String, Object> selectAllMemberList(int cp) {
+	public Map<String, Object> selectAllMemberList(Map<String, Object> paramMap) {
 		// 회원수 조회
-		int listCount = mapper.getAllMemberCount(cp);
+		int listCount = mapper.getAllMemberCount(paramMap);
+		int cp = (paramMap.get("cp") == null) ? 1 : Integer.parseInt((String)paramMap.get("cp"));
 		Pagination pagination = new Pagination(listCount, cp, 10);
 				
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
 		// 로우바운드가 적용된 전체 회원 조회
-		List<Member> memberList = mapper.selectAllMemberList(cp, rowBounds);
+		List<Member> memberList = mapper.selectAllMemberList(paramMap, rowBounds);
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("pagination", pagination);
 		resultMap.put("memberList", memberList);
 		resultMap.put("listCount", listCount);
+		
 		return resultMap;
 	}
 
@@ -179,6 +189,52 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member selectMemberDetail(Long memberNo) {
 		return mapper.selectMemberDetail(memberNo);
+	}
+
+
+	// 회원 정보 비동기 조회(회원 기본 배송지)
+	@Override
+	public Address selectMemberDetailDefaultAddress(Long memberNo) {
+		return mapper.selectMemberDetailDefaultAddress(memberNo);
+	}
+
+
+	// 페이지리스트가 적용된 주문 조회
+	@Override
+	public Map<String, Object> selectAllOrderList(Map<String, Object> paramMap) {
+		// 주문 개수 조회
+		int listCount = mapper.getOrderListCount(paramMap); 
+		int cp = (paramMap.get("cp") == null) ? 1 : Integer.parseInt(String.valueOf(paramMap.get("cp")));
+		Pagination OrderListpagination = new Pagination(listCount, cp, 10);
+		
+		int offset = (OrderListpagination.getCurrentPage() - 1) * OrderListpagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, OrderListpagination.getLimit());
+		// 페이지네이션이 적용된 주문 목록 조회
+		List<Order> orderList = mapper.selectAllOrderList(paramMap, rowBounds);
+		
+		List<Map<String, Object>> orderMaps = new ArrayList<>();
+		
+		
+		for(Order order : orderList) {
+			OrderProduct orderProduct = myPageMapper.selectOrderProduct(order.getOrderNo());
+			if(orderProduct != null) {
+				Map<String, Object> orderMap = new HashMap<>();
+				
+				orderProduct.setProduct(myPageMapper.selectProduct(orderProduct.getProductNo()));
+				orderProduct.setOption(myPageMapper.selectOption(orderProduct.getOptionNo()));
+				
+				orderMap.put("orderProduct", orderProduct);
+				orderMap.put("order", order);
+				orderMaps.add(orderMap);
+			}
+		}
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("OrderListpagination", OrderListpagination);
+		resultMap.put("orderList", orderList);
+		resultMap.put("orderMaps", orderMaps);
+		
+		return resultMap;
 	}
 
 

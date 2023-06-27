@@ -109,6 +109,11 @@
   border-bottom: 1px solid #eee;
 }
 
+/* 테이블 td의 모든 클릭이벤트 제거 */
+.member-result td{
+  pointer-events: none;
+}
+
 /* 각 행별 속성 */
 .member-result > tbody > tr > td:nth-child(1) {
   width: 5%;
@@ -289,7 +294,7 @@
   margin: 40px 0px;
 }
 
-.member-modal-orderlist img {
+.member-modal-orderlist  img {
   height: 94px;
   width: auto;
   display: block;

@@ -2,6 +2,7 @@ package edu.kh.laf.member.model.service;
 
 import java.util.Map;
 
+import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
 
 public interface MemberService {
@@ -67,13 +68,25 @@ public interface MemberService {
 	 * @param cp
 	 * @return resultMap
 	 */
-	Map<String, Object> selectAllMemberList(int cp);
+	Map<String, Object> selectAllMemberList(Map<String, Object> paramMap);
 
 	/** 회원 정보 비동기 조회
 	 * @param memberId
 	 * @return member
 	 */
 	Member selectMemberDetail(Long memberNo);
+
+	/** 회원 정보 비동기 조회(회원 기본 배송지)
+	 * @param memberNo
+	 * @return adress
+	 */
+	Address selectMemberDetailDefaultAddress(Long memberNo);
+
+	/** 페이지리스트가 적용된 주문 조회
+	 * @param memberNo
+	 * @return resultMap
+	 */
+	Map<String, Object> selectAllOrderList(Map<String, Object> paramMap);
 
 
 
