@@ -271,41 +271,7 @@
 		select * from `option` where OPTION_NO = #{optionNo}
 	</select>
 
-	
-	<!-- qnaList -->
-    <select id="qnaList" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo} ORDER BY qna_create_date DESC
-    </select>
-     
-    <!-- 검색어를 포함한 qna조회결과  -->
-    <select id="searchQnaList" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer 
-        FROM `qna` q  
-        JOIN `member` m ON q.member_no = m.member_no 
-        WHERE q.member_no=#{memberNo}
-         AND `${type}` LIKE '%${content}%' ORDER BY qna_create_date DESC
-    </select>
-    
-    	<!-- answered qnaList -->
-    <select id="answeredQna" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo} ORDER BY qna_answer
-    </select>
-    
-	    <!-- 검색어를 포함한 qna조회결과  -->
-    <select id="searchAnsweredQna" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  
-        JOIN `member` m ON q.member_no = m.member_no 
-        WHERE q.member_no=#{memberNo}
-        AND `${type}` LIKE '%${content}%' 
-        ORDER BY qna_answer;
-    </select>
-    
-    
-	<!-- myReviewList -->
-     <select id="myReview" resultType="Review">
-        SELECT * FROM `order` WHERE member_no=#{memberNo} AND review_no IS NULL
-    </select>
-    
+
     
     <!-- 등록된 배송지 조회 -->
     <select id="selectAddressList" resultType="Address">

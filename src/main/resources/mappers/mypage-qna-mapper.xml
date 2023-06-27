@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.kh.laf.mypage.model.mapper.MypageQnaMapper">
+
+	<!-- qnaList count -->
+    <select id="qnaListCount">
+        SELECT count(*) 
+        FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no 
+        WHERE q.member_no=#{memberNo} ORDER BY qna_create_date DESC
+    </select>
+
+	<!-- qnaList -->
+    <select id="qnaList" resultType="Qna">
+        SELECT qna_no, 
+	        q.member_no, 
+	        qna_category, 
+	        qna_title, 
+	        member_name, 
+	        SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, 
+	        q.qna_answer 
+        FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no 
+        WHERE q.member_no=#{memberNo} AND qna_delete_fl='N'
+        <choose>
+			<when test='category=="write"'>
+		        ORDER BY qna_create_date <if test='questionWrite=="1"'>DESC</if>
+			</when> 
+			<when test='category=="answer"'>
+		        ORDER BY qna_answer <if test='questionAnswer=="3"'>DESC</if>
+			</when> 
+			<when test='category=="question"'>
+		        ORDER BY qna_category =<if test='questionCategory=="5"'>'상품'</if><if test='questionCategory=="6"'>'배송'</if><if test='questionCategory=="7"'>'일반'</if> DESC
+			</when>
+		</choose> 
+    </select>
+     
+    <!-- 검색어를 포함한 qna조회결과  -->
+    <select id="searchQnaList" resultType="Qna">
+        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer 
+        FROM `qna` q  
+        JOIN `member` m ON q.member_no = m.member_no 
+        WHERE q.member_no=#{memberNo}
+         AND `${type}` LIKE '%${content}%' ORDER BY qna_create_date DESC
+    </select>
+    
+    	<!-- answered qnaList -->
+    <select id="answeredQna" resultType="Qna">
+        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE q.member_no=#{memberNo} ORDER BY qna_answer
+    </select>
+    
+	    <!-- 검색어를 포함한 qna조회결과  -->
+    <select id="searchAnsweredQna" resultType="Qna">
+        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  
+        JOIN `member` m ON q.member_no = m.member_no 
+        WHERE q.member_no=#{memberNo}
+        AND `${type}` LIKE '%${content}%' 
+        ORDER BY qna_answer;
+    </select>
+    
+    
+	<!-- myReviewList -->
+     <select id="myReview" resultType="Review">
+        SELECT * FROM `order` WHERE member_no=#{memberNo} AND review_no IS NULL
+    </select>
+    
+    
+
+</mapper>
+

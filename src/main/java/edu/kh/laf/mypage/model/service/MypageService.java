@@ -102,39 +102,7 @@ public interface MypageService {
 	
 	
 
-	/** qna 전체
-	 * @param memberNo
-	 * @return
-	 */
-	List<Qna> qnaList(Long memberNo);
-
-	/** 답변 완료된 qna
-	 * @param memberNo
-	 * @return
-	 */
-	List<Qna> categoryAnsweredQna(Long memberNo);
-
-	/** 검색어 포함한 qna
-	 * @param memberNo
-	 * @param search
-	 * @return
-	 */
-	List<Qna> searchQnaList(Map<String, String> qnaMap);
-
-
-	/** 답변된 qna
-	 * @param memberNo
-	 * @return
-	 */
-	List<Qna> answeredQna(Long memberNo);
-
-	/** 검색어를 포함한 답변된 qna
-	 * @param qnaMap
-	 * @return
-	 */
-	List<Qna> searchAnsweredQna(Map<String, String> qnaMap);
-
-
+	
 
 	/** 기간별 주문목록 조회
 	 * @param loginMember
@@ -148,6 +116,10 @@ public interface MypageService {
 	 * @return
 	 */
 	List<Map<String, Object>> selectOrderProducts(List<Order> orders);
+
+
+
+
 
 
 

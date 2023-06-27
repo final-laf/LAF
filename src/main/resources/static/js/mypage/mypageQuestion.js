@@ -5,31 +5,58 @@ if (perQna!=null) {
   for(let qna of perQna) {
     /* 내 1:1 문의 클릭시 */
     qna.addEventListener('click', e => {
-        const qnaNo = e.target.parentElement.getAttribute("value");
-        document.location.href="/qna/detail/" + qnaNo
+			const qnaNo = e.target.parentElement.getAttribute("value");
+			document.location.href="/qna/detail/" + qnaNo
     });
   };
 }
 
 // 카테고리 누를 시
 function categoryChange(category){
-    if(category=="write"){
-        document.getElementById("mypageQuestionRecent").style.display="block"
-        document.getElementById("mypageQuestionAnswered").style.display="none"
-    }
-    if(category=="answer"){
-        document.getElementById("mypageQuestionAnswered").style.display="block"
-        document.getElementById("mypageQuestionRecent").style.display="none"
-    }
+	if(category=="write"){
+		document.getElementById("questionWrite").style.display="inline-block"
+		document.getElementById("questionWrite").disabled = false;
+		document.getElementById("questionAnswer").style.display="none"
+		document.getElementById("questionAnswer").disabled = true;
+		document.getElementById("questionCategory").style.display="none"
+		document.getElementById("questionCategory").disabled = true;
+	}
+	if(category=="answer"){
+		document.getElementById("questionAnswer").style.display="inline-block"
+		document.getElementById("questionAnswer").disabled = false;
+		document.getElementById("questionWrite").style.display="none"
+		document.getElementById("questionWrite").disabled = true;
+		document.getElementById("questionCategory").style.display="none"
+		document.getElementById("questionCategory").disabled = true;
+	}
+	if(category=="question"){
+		document.getElementById("questionCategory").style.display="inline-block"
+		document.getElementById("questionCategory").disabled = false;
+		document.getElementById("questionAnswer").style.display="none"
+		document.getElementById("questionWrite").disabled = true;
+		document.getElementById("questionWrite").style.display="none"
+		document.getElementById("questionAnswer").disabled = true;
+	}
 }
-// 검색버튼 누를 시 검색어와 타입 합쳐서 주소요청
-document.getElementById("QuestionContent").addEventListener("click", () => {
-    const type = document.getElementById("QuestionSearchType").value;
-    const content = document.getElementById("QuestionSearchcontent").value;
-    if(content!=null){
-        const search = type+"-"+content;
-        alert(location.href)
-        location.href = "http://localhost/my/qna/"+search;
-    }
-})
+// 폼 제출 전 수정사항
+questionWrite = document.getElementById("questionWrite").
+questionAnswer = document.getElementById("questionAnswer")
+questionCategory = document.getElementById("questionCategory")
 
+document.getElementById("myPageQuestionSubmit").addEventListener("submit", e=>{
+	alert("asd")
+})
+function changeCategory(){
+	if(document.getElementById("qnaCategoryList").value=="write"){
+		document.getElementById("questionAnswer").disabled = true;
+		document.getElementById("questionCategory").disabled = true;
+	}
+	if(document.getElementById("qnaCategoryList").value=="answer"){
+		document.getElementById("questionWrite").disabled = true;
+		document.getElementById("questionCategory").disabled = true;
+	}
+	if(document.getElementById("qnaCategoryList").value=="question"){
+		document.getElementById("questionWrite").disabled = true;
+		document.getElementById("questionAnswer").disabled = true;
+	}
+}
