@@ -165,7 +165,11 @@ SET order_product_delete_fl = 'Y'
 WHERE order_no = 88
 ;
 
+SELECT * FROM `point` ORDER BY point_no DESC;
+SELECT * FROM `order` ORDER BY order_no DESC;
+SELECT * FROM `order` WHERE str_to_date(order_date,'%Y%m%d%') = str_to_date(now(),'%Y%m%d%');
+COMMIT;
+SELECT COUNT(order_state) FROM `order` WHERE DATE(order_date) = CURDATE() GROUP BY order_state;
 
-
-
+SELECT * FROM `member`;
 

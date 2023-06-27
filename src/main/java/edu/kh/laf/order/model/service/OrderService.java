@@ -112,5 +112,15 @@ public interface OrderService {
 	 */
 	int updatePoint(int no);
 
+	/** 오늘 주문현황조회
+	 * @return
+	 */
+	List<Map<String, String>> selectTodayOrderState();
+
+	/** 오늘 주문목록조회
+	 * @return
+	 */
+	List<Map<String, Object>> selectTodayOrderList();
+
 
 }
