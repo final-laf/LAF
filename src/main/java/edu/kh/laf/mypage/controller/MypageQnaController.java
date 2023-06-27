@@ -68,44 +68,14 @@ public class MypageQnaController {
 		//검색어 있을 때
 		}else {
 			paramMap.put("memberNo", loginMember.getMemberNo());
-			Map<String, Object> resultMap = qnaService.qnaList(paramMap, cp);
+			Map<String, Object> resultMap = qnaService.searchQnaList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
 		}
 		
 		return "/myPage/myPageBoard/myPageQuestion";
 	}
 	
-//	/** 분류 선택에 따른 qna 리스트
-//	 * @param category
-//	 * @param loginMember
-//	 * @return
-//	 */
-//	@GetMapping(value="/myPage/qna/category", produces="application/text; charset=UTF-8")
-//	@ResponseBody
-//	public List<Qna> qnaCategory(String category, @SessionAttribute("loginMember") Member loginMember, @SessionAttribute String searchQna
-//			) {
-//		List<Qna> qna = new ArrayList<>();
-//		if(category.equals("write")) {
-//			//PathVariable 없을 때
-//			if(searchQna == null) {
-//				List<Qna> qnaW = new ArrayList<>();
-//				qna = qnaService.qnaList(loginMember.getMemberNo());
-//				
-//			//PathVariable 있을 때
-//			}else {
-//				String[] subQna = searchQna.split("-");
-//				Map<String, String> qnaMap = new HashMap<>();
-//				qnaMap.put("memberNo", String.valueOf(loginMember.getMemberNo()));
-//				qnaMap.put("type", subQna[0]);
-//				qnaMap.put("content", subQna[1]);
-//				List<Qna> qnaW = new ArrayList<>();
-//				qna = qnaService.searchQnaList(qnaMap);
-//			}
-//		}else {
-//			qna=qnaService.categoryAnsweredQna(loginMember.getMemberNo());
-//		}
-//		return qna;
-//	}
+
 
 }
 

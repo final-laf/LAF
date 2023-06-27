@@ -32,7 +32,7 @@ public class MypageQnaServiceImpl implements MypageQnaService {
 
 	
 	
-	// 특정 멤버 qna 리스트
+	// 나의 qna 리스트
 	@Override
 	public Map<String, Object> qnaList(Map<String, Object> paramMap, int cp) {
 		int listCount = mapper.qnaListCount(paramMap.get("memberNo"));
@@ -47,6 +47,27 @@ public class MypageQnaServiceImpl implements MypageQnaService {
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("pagination", pagination);
 		resultMap.put("qnaList", qnaList);
+		
+		return resultMap;
+	}
+
+
+
+
+	@Override
+	public Map<String, Object> searchQnaList(Map<String, Object> paramMap, int cp) {
+//		int listCount = mapper.searchQnaListCount(paramMap.get("memberNo"));
+		
+//		Pagination pagination = new Pagination(listCount, cp, 10);
+//		
+//		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+//		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+//		List<Qna> qnaList = mapper.searchQnaList(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+//		resultMap.put("pagination", pagination);
+//		resultMap.put("qnaList", qnaList);
 		
 		return resultMap;
 	}
