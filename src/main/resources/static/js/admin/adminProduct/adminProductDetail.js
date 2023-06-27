@@ -526,7 +526,6 @@ detailImgInput.addEventListener('change', e => {
         e.target.parentElement.remove();
         document.querySelector('#detailImgNameTr .detailImgNameContainer[value="' + value + '"]').remove();
         deleteImgFile(value);
-        console.log(detailImgInput.files);
 
         // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
         const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');

@@ -124,6 +124,7 @@ public class AdminProductController {
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("product", productService.selectProduct(productNo));
+		resultMap.put("productImageList", productService.selectProductImage(productNo));
 		
 		return resultMap;
 	}
