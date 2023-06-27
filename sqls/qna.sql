@@ -20,7 +20,7 @@ alter table `qna` add constraint `pk_qna` primary key (
 
 alter table `qna` add constraint `fk_member_to_qna` foreign key (`member_no`) references `member` (`member_no`);
 
-SELECT * FROM qna;
+SELECT * FROM qna ORDER BY qna_category='상품' DESC ;
 
 
 -- insert구문

@@ -38,7 +38,7 @@ public class QnaController {
 			Map<String, Object> resultMap = qnaService.qnaList(cp);
 			model.addAttribute("resultMap", resultMap);
 			
-		//PathVariable 있을 때
+		//검색어 있을 때
 		}else {
 			Map<String, Object> resultMap = qnaService.qnaList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
