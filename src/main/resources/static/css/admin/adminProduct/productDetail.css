@@ -130,6 +130,10 @@
   width: 250px;
   text-align: right;
 }
+.enroll-price .alert100 {
+  color: red !important;
+  width: auto;
+}
 .enroll-price label + span.info,
 .enroll-point label + span.info {
   display: inline-block;
@@ -158,7 +162,6 @@
 .middle-table-color { width: 30%; }
 .middle-table-stock { width: 20%; }
 .middle-table-palce { width: 25%; }
-/* .middle-table-state { width: 10%; } */
 
 .enroll-middle-table{
   width: 100%;
@@ -189,6 +192,14 @@
 
 .enroll-middle-table tr:nth-child(1){
   background-color: #fafafa;
+}
+
+/* 사이즈 */
+.enroll-middle-table #oneSizeCheckbox {
+  height: auto;
+}
+.enroll-middle-table input[name="size"]:disabled {
+  background-color: #eee;
 }
 
 /* enroll-bottom-table */

@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.mapper.OptionMapper;
@@ -115,24 +114,28 @@ public class OptionServiceImpl implements OptionService {
 
 	// 상품 등록 중 옵션 등록
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public int insertOptionList(Map<String, Object> paramMap) {
 		List<Option> optionList = new ArrayList<>();
-		int length = ((String[])paramMap.get("size")).length;
+		int length = ((String[])paramMap.get("stock")).length;
 		
-		long productNo = Long.parseLong(String.valueOf(paramMap.get("productNo")));
+		long productNo = Integer.parseInt(String.valueOf(paramMap.get("productNo")));
 		String[] color = (String[])paramMap.get("color");
 		String[] size = (String[])paramMap.get("size");
-		String[] stockTmp = (String[])paramMap.get("stock");
-		int[] stock = Arrays.stream(stockTmp).mapToInt(Integer::parseInt).toArray();
+		String[] stock = (String[])paramMap.get("stock");
 		String[] location = (String[])paramMap.get("location");
 		
 		for(int i=0; i<length; i++) {
 			Option op = new Option();
 			op.setProductNo(productNo);
 			op.setColor(color[i]);
-			op.setSize(size[i]);
-			op.setStock(stock[i]);
-			op.setLocation(location[i]);
+			if(size != null && size[i].trim().length() > 0) {
+				op.setSize(size[i]);
+			}
+			op.setStock(Integer.parseInt(stock[i].replaceAll(",", "")));
+			if(location != null && location[i].trim().length() > 0) {
+				op.setLocation(location[i]);
+			}
 			optionList.add(op);
 		}
 		

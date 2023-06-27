@@ -142,6 +142,9 @@ for(let p of productStateSelects) {
     case 'S': p.querySelector('[value="S"]').selected = true; break;
   }
 
+
+  //////////////////////////////////////////////////////////////////////////////////////////
+
   // 상품 상태 변경 이벤트 추가
   p.addEventListener('change', e => {
     const productNo = e.target.parentElement.parentElement.querySelector('.p-no').innerText;
@@ -227,10 +230,10 @@ const modBtnList = document.querySelectorAll('.modify-product');
 for(const btn of modBtnList) {
   btn.addEventListener('click', e => {
     const productNo = e.target.parentElement.parentElement.querySelector('.p-no').innerText;
-    fetch("/admin/product/modify?productNo=" + productNo)
+    fetch("/admin/product/mod?productNo=" + productNo)
     .then(resp => resp.json())
     .then(map => {
-      console.log(map);
+      console.log(map.test);
     });
   });
 }

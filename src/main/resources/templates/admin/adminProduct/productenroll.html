@@ -17,7 +17,7 @@
   <main>
     <sectoin class="admin-container">
 
-      <form class="product-enroll" th:action="@{/admin/product/enroll/submit}" method="POST" encType="multipart/form-data">
+      <form id="enrollForm" class="product-enroll" th:action="@{/admin/product/enroll/submit}" method="POST" encType="multipart/form-data">
         <div class="product-enroll-title">상품 등록</div>
 
         <th:block th:replace="~{admin/adminProduct/productDetail}"></th:block>

@@ -19,8 +19,11 @@ import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.service.ReviewService;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
+import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
+import edu.kh.laf.product.model.dto.ProductImage;
+import edu.kh.laf.product.model.service.CategoryService;
 import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
@@ -36,6 +39,8 @@ public class ProductController {
 	private MypageLikeServcie likeServcie;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	// 카테고리 상품목록 조회
 	@GetMapping("/{category:[0-9]+}")
@@ -57,8 +62,8 @@ public class ProductController {
 		model.addAttribute("productList", resultMap.get("productList"));
 		model.addAttribute("pagination", resultMap.get("pagination"));
 		model.addAttribute("bestList", productService.selectWeeklyBest(categoryNo, 10));
-		model.addAttribute("categoryName", productService.selectCategoryName(categoryNo));
-		model.addAttribute("childCategoryList", productService.selectChildCategoryList(categoryNo));
+		model.addAttribute("categoryName", categoryService.selectCategoryName(categoryNo));
+		model.addAttribute("childCategoryList", categoryService.selectChildCategoryList(categoryNo));
 		model.addAttribute("ordering", ordering);
 		model.addAttribute("cc", cc);
 		
@@ -76,7 +81,6 @@ public class ProductController {
 		// 상품정보 조회
 		Product product = productService.selectProduct(productNo);
 		List<Product> recommendList = productService.selectRecommendList(productNo);
-		
 		if(product == null) {
 			ra.addFlashAttribute("message", "해당하는 상품이 없거나 판매 중지된 상품입니다.");
 			return "redirect:/";
@@ -86,13 +90,16 @@ public class ProductController {
 		
 		// 옵션정보 조회
 		Map<String, List<String>> optionNames = optionService.getOptionName(productNo);
-		
 		if(optionNames == null || optionNames.isEmpty()) {
 			ra.addFlashAttribute("message", "옵션을 확인할 수 없습니다.");
 			return "redirect:/";
 		}
 		model.addAttribute("colorList", optionNames.get("colorList"));
 		model.addAttribute("sizeList", optionNames.get("sizeList"));
+		
+		// 상세 이미지 조회
+		List<ProductImage> productImageList = productService.selectProductImage(productNo);
+		model.addAttribute("productImageList", productImageList);
 		
 		// 회원인 경우 찜 여부 확인
 		if(loginMember != null) {

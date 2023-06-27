@@ -1,0 +1,52 @@
+package edu.kh.laf.admin.model.service;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import edu.kh.laf.product.model.service.CategoryService;
+import edu.kh.laf.product.model.service.OptionService;
+import edu.kh.laf.product.model.service.ProductService;
+
+@Service
+public class AdminProductServiceImpl implements AdminProductService {
+
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private OptionService optionService;
+	@Autowired
+	private CategoryService categoryService;
+	
+	// 상품등록 서비스
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int enrollProduct(
+			Map<String, Object> paramMap, 
+			MultipartFile thumbnail, 
+			List<MultipartFile> images
+			) throws IllegalStateException, IOException {
+			
+		// Product 테이블 삽입 및 key 반환
+		long productNo = productService.insertProduct(paramMap);
+		if(productNo <= 0) return -1;
+
+		// Option 정보 삽입
+		paramMap.put("productNo", productNo);
+		int result = optionService.insertOptionList(paramMap);
+		
+		// 카테고리 정보 삽입
+		result *= categoryService.insertProductCategory(paramMap);
+
+		// 이미지 정보 삽입
+		result *= productService.insertProductImage(paramMap, thumbnail, images);
+
+		return result;
+	}
+	
+}

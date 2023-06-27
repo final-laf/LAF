@@ -2,10 +2,13 @@ package edu.kh.laf.product.model.service;
 
 import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Product;
+import edu.kh.laf.product.model.dto.ProductImage;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ProductService {
@@ -71,39 +74,11 @@ public interface ProductService {
 	Map<String, Object> search(Map<String, Object> map);
 
 	/**
-	 * 부모 카테고리 조회
-	 * @param category
-	 * @return categoryList
-	 */
-	List<Category> selectCategoryList();
-
-	/**
-	 * 자식카테고리 조회
-	 * @param categoryNo
-	 * @return childCategoryList
-	 */
-	List<Category> selectChildCategoryList(int categoryNo);
-
-	/**
-	 * 부모 카테고리 이름 조회
-	 * @param categoryNo
-	 * @return
-	 */
-	String selectCategoryName(int categoryNo);
-
-	/**
 	 * 키 목록으로 상품 조회
 	 * @param paramMap
 	 * @return resultMap
 	 */
 	Map<String, Object> selectProductBySeveralKeys(Map<String, Object> paramMap);
-
-	/**
-	 * 상품이 포함된 카테고리 조회
-	 * @param productList
-	 * @return categoryList
-	 */
-	List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList);
 
 	/**
 	 * 상품 상태 변경
@@ -112,12 +87,6 @@ public interface ProductService {
 	 * @return result
 	 */
 	int updateState(long productNo, String state);
-
-	/**
-	 * 모든 카테고리 목록 조회
-	 * @return categoryList
-	 */
-	List<Category> selectAllCategoryList();
 
 	/**
 	 * 선택 상품 상태 일괄 변경
@@ -136,19 +105,19 @@ public interface ProductService {
 	long insertProduct(Map<String, Object> paramMap);
 
 	/**
-	 * 상품 등록 중 카테고리 정보 등록
-	 * @param paramMap
-	 * @return result
-	 */
-	int insertProductCategory(Map<String, Object> paramMap);
-
-	/**
 	 * 상품 이미지 등록
 	 * @param paramMap
 	 * @return result
+	 * @throws FileUploadException 
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
-	int insertProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
+	int insertProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) throws IllegalStateException, IOException;
 
-	int productEnroll(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
-
+	/**
+	 * 특정 상품에 대한 상세 이미지 조회
+	 * @param productNo
+	 * @return productImageList
+	 */
+	List<ProductImage> selectProductImage(long productNo);
 }
