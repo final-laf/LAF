@@ -1,3 +1,45 @@
+//////////////////////////////////////// M O D A L //////////////////////////////////////////////
+
+/* 상품 상세 모달 */
+const productModal = document.getElementById("productModalOverlay")
+const selectedProduct = document.getElementsByClassName("modify-product")
+
+
+/* 상품 목록 클릭시 */
+for(let product of selectedProduct) {
+  product.addEventListener('click', () => {
+    productModal.style.display = "flex";
+    document.body.style.overflowY = "hidden";
+  });
+};
+    
+/* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
+productModal.addEventListener("click", e => {
+    const evTarget = e.target
+    if(evTarget.classList.contains("product-modal-overlay")) {
+      productModal.style.display = "none";
+      document.body.style.removeProperty('overflow');
+    }
+});
+
+/* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
+window.addEventListener("keyup", e => {
+    if(productModal.style.display === "flex" && e.key === "Escape") {
+      productModal.style.display = "none"
+      document.body.style.removeProperty('overflow');
+    }
+});
+
+/* 모달창 내부 닫기 버튼 */
+const productModalClose = document.getElementsByClassName("product-modal-close")[0];
+productModalClose.addEventListener("click", e => {
+  productModal.style.display = "none";
+  document.body.style.removeProperty('overflow');
+});
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
 /* 스크롤바 이동 효과 */
 const scrollTop = document.querySelector('.scroll-top');
 const scroll = document.querySelector('.scroll');
@@ -229,52 +271,92 @@ parentCategorySelector.addEventListener('change', e => {
 const modBtnList = document.querySelectorAll('.modify-product');
 for(const btn of modBtnList) {
   btn.addEventListener('click', e => {
+    
+    document.querySelector('.product-modal-window').scrollTop = 0;
+
     const productNo = e.target.parentElement.parentElement.querySelector('.p-no').innerText;
     fetch("/admin/product/mod?productNo=" + productNo)
     .then(resp => resp.json())
     .then(map => {
-      console.log(map.test);
+      
+      const product = map.product;
+      const imageList = map.productImageList;
+      const index = {
+        'file': 0,
+        'img': 0,
+        'name': 0
+      };
+      
+      document.querySelector('#productName').value = product.productName; // 상품명
+      document.querySelector('#thumbnailImagePreview').src = product.thumbnailPath; // 썸네일
+
+      // 카테고리
+      const categoryContainer = document.querySelector('#selectedCategory');
+
+      
+      
+      // 할인율
+      const productSale = document.querySelector('.enroll-price input[name="productSale"]');
+      productSale.value = '';
+      if(product.productSale != null && product.productSale > 0) {
+        productSale.value = product.productSale;
+      }
+      
+      document.querySelector('.enroll-price .checkbox').checked = false; // 최종할인가 자동계산 해제
+      document.querySelector('.enroll-point .checkbox').checked = false; // 포인트 자동계산 해제
+      document.querySelector('.enroll-price input[name="productPrice"]').value = numberWithCommas(product.productPrice); // 판매가
+      document.querySelector('.enroll-price input[name="productSalePrice"]').value = numberWithCommas(product.productSalePrice); // 최종할인가
+      document.querySelector('.enroll-point input[name="productPoint"]').value = numberWithCommas(product.productPoint); // 포인트
+
+      // 이미지
+      detailImgTr.innerHTML = '';
+      // document.querySelector('#noDetailImgInfo').remove();
+      for(const i of imageList) {
+
+        const img = document.createElement('img');
+        img.src = i.imgPath;
+        img.value = index.img++;
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'rmImgBtn';
+        btn.innerHTML = '&times';
+        // btn.addEventListener('click', e => {
+        //   const value = e.target.parentElement.getAttribute('value');
+        //   e.target.parentElement.remove();
+        //   document.querySelector('#detailImgNameTr .detailImgNameContainer[value="' + value + '"]').remove();
+        //   deleteImgFile(value);
+
+        //   // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
+        //   const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');
+        //   if(imgNameList.length > 0) {
+        //     imgNameList[0].querySelector('.up').disabled = true;
+        //     imgNameList[imgNameList.length - 1].querySelector('.down').disabled = true;
+        //   }
+
+        //   // 남은 요소가 하나도 없을 경우
+        //   if(detailImgNameTr.querySelector('td > div') == null) {
+        //     detailImgNameTr.innerHTML = '<td id="noDetailImgInfo">업로드한 이미지가 없습니다</td>';
+        //     detailImgTd.remove();
+        //   }
+
+        // document.querySelector('#detailImgNameTr').append(img);
+
+        const container = document.createElement('div');
+        container.className = 'detailImgContainer';
+        container.append(img, btn);
+        container.setAttribute('value', index.img++);
+
+        if(detailImgTr.querySelector('td') == null) {
+          detailImgTd = document.createElement('td');
+          detailImgTr.append(detailImgTd);
+        }
+        detailImgTd.append(container);
+      }
+      
+
+
     });
   });
 }
 
-//////////////////////////////////////// M O D A L //////////////////////////////////////////////
-
-/* 상품 상세 모달 */
-const productModal = document.getElementById("productModalOverlay")
-const selectedProduct = document.getElementsByClassName("modify-product")
-
-
-/* 상품 목록 클릭시 */
-for(let product of selectedProduct) {
-  product.addEventListener('click', () => {
-    productModal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
-  });
-};
-    
-/* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
-productModal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("product-modal-overlay")) {
-      productModal.style.display = "none";
-      document.body.style.removeProperty('overflow');
-    }
-});
-
-/* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
-window.addEventListener("keyup", e => {
-    if(productModal.style.display === "flex" && e.key === "Escape") {
-      productModal.style.display = "none"
-      document.body.style.removeProperty('overflow');
-    }
-});
-
-/* 모달창 내부 닫기 버튼 */
-const productModalClose = document.getElementsByClassName("product-modal-close")[0];
-productModalClose.addEventListener("click", e => {
-  productModal.style.display = "none";
-  document.body.style.removeProperty('overflow');
-});
-
-//////////////////////////////////////////////////////////////////////////////////////////
