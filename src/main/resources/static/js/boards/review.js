@@ -62,7 +62,7 @@ for(let review of reviewDetail) {
           }
         }
       }
-      let i = (123/5*review.reviewScore);
+      let i = (122/5*review.reviewScore);
       let color = Math.abs(74/5* review.reviewScore - 160)
       document.getElementById("reviewDetailScoreColor").style.width=i+"px";
       document.getElementById("reviewDetailScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
@@ -137,7 +137,7 @@ if (document.getElementById("reviewDetailModalModifyBtn")!=null) {
     document.getElementById("reviewModalTextScore").value=reviewScore;
     document.getElementById("reviewModifyModalStar").value=reviewScore;
 
-    let i = (123/5*reviewScore);
+    let i = (122/5*reviewScore);
     let color = Math.abs(74/5* reviewScore - 160)
     document.getElementById("reviewScoreColor").style.width=i+"px";
     document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';

@@ -45,7 +45,7 @@ for(let review of wirteReview) {
           }
         }
       }
-      let i = (123);
+      let i = (122);
       let color = Math.abs(86)
       document.getElementById("reviewScoreColor").style.width=i+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
@@ -113,7 +113,7 @@ for(let review of modifyReview) {
           }
         }
       }
-      let i = (123/5*review.reviewScore);
+      let i = (122/5*review.reviewScore);
       let color = Math.abs(74/5* review.reviewScore - 160)
       document.getElementById("reviewScoreColor").style.width=i+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';

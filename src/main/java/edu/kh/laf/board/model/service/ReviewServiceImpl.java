@@ -265,6 +265,50 @@ public class ReviewServiceImpl implements ReviewService{
 		return mapper.deleteReview(reviewNo);
 	}
 
+	@Override
+	public Map<String, Object> productReviewList(int cp, long productNo) {
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		int listCount = mapper.productReviewListCount(productNo);
+		
+		Pagination pagination = new Pagination(listCount, cp, 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Review> reviewList = mapper.reviewProductList(productNo, rowBounds);
+		// reviewList에서 하나씩 옵션 및 상품 설정
+		
+		for(Review review : reviewList) {
+			int num = review.getMemberId().length()/2;
+			int uNum = review.getOrderUno().length()/2;
+			
+			String blind = "";
+			for(int i=0; i<num; i++) {blind += "*";}
+			review.setMemberId(review.getMemberId().substring(0, num) + blind);
+			
+			blind = "";
+			for(int i=0; i<uNum; i++) {blind += "*";}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
+			
+			review.setOption(mapper.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(mapper.reviewProduct(review.getProductNo()));
+			if (review.getReviewNo()!=0) {
+				List<ReviewImg> imgList = new ArrayList<>();
+				imgList=mapper.reviewImg(review.getReviewNo());
+				review.setReviewImg(imgList);
+			}// 상품 설정
+		}
+		
+		
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("reviewList", reviewList);
+		
+		return resultMap;
+	}
+
 
 
 
