@@ -73,6 +73,12 @@ public interface ReviewService {
 	 */
 	int deleteReview(long reviewNo);
 
+	/** 상품 개별 리뷰
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> productReviewList(int cp, long productNo);
+
 
 
 }

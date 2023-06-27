@@ -113,6 +113,19 @@ public interface ReviewMapper {
 	 */
 	int deleteReview(long reviewNo);
 
+	/** 특정 상품 리뷰 count
+	 * @param productNo
+	 * @return
+	 */
+	int productReviewListCount(long productNo);
+
+	/** 특정상품 리뷰 조회
+	 * @param productNo
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Review> reviewProductList(long productNo, RowBounds rowBounds);
+
 
 
 

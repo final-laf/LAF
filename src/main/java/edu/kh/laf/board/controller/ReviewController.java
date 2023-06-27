@@ -35,17 +35,9 @@ public class ReviewController {
 	public String review(
 			Model model
 			, @RequestParam(value="cp", required=false, defaultValue="1") int cp
-			, @RequestParam Map<String, Object> paramMap
 			) {
-		if(paramMap.get("key") == null) { 
 			Map<String, Object> resultMap = service.reviewList(cp);
 			model.addAttribute("resultMap", resultMap);
-			
-		//검색어 있을 때
-		}else {
-//			Map<String, Object> resultMap = service.reviewList(paramMap, cp);
-//			model.addAttribute("resultMap", resultMap);
-		}
 		
 		return "/boards/review/review";
 	}

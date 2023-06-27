@@ -70,6 +70,7 @@ public class ProductController {
 	public String product(
 			@SessionAttribute(name="loginMember", required=false) Member loginMember,
 			@PathVariable("productNo")long productNo,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 			RedirectAttributes ra,
 			Model model) {
 		
@@ -103,23 +104,10 @@ public class ProductController {
 		}
 		
 		// 리뷰 내역 조회
-		List<Review> reviewList = reviewService.reviewProductList(productNo);
-		for(Review review : reviewList) {
-			int num = review.getMemberId().length()/2;
-			int uNum = review.getOrderUno().length()/2;
-			
-			String blind = "";
-			for(int i=0; i<num; i++) {blind += "*";}
-			review.setMemberId(review.getMemberId().substring(0, num) + blind);
-			
-			blind = "";
-			for(int i=0; i<uNum; i++) {blind += "*";}
-			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
-			
-			review.setOption(reviewService.reviewOption(review.getOptionNo()));
-			review.setProduct(reviewService.reviewProduct(review.getProductNo()));
-		}
-		model.addAttribute("reviewList", reviewList);
+		Map<String, Object> resultMap = reviewService.productReviewList(cp, productNo);
+		model.addAttribute("resultMap", resultMap);
+		
+		//
 		
 		
 		return "/shopping/product";
