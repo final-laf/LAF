@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.dto.Point;
+import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.mapper.OrderMapper;
@@ -27,6 +28,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private OrderMapper mapper;
+	
+	@Autowired
+	private MypageMapper mapper2;
 	
 	// 주문자정보
 	@Override
@@ -509,5 +513,35 @@ public class OrderServiceImpl implements OrderService{
     	return result;
     }
     
+    // 오늘 주문현황조회
+    @Override
+    public List<Map<String, String>> selectTodayOrderState() {
+    	return mapper.selectTodayOrderState();
+    }
+    
+    // 오늘 주문목록조회
+    @Override
+    public List<Map<String, Object>> selectTodayOrderList() {
+    	
+    	List<Order> orders = mapper.selectTodayOrder();
+    	
+    	List<Map<String, Object>> orderMaps = new ArrayList<>();
+    	
+    	for(Order order : orders) {
+    		OrderProduct orderProduct = mapper2.selectOrderProduct(order.getOrderNo());
+			if(orderProduct != null) {
+				Map<String, Object> orderMap = new HashMap<>();
+				
+				orderProduct.setProduct(mapper2.selectProduct(orderProduct.getProductNo()));
+				orderProduct.setOption(mapper2.selectOption(orderProduct.getOptionNo()));
+				
+				orderMap.put("orderProduct", orderProduct);
+				orderMap.put("order", order);
+				orderMaps.add(orderMap);
+			}
+    	}
+    	
+    	return orderMaps;
+    }
     
 }

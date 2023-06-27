@@ -126,8 +126,7 @@
   </div>
 </div>
 <script>
-
-/* 주문 상세 모달 */
+  /* 주문 상세 모달 */
 const orderModal = document.getElementById("orderModalOverlay")
 const selectedOrders = document.getElementsByClassName("order-modal-row")
 
@@ -135,11 +134,11 @@ const selectedOrders = document.getElementsByClassName("order-modal-row")
 for(let order of selectedOrders) {
 
     /* 주문 목록에서 한 주문 클릭시 */
-  order.addEventListener('click', () => {
-    console.log("왜안돼")
-    orderModal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
-  }); 
+    order.addEventListener('click', () => {
+        console.log("왜안돼")
+        orderModal.style.display = "flex";
+        document.body.style.overflowY = "hidden";
+    }); 
 
 };
 
@@ -148,7 +147,7 @@ for(let order of selectedOrders) {
 orderModal.addEventListener("click", e => {
     const evTarget = e.target
     if(evTarget.classList.contains("order-modal-overlay")) {
-      orderModal.style.display = "none";
+        orderModal.style.display = "none";
         document.body.style.removeProperty('overflow');
     }
 });
@@ -157,7 +156,7 @@ orderModal.addEventListener("click", e => {
 /* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
 window.addEventListener("keyup", e => {
     if(orderModal.style.display === "flex" && e.key === "Escape") {
-      orderModal.style.display = "none"
+        orderModal.style.display = "none"
         document.body.style.removeProperty('overflow');
     }
 });
@@ -166,7 +165,7 @@ window.addEventListener("keyup", e => {
 /* 모달창 내부 닫기 버튼 */
 const orderModalClose = document.getElementsByClassName("order-modal-close")[0];
 orderModalClose.addEventListener("click", e => {
-  orderModal.style.display = "none";
+    orderModal.style.display = "none";
     document.body.style.removeProperty('overflow');
 });
 

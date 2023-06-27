@@ -308,6 +308,20 @@
 			   #{orderNo})
 	</insert>
 	
+	<!-- 오늘 주문현황조회 -->
+	<select id="selectTodayOrderState" resultType="map">
+		SELECT order_state os, CAST(COUNT(order_state) AS CHAR(10)) count
+		FROM `order`
+		WHERE DATE(order_date) = CURDATE()
+		GROUP BY order_state
+	</select>
+	
+	<!-- 오늘 주문조회 -->
+	<select id="selectTodayOrder" resultType="Order">
+		SELECT *
+		FROM `order`
+		WHERE DATE(order_date) = CURDATE()
+	</select>
 	
 	
 </mapper>
