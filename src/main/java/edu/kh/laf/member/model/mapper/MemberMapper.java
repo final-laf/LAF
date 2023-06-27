@@ -1,10 +1,15 @@
 package edu.kh.laf.member.model.mapper;
 
+import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
+import edu.kh.laf.order.model.dto.Order;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 @Mapper
 public interface MemberMapper {
@@ -54,4 +59,42 @@ public interface MemberMapper {
 	 * @return orderNo
 	 */
 	int selectNotMemberOrder(Map<String, String> paramMap);
+
+	/** 전체 회원의 수 조회
+	 * @param cp
+	 * @return listCount
+	 */
+	int getAllMemberCount(Map<String, Object> paramMap);
+
+	/** 로우바운드가 적용된 전체 회원 조회
+	 * @param cp
+	 * @param rowBounds
+	 * @return resultMap
+	 */
+	List<Member> selectAllMemberList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	/** 회원 정보 비동기 조회
+	 * @return member
+	 */
+	Member selectMemberDetail(Long memberNo);
+
+	/** 회원 정보 비동기 조회(회원 기본 배송지)
+	 * @param memberNo
+	 * @return
+	 */
+	Address selectMemberDetailDefaultAddress(Long memberNo);
+
+	/** 페이지리스트가 적용된 주문 개수 조회(관리자-회원관리-회원상세)
+	 * @param memberNo
+	 * @return listCount
+	 */
+	int getOrderListCount(Map<String, Object> paramMap);
+
+	/** 페이지네이션이 적용된 주문 목록 조회
+	 * @param memberNo
+	 * @param rowBounds
+	 * @return orderList
+	 */
+	List<Order> selectAllOrderList(Map<String, Object> paramMap, RowBounds rowBounds);
+
 }

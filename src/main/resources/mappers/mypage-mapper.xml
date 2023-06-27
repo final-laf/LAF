@@ -307,8 +307,6 @@
     </select>
     
     
-     
-    
     <!-- 등록된 배송지 조회 -->
     <select id="selectAddressList" resultType="Address">
 		SELECT *

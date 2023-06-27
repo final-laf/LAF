@@ -241,5 +241,108 @@ AND order_uno = '230621-3-VRZI2P'
 
 
 
+UPDATE `member`
+SET member_no = DEFAULT 
+WHERE member_no = 2;
+
+SELECT * FROM `member`
+WHERE member_not = "N"
+;
 
 
+
+		SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				product_date as product_date_for_ordering,
+				sale_sum as sales,
+				stock,
+				img_path AS thumbnail_path
+		FROM   `product`
+				join `product_img` on `product`.product_no = `product_img`.product_no
+				join (select sum(sell_count) sale_sum, sum(stock) stock, product_no from `option` group by product_no) as `sales` on `product`.product_no = `sales`.product_no
+				<if test="pc != null or cc != null">join `product_category` on `product`.product_no = `product_category`.product_no</if>
+				<if test="pc != null">join `parent_category_cd` on `product_category`.parent_category_no = `parent_category_cd`.parent_category_no</if>
+				<if test="cc != null">join `child_category_cd` on `product_category`.child_category_no = `child_category_cd`.child_category_no</if>
+		where 1=1
+			<if test="query != null and qk == null">and (product_name like '%$'셔츠'%' or `product`.product_no like '%$'2'%')</if>
+			<if test="query != null and qk != null and qk.equals('name')">and product_name like '%${query}%'</if>
+			<if test="query != null and qk != null and qk.equals('no')">and `product`.product_no like '%${query}%'</if>
+			<if test="state != null">
+				<foreach collection="state" item="s" open="and (" close=")" separator="or">
+					product_state = #{s}
+				</foreach>
+			</if>
+			<if test="pc != null">and `product_category`.parent_category_no = #{pc}</if>
+			<if test="cc != null">and `product_category`.child_category_no = #{cc}</if>
+		ORDER BY 
+			<if test='ordering == null or ordering.isEmpty() or ordering.equals("new")'>product_date_for_ordering desc</if>
+			<if test='ordering != null and ordering.equals("old")'>product_date_for_ordering</if>
+			<if test='ordering != null and ordering.equals("name")'>product_name asc</if>
+			<if test='ordering != null and ordering.equals("sales")'>sales desc</if>
+			<if test='ordering != null and ordering.equals("stock")'>stock</if>;
+			
+			
+
+SELECT * FROM `member`;
+
+
+SELECT member_no, member_id, member_name, member_email, member_grade, member_del_fl, member_point, member_enroll_date 
+FROM `member`
+WHERE member_not = "N"
+<if test="qk != null and qk.equals('all')">AND (member_name LIKE '%${query}%' OR member_id LIKE '%${query}%' OR member_email LIKE '%${query}%') </if>
+<if test="qk != null and qk.equals('name')"> AND member_name LIKE '%${query}%' </if>
+<if test="qk != null and qk.equals('id')"> AND member_id LIKE '%${query}%'</if>
+<if test="qk != null and qk.equals('email')"> AND member_email LIKE '%${query}%' </if>
+ORDER BY member_enroll_date DESC
+;
+			
+SELECT member_no, member_name, member_social, DATE_FORMAT(member_enroll_date, "%Y-%m-%d") member_enroll_date, 
+	   member_del_fl, member_grade, member_id, DATE_FORMAT(member_birth, "%Y-%m-%d") member_birth, member_address, address 
+FROM `member` m
+left JOIN `address` a USING (member_no)
+WHERE member_no = 3;
+AND address_default_fl = "Y";
+
+SELECT * FROM address a ;
+SELECT * FROM `member` WHERE member_not = "N";
+
+COMMIT;
+
+select count(*) 
+FROM   `product`
+		join `product_img` on `product`.product_no = `product_img`.product_no
+		join (select sum(sell_count) sale_sum, sum(stock) stock, product_no from `option` group by product_no) as `sales` on `product`.product_no = `sales`.product_no
+where 1=1;
+			
+
+SELECT member_id, member_name, DATE_FORMAT(member_enroll_date, "%Y-%m-%d") member_enroll_date
+FROM `member`;
+
+SELECT * FROM `address`
+WHERE address_default_fl = "Y";
+AND member_no = #{}
+;
+
+
+
+
+SELECT count(*) FROM `order` WHERE member_no = 3;
+
+SELECT order_no, DATE_FORMAT(order_date, "%Y-%m-%d") order_date ,order_uno, order_total_price, order_payment, order_state
+FROM `order` WHERE member_no = 3;
+
+
+
+
+
+
+
+
+
+			

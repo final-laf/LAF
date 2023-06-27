@@ -84,13 +84,21 @@
   letter-spacing: 2px;
 }
 
+.member-result {
+  width: 100%;
+}
+
 .member-result tr{
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 50px;
 
   border-top: 1px solid #eee;
+}
+
+.member-result tr *{
+  padding-left: 5px;
+  text-align: center;
 }
 
 .pretr{
@@ -101,13 +109,47 @@
   border-bottom: 1px solid #eee;
 }
 
-
+/* 테이블 td의 모든 클릭이벤트 제거 */
 .member-result td{
-  width: 120px;
+  pointer-events: none;
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* 각 행별 속성 */
+.member-result > tbody > tr > td:nth-child(1) {
+  width: 5%;
+}
+
+.member-result > tbody > tr > td:nth-child(2) {
+  width: 10%;
+}
+
+.member-result > tbody > tr > td:nth-child(3) {
+  width: 10%;
+}
+
+.member-result > tbody > tr > td:nth-child(4) {
+  width: 10%;
+}
+
+.member-result > tbody > tr > td:nth-child(5) {
+  width: 20%;
+}
+
+.member-result > tbody > tr > td:nth-child(6) {
+  width: 10%;
+}
+
+.member-result > tbody > tr > td:nth-child(7) {
+  width: 10%;
+}
+
+.member-result > tbody > tr > td:nth-child(8) {
+  width: 10%;
+  text-align: right;
+}
+
+.member-result > tbody > tr > td:nth-child(9) {
+  width: 15%;
 }
 
 .selected-member {
@@ -252,7 +294,7 @@
   margin: 40px 0px;
 }
 
-.member-modal-orderlist img {
+.member-modal-orderlist  img {
   height: 94px;
   width: auto;
   display: block;
