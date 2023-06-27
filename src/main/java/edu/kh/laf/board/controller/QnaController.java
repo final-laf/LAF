@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.laf.board.model.dto.Qna;
@@ -26,32 +27,21 @@ public class QnaController {
 	
 
 	// 1:1 문의 목록
-	@GetMapping(value = {"/qna/{search}","/qna"})
-	public String qna(Model model,@PathVariable(required = false) String search
+	@GetMapping("/qna")
+	public String qna(
+			Model model
+			, @RequestParam(value="cp", required=false, defaultValue="1") int cp
+			, @RequestParam Map<String, Object> paramMap
 			) {
-		//PathVariable 없을 때
-		if(search == null) {
-			model.addAttribute("searchQna", "");
-			List<Qna> qna = new ArrayList<>();
-			qna = qnaService.qnaList();
-			List<Qna> answeredQna = new ArrayList<>();
-//			answeredQna = qnaService.answeredQna();
-			model.addAttribute("qnaList", qna);
-//			model.addAttribute("answeredQnaList", answeredQna);
+		// 검색어 없을 때
+		if(paramMap.get("key") == null) { 
+			Map<String, Object> resultMap = qnaService.qnaList(cp);
+			model.addAttribute("resultMap", resultMap);
 			
 		//PathVariable 있을 때
 		}else {
-			model.addAttribute("searchQna", search);
-			String[] subQna = search.split("-");
-			Map<String, String> qnaMap = new HashMap<>();
-			qnaMap.put("type", subQna[0]);
-			qnaMap.put("content", subQna[1]);
-			List<Qna> qna = new ArrayList<>();
-//			qna = qnaService.searchQnaList(qnaMap);
-			List<Qna> answeredQna = new ArrayList<>();
-//			answeredQna = qnaService.searchAnsweredQna(qnaMap);
-			model.addAttribute("qnaList", qna);
-//			model.addAttribute("answeredQnaList", answeredQna);
+			Map<String, Object> resultMap = qnaService.qnaList(paramMap, cp);
+			model.addAttribute("resultMap", resultMap);
 		}
 		return "/boards/qna/qna";
 	}

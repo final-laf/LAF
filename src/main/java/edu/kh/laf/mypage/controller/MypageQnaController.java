@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,36 +29,27 @@ public class MypageQnaController {
 	
 	
 	// 1:1 문의 내역
-	@GetMapping(value = {"/myPage/qna/{search}", "/myPage/qna"})
-	public String qna(@SessionAttribute("loginMember") Member loginMember, Model model,@PathVariable(required = false) String search
+	@GetMapping(value = {"/myPage/qna/{category:[0-9]+}"})
+	public String qna(
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp
+			, Model model
+			, @SessionAttribute("loginMember") Member loginMember
+			, @PathVariable(required = false) String category
+			, @RequestParam Map<String, Object> paramMap
 			) {
 		
 		
 		//PathVariable 없을 때
-		if(search == null) {
-			model.addAttribute("searchQna", "");
-			List<Qna> qna = new ArrayList<>();
-			qna = qnaService.qnaList(loginMember.getMemberNo());
-			List<Qna> answeredQna = new ArrayList<>();
-			answeredQna = qnaService.answeredQna(loginMember.getMemberNo());
-			model.addAttribute("qnaList", qna);
-			model.addAttribute("answeredQnaList", answeredQna);
-			
-		//PathVariable 있을 때
-		}else {
-			model.addAttribute("searchQna", search);
-			String[] subQna = search.split("-");
-			Map<String, String> qnaMap = new HashMap<>();
-			qnaMap.put("memberNo", String.valueOf(loginMember.getMemberNo()));
-			qnaMap.put("type", subQna[0]);
-			qnaMap.put("content", subQna[1]);
-			List<Qna> qna = new ArrayList<>();
-			qna = qnaService.searchQnaList(qnaMap);
-			List<Qna> answeredQna = new ArrayList<>();
-			answeredQna = qnaService.searchAnsweredQna(qnaMap);
-			model.addAttribute("qnaList", qna);
-			model.addAttribute("answeredQnaList", answeredQna);
-		}
+		// 검색어 없을 때
+//		if(paramMap.get("key") == null) { 
+//			Map<String, Object> resultMap = service.noticeList(cp);
+//			model.addAttribute("resultMap", resultMap);
+//			
+//		//검색어 있을 때
+//		}else {
+//			Map<String, Object> resultMap = service.noticeList(paramMap, cp);
+//			model.addAttribute("resultMap", resultMap);
+//		}
 		
 		return "/myPage/myPageBoard/myPageQuestion";
 	}

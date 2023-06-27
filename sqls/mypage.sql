@@ -137,12 +137,52 @@ VALUES (null,
 		default);
 	
 
+SELECT * from `address`;
+
+delete from `address`
+where address_no in (5, 6, 7);
+
+rollback;
+
+update `address`
+SET address_name = '바뀐배송지',
+	address_receiver = '수정이',
+	address = 'db로수정한주소값임',
+	address_tel = '01011112222',
+	address_default_fl = 'Y'
+WHERE address_no = 8;
+
+select * from `member`;
+
+
+SELECT *  FROM `order` 
+WHERE member_no = 3 
+and order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW();
+
+SELECT *  FROM `order` 
+WHERE member_no = 3 
+AND order_state = 'A' 
+AND order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -3 MONTH) AND NOW();
+
+SELECT COUNT(order_no)  FROM `order` 
+WHERE member_no = 3 
+AND order_state = 'B' 
+AND order_date BETWEEN  '2023-06-01' AND '2023-06-01';
 
 
 
+select * 
+from `member`
+where member_email = 'user01@kh.or.kr' and member_id = 'user01'
+;
+
+update `member`
+set member_pw = '$2a$10$xHvikWHlDx6vykX2j6aJo.qa.u0ts8SHg2lTh6PpeSIIa8IP9cN9e'
+where member_id = 'user01'
+;
 
 
-
+rollback;
 
 
 

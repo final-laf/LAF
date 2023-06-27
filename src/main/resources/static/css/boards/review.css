@@ -216,7 +216,7 @@
   margin-top: 40px;
 }
 
-.reviews-item-review-images > img {
+.reviews-item-review-images >div> img {
   width: 60px;
   height: 60px;
 }
@@ -285,11 +285,17 @@
   justify-content: center;
 }
 
-.review-modal-top >div > label:first-child > img {
+.review-modal-top >div  > img {
   width: 300px;
   height: 400px;
   display: block;
 }
+.preview{
+  width: 300px;
+  height: 400px;
+  display: block;
+}
+
 .review-modal-top > div > input {
   display: none;
 }
@@ -354,6 +360,11 @@
 #reviewScoreColor{
   position: fixed;
 }
+#reviewDetailScoreColor{
+  width: 121px ;
+  position: fixed;
+  
+}
 /* 평점 */
 [type="range"] {
   z-index: 12;
@@ -387,8 +398,6 @@
 #reviewModifyModalStar{
   width: 140px;
 }
-
-
 #reviewModalStar{
   height: 25px;
   z-index: 10;
@@ -407,6 +416,54 @@
 }
 
 #reviewModalTextScore{
+  border : none;
+  margin-left: -15px;
+  margin-right: -10px;
+  width: 35px;
+  padding:none;
+  
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 모달 리뷰창 가운데 */
+.review-modal-middle {
+  display: flex;
+  justify-content: first baseline;
+}
+
+.review-modal-middle > img {
+  margin-top: 20px;
+
+  width: 70px;
+  height: 90px;
+}
+
+#reviewDetailModalStar{
+  width: 140px;
+}
+#reviewDetailModalStar{
+  height: 25px;
+  z-index: 10;
+}
+#reviewDetailScoreBack{
+  display: flex;
+  z-index: 8;
+}
+#reviewDetailScoreColor{
+  margin-left:9px;
+  background-color: rgb(255, 255, 255);
+  width: 0px;
+  display: flex;
+  height: 25px;
+  z-index: 9;
+  transition-duration: 2s;
+}
+
+#reviewDetailModalTextScore{
   border : none;
   margin-left: -15px;
   margin-right: -10px;
@@ -586,4 +643,8 @@ input[type="number"]::-webkit-inner-spin-button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.displayNone{
+  display: none;
 }

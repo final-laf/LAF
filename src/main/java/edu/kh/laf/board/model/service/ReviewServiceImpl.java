@@ -3,12 +3,16 @@ package edu.kh.laf.board.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.laf.board.model.dto.Notice;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.mapper.ReviewMapper;
@@ -32,8 +36,45 @@ public class ReviewServiceImpl implements ReviewService{
 	 *
 	 */
 	@Override
-	public List<Review> reviewList() {
-		return mapper.reviewList();
+	public Map<String, Object> reviewList(int cp) {
+		int listCount = mapper.reviewListCount();
+		
+		Pagination pagination = new Pagination(listCount, cp, 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Review> reviewList = mapper.reviewList(rowBounds);
+		// reviewList에서 하나씩 옵션 및 상품 설정
+		
+		for(Review review : reviewList) {
+			int num = review.getMemberId().length()/2;
+			int uNum = review.getOrderUno().length()/2;
+			
+			String blind = "";
+			for(int i=0; i<num; i++) {blind += "*";}
+			review.setMemberId(review.getMemberId().substring(0, num) + blind);
+			
+			blind = "";
+			for(int i=0; i<uNum; i++) {blind += "*";}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
+			
+			review.setOption(mapper.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(mapper.reviewProduct(review.getProductNo()));
+			if (review.getReviewNo()!=0) {
+				List<ReviewImg> imgList = new ArrayList<>();
+				imgList=mapper.reviewImg(review.getReviewNo());
+				review.setReviewImg(imgList);
+			}// 상품 설정
+		}
+		
+		
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("reviewList", reviewList);
+		
+		return resultMap;
 	}
 	
 	/** 특정 상품에 대한 모든 리뷰 조회
@@ -85,50 +126,52 @@ public class ReviewServiceImpl implements ReviewService{
 
 	
 	/** 리뷰 작성하기
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 *
 	 */
 	@Override
-	public int insertReview(Review review, List<MultipartFile> images) {
-		int result = mapper.InsertReview(review);
-		System.out.println("번호 확인");
-		System.out.println(result);
-//		리뷰 번호 조회
-		int i = mapper.setReviewNo(review);
-		System.out.println(i);
-		System.out.println(result);
+	public int insertReview(Review review, List<MultipartFile> images) throws IllegalStateException, IOException {
+		int size = 0;
+		String fileName = "";
+		int result = mapper.updateReview(review);
+		if(result==0) result = mapper.insertReview(review);
+		if(result==0) return 0;
+		result = mapper.setReviewNo(review);
 		if(result==0) return 0;
 		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
-//		for(int i = 0; i < images.size(); i++) {
-//			if(images.get(i).getSize()>0) {
-//				ReviewImg img = new ReviewImg();
-//				String fileName = images.get(i).getOriginalFilename();
-//				img.setReviewPath(webPath + fileName);
-//				img.setReviewNo(reviewNo.getReviewNo());
-//				img.setReviewImgNo(i);
-//				uploadList.add(img);
-//				System.out.println("*********"+img);
-//				result = mapper.imageUpdate(img);
-//				if(result==0) {
-//					result=mapper.imageInsert(img);
-//				}
-//				
-//			}
-//		}
+		for(int i = 0; i < images.size(); i++) {
+			if(images.get(i).getSize()>0) {
+				ReviewImg img = new ReviewImg();
+				fileName = images.get(i).getOriginalFilename();
+				img.setReviewPath(webPath +review.getReviewNo()+fileName);
+				img.setReviewNo(review.getReviewNo());
+				img.setReviewImgOrder(i);
+				uploadList.add(img);
+				result = mapper.updateImage(img);
+				if(result==0) {
+					result=mapper.insertImage(img);
+				}
+				size+=1;
+				System.out.println(size);
+			}
+		}
+		System.out.println("DB추가 완료");
 		
-//		if(!uploadList.isEmpty()) {
-//			for(int i=0; i<uploadList.size(); i++) {
-//				int index = uploadList.get(i).getReviewImgOrder();
-//				try {
-//					images.get(index).transferTo(new File(uploadList.get(i).getReviewPath()));
-//				} catch (IllegalStateException e) {
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//				System.out.println(uploadList);
-//				System.out.println("asd");
-//			}
-//		}
+		if(!uploadList.isEmpty()) {
+			if(uploadList.size()==size) {
+				for(int i=0; i<size; i++) {
+					System.out.println(i);
+					int index = uploadList.get(i).getReviewImgOrder();
+					fileName = review.getReviewNo()+images.get(i).getOriginalFilename();
+					images.get(index).transferTo(new File(filePath+fileName));
+					
+					System.out.println(i+"파일추가완료");
+				}
+			} else {
+				throw new FileUploadException();
+			}
+		}
 		return 1;
 		
 		
@@ -136,41 +179,131 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	
-	
 	/** 리뷰 수정하기
+	 * @throws Exception 
 	 *
 	 */
 	@Override
-	public int updateReview(Review review, List<MultipartFile> images) {
+	public int updateReview(Review review, List<MultipartFile> images, String deleteList) throws Exception  {
+		int size = 0;
+		String fileName = "";
 		int result = mapper.updateReview(review);
-		if(result==0) return 0;
-		long reviewNo=review.getReviewNo();
+		result = mapper.setReviewNo(review);
 		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
-		for(int i = 0; i < images.size(); i++) {
-			if(images.get(i).getSize()>0) {
-				ReviewImg img = new ReviewImg();
-				
-				img.setReviewPath(webPath + "review");
-				img.setReviewNo(reviewNo);
-				img.setReviewImgNo(i);
-				uploadList.add(img);
-				result = mapper.imageUpdate(img);
-				if(result==0) {
-					result=mapper.imageInsert(img);
-				}
-				
+		System.out.println("수정하기");
+		System.out.println(deleteList);
+		if (!deleteList.equals("")) { // 삭제할 이미지가 있다면
+
+			//deleteList에 작성된 이미지 모두 삭제
+			Map<String, Object> deleteMap = new HashMap<>();
+			deleteMap.put("reviewNo", review.getReviewNo());
+			deleteMap.put("deleteList", deleteList);
+
+			int img = mapper.deleteImage(deleteMap);
+			if (img == 0) { // 이미지 삭제 실패 시 전체 롤백
+									// -> 예외 강제로 발생
+				throw new Exception();
+
 			}
 		}
 		
+		
+		for(int i = 0; i < images.size(); i++) {
+			if(images.get(i).getSize()>0) {
+				ReviewImg img = new ReviewImg();
+				fileName = images.get(i).getOriginalFilename();
+				img.setReviewPath(webPath +review.getReviewNo()+fileName);
+				img.setReviewNo(review.getReviewNo());
+				img.setReviewImgOrder(i);
+				uploadList.add(img);
+				result = mapper.updateImage(img);
+				if(result==0) {
+					result=mapper.insertImage(img);
+				}
+				size+=1;
+			}
+		}
+		System.out.println("DB추가 완료");
+		
 		if(!uploadList.isEmpty()) {
-			for(int i=0; i<uploadList.size(); i++) {
-//				int index = uploadList.get(i).get
+			if(uploadList.size()==size) {
+				for(int i=0; i<size; i++) {
+					System.out.println(i);
+					int index = uploadList.get(i).getReviewImgOrder();
+					fileName = review.getReviewNo()+images.get(i).getOriginalFilename();
+					images.get(index).transferTo(new File(filePath+ fileName));
+					
+					System.out.println(i+"파일추가완료");
+				}
+			} else {
+				throw new FileUploadException();
 			}
 		}
 		return 1;
 				
 		
 	}
+
+	/** 이미지 조회
+	 *
+	 */
+	@Override
+	public List<ReviewImg> reviewImg(long reviewNo) {
+		return mapper.reviewImg(reviewNo);
+	}
+
+	/** 리뷰 삭제하기
+	 *
+	 */
+	@Override
+	public int deleteReview(long reviewNo) {
+		return mapper.deleteReview(reviewNo);
+	}
+
+	@Override
+	public Map<String, Object> productReviewList(int cp, long productNo) {
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		int listCount = mapper.productReviewListCount(productNo);
+		
+		Pagination pagination = new Pagination(listCount, cp, 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		List<Review> reviewList = mapper.reviewProductList(productNo, rowBounds);
+		// reviewList에서 하나씩 옵션 및 상품 설정
+		
+		for(Review review : reviewList) {
+			int num = review.getMemberId().length()/2;
+			int uNum = review.getOrderUno().length()/2;
+			
+			String blind = "";
+			for(int i=0; i<num; i++) {blind += "*";}
+			review.setMemberId(review.getMemberId().substring(0, num) + blind);
+			
+			blind = "";
+			for(int i=0; i<uNum; i++) {blind += "*";}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
+			
+			review.setOption(mapper.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(mapper.reviewProduct(review.getProductNo()));
+			if (review.getReviewNo()!=0) {
+				List<ReviewImg> imgList = new ArrayList<>();
+				imgList=mapper.reviewImg(review.getReviewNo());
+				review.setReviewImg(imgList);
+			}// 상품 설정
+		}
+		
+		
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("reviewList", reviewList);
+		
+		return resultMap;
+	}
+
 
 
 

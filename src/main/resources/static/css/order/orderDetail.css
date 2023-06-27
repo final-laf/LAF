@@ -110,3 +110,13 @@
   font-weight: bold;
   color: #666;
 }
+
+.orderBtn{
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+#cancleBtn{
+  margin: 0 20px;
+}

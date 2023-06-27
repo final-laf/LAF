@@ -144,10 +144,12 @@ if(loginMember != null){ // 로그인한 회원일시
       couponSelect.children[1].children[0].innerText= '적용불가'
       couponSelect.style.pointerEvents = 'none';
     }else{ // 사용가능시 쿠폰적용할인금액 계산
-      if(couponUnit == 'p'){ // 할인율일때
+      if(couponUnit == 'P'){ // 할인율일때
         if(totalAmount * couponAmount * 0.01 < couponMaxDiscount){
           couponMaxDiscount = totalAmount * couponAmount * 0.01
         }
+      }else{
+        couponMaxDiscount = couponAmount
       }
     }
     couponNoC.push([couponNo,couponMaxDiscount])
@@ -226,7 +228,6 @@ if(loginMember != null){ // 로그인한 회원일시
     if(pointInput.value != ""){
       point = parseInt(pointInput.value.replace(",", ""));
     };
-    console.log(point);
     // 사용한 포인트 금액 세팅(제출용)
     document.querySelector("input[name=pointNoUse]").value = point;
     // 쿠폰 할인 금액
@@ -544,4 +545,32 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
         document.getElementById("orderSubmit").submit();
       }
     });
+});
+
+
+// 배송지 설정
+const myShippingBtn = document.getElementById('myShippingBtn');
+myShippingBtn.addEventListener('click', () => {
+  window.location.href = "/myPage/shipping"
+});
+
+const shippingSelectBtn = document.getElementById('shippingSelectBtn');
+
+const addSelect = document.querySelectorAll('[name="addSelect"]');
+const addLists = document.getElementsByClassName("order-shipping-address");
+shippingSelectBtn.addEventListener('click', () => {
+  addSelect.forEach( (e,i) => {
+    if(e.checked){
+      const add = addressList[i].address.split("^^^");
+      document.getElementById('orderRecvName').value = addressList[i].addressReceiver // 받는사람
+      document.querySelectorAll("input[name='receiverAddress']").forEach( (item, j) =>{ // 주소
+        item.value = add[j];
+      } )
+      document.getElementById('recvTel').value = addressList[i].addressTel // 받는사람전화번호
+
+      document.getElementById("orderShippingBack").style.display="none";
+      document.getElementById("orderShippingContent").style.display="none";
+      document.body.style.removeProperty('overflow');
+    }
+  })
 });

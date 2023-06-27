@@ -1,9 +1,12 @@
 package edu.kh.laf.board.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
+import edu.kh.laf.board.model.dto.Notice;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.product.model.dto.Option;
@@ -12,10 +15,15 @@ import edu.kh.laf.product.model.dto.Product;
 @Mapper
 public interface ReviewMapper {
 
+	/** 리뷰 리스트 count
+	 * @return
+	 */
+	int reviewListCount();
+	
 	/** 모든 리뷰 조회
 	 * @return
 	 */
-	List<Review> reviewList();
+	List<Review> reviewList(RowBounds rowBounds);
 
 	/** 리뷰 옵션 조회
 	 * @param optionNo
@@ -53,7 +61,7 @@ public interface ReviewMapper {
 	 * @param review
 	 * @return
 	 */
-	int InsertReview(Review review);
+	int insertReview(Review review);
 
 	/** 리뷰 수정하기
 	 * @param review
@@ -72,18 +80,54 @@ public interface ReviewMapper {
 	 * @param img
 	 * @return
 	 */
-	int imageInsert(ReviewImg img);
+	int insertImage(ReviewImg img);
 	
 	/** 이미지 업데이트
 	 * @param img
 	 * @return
 	 */
-	int imageUpdate(ReviewImg img);
+	int updateImage(ReviewImg img);
 
 	/** 리뷰 넘버 설정
 	 * @param review
 	 */
 	int setReviewNo(Review review);
+
+
+	/** 리뷰 이미지 조회
+	 * @param reviewNo
+	 * @return
+	 */
+	List<ReviewImg> reviewImg(long reviewNo);
+
+	/** 리뷰 이미지 삭제
+	 * @param deleteMap
+	 * @return
+	 */
+
+	int deleteImage(Map<String, Object> deleteMap);
+
+	/** 리뷰 삭제하기
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteReview(long reviewNo);
+
+	/** 특정 상품 리뷰 count
+	 * @param productNo
+	 * @return
+	 */
+	int productReviewListCount(long productNo);
+
+	/** 특정상품 리뷰 조회
+	 * @param productNo
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Review> reviewProductList(long productNo, RowBounds rowBounds);
+
+
+
 
 
 }

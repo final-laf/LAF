@@ -38,7 +38,14 @@ for(let review of wirteReview) {
       document.getElementById("reviewModifyModalStar").value=5;
       document.getElementById("reviewModalTextScore").value=5;
       document.getElementById("reviewModifyModalStar").value=5;
-      let i = (123);
+      for (let i = 0; i < review.reviewImg.length; i++) {
+        for (let index = 0; index < 5; index++) {
+          if (review.reviewImg[i].reviewImgOrder==index) {
+            document.getElementsByClassName("preview")[index].src = review.reviewImg[i].reviewPath;
+          }
+        }
+      }
+      let i = (122);
       let color = Math.abs(86)
       document.getElementById("reviewScoreColor").style.width=i+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
@@ -79,6 +86,9 @@ for(let review of modifyReview) {
     fetch("/review/detailReview?reviewNo="+reviewNo)  
     .then(response => response.json()) 
     .then(review => {
+      for (let i = 0; i < 5; i++) {
+            document.getElementsByClassName("preview")[i].src = "/images/review/review_image_upload.png";
+      }
       document.getElementById("reviewModifyModalStar").value="";
       document.getElementById("reviewModalTextScore").value="";
       document.getElementById("reviewModifyModalStar").value="";
@@ -95,7 +105,15 @@ for(let review of modifyReview) {
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
       document.getElementById("reviewModalTextScore").value=review.reviewScore;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
-      let i = (123/5*review.reviewScore);
+      console.log(review.reviewImg);
+      for (let i = 0; i < review.reviewImg.length; i++) {
+        for (let index = 0; index < 5; index++) {
+          if (review.reviewImg[i].reviewImgOrder==index) {
+            document.getElementsByClassName("preview")[index].src = review.reviewImg[i].reviewPath;
+          }
+        }
+      }
+      let i = (122/5*review.reviewScore);
       let color = Math.abs(74/5* review.reviewScore - 160)
       document.getElementById("reviewScoreColor").style.width=i+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
@@ -226,50 +244,78 @@ score.addEventListener("mousemove", (e) => {
 }
 // 74 160
 
-// 미리보기 관련 요소 
-const preview = document.getElementsByClassName("preview"); 
-const inputImg = document.getElementsByClassName("reviewImg");
-const deleteImg = document.getElementsByClassName("deleteImg");
+// 게시글 수정 시 삭제된 이미지의 순서를 기록할 Set 객체 생성
+const preview = document.getElementsByClassName("preview");
+const deleteSet = new Set(); // 순서x, 중복x 
+const deleteImage = document.getElementsByClassName("deleteImg");
+// -> x버튼 클릭 시 순서를 한 번만 저장하는 용도
+const inputImage = document.getElementsByClassName("reviewImg");
+for(let i=0; i<inputImage.length; i++){
+  inputImage[i].addEventListener('change', e=>{
 
-// 파일이 선택되거나 선택 후 취소 되었을 때
-for(let i=0; i<inputImg.length; i++){
-  inputImg[i].addEventListener('change', e=>{
-    const file = e.target.files[0];
+  // 파일이 선택되거나, 선택 후 취소 되었을 때
+      const file = e.target.files[0]; // 선택된 파일의 데이터
 
-    if(file != undefined){
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      // 지정된 파일을 읽은 후 result 변수에 URL 형식으로 저장
+      if(file != undefined){ // 파일이 선택되었을 때
+          const reader = new FileReader(); // 파일을 읽는 객체
 
-      reader.onload= e=> {
-        preview[i].setAttribute("src", e.target.result);
+          reader.readAsDataURL(file);
+          // 지정된 파일을 읽은 후 result 변수에 URL 형식으로 저장
+
+          reader.onload = e => { // 파일을 다 읽은 후 수행
+              preview[i].setAttribute("src", e.target.result);
+
+              // 이미지가 성공적으로 읽어지면 
+              // delelteSet에서 삭제
+              deleteSet.delete(i);
+          }
+
+
+      } else{ // 선택 후 취소 되었을 때 -> 선택된 파일 없음 -> 미리보기 삭제
+          preview[i].removeAttribute("src");
       }
-
-    }else{ //선택 후 취소되었을 때
-      preview[i].removeAttribute("src");
-    }
   })
-  deleteImg[i].addEventListener('click', () => {
+  deleteImage[i].addEventListener('click', () => {
+    console.log("asd")
     // 미리보기 이미지가 있을 경우
     if(preview[i].getAttribute("src") != ""){
-      preview[i].src="/images/review/review_image_upload.png";
+        console.log("있음")
+          // 미리보기 삭제
+          preview[i].removeAttribute("src");
 
-      inputImg[i].value="";
-    }
-    
+          // input type = "file" 태그의 value를 삭제
+          // ** input type="file" 의 value는 ""(빈칸)만 대입 가능
+          inputImage[i].value = "";
+          document.getElementsByClassName("preview")[i].src="/images/review/review_image_upload.png";
+          // deleteSet에 삭제된 이미지 순서 추가
+          deleteSet.add(i);
+      }
+  })
+}
+
+if (document.getElementById("modifyReview")!=null) {
+  
+  document.getElementById("modifyReview").addEventListener('click', e=>{
+  
+      // input type = "hidden" 태그에 deleteSet에 저장된 값을 "1,2,3" 형태로 변경해서 저장
+  
+      /* JS 배열은  string에 대입되거나 출력될 때 요소, 요소, 요소 형태의 문자열을 반환한다! */
+      document.querySelector("[name='deleteList']").value = Array.from(deleteSet);/* set -> Array 변경 */
+  
   });
 }
-// function emot(){
-//   if (document.getElementById("reviewScorePoint").innerText=="점 ╰(*°▽°*)╰") {
-//     document.getElementById("reviewScorePoint").innerText="점 (╯*°▽°*)╯";
-//   }
-//   if (document.getElementById("reviewScorePoint").innerText=="점 (╯*°▽°*)╯") {
-//     document.getElementById("reviewScorePoint").innerText="점 ╰(*°▽°*╰)";
-//   }
-  
-//   if (document.getElementById("reviewModalTextScore").value!=5){
-//     document.getElementById("reviewScorePoint").innerText="점";
-//     return"";
-//   }
-//   return setTimeout(emot(), 100);
-// }
+if (document.getElementById("deleteReview")!=null) {
+  document.getElementById("deleteReview").addEventListener("click", e=> {
+    const reviewNo =document.getElementById("reviewModifyModalReviewNo").value;
+    var url = "/review/delete?reviewNo="+reviewNo;
+    location.href=url
+  })
+}
+if (document.getElementById("listDelete")!=null) {
+  document.getElementById("listDelete").addEventListener("click", e=> {
+    const reviewNo =e.target.getAttribute("value");
+    alert(reviewNo)
+    var url = "/review/delete?reviewNo="+reviewNo;
+    location.href=url
+  })
+}

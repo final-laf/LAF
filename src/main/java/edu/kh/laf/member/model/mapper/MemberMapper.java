@@ -1,13 +1,17 @@
 package edu.kh.laf.member.model.mapper;
 
 import edu.kh.laf.member.model.dto.Member;
+
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface MemberMapper {
 	
 	
-    Member selectMember(long id);
+
+	Member selectMember(long id);
     
 	/** 로그인
 	 * @param inputMember
@@ -32,4 +36,22 @@ public interface MemberMapper {
 	 * @return result
 	 */
 	int checkEmail(String email);
+
+	/** 이메일, 아이디가 일치하는 회원 찾기
+	 * @param paramMap
+	 * @return member
+	 */
+	Member selectMatch(Map<String, String> paramMap);
+
+	/** 비밀번호 찾기(기존의 비밀번호를 생성한 랜덤비밀번호로 변경)
+	 * @param paramMap
+	 * @return result
+	 */
+	int findPw(Map<String, String> paramMap);
+
+	/** 아이디와 주문번호로 비회원 주문 조회
+	 * @param paramMap
+	 * @return orderNo
+	 */
+	int selectNotMemberOrder(Map<String, String> paramMap);
 }

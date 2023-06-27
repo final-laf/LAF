@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.service.ReviewService;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageReviewService;
@@ -35,7 +36,6 @@ public class MypageReviewController {
 			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
 //			상품 설정
 			review.setProduct(reviewService.myOrderProduct(review.getProductNo()));
-//		 	
 			
 		}
 		List<Review> myWrittenReview = reviewService.myWrittenReview(loginMember.getMemberNo());
@@ -54,13 +54,15 @@ public class MypageReviewController {
 			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
 //			상품 설정
 			review.setProduct(reviewService.myOrderProduct(review.getProductNo()));
+			if (review.getReviewNo()!=0) {
+				List<ReviewImg> imgList = new ArrayList<>();
+				imgList=reviewService.reviewImg(review.getReviewNo());
+				review.setReviewImg(imgList);
+			}
 		}
 		List<Review> myOrder = reviewService.myReview(loginMember.getMemberNo());
 		model.addAttribute("myOrder", myOrder);
 		model.addAttribute("myWrittenReview", myWrittenReview);
-		for (int i = 0; i < myWrittenReview.size(); i++) {
-			System.out.println(myWrittenReview.get(i));
-		}
 		return "/myPage/myPageBoard/myPageReviewQueue";
 	}
 	/** 작성 가능한 리뷰 개별 조회
@@ -71,11 +73,13 @@ public class MypageReviewController {
 	@ResponseBody
 	public Review detail(@RequestBody Review orderProduct) {
 		Review review = new Review();
-		System.out.println(orderProduct);
 		review = reviewService.detailReview(orderProduct);
 		
 		review.setOption(reviewService.myOrderOption(orderProduct.getOptionNo())); // 옵션 설정
 		review.setProduct(reviewService.myOrderProduct(orderProduct.getProductNo())); // 상품 설정
+		List<ReviewImg> imgList = new ArrayList<>();
+		imgList=reviewService.reviewImg(review.getReviewNo());
+		review.setReviewImg(imgList);
 		return review;
 	}
 	

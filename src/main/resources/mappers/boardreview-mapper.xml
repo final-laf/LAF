@@ -3,6 +3,12 @@
 <mapper namespace="edu.kh.laf.board.model.mapper.ReviewMapper">
 
 	
+	
+	<!-- 리뷰 count-->
+    <select id="reviewListCount">
+        SELECT count(*) FROM `review` WHERE review_delete_fl='N' ORDER BY review_create_date DESC;
+    </select>
+	
 	<!-- ReviewList -->
      <select id="reviewList" resultType="Review">
         SELECT DISTINCT  r.review_no, m.member_id, 
@@ -19,29 +25,28 @@
         FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
         			  LEFT JOIN `member` m ON o.member_no = m.member_no 
         			  LEFT JOIN order_product op ON o.order_no=op.order_no
+        WHERE review_delete_fl='N' 
+        ORDER BY review_create_date DESC
     </select>
     
 	<!-- 특정 상품에 대한 모든 리뷰 조회 -->
 	<select id="reviewProductList" resultType="Review">
-	    SELECT	r.review_no,
-	    		m.member_id, 
-	    		r.review_content, 
-	    		r.review_create_date, 
-	    		r.review_score, 
-	    		r.order_no, 
-	    		r.product_no, 
-	    		r.option_no, 
-	    		o.order_uno,
-	    		`count`, 
-	    		TRUNCATE(
-	    			(SELECT AVG(review_score)
-	    			 FROM 	review sr 
-	    			 WHERE 	r.product_no = sr.product_no), 1) review_score_avg, 
-	    		(SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count
-	    FROM 	review r LEFT JOIN `order` o ON r.order_no =o.order_no 
-	    			     LEFT JOIN `member` m ON o.member_no = m.member_no 
-	    			     LEFT JOIN order_product op ON o.order_no=op.order_no
-	    WHERE 	r.product_no = ${productNo};
+	    SELECT DISTINCT  r.review_no, m.member_id, 
+        				 r.review_content, 
+        				 r.review_create_date, 
+        				 r.review_score, 
+        				 r.order_no, 
+        				 r.product_no, 
+        				 r.option_no, 
+        				 o.order_uno,
+        				 `count`, 
+        				 TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
+        				 (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
+        FROM review r LEFT JOIN `order` o ON r.order_no =o.order_no 
+        			  LEFT JOIN `member` m ON o.member_no = m.member_no 
+        			  LEFT JOIN order_product op ON o.order_no=op.order_no
+        WHERE review_delete_fl='N' AND	r.product_no = ${productNo}
+        ORDER BY review_create_date DESC
 	</select>
 	
 	<!-- 특정 상품에 대한 리뷰 개수 조회 -->
@@ -79,6 +84,7 @@
      <select id="detailReview" resultType="Review">
         SELECT DISTINCT  r.review_no, 
         				 m.member_id, 
+        				 m.member_no,
         				 r.review_content, 
         				 DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS review_create_date, 
         				 r.review_score, 
@@ -96,24 +102,24 @@
         WHERE r.review_no = #{reviewNo}
     </select>
     
-    <insert id="InsertReview"  useGeneratedKeys="true" keyProperty="reviewNo" >
-		INSERT INTO `review` VALUES (NULL, #{reviewContent}, DEFAULT, #{reviewScore}, #{orderNo}, #{productNo}, #{optionNo})
+    <insert id="insertReview"  useGeneratedKeys="true" keyProperty="reviewNo" >
+		INSERT INTO `review` VALUES (NULL, #{reviewContent}, DEFAULT, #{reviewScore}, #{orderNo}, #{productNo}, #{optionNo}, DEFAULT)
 	</insert>
     
     <update id="updateReview">
-		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore} 
+		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore}, review_delete_fl='N'
 		WHERE review_no = #{reviewNo}
 	</update>
     
     <update id="updateImage">
-		UPDATE `review_img`	SET review_no=#{reviewNo}, review_path= #{reviewPath} 
-		WHERE review_no = #{reviewNo}
+		UPDATE `review_img`	SET review_img_order=#{reviewImgOrder}, review_path= #{reviewPath} 
+		WHERE review_img_order = #{reviewImgOrder} AND review_no=#{reviewNo}
 	</update>
     
-    <select id="reviewNo">
-		SELECT review_no FROM review 
-		WHERE order_no = #{orderNo} AND product_no =#{productNo} AND option_no =#{optionNo}
-	</select>
+	<insert id="insertImage"  useGeneratedKeys="true" keyProperty="reviewNo" >
+		INSERT INTO `review_img` VALUES (DEFAULT, #{reviewNo}, #{reviewPath}, #{reviewImgOrder} )
+	</insert>
+    
     
     <update id="setReviewNo">
 		UPDATE `order_product` SET review_no=#{reviewNo} 
@@ -121,5 +127,28 @@
 	</update>
     
 
+     	<!-- 리뷰 이미지 조회 -->
+    <select id="reviewImg" resultType="ReviewImg">
+	    SELECT * FROM `review_img` WHERE review_no=#{reviewNo}
+	</select>
+    
+    <!-- 이미지 삭제 -->
+	<delete id="deleteImage">
+		DELETE FROM `review_img` WHERE review_no = #{reviewNo} AND review_img_order IN (${deleteList})	
+	</delete>
+    
+    
+    <!-- 리뷰 삭제 -->
+	<update id="deleteReview">
+		UPDATE `review` SET review_delete_fl='Y'
+		WHERE review_no=#{reviewNo} 	
+	</update>
+    
+    	
+	<!-- 특정 상품 리뷰 count-->
+    <select id="productReviewListCount">
+        SELECT count(*) FROM `review` WHERE review_delete_fl='N' AND product_no=#{productNo} ORDER BY review_create_date DESC;
+    </select>
+    
 </mapper>
 

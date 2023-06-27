@@ -128,18 +128,19 @@
 		WHERE order_uno = #{orderUno}
 	</select>
 	
-	<!--주문상품목록테이블 추가 insertOrderProduct-->
+	<!--주문상품목록테이블 추가 -->
 	<insert id="insertOrderProduct">
 		INSERT INTO `order_product`
 		VALUES(#{orderNo},
 			   #{productNo},
 			   #{optionNo},
 			   #{count},
-			   NUll
+			   NUll,
+			   DEFAULT
 			   )
 	</insert>
 	
-	<!-- 상품 재고 최신화optionCountUpdate-->
+	<!-- 상품 재고 최신화 -->
 	<update id="optionCountUpdate">
 		UPDATE `option`
 		SET stock = stock - ${count}, sell_count = sell_count + ${count}
@@ -154,7 +155,7 @@
 		WHERE product_no = ${productNo}
 	</select>
 	
-	<!-- 상품 품절 전환updateSoldOut -->
+	<!-- 상품 품절 전환 -->
 	<update id="updateSoldOut">
 		UPDATE product
 		SET product_state = 'S'
@@ -166,24 +167,24 @@
 		INSERT INTO `point`
 		VALUES(NULL,
 			   #{memberNo},
-			   'G',
+			   #{pointSort},
 			   #{pointAmount},
 			   #{pointDate},
 			   #{pointDueDate},
-			   '구매에 대한 적립금',
+			   #{pointContent},
 			   #{orderNo})
 	</insert>
 	
-	<!-- 적립금 적립 -->
+	<!-- 적립금 사용 -->
 	<insert id="insertUsePoint" useGeneratedKeys="true" keyProperty="pointNo">
 		INSERT INTO `point`
 		VALUES(NULL,
 			   #{memberNo},
-			   'U',
+			   #{pointSort},
 			   #{pointAmount},
 			   #{pointDate},
 			   NULL,
-			   '상품구매시 사용한 적립금',
+			   #{pointContent},
 			   #{orderNo})
 	</insert>
 	
@@ -250,5 +251,78 @@
 		SET member_grade = #{memberGrade}
 		WHERE member_no = #{memberNo}
 	</update>
+	
+	<!-- 주문취소 -->
+	<!-- 주문상태업데이트(취소중) -->
+	<update id="updateOrderCancle">
+		UPDATE `order`
+		SET order_state = 'G'
+		WHERE order_no = #{orderNo}
+	</update>
+	
+	<!-- 주문상품목록업데이트(삭제) -->
+	<update id="updateOrderProductCancle">
+		UPDATE order_product
+		SET order_product_delete_fl = 'Y'
+		WHERE order_no = #{orderNo}
+	</update>
+	
+	<!-- 재고 복구 -->
+	<update id="updateStock">
+		UPDATE `option`
+		SET stock = stock + ${count}, sell_count = sell_count - ${count}
+		WHERE product_no = ${productNo}
+		AND option_no = ${optionNo}
+	</update>
+	
+	<!-- 상품 판매중 전환 -->
+	<update id="updateSell">
+		UPDATE product
+		SET product_state = 'O'
+		WHERE product_no = #{productNo}
+	</update>
+	
+	<!-- 적립된 적립금 반환 -->
+	<insert id="insertResetGainPoint">
+		INSERT INTO `point`
+		VALUES(NULL,
+			   #{memberNo},
+			   #{pointSort},
+			   #{pointAmount},
+			   #{pointDate},
+			   NULL,
+			   #{pointContent},
+			   #{orderNo})
+	</insert>
+	
+	<!-- 사용된 적립금 반환 -->
+	<insert id="insertResetUsePoint">
+		INSERT INTO `point`
+		VALUES(NULL,
+			   #{memberNo},
+			   #{pointSort},
+			   #{pointAmount},
+			   #{pointDate},
+			   #{pointDueDate},
+			   #{pointContent},
+			   #{orderNo})
+	</insert>
+	
+	<!-- 오늘 주문현황조회 -->
+	<select id="selectTodayOrderState" resultType="map">
+		SELECT order_state os, CAST(COUNT(order_state) AS CHAR(10)) count
+		FROM `order`
+		WHERE DATE(order_date) = CURDATE()
+		GROUP BY order_state
+	</select>
+	
+	<!-- 오늘 주문조회 -->
+	<select id="selectTodayOrder" resultType="Order">
+		SELECT *
+		FROM `order`
+		WHERE DATE(order_date) = CURDATE()
+	</select>
+	
+	
 </mapper>
 

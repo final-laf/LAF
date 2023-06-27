@@ -26,6 +26,20 @@
             <select name="qnaCategory" onchange="categoryChange(this.value)"> <!-- 옵션 선택 시 변경점 바로 적용 -->
               <option value="write">작성 일자별</option>
               <option value="answer">답변 유무별</option>
+              <option value="question">질문 유형별</option>
+            </select>
+            <select name="qnaCategory" > <!-- 작성 일자별 -->
+              <option value="recent">최신 순</option>
+              <option value="old">오래된 순</option>
+            </select>
+            <select name="qnaCategory" > <!-- 답변 유무별 -->
+              <option value="answered">답변된 순</option>
+              <option value="waiting">답변 기다리는 순</option>
+            </select>
+            <select name="qnaCategory"> <!-- 질문 유형별 -->
+              <option value="product">상품</option>
+              <option value="shipping">배송</option>
+              <option value="other">일반</option>
             </select>
           </div>
           <table id="mypageQuestionRecent">

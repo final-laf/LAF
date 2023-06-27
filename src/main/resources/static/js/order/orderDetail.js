@@ -62,3 +62,27 @@ if(orderListBtn != null){
         window.location.href = "/myPage/order"
     });
 }
+
+const orderNo = {orderNo : order.orderNo};
+
+const cancleBtn = document.getElementById('cancleBtn');
+
+cancleBtn.addEventListener('click', () => {
+    if (confirm("정말 취소하시겠습니까?\n주문취소시 사용된 쿠폰은 반환되지 않습니다.")) {
+        fetch("/order/cancle", {
+            method: "POST",
+            headers: {"Content-Type": "application/json; charset=UTF-8"},
+            body: JSON.stringify(orderNo)
+        })
+        .then(resp => resp.text())
+        .then(message => {
+            alert(message)
+            window.location.href = "/order/" + orderNo.orderNo
+        }) 
+        .catch( err => {
+            console.log(err);
+        } );
+    } else {
+        return;
+    }
+});

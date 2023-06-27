@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.dto.Point;
+import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.mapper.OrderMapper;
@@ -27,6 +28,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private OrderMapper mapper;
+	
+	@Autowired
+	private MypageMapper mapper2;
 	
 	// 주문자정보
 	@Override
@@ -343,7 +347,7 @@ public class OrderServiceImpl implements OrderService{
     	}
     	return productDc;
     }
-    
+    // 쿠폰, 적립금 조회
     @Override
     public Map<String, String> selectDiscount(long couponNo, long pointGainNo, long pointUseNo) {
     	
@@ -374,4 +378,170 @@ public class OrderServiceImpl implements OrderService{
     
     	return dc;
     }
+    
+    // 주문취소 서비스(상품)
+    @Override
+    public int updateOrder(int no) {
+    	
+    	int result = 0;
+    	
+    	// 주문한 상품별 조회
+    	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
+    	// 재고 복구
+    	for(OrderProduct op : odpList) {
+    		int uop = mapper.updateStock(op);
+    		if(uop == 0) {
+    			return result;// 실패 처리
+    		}
+        	// 상품 모든 재고조회 
+    		int productAllStock = mapper.selectAllStock(op);
+    		if(productAllStock != 0) { // 재고가 0이 아니면 품절로 상품상태 업데이트
+    			// 상품 판매중 전환
+    			int soldOut = mapper.updateSell(op);
+    			if(soldOut == 0) {
+    				return result;// 실패 처리
+    			}
+    		}
+    	}
+    	
+    	// 주문상태업데이트(취소중)
+    	int uor = mapper.updateOrderCancle(no);
+		if(uor == 0) { // 실패시
+			return result;
+		}
+    	// 주문상품목록업데이트(삭제)
+    	int uopr = mapper.updateOrderProductCancle(no);
+		if(uopr == 0) { // 실패시
+			return result;
+		}else {
+			result = 1;
+		}
+
+    	return result;
+    }
+    
+    // 포인트 취소 서비스
+    @Override
+    public int updatePoint(int no) {
+
+    	int result = 0;
+    	
+    	// 주문내역 조회
+    	Order order = mapper.selectOrder(no);
+    	
+		// 날짜 생성
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+		String payDate = dateFormat.format(new Date()); // 현재 날짜
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.YEAR, 1); // 현재 날짜에 1년을 더함
+		String payDateYear = dateFormat.format(calendar.getTime());
+    	
+    	// 적립된 포인트 적립금 조회
+    	String selectGainPoint = mapper.selectPoint(order.getPointNoGain());
+    	
+    	// 적립된 포인트 반환 내역 추가
+		Point gainResetPoint = new Point();
+		gainResetPoint.setMemberNo(order.getMemberNo());
+		gainResetPoint.setPointSort("C");
+		gainResetPoint.setPointAmount(Long.parseLong(selectGainPoint));
+		gainResetPoint.setPointDate(payDate);
+		gainResetPoint.setPointContent("주문취소로 인한 적립 취소");
+		gainResetPoint.setOrderNo(order.getOrderNo());
+		// 적립된 포인트 반환 내역 삽입	
+		int gprResult = mapper.insertResetGainPoint(gainResetPoint);
+    	if(gprResult == 0) { // 실패 처리
+    		result = 0;
+    	}
+		// 사용된 포인트가 있을 경우 적립금 조회
+    	String selectUsePoint = "";
+    	if(order.getPointNoUse() != 0) {
+    		selectUsePoint = mapper.selectPoint(order.getPointNoUse());
+    		
+    		// 사용된 포인트 반환 내역 추가
+    		Point useResetPoint = new Point();
+    		useResetPoint.setMemberNo(order.getMemberNo());
+    		useResetPoint.setPointSort("C");
+    		useResetPoint.setPointAmount(Long.parseLong(selectUsePoint));
+    		useResetPoint.setPointDate(payDate);
+    		useResetPoint.setPointDueDate(payDateYear);
+    		useResetPoint.setPointContent("주문취소로 인한 사용 취소");
+    		useResetPoint.setOrderNo(order.getOrderNo());
+    		// 사용된 포인트 반환 내역 삽입	
+    		int uprResult = mapper.insertResetUsePoint(useResetPoint);
+    		if(uprResult == 0) { // 실패 처리
+        		result = 0;
+        	}
+    	}
+    	
+    	order.setPointNoGain(Long.parseLong(selectUsePoint));
+    	order.setPointNoUse(Long.parseLong(selectGainPoint));
+    	
+    	// 회원 적립금, 누적구매액 최신화
+		int umResult = mapper.updateMemberPTP(order);
+		if(umResult == 0) { // 실패시 처리
+			return result;
+		}
+    	
+    	// 회원 등급 최신화(누적구매액 기준)
+		long memberNo = order.getMemberNo(); // 주문한 회원번호
+		// 누적구매액 조회
+		int totalpay = mapper.selectTotalPay(memberNo);
+		
+		// 회원 등급 판단
+		String grade = "";
+		if (totalpay < 100000) {
+		  grade = "B"; // 브론즈
+		} else if (totalpay < 1000000) {
+		  grade = "S"; // 실버
+		} else if (totalpay < 5000000) {
+		  grade = "G"; // 골드
+		} else {
+		  grade = "D"; // 다이아
+		}
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		member.setMemberGrade(grade);
+		// 회원 등급 업데이트
+		int upGrade = mapper.updateGrade(member);
+		if(upGrade == 0) { // 실패시 처리
+			return result;
+		}
+    	
+    	result = 1; // 모두 성공시
+    	
+    	return result;
+    }
+    
+    // 오늘 주문현황조회
+    @Override
+    public List<Map<String, String>> selectTodayOrderState() {
+    	return mapper.selectTodayOrderState();
+    }
+    
+    // 오늘 주문목록조회
+    @Override
+    public List<Map<String, Object>> selectTodayOrderList() {
+    	
+    	List<Order> orders = mapper.selectTodayOrder();
+    	
+    	List<Map<String, Object>> orderMaps = new ArrayList<>();
+    	
+    	for(Order order : orders) {
+    		OrderProduct orderProduct = mapper2.selectOrderProduct(order.getOrderNo());
+			if(orderProduct != null) {
+				Map<String, Object> orderMap = new HashMap<>();
+				
+				orderProduct.setProduct(mapper2.selectProduct(orderProduct.getProductNo()));
+				orderProduct.setOption(mapper2.selectOption(orderProduct.getOptionNo()));
+				
+				orderMap.put("orderProduct", orderProduct);
+				orderMap.put("order", order);
+				orderMaps.add(orderMap);
+			}
+    	}
+    	
+    	return orderMaps;
+    }
+    
 }

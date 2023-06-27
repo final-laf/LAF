@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/member/findPw.css}">
+  <title>LAF :: 비밀번호 찾기</title>
+</head>
+<body>
+
+  <th:block th:replace="~{/common/header}"></th:block>
+  <th:block th:replace="~{/common/nav}"></th:block>
+  
+  <main>
+    <!-- 섹션 헤더(제목, 설명) -->
+    <div class="section-header">
+      <div class="section-title">비밀번호 찾기</div>
+    </div>
+
+    <form action="/findpw" method="post">
+      <div class="findnPw-area">
+        <div class="findPw-box">
+          <div>
+            <div>아이디</div><div><input name="memberId" required></div>
+          </div>
+          <div>
+            <div>이메일주소</div><div><input type="email" name="memberEmail" required></div>
+          </div>  
+          <div>
+            <button class="button submit findPw-button">확인</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+  </main>
+
+  <th:block th:replace="~{/common/footer}"></th:block>
+</body>
+</html>

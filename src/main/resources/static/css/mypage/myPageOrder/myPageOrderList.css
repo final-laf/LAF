@@ -34,9 +34,10 @@ main {
 }
 #dateFilterBtn {
   display: flex;
+  margin-left: 30px;
 }
 #dateFilterBtn > li {
-  width: 40px;
+  width: 60px;
   height: 27px;
   
   background-color: #eee;
@@ -65,11 +66,9 @@ main {
   display: flex;
   align-items: center;
 }
-#dateFilter > input:first-child {
-  margin-right: 2px;
-}
-#dateFilter > input:last-child {
-  margin-left: 2px;
+#dateFilter input {
+  width: 130px;
+  margin: 0 10px;
 }
 #orderFilterInfo > p {
   font-size: 1.2rem;
@@ -196,4 +195,9 @@ td {
 }
 .item-choose > button:first-child {
   margin-bottom: 2px;
+}
+
+#orderNum{
+  font-size: 1rem;
+  letter-spacing: -0.5px;
 }

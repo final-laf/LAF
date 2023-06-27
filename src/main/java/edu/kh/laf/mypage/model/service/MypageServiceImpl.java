@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.board.model.dto.Qna;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
@@ -19,6 +20,7 @@ import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
+import edu.kh.laf.product.model.dto.Product;
 
 @Service
 public class MypageServiceImpl implements MypageService {
@@ -33,7 +35,7 @@ public class MypageServiceImpl implements MypageService {
 	// ---------------------------- MyPage Dashboard ---------------------------- 
 	
 	
-	// 로그인 멤버의 주문 조회
+	// 로그인 멤버의 3개월 주문 조회
 	@Override
 	public List<Order> selectMyPageOrderList(Member loginMember) {
 		return mapper.selectMyPageOrderList(loginMember);
@@ -90,33 +92,102 @@ public class MypageServiceImpl implements MypageService {
 		return mapper.deleteMember(memberNo);
 	}
 	
+	// 배송지정보조회
+	@Override
+	public List<Address> selectAddressList(Long memberNo) {
+		return mapper.selectAddressList(memberNo);
+	}
+	
 	// 배송지 등록
 	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public int insertAddress(Address address) {
-		return mapper.insertAddress(address);
+		
+		int result = 0;
+		// address.addressDefaultFl() 값이 있는 경우, 없는 경우
+		if(address.getAddressDefaultFL() != null) {
+			if(address.getAddressDefaultFL().equals("Y")) {
+				// 기존의 기본 배송지가 있는 경우
+				Address existingAddress = mapper.selectDefaultAddress(address.getMemberNo());
+				if(existingAddress != null) {
+					mapper.updateDefaultAddress(existingAddress.getAddressNo()); // 기존의 기본배송지를 N으로 변경
+				}
+			}
+		}
+		result = mapper.insertAddress(address);
+		return result;
 	}
 
+	// 배송지 삭제
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int deleteAddress(String[] addressNo) {
+		return mapper.deleteAddress(addressNo);
+	}
+	
+	// 배송지 수정
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int updateAddress(Address inputaddress) {
+
+		int result = 0;
+		// address.addressDefaultFl() 값이 있는 경우, 없는 경우
+		if(inputaddress.getAddressDefaultFL() != null) {
+			if(inputaddress.getAddressDefaultFL().equals("Y")) {
+				// 기존의 기본 배송지가 있는 경우
+				Address existingAddress = mapper.selectDefaultAddress(inputaddress.getMemberNo());
+				if(existingAddress != null) {
+					mapper.updateDefaultAddress(existingAddress.getAddressNo()); // 기존의 기본배송지를 N으로 변경
+				}
+			}
+		}
+		result = mapper.updateAddress(inputaddress);
+		return result;
+	}
 
 	
 	// ---------------------------- MyPage Order ---------------------------- 
 	
+	// 기간별 주문목록 조회
+	@Override
+	public Map<String, Object> selectSearchOrderList(Map<String, Object> paramMap) {
+		
+		int listCount = mapper.getOrderListCount(paramMap); // 기간내 주문목록개수
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		// 기간내 주문목록
+		List<Order> orders = mapper.selectSearchOrderList(paramMap, rowBounds);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("pagination", pagination);
+		resultMap.put("orders", orders);
+		
+		return resultMap;
+	}
+	
 	// 주문 상품 조회
 	@Override
-	public List<OrderProduct> selectOrderProducts(List<Order> orders) {
+	public List<Map<String, Object>> selectOrderProducts(List<Order> orders) {
 		
-		List<OrderProduct> OrderProducts = new ArrayList<>();
+		List<Map<String, Object>> orderMaps = new ArrayList<>();
 		
 		for(Order order : orders) {
-			OrderProduct OrderProduct = mapper.selectOrderProduct(order.getOrderNo());
-			if(OrderProduct != null) {
-			OrderProduct.setProduct(mapper.selectProduct(OrderProduct.getProductNo()));
-			OrderProduct.setOption(mapper.selectOption(OrderProduct.getOptionNo()));
-			OrderProducts.add(OrderProduct);
+			OrderProduct orderProduct = mapper.selectOrderProduct(order.getOrderNo());
+			if(orderProduct != null) {
+				Map<String, Object> orderMap = new HashMap<>();
+				
+				orderProduct.setProduct(mapper.selectProduct(orderProduct.getProductNo()));
+				orderProduct.setOption(mapper.selectOption(orderProduct.getOptionNo()));
+				
+				orderMap.put("orderProduct", orderProduct);
+				orderMap.put("order", order);
+				orderMaps.add(orderMap);
 			}
 		}
 		
-		return null;
+		return orderMaps;
 	}
 
 	
@@ -213,11 +284,10 @@ public class MypageServiceImpl implements MypageService {
 
 
 
-	// 배송지정보조회
-	@Override
-	public List<Address> selectAddressList(Long memberNo) {
-		return mapper.selectAddressList(memberNo);
-	}
+
+
+
+
 
 
 

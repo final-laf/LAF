@@ -1,0 +1,45 @@
+.findnPw-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.findPw-box {
+    width: 250px;
+}
+
+.findPw-box > div {
+    width: 100%;
+    margin: 15px 0px;
+}
+
+.findPw-box > div > div {
+    width: 100%;
+}
+
+.findPw-box > div > div:first-child {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.findPw-box > div > div:last-child {
+    width: 100%;
+    text-align: right;
+}
+
+.findPw-box > div > div:last-child > input {
+    width: 100%;
+    height: 35px;
+}
+
+.findPw-box > div:last-child {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.findPw-box > div:last-child > button{
+    width: 120px;
+}
+

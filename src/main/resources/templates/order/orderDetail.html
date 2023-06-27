@@ -124,9 +124,14 @@
             <td th:text="*{orderRecvRequire} ? *{orderRecvRequire} : '없음'">요청사항</td>
           </tr>
         </table>
-      <div th:if="${session.loginMember}" class="orderDetail-shipping-shippinglist">
-        <button id="orderListBtn">주문목록보기</button>
-      </div>
+        <div class="orderBtn">
+          <div th:if="${order.orderState == 'A' or order.orderState == 'B' or order.orderState == 'C'}">
+            <button id="cancleBtn">주문취소</button>
+          </div>
+          <div th:if="${session.loginMember}" class="orderDetail-shipping-shippinglist">
+            <button id="orderListBtn">주문목록보기</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>

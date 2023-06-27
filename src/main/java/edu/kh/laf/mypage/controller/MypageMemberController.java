@@ -210,7 +210,6 @@ public class MypageMemberController {
 	public String addAddress(@SessionAttribute("loginMember") Member loginMember
 							,Address inputaddress
 							,String[] address
-							,Model model
 							,RedirectAttributes ra) {
 		
 		// 배송지 등록
@@ -230,6 +229,52 @@ public class MypageMemberController {
 		return "redirect:/myPage/shipping";
 	}
 	
+	// 배송지 관리 : 배송지 삭제
+	@PostMapping("/myPage/shipping/delete")
+	public String deleteAddress(@SessionAttribute("loginMember") Member loginMember
+								,String[] addressNo
+								,RedirectAttributes ra) {
+		// 해당 배송지 번호를 받아와 배송지 삭제
+		int result;
+		// 배송지번호가 null값인 경우 걸러내기
+		if(addressNo == null) {
+			result = 0;
+		} else {
+			result = service.deleteAddress(addressNo);
+		}
+		
+		String message;
+		if(result > 0) message = "선택한 배송지를 삭제 완료";
+		else 		   message = "선택된 배송지 삭제 실패";
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/myPage/shipping";
+	}
+	
+	// 배송지 관리 : 배송지 수정
+	@PostMapping("/myPage/shipping/modify")
+	public String modifyAddress(@SessionAttribute("loginMember") Member loginMember
+								,Address inputaddress
+								,String[] address
+								,RedirectAttributes ra) {
+		
+		// 배송지 수정
+		// 주소값에 구분자 추가
+		String addr = String.join("^^^", address);
+		// 입력한 배송지값에 구분자를 추가한 주소값과 로그인 멤버의 memberNo 추가
+		inputaddress.setAddress(addr);
+		inputaddress.setMemberNo(loginMember.getMemberNo());
+		
+
+		int result = service.updateAddress(inputaddress);
+		
+		String message;
+		if(result > 0) message = "배송지 수정 완료";
+		else 		   message = "배송지 수정 실패";
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/myPage/shipping";
+	}
 	
 	
 	

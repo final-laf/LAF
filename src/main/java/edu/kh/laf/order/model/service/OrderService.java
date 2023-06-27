@@ -100,5 +100,27 @@ public interface OrderService {
 	 */
 	int productDc(List<OrderProduct> odpList);
 
+	/** 주문취소 서비스
+	 * @param no
+	 * @return
+	 */
+	int updateOrder(int no);
+
+	/** 포인트 취소 서비스
+	 * @param no
+	 * @return
+	 */
+	int updatePoint(int no);
+
+	/** 오늘 주문현황조회
+	 * @return
+	 */
+	List<Map<String, String>> selectTodayOrderState();
+
+	/** 오늘 주문목록조회
+	 * @return
+	 */
+	List<Map<String, Object>> selectTodayOrderList();
+
 
 }

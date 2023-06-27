@@ -150,3 +150,26 @@ UPDATE `order` SET point_no_gain = 2, point_no_use = 3 WHERE order_no = 2;
 UPDATE `member`SET member_point = member_point + 20 - 20, member_totalpay = member_totalpay + 20  WHERE member_no = 2;
 
 ROLLBACK;
+
+
+-- 주문취소
+-- 주문상태업데이트
+UPDATE `order`
+SET order_state = 'G'
+WHERE order_no = 88
+;
+
+-- 주문상품목록업데이트(삭제)
+UPDATE order_product
+SET order_product_delete_fl = 'Y'
+WHERE order_no = 88
+;
+
+SELECT * FROM `point` ORDER BY point_no DESC;
+SELECT * FROM `order` ORDER BY order_no DESC;
+SELECT * FROM `order` WHERE str_to_date(order_date,'%Y%m%d%') = str_to_date(now(),'%Y%m%d%');
+COMMIT;
+SELECT COUNT(order_state) FROM `order` WHERE DATE(order_date) = CURDATE() GROUP BY order_state;
+
+SELECT * FROM `member`;
+
