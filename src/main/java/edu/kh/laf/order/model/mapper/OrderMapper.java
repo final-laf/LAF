@@ -112,4 +112,10 @@ public interface OrderMapper {
 	// 사용된 포인트 반환 내역 삽입	
 	public int insertResetUsePoint(Point useResetPoint);
 
+	// 오늘 주문현황조회
+	public List<Map<String, String>> selectTodayOrderState();
+
+	// 오늘 주문조회
+	public List<Order> selectTodayOrder();
+
 }

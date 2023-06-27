@@ -54,4 +54,11 @@ public interface OptionMapper {
 	 * @return stockList
 	 */
 	List<Map<String, Object>> selectStockListBySeveralKeys(List<Product> productList);
+
+	/**
+	 * 상품 등록 중 옵션 정보 등록
+	 * @param optionList
+	 * @return result
+	 */
+	int insertOptionList(List<Option> optionList);
 }

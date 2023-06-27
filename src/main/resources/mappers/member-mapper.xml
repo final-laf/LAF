@@ -95,6 +95,56 @@
 		WHERE member_phone = #{memberPhone}
 		AND order_uno = #{orderUno}
 	</select>
-  	
+	
+	<!--전체 회원의 수 조회(관리자-회원관리)-->
+	<select id="getAllMemberCount" resultType="_int">
+		SELECT count(*) FROM `member`
+		WHERE member_not = "N"
+		<if test="qk != null and qk.equals('all')">AND (member_name LIKE '%${query}%' OR member_id LIKE '%${query}%' OR member_email LIKE '%${query}%') </if>
+		<if test="qk != null and qk.equals('name')"> AND member_name LIKE '%${query}%' </if>
+		<if test="qk != null and qk.equals('id')"> AND member_id LIKE '%${query}%'</if>
+		<if test="qk != null and qk.equals('email')"> AND member_email LIKE '%${query}%' </if>
+	</select>
+	
+	<!--전체 회원 조회(관리자-회원관리)-->
+	<select id="selectAllMemberList" resultType="Member">
+		SELECT member_no, member_id, member_name, member_email, member_grade, member_del_fl, member_point, member_enroll_date 
+		FROM `member`
+		WHERE member_not = "N"
+		<if test="qk != null and qk.equals('all')">AND (member_name LIKE '%${query}%' OR member_id LIKE '%${query}%' OR member_email LIKE '%${query}%') </if>
+		<if test="qk != null and qk.equals('name')"> AND member_name LIKE '%${query}%' </if>
+		<if test="qk != null and qk.equals('id')"> AND member_id LIKE '%${query}%'</if>
+		<if test="qk != null and qk.equals('email')"> AND member_email LIKE '%${query}%' </if>
+		ORDER BY member_enroll_date DESC
+	</select>
+	
+	<!--회원번호로 회원 정보 조회(관리자-회원관리-회원관리상세. 비동기)-->
+  	<select id="selectMemberDetail" resultType="Member">
+		SELECT member_no, member_name, member_social, DATE_FORMAT(member_enroll_date, "%Y-%m-%d") member_enroll_date, 
+	 		   member_del_fl, member_grade, member_id, DATE_FORMAT(member_birth, "%Y-%m-%d") member_birth, member_address
+		FROM `member`
+		WHERE member_no = #{memberNo};
+	</select>
+	
+	<!--회원번호로 회원 기본배송지 조회(관리자-회원관리-회원관리상세. 비동기)-->
+	<select id="selectMemberDetailDefaultAddress">
+		SELECT address FROM `address`
+		WHERE address_default_fl = "Y"
+		AND member_no = #{memberNo}
+	</select>
+	
+	<!--회원번호로 주문 개수 조회(관리자-회원관리-회원상세, 비동기)-->
+	<select id="getOrderListCount" resultType="_int">
+		SELECT count(*) FROM `order` WHERE member_no = #{memberNo}
+	</select>
+	
+	
+	<!--회원번호로 페이지리스트가 적용된 주문 조회(관리자-회원관리-회원상세, 비동기)-->
+	<select id="selectAllOrderList">
+		SELECT order_no, DATE_FORMAT(order_date, "%Y-%m-%d") order_date ,order_uno, order_total_price, order_payment, order_state
+		FROM `order` WHERE member_no = #{memberNo}
+	</select>
+
+	
 </mapper>
 

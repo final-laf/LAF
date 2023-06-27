@@ -6,10 +6,83 @@ const selectedMembers = document.getElementsByClassName("selected-member")
 for(let member of selectedMembers) {
 
   /* 회원 목록에서 한 회원 클릭시 */
-  member.addEventListener('click', () => {
-    modal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
-  });
+member.addEventListener('click', e => {
+    // 회원 정보 불러오기
+    const memberNo = e.target.getAttribute("memberNo");
+    fetch("/admin/member/memberdetail?memberNo=" + memberNo)
+    .then(response => response.json()) 
+    .then(member => {
+    let memberSocial;
+    if (member.memberSocial == "N") memberSocial = "카카오 회원 가입"
+    else                            memberSocial = "일반 회원 가입"
+    let memberDelFl;
+    if (member.memberDelFL == "Y") memberDelFl = "탈퇴 회원"
+    else                           memberDelFl = "일반 회원"
+    let memberGrade
+    switch(member.memberGrade) {
+        case "B" : memberGrade = "브론즈"; break;
+        case "S" : memberGrade = "실버"; break;
+        case "G" : memberGrade = "골드"; break;
+        case "D" : memberGrade = "다이아"; break;
+        default : break;
+    }
+    let memberAddress;
+    if(member.memberAddress != null){
+        const arr = member.memberAddress.split("^^^");
+        memberAddress = arr.join(" ").substring(5);
+    }
+
+    document.getElementById("selectedMemberName").innerText = member.memberName;
+    document.getElementById("selectedMemberInvironment").innerText= memberSocial;
+    document.getElementById("selectedMemberEnrollDate").innerText= member.memberEnrollDate;
+    document.getElementById("selectedMemberStatus").innerText= memberDelFl;
+    document.getElementById("selectedMemberGrade").innerText= memberGrade;
+    document.getElementById("selectedMemberId").innerText = member.memberId;
+    document.getElementById("selectedMemberBirth").innerText = member.memberBirth;
+    document.getElementById("selectedMemberAddress").innerText = memberAddress;
+
+    }) 
+    .catch (e => { console.log(e)}); 
+    
+    
+    // 회원 기본 배송지 불러오기
+    fetch("/admin/member/defaultAddress?memberNo=" + memberNo)
+    .then(response => response.text()) 
+    .then(address => {
+    let memberdetailDefaultAddress;
+    if(address == "N") {memberdetailDefaultAddress = "";}
+    else {
+          const arr = address.split("^^^");
+          memberdetailDefaultAddress = arr.join(" ").substring(5);
+        }
+        document.getElementById("selectedMemberDefaultAddress").innerText = memberdetailDefaultAddress       
+      }) 
+    .catch (e => { console.log(e)}); 
+
+
+  // 주문 내역 불러오기
+  fetch("/admin/member/memberOrderList?memberNo=" + memberNo)
+  .then(response => response.json()) 
+  .then(resultMap => {
+    for(let order of resultMap.orderList){
+      // tr생성
+      const newRow = document.createElement("tr");
+      // 네 번째 td 요소 생성
+      const orderNoCell = document.createElement("td");
+      orderNoCell.innerText = order.orderNo;
+      newRow.appendChild(orderNoCell);
+      const table = document.querySelector('.member-modal-orderlist-table>tbody'); 
+      table.append(newRow);
+  }
+
+    }) 
+  .catch (e => { console.log(e)}); 
+
+
+  modal.style.display = "flex";
+  document.body.style.overflowY = "hidden";
+
+});
 
 };
     

@@ -7,17 +7,17 @@
     
     <tr>
       <td class="enroll-table-header table-header thumbnail">썸네일 이미지</td>
-      <td class="enroll-table-header table-header">상품명</td>
+      <td class="enroll-table-header table-header" required>상품명</td>
       <td><input id="productName" name="productName" type="text" placeholder="상품명을 입력해주세요 (최대 100자)" maxlength="100"></td>
     </tr>
 
     <tr>
       <td rowspan="5" class="enroll-thumbnail">
-        <img th:src="@{/images/common/no-image.png}">
+        <img id="thumbnailImagePreview" th:src="@{/images/common/no-image.png}">
       </td>
       <td rowspan="2" class="enroll-table-header table-header">카테고리</td>
       <td id="enrollCategory">
-        <select class="select-category" id="detailParentCategory" name="pc">
+        <select class="select-category" id="detailParentCategory">
           <option name="pc" value="">1차 분류</option>
           <option name="pc" 
             th:each="category : ${categoryList}"
@@ -26,7 +26,7 @@
             th:text="${category.categoryName}">부모 카테고리 이름</option>
         </select>
 
-        <select class="select-category" id="detailChildCategory" name="cc" disabled>
+        <select class="select-category" id="detailChildCategory" disabled>
           <option name="cc" value="">2차 분류</option>
           <option name="pc"
             th:each="category : ${categoryList}"
@@ -46,7 +46,7 @@
     <tr>
       <td rowspan="3" class="enroll-table-header table-header">가격</td>
       <td class="enroll-price">
-        <span>판매가</span><input name="productPrice" type="text">원
+        <span>판매가</span><input name="productPrice" type="text" required>원<span class="info alert100 hidden">※ 100원 이하는 자동 절삭됩니다</span>
       </td>
     </tr>
 
@@ -58,19 +58,20 @@
 
     <tr>
       <td class="enroll-price">
-        <span>최종할인가</span><input name="productSalePrice" type="text" th:value="${0}" disabled>원
+        <span>최종할인가</span><input name="productSalePrice" type="text"  placeholder="0" readonly required>원
         <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(100원 단위 절삭)</span>
       </td>
     </tr>
 
     <tr>
       <td class="enroll-img-btn">
-        <button id="enrollImgBtn" type="button">파일 업로드</button>
+        <button id="enrollImgBtn" type="button">파일업로드</button>
+        <input type="file" name="thumbnail" id="thumbnailPath" accept="image/*">
         <button id="deleteImgBtn" type="button">삭제</button>
       </td>
       <td class="enroll-table-header table-header">적립금</td>
       <td class="enroll-point">
-        <input type="text" name="productPoint" th:value="${0}" disabled>원
+        <input type="text" name="productPoint" placeholder="0" readonly required>원
         <label><input class="checkbox" type="checkbox" checked>자동계산</label><span class="info">(최종할인가의 1%)</span>
       </td>
     </tr>
@@ -85,26 +86,18 @@
   <table class="enroll-middle-table">
     <tr>
       <td class="middle-table-checkbox"><input class="option-checkbox all" type="checkbox"></td>
-      <td class="middle-table-size">사이즈</td>
+      <td class="middle-table-size">사이즈 (<input type="checkbox" id="oneSizeCheckbox"> 원사이즈)</td>
       <td class="middle-table-color">색상</td>
       <td class="middle-table-stock">재고</td>
       <td class="middle-table-palce">재고 실 위치</td>
-      <td class="middle-table-state">판매상태</td>
     </tr>
     
     <tr>
       <td><input class="option-checkbox" type="checkbox"></td>
-      <td><input name="size" type="text"></td>
+      <td><input name="size" type="text" required></td>
       <td><input name="color" type="text" required></td>
-      <td><input name="stock" type="text"></td>
-      <td><input name="location" type="text"></td>
-      <td>
-        <select name="productState">
-          <option value="O">판매중</option>
-          <option value="S">품절</option>
-          <option value="N" selected>비공개</option>
-        </select>
-      </td>
+      <td><input name="stock" type="text" required></td>
+      <td><input name="location" type="text" value=" "></td>
     </tr>
   </table>
 
@@ -115,14 +108,15 @@
         <div>
           <span>상세 이미지</span>
           <button id="uploadDetailImgBtn" type="button">파일업로드</button>
+          <input type="file" name="images" id="detailImgInput" multiple="multiple">
         </div>
       </td>
-      <!-- <td>상세 설명</td> -->
     </tr>
 
-    <tr>
-      <td id="noDetailImg">업로드한 이미지가 없습니다</td>
+    <tr id="detailImgNameTr">
+      <td id="noDetailImgInfo">업로드한 이미지가 없습니다</td>
     </tr>
+    <tr id="detailImgTr"></tr>
   </table>
 </div>
 

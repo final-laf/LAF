@@ -22,7 +22,13 @@
           <span class="order-current-title">주문 현황</span>
         </div>
         <div class="order-table">
-          <span>오늘 주문 현황</span>
+          <div>
+            <span>오늘 주문 현황</span>
+            <div id="reflesh">
+              <img th:src="@{/images/common/reflesh.svg}">
+              <span>새로고침</span>
+            </div>
+          </div>
           <table>
             <tr>
               <td>주문접수</td>
@@ -38,7 +44,7 @@
               <td>반품중</td>
               <td>반품완료</td>
             </tr>
-            <tr>
+            <tr id="orderState">
               <td>0개</td>
               <td>0개</td>
               <td>0개</td>
@@ -56,11 +62,20 @@
         </div>
         <div class="recent-order-list">
           <div class="recent-order-table-title">
-            <div>최신 주문 목록 (최근 7일 이내)</div>
+            <div>
+              <span>오늘 주문 목록</span>
+              <div id="bTreflesh">
+                <img th:src="@{/images/common/reflesh.svg}">
+                <span>새로고침</span>
+              </div>
+            </div>
             <div><button type="button">일괄수정</button></div>
           </div>
           <table class="recent-order-table">
             <tr>
+              <td>
+                <input type="checkbox" name="" id="">
+              </td>
               <td>
                 <p>주문일자</p>
                 <p>[주문번호]</p>
@@ -71,86 +86,6 @@
               <td>상품구매금액</td>
               <td>주문처리상태</td>
             </tr>
-            <tr class="order-modal-row">
-              <td>
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
-              </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
-              <td>
-                <p>[LAF추천/2장돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
-              </td>
-              <td>1</td>
-              <td>33,000원</td>
-              <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
-              </td>
-            </tr>
-            <tr class="order-modal-row">
-              <td>
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
-              </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
-              <td>
-                <p>[LAF추천/2장돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
-              </td>
-              <td>1</td>
-              <td>33,000원</td>
-              <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
-              </td>
-            </tr>
-            <tr class="order-modal-row">
-              <td>
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
-              </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
-              <td>
-                <p>[LAF추천/2장돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
-              </td>
-              <td>1</td>
-              <td>33,000원</td>
-              <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
-              </td>
-            </tr>
-            <tr class="order-modal-row">
-              <td>
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
-              </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
-              <td>
-                <p>[LAF추천/2장돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
-              </td>
-              <td>1</td>
-              <td>33,000원</td>
-              <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
-              </td>
-            </tr>
           </table>
         </div>
       </div>
@@ -158,5 +93,6 @@
     <th:block th:replace="~{admin/adminOrder/orderModal}"></th:block>
   </main>
 
+  <script th:src="@{/js/admin/adminOrder/orderCurrent.js}"></script>
 </body>
 </html>

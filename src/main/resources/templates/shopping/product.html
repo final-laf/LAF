@@ -143,7 +143,8 @@
         <a href="#productReivew"><div class="sub-category">리뷰</div></a>
       </div>
 
-      <img src="/images/prouduct/detail/1.png">
+      <!-- 상세 이미지 -->
+      <img th:each="img : ${productImageList}" th:src="${img.imgPath}">
     </section>
 
     <!-- 리뷰 -->
