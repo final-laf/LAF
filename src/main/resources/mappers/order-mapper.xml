@@ -321,6 +321,7 @@
 		SELECT *
 		FROM `order`
 		WHERE DATE(order_date) = CURDATE()
+		ORDER BY order_no DESC
 	</select>
 	
 	

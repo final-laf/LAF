@@ -30,9 +30,6 @@
   top: 50%;
   left: 50%;
 
-  width: 1280px;
-  height: 500;
-
   padding: 40px;
 
   text-align: left;
@@ -63,7 +60,10 @@
 }
   
 .order-enroll-title {
-  padding: 0 0 0 0 !important;
+  display: flex;
+  justify-content: center;
+  
+  margin-bottom: 20px;
 }
 
 .order-enroll-title > span {

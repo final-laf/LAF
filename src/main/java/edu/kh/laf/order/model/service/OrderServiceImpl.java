@@ -528,19 +528,26 @@ public class OrderServiceImpl implements OrderService{
     	List<Map<String, Object>> orderMaps = new ArrayList<>();
     	
     	for(Order order : orders) {
-    		OrderProduct orderProduct = mapper2.selectOrderProduct(order.getOrderNo());
-			if(orderProduct != null) {
-				Map<String, Object> orderMap = new HashMap<>();
-				
-				orderProduct.setProduct(mapper2.selectProduct(orderProduct.getProductNo()));
-				orderProduct.setOption(mapper2.selectOption(orderProduct.getOptionNo()));
-				
-				orderMap.put("orderProduct", orderProduct);
-				orderMap.put("order", order);
-				orderMaps.add(orderMap);
-			}
+    		int no = (int) order.getOrderNo();
+        	// 주문한 상품목록조회
+        	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
+        	// 상품, 옵션, 수량정보 담기
+        	for(OrderProduct odp : odpList) {
+        		// 상품정보조회
+        		Product product = mapper.selectOrderProduct(odp.getProductNo());
+        		odp.setProduct(product);
+        		// 옵션정보조회
+        		Option option = new Option();
+        		option.setProductNo(odp.getProductNo());
+        		option.setOptionNo(odp.getOptionNo());
+        		option = mapper.selectOrderProductOption(option);
+        		odp.setOption(option);
+        	}
+        	Map<String, Object> orderMap = new HashMap<>();
+			orderMap.put("odpList", odpList);
+			orderMap.put("order", order);
+			orderMaps.add(orderMap);
     	}
-    	
     	return orderMaps;
     }
     

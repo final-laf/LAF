@@ -14,19 +14,30 @@
         <table>
           <tr>
             <th width="170px">주문번호</th>
-            <td>156343-14654456</td>
-          </tr>
-          <tr>
-            <th>주문일자</th>
-            <td>2023-05-31 18:03:20</td>
-          </tr>
-          <tr>
-            <th>주문자</th>
-            <td>ㅇㅇㅇ</td>
+            <td width="300px" id="modalOrderUno">156343-14654456</td>
+            <th width="170px">주문일자</th>
+            <td id="modalOrderDate">2023-05-31 18:03:20</td>
           </tr>
           <tr>
             <th>주문처리상태</th>
-            <td>배송전</td>
+            <td width="300px" id="modalOrderState">주문처리상태</td>
+            <th width="170px">주문상태수정</th>
+            <td>
+              <select>
+                <option>주문접수</option>
+                <option>결제확인</option>
+                <option>상품준비</option>
+                <option>출고완료</option>
+                <option>배송중</option>
+                <option>배송완료</option>
+                <option>취소중</option>
+                <option>취소완료</option>
+                <option>교환중</option>
+                <option>교환완료</option>
+                <option>반품중</option>
+                <option>반품완료</option>
+              </select>
+            </td>
           </tr>
         </table>
         <!-- 결제 정보 -->
@@ -34,63 +45,23 @@
         <table class="orderDetail-order-payment">
           <tr>
             <th width="170px">총 주문금액</th>
-            <td>35,500</td>
-          </tr>
-          <tr>
-            <th>총 결제금액</th>
-            <td>35,500</td>
+            <td width="300px" id="modalTotalPrice">35,500</td>
+            <th width="170px">총 결제금액</th>
+            <td id="modalPayment">35,500</td>
           </tr>
           <tr>
             <th>결제수단</th>
-            <td>ㅇㅇㅇ</td>
+            <td id="modalPaymentMethod">결제수단/은행</td>
           </tr>
         </table>
         <!-- 주문 상품 정보 -->
         <div>주문 상품 정보</div>
         <table class="orderDetail-order-info">
           <tr>
-            <th width="70px">이미지</th>
-            <th width="600px">상품정보</th>
-            <th width="30px">수량</th>
-            <th width="80px">상품구매금액</th>
-            <th width="100px">주문처리상태</th>
-            <th width="100px">취소/교환/반품</th>
-          </tr>
-          <tr>
-            <td width="70px"><img width="70px" src="/images/prouduct/thumbnail/1.gif" alt=""></td>
-            <td>[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color</td>
-            <td>1</td>
-            <td>35,500</td>
-            <td>
-              <select name="orderStatusKey" id="orderStatusKey">
-                <option value="orderCompleted">주문 접수</option>
-                <option value="paymentCompleted">결제 확인</option>
-                <option value="orderReady">상품 준비</option>
-                <option value="releaseCompleted">출고 완료</option>
-                <option value="shipping">배송중</option>
-                <option value="shippingCompleted">배송 완료</option>
-              </select>
-            </td>
-            <td>
-              <select name="orderStatusOddKey" id="orderStatusOddKey">
-                <option value="cancel">취소중</option>
-                <option value="cancelCompleted">취소 완료</option>
-                <option value="change">교환중</option>
-                <option value="changeCompleted">교환 완료</option>
-                <option value="return">반품중</option>
-                <option value="retuurnCompleted">반품 완료</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th colspan="6">
-              <div>
-                <div>상품 구매금액 33,000 </div><div>+</div>
-                <div>배송비 2,500 </div><div>= 합계 :</div> 
-                <div>35,500</div>
-              </div>
-
-            </th>
+            <th width="90px">이미지</th>
+            <th width="450px">상품정보</th>
+            <th width="60px">수량</th>
+            <th width="100px">상품구매금액</th>
           </tr>
         </table>
         <!-- 배송지 정보 -->
@@ -98,23 +69,19 @@
         <table class="mypageDetail-order-shipping">
           <tr>
             <th>받으시는분</th>
-            <td>ㅇㅇㅇ</td>
-          </tr>
-          <tr>
-            <th>우편번호</th>
-            <td>12345</td>
+            <td id="modalOrderRecvName">받으시는분이름</td>
+            <th>휴대전화</th>
+            <td id="modalOrderRecvPhone">휴대전화</td>
           </tr>
           <tr>
             <th>주소</th>
-            <td>서울시 강남콩 카라라라 빌라 123-1234</td>
-          </tr>
-          <tr>
-            <th>휴대전화</th>
-            <td>010-1234-1234</td>
+            <td id="modalAdd">서울시 강남콩 카라라라 빌라 123-1234</td>
+            <th>우편번호</th>
+            <td id="modalAddNo">12345</td>
           </tr>
           <tr>
             <th>배송메시지</th>
-            <td>문앞에 놔둬주세요</td>
+            <td id="modalOrderRecvRequire">없음</td>
           </tr>
         </table>
         <div class="order-modify-btn-area">
@@ -125,48 +92,3 @@
     </div>
   </div>
 </div>
-<script>
-  /* 주문 상세 모달 */
-const orderModal = document.getElementById("orderModalOverlay")
-const selectedOrders = document.getElementsByClassName("order-modal-row")
-
-
-for(let order of selectedOrders) {
-
-    /* 주문 목록에서 한 주문 클릭시 */
-    order.addEventListener('click', () => {
-        console.log("왜안돼")
-        orderModal.style.display = "flex";
-        document.body.style.overflowY = "hidden";
-    }); 
-
-};
-
-
-/* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
-orderModal.addEventListener("click", e => {
-    const evTarget = e.target
-    if(evTarget.classList.contains("order-modal-overlay")) {
-        orderModal.style.display = "none";
-        document.body.style.removeProperty('overflow');
-    }
-});
-
-
-/* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
-window.addEventListener("keyup", e => {
-    if(orderModal.style.display === "flex" && e.key === "Escape") {
-        orderModal.style.display = "none"
-        document.body.style.removeProperty('overflow');
-    }
-});
-
-
-/* 모달창 내부 닫기 버튼 */
-const orderModalClose = document.getElementsByClassName("order-modal-close")[0];
-orderModalClose.addEventListener("click", e => {
-    orderModal.style.display = "none";
-    document.body.style.removeProperty('overflow');
-});
-
-</script>
