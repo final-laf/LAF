@@ -122,8 +122,8 @@ document.getElementById("mypageSignUpMail").addEventListener("input", () => {
   } 
   else { // 같지 않을 경우
     
-       // 이메일이 입력되지 않은 경우
-       if(memberEmail.value.trim().length == 0) {
+      // 이메일이 입력되지 않은 경우
+      if(memberEmail.value.trim().length == 0) {
         memberEmail.value = ""; // 띄어쓰기 못 넣게 하기
         memberEmail.classList.remove("confirm", "error"); // 검정 글씨로 바꾼다
         emailMessage.innerText=""
@@ -344,7 +344,7 @@ document.getElementById("mypageSignUpMonth").addEventListener("input", () => {
   }
 
      // 생년월일을 입력했다 지우는 경우
-     if(mypageSignUpBirth.value.trim().length == 0) {
+    if(mypageSignUpBirth.value.trim().length == 0) {
       mypageSignUpBirth.value = ""; // 띄어쓰기 못 넣게 하기
       mypageSignUpBirth.classList.remove("confirm", "error"); // 검정 글씨로 바꾼다
       return;

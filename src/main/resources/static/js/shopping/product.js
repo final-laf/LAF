@@ -100,7 +100,7 @@ for(let btn of eventBtns) {
     const selectedSizeBtn = document.querySelector('button[name="size"].selected');
     const color = selectedColorBtn.innerText;
     const size = selectedSizeBtn == null ? null : selectedSizeBtn.innerText;
-    const price = Number(document.querySelector('#productSalePrice').innerText.replace(',', ''));
+    const price = Number(document.querySelector('#productSalePrice').innerText.replaceAll(',', ''));
     const optionNo = btn.getAttribute('option-no');
     
     // 이미 추가된 옵션인지 확인
@@ -149,6 +149,11 @@ for(let btn of eventBtns) {
     plusBtn.setAttribute("type", "button");
     plusBtn.classList.add("count-up");
     plusBtn.innerText = "+";
+    for(let s of stocks) { // 현재 재고가 1개면 [+]버튼 비활성화
+      if(s.optionNo == optionNo && s.stock == 1) {
+        plusBtn.disabled = true;
+      }
+    }
     plusBtn.addEventListener('click', e => {
       const curCount = e.target.parentElement.querySelector('span');
       let newCount = Number(curCount.innerText) + 1;
@@ -159,9 +164,9 @@ for(let btn of eventBtns) {
 
       e.target.parentElement.querySelector('.count-down').disabled = false;
       for(let s of stocks) {
-        if(s.optionNo == optionNo && curCount.innerText == s.stock) {
-            e.target.disabled = true;
-          }
+        if(s.optionNo == optionNo && curCount.innerText >= s.stock) {
+          e.target.disabled = true;
+        }
       }
 
       const selectPrice = e.target.parentElement.parentElement.querySelector('.current-price');

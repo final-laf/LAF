@@ -196,6 +196,10 @@ hr { margin: 20px 0; }
 /* 상품설명 */
 #productDetail {
   padding: 80px 0;
+  text-align: center;
+}
+#productDetail img {
+  display: block;
 }
 
 /* 리뷰 */

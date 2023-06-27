@@ -1,12 +1,13 @@
 package edu.kh.laf.product.model.mapper;
 
-import edu.kh.laf.product.model.dto.Category;
-import edu.kh.laf.product.model.dto.Product;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
-import java.util.List;
-import java.util.Map;
+import edu.kh.laf.product.model.dto.Product;
+import edu.kh.laf.product.model.dto.ProductImage;
 
 @Mapper
 public interface ProductMapper {
@@ -48,7 +49,6 @@ public interface ProductMapper {
      */
     List<Product> selectNewArrivalProductList();
     
-    
     /**
      * 개인별 맞춤 상품 추천
      * @param memberNo
@@ -72,13 +72,6 @@ public interface ProductMapper {
 	List<Product> search(Map<String, Object> map, RowBounds rowBounds);
 
 	/**
-	 * 카테고리 이름 조회
-	 * @param category
-	 * @return categoryName
-	 */
-	String selectCategoryName(int categoryNo);
-
-	/**
 	 * 부모 카테고리 상품 갯수 조회
 	 * @param category
 	 * @return count
@@ -86,24 +79,11 @@ public interface ProductMapper {
 	int getListCount(Map<String, Object> paramMap);
 	
 	/**
-	 * 카테고리 상품 갯수 조회
+	 * 카테고리 별 상품 갯수 조회
 	 * @param paramMap
 	 * @return count
 	 */
 	int getSearchListCount(Map<String, Object> paramMap);
-
-	/**
-	 * 자식 카테고리 조회
-	 * @param categoryNo
-	 * @return childCategoryList
-	 */
-	List<Category> selectChildCategoryList(int categoryNo);
-
-	/**
-	 * 부모 카테고리 조회
-	 * @return categoryList
-	 */
-	List<Category> selectCategoryList();
 
 	/**
 	 * 키 목록으로 상품 목록 조회
@@ -121,13 +101,6 @@ public interface ProductMapper {
 	int getProductCount(Map<String, Object> paramMap);
 
 	/**
-	 * 상품이 포함된 카테고리 조회
-	 * @param productList
-	 * @return categoryList
-	 */
-	List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList);
-
-	/**
 	 * 상품 상태 변경
 	 * @param map
 	 * @return result
@@ -135,16 +108,30 @@ public interface ProductMapper {
 	int updateState(Map<String, Object> map);
 
 	/**
-	 * 모든 카테고리 정보 조회
-	 * @return categoryList
-	 */
-	List<Category> selectAllCategoryList();
-
-	/**
 	 * 선택 상품의 상태 일괄 변경
 	 * @param map
 	 * @return result
 	 */
 	int updateStateList(Map<String, Object> map);
-	
+
+	/**
+	 * 상품 등록
+	 * @param product
+	 * @return result
+	 */
+	int insertProduct(Product product);
+
+	/**
+	 * 상품 이미지 등록
+	 * @param uploadList
+	 * @return result
+	 */
+	int insertImageList(List<ProductImage> uploadList);
+
+	/**
+	 * 특정 상품에 대한 상세 이미지 조회
+	 * @param productNo
+	 * @return productImageList
+	 */
+	List<ProductImage> selectProductImage(long productNo);
 }

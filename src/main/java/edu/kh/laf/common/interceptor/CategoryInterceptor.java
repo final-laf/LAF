@@ -7,7 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.kh.laf.product.model.dto.Category;
-import edu.kh.laf.product.model.service.ProductService;
+import edu.kh.laf.product.model.service.CategoryService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CategoryInterceptor implements HandlerInterceptor {
 	
 	@Autowired
-	private ProductService service;
+	private CategoryService service;
 	
 	@Override
 	public boolean preHandle(
