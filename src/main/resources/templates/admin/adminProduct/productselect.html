@@ -146,9 +146,11 @@
               <td class="p-checkbox"><input class="input-checkbox" name="checkbox" type="checkbox"></td>
               <td class="p-no" th:text="${product.productNo}">상품번호</td>
               <td class="p-name">
-                <div class="image-container"><img th:src="${product.thumbnailPath}"></div>
+                <a th:href="@{/product/{no}(no=${product.productNo})}" class="image-container">
+                  <img th:src="${product.thumbnailPath}">
+                </a>
                 <div class="p-info">
-                  <div class="p-info-name" th:text="${product.productName}">상품명</div>
+                  <a th:href="@{/product/{no}(no=${product.productNo})}" class="p-info-name" th:text="${product.productName}">상품명</a>
                   <div class="p-info-category">
                     <a th:each="category : ${resultCategoryList}" 
                       th:if="${category.product_no == product.productNo}" 

@@ -236,6 +236,9 @@ tr:not(:first-child) .p-name {
   align-items: center;
   padding-right: 15px;
 }
+.p-info-name:hover {
+  text-decoration: underline;
+}
 .p-category-item {
   display: inline-block;
   padding: 3px 5px;
