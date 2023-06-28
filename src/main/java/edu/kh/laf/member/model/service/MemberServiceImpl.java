@@ -231,7 +231,6 @@ public class MemberServiceImpl implements MemberService {
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("OrderListpagination", OrderListpagination);
-		resultMap.put("orderList", orderList);
 		resultMap.put("orderMaps", orderMaps);
 		
 		return resultMap;
