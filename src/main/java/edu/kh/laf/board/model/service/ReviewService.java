@@ -79,6 +79,11 @@ public interface ReviewService {
 	 */
 	Map<String, Object> productReviewList(int cp, long productNo);
 
+	/** 베스트 리뷰 조회
+	 * @return
+	 */
+	List<Review> bestReview();
+
 
 
 }

@@ -315,7 +315,7 @@ if (document.getElementById("deleteReview")!=null) {
   document.getElementById("deleteReview").addEventListener("click", e=> {
     const reviewNo =document.getElementById("reviewModifyModalReviewNo").value;
     var url = "/review/delete?reviewNo="+reviewNo;
-    location.href=url
+    location.href=url;
   })
 }
 if (document.getElementById("listDelete")!=null) {
@@ -323,6 +323,6 @@ if (document.getElementById("listDelete")!=null) {
     const reviewNo =e.target.getAttribute("value");
     alert(reviewNo)
     var url = "/review/delete?reviewNo="+reviewNo;
-    location.href=url
+    location.href=url;
   })
 }

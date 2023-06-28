@@ -102,25 +102,29 @@
         WHERE r.review_no = #{reviewNo}
     </select>
     
+    <!-- 리뷰 추가 -->
     <insert id="insertReview"  useGeneratedKeys="true" keyProperty="reviewNo" >
 		INSERT INTO `review` VALUES (NULL, #{reviewContent}, DEFAULT, #{reviewScore}, #{orderNo}, #{productNo}, #{optionNo}, DEFAULT)
 	</insert>
     
+    <!-- 리뷰 수정 -->
     <update id="updateReview">
 		UPDATE `review`	SET review_content=#{reviewContent}, review_score= #{reviewScore}, review_delete_fl='N'
 		WHERE review_no = #{reviewNo}
 	</update>
     
+    <!-- 이미지 변경 -->
     <update id="updateImage">
 		UPDATE `review_img`	SET review_img_order=#{reviewImgOrder}, review_path= #{reviewPath} 
 		WHERE review_img_order = #{reviewImgOrder} AND review_no=#{reviewNo}
 	</update>
     
+    <!-- 이미지 추가 -->
 	<insert id="insertImage"  useGeneratedKeys="true" keyProperty="reviewNo" >
 		INSERT INTO `review_img` VALUES (DEFAULT, #{reviewNo}, #{reviewPath}, #{reviewImgOrder} )
 	</insert>
     
-    
+    <!--리뷰 넘버 넣어줌-->
     <update id="setReviewNo">
 		UPDATE `order_product` SET review_no=#{reviewNo} 
 		WHERE order_no = #{orderNo} AND product_no =#{productNo} AND option_no =#{optionNo}
@@ -148,6 +152,27 @@
 	<!-- 특정 상품 리뷰 count-->
     <select id="productReviewListCount">
         SELECT count(*) FROM `review` WHERE review_delete_fl='N' AND product_no=#{productNo} ORDER BY review_create_date DESC;
+    </select>
+    
+	<!-- bestReview 조회-->
+    <select id="bestReview" resultType="Review">
+        SELECT  r.review_no, 
+				m.member_id, 
+				m.member_no,
+				r.review_content, 
+				DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS review_create_date, 
+				r.review_score, 
+				r.order_no, 
+				r.product_no, 
+				r.option_no, 
+				o.order_uno,
+				m.member_name,
+				TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
+				(SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
+		FROM best_review br 
+		 		LEFT JOIN review r ON br.review_no=r.review_no 
+		 		JOIN `order` o ON r.order_no =o.order_no 
+				JOIN `member` m ON o.member_no = m.member_no 
     </select>
     
 </mapper>

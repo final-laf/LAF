@@ -307,6 +307,14 @@ public class ReviewServiceImpl implements ReviewService{
 		return resultMap;
 	}
 
+	/** 베스트 리뷰 조회
+	 *
+	 */
+	@Override
+	public List<Review> bestReview() {
+		return mapper.bestReview();
+	}
+
 
 
 

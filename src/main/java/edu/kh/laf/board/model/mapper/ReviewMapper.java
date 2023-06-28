@@ -126,6 +126,11 @@ public interface ReviewMapper {
 	 */
 	List<Review> reviewProductList(long productNo, RowBounds rowBounds);
 
+	/** 베스트 리뷰 조회
+	 * @return
+	 */
+	List<Review> bestReview();
+
 
 
 
