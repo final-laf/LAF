@@ -53,46 +53,22 @@
     </table>
     <div class="member-modal-orderlist">
       <div class="member-modal-subtitle"><span>주문 내역</span></div>
-      <table class="member-modal-orderlist-table">
-        <tr>
-          <td>주문정보</td>
-          <td>이미지</td>
-          <td>상품정보</td>
-          <td>수량</td>
-          <td>구매금액</td>
-          <td>주문처리상태</td>
-          <td>선택</td>
-        </tr>
-        <tr>
-          <td class="item-order-info">
-            <div>2023-06-04</div>
-            <div><a href="#">[23060400001002]</a></div>
-          </td>
-          <td>
-            <a href="/product/1">
-              <img src="/images/prouduct/thumbnail/1.gif">
-            </a>
-          </td>
-          <td>
-            <a href="/product/1">
-            ✨재구매1등✨ [98project/2만장돌파] 썸머 포드 와이드 슬랙스 - 4 color 제품명이 길 때는 두 줄로 나오...
-            </a>
-            <p class="item-product-option">
-              [옵션 : <span class="item-selected-option">블랙/L</span>]
-            </p>
-          </td>
-          <td>1</td>
-          <td>
-            <div>32,500</div>
-          </td>
-          <td>
-            <p>배송완료</p>
-          </td>
-          <td>
-            <p>-</p>
-          </td>
-        </tr>
+      <table id="member-modal-orderlist-table">
+        <thead>
+          <tr>
+            <td>주문정보</td>
+            <td>이미지</td>
+            <td>상품정보</td>
+            <td>수량</td>
+            <td>구매금액</td>
+            <td>주문처리상태</td>
+          </tr>
+        </thead>
+        <tbody>
       </table>
+      <!-- 페이징 -->
+      <div class="pagination-area" id="orderListPaginationArea">
+    </div>
     </div>
     <div class="member-modal-ponitList">
       <div class="member-modal-subtitle"><span>지급 및 차감 내역</span></div>

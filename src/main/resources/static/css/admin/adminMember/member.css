@@ -294,7 +294,7 @@
   margin: 40px 0px;
 }
 
-.member-modal-orderlist  img {
+#member-modal-orderlist-table > tbody > tr > td:nth-child(2) > img  {
   height: 94px;
   width: auto;
   display: block;
@@ -307,7 +307,7 @@
 }
 
 /* 첫번째 열의 속성 */
-.member-modal-orderlist tr:nth-child(1) {
+#member-modal-orderlist-table > thead {
   font-weight: bold;
   background-color: #fafafa;
   height: 40px;
