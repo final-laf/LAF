@@ -16,10 +16,19 @@ public interface AdminProductService {
 	 * @param images
 	 * @return result
 	 * @throws IOException 
-	 * @throws FileUploadException 
-	 * @throws  
 	 * @throws IllegalStateException 
 	 */
 	int enrollProduct(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) throws IllegalStateException, IOException;
+
+	/**
+	 * 상품 수정 서비스
+	 * @param paramMap
+	 * @param thumbnail
+	 * @param images
+	 * @return reuslt
+	 * @throws IOException 
+	 * @throws IllegalStateException
+	 */
+	int updateProduct(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
 
 }

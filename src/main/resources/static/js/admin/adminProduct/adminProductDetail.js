@@ -202,7 +202,6 @@ cpOptionBtn.addEventListener('click', () => {
     input5.name = 'location';
     input5.type = 'text';
     input5.value = arr.location;
-    input5.value = ' ';
     const td5 = document.createElement('td');
     td5.append(input5);
 
@@ -239,6 +238,17 @@ checkboxAll.addEventListener('click', e => {
     c.addEventListener('click', e2 => {
       if(!e2.target.checked) checkboxAll.checked = false;
     });
+  }
+});
+
+/* 원사이즈 체크박스  */
+const oneSizeCheckbox = document.getElementById('oneSizeCheckbox');
+oneSizeCheckbox.addEventListener('click', e => {
+  const sizeInputList = document.querySelectorAll('.enroll-middle-table input[name="size"]');
+  
+  for(const i of sizeInputList) {
+    i.disabled = e.target.checked;
+    i.value = '';
   }
 });
 
@@ -636,56 +646,3 @@ const reorderImgFileDown = (value) => {
   fileArray.forEach(file => { dataTransfer.items.add(file); }); //남은 배열을 dataTransfer로 처리(Array -> FileList)
   detailImgInput.files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-/* 입력값 유효성 검사 */
-const enrollForm = document.getElementById('enrollForm');
-if(enrollForm != null) {
-  enrollForm.addEventListener('submit', e => {
-    e.preventDefault();
-
-    // 상품명 입력 확인
-    if(document.getElementById('productName').value.trim().length == 0) {
-      alert("상품명을 입력해주세요");
-      document.getElementById('productName').focus();
-      return;
-    }
-
-
-    // 카테고리 선택 확인
-    if(document.querySelectorAll('#selectedCategory span:not(.info)').length == 0) {
-      alert("카테고리는 반드시 하나 이상 선택해야 합니다");
-      return;
-    }
-
-    // 썸네일 이미지 업로드 확인
-    if(thumbnailInput.value.trim().length == 0) {
-      alert("썸네일 이미지를 업로드해주세요");
-      return;
-    }
-
-
-
-
-    e.target.submit();
-  });
-}
-
-// 재고 입력 유효성 검사
-document.querySelector('.enroll-middle-table input[name="stock"]').addEventListener('input', e => {
-  // 숫자와 ,만 입력 가능
-  const regEx = /[0-9,]*/g;
-  e.target.value = regEx.exec(e.target.value);
-  e.target.value = numberWithCommas(e.target.value.replaceAll(",",""));
-});
-
-// 원사이즈 체크박스 
-const oneSizeCheckbox = document.getElementById('oneSizeCheckbox');
-oneSizeCheckbox.addEventListener('click', e => {
-  const sizeInputList = document.querySelectorAll('.enroll-middle-table input[name="size"]');
-  
-  for(const i of sizeInputList) {
-    i.disabled = e.target.checked;
-  }
-});

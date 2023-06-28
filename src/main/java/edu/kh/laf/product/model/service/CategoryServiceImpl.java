@@ -43,10 +43,10 @@ public class CategoryServiceImpl implements CategoryService {
 		return mapper.selectAllCategoryList();
 	}
 
-	// 상품이 포함된 카테고리 조회
+	// 상품목록으로 카테고리 조회
 	@Override
-	public List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList) {
-		return mapper.selectCategoryListByProductNo(productList);
+	public List<Map<String, Object>> selectCategoryListByProductList(List<Product> productList) {
+		return mapper.selectCategoryListByProductList(productList);
 	}
 
 	// 상품 등록 중 카테고리 정보 등록
@@ -90,5 +90,17 @@ public class CategoryServiceImpl implements CategoryService {
 
 		// 상품이 등록될 카테고리 정보 삽입
 		return mapper.insertProductCategory(productCategoryList);
+	}
+
+	// 상품번호로 카테고리 목록 조회
+	@Override
+	public List<Category> selectCategoryListByProductNo(long productNo) {
+		return mapper.selectCategoryListByProductNo(productNo);
+	}
+
+	// 상품번호로 카테고리 삭제
+	@Override
+	public int deleteProductCategory(long productNo) {
+		return mapper.deleteProductCategory(productNo);
 	}
 }

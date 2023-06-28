@@ -48,7 +48,7 @@ public interface CategoryMapper {
 	 * @param productList
 	 * @return categoryList
 	 */
-	List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList);
+	List<Map<String, Object>> selectCategoryListByProductList(List<Product> productList);
 	
 	/**
 	 * 카테고리 이름 조회
@@ -56,4 +56,18 @@ public interface CategoryMapper {
 	 * @return categoryName
 	 */
 	String selectCategoryName(int categoryNo);
+
+	/**
+	 * 상품번호로 카테고리 목록 조회
+	 * @param productNo
+	 * @return categoryList
+	 */
+	List<Category> selectCategoryListByProductNo(long productNo);
+
+	/**
+	 * 상품번호로 카테고리 삭제
+	 * @param productNo
+	 * @return result
+	 */
+	int deleteProductCategory(long productNo);
 }

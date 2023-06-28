@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.service.CategoryService;
 import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
@@ -23,7 +24,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 	@Autowired
 	private CategoryService categoryService;
 	
-	// 상품등록 서비스
+	// 상품 등록 서비스
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int enrollProduct(
@@ -45,6 +46,30 @@ public class AdminProductServiceImpl implements AdminProductService {
 
 		// 이미지 정보 삽입
 		result *= productService.insertProductImage(paramMap, thumbnail, images);
+
+		return result;
+	}
+
+	// 상품 수정 서비스
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateProduct(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) {
+		
+		long productNo = Long.parseLong(String.valueOf(paramMap.get("productNo")));
+		
+		// Product 정보 갱신
+		int result = productService.updateProduct(paramMap);
+
+		// Option 정보 갱신
+//		result *= optionService.deleteProductOption(productNo);
+//		result *= optionService.insertOptionList(paramMap);
+//		
+//		// 카테고리 정보 갱신	
+		result *= categoryService.deleteProductCategory(productNo);
+		result *= categoryService.insertProductCategory(paramMap);
+//
+//		// 이미지 정보 삽입
+//		result *= productService.insertProductImage(paramMap, thumbnail, images);
 
 		return result;
 	}

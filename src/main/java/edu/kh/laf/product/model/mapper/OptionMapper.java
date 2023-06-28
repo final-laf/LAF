@@ -61,4 +61,11 @@ public interface OptionMapper {
 	 * @return result
 	 */
 	int insertOptionList(List<Option> optionList);
+
+	/**
+	 * 상품 번호로 관련 옵션 모두 삭제
+	 * @param productNo
+	 * @return result
+	 */
+	int deleteProductOption(long productNo);
 }

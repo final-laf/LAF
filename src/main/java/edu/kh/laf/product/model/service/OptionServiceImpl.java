@@ -142,4 +142,11 @@ public class OptionServiceImpl implements OptionService {
 		return mapper.insertOptionList(optionList);
 	}
 
+	// 상품 번호로 관련 옵션 모두 삭제
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteProductOption(long productNo) {
+		return mapper.deleteProductOption(productNo);
+	}
+
 }

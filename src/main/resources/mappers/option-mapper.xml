@@ -86,5 +86,11 @@
 		</foreach>
 	</insert>
 	
+	<!-- 상품 번호로 관련 옵션 모두 삭제 -->
+	<delete id="deleteProductOption">
+		delete from `option`
+		where product_no = ${productNo}
+	</delete>
+	
 </mapper>
 

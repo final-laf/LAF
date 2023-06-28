@@ -14,6 +14,7 @@ public class ProductImage {
 	private long productNo;
 	private String imgPath;
 	private String thumbFl;
+	private int imgOrder;
 	
 	// additional data
 	private String rename; 

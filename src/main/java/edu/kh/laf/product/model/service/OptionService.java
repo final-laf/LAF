@@ -77,5 +77,12 @@ public interface OptionService {
 	 * @return result
 	 */
 	int insertOptionList(Map<String, Object> paramMap);
+
+	/**
+	 * 상품 번호로 관련 옵션 모두 삭제
+	 * @param productNo
+	 * @return result
+	 */
+	int deleteProductOption(long productNo);
 	
 }

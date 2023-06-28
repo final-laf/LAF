@@ -3,6 +3,8 @@
 <div class="enroll-container">
 
   <!-- 상품정보 등록 -->
+  <input type="hidden" name="productNo" id="productNoHiddenInput">
+  <input type="hidden" name="queryString" id="queryStringHiddenInput">
   <table class="enroll-top-table">
     
     <tr>
@@ -10,7 +12,7 @@
       <td class="enroll-table-header table-header" required>상품명</td>
       <td><input id="productName" name="productName" type="text" placeholder="상품명을 입력해주세요 (최대 100자)" maxlength="100"></td>
     </tr>
-
+    
     <tr>
       <td rowspan="5" class="enroll-thumbnail">
         <img id="thumbnailImagePreview" th:src="@{/images/common/no-image.png}">
@@ -20,19 +22,19 @@
         <select class="select-category" id="detailParentCategory">
           <option name="pc" value="">1차 분류</option>
           <option name="pc" 
-            th:each="category : ${categoryList}"
-            th:if="${category.parentCategoryNo == 0}"
-            th:value="${category.categoryNo}"
-            th:text="${category.categoryName}">부모 카테고리 이름</option>
+          th:each="category : ${categoryList}"
+          th:if="${category.parentCategoryNo == 0}"
+          th:value="${category.categoryNo}"
+          th:text="${category.categoryName}">부모 카테고리 이름</option>
         </select>
-
+        
         <select class="select-category" id="detailChildCategory" disabled>
           <option name="cc" value="">2차 분류</option>
           <option name="pc"
-            th:each="category : ${categoryList}"
-            th:if="${category.parentCategoryNo > 0}"
-            th:value="${category.categoryNo}"
-            th:text=" ${category.categoryName}">자식 카테고리 이름</option>
+          th:each="category : ${categoryList}"
+          th:if="${category.parentCategoryNo > 0}"
+          th:value="${category.categoryNo}"
+          th:text=" ${category.categoryName}">자식 카테고리 이름</option>
         </select>
       </td>
     </tr>
@@ -84,7 +86,7 @@
     <button type="button" id="rmOptionBtn">삭제</button>
   </div>
   <table class="enroll-middle-table">
-    <tr>
+    <tr class="table-header">
       <td class="middle-table-checkbox"><input class="option-checkbox all" type="checkbox"></td>
       <td class="middle-table-size">사이즈 (<input type="checkbox" id="oneSizeCheckbox"> 원사이즈)</td>
       <td class="middle-table-color">색상</td>

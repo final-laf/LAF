@@ -27,6 +27,16 @@ public interface ProductMapper {
     Product selectProduct(Long productNo);
 
     /**
+     * 상품 번호로 상품 정보 조회(관리자)
+     * (관리자 : 비공개, 품절상품, 썸네일 없는 상품도 모두 조회)
+     * @param productNo
+     * @return product
+     */
+    Product adminSelectProduct(Long productNo);
+    
+    
+
+    /**
      * 카테고리별 위클리 베스트 상품 목록 조회
      * @return weeklyBest
      */
@@ -134,4 +144,11 @@ public interface ProductMapper {
 	 * @return productImageList
 	 */
 	List<ProductImage> selectProductImage(long productNo);
+
+	/**
+	 * 상품 정보 업데이트
+	 * @param product
+	 * @return result
+	 */
+	int updateProduct(Product product);
 }

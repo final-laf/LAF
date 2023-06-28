@@ -36,11 +36,11 @@ public interface CategoryService {
 	List<Category> selectChildCategoryList(int categoryNo);
 
 	/**
-	 * 상품이 포함된 카테고리 조회
+	 * 상품목록으로 카테고리 조회
 	 * @param productList
 	 * @return categoryList
 	 */
-	List<Map<String, Object>> selectCategoryListByProductNo(List<Product> productList);
+	List<Map<String, Object>> selectCategoryListByProductList(List<Product> productList);
 	
 	/**
 	 * 상품 등록 중 카테고리 정보 등록
@@ -48,4 +48,18 @@ public interface CategoryService {
 	 * @return result
 	 */
 	int insertProductCategory(Map<String, Object> paramMap);
+
+	/**
+	 * 상품번호로 카테고리 조회
+	 * @param productNo
+	 * @return categoryList
+	 */
+	List<Category> selectCategoryListByProductNo(long productNo);
+
+	/**
+	 * 상품번호로 카테고리 삭제
+	 * @param productNo
+	 * @return result
+	 */
+	int deleteProductCategory(long productNo);
 }

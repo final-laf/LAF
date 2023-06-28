@@ -12,7 +12,6 @@ body::-webkit-scrollbar {
   width: 12px;
   z-index: 999;
   padding: 2px;
-
 }
 .scroll {
   background-color: #493e5d00;
@@ -255,4 +254,13 @@ tr:not(:first-child) .p-name {
 /* 페이지네이션 overriding */
 .pagination {
   margin: 10px !important;
+}
+
+.enroll-completted-btn button {
+  height: 30px;
+  width: 80px;
+  border-radius: 2px;
+}
+.enroll-completted-btn button:first-child {
+  margin-right: 5px;
 }
