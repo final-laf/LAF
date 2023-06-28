@@ -13,7 +13,7 @@ let reviewContent = "";
 let reviewScore = "";
 let reviewNum = "";
 let orderNo = "";
-let img = [];
+let reviewImg = [];
 for(let review of reviewDetail) {
   /* 작성된 모든 리뷰 상세 클릭시 */
   review.addEventListener('click', e => {
@@ -27,7 +27,7 @@ for(let review of reviewDetail) {
       for (let i = 0; i < 5; i++) {
         document.getElementsByClassName("Detailpreview")[i].style.display= "none";
       }
-      document.getElementById("reviewDetailModalStar").value="";
+      console.log("asd");
       document.getElementById("reviewDetailModalStar").value="";
       document.getElementById("reviewDetailScoreColor").style.width=0+"px";
       document.getElementById("reviewDetailScoreColor").style.backgroundColor = "white";
@@ -36,12 +36,13 @@ for(let review of reviewDetail) {
       document.getElementById("reviewDetailModalDate").innerText=review.reviewCreateDate;
       document.getElementById("reviewDetailModalOption").innerText=review.option.color+"/"+review.option.size;
       document.getElementById("reviewDetailModalProductName").innerText=review.product.productName;
-      document.getElementById("reviewDetailModalProductPrice").innerText=review.product.productSalePrice;
-      document.getElementById("reviewDetailModalProductSalePrice").innerText=review.product.productPrice;
+      document.getElementById("reviewDetailModalProductPrice").innerText=review.product.productSalePrice.toLocaleString();
+      document.getElementById("reviewDetailModalProductSalePrice").innerText=review.product.productPrice.toLocaleString();
       document.getElementById("reviewDetailModalReviewCount").innerText=review.reviewCount;
       document.getElementById("reviewDetailModalContent").innerText=review.reviewContent;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
-      document.getElementById("reviewModalTextScore").value=review.reviewScore;
+      document.getElementById("reviewDetailModalTextScore").value=review.reviewScore;
+      document.getElementById("reviewDetailModalProductNo").href="/product/"+review.productNo;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
       const login = document.getElementById("reviewDetailModalMemberId").getAttribute("value");
       console.log(review.memberNo)
@@ -94,7 +95,9 @@ if (modal!=null) {
     if(evTarget.classList.contains("review-modal-overlay")) {
       modal.style.display = "none";
         document.body.style.removeProperty('overflow');
+        document.getElementById("reviewDetailScoreColor").style.width=0+"px";
     }
+    
   });
 }
 
@@ -103,6 +106,7 @@ window.addEventListener("keyup", e => {
   if(modal.style.display === "flex" && e.key === "Escape") {
       modal.style.display = "none"
       document.body.style.removeProperty('overflow');
+      document.getElementById("reviewDetailScoreColor").style.width=0+"px";
   }
 });
 
@@ -111,6 +115,7 @@ const modalClose = document.getElementsByClassName("review-modal-close")[0];
 modalClose.addEventListener("click", e => {
   modal.style.display = "none";
   document.body.style.removeProperty('overflow');
+  document.getElementById("reviewDetailScoreColor").style.width=0+"px";
 });
 
 
@@ -124,8 +129,8 @@ if (document.getElementById("reviewDetailModalModifyBtn")!=null) {
     // document.getElementById("reviewModifyModalDate").innerText=reviewCreateDate;
     // document.getElementById("reviewModifyModalOption").innerText=option;
     document.getElementById("reviewModifyModalProductName").innerText=productName;
-    document.getElementById("reviewModifyModalProductPrice").innerText=productPrice;
-    document.getElementById("reviewModifyModalProductSalePrice").innerText=productSalePrice;
+    document.getElementById("reviewModifyModalProductPrice").innerText=productPrice.toLocaleString();
+    document.getElementById("reviewModifyModalProductSalePrice").innerText=productSalePrice.toLocaleString();
     document.getElementById("reviewModifyModalReviewCount").innerText=reviewCount;
     document.getElementById("reviewModifyModalContent").innerText=reviewContent;
     document.getElementById("reviewModifyModalReviewNo").value=reviewNum;

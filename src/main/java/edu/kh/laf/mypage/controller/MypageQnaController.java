@@ -36,7 +36,7 @@ public class MypageQnaController {
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp
 			, Model model
 			, @SessionAttribute("loginMember") Member loginMember
-			, @PathVariable(required = false) String categoryNo
+			, String categoryNo
 			, @RequestParam Map<String, Object> paramMap
 			) {
 		System.out.println(paramMap);
@@ -44,10 +44,8 @@ public class MypageQnaController {
 			paramMap.put("category", "write");
 			paramMap.put("questionWrite", "1");
 			paramMap.put("orderby", "qna_create_date");
-			
 		}
 		if(paramMap.get("category")!=null) {
-			System.out.println("asd");
 			if(paramMap.get("category").equals("write")) {
 				categoryNo=paramMap.get("questionWrite").toString();
 			}
@@ -59,7 +57,7 @@ public class MypageQnaController {
 			}
 		}
 		// 검색어 없을 때
-		if(paramMap.get("key") == null) { 
+		if(paramMap.get("query") == null) { 
 			System.out.println(paramMap);
 			paramMap.put("memberNo", loginMember.getMemberNo());
 			Map<String, Object> resultMap = qnaService.qnaList(paramMap, cp);
@@ -67,11 +65,13 @@ public class MypageQnaController {
 			
 		//검색어 있을 때
 		}else {
+			System.out.println("검색어 있을때");
 			paramMap.put("memberNo", loginMember.getMemberNo());
 			Map<String, Object> resultMap = qnaService.searchQnaList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
 		}
 		
+		model.addAttribute("categoryNo", categoryNo);
 		return "/myPage/myPageBoard/myPageQuestion";
 	}
 	

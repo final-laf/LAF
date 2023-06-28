@@ -26,25 +26,25 @@
             <div>
               분류 선택 
               <select id="qnaCategoryList" name="category" onchange="categoryChange(this.value)">
-                <option th:selected="${category=='1'||category=='2'}" value="write">작성 일자별</option>
-                <option th:selected="${category=='3'||category=='4'}" value="answer">답변 유무별</option>
-                <option th:selected="${category=='5'||category=='6'||category=='7'}" value="question">질문 유형별</option>
+                <option th:selected="${categoryNo == '1'||categoryNo == '2'}" value="write">작성 일자별</option>
+                <option th:selected="${categoryNo == '3'||categoryNo == '4'}" value="answer">답변 유무별</option>
+                <option th:selected="${categoryNo == '5'||categoryNo == '6'||categoryNo == '7'}" value="question">질문 유형별</option>
               </select>
-              <select th:style="${category=='1'||category=='2'} ? 'display:inline-block;' : 'display:none;'" name="questionWrite" id="questionWrite" onchange="this.form.submit()"> <!-- 작성 일자별 -->
-                <option selected value="1">-- 선택 --</option>
-                <option th:selected="${category=='1'}" value="1">최신 순</option>
-                <option th:selected="${category=='2'}" value="2">오래된 순</option>
+              <select th:style="${categoryNo=='1'||categoryNo=='2'} ? 'display:inline-block;' : 'display:none;'" name="questionWrite" id="questionWrite" onchange="this.form.submit()"> <!-- 작성 일자별 -->
+                <option disabled selected>-- 선택 --</option>
+                <option th:selected="${categoryNo=='1'}" value="1">최신 순</option>
+                <option th:selected="${categoryNo=='2'}" value="2">오래된 순</option>
               </select>
-              <select th:style="${category=='3'||category=='4'} ? 'display:inline-block;' : 'display:none;'" name="questionAnswer" id="questionAnswer" onchange="this.form.submit()"> <!-- 답변 유무별 -->
-                <option selected value="1">-- 선택 --</option>
-                <option th:selected="${category=='3'}" value="3">답변된 순</option>
-                <option th:selected="${category=='4'}" value="4">답변 기다리는 순</option>
+              <select th:style="${categoryNo=='3'||categoryNo=='4'} ? 'display:inline-block;' : 'display:none;'" name="questionAnswer" id="questionAnswer" onchange="this.form.submit()"> <!-- 답변 유무별 -->
+                <option disabled selected>-- 선택 --</option>
+                <option th:selected="${categoryNo=='3'}" value="3">답변된 순</option>
+                <option th:selected="${categoryNo=='4'}" value="4">답변 기다리는 순</option>
               </select>
-              <select th:style="${category=='5'||category=='6'||category=='7'} ? 'display:inline-block;' : 'display:none;'" name="questionCategory" id="questionCategory" onchange="this.form.submit()"> <!-- 질문 유형별 -->
-                <option selected value="1">-- 선택 --</option>
-                <option th:selected="${category=='5'}" value="5">상품</option>
-                <option th:selected="${category=='6'}" value="6">배송</option>
-                <option th:selected="${category=='7'}" value="7">일반</option>
+              <select th:style="${categoryNo=='5'||categoryNo=='6'||categoryNo=='7'} ? 'display:inline-block;' : 'display:none;'" name="questionCategory" id="questionCategory" onchange="this.form.submit()"> <!-- 질문 유형별 -->
+                <option disabled selected>-- 선택 --</option>
+                <option th:selected="${categoryNo=='5'}" value="5">상품</option>
+                <option th:selected="${categoryNo=='6'}" value="6">배송</option>
+                <option th:selected="${categoryNo=='7'}" value="7">일반</option>
               </select>
             </div>
             <table id="mypageQuestionRecent">
@@ -101,7 +101,7 @@
               <!-- ~~~~~~~~~~~~~~~ -->
               </div>
             </table>
-                  <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
+            <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div th:if="${#lists.size(qnaList) > 0}" class="pagination-area">
               <ul th:unless="${param.query}" class="pagination">
                 <!-- 첫 페이지로 이동 -->
@@ -124,7 +124,7 @@
                       <a class="current" th:text="${i}">현재페이지</a>
                     </li>
                     <li th:unless="${i == pagination.currentPage}">
-                      <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i})}" th:text="${i}">현재페이지</a>
+                      <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}" th:text="${i}">다른페이지</a>
                     </li>
                 </th:block>
                 <!-- 다음 목록 시작 번호로 이동 -->
@@ -140,14 +140,6 @@
                   </a>
                 </li>
               </ul>
-
-
-
-
-
-
-
-
 
               <!-- 검색 O인 경우의 페이지네이션 -->
               <ul th:if="${param.query}" class="pagination">

@@ -30,10 +30,3 @@ function categoryChange(category){
 	}
 }
 // 폼 제출 전 수정사항
-questionWrite = document.getElementById("questionWrite").
-questionAnswer = document.getElementById("questionAnswer")
-questionCategory = document.getElementById("questionCategory")
-
-document.getElementById("myPageQuestionSubmit").addEventListener("submit", e=>{
-	alert("asd")
-})

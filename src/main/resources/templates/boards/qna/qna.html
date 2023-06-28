@@ -61,6 +61,12 @@
           </tbody>
         </table>
       </div>
+      
+      <!-- 하단 버튼 영역 -->
+      <div class="btn-area">
+        <button type="button" id="insertBtn">WRITE</button>                     
+      </div>
+
 
       <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
       <div th:if="${#lists.size(qnaList) > 0}" class="pagination-area">
