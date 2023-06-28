@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.laf.order.model.service.OrderService;
@@ -44,8 +45,12 @@ public class AdminOrderController {
 		return service.selectTodayOrderList();
 	}
 	
-	
-	
+	// 주문처리상태변경
+	@PostMapping("/admin/order/state")
+	@ResponseBody
+	public int changeOrderState(@RequestBody List<Map<String, Object>> paramMap) {
+		return service.changeOrderState(paramMap);
+	}
 
 	
 }

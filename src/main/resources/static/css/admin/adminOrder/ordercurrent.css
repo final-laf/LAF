@@ -147,6 +147,9 @@
   text-align: center;
 }
 
+.recent-order-table td:nth-child(1){
+  pointer-events: inherit;
+}
 
 .recent-order-table input{
   margin-right: 5px;

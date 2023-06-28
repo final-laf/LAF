@@ -77,9 +77,15 @@
             <th width="90px">상품구매금액</th>
           </tr>
           <tr th:each="odp : ${odpList}">
-            <td width="80px"><img width="80px" th:src="${odp.product.thumbnailPath}"></td>
+            <td width="80px">
+              <a th:href="'/product/' + ${odp.product.productNo}">
+                <img width="80px" th:src="${odp.product.thumbnailPath}">
+              </a>
+            </td>
             <td>
-              <div th:text="${odp.product.productName}">상품명</div>
+              <a th:href="'/product/' + ${odp.product.productNo}">
+                <div th:text="${odp.product.productName}">상품명</div>
+              </a>
               <div>
                 <span th:text="${odp.option.color}"></span>
                 <span th:if="${odp.option.size}" th:text="' | ' +${odp.option.size}"></span>

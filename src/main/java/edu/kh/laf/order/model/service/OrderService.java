@@ -122,5 +122,11 @@ public interface OrderService {
 	 */
 	List<Map<String, Object>> selectTodayOrderList();
 
+	/** 주문처리상태변경
+	 * @param paramMap
+	 * @return
+	 */
+	int changeOrderState(List<Map<String, Object>> paramMap);
+
 
 }

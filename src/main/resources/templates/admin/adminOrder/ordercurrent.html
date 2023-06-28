@@ -69,7 +69,24 @@
                 <span>새로고침</span>
               </div>
             </div>
-            <div><button type="button">일괄수정</button></div>
+            <div>
+              <select id="orderStateC">
+                <option value="0">선택</option>
+                <option value="A">주문접수</option>
+                <option value="B">결제확인</option>
+                <option value="C">상품준비</option>
+                <option value="D">출고완료</option>
+                <option value="E">배송중</option>
+                <option value="F">배송완료</option>
+                <option value="G">취소중</option>
+                <option value="H">취소완료</option>
+                <option value="I">교환중</option>
+                <option value="J">교환완료</option>
+                <option value="K">반품중</option>
+                <option value="L">반품완료</option>
+              </select>
+              <button id="changeStateAllBtn" type="button">일괄수정</button>
+            </div>
           </div>
           <table class="recent-order-table">
             <tr>
