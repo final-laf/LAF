@@ -1,6 +1,7 @@
 package edu.kh.laf.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class AdminProductController {
 		
 		Map<String, Object> resultMap = productService.selectProductList(paramMap);
 		List<Product> productList = (List<Product>)resultMap.get("productList");
-		List<Map<String, Object>> productCategoryList = categoryService.selectCategoryListByProductNo(productList);
+		List<Map<String, Object>> productCategoryList = categoryService.selectCategoryListByProductList(productList);
 		List<Category> categoryList = categoryService.selectAllCategoryList();
 				
 		model.addAttribute("productList", productList);
@@ -125,6 +126,7 @@ public class AdminProductController {
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("product", productService.selectProduct(productNo));
 		resultMap.put("productImageList", productService.selectProductImage(productNo));
+		resultMap.put("categoryList", categoryService.selectCategoryListByProductNo(productNo));
 		
 		return resultMap;
 	}

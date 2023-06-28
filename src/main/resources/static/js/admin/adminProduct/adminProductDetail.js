@@ -344,7 +344,7 @@ pointAutoCheck.addEventListener('click', e => {
   }
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////// I M A G E ////////////////////////////////////////////
 
 /* 썸네일 이미지 파일 업로드 */
 const enrollImgBtn = document.getElementById('enrollImgBtn');
@@ -387,15 +387,39 @@ const index = {
   'name': 0
 }
 
+
+// 사진파일 추가 시 기존 업로드 파일 유지
+let files, fileArray;
+function addImages(addFiles) {  
+  if(fileArray == null || fileArray.length == 0) return; // 기존 파일이 없으면 종료
+
+  let addFileArray = Array.from(addFiles);
+  const dataTransfer = new DataTransfer();
+  fileArray.forEach(file => dataTransfer.items.add(file));
+  addFileArray.forEach(file => dataTransfer.items.add(file));
+  detailImgInput.files = dataTransfer.files;
+}
+
 // 이미지 업로드 버튼과 input 연결
-uploadDetailImgBtn.addEventListener('click', () => detailImgInput.click());
+uploadDetailImgBtn.addEventListener('click', () => {
+  
+  // 기존 사진파일 백업
+  if(detailImgInput.files.length > 0) {
+    files = detailImgInput.files;	
+    fileArray = Array.from(files);
+  }
+
+  detailImgInput.click();
+});
 
 // 업로드한 이미지 미리보기(파일명, 사진)
 detailImgInput.addEventListener('change', e => {
 
-  const fileArr = e.target.files; // 선택된 파일의 데이터
-  for(const file of fileArr) {
+  // 기존 파일과 추가된 파일 합치기
+  let addFiles = e.target.files;
+  addImages(addFiles);
 
+  for(const file of addFiles) {
     file.value = index.file++;
 
     /* 파일명 출력 */

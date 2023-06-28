@@ -252,6 +252,7 @@
 }
 #detailImgNameTr td {
   padding: 5px 10px;
+  text-align: left;
 }
 #detailImgNameTr .detailImgNameContainer {
   margin: 5px 0;
