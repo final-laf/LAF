@@ -14,8 +14,8 @@
   <th:block th:replace="~{/common/header}"></th:block>
   <th:block th:replace="~{/common/nav}"></th:block>
   
-  <main  th:with="pagination=${resultMap.pagination}, qnaList=${resultMap.qnaList}">
-    <form th:action="@{/myPage/qna/{category}(category=${category})}" method="get" id="myPageQuestionSubmit">
+  <main th:with="pagination=${resultMap.pagination}, qnaList=${resultMap.qnaList}">
+    <form th:action="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo})}" method="get" id="myPageQuestionSubmit">
       <section class="mypageQuestion-mainFrame">
         <th:block th:replace="~{/myPage/myPageSide}"></th:block>
         <!-- 마이페이지 중앙 대쉬보드 -->
@@ -106,13 +106,13 @@
               <ul th:unless="${param.query}" class="pagination">
                 <!-- 첫 페이지로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1)}">
+                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/first-page.svg}">
                   </a>
                 </li>
                 <!-- 이전 목록 마지막 번호로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage})}">
+                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/prev-page.svg}">
                   </a>
                 </li>
@@ -129,13 +129,13 @@
                 </th:block>
                 <!-- 다음 목록 시작 번호로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage})}">
+                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/next-page.svg}">
                   </a>
                 </li>
                 <!-- 끝 페이지로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage})}">
+                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/last-page.svg}">
                   </a>
                 </li>
@@ -152,9 +152,9 @@
               <!-- 검색 O인 경우의 페이지네이션 -->
               <ul th:if="${param.query}" class="pagination">
                 <!-- 첫 페이지로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;&lt;</a></li>
+                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1,category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;&lt;</a></li>
                 <!-- 이전 목록 마지막 번호로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;</a></li>
+                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;</a></li>
                 <!-- #numbers.sequence(시작, 끝 [,step]) -->
                 <!-- 특정 페이지로 이동 -->
                 <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
@@ -162,15 +162,15 @@
                   <li th:if="${i == pagination.currentPage}"><a class="current" th:text="${i}">현재 페이지</a></li>
                   <!-- 현재 페이지를 제외한 나머지 -->
                   <li th:unless="${i == pagination.currentPage}">
-                    <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i}, key=${param.key}, query=${param.query})}" th:text="${i}">현재 페이지</a>
+                    <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}" th:text="${i}">현재 페이지</a>
                   </li>
                 </th:block>
 
                 <!-- 다음 목록 시작 번호로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage}, key=${param.key}, query=${param.query})}">&gt;</a></li>
+                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&gt;</a></li>
 
                 <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage}, key=${param.key}, query=${param.query})}">&gt;&gt;</a></li>
+                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&gt;&gt;</a></li>
               </ul>
             </div>
             <!-- 검색창 -->
