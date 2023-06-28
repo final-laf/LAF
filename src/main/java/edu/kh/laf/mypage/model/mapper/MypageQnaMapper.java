@@ -18,28 +18,33 @@ import edu.kh.laf.product.model.dto.Product;
 @Mapper
 public interface MypageQnaMapper {
 
-	/** 특정 멤버 qna 리스트 count
+	/** 나의 qna 리스트 count
 	 * @param object
 	 * @return
 	 */
 	int qnaListCount(Object object);
 
-	/** 특정 멤버 qna 리스트
+	/** 나의 qna 리스트
 	 * @param paramMap
 	 * @param rowBounds
 	 * @return
 	 */
 	List<Qna> qnaList(Map<String, Object> paramMap, RowBounds rowBounds);
+
+	/** 나의 qna 리스트 count
+	 * @param object
+	 * @return
+	 */
+	int searchQnaListCount(Map<String, Object>  paramMap);
+
+	/** 나의 qna 리스트
+	 * @param paramMap
+	 * @param rowBounds
+	 * @return
+	 */
+	List<Qna> searchQnaList(Map<String, Object> paramMap, RowBounds rowBounds);
 	
 	
-
-
-
-
-
-
-
-
 
 
 	

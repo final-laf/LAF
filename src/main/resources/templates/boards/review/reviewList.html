@@ -17,15 +17,17 @@
     <!-- 사용자 리뷰 게시글 하나하나 -->
     <div class="reviews-item" th:each="r:${reviewList}">
       <input type="hidden" th:text="${session.memberNo}">
-      <div class="reviews-item-product">
-        <img th:each="img, status:${r.reviewImg}" th:if="${status.first}" th:src="${img.reviewPath}">
-        <div>
-          <div id="reviewListProductName" th:text="${r.product.productName}">제품명</div>
-          <div class="review-grey">
-            <span class="review-grey" th:text="${r.product.productPrice}">가격</span><span class="review-grey">원</span>
+      <a th:href="${'/product/'+r.productNo}">
+        <div class="reviews-item-product">
+          <img th:each="img, status:${r.reviewImg}" th:if="${status.first}" th:src="${img.reviewPath}">
+          <div>
+            <div id="reviewListProductName" th:text="${r.product.productName}">제품명</div>
+            <div class="review-grey">
+              <span class="review-grey"  th:text="${#numbers.formatInteger(r.product.productPrice, 3, 'COMMA')}">가격</span><span class="review-grey">원</span>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
       <div class="reviews-item-review">
         <div class="reviews-item-review-contents">
           <div>
@@ -128,8 +130,8 @@
       </ul>
     </div>
   </th:object>
-
-
-
+  <th:block th:replace="~{/boards/review/reviewDetailModal}"></th:block>
+  <th:block th:replace="~{/boards/review/reviewModifyModal}"></th:block>
+  <script src="/js/boards/review.js"></script>
 </section>
 
