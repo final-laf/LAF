@@ -118,4 +118,7 @@ public interface OrderMapper {
 	// 오늘 주문조회
 	public List<Order> selectTodayOrder();
 
+	// 주문처리상태변경
+	public int changeOrderState(Map<String, Object> param);
+
 }

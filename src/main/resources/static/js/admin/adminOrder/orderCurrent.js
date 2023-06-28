@@ -57,7 +57,6 @@ function todayOrderList(){
     .then(resp => resp.json())
     .then(orderMaps =>{
         for(let i of orderMaps){
-            console.log(i)
             // tr 요소 생성
             const tr = document.createElement('tr');
             tr.classList.add('order-modal-row');
@@ -73,6 +72,8 @@ function todayOrderList(){
                 document.getElementById('modalPayment').innerText = i.order.orderPayment.toLocaleString() + '원'
                 document.getElementById('modalPaymentMethod').innerText = i.order.payment
                 
+                const table = document.querySelector('.orderDetail-order-info');
+                table.innerHTML = table.rows[0].outerHTML;
                 for(let j of i.odpList){
                 
                     // tr생성
@@ -81,28 +82,31 @@ function todayOrderList(){
                     const imageCell = document.createElement("td");
                     const image = document.createElement("img");
                     image.setAttribute("width", "70px");
-                    image.setAttribute("src", "/images/prouduct/thumbnail/1.gif");
+                    image.setAttribute("src", j.product.thumbnailPath);
                     imageCell.appendChild(image);
                     odpTr.appendChild(imageCell);
                      // 두 번째 td 요소 생성
                     const productNameCell = document.createElement("td");
-                    const productNameText = document.createTextNode("[도씨추천/1천장돌파]호우 썸머 루즈핏 스프라이프 셔츠 - 3 color");
-                    productNameCell.appendChild(productNameText);
+                    const productName = document.createElement("div");
+                    productName.innerText = j.product.productName
+                    const productOption = document.createElement("div")
+                    productOption.innerText = '[ 옵션 : ' + j.option.color + ' ' + j.option.size + ' ]'
+                    productNameCell.append(productName);
+                    productNameCell.append(productOption);
                     odpTr.appendChild(productNameCell);
                      // 세 번째 td 요소 생성
                     const quantityCell = document.createElement("td");
-                    const quantityText = document.createTextNode("1");
+                    const quantityText = document.createTextNode(j.count);
                     quantityCell.appendChild(quantityText);
                     odpTr.appendChild(quantityCell);
                      // 네 번째 td 요소 생성
                     const priceCell = document.createElement("td");
-                    const priceText = document.createTextNode("35,500");
+                    const priceText = document.createTextNode(j.product.productSalePrice.toLocaleString() + '원');
                     priceCell.appendChild(priceText);
                     odpTr.appendChild(priceCell);
                     // 생성된 tr 요소를 원하는 위치에 추가
                     const table = document.querySelector('.orderDetail-order-info>tbody'); 
                     table.append(odpTr);
-
                 }
                 
                 document.getElementById('modalOrderRecvName').innerText = i.order.orderRecvName
@@ -119,9 +123,18 @@ function todayOrderList(){
 
             // 첫 번째 td 요소 생성
             const td1 = document.createElement('td');
+            td1.addEventListener('click', e => {
+                e.stopPropagation();
+            })
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
+            checkbox.setAttribute("id",'checked')
             td1.appendChild(checkbox);
+            const orderNo = document.createElement('input');
+            orderNo.type = 'hidden';
+            orderNo.value = i.order.orderNo;
+            orderNo.setAttribute("id",'modalOrderNo')
+            td1.appendChild(orderNo);
             tr.appendChild(td1);
 
             // 두 번째 td 요소 생성
@@ -183,6 +196,13 @@ function todayOrderList(){
 }
 todayOrderList()
 
+document.getElementById('bTreflesh').addEventListener('click', () => {
+    const table = document.querySelector('.recent-order-table');
+    table.innerHTML = table.rows[0].outerHTML;
+    todayOrderList();
+})
+
+
 function orderState(input){
     let orderState = "";
     switch (input){
@@ -200,4 +220,59 @@ function orderState(input){
         case "L" : orderState = "반품완료"; break;
     }
     return orderState;
+}
+
+// 일괄수정
+const changeStateAllBtn = document.getElementById('changeStateAllBtn');
+changeStateAllBtn.addEventListener('click', () => {
+    
+    const checkedNos = document.querySelectorAll('input[type=checkbox]:checked~input');
+    const selectState = document.querySelector('[id="orderStateC"]').value;
+
+    if(checkedNos.length != 0 && selectState !='0'){
+        const data = [];
+        for(let checkedNo of checkedNos){
+            data.push({
+                "orderState" : selectState,
+                "orderNo" : checkedNo.value
+            });
+        }
+        changeOrderState(data)
+    }
+});
+
+document.getElementById('modalChangeBtn').addEventListener('click', () => {
+    const modalOrderNo = document.getElementById('modalOrderNo').value;
+    const modalOrderStateC = document.querySelector('[id="modalOrderStateC"]').value;
+    if(modalOrderStateC !='0'){
+        const data = [];
+        data.push({
+            "orderState" : modalOrderStateC,
+            "orderNo" : modalOrderNo
+        });
+        changeOrderState(data)
+    }
+});
+
+// 주문상태 변경 처리
+function changeOrderState(data){
+    console.log(data)
+    console.log( JSON.stringify(data) )
+    fetch("/admin/order/state", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    })
+    .then(resp => resp.json())
+    .then(result =>{
+        if(result > 0){
+            alert("주문처리상태 수정 성공")
+        }else{
+            alert("실패...")
+        }
+        window.location.href = "cur"
+    })
+    .catch(err => {
+        console.log(err)
+    });
 }

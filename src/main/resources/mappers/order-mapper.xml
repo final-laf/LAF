@@ -324,6 +324,14 @@
 		ORDER BY order_no DESC
 	</select>
 	
+	<!-- 주문처리상태변경 -->
+	<update id="changeOrderState">
+		UPDATE `order`
+		SET order_state = #{orderState}
+		WHERE order_no = #{orderNo}
+	</update>
+	
+	
 	
 </mapper>
 

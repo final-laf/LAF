@@ -88,10 +88,10 @@
               </a>
             </td>
             <td class="item-product">
-              <a th:href="'/product/' + *{orderProduct.product.productNo}">
+              <div>
                 <span th:text="*{orderProduct.product.productName}"></span>
                 <span id="orderNum" th:text=" *{orderProduct.count - 1} > 0?' 외 ' + *{orderProduct.count - 1} + ' 개'">제품명</span>
-              </a>
+              </div>
               <p class="item-product-option">
                 [ 옵션 : <span class="item-selected-option" th:text="*{orderProduct.option.size}?' '+*{orderProduct.option.color} +' '+*{orderProduct.option.size+' '} : *{orderProduct.option.color}+' '">블랙/L</span>]
               </p>

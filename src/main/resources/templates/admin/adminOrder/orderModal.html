@@ -23,19 +23,20 @@
             <td width="300px" id="modalOrderState">주문처리상태</td>
             <th width="170px">주문상태수정</th>
             <td>
-              <select>
-                <option>주문접수</option>
-                <option>결제확인</option>
-                <option>상품준비</option>
-                <option>출고완료</option>
-                <option>배송중</option>
-                <option>배송완료</option>
-                <option>취소중</option>
-                <option>취소완료</option>
-                <option>교환중</option>
-                <option>교환완료</option>
-                <option>반품중</option>
-                <option>반품완료</option>
+              <select id="modalOrderStateC">
+                <option value="0">선택</option>
+                <option value="A">주문접수</option>
+                <option value="B">결제확인</option>
+                <option value="C">상품준비</option>
+                <option value="D">출고완료</option>
+                <option value="E">배송중</option>
+                <option value="F">배송완료</option>
+                <option value="G">취소중</option>
+                <option value="H">취소완료</option>
+                <option value="I">교환중</option>
+                <option value="J">교환완료</option>
+                <option value="K">반품중</option>
+                <option value="L">반품완료</option>
               </select>
             </td>
           </tr>
@@ -85,7 +86,7 @@
           </tr>
         </table>
         <div class="order-modify-btn-area">
-          <button>수정</button>                     
+          <button id="modalChangeBtn">수정</button>                     
           <button class="order-modal-close">취소</button>                     
         </div>
       </div>

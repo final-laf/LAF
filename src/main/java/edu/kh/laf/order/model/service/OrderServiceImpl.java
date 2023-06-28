@@ -551,4 +551,21 @@ public class OrderServiceImpl implements OrderService{
     	return orderMaps;
     }
     
+    // 주문처리상태변경
+    @Override
+    public int changeOrderState(List<Map<String, Object>> paramMap) {
+    	int result = 0;
+    	
+    	for(Map<String, Object> param : paramMap) {
+    		System.out.println(param);
+    		int changeResult = mapper.changeOrderState(param);
+    		if(changeResult == 0) { // 실패처리
+    			return result;
+    		}
+    	}
+    	
+    	result = 1;
+    	
+    	return result;
+    }
 }
