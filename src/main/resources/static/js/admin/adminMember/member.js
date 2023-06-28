@@ -44,7 +44,9 @@ function getSelectedOption() {
     paginationArea.append(orderListUl)
     
     const notExist = document.getElementById("notExist")
-    notExist.remove();
+    if(notExist) {
+      notExist.remove();
+    }
     
   }
   return;
@@ -298,6 +300,12 @@ function loadOrderList (memberNo, cp){
     loadOrderList (memberNo, OrderListpagination.maxPage);
   });
   pagination.append(maxPage);
+
+  
+  console.log(OrderListpagination.endPage)
+  console.log(OrderListpagination.currentPage)
+  console.log(nextPage.parentElement)
+
   // 특정 페이지로 이동
   for (let i = 1; i <= OrderListpagination.endPage; i++) {
     if(i == OrderListpagination.currentPage) {
@@ -305,7 +313,7 @@ function loadOrderList (memberNo, cp){
       const currPage = document.createElement("li");
       currPage.innerText = i;
       currPage.classList.add("current");
-      nextPage.parentElement.before(currPage);
+      nextPage.parentElement.insertBefore(currPage, nextPage);
     } else {
       /* 현재 보고있는 페이지를 제외한 나머지 */
       const uniquePage = document.createElement("li");
@@ -313,7 +321,7 @@ function loadOrderList (memberNo, cp){
       uniquePage.addEventListener("click", () => {
         loadOrderList (memberNo, i);
       });
-      nextPage.parentElement.before(uniquePage);
+      nextPage.parentElement.insertBefore(uniquePage, nextPage);
     }
   }
   document.getElementById("orderListPaginationArea").append(pagination)
