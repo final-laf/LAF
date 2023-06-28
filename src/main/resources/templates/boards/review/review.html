@@ -8,7 +8,8 @@
   <!-- favicon -->
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" sizes="16x16">
   <title>LAF :: REVIEW</title>
-</head>
+</head >
+
 <body>
 
   <th:block th:replace="~{/common/header}"></th:block>
@@ -18,7 +19,7 @@
 
     <section class="board-list">
       <div class="board-name"><span>REVIEW</span></div>
-
+<div th:text="${bestReview}"></div>
       <div class="sub-category-container">
         <!-- 현재 카테고리에 current 클래스 추가 -->
         <a href="/notice"><div class="sub-category">NOTICE</div></a>

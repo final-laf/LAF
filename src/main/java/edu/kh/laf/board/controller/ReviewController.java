@@ -38,7 +38,10 @@ public class ReviewController {
 			) {
 			Map<String, Object> resultMap = service.reviewList(cp);
 			model.addAttribute("resultMap", resultMap);
-		
+			
+			List<Review> bestReview = service.bestReview();
+			model.addAttribute("bestReview", bestReview);
+			System.out.println(bestReview);
 		return "/boards/review/review";
 	}
 	

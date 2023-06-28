@@ -12,5 +12,5 @@ alter table `review_img` add constraint `fk_review_to_review_img_1` foreign key 
 references `review` (
 	`review_no`
 );
-
+COMMIT;
 SELECT * FROM `review_img`; 
