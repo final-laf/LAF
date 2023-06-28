@@ -77,7 +77,7 @@ public class AdminMemberController {
 		Map<String, Object> jsonMap = new HashMap<>();
 		
 		jsonMap.put("OrderListpagination", resultMap.get("OrderListpagination"));
-		jsonMap.put("orderList", resultMap.get("orderList"));
+		jsonMap.put("orderMaps", resultMap.get("orderMaps"));
 		return jsonMap;
 	}
 	

@@ -1,13 +1,13 @@
 /* 회원 상세 모달 */
 const modal = document.getElementById("memberModalOverlay")
 const selectedMembers = document.getElementsByClassName("selected-member")
-
-
 for(let member of selectedMembers) {
 
   /* 회원 목록에서 한 회원 클릭시 */
 member.addEventListener('click', e => {
     // 회원 정보 불러오기
+    console.log("뭐야")
+    console.log("뭐야")
     const memberNo = e.target.getAttribute("memberNo");
     fetch("/admin/member/memberdetail?memberNo=" + memberNo)
     .then(response => response.json()) 
@@ -52,11 +52,11 @@ member.addEventListener('click', e => {
     let memberdetailDefaultAddress;
     if(address == "N") {memberdetailDefaultAddress = "";}
     else {
-          const arr = address.split("^^^");
-          memberdetailDefaultAddress = arr.join(" ").substring(5);
-        }
+        const arr = address.split("^^^");
+        memberdetailDefaultAddress = arr.join(" ").substring(5);
+    }
         document.getElementById("selectedMemberDefaultAddress").innerText = memberdetailDefaultAddress       
-      }) 
+    }) 
     .catch (e => { console.log(e)}); 
 
 
@@ -65,15 +65,43 @@ member.addEventListener('click', e => {
   .then(response => response.json()) 
   .then(resultMap => {
     for(let order of resultMap.orderList){
-      // tr생성
-      const newRow = document.createElement("tr");
-      // 네 번째 td 요소 생성
-      const orderNoCell = document.createElement("td");
-      orderNoCell.innerText = order.orderNo;
-      newRow.appendChild(orderNoCell);
-      const table = document.querySelector('.member-modal-orderlist-table>tbody'); 
-      table.append(newRow);
-  }
+      console.log(order);
+    }
+  //     for(let order of resultMap.orderList){
+  //     console.log(order)
+  //     console.log(resultMap[order])
+
+  //   // tr생성
+  //   const newRow = document.createElement("tr");
+  //   newRow.addEventListener("click", e => {
+  //   location.href="/order/118" + order.orderNo;
+  //   });
+  //   // td생성
+  //   // 주문정보
+  //   const orderInfoCell = document.createElement("td");
+  //   newRow.append(orderInfoCell);
+  //   const orderDate = document.createElement("div");
+  //   orderDate.innerText = order.orderDate;
+  //   orderInfoCell.append(orderDate);
+  //   const orderUno = document.createElement("div");
+  //   orderDate.innerText = order.orderUno;
+  //   orderInfoCell.append(orderUno);
+  //   // 이미지
+  //   const orderProductImg = document.createElement("td");
+  //   newRow.append(orderProductImg);
+  //   // 상품정보
+  //   const orderProductInfoCell = document.createElement("td");
+  //   newRow.append(orderProductInfoCell);
+  //   const orderProductName = document.createElement("div");
+  //   orderProductName.innerText = order.orderDate;
+  //   orderProductInfoCell.append(orderProductName);
+  //   const orderProductOption = document.createElement("div");
+  //   orderProductOption.innerText = order.orderUno;
+  //   orderProductInfoCell.append(orderProductOption);
+
+  //   const table = document.querySelector('.member-modal-orderlist-table>tbody'); 
+  //   table.append(newRow);
+  // }
 
     }) 
   .catch (e => { console.log(e)}); 

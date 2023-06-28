@@ -334,12 +334,22 @@ AND member_no = #{}
 
 SELECT count(*) FROM `order` WHERE member_no = 3;
 
+SELECT * FROM `order`;
+SELECT * FROM `orderproduct`;
+
 SELECT order_no, DATE_FORMAT(order_date, "%Y-%m-%d") order_date ,order_uno, order_total_price, order_payment, order_state
-FROM `order` WHERE member_no = 3;
+FROM `order` WHERE member_no = 3
+;
 
+SELECT order_no, DATE_FORMAT(order_date, "%Y-%m-%d") order_date ,order_uno, order_total_price, order_payment, order_state
+FROM `order` WHERE member_no = 47;
 
+SELECT order_no, DATE_FORMAT(order_date, "%Y-%m-%d") order_date ,order_uno, order_total_price, order_payment, order_state
+FROM `order` WHERE member_no = 47;
 
-
+SELECT order_no, (SELECT sum(count) FROM order_product WHERE order_no = 3 GROUP BY order_no) count, product_no, option_no
+FROM order_product
+WHERE order_no = 32;
 
 
 
