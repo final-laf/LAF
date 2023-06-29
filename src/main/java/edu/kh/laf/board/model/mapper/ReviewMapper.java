@@ -113,6 +113,12 @@ public interface ReviewMapper {
 	 */
 	int deleteReview(long reviewNo);
 
+	/** 리뷰 이미지 삭제
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteImg(long reviewNo);
+	
 	/** 특정 상품 리뷰 count
 	 * @param productNo
 	 * @return
@@ -130,6 +136,7 @@ public interface ReviewMapper {
 	 * @return
 	 */
 	List<Review> bestReview();
+
 
 
 

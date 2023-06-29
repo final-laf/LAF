@@ -1,0 +1,129 @@
+<!-- 리뷰 상세 모달창 -->
+<div id="bestReview-modal-overlay" value="modalBack">
+  <div id="bestReview-modal-window">
+    <div id="bestReviewTitle">BEST REVIEW</div>
+    <form action="/review/best">
+      <div class="bestReviewList">[기존 베스트 리뷰 중 변경할 베스트 리뷰를 선택해주세요.]</div>
+      <table class="bestReview-table">
+        <tr>
+          <td>
+            상태
+          </td>
+          <td>
+            선택
+          </td>
+          <td>
+            상품
+          </td>
+          <td>
+            리뷰내용
+          </td>
+          <td>
+            평점
+          </td>
+          <td>
+            작성자
+          </td>
+          <td>
+            리뷰 작성일
+          </td>
+        </tr>
+        <tr th:each="r:${bestReview}" class="bestReviews">
+          <td>
+            기존
+          </td>
+          <td>
+            <input type="radio" name="deleteNo" th:value="${r.reviewNo}"></input>
+          </td>
+          <td>
+            <div class="example" th:text="${r.product.productName}">(상품명)</div>
+          </td>
+          <td>
+            <p  th:text="${r.reviewContent}">(리뷰 내용)</p>
+          </td>
+          <td>
+            <span th:text="${r.reviewScore}">(평점)</span>
+          </td>
+          <td>
+            <p  th:text="${r.memberId}">(id)</p>
+          </td>
+          <td>
+            <p  th:text="${r.reviewCreateDate}">(id)</p>
+          </td>
+        </tr>
+      </table>
+      <div>△</div>
+      <div>▲</div>
+      <div>△</div>
+      <div class="bestReviewList">[신규 베스트 리뷰] ✧₊⁎ ╰(*°▽°*)╯ ⁎⁺✧</div>
+      <table class="bestReview-table">
+        <tr class="bestReviews">
+          <td>
+            상태
+          </td>
+          <td>
+            선택
+          </td>
+          <td>
+            상품
+          </td>
+          <td>
+            리뷰내용
+          </td>
+          <td>
+            평점
+          </td>
+          <td>
+            작성자
+          </td>
+          <td>
+            리뷰 작성일
+          </td>
+        </tr>
+        <tr>
+          <td>
+            신규
+          </td>
+          <td>
+            <div id="newBestReview"></div>
+            <input id="newBestReviewNo" type="hidden" name="insertNo" readonly>
+          </td>
+          <td>
+            <div  class="example" id="newBestProduct"></div>
+          </td>
+          <td>
+            <div id="newBestContent"></div>
+          </td>
+          <td>
+            <div id="newBestScore"></div>
+          </td>
+          <td>
+            <div id="newBestWrite"></div>
+          </td>
+          <td>
+            <div id="newBestDate"></div>
+          </td>
+        </tr>
+
+      </table>
+      <button class="bestReviewBtn">베스트 리뷰 수정</button>
+      <button class="bestReviewBtn" id="bestReviewCan" type="button">취소</button>
+    </form>
+  </div>
+</div>
+<script>
+  for (let index = 0; index < 6; index++) {
+    var element = document.getElementsByClassName('example')[index];
+    var text = element.innerText;
+  
+    var maxLength = 20;
+    if (text.length > maxLength) {
+      var trimmedText = text.substring(0, maxLength) + '...';
+      element.innerText = trimmedText;
+    }
+  }
+</script>
+
+
+
+
