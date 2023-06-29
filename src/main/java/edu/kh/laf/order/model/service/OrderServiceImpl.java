@@ -453,10 +453,10 @@ public class OrderServiceImpl implements OrderService{
 		// 적립된 포인트 반환 내역 삽입	
 		int gprResult = mapper.insertResetGainPoint(gainResetPoint);
     	if(gprResult == 0) { // 실패 처리
-    		result = 0;
+    		return result;
     	}
 		// 사용된 포인트가 있을 경우 적립금 조회
-    	String selectUsePoint = "";
+    	String selectUsePoint = "0";
     	if(order.getPointNoUse() != 0) {
     		selectUsePoint = mapper.selectPoint(order.getPointNoUse());
     		
@@ -472,7 +472,7 @@ public class OrderServiceImpl implements OrderService{
     		// 사용된 포인트 반환 내역 삽입	
     		int uprResult = mapper.insertResetUsePoint(useResetPoint);
     		if(uprResult == 0) { // 실패 처리
-        		result = 0;
+    			return result;
         	}
     	}
     	
