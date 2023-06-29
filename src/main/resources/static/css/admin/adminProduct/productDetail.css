@@ -27,6 +27,7 @@
 
 .enroll-top-table tr {
   border-bottom: 1px solid #eee;
+  height: 38px;
 }
 
 .enroll-top-table td {
@@ -126,6 +127,12 @@
   width: 80px;
   margin-left: 10px;
 }
+.enroll-price span.data {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  margin-right: 10px;
+}
 .enroll-price input[type='text'] {
   width: 250px;
   text-align: right;
@@ -148,6 +155,12 @@
   width: 340px;
   text-align: right;
 }
+.enroll-point span.data {
+  display: inline-block;
+  width: 220px;
+  text-align: right;
+  margin-right: 10px;
+}
 
 /* 옵션 정보 입력 테이블 */
 #optionBtnContainer {
@@ -157,11 +170,11 @@
   margin: 5px 0;
 }
 
-.middle-table-checkbox { width: 5%; }
-.middle-table-size { width: 20%; }
+.middle-table-checkbox { width: 10%; }
+.middle-table-size { width: 25%; }
 .middle-table-color { width: 30%; }
-.middle-table-stock { width: 20%; }
-.middle-table-palce { width: 25%; }
+.middle-table-stock { width: 25%; }
+.middle-table-hidden { width: 10%; }
 
 .enroll-middle-table{
   width: 100%;
@@ -198,7 +211,7 @@
 .enroll-middle-table #oneSizeCheckbox {
   height: auto;
 }
-.enroll-middle-table input[name="size"]:disabled {
+.enroll-middle-table input:disabled {
   background-color: #eee;
 }
 

@@ -277,12 +277,19 @@ public class ProductServiceImpl implements ProductService {
 		Product product = new Product();
 		product.setProductNo(Long.parseLong(String.valueOf(paramMap.get("productNo"))));
 		product.setProductName((String)paramMap.get("productName"));
-		product.setProductPrice(Long.parseLong(String.valueOf(paramMap.get("productPrice")).replaceAll(",", "")));
-		product.setProductSale(Integer.parseInt(String.valueOf(paramMap.get("productSale"))));
-		product.setProductSalePrice(Long.parseLong(String.valueOf(paramMap.get("productSalePrice")).replaceAll(",", "")));
-		product.setProductPoint(Integer.parseInt(String.valueOf(paramMap.get("productPoint")).replaceAll(",", "")));
 		
 		return mapper.updateProduct(product);
+	}
+
+	// 이미지 업데이트
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) {
+		
+		
+		
+		
+		return 1;
 	}
 
 }

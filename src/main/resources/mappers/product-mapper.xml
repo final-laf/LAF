@@ -388,11 +388,7 @@
 	<!-- 상품 정보 업데이트 -->
 	<update id="updateProduct">
 		update `product`
-		set		product_name = #{productName},
-				product_price = ${productPrice},
-				product_sale = ${productSale},
-				product_sale_price = ${productSalePrice},
-				product_point = ${productPoint}
+		set		product_name = #{productName}
 		where   product_no = #{productNo}
 	</update>
 

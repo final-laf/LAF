@@ -91,7 +91,7 @@ public class AdminProductController {
 	// 상품관리 : 상품등록
 	@PostMapping("/admin/product/enroll/submit")
 	public String productEnrollSubmit(
-			String[] size, String[] color, String[] stock, String[] location, // option 정보들
+			String[] size, String[] color, String[] stock, String[] hiddenFl, // option 정보들
 			String[] parentCategory, String[] childCategory, // category 정보들
 			@RequestParam(value="productSale", required=false, defaultValue="0") String productSale,
 			@RequestParam Map<String, Object> paramMap,
@@ -100,10 +100,10 @@ public class AdminProductController {
 			RedirectAttributes ra) throws IllegalStateException, IOException {
 		
 		paramMap.put("productSale", productSale);
+		paramMap.put("hiddenFl", hiddenFl);
 		paramMap.put("size", size);
 		paramMap.put("color", color);
 		paramMap.put("stock", stock);
-		paramMap.put("location", location);
 		paramMap.put("parentCategory", parentCategory);
 		paramMap.put("childCategory", childCategory);
 		
@@ -130,7 +130,7 @@ public class AdminProductController {
 		resultMap.put("product", productService.adminSelectProduct(productNo));
 		resultMap.put("productImageList", productService.selectProductImage(productNo));
 		resultMap.put("categoryList", categoryService.selectCategoryListByProductNo(productNo));
-		resultMap.put("optionList", optionService.selectOptionList(productNo));		
+		resultMap.put("optionList", optionService.adminSelectOptionList(productNo));		
 		
 		return resultMap;
 	}
@@ -138,7 +138,7 @@ public class AdminProductController {
 	// 상품관리 : 상품수정
 	@PostMapping("/admin/product/mod/submit")
 	public String updateProduct(
-			String[] size, String[] color, String[] stock, String[] location, // option 정보들
+			String[] optionNo, String[] size, String[] color, String[] stock, String[] hiddenFl, // option 정보들
 			String[] parentCategory, String[] childCategory, // category 정보들
 			@RequestParam(value="productSale", required=false, defaultValue="0") String productSale,
 			@RequestParam Map<String, Object> paramMap,
@@ -146,50 +146,21 @@ public class AdminProductController {
 			List<MultipartFile> images,
 			RedirectAttributes ra) throws IllegalStateException, IOException {
 		
+		paramMap.put("optionNo", optionNo);
+		paramMap.put("hiddenFl", hiddenFl);
 		paramMap.put("productSale", productSale);
 		paramMap.put("size", size);
 		paramMap.put("color", color);
 		paramMap.put("stock", stock);
-		paramMap.put("location", location);
 		paramMap.put("parentCategory", parentCategory);
 		paramMap.put("childCategory", childCategory);
 		
 		int result = service.updateProduct(paramMap, thumbnail, images);
 		
+		if(result > 0) ra.addFlashAttribute("message", "상품 수정 성공!");
+		else           ra.addFlashAttribute("message", "상품 수정 실패");
 		
-		
-		
-		
-		
-		
-		
-		
-		Map<String, Object> resultMap = new HashMap<>();
-//		resultMap.put("product", productService.adminSelectProduct(productNo));
-//		resultMap.put("productImageList", productService.selectProductImage(productNo));
-//		resultMap.put("categoryList", categoryService.selectCategoryListByProductNo(productNo));
-//		resultMap.put("optionList", optionService.selectOptionList(productNo));
-		
-		// 상품명, 판매가, 할인율, 최종할인가, 적립금 업데이트
-		// updateProduct()
-		
-		// 썸네일 업데이트
-		// updateThumbnail()
-		
-		// 카테고리 전체삭제 -> 삽입
-		// deleteProductCategory()
-		// insertProductCategory()
-		
-		// 옵션 전체삭제 -> 삽입
-		// deleteOption()
-		// insertOption()
-		
-		// 이미지 전체삭제 -> 삽입 & 신규 이미지 서버 업로드
-		// deleteImage()
-		// insertImage()
-		ra.addFlashAttribute("queryString", (String)paramMap.get("queryString"));
-		ra.addFlashAttribute("message", "상품 수정 성공!");
-		
+		ra.addFlashAttribute("queryString", (String)paramMap.get("queryString"));		
 		return "redirect:/admin/product";
 	}
 	

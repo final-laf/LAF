@@ -53,7 +53,10 @@ public class AdminProductServiceImpl implements AdminProductService {
 	// 상품 수정 서비스
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int updateProduct(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) {
+	public int updateProduct(
+			Map<String, Object> paramMap, 
+			MultipartFile thumbnail, 
+			List<MultipartFile> images) {
 		
 		long productNo = Long.parseLong(String.valueOf(paramMap.get("productNo")));
 		
@@ -61,15 +64,14 @@ public class AdminProductServiceImpl implements AdminProductService {
 		int result = productService.updateProduct(paramMap);
 
 		// Option 정보 갱신
-//		result *= optionService.deleteProductOption(productNo);
-//		result *= optionService.insertOptionList(paramMap);
-//		
-//		// 카테고리 정보 갱신	
+		result *= optionService.updateOption(paramMap);
+		
+		// 카테고리 정보 갱신	
 		result *= categoryService.deleteProductCategory(productNo);
 		result *= categoryService.insertProductCategory(paramMap);
-//
-//		// 이미지 정보 삽입
-//		result *= productService.insertProductImage(paramMap, thumbnail, images);
+
+		// 이미지 갱신
+		result *= productService.updateProductImage(paramMap, thumbnail, images);
 
 		return result;
 	}

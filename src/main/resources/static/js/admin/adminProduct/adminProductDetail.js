@@ -95,6 +95,18 @@ const rmOptionBtn = document.getElementById('rmOptionBtn');
 const optionTable = document.querySelector('.enroll-middle-table');
 const checkboxAll = document.querySelector('.option-checkbox.all');
 
+/* 숨기기 checkbox 이벤트 추가 */
+const hiddenCheckbox = document.querySelector('.hidden-lf');
+if(hiddenCheckbox != undefined) {
+  document.querySelector('.hidden-lf').addEventListener('click', e => {
+    if(e.target.checked) {
+      e.target.nextElementSibling.value = 'Y';
+    } else {
+      e.target.nextElementSibling.value = 'N';
+    }
+  });
+}
+
 /* 옵션 입력 칸 추가 */
 addOptionBtn.addEventListener('click', () => {
 
@@ -129,12 +141,24 @@ addOptionBtn.addEventListener('click', () => {
     const td4 = document.createElement('td');
     td4.append(input4);
 
-    const input5 = document.createElement('input');
-    input5.name = 'location';
-    input5.type = 'text';
-    input5.value = ' ';
+    const checkbox = document.createElement('input');
+    checkbox.classList.add('hidden-fl');
+    checkbox.type = 'checkbox';
+    checkbox.addEventListener('click', e => {
+      if(e.target.checked) {
+        e.target.nextElementSibling.value = 'Y';
+      } else {
+        e.target.nextElementSibling.value = 'N';
+      }
+    });
+    
+    const checkboxInput = document.createElement('input');
+    checkboxInput.name = 'hiddenFl';
+    checkboxInput.type = 'hidden';
+    checkboxInput.value = 'N';
+    
     const td5 = document.createElement('td');
-    td5.append(input5);
+    td5.append(checkbox, checkboxInput);
 
     const tr = document.createElement('tr');
     tr.append(td1, td2, td3, td4, td5);
@@ -153,8 +177,7 @@ function getSelectedOption() {
     arr.push({
       'size': tr.querySelector('[name="size"]').value,
       'color': tr.querySelector('[name="color"]').value,
-      'stock': tr.querySelector('[name="stock"]').value,
-      'location': tr.querySelector('[name="location"]').value
+      'stock': tr.querySelector('[name="stock"]').value
     });
   }
   
@@ -198,12 +221,24 @@ cpOptionBtn.addEventListener('click', () => {
     const td4 = document.createElement('td');
     td4.append(input4);
 
-    const input5 = document.createElement('input');
-    input5.name = 'location';
-    input5.type = 'text';
-    input5.value = arr.location;
-    const td5 = document.createElement('td');
-    td5.append(input5);
+    const checkbox = document.createElement('input');
+    checkbox.classList.add('hidden-fl');
+    checkbox.type = 'checkbox';
+    checkbox.addEventListener('click', e => {
+      if(e.target.checked) {
+        e.target.nextElementSibling.value = 'Y';
+      } else {
+        e.target.nextElementSibling.value = 'N';
+      }
+    });
+    
+    const checkboxInput = document.createElement('input');
+    checkboxInput.name = 'hiddenFl';
+    checkboxInput.type = 'hidden';
+    checkboxInput.value = 'N';
+    
+    const td6 = document.createElement('td');
+    td6.append(checkbox, checkboxInput);
 
     const tr = document.createElement('tr');
     tr.append(td1, td2, td3, td4, td5);
@@ -215,8 +250,14 @@ cpOptionBtn.addEventListener('click', () => {
 rmOptionBtn.addEventListener('click', () => {
   const checkboxList = document.querySelectorAll('.option-checkbox:not(.all)');
   for(const c of checkboxList) {
-    if(c.checked)
+
+    if(c.checked) {
+      if(c.classList.contains('registered')) {
+        alert('이미 등록된 옵션은 숨기기만 가능합니다.');
+        return;
+      }
       c.parentElement.parentElement.remove();
+    }
   }
   if(optionTable.querySelectorAll('tr').length <= 1) {
     const tr = document.createElement('tr');
@@ -243,14 +284,16 @@ checkboxAll.addEventListener('click', e => {
 
 /* 원사이즈 체크박스  */
 const oneSizeCheckbox = document.getElementById('oneSizeCheckbox');
-oneSizeCheckbox.addEventListener('click', e => {
-  const sizeInputList = document.querySelectorAll('.enroll-middle-table input[name="size"]');
-  
-  for(const i of sizeInputList) {
-    i.disabled = e.target.checked;
-    i.value = '';
-  }
-});
+if(oneSizeCheckbox != undefined) {
+  oneSizeCheckbox.addEventListener('click', e => {
+    const sizeInputList = document.querySelectorAll('.enroll-middle-table input[name="size"]');
+    
+    for(const i of sizeInputList) {
+      i.disabled = e.target.checked;
+      i.value = '';
+    }
+  });
+}
 
 ///////////////////////////////////// P R I C E ///////////////////////////////////////////
 
@@ -262,97 +305,101 @@ const pointInput = document.querySelector('input[name="productPoint"]');
 const salePriceAutoCheck = document.querySelector('.enroll-price .checkbox');
 const pointAutoCheck = document.querySelector('.enroll-point .checkbox');
 
-/* 할인가 자동계산 */
-function calcSalePrice() {
-  // 숫자와 , 만 입력 가능
-  const regEx = /[0-9,]*/g;
-  priceInput.value = regEx.exec(priceInput.value);
+if(priceInput != undefined) {
 
-  const originPrice = Number(priceInput.value.replaceAll(",", "")) / 100 * 100;
-  const discount = Number(discountInput.value);
-  const result = Math.floor((originPrice - (originPrice / 100 * discount)) / 100) * 100;
-  return numberWithCommas(result);
-}
+  /* 할인가 자동계산 */
+  function calcSalePrice() {
+    // 숫자와 , 만 입력 가능
+    const regEx = /[0-9,]*/g;
+    priceInput.value = regEx.exec(priceInput.value);
 
-/* 포인트 자동계산 */
-function calcPoint() {
-  // 숫자와 , 만 입력 가능
-  const regEx = /[0-9,]*/g;
-  priceInput.value = regEx.exec(priceInput.value);
-
-  const salePrice = Number(salePriceInput.value.replaceAll(",", ""));
-  const result = Math.floor(salePrice / 100);
-  return numberWithCommas(result);
-}
-
-/* 금액 입력 시 자동으로 , 찍어줌 */
-priceInput.addEventListener('input', e => {
-  // 숫자와 , 만 입력 가능
-  const regEx = /[0-9,]*/g;
-  priceInput.value = regEx.exec(priceInput.value);
-
-  const number = e.target.value.replaceAll(",", "");
-  e.target.value = numberWithCommas(number);
-  if(salePriceAutoCheck.checked) salePriceInput.value = calcSalePrice();
-  if(pointAutoCheck.checked) pointInput.value = calcPoint();
-
-  if(number % 100 > 0) 
-    document.querySelector('.alert100').classList.remove('hidden');
-  else
-    document.querySelector('.alert100').classList.add('hidden');
-});
-
-/* 할인율 입력 시 자동계산 */
-discountInput.addEventListener('input', e => {
-  // 숫자만 입력 가능
-  const regEx = /[0-9]{0,3}/g;
-  discountInput.value = regEx.exec(discountInput.value);
-
-  // 0 ~ 100 사이 인지 확인
-  const num = e.target.value;
-  if(num < 0 || num > 100) {
-    alert('할인율은 0~100 사이 숫자만 입력 가능합니다.');
-    e.target.value = e.target.value.substring(0, 2);
+    const originPrice = Number(priceInput.value.replaceAll(",", "")) / 100 * 100;
+    const discount = Number(discountInput.value);
+    const result = Math.floor((originPrice - (originPrice / 100 * discount)) / 100) * 100;
+    return numberWithCommas(result);
   }
 
-  salePriceInput.value = calcSalePrice();
-  pointInput.value = calcPoint();
-});
+  /* 포인트 자동계산 */
+  function calcPoint() {
+    // 숫자와 , 만 입력 가능
+    const regEx = /[0-9,]*/g;
+    priceInput.value = regEx.exec(priceInput.value);
 
-/* 최종할인가 수동입력 시 , 추가 + 적립금 자동계산 */
-salePriceInput.addEventListener('input', e => {
-  const number = e.target.value.replaceAll(",", "");
-  e.target.value = numberWithCommas(number);
-  if(pointAutoCheck.checked) pointInput.value = calcPoint();
-});
+    const salePrice = Number(salePriceInput.value.replaceAll(",", ""));
+    const result = Math.floor(salePrice / 100);
+    return numberWithCommas(result);
+  }
 
-/* 적립금 수동입력 시 , 추가 */
-pointInput.addEventListener('input', e => {
-  const number = e.target.value.replaceAll(",", "");
-  e.target.value = numberWithCommas(number); 
-});
+  /* 금액 입력 시 자동으로 , 찍어줌 */
+  priceInput.addEventListener('input', e => {
+    // 숫자와 , 만 입력 가능
+    const regEx = /[0-9,]*/g;
+    priceInput.value = regEx.exec(priceInput.value);
 
-
-/* 할인가 자동계산 설정/해제 */
-salePriceAutoCheck.addEventListener('click', e => {
-  if(e.target.checked) {
-    salePriceInput.readOnly = true;
-    salePriceInput.value = calcSalePrice();
+    const number = e.target.value.replaceAll(",", "");
+    e.target.value = numberWithCommas(number);
+    if(salePriceAutoCheck.checked) salePriceInput.value = calcSalePrice();
     if(pointAutoCheck.checked) pointInput.value = calcPoint();
-  } else {
-    salePriceInput.readOnly = false;
-  }
-});
 
-/* 적립금 자동계산 설정/해제 */
-pointAutoCheck.addEventListener('click', e => {
-  if(e.target.checked) {
-    pointInput.readOnly = true;
+    if(number % 100 > 0) 
+      document.querySelector('.alert100').classList.remove('hidden');
+    else
+      document.querySelector('.alert100').classList.add('hidden');
+  });
+
+  /* 할인율 입력 시 자동계산 */
+  discountInput.addEventListener('input', e => {
+    // 숫자만 입력 가능
+    const regEx = /[0-9]{0,3}/g;
+    discountInput.value = regEx.exec(discountInput.value);
+
+    // 0 ~ 100 사이 인지 확인
+    const num = e.target.value;
+    if(num < 0 || num > 100) {
+      alert('할인율은 0~100 사이 숫자만 입력 가능합니다.');
+      e.target.value = e.target.value.substring(0, 2);
+    }
+
+    salePriceInput.value = calcSalePrice();
     pointInput.value = calcPoint();
-  } else {
-    pointInput.readOnly = false;
-  }
-});
+  });
+
+  /* 최종할인가 수동입력 시 , 추가 + 적립금 자동계산 */
+  salePriceInput.addEventListener('input', e => {
+    const number = e.target.value.replaceAll(",", "");
+    e.target.value = numberWithCommas(number);
+    if(pointAutoCheck.checked) pointInput.value = calcPoint();
+  });
+
+  /* 적립금 수동입력 시 , 추가 */
+  pointInput.addEventListener('input', e => {
+    const number = e.target.value.replaceAll(",", "");
+    e.target.value = numberWithCommas(number); 
+  });
+
+
+  /* 할인가 자동계산 설정/해제 */
+  salePriceAutoCheck.addEventListener('click', e => {
+    if(e.target.checked) {
+      salePriceInput.readOnly = true;
+      salePriceInput.value = calcSalePrice();
+      if(pointAutoCheck.checked) pointInput.value = calcPoint();
+    } else {
+      salePriceInput.readOnly = false;
+    }
+  });
+
+  /* 적립금 자동계산 설정/해제 */
+  pointAutoCheck.addEventListener('click', e => {
+    if(e.target.checked) {
+      pointInput.readOnly = true;
+      pointInput.value = calcPoint();
+    } else {
+      pointInput.readOnly = false;
+    }
+  });
+
+}
 
 //////////////////////////////////// I M A G E ////////////////////////////////////////////
 

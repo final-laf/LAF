@@ -133,4 +133,13 @@ public interface ProductService {
 	 * @param paramMap
 	 */
 	int updateProduct(Map<String, Object> paramMap);
+
+	/**
+	 * 이미지 업데이트
+	 * @param paramMap
+	 * @param thumbnail
+	 * @param images
+	 * @return result
+	 */
+	int updateProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
 }

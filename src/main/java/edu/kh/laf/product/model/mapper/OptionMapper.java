@@ -18,6 +18,13 @@ public interface OptionMapper {
 	 * @return optionList
 	 */
 	List<Option> selectOptionList(long productNo);
+	
+	/**
+	 * 상품번호로 해당 상품의 모든 옵션 조회(관리자)
+	 * @param productNo
+	 * @return optionList
+	 */
+	List<Option> adminSelectOptionList(long productNo);
 
 	/**
 	 * 색상 선택 시 품절 사이즈 목록 조회
@@ -68,4 +75,11 @@ public interface OptionMapper {
 	 * @return result
 	 */
 	int deleteProductOption(long productNo);
+
+	/**
+	 * 옵션 정보 업데이트
+	 * @param option
+	 * @return result
+	 */
+	int updateOption(Option option);
 }

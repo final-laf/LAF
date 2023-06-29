@@ -22,6 +22,12 @@ enrollForm.addEventListener('submit', e => {
     return;
   }
 
+  // 옵션 입력 확인
+  if(document.querySelectorAll('[name="hiddenFl"]').length == 0) {
+    alert("옵션 정보를 추가해주세요");
+    return;
+  }
+
   e.target.submit();
 });
 
