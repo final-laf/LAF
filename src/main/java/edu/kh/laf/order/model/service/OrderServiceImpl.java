@@ -575,42 +575,42 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Map<String, Object>> findOrderList(Map<String, Object> paramMap) {
     	
-    	System.out.println(paramMap);
-    	
 		int listCount = mapper.getfindOrderListCount(paramMap); // 조건에 맞는 주문조회목록 개수
-		System.out.println(listCount);
-//		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
-//		
-//		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-//		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-//		// 조건에 맞는 주문조회목록
-//    	List<Order> orders = mapper.findOrderList(paramMap,rowBounds);
+		if(listCount == 0) {
+			return null;
+		}
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		// 조건에 맞는 주문조회목록
+    	List<Order> orders = mapper.findOrderList(paramMap,rowBounds);
     	
-//    	List<Map<String, Object>> orderMaps = new ArrayList<>();
+    	List<Map<String, Object>> orderMaps = new ArrayList<>();
     	
-//    	for(Order order : orders) {
-//    		int no = (int) order.getOrderNo();
-//        	// 주문한 상품목록조회
-//        	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
-//        	// 상품, 옵션, 수량정보 담기
-//        	for(OrderProduct odp : odpList) {
-//        		// 상품정보조회
-//        		Product product = mapper.selectOrderProduct(odp.getProductNo());
-//        		odp.setProduct(product);
-//        		// 옵션정보조회
-//        		Option option = new Option();
-//        		option.setProductNo(odp.getProductNo());
-//        		option.setOptionNo(odp.getOptionNo());
-//        		option = mapper.selectOrderProductOption(option);
-//        		odp.setOption(option);
-//        	}
-//        	Map<String, Object> orderMap = new HashMap<>();
-//			orderMap.put("odpList", odpList);
-//			orderMap.put("order", order);
-//			orderMaps.add(orderMap);
-//    	}
-//    	
+    	for(Order order : orders) {
+    		int no = (int) order.getOrderNo();
+        	// 주문한 상품목록조회
+        	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
+        	// 상품, 옵션, 수량정보 담기
+        	for(OrderProduct odp : odpList) {
+        		// 상품정보조회
+        		Product product = mapper.selectOrderProduct(odp.getProductNo());
+        		odp.setProduct(product);
+        		// 옵션정보조회
+        		Option option = new Option();
+        		option.setProductNo(odp.getProductNo());
+        		option.setOptionNo(odp.getOptionNo());
+        		option = mapper.selectOrderProductOption(option);
+        		odp.setOption(option);
+        	}
+        	Map<String, Object> orderMap = new HashMap<>();
+			orderMap.put("odpList", odpList);
+			orderMap.put("order", order);
+			orderMaps.add(orderMap);
+    	}
     	
-    	return null;
+    	
+    	return orderMaps;
     }
 }

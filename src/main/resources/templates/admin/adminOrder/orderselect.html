@@ -53,22 +53,23 @@
               </tr>
               <tr>
                 <td>
-                  판매 상태
+                  주문 상태
                   <input type="hidden" name="sellState">
                 </td>
                 <td>
                   <div id="sellStateChecked">
-                    <input value="0" type="checkbox">주문접수
-                    <input value="A" type="checkbox">결제확인
-                    <input value="B" type="checkbox">상품준비
-                    <input value="C" type="checkbox">출고완료
-                    <input value="D" type="checkbox">배송중
-                    <input value="E" type="checkbox">취소중
-                    <input value="F" type="checkbox">취소완료
-                    <input value="G" type="checkbox">교환중
-                    <input value="H" type="checkbox">교환완료
-                    <input value="I" type="checkbox">반품중
-                    <input value="J" type="checkbox">반품완료
+                    <input value="A" type="checkbox">주문접수
+                    <input value="B" type="checkbox">결제확인
+                    <input value="C" type="checkbox">상품준비
+                    <input value="D" type="checkbox">출고완료
+                    <input value="E" type="checkbox">배송중
+                    <input value="F" type="checkbox">배송완료
+                    <input value="G" type="checkbox">취소중
+                    <input value="H" type="checkbox">취소완료
+                    <input value="I" type="checkbox">교환중
+                    <input value="J" type="checkbox">교환완료
+                    <input value="K" type="checkbox">반품중
+                    <input value="L" type="checkbox">반품완료
                   </div>
                 </td>
               </tr>
@@ -136,15 +137,17 @@
               <td>상품구매금액</td>
               <td>주문처리상태</td>
             </tr>
-            <tr class="order-modal-row">
+            <tr class="order-modal-row" th:each="orderMap : ${orderMaps}" th:object="${orderMap}">
               <td>
                 <input type="checkbox">
               </td>
               <td>
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
+                <p th:text="*{#strings.substring(order.orderDate,0,10)}">주문날짜</p>
+                <a th:href="'/order/'+*{order.orderNo}"><p id="orderNum" th:text="'[ ' + *{order.orderUno}+' ]'">주문번호</p></a>
               </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
+              <td>
+                <div th:text="*{odpList}"></div>
+              </td>
               <td>
                 <p>[LAF추천/2장돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
                 <p>[옵션:그린]</p>

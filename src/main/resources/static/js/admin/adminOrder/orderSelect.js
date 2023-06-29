@@ -35,7 +35,6 @@ document.getElementById('orderSelectForm').addEventListener('click', () => {
     if(sellStateCheckeds.length > 0){
         const sellState = [];
         sellStateCheckeds.forEach( e => {
-            console.log(e)
             sellState.push(e.value)
         })
         console.log(sellState)
