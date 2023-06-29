@@ -26,8 +26,8 @@ public class ImageDeleteScheduling {
 	@Value("${my.review.location}")
 	private String reviewFilePath;
 	
-	@Scheduled(cron = "0,30 * * * * *") // 매 분 0초, 30초마다
-//	@Scheduled(cron = "0 0 * * * *") // 매 정시마다
+//	@Scheduled(cron = "0,30 * * * * *") // 매 분 0초, 30초마다
+	@Scheduled(cron = "0 0 * * * *") // 매 정시마다
 	public void test() {
 		
 //		System.out.println("----게시판 DB,서버 불일치 파일 제거----");
