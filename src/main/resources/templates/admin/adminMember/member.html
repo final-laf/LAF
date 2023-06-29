@@ -66,7 +66,9 @@
             </tr>
             <th:block th:each="member : ${memberList}">
               <tr th:unless="${listCount == 0}" class="selected-member" th:memberNo="${member.memberNo}">
-                <td><input type="checkbox"></td>
+                <td onclick="event.stopPropagation();">
+                  <input type="checkbox"  class="selected-member-checkbox" name="selectedMember" th:value="${member}">
+                </td>
                 <td th:text="${member.memberNo}">번호</td>
                 <td th:text="${member.memberId}">아이디</td>
                 <td th:text="${member.memberName}">이름</td>
@@ -134,6 +136,7 @@
     </section>
     <!-- 리뷰 모달(상세조회, 수정) -->
     <th:block th:replace="~{admin/adminMember/memberModal}"></th:block>
+
   </main>
 </body>
 </html>

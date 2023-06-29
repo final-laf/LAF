@@ -110,7 +110,25 @@
 }
 
 /* 테이블 td의 모든 클릭이벤트 제거 */
-.member-result td{
+.member-result td:nth-child(2){
+  pointer-events: none;
+}
+.member-result td:nth-child(3){
+  pointer-events: none;
+}
+.member-result td:nth-child(4){
+  pointer-events: none;
+}
+.member-result td:nth-child(5){
+  pointer-events: none;
+}
+.member-result td:nth-child(6){
+  pointer-events: none;
+}
+.member-result td:nth-child(7){
+  pointer-events: none;
+}
+.member-result td:nth-child(8){
   pointer-events: none;
 }
 
@@ -748,6 +766,12 @@
 
 
 
+
+
+
+
+
+
 /* 적립금 지급 모달창 */
 /* 모달창 오버레이 */
 .member-point-modal-overlay {
@@ -792,7 +816,10 @@
   flex-direction: column;
 }
 
-
+.member-point-modal-window input {
+  border-radius: 2px;
+  outline: none;
+}
 
 
 /* 테이블 */
@@ -857,12 +884,16 @@
 .point-member {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
   align-items: center;
 
   padding: 0px 5px;
 }
+
+.point-member > span{
+  margin-right: 5px;
+}
+
 
 /* 적립금 */
 #memberPoint {

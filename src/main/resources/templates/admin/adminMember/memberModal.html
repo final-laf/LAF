@@ -95,6 +95,8 @@
 </div>
 
 
+
+
 <!-- 쿠폰 발급 모달창 -->
 <div class="member-cupon-modal-overlay" id="memberCuponModalOverlay">
   <div class="member-cupon-modal-window">
@@ -185,59 +187,55 @@
 <!-- 적립금 발급 모달창 -->
 <div class="member-point-modal-overlay" id="memberPointModalOverlay">
   <div class="member-point-modal-window">
-    <table class="member-point-modal-table">
-      <div class="member-modal-title">
-        <span>적립금 지급</span>
-      </div>
-      <tbody>
-        <!-- 3행 4열 -->
-        <tr>
-          <td>대상 회원</td>
-          <td colspan="3">
-            <div class="point-member">
-              <span>유저일</span>
-              <button class="button">회원 검색</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>적립금</td>
-          <td>        
-            <select name="memberPointMarkKey" id="memberPointMarkKey">
-              <option value="plus">지급 (+) </option>
-              <option value="minus">차감 (-) </option>
-            </select>
-            <input type="text" id="memberPoint">
-            <span>원</span>
-          </td>
-          <td>유효기간</td>
-          <td>
-            <div class="point-detail-date">
-              <div>
-                <input type="date"> ~ <input type="date">
+    <form action="">
+      <table class="member-point-modal-table">
+        <div class="member-modal-title">
+          <span>적립금 지급</span>
+        </div>
+        <tbody>
+          <!-- 3행 4열 -->
+          <tr>
+            <td>대상 회원</td>
+            <td colspan="3">
+              <div class="point-member">
               </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>사유</td>
-          <td colspan="3">
-            <div class="point-reason">
-              <select name="memberPointReasonKey" id="memberPointReasonKey">
-                <option value="buyingProduct">상품 구매 추가 적립</option>
-                <option value="newMember">신규 회원 가입 지급</option>
-                <option value="etcReasion">기타</option>
+            </td>
+          </tr>
+          <tr>
+            <td>적립금</td>
+            <td>        
+              <select name="memberPointMarkKey" id="memberPointMarkKey">
+                <option value="plus">지급 (+) </option>
+                <option value="minus">차감 (-) </option>
               </select>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- 하단 버튼 영역 -->
-    <div class="member-point-btn-area">
-      <button type="button" class="button member-point-modal-close">지급</button>
-      <button type="button" class="button member-point-modal-close" id="pointModalClose">닫기</button>
-    </div>
+              <input type="text" id="memberPoint">
+              <span>원</span>
+            </td>
+            <td>유효기간</td>
+            <td>
+              <div class="point-detail-date">
+                <div>
+                  <input type="date"> ~ <input type="date">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>사유</td>
+            <td colspan="3">
+              <div class="point-reason">
+                <input type="text" name="memberPointReasonKey" id="memberPointReasonKey">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- 하단 버튼 영역 -->
+      <div class="member-point-btn-area">
+        <button type="button" class="button member-point-modal-close">지급</button>
+        <button type="button" class="button member-point-modal-close" id="pointModalClose">닫기</button>
+      </div>
+    </form>
   </div>
 
 <script src="/js/admin/adminMember/member.js"></script>

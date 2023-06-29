@@ -8,6 +8,7 @@ new URLSearchParams(location.search).forEach((value, key) => {
   }
 })
 
+
 // 주문 내역 불러오는 함수
 function loadOrderList (memberNo, cp){
   // 주문 내역 테이블 초기화
@@ -20,6 +21,7 @@ function loadOrderList (memberNo, cp){
   .then(resultMap => {
     // resultMap : orderMaps - orderList - orderProductList
     //             OrderListpagination
+
 
 
   // 주문이 없는 경우
@@ -350,7 +352,7 @@ const selectedMembers = document.getElementsByClassName("selected-member")
 for(let member of selectedMembers) {
 
   /* 회원 목록에서 한 회원 클릭시 */
-member.addEventListener('click', e => {
+  member.addEventListener('click', e => {
     // 회원 정보 불러오기
     const memberNo = e.target.getAttribute("memberNo");
     fetch("/admin/member/memberdetail?memberNo=" + memberNo)
@@ -444,6 +446,23 @@ modalClose.addEventListener("click", e => {
 });
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 쿠폰 발급 모달 */
 const cuponModal = document.getElementById("memberCuponModalOverlay")
 const OpenCuponModal = document.getElementById("OpenCuponModal");
@@ -483,6 +502,16 @@ cuponModalClose.addEventListener("click", e => {
 
 
 
+
+
+
+
+
+
+
+
+
+
   
 /* 포인트 발급 모달 */
 const pointModal = document.getElementById("memberPointModalOverlay")
@@ -490,6 +519,41 @@ const OpenPointModal = document.getElementById("OpenPointModal");
 
 /* 포인트 버튼 클릭 시 */
 OpenPointModal.addEventListener('click', () => {
+let selectedMembers = []
+  // 선택한 member를 받아 키, 벨류값으로 저장
+  const selectedMember = document.getElementsByClassName("selected-member-checkbox")
+  for (let i=0; i<selectedMember.length; i++) {
+    if(selectedMember[i].checked) {
+      const selectedMemberData = selectedMember[i].value;
+      const regex = /(\w+)=(.+?)(?=, \w+=|$)/g;
+      const selectedMemberValues = {};
+      let match;
+      while ((match = regex.exec(selectedMemberData)) !== null) {
+          const selectedMemberKey = match[1]; // 
+          const selectedMemberValue = match[2]; // 속성값
+          selectedMemberValues[selectedMemberKey] = selectedMemberValue; // 객체에 속성과 값을 저장
+        }
+        selectedMembers[i] = selectedMemberValues
+    }
+  }
+  
+  const selectedMemberNameDiv = document.getElementsByClassName("point-member")[0]
+  for(let i=0; i<selectedMembers.length; i++) {
+    console.log(selectedMembers[i].memberName)
+    if(selectedMembers[i]) {
+      const selectedMemberName = document.createElement("span")
+      if(i == selectedMember.length-1){
+        console.log("마지막")
+        selectedMemberName.innerText = selectedMembers[i].memberName;
+      }else {
+        console.log("아님")
+        selectedMemberName.innerText = selectedMembers[i].memberName + ","
+      }
+      selectedMemberNameDiv.append(selectedMemberName)
+    }
+  }
+
+
     pointModal.style.display = "flex";
     document.body.style.overflowY = "hidden";
 });
@@ -498,7 +562,7 @@ OpenPointModal.addEventListener('click', () => {
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
 pointModal.addEventListener("click", e => {
     const evTarget = e.target
-    if(evTarget.classList.contains("member-cupon-modal-overlay")) {
+    if(evTarget.classList.contains("member-point-modal-overlay")) {
         pointModal.style.display = "none";
         document.body.style.removeProperty('overflow');
     }
