@@ -29,6 +29,6 @@ public interface AdminProductService {
 	 * @throws IOException 
 	 * @throws IllegalStateException
 	 */
-	int updateProduct(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
+	int updateProduct(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) throws IllegalStateException, IOException;
 
 }

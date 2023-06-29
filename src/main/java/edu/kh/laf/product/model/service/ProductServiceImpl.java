@@ -284,12 +284,83 @@ public class ProductServiceImpl implements ProductService {
 	// 이미지 업데이트
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int updateProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) {
+	public int updateProductImage(
+			Map<String, Object> paramMap, 
+			MultipartFile thumbnail, 
+			List<MultipartFile> images
+			) throws IllegalStateException, IOException {
+		
+		long productNo = Long.parseLong(String.valueOf(paramMap.get("productNo")));
+		
+		List<ProductImage> uploadList = new ArrayList<>();
+		
+		/* 썸네일 */
+		int result = 1;
+		ProductImage thumbnailImg = new ProductImage();
+		if (thumbnail.getSize() > 0) {
+			String filename = thumbnail.getOriginalFilename();
+			String rename = Util.fileRename(filename);
+			
+			thumbnailImg.setRename(rename);
+			thumbnailImg.setImgPath(webPath + rename);
+			thumbnailImg.setProductNo(productNo);
+			
+			// DB에 정보 저장
+			result *= mapper.updateThumbnailImage(thumbnailImg);
+			
+			// 서버에 파일 저장
+			thumbnail.transferTo(new File(filePath + thumbnailImg.getRename()));
+		}
 		
 		
+		/* 상세 이미지 */
 		
+		// images에 담겨있는 파일 중 실제 업로드된 파일만 분류
+		for (int i = 0; i < images.size(); i++) {
+			if (images.get(i).getSize() == 0) continue;
+			
+			String filename = images.get(i).getOriginalFilename();
+			String rename = Util.fileRename(filename);
+
+			ProductImage img = new ProductImage();
+			img.setRename(rename);
+			img.setImgPath(webPath + rename);
+			img.setProductNo(productNo);
+			img.setThumbFl("N");
+			img.setImgOrder(i + 1);
+			uploadList.add(img);
+		}
+
+		// 업로드 할 파일이 없을 경우
+		if (uploadList.isEmpty()) return 1;
+
+		// product_img 테이블 삽입
+		result *= mapper.insertImageList(uploadList);
+		if (result < uploadList.size()) {
+			throw new FileUploadException();
+		}
 		
+		// 서버에 파일 저장
+		thumbnail.transferTo(new File(filePath + uploadList.get(0).getRename()));
+		for (int i = 0; i < uploadList.size(); i++) {
+			images.get(i).transferTo(new File(filePath + uploadList.get(i).getRename()));
+		}		
 		return 1;
+	}
+
+	// 상품 상세 이미지 삭제
+	@Override
+	public int removeProductImage(Map<String, Object> paramMap) {
+		String[] arr = ((String)paramMap.get("removedImages")).split(",");
+		if(arr[0].length() > 0)
+			return mapper.removeProductImage(arr);
+		return 1;
+	}
+
+	// 이미지 전체 목록 조회
+	@Override
+	public List<String> selectImageList() {
+		return mapper.selectImageList();
 	}
 
 }

@@ -56,7 +56,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 	public int updateProduct(
 			Map<String, Object> paramMap, 
 			MultipartFile thumbnail, 
-			List<MultipartFile> images) {
+			List<MultipartFile> images) throws IllegalStateException, IOException {
 		
 		long productNo = Long.parseLong(String.valueOf(paramMap.get("productNo")));
 		
@@ -72,6 +72,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 
 		// 이미지 갱신
 		result *= productService.updateProductImage(paramMap, thumbnail, images);
+		result *= productService.removeProductImage(paramMap);
 
 		return result;
 	}

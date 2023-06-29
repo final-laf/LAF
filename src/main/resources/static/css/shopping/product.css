@@ -23,6 +23,9 @@ hr { margin: 20px 0; }
 #productTopImages img {
   max-height: 700px;
   width: auto;
+  max-width: 530px;
+  object-fit: cover;
+  object-position: center;
 }
 /* 상품 정보 및 구매옵션 */
 #productTopOptions {

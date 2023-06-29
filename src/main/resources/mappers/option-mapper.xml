@@ -101,13 +101,6 @@
 		</foreach>
 	</insert>
 	
-	<!-- 옵션 숨기기 -->
-	<!--<update id="updateOptionHidden">
-		update `option`
-		set		hidden_fl = 'Y'
-		where	option_no = ${optionNo}
-	</update>-->
-	
 	<!-- 옵션 업데이트 -->
 	<update id="updateOption">
 		update `option`

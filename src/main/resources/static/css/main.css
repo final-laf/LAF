@@ -9,6 +9,7 @@ main {
 .slide_wrap { 
   position: relative;
   display: block;
+  margin-bottom: 130px;
 }
 .slide_box { 
   overflow-x: hidden; 

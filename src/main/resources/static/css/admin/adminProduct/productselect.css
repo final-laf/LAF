@@ -221,6 +221,10 @@ tr:not(:first-child) .p-name {
 .p-name img {
   display: block;
   margin-right: 3px;
+  width: 45px;
+  height: 60px;
+  object-fit: cover;
+  object-position: center;
 }
 .p-info {
   text-align: left;
