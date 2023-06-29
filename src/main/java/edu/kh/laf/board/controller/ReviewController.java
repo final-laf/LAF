@@ -122,7 +122,7 @@ public class ReviewController {
 			) {
 		System.out.println(reviewNo);
 		System.out.println(deleteNo);
-		return "";
+		return "redirect:/myPage/review/list"; 
 	}
 	
 }

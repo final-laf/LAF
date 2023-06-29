@@ -134,6 +134,10 @@
   <th:block th:replace="~{/boards/review/reviewModifyModal}"></th:block>
   <th:block th:replace="~{/boards/review/bestReviewModal}"></th:block>
 
+  <script th:inline="javascript">
+    let bestReviewNoList = /*[[${bestReview}]]*/ "베스트 리뷰";
+    console.log(bestReviewNoList)
+  </script>
   <script src="/js/boards/review.js"></script>
 </section>
 
