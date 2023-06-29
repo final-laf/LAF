@@ -13,5 +13,6 @@ public class Category {
 	private long categoryNo;
 	private String categoryName;
 	private long parentCategoryNo;
+	private String parentCategoryName;
 	private int categoryOrder;
 }

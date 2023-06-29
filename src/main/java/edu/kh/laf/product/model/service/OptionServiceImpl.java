@@ -30,6 +30,12 @@ public class OptionServiceImpl implements OptionService {
 		return mapper.selectOptionList(productNo);
 	}
 	
+	// 상품번호로 해당 상품의 모든 옵션 조회(관리자)
+	@Override
+	public List<Option> adminSelectOptionList(long productNo) {
+		return mapper.adminSelectOptionList(productNo);
+	}
+	
 	// colorList(컬러 종류), sizeList(사이즈 종류) 추출
 	@Override
 	public Map<String, List<String>> getOptionName(long productNo) {
@@ -83,23 +89,6 @@ public class OptionServiceImpl implements OptionService {
 		return mapper.selectOption(optionNo);
 	}
 
-	// 옵션 번호 여러개로 해당 상품의 모든 옵션 조회
-//	@Override
-//	public Map<String, Object> selectOptionListBySeveralKeys(List<Product> productList) {
-//		int listCount = ((List<Long>)paramMap.get("likeList")).size();
-//		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
-//		
-//		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
-//		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
-//		List<Option> optionList = mapper.selectOptionListBySeveralKeys(paramMap, rowBounds);
-//		
-//		Map<String, Object> resultMap = new HashMap<>();
-//		resultMap.put("pagination", pagination);
-//		resultMap.put("optionList", optionList);
-//		
-//		return resultMap;
-//	}
-
 	// 옵션 번호로 재고량 조회
 	@Override
 	public int selectStock(long optionNo) {
@@ -123,7 +112,7 @@ public class OptionServiceImpl implements OptionService {
 		String[] color = (String[])paramMap.get("color");
 		String[] size = (String[])paramMap.get("size");
 		String[] stock = (String[])paramMap.get("stock");
-		String[] location = (String[])paramMap.get("location");
+		String[] hidden = (String[])paramMap.get("hiddenFl");
 		
 		for(int i=0; i<length; i++) {
 			Option op = new Option();
@@ -133,13 +122,57 @@ public class OptionServiceImpl implements OptionService {
 				op.setSize(size[i]);
 			}
 			op.setStock(Integer.parseInt(stock[i].replaceAll(",", "")));
-			if(location != null && location[i].trim().length() > 0) {
-				op.setLocation(location[i]);
-			}
+			op.setHiddenFl(hidden[i]);
 			optionList.add(op);
 		}
 		
 		return mapper.insertOptionList(optionList);
+	}
+
+	// 옵션 정보 업데이트
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateOption(Map<String, Object> paramMap) {
+		
+		String[] optionNo = (String[])paramMap.get("optionNo"); 
+		String[] stock = (String[])paramMap.get("stock");
+		String[] hidden = (String[])paramMap.get("hiddenFl");
+		
+		// 기존 정보 업데이트
+		int result = 1;
+		for(int i=0; i<optionNo.length; i++) {
+			Option op = new Option();
+			op.setOptionNo(Long.parseLong(optionNo[i]));
+			op.setStock(Integer.parseInt(stock[i]));
+			op.setHiddenFl(hidden[i]);
+			
+			result *= mapper.updateOption(op);
+		}
+		
+		if(optionNo.length == stock.length) return result; // 신규 정보 없음
+		
+		// 신규 정보 삽입
+		long productNo = Integer.parseInt(String.valueOf(paramMap.get("productNo")));
+		String[] color = (String[])paramMap.get("color");
+		String[] size = (String[])paramMap.get("size");
+		
+		List<Option> optionList = new ArrayList<>();
+		for(int i=0; i<color.length; i++) {
+			Option op = new Option();
+			op.setProductNo(productNo);
+			op.setColor(color[i]);
+			if(size != null && size[i].trim().length() > 0) {
+				op.setSize(size[i]);
+			}
+			op.setStock(Integer.parseInt(stock[i].replaceAll(",", "")));
+			op.setHiddenFl(hidden[i]);
+			optionList.add(op);
+		}
+		
+		if(optionList.size() > 0)
+			result *= mapper.insertOptionList(optionList);
+		
+		return result;
 	}
 
 }

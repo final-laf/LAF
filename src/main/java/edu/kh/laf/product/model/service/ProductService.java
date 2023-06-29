@@ -1,15 +1,14 @@
 package edu.kh.laf.product.model.service;
 
-import edu.kh.laf.product.model.dto.Category;
-import edu.kh.laf.product.model.dto.Product;
-import edu.kh.laf.product.model.dto.ProductImage;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.web.multipart.MultipartFile;
+
+import edu.kh.laf.product.model.dto.Product;
+import edu.kh.laf.product.model.dto.ProductImage;
 
 public interface ProductService {
 	
@@ -26,6 +25,14 @@ public interface ProductService {
      * @return product
      */
     Product selectProduct(long productNo);
+    
+    /**
+	 * 상품 번호로 상품 정보 조회(관리자)
+	 * (관리자 : 비공개, 품절상품, 썸네일 없는 상품도 모두 조회)
+	 * @param productNo
+	 * @return product
+	 */
+	Product adminSelectProduct(long productNo);
     
     /**
      * 카테고리별 위클리 베스트 상품 목록 조회(갯수제한)
@@ -120,4 +127,19 @@ public interface ProductService {
 	 * @return productImageList
 	 */
 	List<ProductImage> selectProductImage(long productNo);
+
+	/**
+	 * 상품 정보 업데이트
+	 * @param paramMap
+	 */
+	int updateProduct(Map<String, Object> paramMap);
+
+	/**
+	 * 이미지 업데이트
+	 * @param paramMap
+	 * @param thumbnail
+	 * @param images
+	 * @return result
+	 */
+	int updateProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
 }

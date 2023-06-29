@@ -12,7 +12,6 @@ body::-webkit-scrollbar {
   width: 12px;
   z-index: 999;
   padding: 2px;
-
 }
 .scroll {
   background-color: #493e5d00;
@@ -185,7 +184,6 @@ td {
 /* 테이블 전체 비율 설정 */
 .p-checkbox { width: 3.5%; }
 .p-no { width: 7%; }
-/* .p-name { width: 32%; } */
 .p-price-origin { width: 8%; }
 .p-price-sale { width: 8%; }
 .p-count { width: 5%; }
@@ -236,6 +234,9 @@ tr:not(:first-child) .p-name {
   align-items: center;
   padding-right: 15px;
 }
+.p-info-name:hover {
+  text-decoration: underline;
+}
 .p-category-item {
   display: inline-block;
   padding: 3px 5px;
@@ -252,4 +253,13 @@ tr:not(:first-child) .p-name {
 /* 페이지네이션 overriding */
 .pagination {
   margin: 10px !important;
+}
+
+.enroll-completted-btn button {
+  height: 30px;
+  width: 80px;
+  border-radius: 2px;
+}
+.enroll-completted-btn button:first-child {
+  margin-right: 5px;
 }

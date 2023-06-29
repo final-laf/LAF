@@ -56,6 +56,12 @@ public class ProductServiceImpl implements ProductService {
 	public Product selectProduct(long productNo) {
 		return mapper.selectProduct(productNo);
 	}
+	
+	// 상품 번호로 상품 정보 조회(관리자)
+	@Override
+	public Product adminSelectProduct(long productNo) {
+		return mapper.adminSelectProduct(productNo);
+	}
 
 	// 카테고리별 위클리 베스트 상품 목록 조회(갯수제한)
 	@Override
@@ -236,6 +242,7 @@ public class ProductServiceImpl implements ProductService {
 			img.setImgPath(webPath + rename);
 			img.setProductNo(productNo);
 			img.setThumbFl("N");
+			img.setImgOrder(i + 1);
 			uploadList.add(img);
 		}
 
@@ -251,7 +258,7 @@ public class ProductServiceImpl implements ProductService {
 		// 서버에 파일 저장
 		thumbnail.transferTo(new File(filePath + uploadList.get(0).getRename()));
 		for (int i = 1; i < uploadList.size(); i++) {
-			images.get(i-1).transferTo(new File(filePath + uploadList.get(i).getRename()));
+			images.get(i - 1).transferTo(new File(filePath + uploadList.get(i).getRename()));
 		}
 		return 0;
 	}
@@ -260,6 +267,29 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductImage> selectProductImage(long productNo) {
 		return mapper.selectProductImage(productNo);
+	}
+
+	// 상품 정보 업데이트
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateProduct(Map<String, Object> paramMap) {
+		
+		Product product = new Product();
+		product.setProductNo(Long.parseLong(String.valueOf(paramMap.get("productNo"))));
+		product.setProductName((String)paramMap.get("productName"));
+		
+		return mapper.updateProduct(product);
+	}
+
+	// 이미지 업데이트
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) {
+		
+		
+		
+		
+		return 1;
 	}
 
 }

@@ -10,7 +10,23 @@
 				color,
 				stock,
 				location,
-				sell_count
+				sell_count,
+				hidden_fl
+		FROM   `option`
+		WHERE 	product_no = ${productNo}
+		        and hidden_fl = 'N'
+	</select>
+	
+	<!-- 상품 번호로 해당 상품의 모든 옵션 조회(관리자) -->
+	<select id="adminSelectOptionList" resultType="Option">
+		SELECT  option_no,
+				product_no,
+				size,
+				color,
+				stock,
+				location,
+				sell_count,
+				hidden_fl
 		FROM   `option`
 		WHERE 	product_no = ${productNo}
 	</select>
@@ -23,13 +39,13 @@
 				color,
 				stock,
 				location,
-				sell_count
+				sell_count,
+				hidden_fl
 		FROM   `option`
-		<where>
-			<foreach collection="list" item="product" separator="or">
+		where hidden_fl = 'N'
+			<foreach collection="list" item="product" separator="or" open="and (" close=")">
 				product_no = ${product.productNo}
     		</foreach>
-    	</where>
 	</select>
 	
 	<!-- 상품 번호 여러개로 해당 상품의 재고 조회 -->
@@ -38,7 +54,7 @@
 				 sum(stock) as stock, 
 				 sum(sell_count) AS sales
 		from    `option`
-		<where>
+		<where> 
 			<foreach collection="list" item="product" separator="or">
 				product_no = ${product.productNo}
     		</foreach>
@@ -51,7 +67,8 @@
 		SELECT  option_no, color, size, stock
 		FROM   `option`
 		WHERE 	product_no = ${productNo}
-				AND color = #{color}
+				and color = #{color}
+				and hidden_fl = 'N'
 	</select>
 	
 	<!-- 옵션 번호로 옵션 정보 조회 -->
@@ -59,6 +76,7 @@
 		SELECT  option_no, color, size, stock
 		FROM   `option`
 		WHERE 	option_no = ${optionNo}
+				and hidden_fl = 'N'
 	</select>
 	
 	<!-- 옵션 번호로 재고량 조회 -->
@@ -81,10 +99,27 @@
 			#{option.color}, 
 			${option.stock}, 
 			#{option.location}, 
-			default
+			default,
+			#{option.hiddenFl}
 		)
 		</foreach>
 	</insert>
+	
+	<!-- 옵션 숨기기 -->
+	<!--<update id="updateOptionHidden">
+		update `option`
+		set		hidden_fl = 'Y'
+		where	option_no = ${optionNo}
+	</update>-->
+	
+	<!-- 옵션 업데이트 -->
+	<update id="updateOption">
+		update `option`
+		set		stock = ${stock},
+				location = #{location},
+		        hidden_fl = #{hiddenFl}
+		where	option_no = ${optionNo}
+	</update>
 	
 </mapper>
 

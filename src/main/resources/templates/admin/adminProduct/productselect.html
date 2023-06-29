@@ -146,9 +146,11 @@
               <td class="p-checkbox"><input class="input-checkbox" name="checkbox" type="checkbox"></td>
               <td class="p-no" th:text="${product.productNo}">상품번호</td>
               <td class="p-name">
-                <div class="image-container"><img th:src="${product.thumbnailPath}"></div>
+                <a th:href="@{/product/{no}(no=${product.productNo})}" class="image-container">
+                  <img th:src="${product.thumbnailPath}">
+                </a>
                 <div class="p-info">
-                  <div class="p-info-name" th:text="${product.productName}">상품명</div>
+                  <a th:href="@{/product/{no}(no=${product.productNo})}" class="p-info-name" th:text="${product.productName}">상품명</a>
                   <div class="p-info-category">
                     <a th:each="category : ${resultCategoryList}" 
                       th:if="${category.product_no == product.productNo}" 
@@ -224,18 +226,22 @@
 
   <!-- 회원 상세 모달창 -->
   <div class="product-modal-overlay" id="productModalOverlay">
-    <form class="product-modal-window">
+    <form id="productUpdateFrm" th:action="@{/admin/product/mod/submit}" class="product-modal-window" method="POST">
       <div class="product-enroll-title">상품 수정</div>
-      <th:block th:replace="~{admin/adminProduct/productDetail}"></th:block>
+      <th:block th:replace="~{admin/adminProduct/productDetailUpdate}"></th:block>
 
       <!-- 폼 제출 버튼 -->
       <div class="enroll-completted-btn">
-        <button type="button">수정</button>
         <button type="button" class="product-modal-close">취소</button>
+        <button id="productUpdateBtn" class="submit">수정</button>
       </div>
     </form>
   </div>
 
+  <script th:inline="javascript">
+    const queryString = /*[[${queryString}]]*/ "전달 받은 queryString";
+    if(queryString != null ) location.href = location.href + queryString;
+  </script>
   <script th:src="@{/js/admin/adminProduct/adminProduct.js}"></script>
 
 </body>

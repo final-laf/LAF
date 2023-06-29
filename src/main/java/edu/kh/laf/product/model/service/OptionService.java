@@ -16,6 +16,13 @@ public interface OptionService {
 	List<Option> selectOptionList(long productNo);
 	
 	/**
+	 * 상품번호로 해당 상품의 모든 옵션 조회(관리자)
+	 * @param productNo
+	 * @return optionList
+	 */
+	List<Option> adminSelectOptionList(long productNo);
+	
+	/**
 	 * 옵션 목록에서 색상 추출
 	 * @param optionList
 	 * @return colorList
@@ -77,5 +84,12 @@ public interface OptionService {
 	 * @return result
 	 */
 	int insertOptionList(Map<String, Object> paramMap);
+
+	/**
+	 * 옵션 정보 업데이트
+	 * @param productNo
+	 * @return result
+	 */
+	int updateOption(Map<String, Object> paramMap);
 	
 }

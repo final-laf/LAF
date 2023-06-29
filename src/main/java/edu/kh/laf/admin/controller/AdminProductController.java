@@ -1,6 +1,7 @@
 package edu.kh.laf.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import edu.kh.laf.admin.model.service.AdminProductService;
 import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.service.CategoryService;
+import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
@@ -31,6 +33,8 @@ public class AdminProductController {
 	private ProductService productService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private OptionService optionService;
 	
 	// 상품관리 : 상품조회
 	@GetMapping("/admin/product")
@@ -50,7 +54,7 @@ public class AdminProductController {
 		
 		Map<String, Object> resultMap = productService.selectProductList(paramMap);
 		List<Product> productList = (List<Product>)resultMap.get("productList");
-		List<Map<String, Object>> productCategoryList = categoryService.selectCategoryListByProductNo(productList);
+		List<Map<String, Object>> productCategoryList = categoryService.selectCategoryListByProductList(productList);
 		List<Category> categoryList = categoryService.selectAllCategoryList();
 				
 		model.addAttribute("productList", productList);
@@ -87,7 +91,7 @@ public class AdminProductController {
 	// 상품관리 : 상품등록
 	@PostMapping("/admin/product/enroll/submit")
 	public String productEnrollSubmit(
-			String[] size, String[] color, String[] stock, String[] location, // option 정보들
+			String[] size, String[] color, String[] stock, String[] hiddenFl, // option 정보들
 			String[] parentCategory, String[] childCategory, // category 정보들
 			@RequestParam(value="productSale", required=false, defaultValue="0") String productSale,
 			@RequestParam Map<String, Object> paramMap,
@@ -96,10 +100,10 @@ public class AdminProductController {
 			RedirectAttributes ra) throws IllegalStateException, IOException {
 		
 		paramMap.put("productSale", productSale);
+		paramMap.put("hiddenFl", hiddenFl);
 		paramMap.put("size", size);
 		paramMap.put("color", color);
 		paramMap.put("stock", stock);
-		paramMap.put("location", location);
 		paramMap.put("parentCategory", parentCategory);
 		paramMap.put("childCategory", childCategory);
 		
@@ -123,10 +127,41 @@ public class AdminProductController {
 	public Map<String, Object> selectProduct(long productNo) {
 		
 		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("product", productService.selectProduct(productNo));
+		resultMap.put("product", productService.adminSelectProduct(productNo));
 		resultMap.put("productImageList", productService.selectProductImage(productNo));
+		resultMap.put("categoryList", categoryService.selectCategoryListByProductNo(productNo));
+		resultMap.put("optionList", optionService.adminSelectOptionList(productNo));		
 		
 		return resultMap;
+	}
+	
+	// 상품관리 : 상품수정
+	@PostMapping("/admin/product/mod/submit")
+	public String updateProduct(
+			String[] optionNo, String[] size, String[] color, String[] stock, String[] hiddenFl, // option 정보들
+			String[] parentCategory, String[] childCategory, // category 정보들
+			@RequestParam(value="productSale", required=false, defaultValue="0") String productSale,
+			@RequestParam Map<String, Object> paramMap,
+			MultipartFile thumbnail,
+			List<MultipartFile> images,
+			RedirectAttributes ra) throws IllegalStateException, IOException {
+		
+		paramMap.put("optionNo", optionNo);
+		paramMap.put("hiddenFl", hiddenFl);
+		paramMap.put("productSale", productSale);
+		paramMap.put("size", size);
+		paramMap.put("color", color);
+		paramMap.put("stock", stock);
+		paramMap.put("parentCategory", parentCategory);
+		paramMap.put("childCategory", childCategory);
+		
+		int result = service.updateProduct(paramMap, thumbnail, images);
+		
+		if(result > 0) ra.addFlashAttribute("message", "상품 수정 성공!");
+		else           ra.addFlashAttribute("message", "상품 수정 실패");
+		
+		ra.addFlashAttribute("queryString", (String)paramMap.get("queryString"));		
+		return "redirect:/admin/product";
 	}
 	
 } 
