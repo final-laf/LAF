@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/admin/adminOrder/orderselect.css">
   <title>관리자 :: 주문조회</title>
+  <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
   <style>
     .sidebar li.sub.adminOrder:not(.last) { height: 30px !important; }
     .sidebar li.sub.adminOrder.last { height: 10px !important; }
@@ -22,73 +23,109 @@
           <span class="order-select-title">주문 조회</span>
         </div>
         <div class="order-select-box">
-          <table class="order-select-top">
-            <tr>
-              <td>검색어</td>
-              <td>
-                <select>
-                  <option>전체</option>
-                  <option>전체</option>
-                  <option>전체</option>
-                </select>
-                <input type="text">
-              </td>
-            </tr>
-            <tr>
-              <td>날짜</td>
-              <td>
-                <div>
-                  <input type="date" value="2023-06-12">
-                  <span>~</span>
-                  <input type="date" value="2023-06-12">
-                  <button type="button">오늘</button>
-                  <button type="button">3일간</button>
-                  <button type="button">일주일</button>
-                  <button type="button">1개월</button>
-                  <button type="button">3개월</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>판매 상태</td>
-              <td>
-                <div>
-                  <input type="checkbox">주문접수
-                  <input type="checkbox">결제확인
-                  <input type="checkbox">상품준비
-                  <input type="checkbox">출고완료
-                  <input type="checkbox">배송중
-                  <input type="checkbox">취소중
-                  <input type="checkbox">취소완료
-                  <input type="checkbox">교환중
-                  <input type="checkbox">교환완료
-                  <input type="checkbox">반품중
-                  <input type="checkbox">반품완료
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>주문 결제</td>
-              <td>
-                <div>
-                  <input type="checkbox">무통장 입금
-                  <input type="checkbox">페이팔
-                </div>
-              </td>
-            </tr>
-          </table>
-          <div class="order-select-btn">
-            <button type="button">검색</button>
-            <button type="button">초기화</button>
-          </div>
+          <form id="orderSelectForm" action="/admin/order">
+            <table class="order-select-top">
+              <tr>
+                <td>검색어</td>
+                <td>
+                  <select name="findState">
+                    <option>전체</option>
+                    <option>상품명</option>
+                    <option>주문번호</option>
+                  </select>
+                  <input name="findKeyword" type="text">
+                </td>
+              </tr>
+              <tr>
+                <td>날짜</td>
+                <td>
+                  <div id="dateFilter">
+                    <input type="date" name="findStartDate">
+                    <div>~</div>
+                    <input type="date" name="findEndDate">
+                    <input name="during" id="today" type="radio"><label for="today"><div>오늘</div></label>
+                    <input name="during" id="oweek" type="radio"><label for="oweek"><div>1주일</div></label>
+                    <input name="during" id="omonth" type="radio"><label for="omonth"><div>1개월</div></label>
+                    <input name="during" id="tmonth" type="radio"><label for="tmonth"><div>3개월</div></label>
+                    <input name="during" id="smonth" type="radio"><label for="smonth"><div>6개월</div></label>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  판매 상태
+                  <input type="hidden" name="sellState">
+                </td>
+                <td>
+                  <div id="sellStateChecked">
+                    <input value="0" type="checkbox">주문접수
+                    <input value="A" type="checkbox">결제확인
+                    <input value="B" type="checkbox">상품준비
+                    <input value="C" type="checkbox">출고완료
+                    <input value="D" type="checkbox">배송중
+                    <input value="E" type="checkbox">취소중
+                    <input value="F" type="checkbox">취소완료
+                    <input value="G" type="checkbox">교환중
+                    <input value="H" type="checkbox">교환완료
+                    <input value="I" type="checkbox">반품중
+                    <input value="J" type="checkbox">반품완료
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  주문 결제
+                  <input type="hidden" name="payState">
+                </td>
+                <td>
+                  <div id="payStateChecked">
+                    <input value="1" type="checkbox">무통장 입금
+                    <input value="2" type="checkbox">페이팔
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <div class="order-select-btn">
+              <button id="selectBtn">검색</button>
+              <button type="reset">초기화</button>
+            </div>
+          </form> 
         </div>
         <div class="order-select-list">
           <div class="order-select-table-title">
-            <div>최신순 / 판매량순 (검색결과 2건)</div>
-            <div><button type="button">일괄수정</button></div>
+            <div>
+              <a href="">
+                <div>최신순<i class="fa-solid fa-angle-down"></i></div>
+              </a>
+              <a href="">
+                <div>판매량순<i class="fa-solid fa-angle-down"></i></div>
+              </a>
+              <div>(검색결과 2건)</div>
+            </div>
+            <div>
+              <select id="orderStateC">
+                <option value="0">선택</option>
+                <option value="A">주문접수</option>
+                <option value="B">결제확인</option>
+                <option value="C">상품준비</option>
+                <option value="D">출고완료</option>
+                <option value="E">배송중</option>
+                <option value="F">배송완료</option>
+                <option value="G">취소중</option>
+                <option value="H">취소완료</option>
+                <option value="I">교환중</option>
+                <option value="J">교환완료</option>
+                <option value="K">반품중</option>
+                <option value="L">반품완료</option>
+              </select>
+              <button type="button">일괄수정</button>
+            </div>
           </div>
           <table class="order-select-table">
             <tr>
+              <td>
+                <input type="checkbox">
+              </td>
               <td>
                 <p>주문일자</p>
                 <p>[주문번호]</p>
@@ -100,6 +137,9 @@
               <td>주문처리상태</td>
             </tr>
             <tr class="order-modal-row">
+              <td>
+                <input type="checkbox">
+              </td>
               <td>
                 <p>2023-05-31</p>
                 <p>[20230531-0004095]</p>
@@ -120,112 +160,12 @@
               </td>
             </tr>
           </table>
-          <table class="order-select-table">
-            <tr>
-              <td>
-                <p>주문일자</p>
-                <p>[주문번호]</p>
-              </td>
-              <td>이미지</td>
-              <td>상품정보</td>
-              <td>수량</td>
-              <td>상품구매금액</td>
-              <td>주문처리상태</td>
-            </tr>
-            <tr class="order-modal-row">
-              <td>
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
-              </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
-              <td>
-                <p>[LAF 추천/2장 돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
-              </td>
-              <td>1</td>
-              <td>33,000원</td>
-              <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
-              </td>
-            </tr>
-          </table>
-          </table>
-          <table class="order-select-table">
-            <tr>
-              <td>
-                <p>주문일자</p>
-                <p>[주문번호]</p>
-              </td>
-              <td>이미지</td>
-              <td>상품정보</td>
-              <td>수량</td>
-              <td>상품구매금액</td>
-              <td>주문처리상태</td>
-            </tr>
-            <tr>
-              <td class="order-modal-row">
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
-              </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
-              <td>
-                <p>[LAF 추천/2장 돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
-              </td>
-              <td>1</td>
-              <td>33,000원</td>
-              <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
-              </td>
-            </tr>
-          </table>
-          </table>
-          <table class="order-select-table">
-            <tr>
-              <td>
-                <p>주문일자</p>
-                <p>[주문번호]</p>
-              </td>
-              <td>이미지</td>
-              <td>상품정보</td>
-              <td>수량</td>
-              <td>상품구매금액</td>
-              <td>주문처리상태</td>
-            </tr>
-            <tr>
-              <td class="order-modal-row">
-                <p>2023-05-31</p>
-                <p>[20230531-0004095]</p>
-              </td>
-              <td><div><img src="/images/sample/18889.gif"></div></td>
-              <td>
-                <p>[LAF 추천/2장 돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
-              </td>
-              <td>1</td>
-              <td>33,000원</td>
-              <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
-              </td>
-            </tr>
-          </table>
         </div>
       </div>
     </section>
     <th:block th:replace="~{admin/adminOrder/orderModal}"></th:block>
   </main>
 
+  <script th:src="@{/js/admin/adminOrder/orderSelect.js}"></script>
 </body>
 </html>

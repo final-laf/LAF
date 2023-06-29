@@ -111,9 +111,6 @@
 		<if test='os != null'>
 			AND order_state = #{os}
 		</if>
-		<if test='os == null || os.length() == 0'>
-			AND order_state = 'A'
-		</if>
 		ORDER BY order_no DESC
 	</select>
 	

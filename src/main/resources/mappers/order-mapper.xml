@@ -121,7 +121,7 @@
 			   )
 	</insert>
 	
-	<!-- 주문번호조회selectOrderNo -->
+	<!-- 주문번호조회 -->
 	<select id="selectOrderNo" resultType="int">
 		SELECT order_no
 		FROM `order`
@@ -308,7 +308,7 @@
 			   #{orderNo})
 	</insert>
 	
-	<!-- 오늘 주문현황조회 -->
+	<!-- 오늘 주문현황조회(관리자) -->
 	<select id="selectTodayOrderState" resultType="map">
 		SELECT order_state os, CAST(COUNT(order_state) AS CHAR(10)) count
 		FROM `order`
@@ -316,7 +316,7 @@
 		GROUP BY order_state
 	</select>
 	
-	<!-- 오늘 주문조회 -->
+	<!-- 오늘 주문조회(관리자) -->
 	<select id="selectTodayOrder" resultType="Order">
 		SELECT *
 		FROM `order`
@@ -324,14 +324,36 @@
 		ORDER BY order_no DESC
 	</select>
 	
-	<!-- 주문처리상태변경 -->
+	<!-- 주문처리상태변경(관리자) -->
 	<update id="changeOrderState">
 		UPDATE `order`
 		SET order_state = #{orderState}
 		WHERE order_no = #{orderNo}
 	</update>
 	
+	<!-- 조건에 맞는 주문조회목록 개수(관리자) -->
+	<select id="getfindOrderListCount" resultType="int">
+		SELECT count(*) FROM `order`
+		<if test="sellState != null">
+			<where>
+				<foreach collection="sellState" item="ss" separator="or">
+					order_state = #{ss}
+				</foreach>
+			</where>
+		</if>
+		ORDER BY order_no DESC
+	</select>
 	
+	<!-- 조건에 맞는 주문조회목록(관리자) -->
+	<select id="findOrderList" resultType="Order">
+		SELECT * FROM `order`
+		<where>
+			<foreach collection="array" item="ss" separator="or">
+				order_state = #{ss}
+			</foreach>
+		</where>
+		ORDER BY order_no DESC
+	</select>
 	
 </mapper>
 

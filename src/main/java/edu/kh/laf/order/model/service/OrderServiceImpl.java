@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.dto.Point;
@@ -513,13 +515,13 @@ public class OrderServiceImpl implements OrderService{
     	return result;
     }
     
-    // 오늘 주문현황조회
+    // 오늘 주문현황조회(관리자)
     @Override
     public List<Map<String, String>> selectTodayOrderState() {
     	return mapper.selectTodayOrderState();
     }
     
-    // 오늘 주문목록조회
+    // 오늘 주문목록조회(관리자)
     @Override
     public List<Map<String, Object>> selectTodayOrderList() {
     	
@@ -551,7 +553,7 @@ public class OrderServiceImpl implements OrderService{
     	return orderMaps;
     }
     
-    // 주문처리상태변경
+    // 주문처리상태변경(관리자)
     @Override
     public int changeOrderState(List<Map<String, Object>> paramMap) {
     	int result = 0;
@@ -567,5 +569,48 @@ public class OrderServiceImpl implements OrderService{
     	result = 1;
     	
     	return result;
+    }
+    
+    // 주문조회(관리자)
+    @Override
+    public List<Map<String, Object>> findOrderList(Map<String, Object> paramMap) {
+    	
+    	System.out.println(paramMap);
+    	
+		int listCount = mapper.getfindOrderListCount(paramMap); // 조건에 맞는 주문조회목록 개수
+		System.out.println(listCount);
+//		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
+//		
+//		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+//		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+//		// 조건에 맞는 주문조회목록
+//    	List<Order> orders = mapper.findOrderList(paramMap,rowBounds);
+    	
+//    	List<Map<String, Object>> orderMaps = new ArrayList<>();
+    	
+//    	for(Order order : orders) {
+//    		int no = (int) order.getOrderNo();
+//        	// 주문한 상품목록조회
+//        	List<OrderProduct> odpList = mapper.selectOrderDetailProductList(no);
+//        	// 상품, 옵션, 수량정보 담기
+//        	for(OrderProduct odp : odpList) {
+//        		// 상품정보조회
+//        		Product product = mapper.selectOrderProduct(odp.getProductNo());
+//        		odp.setProduct(product);
+//        		// 옵션정보조회
+//        		Option option = new Option();
+//        		option.setProductNo(odp.getProductNo());
+//        		option.setOptionNo(odp.getOptionNo());
+//        		option = mapper.selectOrderProductOption(option);
+//        		odp.setOption(option);
+//        	}
+//        	Map<String, Object> orderMap = new HashMap<>();
+//			orderMap.put("odpList", odpList);
+//			orderMap.put("order", order);
+//			orderMaps.add(orderMap);
+//    	}
+//    	
+    	
+    	return null;
     }
 }
