@@ -252,7 +252,7 @@
 /* 모달창 */
 .review-modal-window {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
 
   width: 800px;
@@ -277,6 +277,15 @@
   text-align: right;
   cursor: pointer;
 }
+/* 베스트 리뷰 선택 창 */
+#bestReview{
+  background-color: rgb(238, 206, 74);
+}
+#bestReview :hover{
+  background-color: #eee;
+  color: rgb(238, 206, 74);
+}
+
 
 /* 모달 리뷰창 상단 */
 .review-modal-top {
@@ -647,4 +656,114 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .displayNone{
   display: none;
+}
+
+/* 베스트 리뷰 모달 */
+#bestReview-modal-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  width: 100vw;
+  height: 100vh;
+
+ /*  display: none; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+
+/* 모달창 */
+#bestReview-modal-window {
+  z-index: 40;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+
+  width: 800px;
+  height: 660px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#bestReviewTitle{
+  background-color: #eee;
+  font-weight: bold;
+  font-size: 30px;
+  width: 740px;
+  height: 45px;
+}
+.bestReviews {
+  width: 720px;
+}
+.bestReviews > td{
+  padding: 5px;
+}
+.bestReview-table{
+  border-radius: 15px;
+}
+.bestReview-table > tbody>tr{
+  border-bottom: 0.5px solid #ccc;
+}
+
+.bestReview-table >tbody > tr:nth-child(1){
+  background-color: #eee;
+  height: 30px;
+  width: 70px;
+}
+.bestReview-table >tbody > tr > td:nth-child(1){
+  width: 70px;
+}
+.bestReview-table >tbody > tr > td:nth-child(2){
+  width: 50px;
+}
+.bestReview-table >tbody > tr > td:nth-child(3){
+  width: 150px;
+}
+.bestReview-table >tbody > tr > td:nth-child(4){
+  width: 300px;
+}
+.bestReview-table >tbody > tr > td:nth-child(5){
+  width: 50px;
+}
+.bestReview-table >tbody > tr > td:nth-child(6){
+  width: 70px;
+}
+.bestReview-table >tbody > tr > td:nth-child(7){
+  width: 110px;
+}
+.bestReviewList{
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  display: flex;
+}
+.bestReviewBtn{
+  background-color: rgb(238, 206, 74);
+  width: 120px;
+  height: 40px;
+  margin-top: 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+#bestReviewCan{
+  background-color: #ccc;
 }

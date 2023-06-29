@@ -40,8 +40,15 @@ public class ReviewController {
 			model.addAttribute("resultMap", resultMap);
 			
 			List<Review> bestReview = service.bestReview();
+			for(Review review : bestReview) {
+				System.out.println(bestReview);
+				review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
+				review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
+				List<ReviewImg> imgList = new ArrayList<>();
+				imgList=service.reviewImg(review.getReviewNo());
+				review.setReviewImg(imgList);
+			}
 			model.addAttribute("bestReview", bestReview);
-			System.out.println(bestReview);
 		return "/boards/review/review";
 	}
 	
@@ -54,9 +61,6 @@ public class ReviewController {
 		int uNum = review.getOrderUno().length()/2;
 		
 		String blind = "";
-		for(int i=0; i<num; i++) {blind += "*";}
-		review.setMemberId(review.getMemberId().substring(0, num)+blind);
-		
 		blind = "";
 		for(int i=0; i<uNum; i++) {blind += "*";}
 		review.setOrderUno(review.getOrderUno().substring(0, uNum)+blind);
@@ -71,6 +75,13 @@ public class ReviewController {
 		return review;
 	}
 	
+	/** 리뷰 추가
+	 * @param review
+	 * @param images
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	@PostMapping("/review/insert")
 	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images)throws IllegalStateException, IOException {
 		int i = service.insertReview(review, images);
@@ -78,6 +89,13 @@ public class ReviewController {
 		return "redirect:/myPage/review/list"; 
 	}
 
+	/** 리뷰 수정
+	 * @param review
+	 * @param deleteList
+	 * @param images
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping("/review/update")
 	public String update(Review review,@RequestParam(value="deleteList", required=false) String deleteList, @RequestParam(value="images", required=false) List<MultipartFile> images)  throws Exception {
 		int i = service.updateReview(review, images, deleteList);
@@ -86,9 +104,25 @@ public class ReviewController {
 		
 		return "redirect:/myPage/review/list"; 
 	}
+	/** 리뷰 삭제
+	 * @param reviewNo
+	 * @return
+	 */
 	@GetMapping("/review/delete")
 	public String delete(@RequestParam(value="reviewNo", required=false) long reviewNo) {
 		int i = service.deleteReview(reviewNo);
 		return "redirect:/myPage/review/list"; 
 	}
+	
+	
+	@GetMapping("/review/best")
+	public String bestReview(
+			@RequestParam(value="insertNo", required=false) String reviewNo, 
+			@RequestParam(value="deleteNo", required=false) String deleteNo
+			) {
+		System.out.println(reviewNo);
+		System.out.println(deleteNo);
+		return "";
+	}
+	
 }

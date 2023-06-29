@@ -227,16 +227,18 @@ public class ReviewServiceImpl implements ReviewService{
 			}
 		}
 		System.out.println("DB추가 완료");
-		
+		System.out.println(uploadList);
+		System.out.println(size);
+		System.out.println(images);
 		if(!uploadList.isEmpty()) {
 			if(uploadList.size()==size) {
-				for(int i=0; i<size; i++) {
-					System.out.println(i);
+				for(int i=0; i<uploadList.size(); i++) {
 					int index = uploadList.get(i).getReviewImgOrder();
-					fileName = review.getReviewNo()+images.get(i).getOriginalFilename();
+					System.out.println(index);
+					fileName = review.getReviewNo()+images.get(index).getOriginalFilename();
 					images.get(index).transferTo(new File(filePath+ fileName));
 					
-					System.out.println(i+"파일추가완료");
+					System.out.println(index+"파일추가완료");
 				}
 			} else {
 				throw new FileUploadException();
@@ -260,7 +262,9 @@ public class ReviewServiceImpl implements ReviewService{
 	 */
 	@Override
 	public int deleteReview(long reviewNo) {
-		return mapper.deleteReview(reviewNo);
+		int deleteReview = mapper.deleteReview(reviewNo);
+		int deleteImg = mapper.deleteImg(reviewNo);
+		return 1;
 	}
 
 	@Override

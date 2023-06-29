@@ -144,11 +144,14 @@
     
     <!-- 리뷰 삭제 -->
 	<update id="deleteReview">
-		UPDATE `review` SET review_delete_fl='Y'
+		UPDATE `review` SET review_delete_fl='Y', review_content=''
 		WHERE review_no=#{reviewNo} 	
 	</update>
+    <!--리뷰 삭제시 리뷰 이미지 삭제-->
+	<delete id="deleteImg">
+		DELETE FROM `review_img` WHERE review_no = #{reviewNo}	
+	</delete>
     
-    	
 	<!-- 특정 상품 리뷰 count-->
     <select id="productReviewListCount">
         SELECT count(*) FROM `review` WHERE review_delete_fl='N' AND product_no=#{productNo} ORDER BY review_create_date DESC;
