@@ -173,3 +173,16 @@ SELECT order_state, COUNT(order_state) FROM `order` WHERE DATE(order_date) = CUR
 
 SELECT * FROM `member`;
 
+SELECT * FROM `order`
+WHERE order_state = 'A' 
+AND order_date LIKE '%2023-06-29%'
+ORDER BY order_no DESC
+;
+
+SELECT * FROM `order` o
+LEFT JOIN order_product op ON o.order_no=op.order_no
+LEFT JOIN product p ON op.product_no = p.product_no 
+WHERE product_name = 'd'
+OR 
+ORDER BY o.order_no DESC;
+		

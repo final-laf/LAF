@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +33,11 @@ public class AdminOrderController {
 	public String order(String findState, String findKeyword, 
 						String findStartDate, String findEndDate,
 						@RequestParam(value="sellState", required=false) String[] sellState,
-						@RequestParam(value="payState", required=false) String[] payState
+						@RequestParam(value="payState", required=false) String[] payState,
+						@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+						Model model
 						) {
+
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		if(findState != null && !findState.equals("")) paramMap.put("fs",findState);
@@ -42,9 +46,10 @@ public class AdminOrderController {
 		if(findEndDate != null && !findEndDate.equals("")) paramMap.put("ed",findEndDate);
 		if(sellState != null && sellState.length>0 )paramMap.put("sellState",sellState);
 		if(payState != null && payState.length>0 ) paramMap.put("payState",payState);
-		
+		paramMap.put("cp", cp); // 현재페이지
 		System.out.println(paramMap);
-		List<Map<String, Object>> findOrderList = service.findOrderList(paramMap);
+		List<Map<String, Object>> orderMaps = service.findOrderList(paramMap);
+		model.addAttribute("orderMaps",orderMaps);
 		
 		return "/admin/adminOrder/orderSelect";
 	}
