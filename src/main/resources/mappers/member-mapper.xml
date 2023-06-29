@@ -144,6 +144,24 @@
 		SELECT order_no, DATE_FORMAT(order_date, "%Y-%m-%d") order_date ,order_uno, order_total_price, order_payment, order_state
 		FROM `order` WHERE member_no = #{memberNo}
 	</select>
+	
+	<!--포인트를 적립하는 서비스 호출-->
+	<insert id="insertMemberPoint" parameterType="java.util.HashMap">
+		<if test="memberNoList.size != 0">
+		    insert into `point`
+			values 
+   			<foreach collection="memberNoList" item="memberNo" separator=",">
+					(null
+					,#{memberNo}
+					,#{inputPoint.pointSort}
+					,#{inputPoint.pointAmount}
+					,default
+					,#{inputPoint.pointDueDate}
+					,#{inputPoint.pointContent}
+					,null)
+	        </foreach>
+    	</if>
+	</insert>
 
 	
 </mapper>

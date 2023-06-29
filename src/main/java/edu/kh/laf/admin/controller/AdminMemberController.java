@@ -1,6 +1,8 @@
 package edu.kh.laf.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.mypage.model.service.MypageService;
 
@@ -86,7 +90,7 @@ public class AdminMemberController {
 	}
 	
 	
-	// 주문 내역 비동기 조회
+	// 포인트 지급 내역 비동기 조회
 	@GetMapping("/admin/member/memberPointList")
 	@ResponseBody
 	public Map<String, Object> selectMemberDetailPointList(Long memberNo
@@ -108,21 +112,31 @@ public class AdminMemberController {
 	
 	// 적립금 지급
 	@GetMapping("/admin/member/point")
-	@ResponseBody
-	public Map<String, Object> insertMemberPoint(Long memberNo
-											 ,Model model
-											 ,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+	public String insertMemberPoint(Point inputPoint
+									,String[] memberNo
+									,RedirectAttributes ra) {
+		// memberNo Array를 따로 가져와 memberNoList 생성
+		List<String> memberNoList = new ArrayList<>();
+		for(String No : memberNo) {
+			memberNoList.add(No);
+		}
+		// paramMap에 memberNoList, inputPoint 를 따로 넣고 service로 넘김
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("memberNo", memberNo);
-		paramMap.put("cp", cp);
+		paramMap.put("memberNoList", memberNoList);
+		paramMap.put("inputPoint", inputPoint);
 		
-		// 페이지리스트가 적용된 포인트 내역 조회
-		Map<String, Object> tempMap = mypageService.selectPoint(paramMap);
-		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("PointListpagination", tempMap.get("pagination"));
-		resultMap.put("pointList", tempMap.get("pointList"));
+		// 포인트를 적립하는 서비스 호출
+		int result = memberService.insertMemberPoint(paramMap);
+		String message = "";
+		if(result > 0) {
+			message = "포인트 지급을 완료하였습니다.";
+		} else {
+			message = "포인트 지급을 실패했습니다.";
+		}
 		
-		return resultMap;
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/admin/member";
 	}
 	
 	

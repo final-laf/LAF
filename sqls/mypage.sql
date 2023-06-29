@@ -193,5 +193,3 @@ WHERE member_no = 2
 
 
 
-
-

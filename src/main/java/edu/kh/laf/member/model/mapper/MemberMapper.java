@@ -97,4 +97,10 @@ public interface MemberMapper {
 	 */
 	List<Order> selectAllOrderList(Map<String, Object> paramMap, RowBounds rowBounds);
 
+	/** memberNo로 포인트를 적립
+	 * @param paramMap
+	 * @return result
+	 */
+	int insertMemberPoint(Map<String, Object> paramMap);
+
 }

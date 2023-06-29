@@ -8,6 +8,28 @@ new URLSearchParams(location.search).forEach((value, key) => {
   }
 })
 
+/* 전체 클릭 */
+const allChecked = document.getElementById("headCheckbox");
+const adminMemberCheckbox = document.getElementsByClassName("admin-member-checkbox")
+allChecked.addEventListener("click", e => {
+  if(allChecked.checked) {
+    for(input of adminMemberCheckbox) {
+      input.checked = true;
+    }
+  } else {
+    for(input of adminMemberCheckbox) {
+      input.checked = false;
+    }
+  }
+});
+
+
+/* pointDate 기본세팅값 오늘로 설정, pointDueDate는 오늘 이후로만 설정 가능하도록 */
+const today = new Date().toISOString().substring(0, 10);
+document.querySelector("input[name=pointDate]").value = today
+document.querySelector("input[name=pointDueDate]").setAttribute("min", today);
+
+
 
 // 주문 내역 불러오는 함수
 function loadOrderList (memberNo, cp){
@@ -235,6 +257,7 @@ function loadPointList (memberNo, cp){
   } else {
     console.log("포인트 적립 있음")
     for(point of pointList) {
+      console.log(point)
       // 포인트 적립 내역 테이블 생성
       // tr생성
       const newRow = document.createElement("tr");
@@ -262,7 +285,8 @@ function loadPointList (memberNo, cp){
       newRow.append(pointContentCell);
       // 지급/차감일
       const pointDateCell = document.createElement("td");
-      pointDateCell.innerText = point.pointDate.substring(0,10);
+      pointDateCell.innerText = point.pointDate.substring(0, 10);
+      newRow.append(pointDateCell);
       // // 기존 테이블에 추가
       pointTable.append(newRow)
     }
@@ -517,45 +541,59 @@ cuponModalClose.addEventListener("click", e => {
 const pointModal = document.getElementById("memberPointModalOverlay")
 const OpenPointModal = document.getElementById("OpenPointModal");
 
+
+
 /* 포인트 버튼 클릭 시 */
 OpenPointModal.addEventListener('click', () => {
-let selectedMembers = []
-  // 선택한 member를 받아 키, 벨류값으로 저장
-  const selectedMember = document.getElementsByClassName("selected-member-checkbox")
-  for (let i=0; i<selectedMember.length; i++) {
-    if(selectedMember[i].checked) {
-      const selectedMemberData = selectedMember[i].value;
+
+// 발급할 회원 목록 초기화
+const memberNameDiv = document.getElementsByClassName("point-member")[0]
+memberNameDiv.innerHTML = '';
+// 선택된 체그박스 값 확인
+let members = [] // 객체로 만든 member에 대한 정보를 저장할 배열
+// const adminMemberCheckbox : 본문의 checkbox들 (상단 전체선택에서 이미 선언되어 있음)
+for(let i=0; i<adminMemberCheckbox.length; i++) {
+  if(adminMemberCheckbox[i].checked) {
+      // 만약 선택되어 있으면, 내부에 있는 value를 가져와 js object 형태로 만들기
+      const checkboxDatas = adminMemberCheckbox[i].value;
       const regex = /(\w+)=(.+?)(?=, \w+=|$)/g;
-      const selectedMemberValues = {};
+      const checkboxDatasObjects = {};
       let match;
-      while ((match = regex.exec(selectedMemberData)) !== null) {
-          const selectedMemberKey = match[1]; // 
-          const selectedMemberValue = match[2]; // 속성값
-          selectedMemberValues[selectedMemberKey] = selectedMemberValue; // 객체에 속성과 값을 저장
-        }
-        selectedMembers[i] = selectedMemberValues
-    }
-  }
-  
-  const selectedMemberNameDiv = document.getElementsByClassName("point-member")[0]
-  for(let i=0; i<selectedMembers.length; i++) {
-    console.log(selectedMembers[i].memberName)
-    if(selectedMembers[i]) {
-      const selectedMemberName = document.createElement("span")
-      if(i == selectedMember.length-1){
-        console.log("마지막")
-        selectedMemberName.innerText = selectedMembers[i].memberName;
-      }else {
-        console.log("아님")
-        selectedMemberName.innerText = selectedMembers[i].memberName + ","
+      while ((match = regex.exec(checkboxDatas))!= null) {
+        const checkboxDataKey = match[1];
+        const checkboxDataValu = match[2];
+        checkboxDatasObjects[checkboxDataKey] = checkboxDataValu;
       }
-      selectedMemberNameDiv.append(selectedMemberName)
+      // 만든 object들을 배열로 만들기
+      members.push(checkboxDatasObjects);
     }
-  }
+}
 
+if(members.length == 0) {
+  alert("회원을 선택해 주시기 바랍니다.")
+  return;
+}
 
-    pointModal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
+// 발급할 회원 이름 목록 출력
+const selectedMemberName = document.createElement("span")
+if(members.length < 2) {
+  selectedMemberName.innerText = members[0].memberName; 
+} else {
+  selectedMemberName.innerText = members[0].memberName + "외 " + (members.length - 1) + "명";
+}
+memberNameDiv.append(selectedMemberName);
+
+// 넘겨줄 memberNo를 input(hidden)에 value로 삽입
+for(let member of members) {
+  const selectMemberNo = document.createElement("input");
+  selectMemberNo.setAttribute("type", "hidden");
+  selectMemberNo.setAttribute("name", "memberNo");
+  selectMemberNo.value = member.memberNo
+  memberNameDiv.append(selectMemberNo);
+}
+
+  pointModal.style.display = "flex";
+  document.body.style.overflowY = "hidden";
 });
 
 

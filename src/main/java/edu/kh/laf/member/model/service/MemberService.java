@@ -88,6 +88,12 @@ public interface MemberService {
 	 */
 	Map<String, Object> selectAllOrderList(Map<String, Object> paramMap);
 
+	/** 포인트를 적립하는 서비스
+	 * @param paramMap
+	 * @return result
+	 */
+	int insertMemberPoint(Map<String, Object> paramMap);
+
 
 
 
