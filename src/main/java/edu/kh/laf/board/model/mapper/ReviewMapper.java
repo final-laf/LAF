@@ -137,6 +137,11 @@ public interface ReviewMapper {
 	 */
 	List<Review> bestReview();
 
+	/** 베스트 리뷰 업데이트
+	 * @return
+	 */
+	int updateBestReview();
+
 
 
 
