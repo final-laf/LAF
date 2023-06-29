@@ -58,8 +58,8 @@
   width: 70px;
 }
 
-.member-search-btn>button:nth-child(1){background-color: #7f7698;}
-.member-search-btn>button:nth-child(2){background-color: #ccc;}
+.member-search-btn>button:nth-child(1){background-color: #ccc;}
+.member-search-btn>button:nth-child(2){background-color: #7f7698;}
 
 .member-result-box{
   width: 85%;
@@ -291,10 +291,14 @@
 /* 하단 회원 주문 내역 */
 .member-modal-orderlist {
   width: 100%;
-  margin: 40px 0px;
+  margin-top: 40px;
 }
 
-.member-modal-orderlist  img {
+#member-modal-orderlist-table {
+  width: 100%;
+}
+
+#member-modal-orderlist-table > tbody > tr > td:nth-child(2) > img  {
   height: 94px;
   width: auto;
   display: block;
@@ -307,15 +311,21 @@
 }
 
 /* 첫번째 열의 속성 */
-.member-modal-orderlist tr:nth-child(1) {
+#member-modal-orderlist-table > thead {
   font-weight: bold;
   background-color: #fafafa;
   height: 40px;
 }
 
+#member-modal-orderlist-table > thead * {
+  font-size: 1.2rem;
+}
+
+
 /* 모든 열의 속성 */
 .member-modal-orderlist tr {
   border-bottom: 0.5px solid #eee;
+  height: 40px;
 }
 
 
@@ -350,6 +360,53 @@
 }
 
 
+/* orderListPagination */
+.orderListPagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0px;
+}
+
+.orderListPagination li {
+  width: 20px;
+  font-size: 1.2rem;
+  /* font-weight: bold; */
+  border: 0.5px solid #eee;
+  border-right: none;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  cursor: pointer;
+}
+
+.orderListPagination li:last-child {
+  border: 0.5px solid #eee;
+  border-radius: 0 2px 2px 0;
+}
+
+.orderListPagination li:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+.orderListPagination li:hover {
+  color: #666;
+  background-color: #eee;
+  transition-duration: 0.2s;
+}
+
+.orderListPagination li.current {
+  border-bottom: 3px solid #666;
+  font-weight: bold;
+  color: #666;
+}
+
+
+
+
 /* 포인트 지급 및 차감 내역 */
 .member-modal-subtitle {
   margin-bottom: 10px;
@@ -360,6 +417,7 @@
 /* 테이블 크기 지정 */
 .member-modal-ponitList {
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .member-modal-ponitList > table {
@@ -381,10 +439,15 @@
 }
 
 /* 제목행 */
-.member-modal-ponitList > table > tbody > tr:nth-child(1) {
+.member-modal-ponitList > table > thead  {
   font-weight: bold;
   background-color: #fafafa;
   border-top: 0.5px solid #eee;
+  height: 40px;
+}
+
+.member-modal-ponitList > table > thead > tr * {
+  font-size: 1.2rem;
 }
 
 /* 각 행에 대한 설정 */
@@ -410,6 +473,51 @@
 
 
 
+/* pointListPagination */
+.pointListPagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0px;
+}
+
+.pointListPagination li {
+  width: 20px;
+  font-size: 1.2rem;
+  /* font-weight: bold; */
+  border: 0.5px solid #eee;
+  border-right: none;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  cursor: pointer;
+}
+
+.pointListPagination li:last-child {
+  border: 0.5px solid #eee;
+  border-radius: 0 2px 2px 0;
+}
+
+.pointListPagination li:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+.pointListPagination li:hover {
+  color: #666;
+  background-color: #eee;
+  transition-duration: 0.2s;
+}
+
+.pointListPagination li.current {
+  border-bottom: 3px solid #666;
+  font-weight: bold;
+  color: #666;
+}
+
+
 
 
 
@@ -421,11 +529,6 @@
   background-color: #ccc;
 }
 
-
-/* 페이지네이션 영역 재조정 */
-.resizing-margin {
-  margin: 20px;
-}
 
 /* 닫기 버튼 우측으롤 조정 */
 .btn-to-wright {
@@ -791,4 +894,7 @@
 
 .member-point-btn-area>button:nth-child(1){background-color: #7f7698;}
 .member-point-btn-area>button:nth-child(2){background-color: #ccc;}
+
+
+
 

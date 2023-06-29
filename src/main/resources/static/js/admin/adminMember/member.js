@@ -1,13 +1,357 @@
+/* 쿼리스트링으로 화면 초기설정 */
+new URLSearchParams(location.search).forEach((value, key) => {
+  if(value == '') return;
+
+  switch(key) {
+    case 'query' : document.getElementById('query').value = value; break;
+    case 'qk' : document.querySelector('#queryKey > option[value="' + value + '"]').selected = true; break;
+  }
+})
+
+// 주문 내역 불러오는 함수
+function loadOrderList (memberNo, cp){
+  // 주문 내역 테이블 초기화
+  const orderTable = document.querySelector("#member-modal-orderlist-table > tbody")
+  orderTable.innerHTML = '';
+
+  // 페이지네이션 처리된 주문내역 불러오기(비동기)
+  fetch("/admin/member/memberOrderList?memberNo=" + memberNo + "&cp=" + cp)
+  .then(response => response.json()) 
+  .then(resultMap => {
+    // resultMap : orderMaps - orderList - orderProductList
+    //             OrderListpagination
+
+
+  // 주문이 없는 경우
+  if (resultMap.orderMaps.length == 0) {
+    // 페이지네이션 삭제
+    document.getElementById("orderListPaginationArea").innerHTML = '';
+    // 주문이 없다는 테이블 row 생성
+    const newRow = document.createElement("tr");
+    const notExist = document.createElement("td");
+    newRow.append(notExist);
+    const notExistMessage = document.createElement("div");
+    notExistMessage.innerText = "주문이 존재하지 않습니다.";
+    notExist.append(notExistMessage);
+    notExist.setAttribute("colspan", 6)
+    notExist.setAttribute("id", "notExist")
+    orderTable.append(newRow);
+
+    
+  // 주문이 있는 경우
+  } else {
+    for(orderList of resultMap.orderMaps) {
+      // 주문 내역 테이블 생성
+      const order = orderList.order;
+      const orderProductList = orderList.orderProductList;
+      // tr생성
+      const newRow = document.createElement("tr");
+      newRow.addEventListener("click", e => {
+        location.href="/order/" + order.orderNo;
+      });
+      // td생성
+      // 주문정보
+      const orderInfoCell = document.createElement("td");
+      newRow.append(orderInfoCell);
+      const orderDate = document.createElement("div");
+      orderDate.innerText = order.orderDate;
+      orderInfoCell.append(orderDate);
+      const orderUno = document.createElement("div");
+      orderUno.innerText = order.orderUno;
+      orderInfoCell.append(orderUno);
+      // 이미지
+      const orderProductImg = document.createElement("td");
+      const productImg = document.createElement("img");
+      productImg.setAttribute("src", orderProductList[0].product.thumbnailPath)
+      orderProductImg.append(productImg);
+      newRow.append(orderProductImg);
+      // 상품정보
+      const orderProductInfoCell = document.createElement("td");
+      newRow.append(orderProductInfoCell);
+      const orderProductName = document.createElement("div");
+      orderProductName.innerText = orderProductList[0].product.productName;
+      orderProductInfoCell.append(orderProductName);
+      const orderProductOption = document.createElement("div");
+      // 사이즈 옵션이 있을 경우, 없을 경우
+      if(orderProductList[0].option.size == null | orderProductList[0].option.size == "") {
+        orderProductOption.innerText = 
+        "[옵션 :" + orderProductList[0].option.color + "]"
+      } else {
+        orderProductOption.innerText = 
+        "[옵션 :" + orderProductList[0].option.color + "/" + orderProductList[0].option.size + "]"
+      }
+      orderProductInfoCell.append(orderProductOption); 
+      // 수량
+      const orderProductCountCell = document.createElement("td");
+      newRow.append(orderProductCountCell);
+      const orderProductCount = document.createElement("div");
+      orderProductCount.innerText = orderProductList.length;
+      orderProductCountCell.append(orderProductCount);
+      // 구매금액
+      const orderPriceCell = document.createElement("td");
+      newRow.append(orderPriceCell);
+      const orderPrice = document.createElement("div");
+      orderPrice.innerText = order.orderTotalPrice;
+      orderPriceCell.append(orderPrice);
+      const orderTotalPrice = document.createElement("div");
+      orderTotalPrice.innerText = order.orderPayment;
+      orderPriceCell.append(orderTotalPrice);
+      // 주문처리상태
+      const orderStateCell = document.createElement("td");
+      newRow.append(orderStateCell);
+      const orderState = document.createElement("div");
+      switch(order.orderState) {
+        case 'A' : orderState.innerText = "주문접수"; break;
+        case 'B' : orderState.innerText = "결제확인"; break;
+        case 'C' : orderState.innerText = "상품준비"; break;
+        case 'D' : orderState.innerText = "출고완료"; break;
+        case 'E' : orderState.innerText = "배송중"; break;
+        case 'F' : orderState.innerText = "배송완료"; break;
+        case 'G' : orderState.innerText = "취소중"; break;
+        case 'H' : orderState.innerText = "취소완료"; break;
+        case 'I' : orderState.innerText = "교환중"; break;
+        case 'J' : orderState.innerText = "교환완료"; break;
+        case 'K' : orderState.innerText = "반품중"; break;
+        case 'L' : orderState.innerText = "반품완료"; break;
+        default : break;
+      } 
+      orderStateCell.append(orderState);
+      // 기존 테이블에 추가
+      orderTable.append(newRow)
+    }
+
+    /* 페이지네이션 */
+    const OrderListpagination = resultMap.OrderListpagination
+    // 페이지네이션 초기화
+    document.getElementById("orderListPaginationArea").innerHTML = "";
+    // 페이지네이션 ul 생성
+    const pagination = document.createElement("ul")
+    pagination.classList.add("orderListPagination")
+    // 첫 페이지로 이동
+    const firstPage =  document.createElement("li")
+    const firstPageImg = document.createElement("img");
+    firstPageImg.setAttribute("id", "firstPage")
+    firstPageImg.setAttribute("src", "/images/common/paging/first-page.svg")
+    firstPage.append(firstPageImg);
+    firstPage.addEventListener("click", () => {
+      loadOrderList (memberNo, 1);
+    });
+    pagination.append(firstPage);
+    // 이전 목록 마지막 번호로 이동
+    const prevPage =  document.createElement("li")
+    const prevPageImg = document.createElement("img");
+    prevPageImg.setAttribute("id", "prevPage")
+    prevPageImg.setAttribute("src", "/images/common/paging/prev-page.svg")
+    prevPage.append(prevPageImg);
+    prevPage.addEventListener("click", () => {
+      loadOrderList (memberNo, OrderListpagination.prevPage);
+    });
+    pagination.append(prevPage);
+    // 다음 목록 시작 번호로 이동
+    const nextPage =  document.createElement("li")
+    const nextPageImg = document.createElement("img");
+    nextPageImg.setAttribute("id", "prevPage")
+    nextPageImg.setAttribute("src", "/images/common/paging/next-page.svg")
+    nextPage.append(nextPageImg);
+    nextPage.addEventListener("click", () => {
+      loadOrderList (memberNo, OrderListpagination.nextPage);
+    });
+    pagination.append(nextPage);
+    // 끝 페이지로 이동
+    const maxPage =  document.createElement("li")
+    const maxPageImg = document.createElement("img");
+    maxPageImg.setAttribute("id", "prevPage")
+    maxPageImg.setAttribute("src", "/images/common/paging/last-page.svg")
+    maxPage.append(maxPageImg);
+    maxPage.addEventListener("click", () => {
+      loadOrderList (memberNo, OrderListpagination.maxPage);
+    });
+    pagination.append(maxPage);
+    // 특정 페이지로 이동
+    for (let i = OrderListpagination.startPage; i <= OrderListpagination.endPage; i++) {
+      if(i == OrderListpagination.currentPage) {
+        /* 현재 보고있는 페이지 */
+        const currPage = document.createElement("li");
+        currPage.innerText = i;
+        currPage.classList.add("current");
+        nextPage.parentElement.insertBefore(currPage, nextPage);
+      } else {
+        /* 현재 보고있는 페이지를 제외한 나머지 */
+        const uniquePage = document.createElement("li");
+        uniquePage.innerText = i;
+        uniquePage.addEventListener("click", () => {
+          loadOrderList (memberNo, i);
+        });
+        nextPage.parentElement.insertBefore(uniquePage, nextPage);
+      }
+    }
+    // 페이지네이션 영역에 추가
+    document.getElementById("orderListPaginationArea").append(pagination)
+  }  
+    }) 
+  .catch (e => { console.log(e)}); 
+}
+
+
+
+
+
+// 적립금 내역 불러오는 함수
+function loadPointList (memberNo, cp){
+  // // 주문 내역 테이블 초기화
+  const pointTable = document.querySelector("#member-modal-pointList-table > tbody")
+  pointTable.innerHTML = '';
+
+  // 페이지네이션 처리된 주문내역 불러오기(비동기)
+  fetch("/admin/member/memberPointList?memberNo=" + memberNo + "&cp=" + cp)
+  .then(response => response.json()) 
+  .then(resultMap => {
+    console.log(resultMap)
+    // resultMap : pointList
+    //             PointListpagination
+
+  
+    const pointList = resultMap.pointList;
+    // 포인트 적립 내역이 없는 경우
+    if (pointList.length == 0) {
+      console.log("포인트 적립 없음")
+    // 페이지네이션 삭제
+    document.getElementById("pointListPaginationArea").innerHTML = '';
+    // 포인트 적립 내역이 없다는 테이블 row 생성
+    const newRow = document.createElement("tr");
+    const notExist = document.createElement("td");
+    newRow.append(notExist);
+    const notExistMessage = document.createElement("div");
+    notExistMessage.innerText = "포인트 적립 내역이 존재하지 않습니다.";
+    notExist.append(notExistMessage);
+    notExist.setAttribute("colspan", 6)
+    notExist.setAttribute("id", "notExist")
+    pointTable.append(newRow);
+
+    
+  // 포인트 적립 내역이 있는 경우
+  } else {
+    console.log("포인트 적립 있음")
+    for(point of pointList) {
+      // 포인트 적립 내역 테이블 생성
+      // tr생성
+      const newRow = document.createElement("tr");
+      // td생성
+      // 포인트 번호
+      const pointNoCell = document.createElement("td");
+      pointNoCell.innerText = point.pointNo;
+      newRow.append(pointNoCell);
+      // 구분
+      const pointSortCell = document.createElement("td");
+      switch(point.pointSort) {
+        case 'G' : pointSortCell.innerText = "적립"; break;
+        case 'U' : pointSortCell.innerText = "사용"; break;
+        case 'C' : pointSortCell.innerText = "취소"; break;
+        default : break;
+      }
+      newRow.append(pointSortCell); 
+      // 지급/차감 포인트 금액
+      const pointAmountCell = document.createElement("td");
+      pointAmountCell.innerText = point.pointAmount + " 원";
+      newRow.append(pointAmountCell);
+      // 사유
+      const pointContentCell = document.createElement("td");
+      pointContentCell.innerText = point.pointContent;
+      newRow.append(pointContentCell);
+      // 지급/차감일
+      const pointDateCell = document.createElement("td");
+      pointDateCell.innerText = point.pointDate.substring(0,10);
+      // // 기존 테이블에 추가
+      pointTable.append(newRow)
+    }
+
+    /* 페이지네이션 */
+    const PointListpagination = resultMap.PointListpagination
+    // 페이지네이션 초기화
+    document.getElementById("pointListPaginationArea").innerHTML = "";
+    // 페이지네이션 ul 생성
+    const pagination = document.createElement("ul")
+    pagination.classList.add("pointListPagination")
+    // 첫 페이지로 이동
+    const firstPage =  document.createElement("li")
+    const firstPageImg = document.createElement("img");
+    firstPageImg.setAttribute("id", "firstPage")
+    firstPageImg.setAttribute("src", "/images/common/paging/first-page.svg")
+    firstPage.append(firstPageImg);
+    firstPage.addEventListener("click", () => {
+      loadPointList (memberNo, 1);
+    });
+    pagination.append(firstPage);
+    // 이전 목록 마지막 번호로 이동
+    const prevPage =  document.createElement("li")
+    const prevPageImg = document.createElement("img");
+    prevPageImg.setAttribute("id", "prevPage")
+    prevPageImg.setAttribute("src", "/images/common/paging/prev-page.svg")
+    prevPage.append(prevPageImg);
+    prevPage.addEventListener("click", () => {
+      loadPointList (memberNo, PointListpagination.prevPage);
+    });
+    pagination.append(prevPage);
+    // 다음 목록 시작 번호로 이동
+    const nextPage =  document.createElement("li")
+    const nextPageImg = document.createElement("img");
+    nextPageImg.setAttribute("id", "prevPage")
+    nextPageImg.setAttribute("src", "/images/common/paging/next-page.svg")
+    nextPage.append(nextPageImg);
+    nextPage.addEventListener("click", () => {
+      loadPointList (memberNo, PointListpagination.nextPage);
+    });
+    pagination.append(nextPage);
+    // 끝 페이지로 이동
+    const maxPage =  document.createElement("li")
+    const maxPageImg = document.createElement("img");
+    maxPageImg.setAttribute("id", "prevPage")
+    maxPageImg.setAttribute("src", "/images/common/paging/last-page.svg")
+    maxPage.append(maxPageImg);
+    maxPage.addEventListener("click", () => {
+      loadPointList (memberNo, PointListpagination.maxPage);
+    });
+    pagination.append(maxPage);
+    // 특정 페이지로 이동
+    for (let i = PointListpagination.startPage; i <= PointListpagination.endPage; i++) {
+      if(i == PointListpagination.currentPage) {
+        /* 현재 보고있는 페이지 */
+        const currPage = document.createElement("li");
+        currPage.innerText = i;
+        currPage.classList.add("current");
+        nextPage.parentElement.insertBefore(currPage, nextPage);
+      } else {
+        /* 현재 보고있는 페이지를 제외한 나머지 */
+        const uniquePage = document.createElement("li");
+        uniquePage.innerText = i;
+        uniquePage.addEventListener("click", () => {
+          loadPointList (memberNo, i);
+        });
+        nextPage.parentElement.insertBefore(uniquePage, nextPage);
+      }
+    }
+    // 페이지네이션 영역에 추가
+    document.getElementById("pointListPaginationArea").append(pagination)
+  }  
+    }) 
+  .catch (e => { console.log(e)}); 
+}
+
+
+
+
+
+
+
 /* 회원 상세 모달 */
 const modal = document.getElementById("memberModalOverlay")
 const selectedMembers = document.getElementsByClassName("selected-member")
+
 for(let member of selectedMembers) {
 
   /* 회원 목록에서 한 회원 클릭시 */
 member.addEventListener('click', e => {
     // 회원 정보 불러오기
-    console.log("뭐야")
-    console.log("뭐야")
     const memberNo = e.target.getAttribute("memberNo");
     fetch("/admin/member/memberdetail?memberNo=" + memberNo)
     .then(response => response.json()) 
@@ -58,61 +402,22 @@ member.addEventListener('click', e => {
         document.getElementById("selectedMemberDefaultAddress").innerText = memberdetailDefaultAddress       
     }) 
     .catch (e => { console.log(e)}); 
-
-
-  // 주문 내역 불러오기
-  fetch("/admin/member/memberOrderList?memberNo=" + memberNo)
-  .then(response => response.json()) 
-  .then(resultMap => {
-    for(let order of resultMap.orderList){
-      console.log(order);
-    }
-  //     for(let order of resultMap.orderList){
-  //     console.log(order)
-  //     console.log(resultMap[order])
-
-  //   // tr생성
-  //   const newRow = document.createElement("tr");
-  //   newRow.addEventListener("click", e => {
-  //   location.href="/order/118" + order.orderNo;
-  //   });
-  //   // td생성
-  //   // 주문정보
-  //   const orderInfoCell = document.createElement("td");
-  //   newRow.append(orderInfoCell);
-  //   const orderDate = document.createElement("div");
-  //   orderDate.innerText = order.orderDate;
-  //   orderInfoCell.append(orderDate);
-  //   const orderUno = document.createElement("div");
-  //   orderDate.innerText = order.orderUno;
-  //   orderInfoCell.append(orderUno);
-  //   // 이미지
-  //   const orderProductImg = document.createElement("td");
-  //   newRow.append(orderProductImg);
-  //   // 상품정보
-  //   const orderProductInfoCell = document.createElement("td");
-  //   newRow.append(orderProductInfoCell);
-  //   const orderProductName = document.createElement("div");
-  //   orderProductName.innerText = order.orderDate;
-  //   orderProductInfoCell.append(orderProductName);
-  //   const orderProductOption = document.createElement("div");
-  //   orderProductOption.innerText = order.orderUno;
-  //   orderProductInfoCell.append(orderProductOption);
-
-  //   const table = document.querySelector('.member-modal-orderlist-table>tbody'); 
-  //   table.append(newRow);
-  // }
-
-    }) 
-  .catch (e => { console.log(e)}); 
-
-
+  
+    // 주문 내역 불러오기
+    loadOrderList (memberNo,1);
+    // 포인트 내역 불러오기
+    loadPointList (memberNo,1);
+  // 모달 오픈
   modal.style.display = "flex";
   document.body.style.overflowY = "hidden";
-
 });
-
 };
+
+
+
+
+
+
     
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
 modal.addEventListener("click", e => {
@@ -138,8 +443,6 @@ modalClose.addEventListener("click", e => {
     document.body.style.removeProperty('overflow');
 });
 
-  
-  
   
 /* 쿠폰 발급 모달 */
 const cuponModal = document.getElementById("memberCuponModalOverlay")

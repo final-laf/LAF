@@ -10,7 +10,6 @@
 <body>
 
   <th:block th:replace="~{/admin/adminHeader}"></th:block>
-  
   <main>
     <section class="admin-container">
       <div class="member-content">
@@ -30,11 +29,11 @@
                 </select>
               </div>
               <div>
-                <input id="query" name="query" type="text" placeholder="검색어를 입력하세요" th:value="${query}">
+                <input id="query" name="query" type="text" placeholder="검색어를 입력하세요">
               </div>
               <div class="member-search-btn">
-                <button type="button" id="restBtn">초기화</button>
-                <button id="submitBtn">검색</button>
+                <button type="reset" id="restBtn">초기화</button>
+                <button id="submitBtn" class="selected">검색</button>
               </div>
             </div>
           </form>

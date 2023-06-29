@@ -7,6 +7,9 @@ import edu.kh.laf.member.model.mapper.MemberMapper;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
+import edu.kh.laf.order.model.mapper.OrderMapper;
+import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.dto.Product;
 import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -31,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper mapper;
 	
 	@Autowired
-	private MypageMapper myPageMapper;
+	private OrderMapper orderMapper;
 	
 	@Autowired // bean으로 등록된 객체 중 타입이 일치하는 객체를 DI
 	private BCryptPasswordEncoder bcrypt;
@@ -205,33 +208,39 @@ public class MemberServiceImpl implements MemberService {
 		// 주문 개수 조회
 		int listCount = mapper.getOrderListCount(paramMap); 
 		int cp = (paramMap.get("cp") == null) ? 1 : Integer.parseInt(String.valueOf(paramMap.get("cp")));
-		Pagination OrderListpagination = new Pagination(listCount, cp, 10);
+		Pagination OrderListpagination = new Pagination(listCount, cp, 5);
 		
 		int offset = (OrderListpagination.getCurrentPage() - 1) * OrderListpagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, OrderListpagination.getLimit());
 		// 페이지네이션이 적용된 주문 목록 조회
-		List<Order> orderList = mapper.selectAllOrderList(paramMap, rowBounds);
+		List<Order> orders = mapper.selectAllOrderList(paramMap, rowBounds);
 		
+		// 각 주문에 해당되는 orderProductList 조회
 		List<Map<String, Object>> orderMaps = new ArrayList<>();
-		
-		
-		for(Order order : orderList) {
-			OrderProduct orderProduct = myPageMapper.selectOrderProduct(order.getOrderNo());
-			if(orderProduct != null) {
-				Map<String, Object> orderMap = new HashMap<>();
-				
-				orderProduct.setProduct(myPageMapper.selectProduct(orderProduct.getProductNo()));
-				orderProduct.setOption(myPageMapper.selectOption(orderProduct.getOptionNo()));
-				
-				orderMap.put("orderProduct", orderProduct);
-				orderMap.put("order", order);
-				orderMaps.add(orderMap);
+		for(Order order : orders) {
+			List<OrderProduct> orderProductList = orderMapper.selectOrderDetailProductList((int)order.getOrderNo());
+			// 상품, 옵션, 수량정보 담기
+        	for(OrderProduct odp : orderProductList) {
+        		// 상품정보조회
+        		Product product = orderMapper.selectOrderProduct(odp.getProductNo());
+        		odp.setProduct(product);
+        		// 옵션정보조회
+        		Option option = new Option();
+        		option.setProductNo(odp.getProductNo());
+        		option.setOptionNo(odp.getOptionNo());
+        		option = orderMapper.selectOrderProductOption(option);
+        		odp.setOption(option);
 			}
+        	Map<String, Object> orderMap = new HashMap<>();
+			orderMap.put("orderProductList", orderProductList);
+			orderMap.put("order", order);
+			orderMaps.add(orderMap);
 		}
 		
 		Map<String, Object> resultMap = new HashMap<>();
-		resultMap.put("OrderListpagination", OrderListpagination);
+
 		resultMap.put("orderMaps", orderMaps);
+		resultMap.put("OrderListpagination", OrderListpagination);
 		
 		return resultMap;
 	}
