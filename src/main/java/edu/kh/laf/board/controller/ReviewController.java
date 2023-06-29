@@ -117,11 +117,10 @@ public class ReviewController {
 	
 	@GetMapping("/review/best")
 	public String bestReview(
-			@RequestParam(value="insertNo", required=false) String reviewNo, 
-			@RequestParam(value="deleteNo", required=false) String deleteNo
+			@RequestParam Map<String, Object> paramMap
 			) {
-		System.out.println(reviewNo);
-		System.out.println(deleteNo);
+		System.out.println(paramMap);
+		int i = service.updateBestReview(paramMap);
 		return "redirect:/myPage/review/list"; 
 	}
 	

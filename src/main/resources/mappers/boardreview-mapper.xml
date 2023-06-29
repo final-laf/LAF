@@ -178,5 +178,13 @@
 				JOIN `member` m ON o.member_no = m.member_no 
     </select>
     
+        <!-- 베스트 리뷰 업데이트 -->
+	<update id="updateBestReview">
+		UPDATE `best_review` SET review_no=#{insertNo}
+		WHERE review_no=#{deleteNo} 	
+	</update>
+    
+    
+    
 </mapper>
 

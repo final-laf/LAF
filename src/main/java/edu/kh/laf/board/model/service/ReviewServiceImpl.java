@@ -319,6 +319,14 @@ public class ReviewServiceImpl implements ReviewService{
 		return mapper.bestReview();
 	}
 
+	/** 베스트 리뷰 업데이트
+	 *
+	 */
+	@Override
+	public int updateBestReview(Map<String, Object> paramMap) {
+		return mapper.updateBestReview();
+	}
+
 
 
 
