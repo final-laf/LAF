@@ -112,21 +112,27 @@ public interface OrderService {
 	 */
 	int updatePoint(int no);
 
-	/** 오늘 주문현황조회
+	/** 오늘 주문현황조회(관리자)
 	 * @return
 	 */
 	List<Map<String, String>> selectTodayOrderState();
 
-	/** 오늘 주문목록조회
+	/** 오늘 주문목록조회(관리자)
 	 * @return
 	 */
 	List<Map<String, Object>> selectTodayOrderList();
 
-	/** 주문처리상태변경
+	/** 주문처리상태변경(관리자)
 	 * @param paramMap
 	 * @return
 	 */
 	int changeOrderState(List<Map<String, Object>> paramMap);
+
+	/** 주문조회(관리자)
+	 * @param paramMap
+	 * @return
+	 */
+	List<Map<String, Object>> findOrderList(Map<String, Object> paramMap);
 
 
 }

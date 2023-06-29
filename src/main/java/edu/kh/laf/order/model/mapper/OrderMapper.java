@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
@@ -112,13 +113,19 @@ public interface OrderMapper {
 	// 사용된 포인트 반환 내역 삽입	
 	public int insertResetUsePoint(Point useResetPoint);
 
-	// 오늘 주문현황조회
+	// 오늘 주문현황조회(관리자)
 	public List<Map<String, String>> selectTodayOrderState();
 
-	// 오늘 주문조회
+	// 오늘 주문조회(관리자)
 	public List<Order> selectTodayOrder();
 
-	// 주문처리상태변경
+	// 주문처리상태변경(관리자)
 	public int changeOrderState(Map<String, Object> param);
+
+	// 조건에 맞는 주문조회목록 개수(관리자)
+	public int getfindOrderListCount(Map<String, Object> paramMap);
+	
+	// 조건에 맞는 주문조회목록(관리자)
+	public List<Order> findOrderList(Map<String, Object> paramMap, RowBounds rowBounds);
 
 }
