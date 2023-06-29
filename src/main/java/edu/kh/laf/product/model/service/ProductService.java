@@ -140,6 +140,15 @@ public interface ProductService {
 	 * @param thumbnail
 	 * @param images
 	 * @return result
+	 * @throws IOException 
+	 * @throws IllegalStateException 
 	 */
-	int updateProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images);
+	int updateProductImage(Map<String, Object> paramMap, MultipartFile thumbnail, List<MultipartFile> images) throws IllegalStateException, IOException;
+
+	/**
+	 * 상품 상세 이미지 삭제
+	 * @param paramMap
+	 * @return result
+	 */
+	int removeProductImage(Map<String, Object> paramMap);
 }

@@ -226,7 +226,7 @@
 
   <!-- 회원 상세 모달창 -->
   <div class="product-modal-overlay" id="productModalOverlay">
-    <form id="productUpdateFrm" th:action="@{/admin/product/mod/submit}" class="product-modal-window" method="POST">
+    <form id="productUpdateFrm" th:action="@{/admin/product/mod/submit}" class="product-modal-window" method="POST" encType="multipart/form-data">
       <div class="product-enroll-title">상품 수정</div>
       <th:block th:replace="~{admin/adminProduct/productDetailUpdate}"></th:block>
 
@@ -235,6 +235,9 @@
         <button type="button" class="product-modal-close">취소</button>
         <button id="productUpdateBtn" class="submit">수정</button>
       </div>
+
+      <!-- 삭제 이미지 정보 전달 -->
+      <input type="hidden" name="removedImages">
     </form>
   </div>
 

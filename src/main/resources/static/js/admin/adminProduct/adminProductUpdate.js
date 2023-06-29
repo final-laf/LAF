@@ -1,3 +1,6 @@
+// 삭제된 이미지 정보 저장
+const deleteSet = new Set();
+
 /* 상품 수정 버튼 클릭 => 기존 데이터 불러오기 */
 const modBtnList = document.querySelectorAll('.modify-product');
 for(const btn of modBtnList) {
@@ -75,13 +78,7 @@ for(const btn of modBtnList) {
       document.querySelector('.enroll-price [name="productPrice"]').innerText = numberWithCommas(product.productPrice); // 판매가
       document.querySelector('.enroll-price [name="productSalePrice"]').innerText = numberWithCommas(product.productSalePrice); // 최종할인가
       document.querySelector('.enroll-point [name="productPoint"]').innerText = numberWithCommas(product.productPoint); // 포인트
-      
-      // document.querySelector('.enroll-price .checkbox').checked = false; // 최종할인가 자동계산 해제
-      // document.querySelector('.enroll-point .checkbox').checked = false; // 포인트 자동계산 해제
-      // document.querySelector('.enroll-price input[name="productPrice"]').value = numberWithCommas(product.productPrice); // 판매가
-      // document.querySelector('.enroll-price input[name="productSalePrice"]').value = numberWithCommas(product.productSalePrice); // 최종할인가
-      // document.querySelector('.enroll-point input[name="productPoint"]').value = numberWithCommas(product.productPoint); // 포인트
-
+    
       /* 이미지 */
       for(const i of imageList) {
 
@@ -177,6 +174,10 @@ for(const btn of modBtnList) {
           e.target.parentElement.remove();
           document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]').remove();
           deleteImgFile(value);
+
+          // 삭제 이미지 정보 추가
+          const imgNo = e.target.parentElement.getAttribute('imgNo');
+          if(imgNo != null) deleteSet.add(imgNo);
           
           // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
           const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');
@@ -212,6 +213,10 @@ for(const btn of modBtnList) {
           e.target.parentElement.remove();
           document.querySelector('#detailImgNameTr .detailImgNameContainer[value="' + value + '"]').remove();
           deleteImgFile(value);
+
+          // 삭제 이미지 정보 추가
+          const imgNo = e.target.parentElement.getAttribute('imgNo');
+          if(imgNo != null) deleteSet.add(imgNo);
 
           // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
           const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');
@@ -344,5 +349,6 @@ document.getElementById('productUpdateFrm').addEventListener('submit', e => {
   }
 
   document.getElementById('queryStringHiddenInput').value = location.search; // 현재 검색 결과 유지
+  document.querySelector('[name="removedImages"]').value = Array.from(deleteSet); // 삭제할 이미지 정보 전달
   e.target.submit();
 });

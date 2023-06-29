@@ -391,5 +391,23 @@
 		set		product_name = #{productName}
 		where   product_no = #{productNo}
 	</update>
+	
+	<!-- 이미지 업데이트 -->
+	<update id="updateThumbnailImage">
+		update `product_img`
+		set		img_path = #{imgPath}
+		where   product_no = #{productNo}
+		        and thumb_fl = 'Y'
+	</update>
+	
+	<!-- 이미지 삭제 -->
+	<delete id="removeProductImage">
+		delete from `product_img`
+		<where>
+			<foreach collection="array" item="imgNo" separator="or">
+				img_no = ${imgNo}
+			</foreach>
+		</where> 
+	</delete>
 
 </mapper>

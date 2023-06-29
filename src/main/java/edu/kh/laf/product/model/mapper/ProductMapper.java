@@ -151,4 +151,18 @@ public interface ProductMapper {
 	 * @return result
 	 */
 	int updateProduct(Product product);
+
+	/**
+	 * 이미지 정보 업데이트
+	 * @param uploadList
+	 * @return result
+	 */
+	int updateThumbnailImage(ProductImage uploadList);
+
+	/**
+	 * 이미지 삭제
+	 * @param arr
+	 * @return result
+	 */
+	int removeProductImage(String[] arr);
 }
