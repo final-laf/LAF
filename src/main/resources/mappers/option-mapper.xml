@@ -9,7 +9,6 @@
 				size,
 				color,
 				stock,
-				location,
 				sell_count,
 				hidden_fl
 		FROM   `option`
@@ -24,7 +23,6 @@
 				size,
 				color,
 				stock,
-				location,
 				sell_count,
 				hidden_fl
 		FROM   `option`
@@ -38,7 +36,6 @@
 				size,
 				color,
 				stock,
-				location,
 				sell_count,
 				hidden_fl
 		FROM   `option`
@@ -97,8 +94,7 @@
 			<if test="option.size == null">NULL,</if> 
 			<if test="option.size != null">#{option.size},</if>
 			#{option.color}, 
-			${option.stock}, 
-			#{option.location}, 
+			${option.stock},
 			default,
 			#{option.hiddenFl}
 		)
@@ -116,7 +112,6 @@
 	<update id="updateOption">
 		update `option`
 		set		stock = ${stock},
-				location = #{location},
 		        hidden_fl = #{hiddenFl}
 		where	option_no = ${optionNo}
 	</update>
