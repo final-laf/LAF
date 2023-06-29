@@ -237,8 +237,8 @@ cpOptionBtn.addEventListener('click', () => {
     checkboxInput.type = 'hidden';
     checkboxInput.value = 'N';
     
-    const td6 = document.createElement('td');
-    td6.append(checkbox, checkboxInput);
+    const td5 = document.createElement('td');
+    td5.append(checkbox, checkboxInput);
 
     const tr = document.createElement('tr');
     tr.append(td1, td2, td3, td4, td5);
