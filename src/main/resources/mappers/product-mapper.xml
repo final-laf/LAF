@@ -409,5 +409,11 @@
 			</foreach>
 		</where> 
 	</delete>
+	
+	<!-- 이미지 전체 목록 조회 -->
+	<select id="selectImageList">
+		select SUBSTRING_INDEX(img_path, '/', -1) 
+		from `product_img`;
+	</select>
 
 </mapper>

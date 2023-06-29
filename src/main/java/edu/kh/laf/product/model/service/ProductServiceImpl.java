@@ -357,4 +357,10 @@ public class ProductServiceImpl implements ProductService {
 		return 1;
 	}
 
+	// 이미지 전체 목록 조회
+	@Override
+	public List<String> selectImageList() {
+		return mapper.selectImageList();
+	}
+
 }

@@ -151,4 +151,10 @@ public interface ProductService {
 	 * @return result
 	 */
 	int removeProductImage(Map<String, Object> paramMap);
+
+	/**
+	 * 이미지 전체 목록 조회
+	 * @return imageList
+	 */
+	List<String> selectImageList();
 }

@@ -165,4 +165,10 @@ public interface ProductMapper {
 	 * @return result
 	 */
 	int removeProductImage(String[] arr);
+
+	/**
+	 * 이미지 전체 목록 조회
+	 * @return imageList
+	 */
+	List<String> selectImageList();
 }
