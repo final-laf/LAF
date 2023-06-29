@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.service.MemberService;
+import edu.kh.laf.mypage.model.service.MypageService;
 
 @Controller
 public class AdminMemberController {
 	
     @Autowired
     private MemberService memberService;
+    
+	@Autowired
+	private MypageService mypageService;
 
 	// 회원관리 : 회원조회
 	@GetMapping("/admin/member")
@@ -80,5 +84,26 @@ public class AdminMemberController {
 		jsonMap.put("orderMaps", resultMap.get("orderMaps"));
 		return jsonMap;
 	}
+	
+	
+	// 주문 내역 비동기 조회
+		@GetMapping("/admin/member/memberPointList")
+		@ResponseBody
+		public Map<String, Object> selectMemberDetailPointList(Long memberNo
+												 ,Model model
+												 ,@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("memberNo", memberNo);
+			paramMap.put("cp", cp);
+			
+			// 페이지리스트가 적용된 포인트 내역 조회
+			Map<String, Object> tempMap = mypageService.selectPoint(paramMap);
+			Map<String, Object> resultMap = new HashMap<>();
+			resultMap.put("PointListpagination", tempMap.get("pagination"));
+			resultMap.put("pointList", tempMap.get("pointList"));
+			
+			return resultMap;
+		}
+	
 	
 }
