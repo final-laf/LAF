@@ -351,7 +351,34 @@ SELECT order_no, (SELECT sum(count) FROM order_product WHERE order_no = 3 GROUP 
 FROM order_product
 WHERE order_no = 32;
 
+SELECT * FROM `order_product` ;
 
+
+SELECT *
+FROM `order`
+LEFT JOIN `order_product` USING (order_no)
+WHERE product_no IS NULL;
+
+DELETE m FROM `order` m WHERE m.order_no in (SELECT c.order_no
+									  FROM `order` c
+									  LEFT JOIN `order_product` USING (order_no)
+									  WHERE product_no IS NULL); 
+;
+
+DELETE FROM `order`
+WHERE order_no IN (
+    SELECT order_no
+    FROM (
+        SELECT c.order_no
+        FROM `order` c
+        LEFT JOIN `order_product` USING (order_no)
+        WHERE product_no IS NULL
+    ) AS temp
+);
+
+COMMIT;
+
+SELECT * FROM `point`;
 
 
 

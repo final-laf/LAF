@@ -54,7 +54,7 @@
           <!-- 검색결과 테이블 -->
           <table class="member-result">
             <tr class="pretr">
-              <td><input type="checkbox"></td>
+              <td><input type="checkbox" id="headCheckbox"></td>
               <td>번호</td>
               <td>아이디</td>
               <td>이름</td>
@@ -67,7 +67,7 @@
             <th:block th:each="member : ${memberList}">
               <tr th:unless="${listCount == 0}" class="selected-member" th:memberNo="${member.memberNo}">
                 <td onclick="event.stopPropagation();">
-                  <input type="checkbox"  class="selected-member-checkbox" name="selectedMember" th:value="${member}">
+                  <input type="checkbox"  class="admin-member-checkbox" name="selectedMember" th:value="${member}">
                 </td>
                 <td th:text="${member.memberNo}">번호</td>
                 <td th:text="${member.memberId}">아이디</td>
