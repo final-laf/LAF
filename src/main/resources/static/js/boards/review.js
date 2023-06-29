@@ -1,6 +1,4 @@
-
-
-
+console.log(bestReviewNoList)
 
 /* 작성한 리뷰 모달 */
 const modal = document.getElementsByClassName("review-modal-overlay")[0];
@@ -16,7 +14,6 @@ let reviewCount = "";
 let reviewContent = "";
 let reviewScore = "";
 let reviewNum = "";
-let reviewNo = "";
 let orderNo = "";
 let reviewImg = [];
 for(let review of reviewDetail) {
@@ -58,6 +55,16 @@ for(let review of reviewDetail) {
       document.getElementById("reviewDetailModalTextScore").value=review.reviewScore;
       document.getElementById("reviewDetailModalProductNo").href="/product/"+review.productNo;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
+      console.log(review.reviewNo);
+      console.log(bestReviewNoList);
+      document.getElementById("bestReview").style.display = "flex";
+      for(let b of bestReviewNoList){
+        if (b.reviewNo==review.reviewNo) {
+          console.log("이미 베스트 리뷰")
+          document.getElementById("bestReview").style.display = "none";
+        }
+
+      }
       const login = document.getElementById("reviewDetailModalMemberId").getAttribute("value");
       if(login!=review.memberNo){
         document.getElementById("reviewModifyDeleteBtn").style.display = "none";
@@ -100,7 +107,7 @@ for(let review of reviewDetail) {
       reviewCount = review.reviewCount
       reviewContent = review.reviewContent
       reviewScore=review.reviewScore
-      reviewNo=review.reviewNo
+      reviewNum=review.reviewNo
       orderNo=review.orderNo
       // document.getElementById("reviewModalName").innerText="review.memberName";
     }) 
@@ -376,37 +383,13 @@ if (document.getElementById("listDelete")!=null) {
 document.getElementById("bestReview").addEventListener("click", e=> {
   document.getElementById("bestReview-modal-overlay").style.display = "flex";
 
-  document.getElementById("newBestReviewNo").value = reviewNo;
-  document.getElementById("newBestReview").innerText = reviewNo;
+  document.getElementById("newBestReviewNo").value = reviewNum;
+  document.getElementById("newBestReview").innerText = reviewNum;
   document.getElementById("newBestProduct").innerText = productName;
   document.getElementById("newBestContent").innerText = reviewContent;
   document.getElementById("newBestScore").innerText = reviewScore;
   document.getElementById("newBestWrite").innerText = memberName;
   document.getElementById("newBestDate").innerText = reviewCreateDate;
-
-
-
-  
-  
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   console.log(e.target);
 })

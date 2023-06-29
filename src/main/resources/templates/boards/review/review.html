@@ -13,7 +13,7 @@
   <th:block th:replace="~{/common/header}"></th:block>
   <th:block th:replace="~{/common/nav}"></th:block>
   
-  <main th:with="pagination=${resultMap.pagination}, reviewList=${resultMap.reviewList}">
+  <main th:with="pagination=${resultMap.pagination}, reviewList=${resultMap.reviewList}, bestReview=${bestReview}">
 
     <section class="board-list">
       <div class="board-name"><span>REVIEW</span></div>
@@ -75,13 +75,6 @@
   <th:block th:replace="~{/common/footer}"></th:block>
   
 <!-- 타입스크립트로 옮길 땐 지울것 -->
-  <script>
-    fetch("/js/boards/review.js")
-    .then(resp => resp.text())
-    .then(temp => {
-      console.log(temp);
-      eval(temp)
-    });
-  </script>
+
 </body> 
 </html>
