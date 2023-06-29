@@ -380,6 +380,21 @@ COMMIT;
 
 SELECT * FROM `point`;
 
+select * from `point`;
 
+
+insert into `point`
+values (null
+		,'6'
+		,'G'
+		,'2000'
+		,default
+		,'20230729'
+		,'특별 적립금'
+		,null);
+
+
+
+		
 
 			

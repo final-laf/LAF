@@ -245,6 +245,15 @@ public class MemberServiceImpl implements MemberService {
 		return resultMap;
 	}
 
+	
+	// 포인트를 적립하는 서비스
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int insertMemberPoint(Map<String, Object> paramMap) {
+		int result = mapper.insertMemberPoint(paramMap);
+		return result;
+	}
+
 
 	
 

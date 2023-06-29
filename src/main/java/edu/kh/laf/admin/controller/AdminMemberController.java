@@ -1,6 +1,8 @@
 package edu.kh.laf.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,17 +115,26 @@ public class AdminMemberController {
 	public String insertMemberPoint(Point inputPoint
 									,String[] memberNo
 									,RedirectAttributes ra) {
-		
-		// inputPoint를 가져와 생성
-		System.out.println(inputPoint);
+		// memberNo Array를 따로 가져와 memberNoList 생성
+		List<String> memberNoList = new ArrayList<>();
 		for(String No : memberNo) {
-			System.out.println(No);
+			memberNoList.add(No);
 		}
-		// memberNo Array를 따로 가져와 생성
-		// paramMap에 다로 넣기
+		// paramMap에 memberNoList, inputPoint 를 따로 넣고 service로 넘김
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNoList", memberNoList);
+		paramMap.put("inputPoint", inputPoint);
 		
+		// 포인트를 적립하는 서비스 호출
+		int result = memberService.insertMemberPoint(paramMap);
+		String message = "";
+		if(result > 0) {
+			message = "포인트 지급을 완료하였습니다.";
+		} else {
+			message = "포인트 지급을 실패했습니다.";
+		}
 		
-		// 가져가야할 것? 리다이렉트 메세지?
+		ra.addFlashAttribute("message", message);
 		
 		return "redirect:/admin/member";
 	}

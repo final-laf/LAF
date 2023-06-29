@@ -24,6 +24,12 @@ allChecked.addEventListener("click", e => {
 });
 
 
+/* pointDate 기본세팅값 오늘로 설정, pointDueDate는 오늘 이후로만 설정 가능하도록 */
+const today = new Date().toISOString().substring(0, 10);
+document.querySelector("input[name=pointDate]").value = today
+document.querySelector("input[name=pointDueDate]").setAttribute("min", today);
+
+
 
 // 주문 내역 불러오는 함수
 function loadOrderList (memberNo, cp){
