@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/admin/adminMain/category.css">
+  <link rel="stylesheet" th:href="@{/css/admin/adminMain/category.css}">
   <title>관리자 :: 카테고리관리</title>
   <style>
     .sidebar li.sub.banner:not(.last) { height: 30px !important; }
@@ -27,73 +27,25 @@
             <div class="content-title">카테고리 현황( 1차 | 2차 )</div>
             <div class="category-item-list">
               <ul>
-                <li class="category-item">
+
+                <!-- select-edit 클래스 추가 : 현재 수정중인 카테고리 -->
+                <li class="category-item" 
+                  th:each="pc : ${categoryList}" 
+                  th:if="${pc.parentCategoryNo == 0}"
+                  th:pcno="${pc.categoryNo}">
                   <div class="category-first">
-                    <span>BEST50</span>
-                    <div>X</div>
+                    <span th:text="${pc.categoryName}">카테고리 이름</span>
+                    <div class="remove-btn">&times;</div>
                   </div>
                   <div class="category-second">
-                    <span>LAST SALE<div>X</div></span>
-                    <span>NEW 10%<div>X</div></span>
-                    <span>BEST50<div>X</div></span>
-                    <span>오늘출발<div>X</div></span>
-                    <span>재고쌓기!!<div>X</div></span>
-                    <span>최대할증 70%<div>X</div></span>
-                    <span>오늘불발 :)<div>X</div></span>
-                    <span>WORST10<div>X</div></span>
+                    <div th:each="cc : ${categoryList}" 
+                      th:if="${pc.categoryNo == cc.parentCategoryNo}">
+                      <span class="category-name" th:text="${cc.categoryName}">자식카테고리 이름</span>
+                      <span class="remove-btn">&times;</span>
+                    </div>
                   </div>
                 </li>
-                <li class="category-item">
-                  <div class="category-first">
-                    <span>OUTER</span>
-                    <div>X</div>
-                  </div>
-                  <div class="category-second">
-                    <span>코트<div>X</div></span>
-                    <span>자켓<div>X</div></span>
-                    <span>점퍼/무스탕<div>X</div></span>
-                    <span>핸드메이드<div>X</div></span>
-                  </div>
-                </li>
-                <li class="category-item">
-                  <div class="category-first">
-                    <span>상의</span>
-                    <div>X</div>
-                  </div>
-                  <div class="category-second">
-                    <span>거적때기<div>X</div></span>
-                    <span>천조각<div>X</div></span>
-                    <span>걸레<div>X</div></span>
-                    <span>헤드메이드<div>X</div></span>
-                  </div>
-                </li>
-                <li class="category-item">
-                  <div class="category-first">
-                    <span>커뮤니티</span>
-                    <div>X</div>
-                  </div>
-                  <div class="category-second">
-                    <span>공지사항<div>X</div></span>
-                    <span>자주묻는질문<div>X</div></span>
-                    <span>1:1문의하기<div>X</div></span>
-                    <span>입고일정안내<div>X</div></span>
-                    <span>반품후기<div>X</div></span>
-                    <span>후원결제창<div>X</div></span>
-                    <span>출석체크<div>X</div></span>
-                    <span>채용공고<div>X</div></span>
-                    <span>대신해줘<div>X</div></span>
-                  </div>
-                </li>
-                <li class="category-item select-edit">
-                  <div class="category-first">
-                    <span>하의</span>
-                    <div>X</div>
-                  </div>
-                  <div class="category-second">
-                    <span>슬렉스<div>X</div></span>
-                    <span>데님<div>X</div></span>
-                  </div>
-                </li>
+                
               </ul>
             </div>
             
@@ -105,18 +57,20 @@
             <div class="first-content">
               <div class="content-subtitle">1차 카테고리</div>
               <input type="text"><button type="submit">입력</button>
-              <p>하의<span>X</span></p>
+              <p>하의<span>&times;</span></p>
             </div>
             <div class="second-content">
               <div class="content-subtitle">2차 카테고리</div>
               <input type="text"><button type="submit">입력</button>
-              <p>슬렉스<span>X</span></p>
-              <p>데님<span>X</span></p>
+              <p>슬렉스<span>&times;</span></p>
+              <p>데님<span>&times;</span></p>
             </div>
           </div>
         </div>
       </div>
     </section>
   </main>
+
+  <script th:src="@{/js/admin/adminMain/category.js}"></script>
 </body>
 </html>

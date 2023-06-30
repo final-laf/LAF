@@ -1,4 +1,4 @@
-.main-category{
+.main-category {
   width: 1200px;
 
   margin: 0 30px 30px;
@@ -9,11 +9,12 @@
   background-color: white;
 }
 
-.main-category-title{
+.main-category-title {
   font-size: 2.5rem;
 }
+
 /* content */
-.main-category-content{
+.main-category-content {
   margin-top: 30px;
 
   width: 100%;
@@ -22,7 +23,7 @@
   justify-content: space-around;
 }
 
-.content-title{
+.content-title {
   font-size: 2rem;
   padding-bottom: 10px;
   margin-bottom: 30px;
@@ -30,7 +31,7 @@
 }
 
 /* content-left */
-.main-category-content-left{
+.main-category-content-left {
   width: 65%;
   padding: 30px;
 
@@ -39,26 +40,26 @@
   background-color: #F9F4F5;
 }
 
-.category-item-list *{
-  margin: 10px 0;
-}
-
-.category-item{
+.category-item {
+  border: 3px solid #F9F4F5;
   display: flex;
-}
-
-.category-item:hover{
-  border: 3px solid #493E5D;
   border-radius: 10px;
-  padding: 0 10px;
+  padding: 8px 8px;
+  /* margin: 5px 0; */
+  min-height: 75px;
+  margin: 2px 0;
 }
 
-.category-item *{
+.category-item:hover {
+  border: 3px solid #493E5D;
+}
+
+.category-item * {
   display: flex;
   align-items: center;
 }
 
-.category-first{
+.category-first {
   width: 150px;
 
   display: flex;
@@ -69,8 +70,8 @@
   background-color: #493E5D;
   box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
 
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .category-first>span{
@@ -81,8 +82,8 @@
   cursor: pointer;
 }
 
-.category-second{
-  padding: 0 5px;
+.category-second {
+  padding: 0 10px;
   width: 100%;
 
   display: flex;
@@ -93,30 +94,29 @@
 
   background-color: white;
 
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
-.category-second *{
-  margin-left: 15px;
-}
-
-.category-second>span{
+.category-second > div {
   background-color: #F9F4F5;
   border: 0.1px solid #493E5D;
-  border-radius: 10px;
-  height: 35px;
-  padding: 0 10px;
+  height: 30px;
+  border-radius: 4px;
+  margin-right: 10px;
 }
-
-.category-second div{
+.category-second span.category-name {
+  margin: 0 10px;
+}
+.category-second span.remove-btn {
   cursor: pointer;
+  margin-right: 5px;
 }
 
-.select-edit{
+.select-edit {
   border: 3px solid #493E5D;
-  border-radius: 10px;
-  padding: 0 10px;
+  /* border-radius: 10px; */
+  /* padding: 0 10px; */
 }
 
 

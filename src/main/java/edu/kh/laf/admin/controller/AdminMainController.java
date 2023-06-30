@@ -15,13 +15,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.laf.common.utility.Util;
 import edu.kh.laf.main.model.dto.Banner;
 import edu.kh.laf.main.model.service.MainService;
+import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.ProductImage;
+import edu.kh.laf.product.model.service.CategoryService;
 
 @Controller
 public class AdminMainController {
 	
 	@Autowired
 	private MainService service;
+	@Autowired
+	private CategoryService categoryService;
 	
 	// 대쉬보드
 	@GetMapping("/admin")
@@ -61,7 +65,10 @@ public class AdminMainController {
 	
 	// 메인화면관리 : 카테고리
 	@GetMapping("/admin/category")
-	public String category() {
+	public String category(Model model) {
+		
+		model.addAttribute("categoryList", categoryService.selectAllCategoryList());
+		
 		return "/admin/adminMain/category";
 	}
 	
