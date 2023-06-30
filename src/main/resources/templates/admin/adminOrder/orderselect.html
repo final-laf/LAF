@@ -88,7 +88,7 @@
             </table>
             <div class="order-select-btn">
               <button id="selectBtn">검색</button>
-              <button type="reset">초기화</button>
+              <button id="resetBtn" type="reset">초기화</button>
             </div>
           </form> 
         </div>
@@ -101,7 +101,7 @@
               <a href="">
                 <div>판매량순<i class="fa-solid fa-angle-down"></i></div>
               </a>
-              <div>(검색결과 2건)</div>
+              <div th:text="'검색결과 '+${listCount} + '건'">(검색결과 2건)</div>
             </div>
             <div>
               <select id="orderStateC">
@@ -119,7 +119,7 @@
                 <option value="K">반품중</option>
                 <option value="L">반품완료</option>
               </select>
-              <button type="button">일괄수정</button>
+              <button type="button" id="changeStateAllBtn">일괄수정</button>
             </div>
           </div>
           <table class="order-select-table">
@@ -139,36 +139,80 @@
             </tr>
             <tr class="order-modal-row" th:each="orderMap : ${orderMaps}" th:object="${orderMap}">
               <td>
-                <input type="checkbox">
+                <input type="checkbox" id="checkedSelect"><input type="hidden" th:value="*{order.orderNo}">
               </td>
               <td>
                 <p th:text="*{#strings.substring(order.orderDate,0,10)}">주문날짜</p>
-                <a th:href="'/order/'+*{order.orderNo}"><p id="orderNum" th:text="'[ ' + *{order.orderUno}+' ]'">주문번호</p></a>
+                <p id="orderNum" th:text="'[ ' + *{order.orderUno}+' ]'">주문번호</p>
               </td>
               <td>
-                <div th:text="*{odpList}"></div>
+                <div>
+                  <img width="70px" th:each="i, index:${orderMap.odpList}" th:if="${1 == index.count}" th:src="${i.product.thumbnailPath}">
+                </div>
               </td>
               <td>
-                <p>[LAF추천/2장돌파] 호우 윈터 루즈핑 스트라이프 데스 셔츠-31icecream</p>
-                <p>[옵션:그린]</p>
+                <p th:each="i, index:${orderMap.odpList}" th:if="${1 == index.count}" th:text="${i.product.productName}" >상품명</p>
+                <p th:each="i, index:${orderMap.odpList}" th:if="${1 == index.count}" th:text="${i.option.size}?'[ '+${i.option.color} +' '+${i.option.size+' ]'} : '[ '+${i.option.color}+' ]'" >[옵션:그린]</p>
               </td>
-              <td>1</td>
-              <td>33,000원</td>
+              <td th:text="${#aggregates.sum(orderMap.odpList.![count])}">1</td>
+              <td th:text="${#numbers.formatInteger(orderMap.order.orderPayment, 3, 'COMMA')} + '원'">제품가격</td>
               <td>
-                <select>
-                  <option>상품준비중</option>
-                  <option>교환중</option>
-                  <option>반품중</option>
-                </select>
+                <p class="orderState" th:text="*{order.orderState}">주문처리상태</p>
               </td>
             </tr>
           </table>
         </div>
+
+        <!-- 페이징 -->
+        <div class="pagination-area">
+
+          <!-- 검색결과 -->
+          <ul class="pagination">
+
+            <!-- 첫 페이지로 이동 -->
+            <li><a th:href="@{/admin/order(cp=1)}">
+                <img th:src="@{/images/common/paging/first-page.svg}">
+              </a></li>
+
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li><a th:href="@{/admin/order(cp=${pagination.prevPage})}">
+                <img th:src="@{/images/common/paging/prev-page.svg}">
+              </a></li>
+
+            <!-- 특정 페이지로 이동 -->
+            <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
+              <!-- 현재 보고있는 페이지 -->
+              <li th:if="${i == pagination.currentPage}">
+                <a class="current" th:text="${i}">현재 페이지</a>
+              </li>
+
+              <!-- 현재 페이지를 제외한 나머지 -->
+              <li th:unless="${i == pagination.currentPage}">
+                <a th:href="@{/admin/order(cp=${i})}" th:text="${i}"></a>
+              </li>
+            </th:block>
+
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li><a th:href="@{/admin/order(cp=${pagination.nextPage})}">
+                <img th:src="@{/images/common/paging/next-page.svg}">
+              </a></li>
+
+            <!-- 끝 페이지로 이동 -->
+            <li><a th:href="@{/admin/order(cp=${pagination.maxPage})}">
+                <img th:src="@{/images/common/paging/last-page.svg}">
+              </a></li>
+          </ul>
+        </div>
+
       </div>
     </section>
     <th:block th:replace="~{admin/adminOrder/orderModal}"></th:block>
   </main>
-
+  <th:block th:replace="~{admin/adminOrder/orderModal}"></th:block>
+  <script th:inline="javascript">
+    const dataMap = /*[[${dataMap}]]*/ "검색데이터";
+    const orderMaps = /*[[${orderMaps}]]*/ "주문목록";
+  </script>
   <script th:src="@{/js/admin/adminOrder/orderSelect.js}"></script>
 </body>
 </html>

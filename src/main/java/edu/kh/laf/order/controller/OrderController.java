@@ -101,7 +101,8 @@ public class OrderController {
 						@RequestParam Map<String, Object> orderData ,
 						@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList,
-						HttpServletRequest req) {
+						HttpServletRequest req,
+						Model model) {
 		
 		// 주문테이블추가 후 주문고유번호 가져오기
 		String orderKey = service.insertOrder(order,orderData,loginMember);
@@ -149,6 +150,11 @@ public class OrderController {
 		
 		// 장바구니 삭제하기 - 세션값 제거
 		req.getSession().removeAttribute("orderProductList");
+		
+		// 회원정보 세션업데이트
+		loginMember = service2.selectMember(loginMember.getMemberNo());
+		model.addAttribute("loginMember", loginMember);
+		
 		
 		 //주문상세조회로 넘어가기 - 주문번호
 		return "redirect:/order/" + orderNo;
