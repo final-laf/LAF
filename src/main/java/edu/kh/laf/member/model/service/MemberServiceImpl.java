@@ -254,6 +254,19 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	// 적립한 포인트를 회원 정보에 반영하는 서비스
+	@Override
+	public int updateMemberPoint(Map<String, Object> pointParamMap) {
+		int updateResult = mapper.updateMemberPoint(pointParamMap);
+		return updateResult;
+	}
+
+	// 회원 번호로 회원 목록 조회
+	@Override
+	public List<Member> selectMemberList(List<String> memberNoList) {
+		return mapper.selectMemberList(memberNoList);
+	}
+
 
 	
 

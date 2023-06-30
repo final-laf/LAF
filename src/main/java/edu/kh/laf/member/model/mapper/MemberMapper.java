@@ -103,4 +103,16 @@ public interface MemberMapper {
 	 */
 	int insertMemberPoint(Map<String, Object> paramMap);
 
+	/** 적립한 포인트를 회원 정보에 반영
+	 * @param paramMap
+	 * @return updateResult
+	 */
+	int updateMemberPoint(Map<String, Object> pointParamMap);
+
+	/** 회원 번호로 회원 조회
+	 * @param memberNoList
+	 * @return memberList
+	 */
+	List<Member> selectMemberList(List<String> memberNoList);
+
 }

@@ -145,23 +145,69 @@
 		FROM `order` WHERE member_no = #{memberNo}
 	</select>
 	
-	<!--포인트를 적립하는 서비스 호출-->
+	<!--회원번호로 포인트를 적립(insert) 서비스 호출-->
 	<insert id="insertMemberPoint" parameterType="java.util.HashMap">
 		<if test="memberNoList.size != 0">
 		    insert into `point`
 			values 
-   			<foreach collection="memberNoList" item="memberNo" separator=",">
-					(null
-					,#{memberNo}
-					,#{inputPoint.pointSort}
-					,#{inputPoint.pointAmount}
-					,default
-					,#{inputPoint.pointDueDate}
-					,#{inputPoint.pointContent}
-					,null)
-	        </foreach>
-    	</if>
+			
+			<!--포인트 유효기간을 기준으로-->
+			<!--포인트 유효기간이 없으면-->
+			<if test='inputPoint.pointDueDate == ""'>
+	   			<foreach collection="memberNoList" item="item" separator=",">
+						(null
+						,#{item}
+						,#{inputPoint.pointSort}
+						,#{inputPoint.pointAmount}
+						,#{inputPoint.pointDate}
+						,NULL
+						,#{inputPoint.pointContent}
+						,null)
+		        </foreach>
+	        </if>
+			<!--포인트 유효기간이 있으면-->
+			<if test='inputPoint.pointDueDate != ""'>
+				<foreach collection="memberNoList" item="item" separator=",">
+						(null
+						,#{item}
+						,#{inputPoint.pointSort}
+						,#{inputPoint.pointAmount}
+						,#{inputPoint.pointDate}
+						,#{inputPoint.pointDueDate}
+						,#{inputPoint.pointContent}
+						,null)
+		        </foreach>
+	        </if>
+	    </if>
 	</insert>
+	
+	<!--적립한 포인트를 회원 정보에 반영-->
+	<update id="updateMemberPoint" parameterType="java.util.HashMap">
+		UPDATE `member`
+		<!--포인트 구분이 'G'면-->
+		<if test='pointSort == "G"'>
+		SET member_point =  (member_point + ${pointAmount})
+        </if>
+		<!--포인트 구분이 'C'면-->
+		<if test='pointSort == "C"'>
+		SET member_point =  (member_point - ${pointAmount})
+        </if>
+		WHERE member_no IN (
+   			<foreach collection="memberList" item="item" separator=",">
+					${item.memberNo}
+	        </foreach>
+	        )
+	</update>
+	
+	<!--회원 번호 목록으로 회원 목록 조회-->
+	<select id="selectMemberList" resultType="Member">
+		SELECT member_no, member_point FROM `member`
+		WHERE member_no IN (
+		<foreach collection="list" item="item" separator=",">
+				${item}
+        </foreach>
+		)
+	</select>
 
 	
 </mapper>
