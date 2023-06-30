@@ -26,7 +26,6 @@ for(let review of reviewDetail) {
     }
     let reviewNo = e.target.getAttribute("value");
     if (reviewNo==null) {
-      console.log("베스트 리뷰");
       reviewNo= e.target.parentElement.parentElement.getAttribute("value")
     }
     
@@ -34,8 +33,12 @@ for(let review of reviewDetail) {
     document.body.style.overflowY = "hidden";
 
     fetch("/review/detailReview?reviewNo="+reviewNo)  
-    .then(response => response.json()) 
+    .then(review => review.json()) 
     .then(review => {
+      if (review.memberNo==0) {
+        alert("삭제된 리뷰입니다.");
+        location.href="/review";
+      }
       for (let i = 0; i < 5; i++) {
         document.getElementsByClassName("Detailpreview")[i].style.display= "none";
       }
@@ -180,6 +183,16 @@ if (document.getElementById("reviewDetailModalModifyBtn")!=null) {
     }else{
       document.getElementById("reviewModifyScorePoint").innerText="점"
     }
+  })
+}
+
+// 삭제하기 모달
+if (document.getElementById("reviewDetailModalDeleteBtn")!=null) {
+  document.getElementById("reviewDetailModalDeleteBtn").addEventListener("click", e=>{
+    console.log(reviewNum)
+    const reviewNo = reviewNum;
+    var url = "/review/delete?reviewNo="+reviewNo;
+    location.href=url;
   })
 }
 
@@ -363,6 +376,7 @@ if (document.getElementById("modifyReview")!=null) {
   
   });
 }
+//  flqb tkrwp
 if (document.getElementById("deleteReview")!=null) {
   document.getElementById("deleteReview").addEventListener("click", e=> {
     const reviewNo =document.getElementById("reviewModifyModalReviewNo").value;
@@ -370,6 +384,7 @@ if (document.getElementById("deleteReview")!=null) {
     location.href=url;
   })
 }
+//  리뷰 삭제
 if (document.getElementById("listDelete")!=null) {
   document.getElementById("listDelete").addEventListener("click", e=> {
     const reviewNo =e.target.getAttribute("value");
@@ -379,7 +394,7 @@ if (document.getElementById("listDelete")!=null) {
   })
 }
 
-
+// 베스트 리뷰 모달창
 document.getElementById("bestReview").addEventListener("click", e=> {
   document.getElementById("bestReview-modal-overlay").style.display = "flex";
 

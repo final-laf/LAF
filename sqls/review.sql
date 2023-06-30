@@ -161,18 +161,17 @@ SELECT review_no
 FROM review 
 WHERE order_no = 51 AND product_no =1 AND option_no =48;
 
-SELECT r.review_no, 
-       m.member_id, 
-	   r.review_content, 
-	   r.review_create_date, 
-	   r.review_score, 
-	   r.order_no, 
-	   r.product_no, 
-	   r.option_no, 
-	   o.order_uno,
-	   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
-	   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
-FROM review r LEFT JOIN order_product op ON r.review_no = op.review_no 
-	   JOIN `order` o ON r.order_no = o.order_no 
-	   JOIN `member`m ON o.member_no = m.member_no 
-WHERE o.member_no=2;
+SELECT img_path FROM product_img WHERE product_no=82 AND thumb_fl='Y';
+SELECT * FROM product;
+SELECT * FROM product_img pi2 ;
+        SELECT `product`.product_no,
+				product_name,
+				product_price,
+				product_sale_price,
+				product_sale,
+				product_point,
+				product_state,
+				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
+				img_path AS thumbnail_path
+		FROM   `product`
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no

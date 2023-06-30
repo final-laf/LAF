@@ -1,5 +1,6 @@
 package edu.kh.laf.product.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.laf.board.model.dto.Review;
+import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.service.ReviewService;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
@@ -114,7 +116,16 @@ public class ProductController {
 		Map<String, Object> resultMap = reviewService.productReviewList(cp, productNo);
 		model.addAttribute("resultMap", resultMap);
 		
-		//
+		List<Review> bestReview = reviewService.bestReview();
+		for(Review review : bestReview) {
+			System.out.println(bestReview);
+			review.setOption(reviewService.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(reviewService.reviewProduct(review.getProductNo())); // 상품 설정
+			List<ReviewImg> imgList = new ArrayList<>();
+			imgList=reviewService.reviewImg(review.getReviewNo());
+			review.setReviewImg(imgList);
+		}
+		model.addAttribute("bestReview", bestReview);
 		
 		
 		return "/shopping/product";
