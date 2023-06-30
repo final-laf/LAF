@@ -1,5 +1,6 @@
 package edu.kh.laf.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import edu.kh.laf.member.model.dto.Address;
@@ -93,6 +94,18 @@ public interface MemberService {
 	 * @return result
 	 */
 	int insertMemberPoint(Map<String, Object> paramMap);
+
+	/** 적립한 포인트를 회원 정보에 반영하는 서비스
+	 * @param paramMap
+	 * @return updateResult
+	 */
+	int updateMemberPoint(Map<String, Object> pointParamMap);
+
+	/** 회원번호로 회원 목록 조회
+	 * @param memberNoList
+	 * @return memberList
+	 */
+	List<Member> selectMemberList(List<String> memberNoList);
 
 
 

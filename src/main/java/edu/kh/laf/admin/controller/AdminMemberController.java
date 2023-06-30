@@ -120,6 +120,7 @@ public class AdminMemberController {
 		for(String No : memberNo) {
 			memberNoList.add(No);
 		}
+		
 		// paramMap에 memberNoList, inputPoint 를 따로 넣고 service로 넘김
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("memberNoList", memberNoList);
@@ -128,14 +129,25 @@ public class AdminMemberController {
 		// 포인트를 적립하는 서비스 호출
 		int result = memberService.insertMemberPoint(paramMap);
 		String message = "";
+		
+		
 		if(result > 0) {
-			message = "포인트 지급을 완료하였습니다.";
-		} else {
-			message = "포인트 지급을 실패했습니다.";
-		}
+			// 포인트 적립에 성공했을 경우 적립한 포인트를 회원 정보에 반영
+			// 회원 번호로 회원 목록 조회
+			List<Member> memberList = memberService.selectMemberList(memberNoList);
+			Map<String, Object> pointParamMap = new HashMap<>();
+			pointParamMap.put("memberList", memberList);
+			pointParamMap.put("pointSort", inputPoint.getPointSort());
+			pointParamMap.put("pointAmount", inputPoint.getPointAmount());
+			
+			// 포인트 적립 내역 회원 정보에 반영
+			int updateResult = memberService.updateMemberPoint(pointParamMap);
+			if(updateResult >0) {
+				message = "포인트 지급을 완료하였습니다.";
+			}
+		} 
 		
 		ra.addFlashAttribute("message", message);
-		
 		return "redirect:/admin/member";
 	}
 	

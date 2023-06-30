@@ -384,16 +384,49 @@ select * from `point`;
 
 
 insert into `point`
-values (null
+values 
+		(null
 		,'6'
 		,'G'
 		,'2000'
 		,default
 		,'20230729'
 		,'특별 적립금'
-		,null);
+		,null),
+		
+		(null
+		,'6'
+		,'G'
+		,'3000'
+		,default
+		,'20230729'
+		,'특별 적립금'
+		,null),
+		
+		(null
+		,'6'
+		,'G'
+		,'4000'
+		,default
+		,'20230729'
+		,'특별 적립금'
+		,null)
+		
+		;
+	
+	ROLLBACK;
+
+COMMIT;
+
+SELECT * FROM `point`;
+SELECT * FROM `member`;
+
+UPDATE `member` SET member_grade= 'B';
 
 
+
+UPDATE `point`
+SET 
 
 		
 
