@@ -6,6 +6,29 @@
 	<select id="selectBannerList" resultType="Banner">
 		select * from `banner_img` order by banner_no
 	</select>
+	
+	<!-- 배너 이미지 삭제 -->
+	<delete id="deleteImages">
+		delete from `banner_img`
+		<where>
+			<foreach collection="array" item="bannerNo" separator="or">
+				banner_no = ${bannerNo}
+			</foreach>
+		</where>
+	</delete>
+	
+	<!-- 배너 삽입 -->
+	<insert id="insertImageList">
+		insert into `banner_img`
+		values 
+		<foreach collection="list" item="banner" separator=",">
+		(
+			${banner.bannerNo},
+			0,
+			#{banner.imgPath}
+		)
+		</foreach>
+	</insert>
 
 </mapper>
 

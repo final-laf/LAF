@@ -24,7 +24,7 @@
         </div>
         <div class="main-control-img">
 
-          <form action="#" method="post" id="bannerFrm">
+          <form th:action="@{/admin/banner/update}" method="post" id="bannerFrm" encType="multipart/form-data">
             <ul>
 
               <li th:each="img : ${bannerList}" th:bannerNo="${img.bannerNo}">
@@ -50,6 +50,9 @@
               <button type="submit" class="submit">저장</button>
               <button type="reset">취소</button>
             </div>
+
+            <!-- 삭제된 이미지 정보 전송 -->
+            <input type="hidden" name="removedImages">
           </form>
 
         </div>

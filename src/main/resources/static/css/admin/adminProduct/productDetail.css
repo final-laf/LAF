@@ -70,7 +70,9 @@
 }
 .enroll-top-table img {
   height: 210px;
-  width: auto;
+  width: 170px;
+  object-fit: cover;
+  object-position: center;
   display: block;
   margin: auto;
 }
