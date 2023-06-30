@@ -40,7 +40,11 @@ public class MypageQnaController {
 			, @RequestParam Map<String, Object> paramMap
 			) {
 		System.out.println(paramMap);
+		if(categoryNo==null) {
+			categoryNo= "1";
+		};
 		if(paramMap.get("category")==null) {
+			categoryNo= "1";
 			paramMap.put("category", "write");
 			paramMap.put("questionWrite", "1");
 			paramMap.put("orderby", "qna_create_date");
@@ -58,7 +62,6 @@ public class MypageQnaController {
 		}
 		// 검색어 없을 때
 		if(paramMap.get("query") == null) { 
-			System.out.println(paramMap);
 			paramMap.put("memberNo", loginMember.getMemberNo());
 			Map<String, Object> resultMap = qnaService.qnaList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
@@ -70,7 +73,8 @@ public class MypageQnaController {
 			Map<String, Object> resultMap = qnaService.searchQnaList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
 		}
-		
+		System.out.println(categoryNo);
+		System.out.println(paramMap);
 		model.addAttribute("categoryNo", categoryNo);
 		return "/myPage/myPageBoard/myPageQuestion";
 	}
