@@ -187,7 +187,7 @@
 <!-- 적립금 발급 모달창 -->
 <div class="member-point-modal-overlay" id="memberPointModalOverlay">
   <div class="member-point-modal-window">
-    <form action="/admin/member/point">
+    <form action="/admin/member/point" id="submitPoint">
       <table class="member-point-modal-table">
         <div class="member-modal-title">
           <span>적립금 지급</span>
@@ -197,7 +197,15 @@
           <tr>
             <td>대상 회원</td>
             <td colspan="3">
-              <div class="point-member">
+              <div>
+                <div class="point-member">
+                </div>
+                <div id="moreMember">
+                  &or;
+                </div>
+              </div>
+              <div>
+                <div class="point-member-all" id="pointMemberAll"></div>
               </div>
             </td>
           </tr>
@@ -208,14 +216,14 @@
                 <option value="G">지급 (+) </option>
                 <option value="C">차감 (-) </option>
               </select>
-              <input type="text" id="memberPoint" name="pointAmount">
+              <input type="text" id="pointAmount" name="pointAmount">
               <span>원</span>
             </td>
             <td>유효기간</td>
             <td>
               <div class="point-detail-date">
                 <div>
-                  <input type="date" name="pointDate"> ~ <input type="date" name="pointDueDate">
+                  <input type="date" name="pointDate" id="pointDate"> ~ <input type="date" name="pointDueDate" id="pointDueDate">
                 </div>
               </div>
             </td>
@@ -224,7 +232,7 @@
             <td>사유</td>
             <td colspan="3">
               <div class="point-reason">
-                <input type="text" name="pointContent" id="memberPointReasonKey">
+                <input type="text" name="pointContent" id="pointContent">
               </div>
             </td>
           </tr>
