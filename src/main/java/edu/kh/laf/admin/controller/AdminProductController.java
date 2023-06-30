@@ -108,8 +108,8 @@ public class AdminProductController {
 		paramMap.put("childCategory", childCategory);
 		
 		int result = service.enrollProduct(paramMap, thumbnail, images);
-		if(result < 0) ra.addFlashAttribute("message", "상품 등록 중 오류 발생");
-		else  	       ra.addFlashAttribute("message", "등록 성공!");
+		if(result <= 0) ra.addFlashAttribute("message", "상품 등록 중 오류 발생");
+		else  	        ra.addFlashAttribute("message", "등록 성공!");
 		
 		return "redirect:/admin/product/enroll";
 	}

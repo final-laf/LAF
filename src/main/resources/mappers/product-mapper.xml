@@ -423,5 +423,16 @@
 		set 	img_order = ${imgOrder}
 		where   img_no = ${imgNo}
 	</update>
+	
+	<insert id="insertThumbnailImage">
+		insert into `product_img`
+		values (
+			null,
+			${productNo},
+			#{imgPath},
+			'Y',
+			null
+		)
+	</insert>
 
 </mapper>

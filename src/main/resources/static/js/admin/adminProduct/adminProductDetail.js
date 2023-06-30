@@ -428,7 +428,7 @@ thumbnailInput.addEventListener('change', e => {
 deleteImgBtn.addEventListener('click', () => {
   if(thumbnailImagePreview.getAttribute("src") != null) {
     thumbnailImagePreview.setAttribute("src", "/images/common/no-image.png");
-      thumbnailInput.value = ""; 
+      thumbnailInput.value = "";
   }
 });
 

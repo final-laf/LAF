@@ -228,6 +228,7 @@
   <div class="product-modal-overlay" id="productModalOverlay">
     <form id="productUpdateFrm" th:action="@{/admin/product/mod/submit}" class="product-modal-window" method="POST" encType="multipart/form-data">
       <div class="product-enroll-title">상품 수정</div>
+
       <th:block th:replace="~{admin/adminProduct/productDetailUpdate}"></th:block>
 
       <!-- 폼 제출 버튼 -->
