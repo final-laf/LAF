@@ -3,6 +3,7 @@ package edu.kh.laf.product.model.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -292,8 +293,6 @@ public class ProductServiceImpl implements ProductService {
 		
 		long productNo = Long.parseLong(String.valueOf(paramMap.get("productNo")));
 		
-		List<ProductImage> uploadList = new ArrayList<>();
-		
 		/* 썸네일 */
 		int result = 1;
 		ProductImage thumbnailImg = new ProductImage();
@@ -313,7 +312,12 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		
-		/* 상세 이미지 */
+		/* 상세 이미지 */		
+		String[] imgOrder = (String[])paramMap.get("imgOrder");
+		List<ProductImage> uploadList = new ArrayList<>();
+		
+		// 이미지가 없으면 함수 종료
+		if(imgOrder == null || imgOrder.length == 0) return 1;
 		
 		// images에 담겨있는 파일 중 실제 업로드된 파일만 분류
 		for (int i = 0; i < images.size(); i++) {
@@ -327,8 +331,32 @@ public class ProductServiceImpl implements ProductService {
 			img.setImgPath(webPath + rename);
 			img.setProductNo(productNo);
 			img.setThumbFl("N");
-			img.setImgOrder(i + 1);
+//			img.setImgOrder(i + 1);
+//			imgOrder.indexOf("-1");
+			
 			uploadList.add(img);
+		}
+
+		// 기존 + 신규 이미지 순서 세팅
+		int ulIndex = 0, ilIndex = 0;
+		List<ProductImage> imageList = mapper.selectProductImage(productNo);
+		for(int i=0; i<imgOrder.length; i++) { // i == order
+			
+			// 신규 이미지일 때
+			if(imgOrder[i].equals("-1")) {
+				uploadList.get(ulIndex++).setImgOrder(i+1);
+			
+			// 순서 변동 없을 때	
+			} else if(imgOrder[i].equals(imageList.get(ilIndex).getImgNo())) {
+				ilIndex++;
+				continue;
+			
+			// 기존 이미지 순서 변동
+			} else { 
+				ProductImage productImage = imageList.get(ilIndex++);
+				productImage.setImgOrder(i+1);
+				mapper.updateImageOrder(productImage);
+			}
 		}
 
 		// 업로드 할 파일이 없을 경우

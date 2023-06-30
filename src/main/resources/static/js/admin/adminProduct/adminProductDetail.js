@@ -477,124 +477,126 @@ detailImgInput.addEventListener('change', e => {
   addImages(addFiles);
 
   for(const file of addFiles) {
-    file.value = index.file++;
-
-    /* 파일명 출력 */
-    let td = document.querySelector('#detailImgNameTr > td');
-    const noDetailImgInfo = document.getElementById('noDetailImgInfo');
-    if(noDetailImgInfo != undefined) {
-      noDetailImgInfo.remove();
-      td = document.createElement('td');
-      detailImgNameTr.append(td);
-    }
-    
-    const btnUp = document.createElement('button');
-    btnUp.className = 'up';
-    btnUp.type = "button";
-    btnUp.innerText = "▲";
-    btnUp.addEventListener('click', e => {
-      const btn = e.target;
-
-      // 파일명 순서 변경
-      const container = btn.parentElement;
-      const prevSibling = container.previousElementSibling;
-      const value = container.getAttribute('value');
-
-      // 이동한 애 버튼 변경
-      prevSibling.before(container);
-      if(container.previousElementSibling == null) btn.disabled = true; // 이동했더니 첫 번째면 ▲버튼 비활성화
-      btn.parentElement.querySelector('.down').disabled = false; // ▼버튼 비활성화 해제
-
-      // 원래 위에 있던 애 버튼 변경
-      const sibling = btn.parentElement.nextElementSibling;
-      sibling.querySelector('.up').disabled = false; // 원래 위에있던 애 ▲버튼 활성화
-      if(sibling.nextElementSibling == null)
-        sibling.querySelector('.down').disabled = true; // 원래 위에있던 애가 마지막으로 갔으면 ▼ 버튼 비활성화
-
-      // 이미지 순서 변경
-      const img = document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]');
-      const prevImg = img.previousElementSibling;
-      prevImg.before(img);
-
-      // file input 순서 변경
-      reorderImgFileUp(value);
-    });
-    if(detailImgNameTr.querySelector('.detailImgNameContainer') == null) btnUp.disabled = true;
-
-    const btnDown = document.createElement('button');
-    btnDown.className = 'down';
-    btnDown.type = "button";
-    btnDown.innerText = "▼";
-    btnDown.addEventListener('click', e => {
-      const btn = e.target;
-
-      // 파일명 순서 변경
-      const container = btn.parentElement;
-      const nextSibling = container.nextElementSibling;
-      const value = container.getAttribute('value');
-
-      // 이동한 애 버튼 변경
-      nextSibling.after(container);
-      if(container.nextElementSibling == null) btn.disabled = true;
-      btn.parentElement.querySelector('.up').disabled = false;
-
-      // 원래 밑에 있던 애 버튼 변경
-      const sibling = btn.parentElement.previousElementSibling;
-      sibling.querySelector('.down').disabled = false; // 원래 밑에 있던 애 ▼버튼 활성화
-      if(sibling.previousElementSibling == null)
-        sibling.querySelector('.up').disabled = true; // 원래 위에있던 애가 처음으로 갔으면 ▲버튼 비활성화
-
-      // 이미지 순서 변경
-      const img = document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]');
-      const nextImg = img.nextElementSibling;
-      nextImg.after(img);
-
-      // file input 순서 변경
-      reorderImgFileDown(value);
-    });
-    btnDown.disabled = true;
-    if(detailImgNameTr.querySelector('.detailImgNameContainer') != null) // 원래 마지막이었던 요소 ▼ 버튼 활성화
-      detailImgNameTr.querySelector('td').lastChild.querySelector('.down').disabled = false;
-
-    const span = document.createElement('span');
-    span.innerText = file.name;
-    
-    const btnRm = document.createElement('button');
-    btnRm.type = 'button';
-    btnRm.innerHTML = '&times;';
-    btnRm.addEventListener('click', e => {
-      const value = container.getAttribute('value');
-      e.target.parentElement.remove();
-      document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]').remove();
-      deleteImgFile(value);
-      
-      // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
-      const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');
-        if(imgNameList.length > 0) {
-          imgNameList[0].querySelector('.up').disabled = true;
-          imgNameList[imgNameList.length - 1].querySelector('.down').disabled = true;
-        }
-
-      // 남은 요소가 하나도 없을 경우
-      if(detailImgNameTr.querySelector('td > div') == null) {
-        detailImgNameTr.innerHTML = '<td id="noDetailImgInfo">업로드한 이미지가 없습니다</td>';
-        detailImgTd.remove();
-      }
-    });
-    
-    const container = document.createElement('div');
-    container.className = "detailImgNameContainer";
-    container.setAttribute('value', index.name++);
-    container.append(btnUp, btnDown, span, btnRm);
-    td.append(container);
-    
-
-
-    /* 이미지 미리보기 출력 */
     const reader = new FileReader(); // 파일을 읽는 객체
     reader.readAsDataURL(file); // 지정된 파일을 읽은 후 result 변수에 URL 형식으로 저장
     reader.onload = e => { // 파일을 다 읽은 후 수행
+
+      file.value = index.file++;
+
+      /* 파일명 출력 */
+      let td = document.querySelector('#detailImgNameTr > td');
+      const noDetailImgInfo = document.getElementById('noDetailImgInfo');
+      if(noDetailImgInfo != undefined) {
+        noDetailImgInfo.remove();
+        td = document.createElement('td');
+        detailImgNameTr.append(td);
+      }
       
+      const btnUp = document.createElement('button');
+      btnUp.className = 'up';
+      btnUp.type = "button";
+      btnUp.innerText = "▲";
+      btnUp.addEventListener('click', e => {
+        const btn = e.target;
+
+        // 파일명 순서 변경
+        const container = btn.parentElement;
+        const prevSibling = container.previousElementSibling;
+        const value = container.getAttribute('value');
+
+        // 이동한 애 버튼 변경
+        prevSibling.before(container);
+        if(container.previousElementSibling == null) btn.disabled = true; // 이동했더니 첫 번째면 ▲버튼 비활성화
+        btn.parentElement.querySelector('.down').disabled = false; // ▼버튼 비활성화 해제
+
+        // 원래 위에 있던 애 버튼 변경
+        const sibling = btn.parentElement.nextElementSibling;
+        sibling.querySelector('.up').disabled = false; // 원래 위에있던 애 ▲버튼 활성화
+        if(sibling.nextElementSibling == null)
+          sibling.querySelector('.down').disabled = true; // 원래 위에있던 애가 마지막으로 갔으면 ▼ 버튼 비활성화
+
+        // 이미지 순서 변경
+        const img = document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]');
+        const prevImg = img.previousElementSibling;
+        prevImg.before(img);
+
+        // file input 순서 변경
+        reorderImgFileUp(value);
+      });
+      if(detailImgNameTr.querySelector('.detailImgNameContainer') == null) btnUp.disabled = true;
+
+      const btnDown = document.createElement('button');
+      btnDown.className = 'down';
+      btnDown.type = "button";
+      btnDown.innerText = "▼";
+      btnDown.addEventListener('click', e => {
+        const btn = e.target;
+
+        // 파일명 순서 변경
+        const container = btn.parentElement;
+        const nextSibling = container.nextElementSibling;
+        const value = container.getAttribute('value');
+
+        // 이동한 애 버튼 변경
+        nextSibling.after(container);
+        if(container.nextElementSibling == null) btn.disabled = true;
+        btn.parentElement.querySelector('.up').disabled = false;
+
+        // 원래 밑에 있던 애 버튼 변경
+        const sibling = btn.parentElement.previousElementSibling;
+        sibling.querySelector('.down').disabled = false; // 원래 밑에 있던 애 ▼버튼 활성화
+        if(sibling.previousElementSibling == null)
+          sibling.querySelector('.up').disabled = true; // 원래 위에있던 애가 처음으로 갔으면 ▲버튼 비활성화
+
+        // 이미지 순서 변경
+        const img = document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]');
+        const nextImg = img.nextElementSibling;
+        nextImg.after(img);
+
+        // file input 순서 변경
+        reorderImgFileDown(value);
+      });
+      btnDown.disabled = true;
+      if(detailImgNameTr.querySelector('.detailImgNameContainer') != null) // 원래 마지막이었던 요소 ▼ 버튼 활성화
+        detailImgNameTr.querySelector('td').lastChild.querySelector('.down').disabled = false;
+
+      const span = document.createElement('span');
+      span.innerText = file.name;
+      
+      const btnRm = document.createElement('button');
+      btnRm.type = 'button';
+      btnRm.innerHTML = '&times;';
+      btnRm.addEventListener('click', e => {
+        const value = container.getAttribute('value');
+        e.target.parentElement.remove();
+        document.querySelector('#detailImgTr .detailImgContainer[value="' + value + '"]').remove();
+        deleteImgFile(value);
+        
+        // 이미지 삭제 후 순서 변경에 따른 버튼 비활성화 추가 설정
+        const imgNameList = detailImgNameTr.querySelectorAll('.detailImgNameContainer');
+          if(imgNameList.length > 0) {
+            imgNameList[0].querySelector('.up').disabled = true;
+            imgNameList[imgNameList.length - 1].querySelector('.down').disabled = true;
+          }
+
+        // 남은 요소가 하나도 없을 경우
+        if(detailImgNameTr.querySelector('td > div') == null) {
+          detailImgNameTr.innerHTML = '<td id="noDetailImgInfo">업로드한 이미지가 없습니다</td>';
+          detailImgTd.remove();
+        }
+      });
+      
+      const nameContainer = document.createElement('div');
+      nameContainer.className = "detailImgNameContainer";
+      nameContainer.setAttribute('value', index.name++);
+      nameContainer.append(btnUp, btnDown, span, btnRm);
+      td.append(nameContainer);
+      
+      /* 이미지 미리보기 출력 */
+      // const reader = new FileReader(); // 파일을 읽는 객체
+      // reader.readAsDataURL(file); // 지정된 파일을 읽은 후 result 변수에 URL 형식으로 저장
+      // reader.onload = e => { // 파일을 다 읽은 후 수행
+        
       const img = document.createElement('img');
       img.src = e.target.result;
 
@@ -632,7 +634,8 @@ detailImgInput.addEventListener('change', e => {
         detailImgTr.append(detailImgTd);
       }
       detailImgTd.append(container);
-    };
+      // };
+    }
   }
 });
 
@@ -646,50 +649,55 @@ const deleteImgFile = (value) => {
   for(let i=0; i<fileArray.length; i++) {
     if(files[i].value == value) {
       fileArray.splice(i, 1);
+
+      fileArray.forEach(file => dataTransfer.items.add(file)); //남은 배열을 dataTransfer로 처리(Array -> FileList)
+      detailImgInput.files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
+
       break;
     }
   }
-
-  fileArray.forEach(file => { dataTransfer.items.add(file); }); //남은 배열을 dataTransfer로 처리(Array -> FileList)
-  detailImgInput.files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
 }
 
 // 파일 순서 변경(위로)
 const reorderImgFileUp = (value) => {
+
   const dataTransfer = new DataTransfer();
   let files = detailImgInput.files;	
   let fileArray = Array.from(files);
   
   let tmp;
-  for(let i=0; i<fileArray.length; i++) {
+  for(let i=1; i<fileArray.length; i++) {
     if(files[i].value == value) {
       tmp = fileArray[i];
       fileArray[i] = fileArray[i-1];
       fileArray[i-1] = tmp;
+      
+      fileArray.forEach(file => dataTransfer.items.add(file));
+      detailImgInput.files = dataTransfer.files;
+
       break; 
     }
   }
-
-  fileArray.forEach(file => { dataTransfer.items.add(file); }); //남은 배열을 dataTransfer로 처리(Array -> FileList)
-  detailImgInput.files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
 }
 
 // 파일 순서 변경(아래로)
 const reorderImgFileDown = (value) => {
+
   const dataTransfer = new DataTransfer();
   let files = detailImgInput.files;	
   let fileArray = Array.from(files);
   
   let tmp;
-  for(let i=0; i<fileArray.length; i++) {
+  for(let i=0; i<fileArray.length-1; i++) {
     if(files[i].value == value) {
       tmp = fileArray[i];
       fileArray[i] = fileArray[i+1];
       fileArray[i+1] = tmp;
+
+      fileArray.forEach(file => dataTransfer.items.add(file));
+      detailImgInput.files = dataTransfer.files;
+
       break; 
     }
   }
-
-  fileArray.forEach(file => { dataTransfer.items.add(file); }); //남은 배열을 dataTransfer로 처리(Array -> FileList)
-  detailImgInput.files = dataTransfer.files;	//제거 처리된 FileList를 돌려줌
 }

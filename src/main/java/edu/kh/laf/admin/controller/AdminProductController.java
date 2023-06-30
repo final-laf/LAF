@@ -143,7 +143,7 @@ public class AdminProductController {
 			@RequestParam(value="productSale", required=false, defaultValue="0") String productSale,
 			@RequestParam Map<String, Object> paramMap,
 			MultipartFile thumbnail,
-			List<MultipartFile> images,
+			List<MultipartFile> images, String[] imgOrder,
 			RedirectAttributes ra) throws IllegalStateException, IOException {
 		
 		paramMap.put("optionNo", optionNo);
@@ -154,6 +154,7 @@ public class AdminProductController {
 		paramMap.put("stock", stock);
 		paramMap.put("parentCategory", parentCategory);
 		paramMap.put("childCategory", childCategory);
+		paramMap.put("imgOrder", imgOrder);
 		
 		int result = service.updateProduct(paramMap, thumbnail, images);
 		

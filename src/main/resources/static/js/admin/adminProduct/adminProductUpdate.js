@@ -195,7 +195,8 @@ for(const btn of modBtnList) {
         
         const nameContainer = document.createElement('div');
         nameContainer.className = "detailImgNameContainer";
-        nameContainer.setAttribute('value', index.name++);
+        // nameContainer.setAttribute('value', index.name++);
+        nameContainer.setAttribute('value', i.imgNo);
         nameContainer.setAttribute('imgNo', i.imgNo);
         nameContainer.append(btnUp, btnDown, span, btnRm);
         td.append(nameContainer);
@@ -235,7 +236,8 @@ for(const btn of modBtnList) {
         const imgContainer = document.createElement('div');
         imgContainer.className = 'detailImgContainer';
         imgContainer.append(img, btn);
-        imgContainer.setAttribute('value', index.img++);
+        // imgContainer.setAttribute('value', index.img++);
+        imgContainer.setAttribute('value', i.imgNo);
         imgContainer.setAttribute('imgNo', i.imgNo);
 
         if(detailImgTr.querySelector('td') == null) {
@@ -350,5 +352,15 @@ document.getElementById('productUpdateFrm').addEventListener('submit', e => {
 
   document.getElementById('queryStringHiddenInput').value = location.search; // 현재 검색 결과 유지
   document.querySelector('[name="removedImages"]').value = Array.from(deleteSet); // 삭제할 이미지 정보 전달
+
+  const data = [];
+  const list = document.querySelectorAll('.detailImgNameContainer');
+  for(const el of list) {
+    const imgno = el.getAttribute('imgno');
+    if(imgno) data.push(imgno);
+    else      data.push(-1);
+  }
+
+  document.querySelector('[name="imgOrder"]').value = data;
   e.target.submit();
 });

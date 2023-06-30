@@ -171,4 +171,11 @@ public interface ProductMapper {
 	 * @return imageList
 	 */
 	List<String> selectImageList();
+	
+	/**
+	 * 이미지 순서 업데이트
+	 * @param productImage
+	 * @return result
+	 */
+	int updateImageOrder(ProductImage productImage);
 }
