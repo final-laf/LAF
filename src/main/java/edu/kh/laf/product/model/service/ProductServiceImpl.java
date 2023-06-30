@@ -334,8 +334,6 @@ public class ProductServiceImpl implements ProductService {
 			img.setImgPath(webPath + rename);
 			img.setProductNo(productNo);
 			img.setThumbFl("N");
-//			img.setImgOrder(i + 1);
-//			imgOrder.indexOf("-1");
 			
 			uploadList.add(img);
 		}

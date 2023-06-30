@@ -13,4 +13,7 @@ public class Banner {
 	private int bannerNo;
 	private long productNo;
 	private String imgPath;
+	
+	// additional data (not on DB)
+	private String rename;
 }
