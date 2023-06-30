@@ -324,7 +324,7 @@ public class ReviewServiceImpl implements ReviewService{
 	 */
 	@Override
 	public int updateBestReview(Map<String, Object> paramMap) {
-		return mapper.updateBestReview();
+		return mapper.updateBestReview(paramMap);
 	}
 
 

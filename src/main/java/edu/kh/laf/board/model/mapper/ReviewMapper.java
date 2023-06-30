@@ -138,9 +138,10 @@ public interface ReviewMapper {
 	List<Review> bestReview();
 
 	/** 베스트 리뷰 업데이트
+	 * @param paramMap 
 	 * @return
 	 */
-	int updateBestReview();
+	int updateBestReview(Map<String, Object> paramMap);
 
 
 

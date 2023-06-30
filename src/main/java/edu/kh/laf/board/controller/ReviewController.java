@@ -51,27 +51,31 @@ public class ReviewController {
 			model.addAttribute("bestReview", bestReview);
 		return "/boards/review/review";
 	}
-	
+//	리뷰 상세
 	@GetMapping("/review/detailReview")
 	@ResponseBody
 	public Review detail(String reviewNo) {
 		Review review = new Review();
 		review = service.detailReview(reviewNo);
-		int num = review.getMemberId().length()/2;
-		int uNum = review.getOrderUno().length()/2;
-		
-		String blind = "";
-		blind = "";
-		for(int i=0; i<uNum; i++) {blind += "*";}
-		review.setOrderUno(review.getOrderUno().substring(0, uNum)+blind);
-		
-		List<ReviewImg> imgList = new ArrayList<>();
-		imgList=service.reviewImg(review.getReviewNo());
-		review.setReviewImg(imgList);
-		review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
-		review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
-		
-		
+		if(review!=null) {
+			int num = review.getMemberId().length()/2;
+			int uNum = review.getOrderUno().length()/2;
+			
+			String blind = "";
+			blind = "";
+			for(int i=0; i<uNum; i++) {blind += "*";}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum)+blind);
+			
+			List<ReviewImg> imgList = new ArrayList<>();
+			imgList=service.reviewImg(review.getReviewNo());
+			review.setReviewImg(imgList);
+			review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
+		}else {
+			review = new Review();
+			review.setMemberNo(0);
+		}
+		System.out.println(review.getMemberNo());
 		return review;
 	}
 	
@@ -111,17 +115,23 @@ public class ReviewController {
 	@GetMapping("/review/delete")
 	public String delete(@RequestParam(value="reviewNo", required=false) long reviewNo) {
 		int i = service.deleteReview(reviewNo);
+		System.out.println(i + "삭제");
 		return "redirect:/myPage/review/list"; 
 	}
 	
 	
+	/** 베스트 리뷰 수정
+	 * @param paramMap
+	 * @return
+	 */
 	@GetMapping("/review/best")
 	public String bestReview(
 			@RequestParam Map<String, Object> paramMap
 			) {
 		System.out.println(paramMap);
 		int i = service.updateBestReview(paramMap);
-		return "redirect:/myPage/review/list"; 
+		System.out.println(i + "ㅇㅇ");
+		return "redirect:/review"; 
 	}
 	
 }

@@ -41,7 +41,7 @@
         <div class="reviews-item-review-images">
           <div class="reviewListDetail" th:value="${r.reviewNo}">더보기 &gt;&gt;</div>
           <div>
-            <img class="" th:each="img, status:${r.reviewImg}" th:if="${0<status.count}" th:src="${img.reviewPath}">
+            <img class="" th:each="img, status:${r.reviewImg}" th:if="${1<status.count}" th:src="${img.reviewPath}">
           </div>
         </div>
       </div>
@@ -136,7 +136,6 @@
 
   <script th:inline="javascript">
     let bestReviewNoList = /*[[${bestReview}]]*/ "베스트 리뷰";
-    console.log(bestReviewNoList)
   </script>
   <script src="/js/boards/review.js"></script>
 </section>

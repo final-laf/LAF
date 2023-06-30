@@ -3,8 +3,19 @@
 <mapper namespace="edu.kh.laf.mypage.model.mapper.MypageReviewMapper">
 
 	
+    <!-- 오더 count-->
+    <select id="orderListCount">
+        SELECT count(*) 
+        FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no 
+        		LEFT JOIN review r ON op.review_no=r.review_no
+		WHERE op.order_no=(SELECT so.order_no FROM `order` so WHERE member_no=#{memberNo} 
+				AND op.order_no=so.order_no)
+				AND (r.review_delete_fl = 'Y' OR op.review_no IS NULL) 
+    </select>
+          
+    
 	<!-- 마이페이지 오더 List -->
-     <select id="myReview" resultType="Review">
+     <select id="orderList" resultType="Review">
         SELECT  op.review_no,
 				r.review_delete_fl,
 				op.order_no,
@@ -27,7 +38,7 @@
     
 	<!-- myOrderProduct -->
      <select id="myOrderProduct" resultType="Product">
-        SELECT `product`.product_no,
+        SELECT  product_no,
 				product_name,
 				product_price,
 				product_sale_price,
@@ -35,13 +46,26 @@
 				product_point,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
-				img_path AS thumbnail_path
+				(SELECT img_path FROM product_img WHERE product_no=#{productNo} AND thumb_fl='Y') thumbnail_path
 		FROM   `product`
-				JOIN `product_img` ON `product`.product_no = `product_img`.product_no WHERE `product`.product_no=#{productNo}
+		WHERE product_no=#{productNo}
     </select>
     
-    <!-- myReviewList -->
-     <select id="myWrittenReview" resultType="Review">
+    
+    
+    
+    
+    <!-- 리뷰 count-->
+    <select id="reviewListCount">
+        SELECT count(*) 
+        FROM review r LEFT JOIN order_product op ON r.review_no = op.review_no 
+					  JOIN `order` o ON r.order_no = o.order_no 
+					  JOIN `member`m ON o.member_no = m.member_no 
+		WHERE o.member_no=#{memberNo} AND r.review_delete_fl = 'N'
+    </select>
+	
+	    <!-- reviewList -->
+     <select id="reviewList" resultType="Review">
         SELECT r.review_no, 
 	           m.member_id, 
 			   r.review_content, 
@@ -51,6 +75,7 @@
 			   r.product_no, 
 			   r.option_no, 
 			   o.order_uno,
+			   op.count, 
 			   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
 			   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
 		FROM review r LEFT JOIN order_product op ON r.review_no = op.review_no 
@@ -59,6 +84,27 @@
 		WHERE o.member_no=#{memberNo} AND r.review_delete_fl = 'N'
 		ORDER BY o.order_date DESC
     </select>
+	
+	
+	
+	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
     
 		<!-- 내가 작성 가능한 리뷰 개별 조회 -->
      <select id="detailReview" resultType="Review">

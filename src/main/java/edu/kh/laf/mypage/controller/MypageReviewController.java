@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -26,45 +27,29 @@ public class MypageReviewController {
 	private MypageReviewService reviewService;
 	private ReviewService service;
 	
-	// 내가 쓴 리뷰 : 작성 가능한 리뷰 
+	// 내 리뷰 : 작성 가능한 리뷰 
 	@GetMapping("/myPage/review")
-	public String review(@SessionAttribute("loginMember") Member loginMember, Model model) {
-		List<Review> myOrder = new ArrayList<>();
-		myOrder = reviewService.myReview(loginMember.getMemberNo());
-		for(Review review : myOrder) {
-//			옵션 설정
-			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
-//			상품 설정
-			review.setProduct(reviewService.myOrderProduct(review.getProductNo()));
-			
-		}
-		List<Review> myWrittenReview = reviewService.myWrittenReview(loginMember.getMemberNo());
-		model.addAttribute("myOrder", myOrder);
-		model.addAttribute("myWrittenReview", myWrittenReview);
+	public String review(
+			@SessionAttribute("loginMember") Member loginMember, 
+			Model model, 
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+		Map<String, Object> resultMap = reviewService.myOrder(cp, loginMember.getMemberNo());
+		model.addAttribute("resultMap", resultMap);
 		return "/myPage/myPageBoard/myPageReview";
 	}
 	
-	// 내가 쓴 리뷰 : 작성한 리뷰
+	// 내 리뷰 : 작성한 리뷰
 	@GetMapping("/myPage/review/list")
-	public String reviewList(@SessionAttribute("loginMember") Member loginMember, Model model) {
-		List<Review> myWrittenReview = new ArrayList<>();
-		myWrittenReview = reviewService.myWrittenReview(loginMember.getMemberNo());
-		for(Review review : myWrittenReview) {
-//			옵션 설정
-			review.setOption(reviewService.myOrderOption(review.getOptionNo()));
-//			상품 설정
-			review.setProduct(reviewService.myOrderProduct(review.getProductNo()));
-			if (review.getReviewNo()!=0) {
-				List<ReviewImg> imgList = new ArrayList<>();
-				imgList=reviewService.reviewImg(review.getReviewNo());
-				review.setReviewImg(imgList);
-			}
-		}
-		List<Review> myOrder = reviewService.myReview(loginMember.getMemberNo());
-		model.addAttribute("myOrder", myOrder);
-		model.addAttribute("myWrittenReview", myWrittenReview);
+	public String reviewList(
+			@SessionAttribute("loginMember") Member loginMember, 
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+		Map<String, Object> resultMap = reviewService.myReview(cp, loginMember.getMemberNo());
+		model.addAttribute("resultMap", resultMap);
 		return "/myPage/myPageBoard/myPageReviewQueue";
 	}
+	
+	
 	/** 작성 가능한 리뷰 개별 조회
 	 * @param orderProduct
 	 * @return

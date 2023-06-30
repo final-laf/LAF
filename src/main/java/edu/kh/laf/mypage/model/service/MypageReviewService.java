@@ -1,10 +1,12 @@
 package edu.kh.laf.mypage.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
+import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
@@ -12,10 +14,20 @@ import edu.kh.laf.product.model.dto.Product;
 public interface MypageReviewService {
 
 	/** 내 작성 가능한 리뷰 조회
+	 * @param cp
+	 * @param loginMember 
+	 * @return
+	 */
+	Map<String, Object> myOrder(int cp, Long memberNo);
+	
+	
+	/** 내가 작성한 리뷰
+	 * @param cp
 	 * @param memberNo
 	 * @return
 	 */
-	List<Review> myReview(Long memberNo);
+	Map<String, Object> myReview(int cp, Long memberNo);
+	
 
 	/** 리뷰 옵션 조회
 	 * @param optionNo
@@ -29,11 +41,6 @@ public interface MypageReviewService {
 	 */
 	Product myOrderProduct(long productNo);
 
-	/** 내가 작성한 리뷰 조회
-	 * @param memberNo
-	 * @return
-	 */
-	List<Review> myWrittenReview(Long memberNo);
 
 	/** 내가 작성 가능한 리뷰 개별 조회
 	 * @param orderProduct
@@ -46,5 +53,7 @@ public interface MypageReviewService {
 	 * @return
 	 */
 	List<ReviewImg> reviewImg(long reviewNo);
+
+
 
 }
