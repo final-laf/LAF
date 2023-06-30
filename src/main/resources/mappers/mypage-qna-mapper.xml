@@ -6,7 +6,7 @@
     <select id="qnaListCount">
         SELECT count(*) 
         FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no 
-        WHERE q.member_no=#{memberNo} ORDER BY qna_create_date DESC
+        WHERE q.member_no=#{memberNo} AND qna_delete_fl='N' ORDER BY qna_create_date DESC
     </select>
 
 	<!-- qnaList -->
@@ -38,7 +38,7 @@
     <select id="searchQnaListCount">
         SELECT count(*) 
         FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no 
-        WHERE q.member_no = #{memberNo}
+        WHERE q.member_no = #{memberNo} AND qna_delete_fl='N'
 		<choose>
 			<when test='key=="t"'>
 				<if test='query!=null'>AND qna_title LIKE '%${query}%'</if>
@@ -50,7 +50,7 @@
 				<if test='query!=null'>AND (qna_title LIKE '%${query}%' OR qna_content LIKE '%${query}%')</if>
 			</when>
 		</choose>
-        ORDER BY qna_create_date DESC
+        ORDER BY qna_create_date  DESC
     </select>
 
 	<!-- 검색어를 포함한 qnaList -->

@@ -593,6 +593,7 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 300px;
   display: flex;
   justify-content: space-between;
+  margin-left: 30px;
 }
 
 .write-review-modal-middle > div {
@@ -767,4 +768,22 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 #bestReviewCan{
   background-color: #ccc;
+}
+
+.reviewListScoreBack{
+ z-index: auto !important;
+ margin-bottom: 25px;
+}
+.reviewListScoreColor{
+  height: 25px;
+  position: absolute;
+  background-color: rgb(238, 206, 74)!important;
+ z-index: auto !important;
+}
+.reviewListScoreStar{
+  position: absolute;
+ z-index: auto !important;
+}
+.reviewUno{
+  padding-top: 25px;
 }

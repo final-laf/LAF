@@ -19,7 +19,8 @@
       <input type="hidden" th:text="${session.memberNo}">
       <a th:href="${'/product/'+r.productNo}">
         <div class="reviews-item-product">
-          <img th:each="img, status:${r.reviewImg}" th:if="${status.first}" th:src="${img.reviewPath}">
+          <img th:each="img, status:${r.reviewImg}" th:if="${status.first && r.reviewImg.size()!=0}" th:src="${img.reviewPath}">
+          <img th:if="${r.reviewImg.size()==0}" src="/images/common/no-image.png">
           <div>
             <div id="reviewListProductName" th:text="${r.product.productName}">제품명</div>
             <div class="review-grey">
@@ -31,8 +32,12 @@
       <div class="reviews-item-review">
         <div class="reviews-item-review-contents">
           <div>
-            <span th:if="${0<r.reviewScore}" >&starf;</span><span th:if="${1<r.reviewScore}" >&starf;</span><span th:if="${2<r.reviewScore}" >&starf;</span><span th:if="${3<r.reviewScore}" >&starf;</span><span th:if="${4<r.reviewScore}" >&starf;</span>
-            <span class="review-grey" th:text="${r.orderUno}">244530002***</span>
+            <span id="reviewScoreBack" class="reviewListScoreBack">
+              <span id="" class="reviewListScoreColor" th:style="'width:' + ${122/5*r.reviewScore} + 'px'"></span>
+              <img id="reviewModalStar" class="reviewListScoreStar" src="/images/common/star.svg"></img>
+            </span>　
+            <span class="review-grey reviewUno" th:text="${r.orderUno}">244530002***</span>
+            <br><br><br>
           </div>
           <div class="review-grey" th:text="${r.reviewContent}">
             내용

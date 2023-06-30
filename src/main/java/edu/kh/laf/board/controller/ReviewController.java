@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -22,6 +23,7 @@ import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.service.ReviewService;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageReviewService;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ReviewController {
@@ -101,22 +103,30 @@ public class ReviewController {
 	 * @throws Exception
 	 */
 	@PostMapping("/review/update")
-	public String update(Review review,@RequestParam(value="deleteList", required=false) String deleteList, @RequestParam(value="images", required=false) List<MultipartFile> images)  throws Exception {
+	public String update(
+			Review review,
+			@RequestParam(value="deleteList", required=false) String deleteList, 
+			@RequestParam(value="images", required=false) List<MultipartFile> images,
+			@RequestHeader("referer") String referer
+			)  throws Exception {
 		int i = service.updateReview(review, images, deleteList);
 		
-		System.out.println(i);
+		System.out.println(referer);
 		
-		return "redirect:/myPage/review/list"; 
+		return "redirect:"+referer; 
 	}
 	/** 리뷰 삭제
 	 * @param reviewNo
 	 * @return
 	 */
 	@GetMapping("/review/delete")
-	public String delete(@RequestParam(value="reviewNo", required=false) long reviewNo) {
+	public String delete(
+			@RequestParam(value="reviewNo", required=false) long reviewNo,
+			@RequestHeader("referer") String referer
+			) {
 		int i = service.deleteReview(reviewNo);
-		System.out.println(i + "삭제");
-		return "redirect:/myPage/review/list"; 
+		System.out.println(referer);
+		return "redirect:"+referer; 
 	}
 	
 	

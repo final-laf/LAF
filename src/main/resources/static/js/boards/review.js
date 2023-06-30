@@ -20,8 +20,8 @@ for(let review of reviewDetail) {
   /* 작성된 모든 리뷰 상세 클릭시 */
   review.addEventListener('click', e => {
     for (let index = 0; index < 5; index++) {
-      document.getElementsByClassName("Detailpreview")[index].src = "/images/review/review_image_upload.png";
-      document.getElementsByClassName("preview")[index].src = "/images/review/review_image_upload.png";
+      document.getElementsByClassName("Detailpreview")[index].src = "/images/common/no-image.png";
+      document.getElementsByClassName("preview")[index].src = "/images/common/no-image.png";
       document.getElementsByClassName("Detailpreview")[index].style.display = "block";
     }
     let reviewNo = e.target.getAttribute("value");
@@ -29,16 +29,17 @@ for(let review of reviewDetail) {
       reviewNo= e.target.parentElement.parentElement.getAttribute("value")
     }
     
-    modal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
 
     fetch("/review/detailReview?reviewNo="+reviewNo)  
     .then(review => review.json()) 
     .then(review => {
       if (review.memberNo==0) {
         alert("삭제된 리뷰입니다.");
-        location.href="/review";
+        return location.href="/review";
       }
+      modal.style.display = "flex";
+      document.body.style.overflowY = "hidden";
+  
       for (let i = 0; i < 5; i++) {
         document.getElementsByClassName("Detailpreview")[i].style.display= "none";
       }
@@ -78,8 +79,8 @@ for(let review of reviewDetail) {
       for (let i = 0; i < review.reviewImg.length; i++) {
         for (let index = 0; index < 5; index++) {
           if (review.reviewImg[i].reviewImgOrder==index) {
-            document.getElementsByClassName("Detailpreview")[index].src = "/images/review/review_image_upload.png";
-            document.getElementsByClassName("preview")[index].src = "/images/review/review_image_upload.png";
+            document.getElementsByClassName("Detailpreview")[index].src = "/images/common/no-image.png";
+            document.getElementsByClassName("preview")[index].src = "/images/common/no-image.png";
             document.getElementsByClassName("Detailpreview")[index].src = review.reviewImg[i].reviewPath;
             document.getElementsByClassName("preview")[index].src = review.reviewImg[i].reviewPath;
             document.getElementsByClassName("Detailpreview")[index].style.display = "block";
@@ -358,7 +359,7 @@ for(let i=0; i<inputImage.length; i++){
           // input type = "file" 태그의 value를 삭제
           // ** input type="file" 의 value는 ""(빈칸)만 대입 가능
           inputImage[i].value = "";
-          document.getElementsByClassName("preview")[i].src="/images/review/review_image_upload.png";
+          document.getElementsByClassName("preview")[i].src="/images/common/no-image.png";
           // deleteSet에 삭제된 이미지 순서 추가
           deleteSet.add(i);
       }
