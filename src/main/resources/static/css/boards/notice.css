@@ -28,7 +28,10 @@
   z-index: 29;
 }
 
-
+.list-table td.hover {
+  background-color: #fafafa;
+  transition-duration: 0.2s;
+}
 
 
 /* 게시판 상세 */

@@ -115,7 +115,7 @@
 				(select count(*) from `like` where  `product`.product_no = `like`.product_no) AS like_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
-		WHERE	1=1 and			
+		WHERE	thumb_fl  = 'Y'	and
 			<foreach collection="likeList" item="productNo" open="(" close=")" separator="or">
 				`product`.product_no = ${productNo}
     		</foreach>			
