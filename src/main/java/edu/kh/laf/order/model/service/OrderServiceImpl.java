@@ -559,7 +559,6 @@ public class OrderServiceImpl implements OrderService{
     	int result = 0;
     	
     	for(Map<String, Object> param : paramMap) {
-    		System.out.println(param);
     		int changeResult = mapper.changeOrderState(param);
     		if(changeResult == 0) { // 실패처리
     			return result;
@@ -573,13 +572,13 @@ public class OrderServiceImpl implements OrderService{
     
     // 주문조회(관리자)
     @Override
-    public List<Map<String, Object>> findOrderList(Map<String, Object> paramMap) {
+    public Map<String, Object> findOrderList(Map<String, Object> paramMap) {
     	
 		int listCount = mapper.getfindOrderListCount(paramMap); // 조건에 맞는 주문조회목록 개수
 		if(listCount == 0) {
 			return null;
 		}
-		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 5);
+		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
@@ -610,7 +609,11 @@ public class OrderServiceImpl implements OrderService{
 			orderMaps.add(orderMap);
     	}
     	
+    	Map<String,Object> returnMap = new HashMap<>();
+    	returnMap.put("pagination", pagination);
+    	returnMap.put("orderMaps", orderMaps);
+    	returnMap.put("listCount", listCount);
     	
-    	return orderMaps;
+    	return returnMap;
     }
 }

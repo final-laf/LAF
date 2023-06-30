@@ -40,16 +40,41 @@ public class AdminOrderController {
 
 		
 		Map<String, Object> paramMap = new HashMap<>();
-		if(findState != null && !findState.equals("")) paramMap.put("fs",findState);
-		if(findKeyword != null && !findKeyword.equals("")) paramMap.put("kw",findKeyword);
-		if(findStartDate != null && !findStartDate.equals("")) paramMap.put("sd",findStartDate);
-		if(findEndDate != null && !findEndDate.equals("")) paramMap.put("ed",findEndDate);
-		if(sellState != null && sellState.length>0 )paramMap.put("sellState",sellState);
-		if(payState != null && payState.length>0 ) paramMap.put("payState",payState);
+		Map<String, Object> dataMap = new HashMap<>();
+		if(findState != null && !findState.equals("")) {
+			paramMap.put("fs",findState);
+			dataMap.put("findState", findState);
+		}
+		if(findKeyword != null && !findKeyword.equals("")) {
+			paramMap.put("kw",findKeyword);
+			dataMap.put("findKeyword", findKeyword);
+		}
+		if(findStartDate != null && !findStartDate.equals("")) {
+			paramMap.put("sd",findStartDate);
+			dataMap.put("findStartDate", findStartDate);
+		}
+		if(findEndDate != null && !findEndDate.equals("")) {
+			paramMap.put("ed",findEndDate);
+			dataMap.put("findEndDate", findEndDate);
+		}
+		if(sellState != null && sellState.length>0) {
+			paramMap.put("sellState",sellState);
+			dataMap.put("sellState", sellState);
+		}
+		if(payState != null && payState.length>0) {
+			paramMap.put("payState",payState);
+			dataMap.put("payState", payState);
+		}
 		paramMap.put("cp", cp); // 현재페이지
-		System.out.println(paramMap);
-		List<Map<String, Object>> orderMaps = service.findOrderList(paramMap);
-		model.addAttribute("orderMaps",orderMaps);
+		
+		model.addAttribute("dataMap", dataMap);
+		
+		Map<String, Object> returnMap = service.findOrderList(paramMap);
+		if(returnMap.get("orderMaps") != null && returnMap.get("listCount") != null) {
+			model.addAttribute("orderMaps", returnMap.get("orderMaps"));
+			model.addAttribute("listCount", returnMap.get("listCount"));
+		}
+		model.addAttribute("pagination", returnMap.get("pagination"));
 		
 		return "/admin/adminOrder/orderSelect";
 	}

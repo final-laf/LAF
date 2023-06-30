@@ -333,105 +333,88 @@
 	
 	<!-- 조건에 맞는 주문조회목록 개수(관리자) -->
 	<select id="getfindOrderListCount" resultType="int">
-		SELECT count(*) FROM `order` o
-		<if test="kw != null">
-			<if test="fs == '상품명'">
-				LEFT JOIN order_product op ON o.order_no=op.order_no
-				LEFT JOIN product p ON op.product_no = p.product_no 
-				WHERE product_name LIKE CONCAT('%', #{kw}, '%')
+		SELECT COUNT(*)
+		FROM(
+			SELECT o.order_no FROM `order` o
+			LEFT JOIN order_product op ON o.order_no=op.order_no
+			LEFT JOIN product p ON op.product_no = p.product_no 
+			where 1=1
+			<if test="kw != null">
+				<if test="fs == '상품명'">
+					and product_name LIKE CONCAT('%', #{kw}, '%')
+				</if>
+				<if test="fs == '주문번호'">
+					and o.order_uno like CONCAT('%', #{kw}, '%')
+				</if>
+				<if test="fs == '전체'">
+					and (product_name LIKE CONCAT('%', #{kw}, '%')
+					OR o.order_uno like CONCAT('%', #{kw}, '%'))
+				</if>
 			</if>
-			<if test="fs == '주문번호'">
-				<where>
-					o.order_uno like CONCAT('%', #{kw}, '%')
-				</where>
-			</if>
-			<if test="fs == '전체'">
-				LEFT JOIN order_product op ON o.order_no=op.order_no
-				LEFT JOIN product p ON op.product_no = p.product_no 
-				WHERE product_name LIKE CONCAT('%', #{kw}, '%')
-				OR o.order_uno like CONCAT('%', #{kw}, '%')
-			</if>
-		</if>
-		<if test="sellState != null">
-			<where>
-				<foreach collection="sellState" item="ss" separator="or">
+			<if test="sellState != null">
+				<foreach collection="sellState" item="ss" separator="or" open="and (" close=")">
 					o.order_state = #{ss}
 				</foreach>
-			</where>
-		</if>
-		<if test='sd != null and ed != null'>
-			<choose>
-				<when test='sd == ed'>
-					<where>
-						o.order_date like CONCAT('%', #{sd}, '%')
-					</where>
-				</when>
-				<otherwise>
-					<where>
-						o.order_date BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
-					</where>
-				</otherwise>
-			</choose>
-		</if>
-		<if test="payState != null">
-			<where>
-				<foreach collection="payState" item="pp" separator="or">
+			</if>
+			<if test='sd != null and ed != null'>
+				<choose>
+					<when test='sd == ed'>
+						and	o.order_date like CONCAT('%', #{sd}, '%')
+					</when>
+					<otherwise>
+						and	o.order_date BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+					</otherwise>
+				</choose>
+			</if>
+			<if test="payState != null">
+				<foreach collection="payState" item="pp" separator="or" open="and (" close=")">
 					o.payment = #{pp}
 				</foreach>
-			</where>
-		</if>
-		ORDER BY o.order_no DESC
+			</if>
+			GROUP BY o.order_no
+		) AS sub
 	</select>
 	
 	<!-- 조건에 맞는 주문조회목록(관리자) -->
 	<select id="findOrderList" resultType="Order">
-		SELECT * FROM `order` o
+		SELECT o.order_no, order_uno,order_recv_name,order_recv_add,order_recv_phone,order_recv_require,order_total_price,order_payment,order_date,order_state
+		FROM `order` o
+		LEFT JOIN order_product op ON o.order_no=op.order_no
+		LEFT JOIN product p ON op.product_no = p.product_no 
+		where 1=1
 		<if test="kw != null">
 			<if test="fs == '상품명'">
-				LEFT JOIN order_product op ON o.order_no=op.order_no
-				LEFT JOIN product p ON op.product_no = p.product_no 
-				WHERE product_name LIKE CONCAT('%', #{kw}, '%')
+				and product_name LIKE CONCAT('%', #{kw}, '%')
 			</if>
 			<if test="fs == '주문번호'">
-				<where>
-					o.order_uno like CONCAT('%', #{kw}, '%')
-				</where>
+				and o.order_uno like CONCAT('%', #{kw}, '%')
 			</if>
 			<if test="fs == '전체'">
-				LEFT JOIN order_product op ON o.order_no=op.order_no
-				LEFT JOIN product p ON op.product_no = p.product_no 
-				WHERE product_name LIKE CONCAT('%', #{kw}, '%')
-				OR o.order_uno like CONCAT('%', #{kw}, '%')
+				and (product_name LIKE CONCAT('%', #{kw}, '%')
+				OR o.order_uno like CONCAT('%', #{kw}, '%'))
 			</if>
 		</if>
 		<if test="sellState != null">
-			<where>
-				<foreach collection="sellState" item="ss" separator="or">
-					o.order_state = #{ss}
-				</foreach>
-			</where>
+			<foreach collection="sellState" item="ss" separator="or" open="and (" close=")">
+				o.order_state = #{ss}
+			</foreach>
 		</if>
 		<if test='sd != null and ed != null'>
 			<choose>
 				<when test='sd == ed'>
-					<where>
-						o.order_date like CONCAT('%', #{sd}, '%')
-					</where>
+					and	o.order_date like CONCAT('%', #{sd}, '%')
 				</when>
 				<otherwise>
-					<where>
-						o.order_date BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
-					</where>
+					and	o.order_date BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
 				</otherwise>
 			</choose>
 		</if>
 		<if test="payState != null">
-			<where>
-				<foreach collection="payState" item="pp" separator="or">
-					o.payment = #{pp}
-				</foreach>
-			</where>
+			<foreach collection="payState" item="pp" separator="or" open="and (" close=")">
+				o.payment = #{pp}
+			</foreach>
 		</if>
+		GROUP BY o.order_no
 		ORDER BY o.order_no DESC
 	</select>
 	

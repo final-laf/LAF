@@ -65,6 +65,7 @@ function todayOrderList(){
                 orderModal.style.display = "flex";
                 document.body.style.overflowY = "hidden";
 
+                document.getElementById('modalOrderNo').value = i.order.orderNo
                 document.getElementById('modalOrderUno').innerText = i.order.orderUno
                 document.getElementById('modalOrderDate').innerText = i.order.orderDate
                 document.getElementById('modalOrderState').innerText = orderState(i.order.orderState)
@@ -90,7 +91,11 @@ function todayOrderList(){
                     const productName = document.createElement("div");
                     productName.innerText = j.product.productName
                     const productOption = document.createElement("div")
-                    productOption.innerText = '[ 옵션 : ' + j.option.color + ' ' + j.option.size + ' ]'
+                    if(j.option.size != null){
+                        productOption.innerText = '[ 옵션 : ' + j.option.color + ' ' + j.option.size + ' ]'
+                    }else{
+                        productOption.innerText = '[ 옵션 : ' + j.option.color +' ]'
+                    }
                     productNameCell.append(productName);
                     productNameCell.append(productOption);
                     odpTr.appendChild(productNameCell);
@@ -130,11 +135,6 @@ function todayOrderList(){
             checkbox.type = 'checkbox';
             checkbox.setAttribute("id",'checked')
             td1.appendChild(checkbox);
-            const orderNo = document.createElement('input');
-            orderNo.type = 'hidden';
-            orderNo.value = i.order.orderNo;
-            orderNo.setAttribute("id",'modalOrderNo')
-            td1.appendChild(orderNo);
             tr.appendChild(td1);
 
             // 두 번째 td 요소 생성
@@ -241,6 +241,7 @@ changeStateAllBtn.addEventListener('click', () => {
     }
 });
 
+// 개별수정
 document.getElementById('modalChangeBtn').addEventListener('click', () => {
     const modalOrderNo = document.getElementById('modalOrderNo').value;
     const modalOrderStateC = document.querySelector('[id="modalOrderStateC"]').value;
