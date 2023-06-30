@@ -104,7 +104,7 @@
                 th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</div>
             </td>
             
-            <td class="cart-item-point" th:text="${product.productPoint}">포인트</td>
+            <td class="cart-item-point" th:text="${#numbers.formatInteger(product.productPoint, 1, 'COMMA')}">포인트</td>
             
             <td class="cart-item-choose">
               <button  type="button" th:product='${product.productNo}' 

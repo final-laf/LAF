@@ -117,9 +117,14 @@
           <div class="item-description-bottom-container">
 
             <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
-              <div class="item-name" th:text="${product.productName}">제품 이름</div>
+              <div class="item-name" 
+                th:if="${#strings.length(product.productName) > 50}"
+                th:text="${#strings.substring(product.productName, 0, 50) + '…'}">제품 이름</div>
+              <div class="item-name" 
+                th:unless="${#strings.length(product.productName) > 50}"
+                th:text="${product.productName}">제품 이름</div>
             </a>
-
+            
             <div class="item-description-bottom">
               <div class="item-price-set">
                 <span class="item-price"

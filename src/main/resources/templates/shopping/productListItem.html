@@ -7,7 +7,12 @@
 <div class="hover-info hidden">
 
   <!-- 상품명 -->
-  <div class="item-name" th:text="${product.productName}">상품명</div>
+  <div class="item-name" 
+    th:if="${#strings.length(product.productName) > 45}"
+    th:text="${#strings.substring(product.productName, 0, 45) + '…'}">상품명</div>
+  <div class="item-name" 
+    th:unless="${#strings.length(product.productName) > 45}"
+    th:text="${product.productName}">상품명</div>
   
   <!-- 상품 가격 정보 -->
   <div class="item-price-set">

@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import edu.kh.laf.product.model.service.ProductService;
-import jakarta.servlet.ServletContext;
 
 @Component // Bean 등록
 @EnableScheduling
@@ -35,7 +34,8 @@ public class ImageDeleteScheduling {
 		/* 상품 이미지 정리 */
 		File path = new File(productFilePath);
 		File[] imageArr = path.listFiles();
-		List<File> serverImageList = Arrays.asList(imageArr);
+		List<File> serverImageList = null;
+		if(imageArr != null) serverImageList = Arrays.asList(imageArr);
 		List<String> dbImageList = service.selectImageList();
 		
 		if(!serverImageList.isEmpty()) {
@@ -50,7 +50,7 @@ public class ImageDeleteScheduling {
 		/* 리뷰 이미지 정리 */
 		path = new File(reviewFilePath);
 		imageArr = path.listFiles();
-		serverImageList = Arrays.asList(imageArr);
+		if(imageArr != null) serverImageList = Arrays.asList(imageArr);
 		dbImageList = service.selectImageList();
 		
 		if(!serverImageList.isEmpty()) {
