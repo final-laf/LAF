@@ -93,6 +93,8 @@
   line-height: 160%;
   margin-bottom: 5px;
   justify-self: flex-start;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 .hover-info .item-price {
   font-size: 2rem;

@@ -65,6 +65,7 @@
 .hover-info .item-name {
   line-height: 140%;
   word-break: break-all;
+  word-wrap: break-word;
 }
 
 .hover-info .item-price {
