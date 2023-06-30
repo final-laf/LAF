@@ -178,4 +178,11 @@ public interface ProductMapper {
 	 * @return result
 	 */
 	int updateImageOrder(ProductImage productImage);
+
+	/**
+	 * 썸네일 이미지 삽입
+	 * @param thumbnailImg
+	 * @return result
+	 */
+	int insertThumbnailImage(ProductImage thumbnailImg);
 }

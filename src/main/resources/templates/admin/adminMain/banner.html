@@ -23,93 +23,41 @@
           <span>(메인 이미지)</span>
         </div>
         <div class="main-control-img">
-          <form action="#" method="post">
+
+          <form action="#" method="post" id="bannerFrm">
             <ul>
-              <li>
-                <div>
-                  <div class="main-control-subtitle">메인 이미지 [1]</div>
-                  <div class="main-thumbnail">
-                    <img src="/images/sample/sample1.png">
-                    <input type="hidden" name="이미지주소">
-                  </div>
+
+              <li th:each="img : ${bannerList}" th:bannerNo="${img.bannerNo}">
+                <div class="image-controller">
+                  <div class="main-control-subtitle" th:text="|메인 이미지 ${imgStat.index + 1}|"></div>
                   <div class="main-control-btn">
-                    <button type="button">업로드</button>
-                    <button type="button">취소</button>
+                    <button type="button" class="upload-btn">업로드</button>
+                    <button type="button" class="delete-btn">삭제</button>
                   </div>
                 </div>
-                <div>
-                  <div class="main-control-subtitle">메인 이미지 [2]</div>
-                  <div class="main-thumbnail">
-                    <img src="https://via.placeholder.com/535x304">
-                    <input type="hidden" name="이미지주소">
-                  </div>
-                  <div class="main-control-btn">
-                    <button type="button">업로드</button>
-                    <button type="button">취소</button>
-                  </div>
+                <div class="main-thumbnail">
+                  <img th:src="${img.imgPath}">
+                  <input class="hidden input-img" type="file" name="banner">
                 </div>
               </li>
-              <li>
-                <div>
-                  <div class="main-control-subtitle">메인 이미지 [3]</div>
-                  <div class="main-thumbnail">
-                    <img src="https://via.placeholder.com/535x304">
-                    <input type="hidden" name="이미지주소">
-                  </div>
-                  <div class="main-control-btn">
-                    <button type="button">업로드</button>
-                    <button type="button">취소</button>
-                  </div>
-                </div>
-                <div>
-                  <div class="main-control-subtitle">메인 이미지 [4]</div>
-                  <div class="main-thumbnail">
-                    <img src="/images/sample/sample1.png">
-                    <input type="hidden" name="이미지주소">
-                  </div>
-                  <div class="main-control-btn">
-                    <button type="button">업로드</button>
-                    <button type="button">취소</button>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <div class="main-control-subtitle">메인 이미지 [5]</div>
-                  <div class="main-thumbnail">
-                    <img src="/images/sample/sample1.png">
-                    <input type="hidden" name="이미지주소">
-                  </div>
-                  <div class="main-control-btn">
-                    <button type="button">업로드</button>
-                    <button type="button">취소</button>
-                  </div>
-                </div>
-                <div>
-                  <div class="main-control-subtitle">메인 이미지 [6]</div>
-                  <div class="main-thumbnail">
-                    <img src="https://via.placeholder.com/535x304">
-                    <input type="hidden" name="이미지주소">
-                  </div>
-                  <div class="main-control-btn">
-                    <button type="button">업로드</button>
-                    <button type="button">취소</button>
-                  </div>
-                </div>
-              </li>
+
             </ul>
+
             <div class="main-control-add">
-              <button type="button"><img src="/images/common/plus.svg"></button>
+              <button type="button">배너 추가하기</button>
             </div>
             <div class="form-btn">
-              <button type="submit">저장</button>
+              <button type="submit" class="submit">저장</button>
               <button type="reset">취소</button>
             </div>
           </form>
+
         </div>
       </div>
     </section>
   </main>
+
+  <script th:src="@{/js/admin/adminMain/banner.js}"></script>
 
 </body>
 </html>

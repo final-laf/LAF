@@ -216,17 +216,21 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductImage> uploadList = new ArrayList<>();
 
 		/* 썸네일 */
+		int result = 1;
+		ProductImage thumbnailImg = new ProductImage();
 		if (thumbnail.getSize() > 0) {
-			
 			String filename = thumbnail.getOriginalFilename();
 			String rename = Util.fileRename(filename);
 			
-			ProductImage img = new ProductImage();
-			img.setRename(rename);
-			img.setImgPath(webPath + rename);
-			img.setProductNo(productNo);
-			img.setThumbFl("Y");
-			uploadList.add(img);
+			thumbnailImg.setRename(rename);
+			thumbnailImg.setImgPath(webPath + rename);
+			thumbnailImg.setProductNo(productNo);
+			
+			// DB에 정보 저장
+			result *= mapper.insertThumbnailImage(thumbnailImg);
+			
+			// 서버에 파일 저장
+			thumbnail.transferTo(new File(filePath + thumbnailImg.getRename()));
 		}
 		
 		/* 상세 이미지 */
@@ -248,20 +252,19 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		// 업로드 할 파일이 없을 경우
-		if (uploadList.isEmpty()) return 0;
+		if (uploadList.isEmpty()) return result;
 
 		// product_img 테이블 삽입
-		int result = mapper.insertImageList(uploadList);
+		result *= mapper.insertImageList(uploadList);
 		if (result < uploadList.size()) {
 			throw new FileUploadException();
 		}
 		
 		// 서버에 파일 저장
-		thumbnail.transferTo(new File(filePath + uploadList.get(0).getRename()));
-		for (int i = 1; i < uploadList.size(); i++) {
-			images.get(i - 1).transferTo(new File(filePath + uploadList.get(i).getRename()));
+		for (int i = 0; i < uploadList.size(); i++) {
+			images.get(i).transferTo(new File(filePath + uploadList.get(i).getRename()));
 		}
-		return 0;
+		return result;
 	}
 
 	// 특정 상품에 대한 상세 이미지 조회

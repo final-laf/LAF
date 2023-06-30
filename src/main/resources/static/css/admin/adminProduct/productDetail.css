@@ -312,12 +312,15 @@
   display: flex;
   justify-content: center;
 }
-#enrollSubmitBtn {
+#enrollSubmitBtn, #enrollSubmitBtnTop {
   height: 30px;
   width: 100px;
   border-radius: 2px;
   color: white;
   background-color: #7f7698;
+}
+#enrollSubmitBtnTop {
+  display: inline-block;
 }
 
 /* 상품 상세 조회 모달창 */
