@@ -36,8 +36,12 @@
 .mypageQuestion-MyMain-Question tr{
     border: 1px solid #eee;
     height: 40px;
+    cursor: pointer;
 }
-
+.mypageQuestion-Question-list td.hover {
+    background-color: #fafafa;
+    transition-duration: 0.2s;
+}
 .mypageQuestion-Question-list td {
     border: 1px solid #fafafa;
     font-size: 12px;

@@ -30,3 +30,22 @@ function categoryChange(category){
 	}
 }
 // 폼 제출 전 수정사항
+
+
+// qna 게시글 mouse hover 시 배경색 변경
+const trList = document.querySelectorAll('.mypageQuestion-Question-list');
+for(const el of trList) {
+	el.addEventListener('mouseover', e => {
+		const children = el.children;
+    for(const ch of children) {
+			ch.classList.add('hover');
+    }
+  });
+	
+	el.addEventListener('mouseout', e => {
+		const children = el.children;
+    for(const ch of children) {
+      ch.classList.remove('hover');
+    }
+  });
+}
