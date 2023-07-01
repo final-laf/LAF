@@ -34,7 +34,7 @@
                   th:if="${pc.parentCategoryNo == 0}"
                   th:pcno="${pc.categoryNo}">
                   <div class="category-first">
-                    <span th:text="${pc.categoryName}">카테고리 이름</span>
+                    <span class="category-name" th:text="${pc.categoryName}">카테고리 이름</span>
                     <div class="remove-btn">&times;</div>
                   </div>
                   <div class="category-second">
@@ -57,13 +57,12 @@
             <div class="first-content">
               <div class="content-subtitle">1차 카테고리</div>
               <input type="text"><button type="submit">입력</button>
-              <p>하의<span>&times;</span></p>
+              <div class="parent-category-container"></div>
             </div>
             <div class="second-content">
               <div class="content-subtitle">2차 카테고리</div>
               <input type="text"><button type="submit">입력</button>
-              <p>슬렉스<span>&times;</span></p>
-              <p>데님<span>&times;</span></p>
+              <div class="child-category-container"></div>
             </div>
           </div>
         </div>
