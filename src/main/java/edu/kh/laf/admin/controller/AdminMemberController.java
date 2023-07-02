@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.member.model.service.MemberService;
@@ -151,5 +152,35 @@ public class AdminMemberController {
 		return "redirect:/admin/member";
 	}
 	
+	
+	
+	// 쿠폰 지급
+	@GetMapping("/admin/member/coupon")
+	public String insertMemberCoupon(Coupon inputCoupon
+									,RedirectAttributes ra) {
+		System.out.println(inputCoupon.getCouponName());
+		System.out.println(inputCoupon.getCouponDueDate());
+		System.out.println(inputCoupon.getCouponUnit());
+		
+		String message = "";
+		// memberNo : Coupon 객체로 불러오기 위해 대상 memberGrade를 memberNo로 받아옴
+		List<Long> memberNoList = memberService.selectGradeMemberList(inputCoupon.getMemberNo()); 
+		
+		// paramMap에 memberNoList, inputCoupon 를 따로 넣고 service로 넘김
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNoList", memberNoList);
+		paramMap.put("inputCoupon", inputCoupon);
+		
+		System.out.println(inputCoupon.getCouponAmount());
+		
+		int result = memberService.insertMemberCoupon(paramMap);
+		if(result > 0) {
+			message = "쿠폰 발급을 성공하였습니다.";
+		} else {
+			message = "쿠폰 발급을 실패하였습니다.";
+		}
+		ra.addFlashAttribute("message", message);
+		return "redirect:/admin/member";
+	}
 	
 }

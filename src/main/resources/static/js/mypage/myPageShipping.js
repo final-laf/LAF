@@ -1,3 +1,19 @@
+
+/* 전체 클릭 */
+const allChecked = document.getElementById("headCheckbox");
+const shippingCheckbox = document.getElementsByClassName("shipping-checkbox")
+allChecked.addEventListener("click", e => {
+  if(allChecked.checked) {
+    for(input of shippingCheckbox) {
+      input.checked = true;
+    }
+  } else {
+    for(input of shippingCheckbox) {
+      input.checked = false;
+    }
+  }
+});
+
 /* 배송지 등록 모달 */
 const enrollShippingModal = document.getElementById("ShippingEnrollModalOverlay")
 const OpenenrollShippingModal = document.getElementById("openEnrollShippingModal");
@@ -181,6 +197,8 @@ for(let shipping of selectedshippings) {
 
     const shippingData = e.target.getAttribute("value");
 
+    console.log(shippingData)
+
     /* 정규식으로 키=값 이렇게 한 쌍이 되는 형식을 검증 */
     const regex = /(\w+)=(.+?)(?=, \w+=|$)/g;
 
@@ -195,6 +213,8 @@ for(let shipping of selectedshippings) {
         shippingValues[shippingKey] = shippingValue; // 객체에 속성과 값을 저장
     }
 
+
+
     // 배송지명, 수신자이름, 전화번호, 배송지번호 입력
     document.getElementById("modifyAddressName").value = shippingValues.addressName
     document.getElementById("modifyAddressReceiver").value = shippingValues.addressReceiver
@@ -207,6 +227,13 @@ for(let shipping of selectedshippings) {
     inputAddress[0].value = arr[0];
     inputAddress[1].value = arr[1];
     inputAddress[2].value = arr[2];
+
+    // 기본배송지
+    if(shippingValues.addressDefaultFL == "Y)") {
+      document.getElementById("modifyAddressDefaultFL").checked = true;
+    } else {
+      document.getElementById("modifyAddressDefaultFL").checked = false;
+    }
 
     // 모달 열기
     modifyShippingModal.style.display = "flex";

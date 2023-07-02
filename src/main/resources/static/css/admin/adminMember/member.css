@@ -176,6 +176,17 @@
   cursor: pointer;
 }
 
+#OpenPointModal, #OpenCuponModal {
+  background-color: #fafafa;
+  border: 0.5px solid #eee;
+}
+
+#OpenPointModal:hover, #OpenCuponModal:hover {
+  background-color: #7f7698;
+  border: 0.5px solid #7f7698;
+  color: white;
+}
+
 
 
 /* ============================================================ 회원 상세 모달 */
@@ -601,7 +612,7 @@
   left: 50%;
 
   width: 1000px;
-  height: 500px;
+  height: 350px;
 
   padding: 40px;
 
@@ -619,7 +630,12 @@
 
 /* 테이블 */
 .member-cupon-modal-table {
+  width: 100%;
   margin-bottom: 40px;
+}
+
+.member-cupon-modal-table > tbody {
+  width: 100%;
 }
 
 /* 테이블 내의 모든 요소들에 대한 속성 */
@@ -627,12 +643,6 @@
   font-size: 1.2rem;
 }
 
-/* 첫번째 행의 속성 */
-#memberCuponModalOverlay > div > table > tbody > tr > td:nth-child(1) {
-  font-weight: bold;
-  background-color: #fafafa;
-  font-size: 1.2rem;
-}
 
 /* 최대할인금액 행 속성 */
 #memberCuponModalOverlay > div > table > tbody > tr:last-child > td:nth-child(1) {
@@ -651,6 +661,11 @@
   border-top: 0.5px solid #eee;
 }
 
+/* 첫번째 열의 input */
+.member-cupon-modal-table tr:first-child input {
+  width: 98%;
+}
+
 /* 모든 셀렉트 */
 .member-cupon-modal-table tr select {
   border-radius: 2px;
@@ -659,6 +674,9 @@
 
 /* 각 행별 속성 */
 .member-cupon-modal-table td:nth-child(1) {
+  font-weight: bold;
+  background-color: #fafafa;
+  font-size: 1.2rem;
   width: 15%;
 }
 
@@ -680,6 +698,11 @@
   text-align: left;
 }
 
+/* 최대할인금액 행 제외(colspan이 되어 첫행과 같은 css가 적용된것 원래대로) */
+#submitCoupon > table > tbody > tr:nth-child(4) > td {
+  font-weight: normal;
+  background-color: white;
+}
 
 
 /* 쿠폰명 */
@@ -698,6 +721,7 @@
 /* 유효기간 */
 .cupon-detail-date > div > input {
   border-radius: 2px;
+  width: 150px;
 }
 
 .cupon-detail-date {
@@ -705,14 +729,12 @@
   padding: 0px 5px;
 }
 
-.cupon-detail-date > div {
-  display: inline-block;
-  margin-right: 5px;
-}
 
 .cupon-detail-date > div:last-child {
+  width: 98%;
+
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   
   margin-left: 5px;
@@ -763,9 +785,6 @@
 
 .member-cupon-btn-area>button:nth-child(1){background-color: #7f7698;}
 .member-cupon-btn-area>button:nth-child(2){background-color: #ccc;}
-
-
-
 
 
 

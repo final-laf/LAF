@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 
 public interface MemberService {
@@ -106,6 +107,20 @@ public interface MemberService {
 	 * @return memberList
 	 */
 	List<Member> selectMemberList(List<String> memberNoList);
+	
+	/** 회원등급으로 회원 목록 조회
+	 * @param memberNo
+	 * @return memberList
+	 */
+	List<Long> selectGradeMemberList(Long memberGrade);
+
+	/** 회원 쿠폰 발급
+	 * @param inputCoupon
+	 * @return result
+ 	 */
+	int insertMemberCoupon(Map<String, Object> paramMap);
+
+
 
 
 
