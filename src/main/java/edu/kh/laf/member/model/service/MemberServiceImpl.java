@@ -2,6 +2,7 @@ package edu.kh.laf.member.model.service;
 
 import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.mapper.MemberMapper;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
@@ -255,6 +256,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 적립한 포인트를 회원 정보에 반영하는 서비스
+	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public int updateMemberPoint(Map<String, Object> pointParamMap) {
 		int updateResult = mapper.updateMemberPoint(pointParamMap);
@@ -265,6 +267,19 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<Member> selectMemberList(List<String> memberNoList) {
 		return mapper.selectMemberList(memberNoList);
+	}
+	
+	// 회원등급으로 회원 목록 조회
+	@Override
+	public List<Long> selectGradeMemberList(Long memberGrade) {
+		return mapper.selectGradeMemberList(memberGrade);
+	}
+
+	// 회원 쿠폰 발급
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public int insertMemberCoupon(Map<String, Object> paramMap) {
+		return mapper.insertMemberCoupon(paramMap);
 	}
 
 

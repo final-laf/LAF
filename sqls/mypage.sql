@@ -189,6 +189,31 @@ WHERE member_no = 2
 ;
 
 
+select * from `coupon`;
+
+INSERT into `coupon`
+values (null
+		,3
+		,'기념쿺'
+		,default
+		,'2023-08-01'
+		,50
+		,'P'
+		,50000
+		,20000
+		,'N');
+	
+	
+	select member_no 
+	from `member` 
+	where member_grade = 'G'
+	and MEMBER_DEL_FL = 'N'
+;
+
+
+
+
+
 
 
 

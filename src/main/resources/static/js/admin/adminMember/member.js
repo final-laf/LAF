@@ -1,3 +1,6 @@
+/////////////////////////////////////////////////////////////////////// 페이지 초기 설정
+
+
 /* 쿼리스트링으로 화면 초기설정 */
 new URLSearchParams(location.search).forEach((value, key) => {
   if(value == '') return;
@@ -25,6 +28,11 @@ allChecked.addEventListener("click", e => {
 
 
 
+
+
+/////////////////////////////////////////////////////////////////////// 회원 상세 모달
+//--------------------------------------------------------------- 회원 상세 모달용 함수
+
 // 주문 내역 불러오는 함수
 function loadOrderList (memberNo, cp){
   // 주문 내역 테이블 초기화
@@ -37,7 +45,6 @@ function loadOrderList (memberNo, cp){
   .then(resultMap => {
     // resultMap : orderMaps - orderList - orderProductList
     //             OrderListpagination
-
 
 
   // 주문이 없는 경우
@@ -211,9 +218,6 @@ function loadOrderList (memberNo, cp){
 }
 
 
-
-
-
 // 적립금 내역 불러오는 함수
 function loadPointList (memberNo, cp){
 
@@ -233,7 +237,6 @@ function loadPointList (memberNo, cp){
     const pointList = resultMap.pointList;
     // 포인트 적립 내역이 없는 경우
     if (pointList.length == 0) {
-      console.log("포인트 적립 없음")
     // 페이지네이션 삭제
     document.getElementById("pointListPaginationArea").innerHTML = '';
     // 포인트 적립 내역이 없다는 테이블 row 생성
@@ -250,9 +253,7 @@ function loadPointList (memberNo, cp){
     
   // 포인트 적립 내역이 있는 경우
   } else {
-    console.log("포인트 적립 있음")
     for(point of pointList) {
-      console.log(point)
       // 포인트 적립 내역 테이블 생성
       // tr생성
       const newRow = document.createElement("tr");
@@ -364,7 +365,7 @@ function loadPointList (memberNo, cp){
 
 
 
-/* 회원 상세 모달 */
+//----------------------------------------------------------------- 회원 상세 모달 오픈
 const modal = document.getElementById("memberModalOverlay")
 const selectedMembers = document.getElementsByClassName("selected-member")
 
@@ -435,9 +436,7 @@ for(let member of selectedMembers) {
 };
 
 
-
-
-
+//---------------------------------------------------------------------- 회원 상세 모달 닫기
 
     
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
@@ -473,24 +472,28 @@ modalClose.addEventListener("click", e => {
 
 
 
-
-
-
-
-
-
-
-
-
-/* 쿠폰 발급 모달 */
+/////////////////////////////////////////////////////////////////////// 쿠폰 발급 모달
+//---------------------------------------------------------------------- 쿠폰 발급 클릭 시
 const cuponModal = document.getElementById("memberCuponModalOverlay")
 const OpenCuponModal = document.getElementById("OpenCuponModal");
 
 /* 쿠폰 버튼 클릭 시 */
 OpenCuponModal.addEventListener('click', () => {
-    cuponModal.style.display = "flex";
-    document.body.style.overflowY = "hidden";
+
+  /* couponGetDate 기본세팅값 오늘로 설정, couponGetDate 와 couponDueDate는 오늘 이후로만 설정 가능하도록 */
+  const today = new Date().toISOString().substring(0, 10);
+  document.querySelector("input[name=couponGetDate]").value = today
+  document.querySelector("input[name=couponGetDate]").setAttribute("min", today);
+  document.querySelector("input[name=couponDueDate]").setAttribute("min", today);
+
+  /* 모달창 활성화 */
+  cuponModal.style.display = "flex";
+  document.body.style.overflowY = "hidden";
 });
+
+
+
+//---------------------------------------------------------------------- 모달창 닫기
 
 
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
@@ -521,24 +524,135 @@ cuponModalClose.addEventListener("click", e => {
 
 
 
+//---------------------------------------------------------------------- 유효성검사
+
+// 확인해야 할 것
+// - 쿠폰명은 한글 영어 숫자 특수문자 포함 100자 이내
+// - 유효기간은 6자
+
+// check확인용 
+const couponCheckObj = {
+  "couponName" : false,
+  "couponGetDate" : false, 
+  "couponDueDate" : false
+};
 
 
 
+// 쿠폰명이 입력되었을 때
+const couponName = document.getElementById("couponName");
+couponName.addEventListener("input", () => {
 
+   // 쿠폰명이 입력되지 않은 경우
+  if(couponName.value.trim().length == 0) {
+    couponName.value = ""; // 띄어쓰기 못 넣게 하기
+    couponCheckObj.couponName = false; // 빈칸 == 유효하지 않다
+  return;
+  }
 
+  // 정규표현식으로 유효성 검사
+  const regEx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\-!/*&]+$/;
+  if(regEx.test(couponName.value)) { // 유효
+    couponCheckObj.couponName = true;
+    } else { // 무효
+    couponCheckObj.couponName = false;
+  }
+});
 
+// 쿠폰 발급일이 입력되었을 때 
+const couponGetDate = document.getElementById("couponGetDate");
+couponGetDate.addEventListener("input", () => {
 
-
-
-
+  // 쿠폰 발급일이 입력되지 않은 경우
+  if(couponGetDate.value.trim().length == 0) {
+  couponGetDate.value = ""; // 띄어쓰기 못 넣게 하기
+    couponCheckObj.couponGetDate = false; // 빈칸 == 유효하지 않다
+    return;
+  }
   
-/* 포인트 발급 모달 */
+  // 정규표현식으로 유효성 검사
+  const regEx = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+  if(regEx.test(couponGetDate.value)) { // 유효
+    couponCheckObj.couponGetDate = true;
+  } else { // 무효
+    couponCheckObj.couponGetDate = false;
+  } 
+});
+
+
+// 쿠폰 유효기간이 입력되었을 때 
+const couponDueDate = document.getElementById("couponDueDate");
+couponDueDate.addEventListener("input", () => {
+
+  // 정규표현식으로 유효성 검사
+  const regEx = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+  if(regEx.test(couponDueDate.value)) { // 유효
+    couponCheckObj.couponDueDate = true;
+  } else { // 무효
+    couponCheckObj.couponDueDate = false;
+  } 
+});
+
+
+console.log(couponGetDate.value.trim().length)
+
+// form태그가 제출 되었을 때
+document.getElementById("submitCoupon").addEventListener("submit", e=>{
+  
+
+  // input 이벤트 없이 쿠폰 발급일 기본값(해당일) 그대로 제출하는 경우
+  if(couponGetDate.value.trim().length > 0) {
+    couponCheckObj.couponGetDate = true;
+  }
+
+  console.log(couponCheckObj)
+  
+
+  for(let key in couponCheckObj){
+    if(!couponCheckObj[key]){
+      switch(key){
+        case "couponName": 
+        alert("쿠폰명을 형식에 맞게 입력해 주세요."); break;
+        case "couponGetDate": 
+        alert("쿠폰 발급일을 형식에 맞게 입력해 주세요."); break;
+        case "couponDueDate":
+        alert("쿠폰 유효기한을 형식에 맞게 입력해 주세요."); break;
+      }
+      e.preventDefault(); // form 태그 기본 이벤트 제거
+      return; // 함수 종료
+    }
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////// 적립금 발급 모달
+
 const pointModal = document.getElementById("memberPointModalOverlay")
 const OpenPointModal = document.getElementById("OpenPointModal");
 
-
-
-/* 포인트 버튼 클릭 시 */
+//---------------------------------------------------------------------- 적립금 지급 클릭 시
 OpenPointModal.addEventListener('click', () => {
 
     
@@ -551,7 +665,11 @@ OpenPointModal.addEventListener('click', () => {
 
   // 발급할 회원 목록 초기화
   const memberNameDiv = document.getElementsByClassName("point-member")[0]
+  const memberNameAllDiv = document.getElementsByClassName("point-member-all")[0]
   memberNameDiv.innerHTML = '';
+  memberNameAllDiv.innerHTML = '';
+
+
   // 선택된 체그박스 값 확인
   let members = [] // 객체로 만든 member에 대한 정보를 저장할 배열
   // const adminMemberCheckbox : 본문의 checkbox들 (상단 전체선택에서 이미 선언되어 있음)
@@ -571,13 +689,12 @@ OpenPointModal.addEventListener('click', () => {
         members.push(checkboxDatasObjects);
       }
   }
-
   if(members.length == 0) {
     alert("회원을 선택해 주시기 바랍니다.")
     return;
   }
 
-  // 발급할 회원 이름 목록 출력
+  // 발급할 회원 이름 목록 출력 (대표자 외 1명)
   const selectedMemberName = document.createElement("span")
   if(members.length < 2) {
     selectedMemberName.innerText = members[0].memberName; 
@@ -585,6 +702,20 @@ OpenPointModal.addEventListener('click', () => {
     selectedMemberName.innerText = members[0].memberName + "외 " + (members.length - 1) + "명";
   }
   memberNameDiv.append(selectedMemberName);
+
+
+
+  // 발급할 회원 이름 목록 출력 (전체)
+  const selectedMemberNameAll = document.createElement("span")
+  for (let i=0; i<members.length; i++) {
+    if(i == (members.length - 1)) {
+      selectedMemberNameAll.innerText = selectedMemberNameAll.innerText + members[i].memberName;
+    } else {
+      selectedMemberNameAll.innerText = selectedMemberNameAll.innerText + members[i].memberName + ", ";
+    }
+  }
+  memberNameAllDiv.append(selectedMemberNameAll);
+  
 
   // 넘겨줄 memberNo를 input(hidden)에 value로 삽입
   for(let member of members) {
@@ -595,9 +726,24 @@ OpenPointModal.addEventListener('click', () => {
     memberNameDiv.append(selectMemberNo);
   }
 
+  // 더보기 화살표 클릭 시 전체 회원 목록이 보이게
+  document.getElementById("moreMember").addEventListener("click", e => {
+    console.log(e.target)
+    const pointMemberAll = document.getElementById("pointMemberAll")
+    const modalWindow = document.querySelector("#memberPointModalOverlay > div")
+    console.log(pointMemberAll)
+    console.log(pointMemberAll.style.display)
+    pointMemberAll.style.display = ((pointMemberAll.style.display=='none' || pointMemberAll.style.display=="") ? 'flex' : 'none');
+    modalWindow.style.height = ((modalWindow.style.height!='350px') ? '350px' : '300px');
+    });
+
+  // 모달창 열기
     pointModal.style.display = "flex";
     document.body.style.overflowY = "hidden";
 });
+
+
+//---------------------------------------------------------------------- 모달창 닫기
 
 
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
@@ -627,4 +773,125 @@ pointModalClose.addEventListener("click", e => {
 
 
 
+//---------------------------------------------------------------------- 유효성검사
 
+// 확인해야 할 것
+// - 적립금 입력은 숫자만
+// - 유효기간은 6자
+// - 사유는 한글 영어 숫자 특수문자 포함 100자 이내
+
+// check확인용 
+const pointCheckObj = {
+  "pointAmount" : false,
+  "pointDate" : false, 
+  "pointDueDate" : true,
+  "pointContent" : false
+};
+
+// 적립금 금액이 입력되었을 때
+const pointAmount = document.getElementById("pointAmount");
+pointAmount.addEventListener("input", () => {
+
+   // 적립금이 입력되지 않은 경우
+  if(pointAmount.value.trim().length == 0) {
+    pointAmount.value = ""; // 띄어쓰기 못 넣게 하기
+    pointCheckObj.pointAmount = false; // 빈칸 == 유효하지 않다
+  return;
+  }
+
+  // 정규표현식으로 유효성 검사
+  const regEx = /^[0-9]{1,6}$/;
+  if(regEx.test(pointAmount.value)) { // 유효
+    pointCheckObj.pointAmount = true;
+    } else { // 무효
+    pointCheckObj.pointAmount = false;
+  }
+});
+
+
+// 적립금 지급/차감 날짜가 입력되었을 때 
+const pointDate = document.getElementById("pointDate");
+pointDate.addEventListener("input", () => {
+
+  // 적립금 지급/차감 날짜가 입력되지 않은 경우
+  if(pointDate.value.trim().length == 0) {
+  pointDate.value = ""; // 띄어쓰기 못 넣게 하기
+    pointCheckObj.pointDate = false; // 빈칸 == 유효하지 않다
+    return;
+  }
+  
+  // 정규표현식으로 유효성 검사
+  const regEx = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+  if(regEx.test(pointDate.value)) { // 유효
+    pointCheckObj.pointDate = true;
+  } else { // 무효
+    pointCheckObj.pointDate = false;
+  } 
+});
+
+
+// 적립금 유효기간이 입력되었을 때 
+const pointDueDate = document.getElementById("pointDueDate");
+pointDueDate.addEventListener("input", () => {
+
+  // 정규표현식으로 유효성 검사
+  const regEx = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
+  if(regEx.test(pointDueDate.value)) { // 유효
+    pointCheckObj.pointDueDate = true;
+  } else { // 무효
+    pointCheckObj.pointDueDate = false;
+  } 
+});
+
+
+
+// 적립 사유가 입력되었을 때
+const pointContent = document.getElementById("pointContent");
+pointContent.addEventListener("input", () => {
+
+   // 적립 사유가 입력되지 않은 경우
+  if(pointContent.value.trim().length == 0) {
+    pointContent.value = ""; // 띄어쓰기 못 넣게 하기
+    pointCheckObj.pointContent = false; // 빈칸 == 유효하지 않다
+  return;
+  }
+
+  // 정규표현식으로 유효성 검사
+  const regEx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\-!/*&]+$/;
+  if(regEx.test(pointContent.value)) { // 유효
+    pointCheckObj.pointContent = true;
+    } else { // 무효
+    pointCheckObj.pointContent = false;
+  }
+});
+
+
+// form태그가 제출 되었을 때
+document.getElementById("submitPoint").addEventListener("submit", e=>{
+  
+
+  // input 이벤트 없이 적립/사용일 기본값(해당일) 그대로 제출하는 경우
+  if(pointDate.value.trim().length > 0) {
+    pointCheckObj.pointDate = true;
+  }
+  
+
+  for(let key in pointCheckObj){
+    if(!pointCheckObj[key]){
+      switch(key){
+        case "pointAmount": 
+        alert("금액을 형식에 맞게 입력해 주세요."); break;
+        case "pointDate": 
+        alert("적립금 지급/차감일을 형식에 맞게 입력해 주세요."); break;
+        case "pointDueDate":
+        alert("적립금 유효기한을 형식에 맞게 입력해 주세요."); break;
+        case "pointContent":
+        alert("적립금 지급 사유를 형식에 맞게 입력해 주세요"); 
+        break;
+      }
+      e.preventDefault(); // form 태그 기본 이벤트 제거
+      return; // 함수 종료
+    }
+  }
+
+});

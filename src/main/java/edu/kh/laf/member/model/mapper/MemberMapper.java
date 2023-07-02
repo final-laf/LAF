@@ -1,6 +1,7 @@
 package edu.kh.laf.member.model.mapper;
 
 import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.order.model.dto.Order;
@@ -114,5 +115,17 @@ public interface MemberMapper {
 	 * @return memberList
 	 */
 	List<Member> selectMemberList(List<String> memberNoList);
+
+	/** 회원등급으로 회원 목록 조회
+	 * @param memberGrade
+	 * @return memberList
+	 */
+	List<Long> selectGradeMemberList(Long memberGrade);
+
+	/** 회원 쿠폰 발급
+	 * @param inputCoupon
+	 * @return result
+	 */
+	int insertMemberCoupon(Map<String, Object> paramMap);
 
 }

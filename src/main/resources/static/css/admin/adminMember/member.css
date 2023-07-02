@@ -1,3 +1,5 @@
+/* ============================================================ 회원관리 */
+
 .member-content{
   width: 1200px;
 
@@ -174,10 +176,20 @@
   cursor: pointer;
 }
 
+#OpenPointModal, #OpenCuponModal {
+  background-color: #fafafa;
+  border: 0.5px solid #eee;
+}
+
+#OpenPointModal:hover, #OpenCuponModal:hover {
+  background-color: #7f7698;
+  border: 0.5px solid #7f7698;
+  color: white;
+}
 
 
 
-/* 회원 상세 조회 모달 */
+/* ============================================================ 회원 상세 모달 */
 /* 모달창 오버레이 */
 .member-modal-overlay {
   position: fixed;
@@ -600,7 +612,7 @@
   left: 50%;
 
   width: 1000px;
-  height: 500px;
+  height: 350px;
 
   padding: 40px;
 
@@ -618,7 +630,12 @@
 
 /* 테이블 */
 .member-cupon-modal-table {
+  width: 100%;
   margin-bottom: 40px;
+}
+
+.member-cupon-modal-table > tbody {
+  width: 100%;
 }
 
 /* 테이블 내의 모든 요소들에 대한 속성 */
@@ -626,12 +643,6 @@
   font-size: 1.2rem;
 }
 
-/* 첫번째 행의 속성 */
-#memberCuponModalOverlay > div > table > tbody > tr > td:nth-child(1) {
-  font-weight: bold;
-  background-color: #fafafa;
-  font-size: 1.2rem;
-}
 
 /* 최대할인금액 행 속성 */
 #memberCuponModalOverlay > div > table > tbody > tr:last-child > td:nth-child(1) {
@@ -650,6 +661,11 @@
   border-top: 0.5px solid #eee;
 }
 
+/* 첫번째 열의 input */
+.member-cupon-modal-table tr:first-child input {
+  width: 98%;
+}
+
 /* 모든 셀렉트 */
 .member-cupon-modal-table tr select {
   border-radius: 2px;
@@ -658,6 +674,9 @@
 
 /* 각 행별 속성 */
 .member-cupon-modal-table td:nth-child(1) {
+  font-weight: bold;
+  background-color: #fafafa;
+  font-size: 1.2rem;
   width: 15%;
 }
 
@@ -679,6 +698,11 @@
   text-align: left;
 }
 
+/* 최대할인금액 행 제외(colspan이 되어 첫행과 같은 css가 적용된것 원래대로) */
+#submitCoupon > table > tbody > tr:nth-child(4) > td {
+  font-weight: normal;
+  background-color: white;
+}
 
 
 /* 쿠폰명 */
@@ -697,6 +721,7 @@
 /* 유효기간 */
 .cupon-detail-date > div > input {
   border-radius: 2px;
+  width: 150px;
 }
 
 .cupon-detail-date {
@@ -704,14 +729,12 @@
   padding: 0px 5px;
 }
 
-.cupon-detail-date > div {
-  display: inline-block;
-  margin-right: 5px;
-}
 
 .cupon-detail-date > div:last-child {
+  width: 98%;
+
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   
   margin-left: 5px;
@@ -768,11 +791,7 @@
 
 
 
-
-
-
-
-/* 적립금 지급 모달창 */
+/* ============================================================ 적립금 지급 모달 */
 /* 모달창 오버레이 */
 .member-point-modal-overlay {
   position: fixed;
@@ -800,7 +819,7 @@
   left: 50%;
 
   width: 1000px;
-  height: 500px;
+  height: 300px;
 
   padding: 40px;
 
@@ -824,7 +843,16 @@
 
 /* 테이블 */
 .member-point-modal-table {
+  width: 100%;
   margin-bottom: 20px;
+}
+
+.member-point-modal-table > tbody {
+  width: 100%;
+}
+
+.member-point-modal-table > tbody input, select {
+  margin-left: 10px;
 }
 
 /* 테이블 내의 모든 요소들에 대한 속성 */
@@ -833,7 +861,7 @@
 }
 
 /* 첫번째 행의 속성 */
-#memberPointModalOverlay > div > table > tbody > tr > td:nth-child(1) {
+.member-point-modal-table > tbody > tr > td:nth-child(1) {
   font-weight: bold;
   background-color: #fafafa;
   font-size: 1.2rem;
@@ -862,8 +890,35 @@
 }
 
 .member-point-modal-table td:nth-child(2) {
-  width: 25%;
+  width: 30%;
   padding: 0px 5px;
+}
+
+/* 1행 2열 대상 회원 목록 내부 요소 조절 */
+.member-point-modal-table > tbody > tr:nth-child(1) >  td:nth-child(2) > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.member-point-modal-table > tbody > tr:nth-child(1) >  td:nth-child(2) > div  >  div:nth-child(1) {
+  height: 40px;
+}
+
+.point-member {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.point-member-all {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.point-member-all > span {
+  margin-left: 10px;
 }
 
 .member-point-modal-table td:nth-child(3) {
@@ -875,28 +930,18 @@
 }
 
 .member-point-modal-table td:nth-child(4) {
-  width: 45%;
+  width: 40%;
   padding: 0px 5px;
   text-align: left;
 }
 
-/* 대상 회원 */
-.point-member {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  padding: 0px 5px;
-}
-
-.point-member > span{
-  margin-right: 5px;
+#moreMember {
+  cursor: pointer;
 }
 
 
 /* 적립금 */
-#memberPoint {
+#pointAmount {
   width: 120px;
   outline: none;
   border-radius: 2px;
@@ -908,8 +953,8 @@
 }
 
 /* 사유 */
-#memberPointReasonKey {
-  width: 200px;
+#pointContent {
+  width: 98%;
 }
 
 /* 버튼 영역 */

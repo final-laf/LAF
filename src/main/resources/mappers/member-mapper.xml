@@ -208,6 +208,51 @@
         </foreach>
 		)
 	</select>
+	
+	<select id="selectGradeMemberList" resultType="_long">
+		select member_no 
+		from `member` 
+		<choose>
+			<when test='memberGrade == "1"'>
+				where
+			</when>
+			<when test='memberGrade == "2"'>
+				<!-- 브론즈 회원 -->
+				where member_grade = 'B' and
+			</when>
+			<when test='memberGrade == "3"'>
+				<!-- 실버 회원 -->
+				where member_grade = 'S' and
+			</when>
+			<when test='memberGrade == "4"'>
+				<!-- 골드 회원 -->
+				where member_grade = 'G'and
+			</when>
+			<when test='memberGrade == "5"'>
+				<!-- 다이아 회원 -->
+				where member_grade = 'D' and
+			</when>
+		</choose>
+				member_del_fl = 'N'
+	</select>
+	
+	<!---->
+	<insert id="insertMemberCoupon" parameterType="java.util.HashMap">
+		INSERT into `coupon`
+		values 
+		<foreach collection="memberNoList" item="item" separator=",">
+				(null
+				,#{item}
+				,#{inputCoupon.couponName}
+				,default
+				,#{inputCoupon.couponDueDate}
+				,#{inputCoupon.couponAmount}
+				,#{inputCoupon.couponUnit}
+				,#{inputCoupon.couponMaxDiscount}
+				,#{inputCoupon.couponCondition}
+				,'N')
+        </foreach>
+	</insert>
 
 	
 </mapper>

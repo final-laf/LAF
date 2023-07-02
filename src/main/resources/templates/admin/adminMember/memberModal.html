@@ -97,97 +97,101 @@
 
 
 
+
+
+
+
+
 <!-- 쿠폰 발급 모달창 -->
 <div class="member-cupon-modal-overlay" id="memberCuponModalOverlay">
   <div class="member-cupon-modal-window">
-    <table class="member-cupon-modal-table">
-      <div class="member-modal-title">
-        <span>쿠폰 지급</span>
+    <form action="/admin/member/coupon" method="get" id="submitCoupon">
+      <table class="member-cupon-modal-table">
+        <div class="member-modal-title">
+          <span>쿠폰 지급</span>
+        </div>
+        <tbody>
+          <!-- 4행 4열 -->
+          <tr>
+            <td>쿠폰명</td>
+            <td colspan="3"><input type="text" id="couponName" name="couponName"></td>
+          </tr>
+          <tr>
+            <td>쿠폰 대상</td>
+            <td>        
+              <select name="memberNo" id="memberCuponKey">
+                <option value="1">전체 회원</option>
+                <option value="2">브론즈 회원</option>
+                <option value="3">실버 회원</option>
+                <option value="4">골드 회원</option>
+                <option value="5">다이아 회원</option>
+              </select>
+            </td>
+            <td>유효기간</td>
+            <td>
+              <div class="cupon-detail-date">
+                <div>
+                  <input type="date" name="couponGetDate" id="couponGetDate"> ~ <input type="date" name="couponDueDate" id="couponDueDate">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td rowspan="2">쿠폰 세부 정보</td>
+            <td colspan="3">
+              <div class="cupon-detail-top">
+                <span>모든 주문에</span>
+                <select name="couponAmount" id="memberCuponDiscountKey">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                  <option value="1000">1,000</option>
+                  <option value="2000">2,000</option>
+                  <option value="5000">5,000</option>
+                  <option value="10000">10,000</option>
+                </select>
+                <select name="couponUnit" id="memberCuponDiscountPerWonKey">
+                  <option value="P">%</option>
+                  <option value="M">원</option>
+                </select>
+                <span>할인</span>
+                <select name="couponCondition" id="memberCuponDiscountOverKey">
+                  <option value="20000">20,000</option>
+                  <option value="30000">30,000</option>
+                  <option value="50000">50,000</option>
+                  <option value="100000">100,000</option>
+                </select>
+                <span>원 이상 구매시 적용</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div class="cupon-detail-top"v>
+                <span>최대 할인 금액</span>
+                <select name="couponMaxDiscount" id="memberCuponDiscountLimitKey">
+                  <option value="30000">30,000</option>
+                  <option value="50000">50,000</option>
+                </select>
+              </div>
+            </td>
+        </tbody>
+      </table>
+      <!-- 하단 버튼 영역 -->
+      <div class="member-cupon-btn-area">
+        <button class="button member-cupon-modal-close">지급</button>
+        <button type="button" class="button member-cupon-modal-close" id="cuponModalClose">닫기</button>
       </div>
-      <tbody>
-        <!-- 4행 4열 -->
-        <tr>
-          <td>쿠폰명</td>
-          <td colspan="3"><input type="text" id="cuponName"></td>
-        </tr>
-        <tr>
-          <td>쿠폰 대상</td>
-          <td>        
-            <select name="memberCuponKey" id="memberCuponKey">
-              <option value="all">전체 회원</option>
-              <option value="bronze">브론즈 회원</option>
-              <option value="silver">실버 회원</option>
-              <option value="gold">골드 회원</option>
-              <option value="platinum">플레티넘 회원</option>
-            </select>
-          </td>
-          <td>유효기간</td>
-          <td>
-            <div class="cupon-detail-date">
-              <div>
-                <input type="date"> ~ <input type="date">
-              </div>
-              <div>
-                <input type="checkbox"><span>기간제한 없음</span>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td rowspan="2">쿠폰 세부 정보</td>
-          <td colspan="3">
-            <div class="cupon-detail-top">
-              <span>모든 주문에</span>
-              <select name="memberCuponDiscountKey" id="memberCuponDiscountKey">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-                <option value="50">50</option>
-                <option value="1000">1,000</option>
-                <option value="2000">2,000</option>
-                <option value="5000">5,000</option>
-                <option value="10000">10,000</option>
-              </select>
-              <select name="memberCuponDiscountPerWonKey" id="memberCuponDiscountPerWonKey">
-                <option value="percentage">%</option>
-                <option value="won">원</option>
-              </select>
-              <span>할인</span>
-              <select name="memberCuponDiscountOverKey" id="memberCuponDiscountOverKey">
-                <option value="20000">20,000</option>
-                <option value="30000">30,000</option>
-                <option value="50000">50,000</option>
-                <option value="100000">100,000</option>
-              </select>
-              <span>원 이상 구매시 적용</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            <div class="cupon-detail-top"v>
-              <span>최대 할인 금액</span>
-              <select name="memberCuponDiscountLimitKey" id="memberCuponDiscountLimitKey">
-                <option value="30000">30,000</option>
-                <option value="50000">50,000</option>
-              </select>
-            </div>
-          </td>
-      </tbody>
-    </table>
-    <!-- 하단 버튼 영역 -->
-    <div class="member-cupon-btn-area">
-      <button type="button" class="button member-cupon-modal-close">지급</button>
-      <button type="button" class="button member-cupon-modal-close" id="cuponModalClose">닫기</button>
-    </div>
+    </form>
   </div>
 </div>
 
 <!-- 적립금 발급 모달창 -->
 <div class="member-point-modal-overlay" id="memberPointModalOverlay">
   <div class="member-point-modal-window">
-    <form action="/admin/member/point">
+    <form action="/admin/member/point" id="submitPoint">
       <table class="member-point-modal-table">
         <div class="member-modal-title">
           <span>적립금 지급</span>
@@ -197,7 +201,15 @@
           <tr>
             <td>대상 회원</td>
             <td colspan="3">
-              <div class="point-member">
+              <div>
+                <div class="point-member">
+                </div>
+                <div id="moreMember">
+                  &or;
+                </div>
+              </div>
+              <div>
+                <div class="point-member-all" id="pointMemberAll"></div>
               </div>
             </td>
           </tr>
@@ -208,14 +220,14 @@
                 <option value="G">지급 (+) </option>
                 <option value="C">차감 (-) </option>
               </select>
-              <input type="text" id="memberPoint" name="pointAmount">
+              <input type="text" id="pointAmount" name="pointAmount">
               <span>원</span>
             </td>
             <td>유효기간</td>
             <td>
               <div class="point-detail-date">
                 <div>
-                  <input type="date" name="pointDate"> ~ <input type="date" name="pointDueDate">
+                  <input type="date" name="pointDate" id="pointDate"> ~ <input type="date" name="pointDueDate" id="pointDueDate">
                 </div>
               </div>
             </td>
@@ -224,7 +236,7 @@
             <td>사유</td>
             <td colspan="3">
               <div class="point-reason">
-                <input type="text" name="pointContent" id="memberPointReasonKey">
+                <input type="text" name="pointContent" id="pointContent">
               </div>
             </td>
           </tr>

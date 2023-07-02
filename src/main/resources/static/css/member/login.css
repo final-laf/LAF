@@ -15,11 +15,17 @@
     justify-content: center;
 }
 
-.mypageLogin-login input{
+.mypageLogin-login input[type=text], input[type=password]{
     height: 20px;
     margin-top: 10px;
+    width: 300px;
 }
 
+.mypageLogin-login-memberLogin > form > div:nth-child(2) > input[type=password] {
+    height: 20px;
+    margin-top: 10px;
+    width: 300px;
+}
 
 /* 회원 로그인 */
 .mypageLogin-login-memberLogin{

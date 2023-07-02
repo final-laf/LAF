@@ -22,7 +22,7 @@
         <form action="/myPage/shipping/delete" method="post">
             <table class="shipping-list-table">
               <tr>
-                <td> <input type="checkbox"> </td>
+                <td> <input type="checkbox" id="headCheckbox"> </td>
                 <td>배송지명</td>
                 <td>수령인</td>
                 <td>휴대전화</td>
@@ -35,7 +35,7 @@
               </tr>
               <!-- 배송지가 있을 경우 -->
               <tr th:if="${#lists.size(addressList) != 0}" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
-                <td><input type="checkbox" name="addressNo" th:value="${address.addressNo}"></td>
+                <td><input type="checkbox" name="addressNo" class="shipping-checkbox" th:value="${address.addressNo}"></td>
                 <td th:text="${address.addressName}">배송지명</td>
                 <td th:text="${address.addressReceiver}">수령인</td>
                 <td th:text="${address.addressTel}">전화번호</td>
