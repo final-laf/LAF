@@ -1,4 +1,3 @@
-console.log(bestReviewNoList)
 
 /* 작성한 리뷰 모달 */
 const modal = document.getElementsByClassName("review-modal-overlay")[0];
@@ -135,20 +134,25 @@ if (modal!=null) {
 
 /* 모달창이 켜진 상태에서 ESC 버튼을 누르면 모달창이 꺼지게 하기 */
 window.addEventListener("keyup", e => {
-  if(modal.style.display === "flex" && e.key === "Escape") {
-      modal.style.display = "none"
-      document.body.style.removeProperty('overflow');
-      document.getElementById("reviewDetailScoreColor").style.width=0+"px";
+  if (modal!=null) {
+    if(modal.style.display === "flex" && e.key === "Escape") {
+        modal.style.display = "none"
+        document.body.style.removeProperty('overflow');
+        document.getElementById("reviewDetailScoreColor").style.width=0+"px";
+    }
   }
 });
 
 /* 모달창 내부 닫기 버튼 */
 const modalClose = document.getElementsByClassName("review-modal-close")[0];
-modalClose.addEventListener("click", e => {
-  modal.style.display = "none";
-  document.body.style.removeProperty('overflow');
-  document.getElementById("reviewDetailScoreColor").style.width=0+"px";
-});
+if (modalClose != null) {
+  modalClose.addEventListener("click", e => {
+    modal.style.display = "none";
+    document.body.style.removeProperty('overflow');
+    document.getElementById("reviewDetailScoreColor").style.width=0+"px";
+  });
+  
+}
 
 
 
@@ -396,19 +400,22 @@ if (document.getElementById("listDelete")!=null) {
 }
 
 // 베스트 리뷰 모달창
-document.getElementById("bestReview").addEventListener("click", e=> {
-  document.getElementById("bestReview-modal-overlay").style.display = "flex";
-
-  document.getElementById("newBestReviewNo").value = reviewNum;
-  document.getElementById("newBestReview").innerText = reviewNum;
-  document.getElementById("newBestProduct").innerText = productName;
-  document.getElementById("newBestContent").innerText = reviewContent;
-  document.getElementById("newBestScore").innerText = reviewScore;
-  document.getElementById("newBestWrite").innerText = memberName;
-  document.getElementById("newBestDate").innerText = reviewCreateDate;
-
-  console.log(e.target);
-})
+if (document.getElementById("bestReview")!=null) {
+  
+  document.getElementById("bestReview").addEventListener("click", e=> {
+    document.getElementById("bestReview-modal-overlay").style.display = "flex";
+  
+    document.getElementById("newBestReviewNo").value = reviewNum;
+    document.getElementById("newBestReview").innerText = reviewNum;
+    document.getElementById("newBestProduct").innerText = productName;
+    document.getElementById("newBestContent").innerText = reviewContent;
+    document.getElementById("newBestScore").innerText = reviewScore;
+    document.getElementById("newBestWrite").innerText = memberName;
+    document.getElementById("newBestDate").innerText = reviewCreateDate;
+  
+    console.log(e.target);
+  })
+}
 const bestModal = document.getElementById("bestReview-modal-overlay");
 /* 베스트 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
 if (bestModal!=null) {
