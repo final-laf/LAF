@@ -26,7 +26,7 @@ public class CategoryInterceptor implements HandlerInterceptor {
 		
 		ServletContext application = request.getServletContext();
 		if(application.getAttribute("category") == null) {
-			List<Category> category = service.selectCategoryList();
+			List<Category> category = service.selectNavCategoryList();
 			application.setAttribute("category", category);
 		}
 		

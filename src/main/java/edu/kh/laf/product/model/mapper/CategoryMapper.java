@@ -10,6 +10,11 @@ import edu.kh.laf.product.model.dto.Product;
 
 @Mapper
 public interface CategoryMapper {
+
+	/** Navigation 카테고리 조회
+	 * @return
+	 */
+	List<Category> selectNavCategoryList();
 	
 	/**
 	 * 특정 부모의 자식 카테고리 조회
@@ -70,4 +75,6 @@ public interface CategoryMapper {
 	 * @return result
 	 */
 	int deleteProductCategory(long productNo);
+
+
 }
