@@ -1,22 +1,27 @@
 #chatbotSection{
   border-radius: 10px;
-  height: 400px;
-  width: 300px;
-  background-color: #7F7698;
+  height: 450px;
+  width: 330px;
+  background-color: #bbb6c9;
   position: fixed;
   right: 0;
   bottom: 0;
+  padding: 5px;
   margin-right: 80px;
+  transition-duration: 0.5s;
+  box-shadow: #eee;
 }
 
 #chatbotMain{
   padding: 10px;
   border-radius: 5px;
-  margin: 5px auto;
-  height: 390px;
-  width: 290px;
+  height:100%;
+  width: 100%;
   background-color: #fafafa;
   border-top: 0.5px solid #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #chatbotChatSection{
@@ -24,29 +29,34 @@
 }
 
 #chatbotInput{
-  padding-top: 5px;
+  margin-top: 10px;
+  height: 50px;
   border-top: 0.5px solid #eee;
-  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 #chatbotInput > input{
-  width: 210px;;
+  width: 80%;
 }
+#chatbotInput > button{
+  width: 50px;
+}
+
 .chatbotChat{
   
   display: flex;
   border-radius: 5px;
   padding : 5px;
-  background-color: #7F7698;
+  background-color: #a197bb;
 }
 
 .display-chatting {
 	width: 100%;
-	height: 335px;
-	border: 1px solid #eee;
   border-radius: 5px;
 	overflow: auto;
 	list-style: none;
-	padding: 10px 10px;
+  height: 370px;
 }
 
 .display-chatting > li{
@@ -62,6 +72,7 @@
 .target-chat{
 	display: flex;
   justify-content: flex-end;
+  margin-left: 80px !important;
 }
 .target-chat > img{
 	width: 50px;
@@ -104,6 +115,7 @@
 .my-chat>div {
   border: 1px solid #eee;
 	background-color: yellow;
+  margin-right: 80px;
 }
 
 .chatDate {
@@ -113,12 +125,18 @@
 .chatbot-category{
   background-color: #7F7698;
   margin: 10px;
-  padding:5px 10px;
+  padding:8px;
   border-top: 5px;
   text-align: center;
   border-radius: 5px;
 }
 
-.category-chat{
+.chatbot-category:hover{
+  transition-duration: 1s;
+  background-color: #635292;
+}
+
+.chatbot-category{
+  height: auto;
 
 }

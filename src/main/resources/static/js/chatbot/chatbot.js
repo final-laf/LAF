@@ -87,26 +87,89 @@ const category = document.getElementsByClassName("chatbot-category");
 Array.from(category).forEach(category => {
   category.addEventListener("click", e => {
     const ul = document.querySelector(".display-chatting");
-		// 메세지 만들어서 출력하기
-		const li = document.createElement("li");
 
-		const div = document.createElement("div");
+    const myLi = document.createElement("li"); 
+    const myDiv = document.createElement("div");
+		myDiv.classList.add("chat");
+		myDiv.innerHTML = e.target.innerText;
+    myLi.classList.add("my-chat")
+    myLi.append(myDiv);
 
-		div.classList.add("chat");
-		li.classList.add("target-chat");
-	
-		// 챗봇 이름
-		const category = document.createElement("div");
-		category.classList.add("chatbot-category")
-		category.innerText = e.target.innerText+ "관련 문의 카테고리입니다."; // 전역변수
+    // 챗봇 영역
+    // 메세지 만들어서 출력하기
+    const li = document.createElement("li");
+    li.classList.add("target-chat");
+    
+    // target 하위 div
+    const targetChatContent = document.createElement("div")
 
-		const br = document.createElement("br");
+    // chatbot
+    const chatbot = document.createElement("div");
+    chatbot.classList.add("chatbot");
+    chatbot.innerText="✧₊⁎ ╰((*°▽°*)╯ ⁎⁺✧";
 
-		div.append(category, br);
-		li.append(div);
+    // chat 영역
+    const content = document.createElement("div");
+    content.classList.add("chat");
+    
+    // text영역
+    const text = document.createElement("div");
+    text.innerText = e.target.innerText+ "관련 문의 카테고리입니다."; // 전역변수
+    
+    // 버튼 리스트
+    const categoryList = document.createElement("div");
+    
+    // 버튼 개별
 
-		ul.append(li)
-		display.scrollTop = display.scrollHeight; // 스크롤 제일 밑으로
 
+    const categoryValue = e.target.innerText;
+    fetch("/chatbot?categoryValue="+categoryValue)  
+    .then(response => response.json()) 
+    .then(answer => {
+      console.log(answer)
+      for(let i of answer){
+        console.log(i.faqTitle);
+        const category = document.createElement("div");
+        category.classList.add("chatbot-category")
+        category.innerText = i.faqTitle; // 전역변수
+        categoryList.append(category);
+      }
+
+      const text = document.createElement("div");
+      text.innerText = "　　　　　╭(*°△°*)╮";
+      categoryList.append(text)
+
+      const category = document.createElement("div");
+      category.classList.add("chatbot-category")
+      category.innerText = "...원하는 답변이 없어요!"; // 전역변수
+      categoryList.append(category)
+    }) 
+    .catch (e => { console.log(e)}); 
+
+
+    content.append(text, categoryList);
+    targetChatContent.append(chatbot, content);
+    li.append(targetChatContent)
+		ul.append(myLi,li)
+
+
+
+		// const br = document.createElement("br");
+
+    setTimeout(()=>{ 
+      display.scrollTop = display.scrollHeight; // 스크롤 제일 밑으로
+
+		}, 50);
   });
 });
+document.getElementById("chatBtn").addEventListener("click", e=> {
+  document.getElementById("chatbotSection").style.height=0 + 'px';
+  setTimeout(()=>{ 
+    document.getElementById("chatbotSection").style.width=0 + 'px';
+
+  }, 150)
+  setTimeout(()=>{ 
+    document.getElementById("chatbotSection").style.display="none";
+
+  }, 300)
+})

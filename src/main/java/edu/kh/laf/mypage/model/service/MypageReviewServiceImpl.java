@@ -22,6 +22,10 @@ import edu.kh.laf.product.model.dto.Product;
 
 @Service
 public class MypageReviewServiceImpl implements MypageReviewService {
+	
+	@Autowired
+	private S3Uploader uploader;
+	
 	@Autowired
 	private MypageReviewMapper mapper;
 
