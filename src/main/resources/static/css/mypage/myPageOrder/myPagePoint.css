@@ -5,8 +5,9 @@
 }
 
 .mypagePoint-dashFrame-myMain{
-    height: 530px;
+    height: 580px;
     width: 1020px;
+    padding-left: 50px;
 }
 
 .mypagePoint-myMain-text{
@@ -29,10 +30,10 @@
 .mypagePoint-point-statistics >div{
     justify-content: space-around;
     width: 50%;
-    border-right: 1px solid#eee;
     display: block;
     padding: 15px 40px;
 }
+
 .mypagePoint-statistics-content div{
     padding: 3px;
     display: flex;
@@ -53,8 +54,13 @@
 }
 
 .mypagePoint-point-detail tr{
-    border: 1px solid #eee;
+    border-bottom: 0.5px solid #eee;
     height: 40px;
+}
+
+.mypagePoint-point-detail tr:nth-child(1){
+    text-align: center;
+    background-color: #fafafa;
 }
 
 .mypagePoint-detail-list td {
@@ -62,6 +68,8 @@
     text-align: center;
     font-size: 1.2rem;
 }
+
+
 
 /* 적립금 내역 테이블 */
 /* 각 행별 설정 */
@@ -77,6 +85,11 @@
 .mypagePoint-detail-list td:nth-child(4) {
     width: 20%;
 }
+
+.mypagePoint-detail-list td:nth-child(4) p{
+    font-size: 1.2rem;
+}
+
 .mypagePoint-detail-list td:nth-child(5) {
     width: 40%;
 }
@@ -93,3 +106,4 @@ body > main > section > div > div.mypagePoint-myMain-point > div.mypagePoint-poi
 .point-is-not-exists {
     text-align: center;
 }
+

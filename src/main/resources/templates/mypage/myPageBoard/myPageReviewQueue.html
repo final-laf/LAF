@@ -48,7 +48,8 @@
           <!-- 작성 가능 리뷰 있을 때 -->
           <tr th:each="r:${reviewList}">
             <td class="item-order-info" >
-              <div class="item-order-no" th:text="${r.orderUno}">[23060400001001]</div>
+              <div th:text="${#strings.substring(r.reviewCreateDate,0,10)}"></div>
+              <div class="item-order-no"><a th:href="'/order/'+${r.orderNo}"><p th:text="|[${r.orderUno}]|">주문번호</p></a></div>
             </td>
             <td class="item-image">
               <a href="/product/1">
@@ -56,7 +57,7 @@
               </a>
             </td>
             <td class="item-product">
-              <a href="/order/${r.productNo}" th:text="${r.product.productName}">
+              <a th:href="'/order/'+${r.orderNo}" th:text="${r.product.productName}">
                 제품명
               </a>
               <p class="item-product-option">[옵션 : 

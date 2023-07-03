@@ -6,7 +6,7 @@
 
 .mypageQuestion-mainFrame-myMain{
     width: 1020px;
-    margin: 80px 0 0 30px;
+    margin-left: 50px;
 }
 
 .mypageQuestion-myMain-text{
@@ -22,7 +22,7 @@
 
 /* 테이블 구간 */
 .mypageQuestion-MyMain-Question table{
-    padding: 20px 0 0 0;
+    padding: 10px 0 0 0;
     width: 100%;
     display: flex;
 }
@@ -76,4 +76,22 @@
 /* mypageQuestionAnswered디스플레이 none */
 #mypageQuestionAnswered{
     display:none;
+}
+
+.mypageQuestion-MyMain-Question > div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mypageQuestion-MyMain-Question > div > div:nth-child(2) > * {
+    margin-left: 5px;
+}
+
+.question-is-not-exists {
+    text-align: center;
+}
+
+#mypageQuestionRecent tr:nth-child(1){
+    text-align: center;
+    background-color: #fafafa;
 }

@@ -24,20 +24,20 @@
             <Strong>기본정보</Strong>
             <table class="mypageSignUp-signUpInfo-table">
               <tr>
-                <th><div class="for-flex-signUp"><span>아이디</span></div></th>
+                <td><div class="for-flex-signUp"><span>아이디</span></div></td>
                 <td>
                   <div class="mypageSignUp-table-inputTd">
                     <div th:text="*{memberId}">로그인 회원 아이디</div>
                   </div>
                 </td>
               </tr>
-                <th><div class="for-flex-signUp"><span>이름</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td><div class="for-flex-signUp"><span>이름</span><div class="required-for-signUp"><span>*</span></div></div></td>
                 <td>
                   <input type="text" name="memberName" id="mypageSignUpName"  maxlength="10" th:value="*{memberName}">
                 </td>
               </tr>
               <tr>
-                <th><div class="for-flex-signUp"><span>주소</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td><div class="for-flex-signUp"><span>주소</span><div class="required-for-signUp"><span>*</span></div></div></td>
                 <td>
                   <!-- 주소 api 이용 (마지막 body태그 위 관련 스크립트) -->
                   <div class="mypageSignUp-table-address">
@@ -53,14 +53,14 @@
                 </td>
               </tr>
               <tr>
-                <th><div class="for-flex-signUp"><span>전화번호</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td><div class="for-flex-signUp"><span>전화번호</span><div class="required-for-signUp"><span>*</span></div></div></td>
                 <td class="mypageSignUp-table-tel">
                   <input type="text" id="mypageSignUpTelF" maxlength="11"  name="memberPhone" th:value="*{memberPhone}">
                   <span id="phoneMessage">'-'를 제외한 숫자만 입력 바랍니다.</span>
                 </td>
               </tr>
               <tr>
-                <th><div class="for-flex-signUp"><span>이메일</span><div class="required-for-signUp"><span>*</span></div></div></th>
+                <td><div class="for-flex-signUp"><span>이메일</span><div class="required-for-signUp"><span>*</span></div></div></td>
                 <td>
                   <input type="text"  id="mypageSignUpMail" name="memberEmail" th:value="*{memberEmail}">
                   <button class="signUp-button" id="sendAuthKeyBtn" type="button">인증 메일 전송</button>

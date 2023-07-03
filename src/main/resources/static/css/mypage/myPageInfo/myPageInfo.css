@@ -40,7 +40,7 @@ input {
     margin-bottom: 50px;
 }
 
-.mypageSignUp-signUpInfo-table th{
+.mypageSignUp-signUpInfo-table td:nth-child(1){
     padding-left: 10px;
     height: 30px;
     width: 150px;
@@ -50,6 +50,16 @@ input {
     border-right: 0.5px solid #eee;
     text-align: left;
 }
+
+#mypageSignUpSubmit > div:nth-child(3) > table > tbody > tr:nth-child(3) > td {
+  background-color: white;
+}
+
+#mypageSignUpSubmit > div:nth-child(3) > table > tbody > tr:nth-child(4) > td {
+  background-color: white;
+}
+
+
 .mypageSignUp-signUpInfo-table td{
     width: 1200px;
     padding-left: 10px;
@@ -159,7 +169,6 @@ input {
 
 /* 추가정보 각 행별 설정 */
 .modify-margin-bottom > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {
-  font-weight: bold;
   width: 10%;
   background-color: #fafafa;
 }
@@ -170,7 +179,6 @@ input {
 
 .mypageSignUp-table-birth > td:nth-child(3) {
   width: 10%;
-  font-weight: bold;
   background-color: #fafafa;
 }
 

@@ -40,10 +40,10 @@ input {
     margin-bottom: 50px;
 }
 
-.mypageSignUp-signUpInfo-table th{
+.mypageSignUp-signUpInfo-table td:first-child{
     padding-left: 10px;
     height: 30px;
-    width: 150px;
+    width: 200px;
     background-color: #fafafa;
     border-top: 0.5px solid #eee;
     border-bottom: 0.5px solid #eee;

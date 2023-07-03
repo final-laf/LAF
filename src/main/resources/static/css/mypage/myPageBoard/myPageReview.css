@@ -23,8 +23,9 @@ main {
   width: 180px !important;
 }
 
-.current{
+.currentSub{
   background-color: #7F7698;
+  color: white;
 }
 
 /* 테이블 공통설정 */
@@ -34,12 +35,8 @@ table {
 table tr {
   border-top : 0.5px solid #eee;
 }
-/* 테이블 헤더 설정 */
-table tr:first-child {
-  background-color: #fafafa;
-  line-height: 120%;
-  text-align: center;
-}
+
+
 table tr:first-child > td {
   padding: 8px 0;
 }
@@ -55,6 +52,15 @@ table td {
 }
 table tr:not(:first-child) > td {
   height: 100px;
+}
+
+/* 테이블 헤더 설정 */
+table tr:first-child > td {
+  background-color: #fafafa;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px !important;
 }
 
 /* 버튼 컨테이너 설정 */
@@ -97,8 +103,10 @@ tr:not(:first-child) > .item-product {
   justify-content: center;
   line-height: 120%;
 }
-.item-order-info > .item-order-no > a {
-  font-size: 1.2rem;
+
+
+.item-order-info > .item-order-no > a > p {
+  font-size: 1.0rem !important;
   color: #666;
 }
 .item-order-info > .item-order-no > a:hover {

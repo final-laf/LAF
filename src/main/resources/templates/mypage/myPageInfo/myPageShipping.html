@@ -18,7 +18,9 @@
       <th:block th:replace="~{/mypage/mypageSide}"></th:block>
       <!-- 마이페이지 중앙 대쉬보드 -->
       <div class="orderShipping-MyMain-Shipping">
-        <div class="orderShipping-myMain-text">배송지 관리</div>
+        <div class="section-header">
+          <div class="section-title">배송지 관리</div>
+        </div>
         <form action="/myPage/shipping/delete" method="post">
             <table class="shipping-list-table">
               <tr>

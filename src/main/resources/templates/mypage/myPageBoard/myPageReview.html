@@ -27,7 +27,7 @@
       <!-- 하위 메뉴 -->
       <div class="sub-category-container">
         <!-- 현재 카테고리에 current 클래스 추가 -->
-        <a href="/myPage/review"><div class="sub-category current">작성 가능한 리뷰(<span th:if="${orderCount}" th:text="${orderCount}">수량</span><span th:if="${orderCount==0}">0</span>)</div></a>
+        <a href="/myPage/review"><div class="sub-category currentSub">작성 가능한 리뷰(<span th:if="${orderCount}" th:text="${orderCount}">수량</span><span th:if="${orderCount==0}">0</span>)</div></a>
         <a href="/myPage/review/list"><div class="sub-category">작성한 리뷰(<span th:if="${reviewCount}" th:text="${reviewCount}">수량</span><span th:if="${reviewCount==0}">0</span>)</div></a>
       </div>
 
@@ -48,7 +48,8 @@
           <!-- 작성 가능 리뷰 있을 때 -->
           <tr th:each="r:${myOrder}">
             <td class="item-order-info" >
-              <div class="item-order-no" th:text="${r.orderUno}">[23060400001001]</div>
+            <!--  <div th:text="${#strings.substring(r.orderDate,0,10)}"></div> -->
+              <div class="item-order-no"><a th:href="'/order/'+${r.orderNo}"><p th:text="|[${r.orderUno}]|">주문번호</p></a></div>
             </td>
             <td class="item-image">
               <a href="/product/1">
@@ -56,7 +57,7 @@
               </a>
             </td>
             <td class="item-product">
-              <a href="/order/${r.orderNo}" th:text="${r.product.productName}">
+              <a th:href="'/order/'+${r.orderNo}" th:text="${r.product.productName}">
                 제품명
               </a>
               <p class="item-product-option">[옵션 : 

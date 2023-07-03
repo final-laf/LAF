@@ -20,7 +20,7 @@
 
 .orderShipping-MyMain-Shipping {
     width: 100%;
-    margin-top: 80px;
+    margin-left: 50px;
 }
 
 /* 테이블 구간 */
@@ -43,7 +43,6 @@
 
 /* 첫번째 열 */
 .shipping-list-table > tbody > tr:first-child {
-    font-weight: bold;
     background-color: #fafafa;
 }
 
@@ -112,14 +111,6 @@
     line-height: 2.0rem;
 }
 
-.mypageAddShipping-Shipping-notice div:first-child{
-    width: 100%;
-    margin-bottom: 10px;
-    
-    text-align: left;
-    font-weight: bold;
-    font-size: 1.2rem;
-}
 
 .mypageAddShipping-shipping-confirm div{
     display: flex;
