@@ -11,8 +11,9 @@ main {
 
 /* 하위메뉴 */
 .sub-category-container {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
+
 .sub-category-container span {
   font-size: 1.4rem;
   color: inherit;

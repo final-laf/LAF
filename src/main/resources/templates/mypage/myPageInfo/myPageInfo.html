@@ -17,8 +17,9 @@
       <th:block th:replace="~{/mypage/mypageSide}"></th:block>
       <div class="mypageSignUp-signUp-info"> <!-- width 1000px, 상단 마진 50px, 중앙정렬  -->
         <form th:action="@{/myPage/info}" method="post" id="mypageSignUpSubmit">
-          <div>
-            <div class="mypageSignUp-info-intro"><span>회원 정보 변경</span></div>
+          <div class="section-header">
+            <div class="section-title">회원 정보 변경</div>
+          </div>
           <div class="mypageSignUp-info-signUpInfo reqired-information"><!-- 기본정보 -->
             <Strong>기본정보</Strong>
             <table class="mypageSignUp-signUpInfo-table">
@@ -125,7 +126,10 @@
               <button type="button" id="deleteMember">회원탈퇴</button>
             </div>
           </div> 
-          <div id="mypageSignUpSubmitButton"><button id="signUpButton">회원정보수정</button><button type="button" id="cancelButton">취소</button></div>
+          <div id="mypageSignUpSubmitButton">
+            <button id="signUpButton" class="submit">회원정보수정</button>
+            <button type="button" id="cancelButton">취소</button>
+          </div>
         </form>
       </div>
     </section>
