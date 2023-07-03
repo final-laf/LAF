@@ -39,9 +39,9 @@
                   </div>
                   <div class="category-second">
                     <div th:each="cc : ${categoryList}" 
-                      th:if="${pc.categoryNo == cc.parentCategoryNo}">
+                      th:if="${pc.categoryNo == cc.parentCategoryNo}" th:ccno="${cc.categoryNo}">
                       <span class="category-name" th:text="${cc.categoryName}">자식카테고리 이름</span>
-                      <span class="remove-btn">&times;</span>
+                      <!-- <span class="remove-btn">&times;</span> -->
                     </div>
                   </div>
                 </li>
@@ -56,13 +56,17 @@
             </div>
             <div class="first-content">
               <div class="content-subtitle">1차 카테고리</div>
-              <input type="text"><button type="submit">입력</button>
+              <input type="text"><button id="parentCategorySubmitBtn">입력</button>
               <div class="parent-category-container"></div>
             </div>
             <div class="second-content">
               <div class="content-subtitle">2차 카테고리</div>
-              <input type="text"><button type="submit">입력</button>
+              <input type="text" disabled><button id="childCategorySubmitBtn">입력</button>
               <div class="child-category-container"></div>
+            </div>
+            <div id="categoryModifyBtnContainer">
+              <button id="resetBtn">초기화</button>
+              <button id="submitBtn" class="submit">수정</button>
             </div>
           </div>
         </div>

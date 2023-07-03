@@ -29,6 +29,21 @@
 		)
 		</foreach>
 	</insert>
+	
+	<!-- 배너 경로(맨 앞 "/" 제외) 조회 -->
+	<select id="selectBannerPathList">
+		select substr(img_path, 2) from `banner_img`
+	</select>
+	
+	<!-- 전체 이미지 경로(맨 앞 "/" 제외) 조회 -->
+	<select id="selectImagePathList">
+		select substr(img_path, 2) from `banner_img`
+		union
+		select substr(review_path, 2) from `review_img`
+		union
+		select substr(img_path, 2) from `product_img`
+	</select>
+	
 
 </mapper>
 

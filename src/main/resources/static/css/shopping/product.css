@@ -21,7 +21,7 @@ hr { margin: 20px 0; }
   width: 600px;
 }
 #productTopImages img {
-  max-height: 700px;
+  height: 700px;
   width: auto;
   max-width: 530px;
   object-fit: cover;

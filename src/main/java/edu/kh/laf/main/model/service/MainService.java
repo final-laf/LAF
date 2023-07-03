@@ -8,7 +8,14 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.laf.main.model.dto.Banner;
 
 public interface MainService {
+	
 	List<Banner> selectBannerList();
+
+	/**
+	 * 배너 이름 조회
+	 * @return bannerNameList
+	 */
+	List<String> selectBannerPathList();
 
 	/**
 	 * 이미지 삭제
@@ -25,4 +32,11 @@ public interface MainService {
 	 * @throws IllegalStateException 
 	 */
 	int insertImage(List<MultipartFile> banner) throws IllegalStateException, IOException;
+
+	/**
+	 * 전체 이미지 파일 경로 조회
+	 * @return imgPathList
+	 */
+	List<String> selectImagePathList();
+
 }

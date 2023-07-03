@@ -1,6 +1,5 @@
 package edu.kh.laf.main.model.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +10,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.laf.common.utility.S3Uploader;
 import edu.kh.laf.common.utility.Util;
 import edu.kh.laf.main.model.dto.Banner;
 import edu.kh.laf.main.model.mapper.MainMapper;
-import edu.kh.laf.product.model.dto.ProductImage;
 
 @Service
 public class MainServiceImpl implements MainService {
 
 	@Autowired
 	private MainMapper mapper;
+	@Autowired
+	private S3Uploader uploader;
 	
 	@Value("${banner.webpath}")
 	private String webPath;
@@ -71,10 +72,25 @@ public class MainServiceImpl implements MainService {
 		for (int i = 0; i < uploadList.size(); i++) {
 			int bannerNo = uploadList.get(i).getBannerNo();
 			String imagePath = uploadList.get(i).getImgPath();
-			banner.get(bannerNo).transferTo(new File(filePath + uploadList.get(i).getRename()));
+			uploader.upload(banner.get(bannerNo), imagePath);
+//			String uploadImageUrl = uploader.upload(banner.get(bannerNo), imagePath);
+//			banner.get(bannerNo).transferTo(new File(filePath + uploadList.get(i).getRename()));
+//			System.out.println(uploadImageUrl);
 		}
 		
 		return 1;
+	}
+
+	// 배너 경로 조회
+	@Override
+	public List<String> selectBannerPathList() {
+		return mapper.selectBannerPathList();
+	}
+
+	// 전체 이미지 경로 조회
+	@Override
+	public List<String> selectImagePathList() {
+		return mapper.selectImagePathList();
 	}
 
 }

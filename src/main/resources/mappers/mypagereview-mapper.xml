@@ -122,6 +122,11 @@
     <select id="reviewImg" resultType="ReviewImg">
 	    SELECT * FROM `review_img` WHERE review_no=#{reviewNo}
 	</select>
+	
+	<!-- 리뷰 이미지 경로(맨 앞 "/" 제외) 조회 -->
+	<select id="selectReviewImagePathList">
+		select substr(review_path, 2) from `review_img`;
+	</select>
     
 </mapper>
 

@@ -24,4 +24,21 @@ public interface MainMapper {
 	 * @return result
 	 */
 	int insertImageList(List<Banner> uploadList); 
+	
+	/**
+	 * 배너 이미지 목록 조회
+	 * @return imageList
+	 */
+	List<String> selectBannerImageList();
+
+	/**
+	 * 배너 이름 조회
+	 * @return imageNameList
+	 */
+	List<String> selectBannerPathList();
+
+	/**
+	 * 전체 이미지 경로 조회
+	 */
+	List<String> selectImagePathList();
 }

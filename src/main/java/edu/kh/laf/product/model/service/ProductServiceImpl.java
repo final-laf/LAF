@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.laf.common.utility.Pagination;
+import edu.kh.laf.common.utility.S3Uploader;
 import edu.kh.laf.common.utility.Util;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.dto.ProductImage;
@@ -25,6 +26,8 @@ import edu.kh.laf.product.model.mapper.ProductMapper;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+	@Autowired
+	private S3Uploader uploader;
 	@Autowired
 	private ProductMapper mapper;
 	
@@ -230,7 +233,7 @@ public class ProductServiceImpl implements ProductService {
 			result *= mapper.insertThumbnailImage(thumbnailImg);
 			
 			// 서버에 파일 저장
-			thumbnail.transferTo(new File(filePath + thumbnailImg.getRename()));
+			uploader.upload(thumbnail, thumbnailImg.getImgPath());
 		}
 		
 		/* 상세 이미지 */
@@ -262,7 +265,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		// 서버에 파일 저장
 		for (int i = 0; i < uploadList.size(); i++) {
-			images.get(i).transferTo(new File(filePath + uploadList.get(i).getRename()));
+			uploader.upload(images.get(i), uploadList.get(i).getImgPath());
 		}
 		return result;
 	}
@@ -311,7 +314,7 @@ public class ProductServiceImpl implements ProductService {
 			result *= mapper.updateThumbnailImage(thumbnailImg);
 			
 			// 서버에 파일 저장
-			thumbnail.transferTo(new File(filePath + thumbnailImg.getRename()));
+			uploader.upload(thumbnail, thumbnailImg.getImgPath());
 		}
 		
 		
@@ -370,9 +373,8 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		// 서버에 파일 저장
-		thumbnail.transferTo(new File(filePath + uploadList.get(0).getRename()));
 		for (int i = 0; i < uploadList.size(); i++) {
-			images.get(i).transferTo(new File(filePath + uploadList.get(i).getRename()));
+			uploader.upload(images.get(i), uploadList.get(i).getImgPath());
 		}		
 		return 1;
 	}
@@ -388,8 +390,8 @@ public class ProductServiceImpl implements ProductService {
 
 	// 이미지 전체 목록 조회
 	@Override
-	public List<String> selectImageList() {
-		return mapper.selectImageList();
+	public List<String> selectProductPathList() {
+		return mapper.selectProductPathList();
 	}
 
 }
