@@ -1,8 +1,14 @@
 package edu.kh.laf.order.model.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Order {
 	private long orderNo;				// 주문번호
 	private String orderUno;			// 주문고유번호

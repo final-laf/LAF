@@ -2,9 +2,15 @@ package edu.kh.laf.order.model.dto;
 
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class OrderProduct {
 
 	private long productNo;			 // 상품번호
