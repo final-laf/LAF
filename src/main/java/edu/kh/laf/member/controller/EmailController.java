@@ -32,7 +32,6 @@ public class EmailController {
     @ResponseBody
     public int checkAuthKey(@RequestParam Map<String, Object> paramMap){
 
-    	System.out.println(paramMap); // {inputKey=wc3rxG, email=knbdh@nate.com}
         
         return service.checkAuthKey(paramMap);
     }

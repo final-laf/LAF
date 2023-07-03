@@ -109,7 +109,6 @@ public class OrderController {
 
 		if(orderKey == "") {
 			// 결제실패시 장바구니로 리다이렉트
-			System.out.println("결제실패");
 			return "redirect:/cart";
 		}
 		
@@ -120,7 +119,6 @@ public class OrderController {
 		// 상품별 서비스처리
 		int productResult = service.changeProduct(orderNo, orderProductList);
 		if(productResult == 0) { // 실패시 장바구니로 리다이렉트
-			System.out.println("상품처리실패");
 			return "redirect:/cart";
 		}
 		
@@ -135,7 +133,6 @@ public class OrderController {
 			if(order.getCouponNo() != 0) {
 				int couponResult = service.updateCouponFL(order);
 				if(couponResult == 0) { // 실패시 장바구니로 리다이렉트
-					System.out.println("쿠폰업데이트 실패");
 					return "redirect:/cart";
 				}
 			}

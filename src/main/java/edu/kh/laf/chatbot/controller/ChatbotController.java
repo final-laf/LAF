@@ -19,9 +19,7 @@ public class ChatbotController {
 	@GetMapping("/chatbot")
 	@ResponseBody
 	public List<Faq> selectChatbot(String categoryValue) {
-		System.out.println(categoryValue);
 		List<Faq> answer = service.faqAnswer(categoryValue);
-		System.out.println(answer);
 		return answer;
 	}
 

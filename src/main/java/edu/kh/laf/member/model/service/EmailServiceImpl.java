@@ -87,7 +87,6 @@ public class EmailServiceImpl implements EmailService {
 	        map.put("authKey", authKey);
 	        map.put("memberEmail", memberEmail);
 	        
-	        System.out.println(map);
 	        
 	        int result = mapper.updateAuthKey(map);
 	        

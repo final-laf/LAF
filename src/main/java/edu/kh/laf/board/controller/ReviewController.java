@@ -43,7 +43,6 @@ public class ReviewController {
 			
 			List<Review> bestReview = service.bestReview();
 			for(Review review : bestReview) {
-				System.out.println(bestReview);
 				review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
 				review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
 				List<ReviewImg> imgList = new ArrayList<>();
@@ -77,7 +76,6 @@ public class ReviewController {
 			review = new Review();
 			review.setMemberNo(0);
 		}
-		System.out.println(review.getMemberNo());
 		return review;
 	}
 	
@@ -124,7 +122,6 @@ public class ReviewController {
 			@RequestHeader("referer") String referer
 			) {
 		int i = service.deleteReview(reviewNo);
-		System.out.println(referer);
 		return "redirect:"+referer; 
 	}
 	
@@ -137,9 +134,7 @@ public class ReviewController {
 	public String bestReview(
 			@RequestParam Map<String, Object> paramMap
 			) {
-		System.out.println(paramMap);
 		int i = service.updateBestReview(paramMap);
-		System.out.println(i + "ㅇㅇ");
 		return "redirect:/review"; 
 	}
 	

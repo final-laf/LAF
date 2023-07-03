@@ -118,7 +118,6 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional(rollbackFor = { Exception.class })
 	@Override
 	public int findPw(Map<String, String> paramMap) {
-		System.out.println(paramMap.get("memberPw"));
 		// 새로운 랜덤 비밀번호를 BCrypt를 이용하여 암호화 후 paramMap에 세팅
 		String encPw = bcrypt.encode(paramMap.get("memberPw"));
 		paramMap.put("encPw", encPw);

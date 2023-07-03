@@ -118,7 +118,6 @@ public class ProductController {
 		
 		List<Review> bestReview = reviewService.bestReview();
 		for(Review review : bestReview) {
-			System.out.println(bestReview);
 			review.setOption(reviewService.reviewOption(review.getOptionNo())); // 옵션 설정
 			review.setProduct(reviewService.reviewProduct(review.getProductNo())); // 상품 설정
 			List<ReviewImg> imgList = new ArrayList<>();

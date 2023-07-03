@@ -163,11 +163,10 @@ Array.from(category).forEach(category => {
   });
 });
 document.getElementById("chatBtn").addEventListener("click", e=> {
+  
   document.getElementById("chatbotSection").style.height=0 + 'px';
-  setTimeout(()=>{ 
-    document.getElementById("chatbotSection").style.width=0 + 'px';
+  document.getElementById("chatbotSection").style.width=0 + 'px';
 
-  }, 150)
   setTimeout(()=>{ 
     document.getElementById("chatbotSection").style.display="none";
 
