@@ -18,7 +18,8 @@ const imgDeleteFn = e => {
   const input = li.querySelector('.input-img');
   const imgPreview = input.previousElementSibling;
   imgPreview.setAttribute("src", "/images/common/no-banner-image.png");
-  deleteSet.add(li.getAttribute('bannerNo'));
+  if(li.getAttribute('bannerNo') != null )
+    deleteSet.add(li.getAttribute('bannerNo'));
   input.value = '';
 };
 

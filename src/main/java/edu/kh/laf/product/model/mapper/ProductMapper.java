@@ -170,7 +170,7 @@ public interface ProductMapper {
 	 * 이미지 전체 목록 조회
 	 * @return imageList
 	 */
-	List<String> selectImageList();
+	List<String> selectProductPathList();
 	
 	/**
 	 * 이미지 순서 업데이트

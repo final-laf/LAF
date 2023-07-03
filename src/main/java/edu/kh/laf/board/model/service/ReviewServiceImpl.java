@@ -327,6 +327,12 @@ public class ReviewServiceImpl implements ReviewService{
 		return mapper.updateBestReview(paramMap);
 	}
 
+	// 리뷰 이미지 경로 목록 조회
+	@Override
+	public List<String> selectReviewImagePathList() {
+		return mapper.selectReviewImagePathList();
+	}
+
 
 
 

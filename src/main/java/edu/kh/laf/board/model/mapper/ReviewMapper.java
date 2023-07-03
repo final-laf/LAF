@@ -143,6 +143,11 @@ public interface ReviewMapper {
 	 */
 	int updateBestReview(Map<String, Object> paramMap);
 
+	/**
+	 * 리뷰 이미지 경로 조회
+	 * @return imagePathList
+	 */
+	List<String> selectReviewImagePathList();
 
 
 

@@ -67,8 +67,10 @@ tr:not(:first-child) > .cart-item-product {
 }
 #cartItemList .cart-item-image img {
   height: 94px;
-  width: auto;
+  width: 70px;
   display: block;
+  object-fit: cover;
+  object-position: center;
 }
 #cartItemList .cart-item-product button {
   margin-right: 5px;
