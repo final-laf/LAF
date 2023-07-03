@@ -1,8 +1,14 @@
 package edu.kh.laf.board.model.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Qna {
 	private long qnaNo;
 	private long memberNo;
