@@ -19,6 +19,12 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryMapper mapper;
 
+	// Navigation 카테고리 조회
+	@Override
+	public List<Category> selectNavCategoryList() {
+		return mapper.selectNavCategoryList();
+	}
+	
 	// 부모 카테고리 목록 조회
 	@Override
 	public List<Category> selectCategoryList() {

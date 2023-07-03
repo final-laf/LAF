@@ -103,10 +103,31 @@ label[for='menuList'] {
 .header-nav-menu-list table td {
   width: 150px;
   height: 100%;
-  padding: 0 20px;
   vertical-align: top;
   line-height: 25px;
+
+}
+
+.header-nav-menu-list table div{
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.header-nav-menu-list table div:hover{
+  background-color: #ccc;
+}
+
+.header-nav-menu-list table ul{
+  padding: 0 20px;
   border-left: 1px solid #ccc;
+}
+.header-nav-menu-list table li{
+  cursor: pointer;
+}
+
+.header-nav-menu-list table li:hover{
+  background-color: #ccc;
 }
 
 

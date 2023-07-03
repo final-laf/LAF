@@ -37,3 +37,24 @@ insert into child_category_cd values(NULL, '가방', 9);
 
 
 -- 부모카테고리로 자식카테고리 모두 조회
+SELECT *
+FROM parent_category_cd p
+left JOIN child_category_cd c ON p.parent_category_no = c.parent_category_no
+ORDER BY parent_category_order;
+
+
+SELECT parent_category_no, parent_category_no FROM parent_category_cd;
+
+SELECT * FROM child_category_cd;
+
+select 	child_category_no as category_no,
+		child_category_name as category_name,
+		parent_category_no
+from 	`child_category_cd`
+where 	parent_category_no = 1;
+
+select 	 child_category_no as category_no,
+	 	 child_category_name as category_name,
+		 parent_category_no
+from    `child_category_cd` 
+order by category_no;

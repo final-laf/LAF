@@ -8,6 +8,12 @@ import edu.kh.laf.product.model.dto.Product;
 
 public interface CategoryService {
 	
+	
+	/** Navigation 카테고리 조회
+	 * @return categoryList
+	 */
+	List<Category> selectNavCategoryList();
+	
 	/**
 	 * 모든 카테고리 목록 조회
 	 * @return categoryList
@@ -62,4 +68,6 @@ public interface CategoryService {
 	 * @return result
 	 */
 	int deleteProductCategory(long productNo);
+
+
 }
