@@ -75,7 +75,6 @@ public class MainServiceImpl implements MainService {
 			uploader.upload(banner.get(bannerNo), imagePath);
 //			String uploadImageUrl = uploader.upload(banner.get(bannerNo), imagePath);
 //			banner.get(bannerNo).transferTo(new File(filePath + uploadList.get(i).getRename()));
-//			System.out.println(uploadImageUrl);
 		}
 		
 		return 1;

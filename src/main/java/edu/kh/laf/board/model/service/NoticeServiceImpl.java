@@ -24,7 +24,6 @@ public class NoticeServiceImpl implements NoticeService {
 	/** 공지사항 리스트
 	 *
 	 */
-//		return mapper.noticeList();
 	@Override
 	public Map<String, Object> noticeList(int cp) {
 		int listCount = mapper.noticeListCount();

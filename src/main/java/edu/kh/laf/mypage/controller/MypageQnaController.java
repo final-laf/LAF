@@ -39,7 +39,6 @@ public class MypageQnaController {
 			, String categoryNo
 			, @RequestParam Map<String, Object> paramMap
 			) {
-		System.out.println(paramMap);
 		if(categoryNo==null) {
 			categoryNo= "1";
 		};
@@ -68,13 +67,10 @@ public class MypageQnaController {
 			
 		//검색어 있을 때
 		}else {
-			System.out.println("검색어 있을때");
 			paramMap.put("memberNo", loginMember.getMemberNo());
 			Map<String, Object> resultMap = qnaService.searchQnaList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
 		}
-		System.out.println(categoryNo);
-		System.out.println(paramMap);
 		model.addAttribute("categoryNo", categoryNo);
 		return "/myPage/myPageBoard/myPageQuestion";
 	}

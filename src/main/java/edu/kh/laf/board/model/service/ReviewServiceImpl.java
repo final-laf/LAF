@@ -192,8 +192,6 @@ public class ReviewServiceImpl implements ReviewService{
 		int result = mapper.updateReview(review);
 		result = mapper.setReviewNo(review);
 		List<ReviewImg> uploadList = new ArrayList<ReviewImg>();
-		System.out.println("수정하기");
-		System.out.println(deleteList);
 		if (!deleteList.equals("")) { // 삭제할 이미지가 있다면
 
 			//deleteList에 작성된 이미지 모두 삭제
