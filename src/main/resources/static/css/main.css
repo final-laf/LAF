@@ -246,6 +246,7 @@ main {
   height: 330px;
   object-fit: cover;
   object-position: center;
+  border-radius: 10px;
 }
 .weekly-product:first-child .thumbnail {
   width: 400px;

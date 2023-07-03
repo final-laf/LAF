@@ -39,6 +39,7 @@
   height: 210px;
   object-fit: cover;
   object-position: center;
+  border-radius: 6px;
 }
 
 /* 사진 마우스 오버 시 출력되는 설명 */
@@ -189,6 +190,7 @@
   height: 350px;
   object-fit: cover;
   object-position: center;
+  border-radius: 10px;
 }
 
 .categoryList-product-item>img.like {
