@@ -111,7 +111,6 @@ public class ReviewController {
 			)  throws Exception {
 		int i = service.updateReview(review, images, deleteList);
 		
-		System.out.println(referer);
 		
 		return "redirect:"+referer; 
 	}

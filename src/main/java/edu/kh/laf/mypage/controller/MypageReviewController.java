@@ -1,7 +1,6 @@
 package edu.kh.laf.mypage.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
-import edu.kh.laf.board.model.service.ReviewService;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageReviewService;
 
@@ -25,7 +23,6 @@ import edu.kh.laf.mypage.model.service.MypageReviewService;
 public class MypageReviewController {
 	@Autowired
 	private MypageReviewService reviewService;
-	private ReviewService service;
 	
 	// 내 리뷰 : 작성 가능한 리뷰 
 	@GetMapping("/myPage/review")

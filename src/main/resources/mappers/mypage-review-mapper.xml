@@ -23,7 +23,7 @@
 			    op.option_no, 
 			    (SELECT order_uno FROM `order`o WHERE member_no=#{memberNo} AND op.order_no=o.order_no) order_uno,
 			    op.count, 
-			    TRUNCATE((SELECT AVG(review_score) FROM review r WHERE sr.review_delete_fl='N' AND op.product_no =r.product_no),1) review_score_avg, 
+			    TRUNCATE((SELECT AVG(review_score) FROM review r WHERE r.review_delete_fl='N' AND op.product_no =r.product_no),1) review_score_avg, 
 			    (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
 		FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no LEFT JOIN review r ON op.review_no=r.review_no
 		WHERE op.order_no=(SELECT so.order_no FROM `order` so WHERE member_no=#{memberNo} AND op.order_no=so.order_no)
@@ -76,7 +76,7 @@
 			   r.option_no, 
 			   o.order_uno,
 			   op.count, 
-			   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE sr.review_delete_fl='N' AND r.product_no =sr.product_no),1) review_score_avg, 
+			   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.review_delete_fl='N' AND r.product_no =sr.product_no),1) review_score_avg, 
 			   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
 		FROM review r LEFT JOIN order_product op ON r.review_no = op.review_no 
 					  JOIN `order` o ON r.order_no = o.order_no 
@@ -112,7 +112,7 @@
 			   op.product_no, 
 			   op.option_no, 
 			   op.count, 
-			   TRUNCATE((SELECT AVG(review_score) FROM review r WHERE sr.review_delete_fl='N' AND op.product_no =r.product_no),1) review_score_avg, 
+			   TRUNCATE((SELECT AVG(review_score) FROM review r WHERE r.review_delete_fl='N' AND op.product_no =r.product_no),1) review_score_avg, 
 			   (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
 		FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no 
 		WHERE op.order_no = #{orderNo} AND op.product_no =#{productNo} AND op.option_no =#{optionNo}
