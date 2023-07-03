@@ -16,26 +16,28 @@ REFERENCES `review` (
 );
 
 SELECT * FROM review;
-SELECT  r.review_no, 
-		CASE
-	        WHEN review_delete_fl  = 'Y' THEN '[[---]]'
-	        ELSE member_id
-	    END AS member_id, 
-		DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS member_id,
-		m.member_no,
-		CASE
-	        WHEN review_delete_fl  = 'Y' THEN '[[삭제된 리뷰입니다.]]'
-	        ELSE review_content
-	    END AS review_content, 
-		DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS review_create_date, 
-		r.review_score, 
-		r.order_no, 
-		r.product_no, 
-		r.option_no, 
-		o.order_uno,
-		m.member_name,
-		TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.product_no =sr.product_no),1) review_score_avg, 
-		(SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
+SELECT * FROM review WHERE order_no=53 AND product_no=1 AND option_no=38;
+        SELECT  r.review_no, 
+				CASE
+			        WHEN review_delete_fl  = 'Y' THEN '[[---]]'
+			        ELSE member_id
+			    END AS member_id, 
+				DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS member_id, 
+				m.member_no,
+				r.review_content, 
+				DATE_FORMAT(r.review_create_date, '%Y-%m-%d') AS review_create_date, 
+				r.review_score, 
+				r.order_no, 
+				r.product_no, 
+				r.option_no, 
+				o.order_uno,
+				m.member_name,
+				TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE sr.review_delete_fl='N' AND r.product_no =sr.product_no),1) review_score_avg, 
+				(SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count 
+		FROM best_review br 
+		 		LEFT JOIN review r ON br.review_no=r.review_no 
+		 		JOIN `order` o ON r.order_no =o.order_no 
+				JOIN `member` m ON o.member_no = m.member_no 
 FROM best_review br 
  		LEFT JOIN review r ON br.review_no=r.review_no 
  		JOIN `order` o ON r.order_no =o.order_no 

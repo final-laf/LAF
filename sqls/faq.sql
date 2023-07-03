@@ -8,7 +8,7 @@ create table `faq` (
 	`faq_order`	int	null
 );
 
-SELECT * FROM faq;
+SELECT * FROM faq WHERE faq_category=1 ORDER BY faq_order;
 INSERT INTO faq values(DEFAULT, '주문한 상품이 갑자기 취소되었다고 연락왔어요!', '입금 후 공장측 원단문제로 더 이상 제작이 어려운 경우 저희 98도씨에서는 빠른 배송을 위해 품절 상품 취소처리 도와드리고 있는 점 양해부탁드립니다:)', '1', '1');
 INSERT INTO faq values(DEFAULT, '판매하는 상품과 같이 코디된 상품을 구입하고 싶어요!', '- 피팅모델이 착용한 상품 중 대부분은 업데이트 예정 신상품이거나, 판매 중인 상품입니다. 판매 시 상품 페이지 내 옵션별로 코디된 상품 기재 되어있어 확인 가능합니다.)', '1', '2');
 INSERT INTO faq values(DEFAULT, '품절 상품은 언제 재입고되나요?', '품절된 상품은 일정을 바로 파악하기 어려우며, 정확한 일정은 거래처 상황에 따라 변경될 수 있는 점 양해 부탁드립니다. ', '1', '3');
