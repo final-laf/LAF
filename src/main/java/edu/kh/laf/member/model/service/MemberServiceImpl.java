@@ -1,20 +1,5 @@
 package edu.kh.laf.member.model.service;
 
-import edu.kh.laf.common.utility.Pagination;
-import edu.kh.laf.member.model.dto.Address;
-import edu.kh.laf.member.model.dto.Coupon;
-import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.mapper.MemberMapper;
-import edu.kh.laf.mypage.model.mapper.MypageMapper;
-import edu.kh.laf.order.model.dto.Order;
-import edu.kh.laf.order.model.dto.OrderProduct;
-import edu.kh.laf.order.model.mapper.OrderMapper;
-import edu.kh.laf.product.model.dto.Option;
-import edu.kh.laf.product.model.dto.Product;
-import jakarta.mail.Message;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +11,19 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import edu.kh.laf.common.utility.Pagination;
+import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.mapper.MemberMapper;
+import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.order.model.dto.OrderProduct;
+import edu.kh.laf.order.model.mapper.OrderMapper;
+import edu.kh.laf.product.model.dto.Option;
+import edu.kh.laf.product.model.dto.Product;
+import jakarta.mail.Message;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class MemberServiceImpl implements MemberService {

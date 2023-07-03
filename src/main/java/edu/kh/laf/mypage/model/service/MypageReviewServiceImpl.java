@@ -1,6 +1,5 @@
 package edu.kh.laf.mypage.model.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,15 +8,11 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.common.utility.S3Uploader;
-import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.mypage.model.mapper.MypageReviewMapper;
-import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 

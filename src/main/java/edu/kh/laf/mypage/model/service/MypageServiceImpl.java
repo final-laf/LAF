@@ -11,8 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.kh.laf.board.model.dto.Qna;
-import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Member;
@@ -20,7 +18,6 @@ import edu.kh.laf.member.model.dto.Point;
 import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
-import edu.kh.laf.product.model.dto.Product;
 
 @Service
 public class MypageServiceImpl implements MypageService {

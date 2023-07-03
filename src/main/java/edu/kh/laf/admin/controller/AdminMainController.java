@@ -1,7 +1,6 @@
 package edu.kh.laf.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.kh.laf.common.utility.Util;
 import edu.kh.laf.main.model.dto.Banner;
 import edu.kh.laf.main.model.service.MainService;
-import edu.kh.laf.product.model.dto.Category;
-import edu.kh.laf.product.model.dto.ProductImage;
 import edu.kh.laf.product.model.service.CategoryService;
 
 @Controller

@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.laf.main.model.dto.Banner;
-import edu.kh.laf.product.model.dto.ProductImage;
 
 @Mapper
 public interface MainMapper {
