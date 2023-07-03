@@ -19,12 +19,16 @@ import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.mapper.ReviewMapper;
 import edu.kh.laf.common.utility.Pagination;
+import edu.kh.laf.common.utility.S3Uploader;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 
 @Service
 @PropertySource("classpath:/db.properties")
 public class ReviewServiceImpl implements ReviewService{
+	
+	@Autowired
+	private S3Uploader uploader;
 
 	@Value("${my.review.webpath}")
 	private String webPath;
@@ -156,20 +160,15 @@ public class ReviewServiceImpl implements ReviewService{
 					result=mapper.insertImage(img);
 				}
 				size+=1;
-				System.out.println(size);
 			}
 		}
-		System.out.println("DB추가 완료");
-		
 		if(!uploadList.isEmpty()) {
 			if(uploadList.size()==size) {
 				for(int i=0; i<size; i++) {
-					System.out.println(i);
 					int index = uploadList.get(i).getReviewImgOrder();
 					fileName = review.getReviewNo()+images.get(i).getOriginalFilename();
-					images.get(index).transferTo(new File(filePath+fileName));
-					
-					System.out.println(i+"파일추가완료");
+					uploader.upload(images.get(index), webPath+fileName);					
+//					images.get(index).transferTo(new File(filePath+fileName));					
 				}
 			} else {
 				throw new FileUploadException();
@@ -226,19 +225,13 @@ public class ReviewServiceImpl implements ReviewService{
 				size+=1;
 			}
 		}
-		System.out.println("DB추가 완료");
-		System.out.println(uploadList);
-		System.out.println(size);
-		System.out.println(images);
 		if(!uploadList.isEmpty()) {
 			if(uploadList.size()==size) {
 				for(int i=0; i<uploadList.size(); i++) {
 					int index = uploadList.get(i).getReviewImgOrder();
-					System.out.println(index);
 					fileName = review.getReviewNo()+images.get(index).getOriginalFilename();
-					images.get(index).transferTo(new File(filePath+ fileName));
-					
-					System.out.println(index+"파일추가완료");
+					uploader.upload(images.get(index), webPath+fileName);
+//					images.get(index).transferTo(new File(filePath+ fileName));
 				}
 			} else {
 				throw new FileUploadException();
