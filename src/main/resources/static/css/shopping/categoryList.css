@@ -35,7 +35,8 @@
 }
 
 .categoryList-best-item img {
-  width: 100%;
+  width: 150px;
+  height: 210px;
   object-fit: cover;
   object-position: center;
 }
