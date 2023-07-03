@@ -33,6 +33,13 @@ table tr:not(:first-child) > td {
   height: 100px;
 }
 
+table tr:first-child > td {
+  padding: 0px;
+  vertical-align: middle;
+  line-height: 40px;
+}
+
+
 /* 버튼 컨테이너 설정 */
 .btn-container {
   padding: 5px 0;
@@ -44,7 +51,7 @@ table tr:not(:first-child) > td {
   margin-left: 5px;
   width: 140px;
   height: 40px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 /* 찜 목록 - 테이블 레이아웃 설정 */

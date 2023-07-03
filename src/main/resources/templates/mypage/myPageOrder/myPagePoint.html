@@ -17,9 +17,9 @@
         <!-- 마이페이지 중앙 대쉬보드 -->
         <div class="mypagePoint-dashFrame-myMain">
           <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
-          <div class="mypagePoint-myMain-text">적립금</div>
-          <div class="mypagePoint-myMain-point">
-            
+          <div class="section-header">
+            <div class="section-title">적립금</div>
+          </div>
             <!-- 하위 메뉴 -->
             <div class="sub-category-container">
               <!-- 현재 카테고리에 current 클래스 추가 -->
@@ -52,11 +52,11 @@
             <div class="mypagePoint-point-detail">
               <table>
                 <tr>
-                  <th width="120px">주문날짜</th>
-                  <th width="120px">적립/사용</th>
-                  <th width="120px">적립금</th>
-                  <th width="300px">관련 주문</th>
-                  <th width="430px">내용</th>
+                  <td width="120px">주문날짜</td>
+                  <td width="120px">적립/사용</td>
+                  <td width="120px">적립금</td>
+                  <td width="300px">관련 주문</td>
+                  <td width="430px">내용</td>
                 </tr>
                 <!-- 항목 추가 -->
                 <!-- 적립 내역이 없을 때 -->
@@ -70,7 +70,8 @@
                   <td th:if='${point.pointSort == "U"}' th:text="사용">사용된 적립금일 경우</td>
                   <td th:if='${point.pointSort == "C"}' th:text="취소">사용된 적립금일 경우</td>
                   <td th:text="${#numbers.formatInteger(point.pointAmount, 3, 'COMMA')} + '원'">적립금</td>
-                  <td th:text="${point.orderUno}">관련 주문</td>
+                  <td th:if="${point.orderUno}"><a th:href="'/order/'+${point.orderNo}"><p th:text="|[${point.orderUno}]|">관련 주문</p></a></td>
+                  <td th:unless="${point.orderUno}"></td>
                   <td th:text="${point.pointContent}">내용</td>
                 </tr>
               </table>
