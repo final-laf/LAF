@@ -4,9 +4,15 @@ import java.util.List;
 
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Review {
 	private String memberId; 		 // 주문자 id
 	private String memberName; 		 // 주문자 네임

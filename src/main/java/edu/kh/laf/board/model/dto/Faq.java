@@ -2,7 +2,10 @@ package edu.kh.laf.board.model.dto;
 
 import lombok.*;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Faq {
 	private long faqNo;
 	private String faqTitle;

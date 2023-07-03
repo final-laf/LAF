@@ -1,8 +1,14 @@
 package edu.kh.laf.product.model.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Product {
     private long productNo;			// 상품번호
     private String productName;		// 상품명

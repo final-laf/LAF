@@ -1,8 +1,13 @@
 package edu.kh.laf.board.model.dto;
 
-import lombok.Data;
-
-@Data
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class ReviewImg {
 	private long reviewImgNo;
 	private long reviewNo;
