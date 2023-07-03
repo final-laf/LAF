@@ -150,7 +150,12 @@
                   <img th:src="${product.thumbnailPath}">
                 </a>
                 <div class="p-info">
-                  <a th:href="@{/product/{no}(no=${product.productNo})}" class="p-info-name" th:text="${product.productName}">상품명</a>
+                  <a th:href="@{/product/{no}(no=${product.productNo})}" class="p-info-name" 
+                    th:if="${#strings.length(product.productName) > 65}"
+                    th:text="${#strings.substring(product.productName, 0, 65) + '…'}">상품명</a>
+                  <a th:href="@{/product/{no}(no=${product.productNo})}" 
+                    th:unless="${#strings.length(product.productName) > 65}"
+                    class="p-info-name" th:text="${product.productName}">상품명</a>
                   <div class="p-info-category">
                     <a th:each="category : ${resultCategoryList}" 
                       th:if="${category.product_no == product.productNo}" 
