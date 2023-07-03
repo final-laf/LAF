@@ -13,6 +13,47 @@
   
   <main>
     <section class="admin-container">
+      <div class="order">
+        <div class="order-table">
+          <div>
+            <span>오늘 주문 현황</span>
+            <div id="reflesh">
+              <img th:src="@{/images/common/reflesh.svg}">
+              <span>새로고침</span>
+            </div>
+          </div>
+          <table>
+            <tr>
+              <td>주문접수</td>
+              <td>결제확인</td>
+              <td>상품준비</td>
+              <td>출고완료</td>
+              <td>배송중</td>
+              <td>배송완료</td>
+              <td>취소중</td>
+              <td>취소완료</td>
+              <td>교환중</td>
+              <td>교환완료</td>
+              <td>반품중</td>
+              <td>반품완료</td>
+            </tr>
+            <tr id="orderState">
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+              <td>0개</td>
+            </tr>
+          </table>
+        </div>
+      </div>
       <div class="today">
         <div class="today-content">
           <div class="today-content-item">
@@ -52,88 +93,7 @@
           </div>
         </div>
       </div>
-      <div class="order">
-        <div>
-          <span class="board-title">주문처리</span>
-          <span>(최근 30일)</span>
-        </div>
-        <div class="order-list">
-          <ul>
-            <li>
-              <div class="order-cat">주문 접수</div>
-              <div class="order-count">
-                <span class="order-count-num">0</span>
-                <span>개</span>
-              </div>
-              <div class="order-cat">결제 확인</div>
-              <div class="order-count">
-                <span class="order-count-num">1</span>
-                <span>개</span>
-              </div>
-            </li>
-            <li>
-              <div class="order-cat">상품 준비</div>
-              <div class="order-count">
-                <span class="order-count-num">21</span>
-                <span>개</span>
-              </div>
-              <div class="order-cat">출고 완료</div>
-              <div class="order-count">
-                <span class="order-count-num">1</span>
-                <span>개</span>
-              </div>
-            </li>
-            <li>
-              <div class="order-cat">배송중</div>
-              <div class="order-count">
-                <span class="order-count-num">0</span>
-                <span>개</span>
-              </div>
-              <div class="order-cat">배송 완료</div>
-              <div class="order-count">
-                <span class="order-count-num">1</span>
-                <span>개</span>
-              </div>
-            </li>
-            <li>
-              <div class="order-cat">취소중</div>
-              <div class="order-count">
-                <span class="order-count-num">0</span>
-                <span>개</span>
-              </div>
-              <div class="order-cat">취소 완료</div>
-              <div class="order-count">
-                <span class="order-count-num">1</span>
-                <span>개</span>
-              </div>
-            </li>
-            <li>
-              <div class="order-cat">교환중</div>
-              <div class="order-count">
-                <span class="order-count-num">0</span>
-                <span>개</span>
-              </div>
-              <div class="order-cat">교환완료</div>
-              <div class="order-count">
-                <span class="order-count-num">1</span>
-                <span>개</span>
-              </div>
-            </li>
-            <li>
-              <div class="order-cat">반품중</div>
-              <div class="order-count">
-                <span class="order-count-num">0</span>
-                <span>개</span>
-              </div>
-              <div class="order-cat">반품 완료</div>
-              <div class="order-count">
-                <span class="order-count-num">1</span>
-                <span>개</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+
       <div class="current">
         <div class="current-left">
           <div>
