@@ -1,12 +1,5 @@
 package edu.kh.laf.member.controller;
 
-import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.service.EmailService;
-import edu.kh.laf.member.model.service.MemberService;
-import edu.kh.laf.mypage.model.service.MypageLikeServcie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.service.EmailService;
+import edu.kh.laf.member.model.service.MemberService;
+import edu.kh.laf.mypage.model.service.MypageLikeServcie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.product.model.dto.Cart;
 
 @Mapper

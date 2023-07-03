@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.laf.member.model.dto.Address;
-import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 
 public interface MemberService {

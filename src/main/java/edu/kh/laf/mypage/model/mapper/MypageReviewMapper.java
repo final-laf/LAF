@@ -1,15 +1,12 @@
 package edu.kh.laf.mypage.model.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
-import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
-import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 

@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.board.model.dto.Notice;
-import edu.kh.laf.board.model.dto.Qna;
 
 @Mapper
 public interface NoticeMapper {

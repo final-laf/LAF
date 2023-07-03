@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
-import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 

@@ -8,22 +8,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.service.ReviewService;
-import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageReviewService;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ReviewController {
@@ -88,7 +83,7 @@ public class ReviewController {
 	 */
 	@PostMapping("/review/insert")
 	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images)throws IllegalStateException, IOException {
-		int i = service.insertReview(review, images);
+		service.insertReview(review, images);
 		
 		return "redirect:/myPage/review/list"; 
 	}

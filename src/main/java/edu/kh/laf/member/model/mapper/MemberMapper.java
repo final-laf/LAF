@@ -1,16 +1,14 @@
 package edu.kh.laf.member.model.mapper;
 
-import edu.kh.laf.member.model.dto.Address;
-import edu.kh.laf.member.model.dto.Coupon;
-import edu.kh.laf.member.model.dto.Member;
-import edu.kh.laf.member.model.dto.Point;
-import edu.kh.laf.order.model.dto.Order;
-
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
+
+import edu.kh.laf.member.model.dto.Address;
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.order.model.dto.Order;
 
 @Mapper
 public interface MemberMapper {
