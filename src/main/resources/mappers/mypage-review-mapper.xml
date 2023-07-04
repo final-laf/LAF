@@ -21,6 +21,7 @@
 				op.order_no,
 			    op.product_no, 
 			    op.option_no, 
+			    o.order_date,
 			    (SELECT order_uno FROM `order`o WHERE member_no=#{memberNo} AND op.order_no=o.order_no) order_uno,
 			    op.count, 
 			    TRUNCATE((SELECT AVG(review_score) FROM review r WHERE r.review_delete_fl='N' AND op.product_no =r.product_no),1) review_score_avg, 
@@ -75,6 +76,7 @@
 			   r.product_no, 
 			   r.option_no, 
 			   o.order_uno,
+			   o.order_date,
 			   op.count, 
 			   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.review_delete_fl='N' AND r.product_no =sr.product_no),1) review_score_avg, 
 			   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
