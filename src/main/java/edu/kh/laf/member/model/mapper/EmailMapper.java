@@ -25,4 +25,10 @@ public interface EmailMapper {
 	 */
 	public int checkAuthKey(Map<String, Object> paramMap);
 	
+	/** 주문자 이메일 주소 조회
+	 * @param memberNo 
+	 * @return
+	 */
+	String selectSendEmail(long memberNo);
+	
 }
