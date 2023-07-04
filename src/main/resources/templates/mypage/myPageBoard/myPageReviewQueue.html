@@ -41,14 +41,14 @@
             <td class="item-price-set">상품금액</td>
             <td class="item-choose">선택</td>
           </tr>
-          <!-- 작성 가능 리뷰 없을때 -->
+          <!-- 작성 리뷰 없을때 -->
           <tr th:if="${reviewList?.size==null}">
             <td colspan="6" class="item-empty">작성한 리뷰가 없습니다.</td>
           </tr>
-          <!-- 작성 가능 리뷰 있을 때 -->
+          <!-- 작성 리뷰 있을 때 -->
           <tr th:each="r:${reviewList}">
             <td class="item-order-info" >
-              <div th:text="${#strings.substring(r.orderDate,0,10)}"></div>
+              <div th:text="${#strings.substring(r.reviewCreateDate,0,10)}"></div>
               <div class="item-order-no"><a th:href="'/order/'+${r.orderNo}"><p th:text="|[${r.orderUno}]|">주문번호</p></a></div>
             </td>
             <td class="item-image">
