@@ -2,6 +2,7 @@ package edu.kh.laf.main.model.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,5 +39,15 @@ public interface MainService {
 	 * @return imgPathList
 	 */
 	List<String> selectImagePathList();
+
+	/** 조회 목록 누적
+	 * @param map
+	 */
+	List<Object> checkClick(Map<String, Object> map);
+
+	/**  상품 조회 목록 자정에 초기화
+	 * 
+	 */
+	void cleanClickTable();
 
 }

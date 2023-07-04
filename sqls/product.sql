@@ -185,4 +185,66 @@ SELECT `product`.product_no,
 -- 상품 재고 없을시 품절상태로 전환
 SELECT * FROM product;
 UPDATE product SET product_state = 'S' WHERE product_no = #{product_no};
-		
+;
+
+
+
+-- 상품 조회시 조회 목록 삽입
+SELECT * FROM click;
+SELECT * FROM product_img;
+
+INSERT INTO click VALUES (3, 9, default);
+
+
+SELECT member_no, product_no, click_date, img_path
+FROM click
+LEFT JOIN `product_img` USING(product_no)
+WHERE thumb_fl = 'Y' AND member_no = 3
+ORDER BY click_date DESC
+;
+
+SELECT member_no, product_no, click_date, img_path, rownum
+FROM click
+LEFT JOIN `product_img` USING(product_no)
+WHERE thumb_fl = 'Y' AND member_no = 3
+ORDER BY click_date DESC
+;
+
+
+
+SELECT
+    member_no, product_no, click_date,
+    ( SELECT COUNT(*) + 1 FROM click WHERE click_date > b.click_date ) AS rank
+FROM
+    click AS b
+ORDER BY
+    rank ASC;
+   
+   
+SELECT member_no, product_no, click_date, img_path
+FROM click
+LEFT JOIN `product_img` USING(product_no)
+WHERE thumb_fl = 'Y' AND member_no = 2
+ORDER BY click_date DESC
+;
+
+/*순위(rank) 구하는 구문*/
+SELECT member_no, product_no, click_date, img_path
+FROM ((SELECT *,  ( SELECT COUNT(*) + 1 
+					FROM (SELECT member_no, product_no, click_date, img_path
+						FROM click
+						LEFT JOIN `product_img` USING(product_no)
+						WHERE thumb_fl = 'Y' AND member_no = 2) b
+					WHERE click_date > a.click_date ) AS RANK
+		FROM (SELECT member_no, product_no, click_date, img_path
+				FROM click
+				LEFT JOIN `product_img` USING(product_no)
+				WHERE thumb_fl = 'Y' AND member_no = 2) AS a
+		ORDER BY RANK ASC) ) main
+WHERE RANK < 4;
+
+
+count
+
+
+
