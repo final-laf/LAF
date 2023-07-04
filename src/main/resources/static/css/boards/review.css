@@ -578,6 +578,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .review-modal-title {
   font-size: 26px;
   font-weight: bold;
+  text-align: left;
 }
 
 /* 모달창 서브타이틀 */

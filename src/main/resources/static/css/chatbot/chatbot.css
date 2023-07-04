@@ -1,4 +1,12 @@
+#chatbotIcon{
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
 #chatbotSection{
+  z-index: 999;
   border-radius: 10px;
   height: 450px;
   width: 330px;
@@ -6,17 +14,17 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  padding: 5px;
   margin-right: 80px;
   transition-duration: 0.5s;
-  box-shadow: #eee;
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.25);
 }
 
 #chatbotMain{
+  margin: 5px;
   padding: 10px;
   border-radius: 5px;
-  height:100%;
-  width: 100%;
+  height:98%;
+  width: 97%;
   background-color: #fafafa;
   border-top: 0.5px solid #eee;
   display: flex;
@@ -114,7 +122,7 @@
 
 .my-chat>div {
   border: 1px solid #eee;
-	background-color: yellow;
+	background-color: #ffff1b;
   margin-right: 80px;
 }
 
@@ -129,6 +137,7 @@
   border-top: 5px;
   text-align: center;
   border-radius: 5px;
+  height: auto;
 }
 
 .chatbot-category:hover{
@@ -136,7 +145,78 @@
   background-color: #635292;
 }
 
-.chatbot-category{
+.chatbot-answer{
+  background-color: #7F7698;
+  margin: 10px;
+  padding:8px;
+  border-top: 5px;
+  text-align: center;
+  border-radius: 5px;
   height: auto;
-
+  transition: all  1s;
 }
+
+.chatbot-answer:hover{
+  transition-duration: 1s;
+  background-color: #635292;
+}
+
+.chatbot-noAnswer{
+  background-color: #7F7698;
+  margin: 10px;
+  padding:8px;
+  border-top: 5px;
+  text-align: center;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.chatbot-noAnswer:hover{
+  transition-duration: 1s;
+  background-color: #635292;
+}
+
+
+.chatbot-list{
+  background-color: #ccc;
+  margin: 10px;
+  padding:8px;
+  border-top: 5px;
+  text-align: center;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.chatbot-list:hover{
+  transition-duration: 1s;
+  background-color: hsl(0, 0%, 67%);
+}
+
+.chatbot-categoryList{
+  background-color: #ccc;
+  margin: 10px;
+  padding:8px;
+  border-top: 5px;
+  text-align: center;
+  border-radius: 5px;
+  height: auto;
+}
+
+.chatbot-categoryList:hover{
+  transition-duration: 1s;
+  background-color: hsl(0, 0%, 67%);
+}
+
+.go {
+  background: #d63031;
+  border-radius: 80px;
+  transform: translate(43px, -41px) ;
+  transition-property: all;
+  transition-duration: 0.6s !important;
+  width: 25px !important;
+  height: 25px !important;
+}
+
+
