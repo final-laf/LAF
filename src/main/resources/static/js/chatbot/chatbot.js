@@ -47,6 +47,7 @@ const sendMessage = () => {
 		chattingSock.send(JSON.stringify(obj));
 
 		inputChatting.value = "";
+    
 	}
 }
 
@@ -62,6 +63,14 @@ inputChatting.addEventListener("keyup", e => {
 var chatBtn= document.getElementsByClassName("chatbot-Button");
 for(var chat of chatBtn){
 	chat.addEventListener("click", e=> {
+
+    // const chat = document.getElementById("inputChatting").value
+    // fetch("/chatbot/chat?chat="+chat)  
+    // .then(response => response.json()) 
+    // .then(answer => {
+    //   console.log(answer)
+    //   }
+    // )
 		const ul = document.querySelector(".display-chatting");
 		
 		// 메세지 만들어서 출력하기
@@ -394,3 +403,4 @@ function mainCategory() {
 
   
 }
+
