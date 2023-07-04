@@ -48,7 +48,7 @@
           <!-- 작성 가능 리뷰 있을 때 -->
           <tr th:each="r:${myOrder}">
             <td class="item-order-info" >
-            <!--  <div th:text="${#strings.substring(r.orderDate,0,10)}"></div> -->
+              <div th:text="${#strings.substring(r.orderDate,0,10)}"></div>
               <div class="item-order-no"><a th:href="'/order/'+${r.orderNo}"><p th:text="|[${r.orderUno}]|">주문번호</p></a></div>
             </td>
             <td class="item-image">
