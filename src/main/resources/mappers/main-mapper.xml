@@ -44,6 +44,53 @@
 		select substr(img_path, 2) from `product_img`
 	</select>
 	
+	<!--같은 상품에 대한 이전 조회 기록 확인-->
+	<select id="checkClickedProduct">
+		SELECT count(*) FROM `click` 
+		WHERE member_no = ${memberNo} 
+		AND product_no = ${productNo}
+	</select>
+	
+	<!--같은 상품에 대한 이전 조회 기록 삭제-->
+	<delete id="deleteClickedProduct">
+		DELETE FROM `click` 
+		WHERE member_no = ${memberNo} 
+		AND product_no = ${productNo}
+	</delete>
+	
+	<!--상품 조회시 조회 목록 추가(로그인 회원)-->
+	<insert id="insertClick">
+		INSERT INTO click VALUES (${memberNo}, ${productNo}, default)
+	</insert>
+	
+	<!--최근 조회 상품 목록 조회-->
+	<select id="selectClickedProducts" resultType="_long" resultMap="click_rm">
+		SELECT member_no, product_no, click_date, img_path
+		FROM ((SELECT *,  ( SELECT COUNT(*) + 1 
+							FROM (SELECT member_no, product_no, click_date, img_path
+								FROM click
+								LEFT JOIN `product_img` USING(product_no)
+								WHERE thumb_fl = 'Y' AND member_no = ${memberNo}) b
+							WHERE click_date > a.click_date ) AS RANK
+				FROM (SELECT member_no, product_no, click_date, img_path
+						FROM click
+						LEFT JOIN `product_img` USING(product_no)
+						WHERE thumb_fl = 'Y' AND member_no = ${memberNo}) AS a
+				ORDER BY RANK ASC) ) main
+		WHERE RANK 	<![CDATA[ >	]]> 1 and  RANK	<![CDATA[ <	]]> 5
+	</select>
+	
+	<resultMap type="Map" id="click_rm">
+		<!-- DB의 기본 키(복합키면 여러 개 작성) -->
+		<id property="productNo" column="product_no" />
+
+		<!-- DB의 일반 컬럼들 -->
+		<result property="memberNo" column="member_no" />
+		<result property="clickDate" column="click_date" />
+		<result property="imgPath" column="img_path" />
+	</resultMap>
+	
+	
 
 </mapper>
 
