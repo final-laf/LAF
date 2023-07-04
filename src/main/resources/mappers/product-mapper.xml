@@ -320,6 +320,20 @@
 		</if>
 	</select>
 	
+	<!-- 카테고리 별 상품 갯수 조회(관리자) -->
+	<select id="adminGetListCount">
+		select 	count(*) 
+		from 	`product_category` 
+				join `product` on `product`.product_no = `product_category`.product_no
+		where 1=1
+		<if test="cc lte 0">
+			AND parent_category_no = ${categoryNo}
+		</if>
+		<if test='cc gt 0'>
+			AND child_category_no = ${cc}
+		</if>
+	</select>
+	
 	<!-- 검색 상품 갯수 조회 -->
 	<select id="getSearchListCount">
 		SELECT count(*)

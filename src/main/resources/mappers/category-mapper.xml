@@ -35,9 +35,11 @@
 	<select id="selectNavChildCategoryList" resultMap="child_category_rm">
 		select 	child_category_no,
 				child_category_name,
+				child_category_order,
 				parent_category_no
 		from 	`child_category_cd`
 		where 	parent_category_no = ${categoryNo}
+		order by child_category_order
 	</select>
 
 	<!-- 부모 카테고리 이름 조회 -->
@@ -50,7 +52,7 @@
 	
 	<!-- 모든 카테고리 조회 -->
 	<select id="selectAllCategoryList">
-		(select 	 parent_category_no as category_no,
+		(select  parent_category_no as category_no,
 				 parent_category_name as category_name,
 				 0 as parent_category_no,
 				 parent_category_order as category_order
@@ -60,8 +62,9 @@
 		(select 	 child_category_no  as category_no,
 				 child_category_name as category_name,
 				 parent_category_no as parent_category_no,
-				  0  as category_order
-		from 	`child_category_cd`)
+				 child_category_order as category_order
+		from 	`child_category_cd`
+		order by child_category_order)
 		order by category_order
 	</select>
 	
@@ -105,7 +108,7 @@
 			 	 child_category_name as category_name,
 				 parent_category_no
 		from    `child_category_cd` 
-		order by category_no
+		order by child_category_order
 	</select>
 	
 	<!-- 상품 등록 중 카테고리 정보 등록 -->
@@ -142,6 +145,54 @@
 		delete from `product_category`
 		where product_no = ${productNo}
 	</delete>
+	
+	<!-- 부모 카테고리 순서 업데이트 -->
+<!--	<update id="updateParentCategory" parameterType="list"> 
+	  <foreach collection="list" item="item"> 
+	    UPDATE 	`parent_category_cd`
+	    SET		parent_category_order=${item.categoryOrder}
+	    WHERE 	parent_category_no=${item.categoryNo}
+	  </foreach> 
+	</update>-->
+	<update id="updateParentCategory"> 
+	    UPDATE 	`parent_category_cd`
+	    SET		 parent_category_order=${categoryOrder}
+	    WHERE 	 parent_category_no=${categoryNo}
+	</update>
+	
+	<!-- 부모 카테고리 신규 추가 -->
+	<insert id="insertParentCategory">
+		insert into `parent_category_cd`
+		values
+		<foreach collection="list" item="item" separator=",">
+		(
+			null,
+			#{item.categoryName},
+			${item.categoryOrder}
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 자식 카테고리 순서 업데이트 -->
+	<update id="updateChildCategory">
+		UPDATE 	`child_category_cd`
+	    SET		 child_category_order=${categoryOrder}
+	    WHERE 	 child_category_no=${categoryNo}
+	</update>
+	
+	<!-- 자식 카테고리 신규 추가 -->
+	<insert id="insertChildCategory">
+		insert into `child_category_cd`
+		values
+		<foreach collection="list" item="item" separator=",">
+		(
+			null,
+			#{item.categoryName},
+			${item.parentCategoryNo},
+			${item.categoryOrder}
+		)
+		</foreach>
+	</insert>
 	
 </mapper>
 

@@ -69,5 +69,10 @@ public interface CategoryService {
 	 */
 	int deleteProductCategory(long productNo);
 
-
+	/**
+	 * 카테고리 변경사항 업데이트
+	 * @param paramMap
+	 * @return result
+	 */
+	List<Category> categoryUpdate(Map<String, String[]> paramMap);
 }

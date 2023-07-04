@@ -76,5 +76,5 @@ public class AdminProductServiceImpl implements AdminProductService {
 
 		return result;
 	}
-	
+
 }

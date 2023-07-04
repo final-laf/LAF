@@ -34,8 +34,6 @@ public interface ProductMapper {
      */
     Product adminSelectProduct(Long productNo);
     
-    
-
     /**
      * 카테고리별 위클리 베스트 상품 목록 조회
      * @return weeklyBest
@@ -94,6 +92,13 @@ public interface ProductMapper {
 	 * @return count
 	 */
 	int getSearchListCount(Map<String, Object> paramMap);
+	
+	/**
+	 * 카테고리 별 상품 갯수 조회(관리자)
+	 * @param paramMap
+	 * @return count
+	 */
+	int adminGetListCount(Map<String, Object> paramMap);
 
 	/**
 	 * 키 목록으로 상품 목록 조회

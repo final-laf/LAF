@@ -2,13 +2,16 @@ package edu.kh.laf.admin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,6 +21,9 @@ import edu.kh.laf.main.model.service.MainService;
 import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.ProductImage;
 import edu.kh.laf.product.model.service.CategoryService;
+import edu.kh.laf.product.model.service.ProductService;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class AdminMainController {
@@ -26,11 +32,13 @@ public class AdminMainController {
 	private MainService service;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private ProductService productService;
 	
 	// 대쉬보드
 	@GetMapping("/admin")
 	public String admin() {
-		return "/admin/dashboard";
+		return "admin/dashboard";
 	}
 	
 	// 메인화면관리 : 배너관리
@@ -40,7 +48,7 @@ public class AdminMainController {
 		List<Banner> bannerList = service.selectBannerList();
 		model.addAttribute("bannerList", bannerList);
 		
-		return "/admin/adminMain/banner";
+		return "admin/adminMain/banner";
 	}
 	
 	@PostMapping("/admin/banner/update")
@@ -66,10 +74,41 @@ public class AdminMainController {
 	// 메인화면관리 : 카테고리
 	@GetMapping("/admin/category")
 	public String category(Model model) {
-		
 		model.addAttribute("categoryList", categoryService.selectAllCategoryList());
-		
-		return "/admin/adminMain/category";
+		return "admin/adminMain/category";
 	}
 	
+	// 카테고리 상품 갯수 조회(관리자)
+	@GetMapping("/admin/category/empty")
+	@ResponseBody
+	public int category(long pcno, long ccno) {
+		return productService.adminGetListCount(pcno, ccno);
+	}
+	
+	// 카테고리 변경사항 변경
+	@PostMapping("/admin/category/save")
+	public String updateCategory(
+			String[] categoryName, 
+			String[] categoryNo, 
+			String[] childCategoryName, 
+			String[] childCategoryNo, 
+			String[] parentCategoryNo,
+			HttpServletRequest request) {
+		
+		Map<String, String[]> map = new HashMap<>();
+		map.put("categoryName", categoryName);
+		map.put("categoryNo", categoryNo);
+		map.put("childCategoryName", childCategoryName);
+		map.put("childCategoryNo", childCategoryNo);
+		map.put("parentCategoryNo", parentCategoryNo);
+		
+		ServletContext application = request.getServletContext();
+		List<Category> category = categoryService.categoryUpdate(map);
+		application.setAttribute("category", category);
+		
+		
+		
+		return "redirect:/admin/category";
+	}
+
 }

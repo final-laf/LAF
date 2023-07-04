@@ -16,7 +16,7 @@
   <th:block th:replace="~{/admin/adminHeader}"></th:block>
   
   <main>
-    <section class="admin-container">
+    <form class="admin-container" th:action="@{/admin/category/save}" method="POST" id="categoryUpdateFrm">
       <div class="main-category">
         <div>
           <span class="main-category-title">메인 화면 관리</span>
@@ -26,22 +26,27 @@
           <div class="main-category-content-left">
             <div class="content-title">카테고리 현황( 1차 | 2차 )</div>
             <div class="category-item-list">
-              <ul>
+              <ul class="drag-container">
 
-                <!-- select-edit 클래스 추가 : 현재 수정중인 카테고리 -->
-                <li class="category-item" 
+                <!-- select-edit 클래스 : 현재 수정중인 카테고리 -->
+                <li class="category-item drag-item pc1-container" 
                   th:each="pc : ${categoryList}" 
                   th:if="${pc.parentCategoryNo == 0}"
-                  th:pcno="${pc.categoryNo}">
-                  <div class="category-first">
+                  th:pcno="${pc.categoryNo}"
+                  draggable="true">
+                  <div class="category-first pc1">
                     <span class="category-name" th:text="${pc.categoryName}">카테고리 이름</span>
                     <div class="remove-btn">&times;</div>
+                    <input type="hidden" name="categoryName" th:value="${pc.categoryName}">
+                    <input type="hidden" name="categoryNo" th:value="${pc.categoryNo}">
                   </div>
-                  <div class="category-second">
-                    <div th:each="cc : ${categoryList}" 
+                  <div class="category-second cc1-container">
+                    <div th:each="cc : ${categoryList}" class="cc1"
                       th:if="${pc.categoryNo == cc.parentCategoryNo}" th:ccno="${cc.categoryNo}">
                       <span class="category-name" th:text="${cc.categoryName}">자식카테고리 이름</span>
-                      <!-- <span class="remove-btn">&times;</span> -->
+                      <input type="hidden" name="childCategoryName" th:value="${cc.categoryName}">
+                      <input type="hidden" name="childCategoryNo" th:value="${cc.categoryNo}">
+                      <input type="hidden" name="parentCategoryNo" th:value="${cc.parentCategoryNo}">
                     </div>
                   </div>
                 </li>
@@ -56,22 +61,27 @@
             </div>
             <div class="first-content">
               <div class="content-subtitle">1차 카테고리</div>
-              <input type="text"><button id="parentCategorySubmitBtn">입력</button>
-              <div class="parent-category-container"></div>
+              <input type="text" id="pcInput">
+              <div class="pc2-container parent-category-container"></div>
             </div>
             <div class="second-content">
               <div class="content-subtitle">2차 카테고리</div>
-              <input type="text" disabled><button id="childCategorySubmitBtn">입력</button>
-              <div class="child-category-container"></div>
+              <input type="text" id="ccInput" disabled>
+              <div class="child-category-container drag-container cc2-container"></div>
             </div>
+
+            <!-- 카테고리 변경사항 서버로 전달 -->
             <div id="categoryModifyBtnContainer">
-              <button id="resetBtn">초기화</button>
-              <button id="submitBtn" class="submit">수정</button>
+              <!-- <input type="hidden" name="parentCategory"> -->
+              <!-- <input type="hidden" name="childCategory"> -->
+              <button id="resetBtn" type="reset">초기화</button>
+              <button id="submitBtn" type="button" class="submit">변경사항 저장</button>
             </div>
+
           </div>
         </div>
       </div>
-    </section>
+    </form>
   </main>
 
   <script th:src="@{/js/admin/adminMain/category.js}"></script>

@@ -109,4 +109,84 @@ public class CategoryServiceImpl implements CategoryService {
 	public int deleteProductCategory(long productNo) {
 		return mapper.deleteProductCategory(productNo);
 	}
+
+	// 카테고리 변경사항 업데이트
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public List<Category> categoryUpdate(Map<String, String[]> paramMap) {
+		
+		String[] categoryName = paramMap.get("categoryName");
+		String[] categoryNo = paramMap.get("categoryNo");
+		String[] childCategoryName = paramMap.get("childCategoryName");
+		String[] childCategoryNo = paramMap.get("childCategoryNo");
+		String[] parentCategoryNo = paramMap.get("parentCategoryNo");
+		
+		updateParentCategory(categoryName, categoryNo);
+		updateChildCategory(childCategoryName, childCategoryNo, parentCategoryNo);
+		
+		return mapper.selectNavCategoryList();
+	}
+	
+	// 부모 카테고리 업데이트 + 신규 추가
+	private boolean updateParentCategory(String[] categoryName, String[] categoryNo) {
+		
+		int result = 1;
+		
+		List<Category> updateParentList = new ArrayList<>();
+		List<Category> insertParentList = new ArrayList<>();
+		
+		for(int i=0; i<categoryName.length; i++) {
+			Category c = new Category();
+			
+			long no = Long.parseLong(categoryNo[i]);
+			c.setCategoryOrder(i);
+
+			if( no > 0 ) {
+				c.setCategoryNo(no);
+				updateParentList.add(c);
+			} else {
+				c.setCategoryName(categoryName[i]);
+				insertParentList.add(c);
+			}
+		}
+		
+		for(Category c :updateParentList)
+			result *= mapper.updateParentCategory(c);
+		if(insertParentList.size() > 0)
+			result *= mapper.insertParentCategory(insertParentList);
+		
+		return result > 0;
+	}
+	
+	// 자식 카테고리 업데이트 + 신규 추가
+	private boolean updateChildCategory(String[] categoryName, String[] categoryNo, String[] parentCategoryNo) {
+		
+		int result = 1;
+		
+		List<Category> updateChildList = new ArrayList<>();
+		List<Category> insertChildList = new ArrayList<>();
+		
+		for(int i=0; i<categoryName.length; i++) {
+			Category c = new Category();
+			
+			long no = Long.parseLong(categoryNo[i]);
+			c.setCategoryOrder(i);
+
+			if( no > 0 ) {
+				c.setCategoryNo(no);
+				updateChildList.add(c);
+			} else {
+				c.setCategoryName(categoryName[i]);
+				c.setParentCategoryNo(Long.parseLong(parentCategoryNo[i]));
+				insertChildList.add(c);
+			}
+		}
+		
+		for(Category c :updateChildList)
+			result *= mapper.updateChildCategory(c);
+		if(insertChildList.size() > 0)
+			result *= mapper.insertChildCategory(insertChildList);
+		
+		return result > 0;
+	}
 }
