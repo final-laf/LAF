@@ -90,6 +90,10 @@
 		<result property="imgPath" column="img_path" />
 	</resultMap>
 	
+	<!--상품 조회 목록 초기화-->
+	<delete id="cleanClickTable">
+		delete from `click`
+	</delete>
 	
 
 </mapper>

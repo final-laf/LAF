@@ -45,4 +45,9 @@ public interface MainService {
 	 */
 	List<Object> checkClick(Map<String, Object> map);
 
+	/**  상품 조회 목록 자정에 초기화
+	 * 
+	 */
+	void cleanClickTable();
+
 }

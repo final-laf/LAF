@@ -65,6 +65,11 @@ public interface MainMapper {
 	 */
 	List<Object> selectClickedProducts(Long memberNo);
 
+	/** 상품 조회 목록 자정에 초기화
+	 * 
+	 */
+	void cleanClickTable();
+
 
 
 }

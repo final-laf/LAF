@@ -112,4 +112,10 @@ public class MainServiceImpl implements MainService {
 		return clickedProducts;
 	}
 
+	// 상품 조회 목록 자정에 초기화
+	@Override
+	public void cleanClickTable() {
+		mapper.cleanClickTable();
+	}
+
 }
