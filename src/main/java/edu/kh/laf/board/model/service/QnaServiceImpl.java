@@ -7,12 +7,10 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.mapper.QnaMapper;
 import edu.kh.laf.common.utility.Pagination;
-import edu.kh.laf.product.model.dto.Product;
 
 @Service
 public class QnaServiceImpl implements QnaService {

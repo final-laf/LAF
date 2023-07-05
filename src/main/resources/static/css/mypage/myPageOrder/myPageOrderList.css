@@ -32,12 +32,58 @@ main {
 #orderFilter > * {
   margin: 0 5px;
 }
+
+#orderFilter {
+  width: 100%;
+}
+
+#orderFilter > div:nth-child(1) {
+  display: flex;
+  justify-content: center;
+  width: 10%;
+}
+
+#orderFilter > div:nth-child(1) > select{
+  width: 100%;
+}
+
+#orderFilter > div:nth-child(2) {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+#orderFilter > div:nth-child(3) {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+#orderFilter > div:nth-child(3) > input {
+  width: 200px;
+}
+
+#orderFilter > div:nth-child(4) {
+  width: 10%;
+}
+
+#orderFilter > div:nth-child(4) > button{
+  width: 120px;
+}
+
+
+#searchButtonArea {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
 #dateFilterBtn {
   display: flex;
-  margin-left: 30px;
+  margin-left: 0px;
 }
 #dateFilterBtn > li {
-  width: 60px;
+  width: 50px;
   height: 27px;
   
   background-color: #eee;
@@ -83,20 +129,20 @@ table tr {
 }
 .table-title {
   font-weight: bold;
-  margin: 15px 0 5px 0;
+  margin: 50px 0 5px 0;
 }
 /* 테이블 헤더 설정 */
 table tr:first-child {
   background-color: #fafafa;
   line-height: 120%;
   text-align: center;
+  height: 40px;
 }
-table tr:first-child > td {
-  padding: 8px 0;
-}
+
 table tr:last-child {
   border-bottom : 0.5px solid #eee;
 }
+
 table td {
   padding: 3px 0;
   
@@ -104,8 +150,15 @@ table td {
   align-items: center;
   justify-content: center;
 }
+
 table tr:not(:first-child) > td {
   height: 100px;
+}
+
+table tr:first-child > td {
+  padding: 0px;
+  vertical-align: middle;
+  line-height: 40px;
 }
 
 /* 버튼 컨테이너 설정 */

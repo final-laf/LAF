@@ -1,6 +1,5 @@
 package edu.kh.laf.board.model.service;
 
-import java.util.List;
 import java.util.Map;
 
 import edu.kh.laf.board.model.dto.Qna;

@@ -5,10 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
+@ToString
 public class Point {
 	private long pointNo;			// 적립번호
 	private long memberNo;			// 회원번호

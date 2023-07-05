@@ -18,7 +18,9 @@
       <th:block th:replace="~{/mypage/mypageSide}"></th:block>
       <!-- 마이페이지 중앙 대쉬보드 -->
       <div class="orderShipping-MyMain-Shipping">
-        <div class="orderShipping-myMain-text">배송지 관리</div>
+        <div class="section-header">
+          <div class="section-title">배송지 관리</div>
+        </div>
         <form action="/myPage/shipping/delete" method="post">
             <table class="shipping-list-table">
               <tr>
@@ -54,9 +56,9 @@
               <div>- 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</div>
             </div>
             <div class="orderShipping-Shipping-button">
-              <button>선택 주소록 삭제</button>
               <button type="button" id="openEnrollShippingModal">새로운 배송지 등록</button>
-          </div>
+              <button id="deleteShipping">선택 주소록 삭제</button>
+            </div>
           </div>
         </form>
     </section>

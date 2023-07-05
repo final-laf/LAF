@@ -19,4 +19,11 @@
 		AND authority_key = #{inputKey}
 	</select>
 	
+	<!-- 주문자 이메일 주소 조회 -->
+	<select id="selectSendEmail" resultType="Member">
+		select member_name, member_email
+		from `member`
+		where member_no = #{memberNo}
+	</select>
+	
 </mapper>

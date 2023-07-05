@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import edu.kh.laf.common.utility.Pagination;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.dto.Point;
-import edu.kh.laf.mypage.model.mapper.MypageMapper;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
 import edu.kh.laf.order.model.mapper.OrderMapper;
@@ -30,9 +28,6 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private OrderMapper mapper;
-	
-	@Autowired
-	private MypageMapper mapper2;
 	
 	// 주문자정보
 	@Override

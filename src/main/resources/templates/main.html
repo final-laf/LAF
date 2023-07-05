@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LAF</title>
 
-  <link rel="stylesheet" th:href="@{/css/main.css}">
-  <link rel="stylesheet" th:href="@{/css/shopping/productListItem.css}">
+  <link rel="stylesheet" th:href="@{css/main.css}">
+  <link rel="stylesheet" th:href="@{css/shopping/productListItem.css}">
 </head>
 <body>
   
-  <th:block th:replace="~{/common/header}"></th:block>
-  <th:block th:replace="~{/common/nav}"></th:block>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
   
   <!-- 메인 배너(슬라이드) -->
   <section class="slide_wrap">
@@ -20,7 +20,7 @@
       <ul class="slide_list clearfix">
         
         <li class="slide_content" th:each="banner : ${bannerList}">
-          <a th:href="@{/product/{productNo}(productNo = ${banner.productNo})}">
+          <a th:href="@{product/{productNo}(productNo = ${banner.productNo})}">
             <img class="main-banner-img" th:src="${banner.imgPath}">
           </a>
         </li>
@@ -29,18 +29,18 @@
     </div> <!-- slide_box -->
     
     <button class="slide_btn_prev" type="button">
-      <img th:src="@{/images/common/allowBtnLeft-white.svg}">
+      <img th:src="@{images/common/allowBtnLeft-white.svg}">
     </button>
     
     <button class="slide_btn_next" type="button">
-      <img th:src="@{/images/common/allowBtnRight-white.svg}">
+      <img th:src="@{images/common/allowBtnRight-white.svg}">
     </button>
     
     <!-- slide_pagination -->
     <ul class="slide_pagination"></ul>
 
     <!-- banner 슬라이드 관련 js -->
-    <script th:src="@{/js/main/banner.js}"></script>
+    <script th:src="@{js/main/banner.js}"></script>
   </section>
 
 
@@ -70,14 +70,14 @@
             <img th:src="@{/images/common/allowBtnLeft-666.svg}">
           </button>
           <button class="md-recommend-rbtn slide_btn_next_sub" type="button">
-            <img th:src="@{/images/common/allowBtnRight-666.svg}">
+            <img th:src="@{images/common/allowBtnRight-666.svg}">
           </button>
         </div>
       </div>
         <div class="slide_box_sub md-recommend-right">
           <ul class="slide_list_sub clearfix md-recommend-list">
             <li class="slide_content_sub" th:each="product : ${mdList}">
-              <th:block th:replace="~{/shopping/productListItem}"></th:block>
+              <th:block th:replace="~{shopping/productListItem}"></th:block>
             </li>
           </ul>
         </div>
@@ -102,7 +102,7 @@
       <!-- 상품목록 -->
       <div id="weeklyProductContainer">
         <div class="weekly-product" th:each="product : ${weeklyBest}">
-          <th:block th:replace="~{/shopping/productListItem}"></th:block>
+          <th:block th:replace="~{shopping/productListItem}"></th:block>
         </div>
       </div>
     </section>
@@ -114,15 +114,15 @@
       <div class="sub-section-content slide_wrap_sub-2">
         <ul class="sub-section-list slide_list_sub">
           <li class="slide_content_sub" th:each="product : ${newArrivals}">
-            <th:block th:replace="~{/shopping/productListItem}"></th:block>
+            <th:block th:replace="~{shopping/productListItem}"></th:block>
           </li>
         </ul>
 
         <button class="slide_btn_prev slide_btn_prev_sub" type="button">
-          <img th:src="@{/images/common/allowBtnLeft-white.svg}">
+          <img th:src="@{images/common/allowBtnLeft-white.svg}">
         </button>
         <button class="slide_btn_next slide_btn_next_sub" type="button">
-          <img th:src="@{/images/common/allowBtnRight-white.svg}">
+          <img th:src="@{images/common/allowBtnRight-white.svg}">
         </button>
 
       </div>
@@ -136,15 +136,15 @@
       <div class="sub-section-content slide_wrap_sub-2">
         <ul class="sub-section-list slide_list_sub">
           <li class="slide_content_sub" th:each="product : ${personalList}">
-            <th:block th:replace="~{/shopping/productListItem}"></th:block>
+            <th:block th:replace="~{shopping/productListItem}"></th:block>
           </li>
         </ul>
         
         <button class="slide_btn_prev slide_btn_prev_sub" type="button">
-          <img th:src="@{/images/common/allowBtnLeft-white.svg}">
+          <img th:src="@{images/common/allowBtnLeft-white.svg}">
         </button>
         <button class="slide_btn_next slide_btn_next_sub" type="button">
-          <img th:src="@{/images/common/allowBtnRight-white.svg}">
+          <img th:src="@{images/common/allowBtnRight-white.svg}">
         </button>
       </div>
       
@@ -152,9 +152,9 @@
 
   </main>
   
-  <th:block th:replace="~{/common/footer}"></th:block>
-  <script th:src="@{/js/main/main.js}"></script>
-  <script th:src="@{/js/main/MDslide.js}"></script>
-  <script th:src="@{/js/shopping/productListItem.js}"></script>
+  <th:block th:replace="~{common/footer}"></th:block>
+  <script th:src="@{js/main/main.js}"></script>
+  <script th:src="@{js/main/MDslide.js}"></script>
+  <script th:src="@{js/shopping/productListItem.js}"></script>
 </body>
 </html>

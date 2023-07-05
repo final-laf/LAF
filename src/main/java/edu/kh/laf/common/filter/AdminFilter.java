@@ -2,7 +2,6 @@ package edu.kh.laf.common.filter;
 
 import java.io.IOException;
 
-import edu.kh.laf.member.model.dto.Member;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

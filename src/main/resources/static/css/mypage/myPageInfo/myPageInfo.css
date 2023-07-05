@@ -12,7 +12,6 @@ input {
   justify-content: center;
 }
 .mypageSignUp-signUp-info{
-    margin-top: 50px;
     display: flex;
     width: 1000px;
 }
@@ -41,7 +40,7 @@ input {
     margin-bottom: 50px;
 }
 
-.mypageSignUp-signUpInfo-table th{
+.mypageSignUp-signUpInfo-table td:nth-child(1){
     padding-left: 10px;
     height: 30px;
     width: 150px;
@@ -51,6 +50,16 @@ input {
     border-right: 0.5px solid #eee;
     text-align: left;
 }
+
+#mypageSignUpSubmit > div:nth-child(3) > table > tbody > tr:nth-child(3) > td {
+  background-color: white;
+}
+
+#mypageSignUpSubmit > div:nth-child(3) > table > tbody > tr:nth-child(4) > td {
+  background-color: white;
+}
+
+
 .mypageSignUp-signUpInfo-table td{
     width: 1200px;
     padding-left: 10px;
@@ -137,7 +146,6 @@ input {
 }
 
 #mypageSignUpSubmitButton button {
-  border: none;
   height: 50px;
   width: 200px;
   margin: 10px;
@@ -160,8 +168,7 @@ input {
 
 
 /* 추가정보 각 행별 설정 */
-#mypageSignUpSubmit > div > div:nth-child(3) > table > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {
-  font-weight: bold;
+.modify-margin-bottom > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {
   width: 10%;
   background-color: #fafafa;
 }
@@ -172,7 +179,6 @@ input {
 
 .mypageSignUp-table-birth > td:nth-child(3) {
   width: 10%;
-  font-weight: bold;
   background-color: #fafafa;
 }
 
@@ -361,5 +367,17 @@ input {
   width: 70px;
 }
 
-.myPage-delete-btn-area>button:nth-child(1){background-color: #7f7698;}
-.myPage-delete-btn-area>button:nth-child(2){background-color: #ccc;}
+/* 취소버튼 */
+#cancelButton {
+  background-color: white;
+  border: 0.5px solid #ccc;
+}
+
+#cancelButton:hover {
+  background-color: #eee;
+}
+
+#signUpButton:hover {
+  background-color: #493e5d;
+}
+

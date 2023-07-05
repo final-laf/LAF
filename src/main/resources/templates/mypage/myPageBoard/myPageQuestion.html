@@ -21,42 +21,51 @@
         <!-- 마이페이지 중앙 대쉬보드 -->
         <div class="mypageQuestion-mainFrame-myMain">
           <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
-          <div class="mypageQuestion-myMain-text">1:1 문의 내역</div>
+          <div class="section-header">
+            <div class="section-title">1:1 문의 내역</div>
+          </div>
           <div class="mypageQuestion-MyMain-Question">
             <div>
-              분류 선택 
-              <select id="qnaCategoryList" name="category" onchange="categoryChange(this.value)">
-                <option th:selected="${categoryNo == '1'||categoryNo == '2'}" value="write">작성 일자별</option>
-                <option th:selected="${categoryNo == '3'||categoryNo == '4'}" value="answer">답변 유무별</option>
-                <option th:selected="${categoryNo == '5'||categoryNo == '6'||categoryNo == '7'}" value="question">질문 유형별</option>
-              </select>
-              <select th:style="${categoryNo=='1'||categoryNo=='2'} ? 'display:inline-block;' : 'display:none;'" name="questionWrite" id="questionWrite" onchange="this.form.submit()"> <!-- 작성 일자별 -->
-                <option disabled selected>-- 선택 --</option>
-                <option th:selected="${categoryNo=='1'}" value="1">최신 순</option>
-                <option th:selected="${categoryNo=='2'}" value="2">오래된 순</option>
-              </select>
-              <select th:style="${categoryNo=='3'||categoryNo=='4'} ? 'display:inline-block;' : 'display:none;'" name="questionAnswer" id="questionAnswer" onchange="this.form.submit()"> <!-- 답변 유무별 -->
-                <option disabled selected>-- 선택 --</option>
-                <option th:selected="${categoryNo=='3'}" value="3">답변된 순</option>
-                <option th:selected="${categoryNo=='4'}" value="4">답변 기다리는 순</option>
-              </select>
-              <select th:style="${categoryNo=='5'||categoryNo=='6'||categoryNo=='7'} ? 'display:inline-block;' : 'display:none;'" name="questionCategory" id="questionCategory" onchange="this.form.submit()"> <!-- 질문 유형별 -->
-                <option disabled selected>-- 선택 --</option>
-                <option th:selected="${categoryNo=='5'}" value="5">상품</option>
-                <option th:selected="${categoryNo=='6'}" value="6">배송</option>
-                <option th:selected="${categoryNo=='7'}" value="7">일반</option>
-              </select>
+              <div>분류 선택 </div>
+              <div>
+                <select id="qnaCategoryList" name="category" onchange="categoryChange(this.value)">
+                  <option th:selected="${categoryNo == '1'||categoryNo == '2'}" value="write">작성 일자별</option>
+                  <option th:selected="${categoryNo == '3'||categoryNo == '4'}" value="answer">답변 유무별</option>
+                  <option th:selected="${categoryNo == '5'||categoryNo == '6'||categoryNo == '7'}" value="question">질문 유형별</option>
+                </select>
+                <select th:style="${categoryNo=='1'||categoryNo=='2'} ? 'display:inline-block;' : 'display:none;'" name="questionWrite" id="questionWrite" onchange="this.form.submit()"> <!-- 작성 일자별 -->
+                  <option disabled selected>-- 선택 --</option>
+                  <option th:selected="${categoryNo=='1'}" value="1">최신 순</option>
+                  <option th:selected="${categoryNo=='2'}" value="2">오래된 순</option>
+                </select>
+                <select th:style="${categoryNo=='3'||categoryNo=='4'} ? 'display:inline-block;' : 'display:none;'" name="questionAnswer" id="questionAnswer" onchange="this.form.submit()"> <!-- 답변 유무별 -->
+                  <option disabled selected>-- 선택 --</option>
+                  <option th:selected="${categoryNo=='3'}" value="3">답변된 순</option>
+                  <option th:selected="${categoryNo=='4'}" value="4">답변 기다리는 순</option>
+                </select>
+                <select th:style="${categoryNo=='5'||categoryNo=='6'||categoryNo=='7'} ? 'display:inline-block;' : 'display:none;'" name="questionCategory" id="questionCategory" onchange="this.form.submit()"> <!-- 질문 유형별 -->
+                  <option disabled selected>-- 선택 --</option>
+                  <option th:selected="${categoryNo=='5'}" value="5">상품</option>
+                  <option th:selected="${categoryNo=='6'}" value="6">배송</option>
+                  <option th:selected="${categoryNo=='7'}" value="7">일반</option>
+                </select>
+              </div>
             </div>
             <table id="mypageQuestionRecent">
               <tr>
-                <th width="60px">번호</th>
-                <th width="180px">분류</th>
-                <th width="530px">제목</th>
-                <th width="100px">작성자</th>
-                <th width="100px">작성일</th>
+                <td width="60px">번호</td>
+                <td width="180px">분류</td>
+                <td width="530px">제목</td>
+                <td width="100px">작성자</td>
+                <td width="100px">작성일</td>
               </tr>
+              <!-- 문의내역이 존재하지 않는다면 -->
+              <tr th:if="${#lists.size(qnaList) == 0}">
+                <td colspan="5" class="question-is-not-exists">문의 내역이 존재하지 않습니다.</td>
+              </tr>
+              <!-- 문의내역이 존재한다면 -->
               <!-- 항목 추가 -->
-              <div th:each="q,index:${qnaList}" >
+              <div th:unless="${#lists.size(qnaList) == 0}" th:each="q,index:${qnaList}" >
                 <tr class="mypageQuestion-Question-list" th:value="${q.qnaNo}">
                   <td th:text="${index.index+1}">번호</td>
                   <td th:text="${q.qnaCategory}">배송카테고리</td>
@@ -106,13 +115,13 @@
               <ul th:unless="${param.query}" class="pagination">
                 <!-- 첫 페이지로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
+                  <a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/first-page.svg}">
                   </a>
                 </li>
                 <!-- 이전 목록 마지막 번호로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
+                  <a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/prev-page.svg}">
                   </a>
                 </li>
@@ -124,18 +133,18 @@
                       <a class="current" th:text="${i}">현재페이지</a>
                     </li>
                     <li th:unless="${i == pagination.currentPage}">
-                      <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}" th:text="${i}">다른페이지</a>
+                      <a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}" th:text="${i}">다른페이지</a>
                     </li>
                 </th:block>
                 <!-- 다음 목록 시작 번호로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
+                  <a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/next-page.svg}">
                   </a>
                 </li>
                 <!-- 끝 페이지로 이동 -->
                 <li>
-                  <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
+                  <a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">
                     <img th:src="@{/images/common/paging/last-page.svg}">
                   </a>
                 </li>
@@ -144,9 +153,9 @@
               <!-- 검색 O인 경우의 페이지네이션 -->
               <ul th:if="${param.query}" class="pagination">
                 <!-- 첫 페이지로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1,category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;&lt;</a></li>
+                <li><a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=1,category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;&lt;</a></li>
                 <!-- 이전 목록 마지막 번호로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;</a></li>
+                <li><a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.prevPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&lt;</a></li>
                 <!-- #numbers.sequence(시작, 끝 [,step]) -->
                 <!-- 특정 페이지로 이동 -->
                 <th:block th:each="i : ${#numbers.sequence(pagination.startPage, pagination.endPage, 1)}">
@@ -154,15 +163,15 @@
                   <li th:if="${i == pagination.currentPage}"><a class="current" th:text="${i}">현재 페이지</a></li>
                   <!-- 현재 페이지를 제외한 나머지 -->
                   <li th:unless="${i == pagination.currentPage}">
-                    <a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}" th:text="${i}">현재 페이지</a>
+                    <a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${i}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}" th:text="${i}">현재 페이지</a>
                   </li>
                 </th:block>
 
                 <!-- 다음 목록 시작 번호로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&gt;</a></li>
+                <li><a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.nextPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&gt;</a></li>
 
                 <!-- 끝 페이지로 이동 -->
-                <li><a th:href="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&gt;&gt;</a></li>
+                <li><a th:href="@{myPage/qna/{categoryNo}(categoryNo=${categoryNo}, cp=${pagination.maxPage}, category=${param.category}, questionWrite=${param.questionWrite}, questionAnswer=${param.questionAnswer}, questionCategory=${param.questionCategory}, key=${param.key}, query=${param.query})}">&gt;&gt;</a></li>
               </ul>
             </div>
             <!-- 검색창 -->

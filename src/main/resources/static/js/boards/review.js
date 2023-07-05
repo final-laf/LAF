@@ -39,7 +39,7 @@ for(let review of reviewDetail) {
       modal.style.display = "flex";
       document.body.style.overflowY = "hidden";
   
-      for (let i = 0; i < 5; i++) {
+      for (let i = 1; i < 5; i++) {
         document.getElementsByClassName("Detailpreview")[i].style.display= "none";
       }
       document.getElementById("reviewDetailModalStar").value="";
@@ -65,8 +65,8 @@ for(let review of reviewDetail) {
         if (b.reviewNo==review.reviewNo) {
           console.log("이미 베스트 리뷰")
           document.getElementById("bestReview").style.display = "none";
+          document.getElementById("reviewDetailModalName").innerHTML="[★--BEST REVIEW--★] <br>"+review.memberName;
         }
-
       }
       const login = document.getElementById("reviewDetailModalMemberId").getAttribute("value");
       if(login!=review.memberNo){
@@ -87,7 +87,7 @@ for(let review of reviewDetail) {
         }
       }
       if(review.reviewImg.length==0){
-        for (let index = 0; index < 5; index++) {
+        for (let index = 1; index < 5; index++) {
           document.getElementsByClassName("Detailpreview")[index].style.display = "none";
         }
       }

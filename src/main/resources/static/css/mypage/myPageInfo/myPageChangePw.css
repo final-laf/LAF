@@ -12,7 +12,6 @@ input {
   justify-content: center;
 }
 .mypageSignUp-signUp-info{
-    margin-top: 50px;
     display: flex;
     width: 1000px;
 }
@@ -41,10 +40,10 @@ input {
     margin-bottom: 50px;
 }
 
-.mypageSignUp-signUpInfo-table th{
+.mypageSignUp-signUpInfo-table td:first-child{
     padding-left: 10px;
     height: 30px;
-    width: 150px;
+    width: 200px;
     background-color: #fafafa;
     border-top: 0.5px solid #eee;
     border-bottom: 0.5px solid #eee;
@@ -91,7 +90,6 @@ input {
 }
 
 #mypageSignUpSubmitButton button {
-  border: none;
   height: 50px;
   width: 200px;
   margin: 10px;
@@ -99,7 +97,6 @@ input {
 
 #signUpButton {
   background-color: #7F7698;
-  font-weight: bold;
 }
 
 #cancelButton {
@@ -143,3 +140,21 @@ input {
   display: flex;
   justify-content: end;
 }
+
+#cancelButton {
+  background-color: white;
+  border: 0.5px solid #ccc;
+}
+
+#signUpButton {
+  color: white;
+}
+
+#cancelButton:hover {
+  background-color: #eee;
+}
+
+#signUpButton:hover {
+  background-color: #493e5d;
+}
+

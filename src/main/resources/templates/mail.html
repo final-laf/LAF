@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>email</title>
+  <style>
+    table{
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+    }
+    td{
+      border: 1px solid #ccc;
+      padding: 3px;
+      text-align: center;
+    }
+    h4{
+      color: #ccc;
+    }
+    p{
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <section style="width: 600px; background-color: #ccc; padding: 20px;">
+    <div style="background-color: white; padding: 20px; font-size: 12px;">
+      <div style="display: flex; justify-content: center; padding: 30px;">
+        <img style="width: 100%;" src="cid:logo" alt="로고">
+      </div>
+      <div>
+        <h2><span th:text="${emailData.order.paymentName}"></span> 님의 주문내역</h2>
+      </div>
+      <h4>주문 / 결제 사항</h4>
+      <table>
+        <tr>
+          <td style="width: 70px; background-color: #eee">주문번호</td>
+          <td th:text="${emailData.order.orderUno}">주문번호</td>
+          <td style="width: 70px; background-color: #eee">총 주문금액</td>
+          <td th:text="${#numbers.formatInteger(emailData.order.orderTotalPrice, 3, 'COMMA')} + '원'">총 주문금액</td>
+        </tr>
+        <tr>
+          <td style="width: 70px; background-color: #eee">주문일자</td>
+          <td th:text="${emailData.order.orderDate}">주문일자</td>
+          <td style="width: 70px; background-color: #eee">총 결제금액</td>
+          <td th:text="${#numbers.formatInteger(emailData.order.orderPayment, 3, 'COMMA')} + '원'">총 결제금액</td>
+        </tr>
+      </table>
+      <h4>주문 상품 정보</h4>
+      <table>
+        <tr  style="background-color: #eee">
+          <td>상품명</td>
+          <td style="width: 90px;">옵션</td>
+          <td style="width: 50px;">수량</td>
+        </tr>
+        <tr th:each="odp : ${emailData.odpList}">
+          <td th:text="${odp.product.productName}">상품명</td>
+          <td>
+            <span th:text="${odp.option.color}">옵션</span>
+            <span th:if="${odp.option.size != null}" th:text="' ' +${odp.option.size}"></span>
+          </td>
+          <td th:text="${odp.count}">수량</td>
+        </tr>
+      </table>
+      <h4>배송지 정보</h4>
+      <table>
+        <tr>
+          <td style="width: 70px; background-color: #eee">받으시는분</td>
+          <td style="text-align: start;" th:text="${emailData.order.orderRecvName}">받는사람 이름</td>
+        </tr>
+        <tr>
+          <td style="width: 70px; background-color: #eee">주소</td>
+          <td style="text-align: start;" th:text="${emailData.order.orderRecvAdd}">주소</td>
+        </tr>
+        <tr>
+          <td style="width: 70px; background-color: #eee">휴대전화</td>
+          <td style="text-align: start;" th:text="${emailData.order.orderRecvPhone}">전화번호</td>
+        </tr>
+        <tr>
+          <td style="width: 70px; background-color: #eee">요청사항</td>
+          <td style="text-align: start;" th:text="${emailData.order.orderRecvRequire} ? ${emailData.order.orderRecvRequire} : '없음'">요청사항</td>
+        </tr>
+      </table>
+      
+      <br>
+      <p style="font-size: 10px;">
+        ※ 로스트파운드는 고객님의 개인정보를 소중히 여기고 관련 법규를 준수하지 않고 안전하게 보호하고 있지않습니다.
+      </p>
+    </div>
+    <div style="background-color: #7F7698; color: white; font-size: 10px; padding: 20px;">
+      <h3 style="font-size: 15px;">Lost & Found</h3>
+      <div>
+        <p>(주)로스트파운드 | 주소 : 서울특별시 중구 남대문로 120 그레이츠 청계(구 대일빌딩) 2F </p>
+        <p>KM-academy | FINAL-PROJECT | 제작기간 2023.05.29 ~ 2023.07.07</p>
+        <p>IGEOSAJO | 장반석 | 최유나 | 김자민 | 권재웅</p><br>
+      </div>
+      <div>
+        <p>개인정보보호책임자:로스트파운드 [ LAF_IGEOSAJO.github.com ]</p>
+        <p>브랜드소개 | 이용약관 | 이용안내 | 공정거래위원회 | 개인정보처리방침</p>
+        <p>&copy;로스트파운드. ALL RIGHTS RESERVED. designed by IGEOSAJO.</p>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

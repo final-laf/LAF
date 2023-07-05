@@ -206,9 +206,14 @@ values (null
 	
 	select member_no 
 	from `member` 
-	where member_grade = 'G'
-	and MEMBER_DEL_FL = 'N'
-;
+	where member_grade = 'G';
+	
+
+	
+	delete from `click`;
+
+select * from `click`;
+rollback;
 
 
 

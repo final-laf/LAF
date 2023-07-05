@@ -25,29 +25,33 @@
 
       <!-- 주문조회 필터링 -->
       <form action="/myPage/order" method="get" id="orderFilter">
-        <select name="os" id="orderStateSelect">
-          <option value="">전체</option>
-          <option value="A">주문접수</option>
-          <option value="B">결제확인</option>
-          <option value="C">상품준비중</option>
-          <option value="D">출고완료</option>
-          <option value="E">배송중</option>
-          <option value="F">배송완료</option>
-          <option value="G">취소중</option>
-          <option value="H">취소완료</option>
-          <option value="I">교환중</option>
-          <option value="J">교환완료</option>
-          <option value="K">반품중</option>
-          <option value="L">반품완료</option>
-        </select>
+        <div>
+          <select name="os" id="orderStateSelect">
+            <option value="">전체</option>
+            <option value="A">주문접수</option>
+            <option value="B">결제확인</option>
+            <option value="C">상품준비중</option>
+            <option value="D">출고완료</option>
+            <option value="E">배송중</option>
+            <option value="F">배송완료</option>
+            <option value="G">취소중</option>
+            <option value="H">취소완료</option>
+            <option value="I">교환중</option>
+            <option value="J">교환완료</option>
+            <option value="K">반품중</option>
+            <option value="L">반품완료</option>
+          </select>
+        </div>
 
-        <ul id="dateFilterBtn">
-          <li>오늘</li>
-          <li>1주일</li>
-          <li>1개월</li>
-          <li>3개월</li>
-          <li>6개월</li>
-        </ul>
+        <div>
+          <ul id="dateFilterBtn">
+            <li>오늘</li>
+            <li>1주일</li>
+            <li>1개월</li>
+            <li>3개월</li>
+            <li>6개월</li>
+          </ul>
+        </div>
 
         <div id="dateFilter">
           <input th:unless="${sd != '3'}" type="date" name="sd">
@@ -56,8 +60,10 @@
           <input th:unless="${ed}" type="date" name="ed">
           <input th:if="${ed}" type="date" name="ed" th:value="${ed}">
         </div>
-
-        <button class="submit">조회</button>
+        
+        <div id="searchButtonArea">
+          <button class="submit">조회</button>
+        </div>
       </form>
 
       <div id="orderFilterInfo">

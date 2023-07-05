@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.kh.laf.member.model.dto.Member;
+
 @Mapper
 public interface EmailMapper {
 
@@ -24,5 +26,11 @@ public interface EmailMapper {
 	 * @return int 1(인증) 0(인증 안 됨)
 	 */
 	public int checkAuthKey(Map<String, Object> paramMap);
+	
+	/** 주문자 이메일 주소 조회
+	 * @param memberNo 
+	 * @return
+	 */
+	Member selectSendEmail(long memberNo);
 	
 }

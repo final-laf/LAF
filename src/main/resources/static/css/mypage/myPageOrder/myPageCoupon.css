@@ -7,7 +7,7 @@
 .mypageCoupon-dashFrame-myMain{
     height: 482px;
     width: 1020px;
-    margin: 80px 0 0 30px;
+    padding-left: 50px;
 }
 
 .mypageCoupon-myMain-text{
@@ -28,14 +28,8 @@
     display: flex;
 }
 
-.mypageCoupon-coupon-detail th{
-    background-color: #fafafa;
-    border: 1px solid #eee;
-    font-size: 12px;
-}
-
 .mypageCoupon-coupon-detail tr{
-    border: 1px solid #eee;
+    border-bottom: 0.5px solid #eee;
     height: 40px;
 }
 
@@ -64,6 +58,11 @@
     font-weight: bold;
 }
 
+.mypageCoupon-coupon-detail tr:nth-child(1){
+    text-align: center;
+    background-color: #fafafa;
+}
+
 /* 각 열 속성 */
 .mypageCoupon-detail-list td:nth-child(1) {
     width: 5%;
@@ -71,7 +70,6 @@
 
 .mypageCoupon-detail-list td:nth-child(2) {
     width: 30%;
-    text-align: left;
     padding-left: 10px;
 }
 

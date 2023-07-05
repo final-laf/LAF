@@ -17,7 +17,7 @@
     <!-- 사용자 리뷰 게시글 하나하나 -->
     <div class="reviews-item" th:each="r:${reviewList}">
       <input type="hidden" th:text="${session.memberNo}">
-      <a th:href="${'/product/'+r.productNo}">
+      <a th:href="${'product/'+r.productNo}">
         <div class="reviews-item-product">
           <img th:each="img, status:${r.reviewImg}" th:if="${status.first && r.reviewImg.size()!=0}" th:src="${img.reviewPath}">
           <img th:if="${r.reviewImg.size()==0}" src="/images/common/no-image.png">
@@ -58,13 +58,13 @@
       <ul th:unless="${param.query}" class="pagination">
         <!-- 첫 페이지로 이동 -->
         <li>
-          <a th:href="@{/product/{productNo}#productReivew(productNo=${product.productNo},(cp=1))}">
+          <a th:href="@{product/{productNo}#productReivew(productNo=${product.productNo},(cp=1))}">
             <img th:src="@{/images/common/paging/first-page.svg}">
           </a>
         </li>
         <!-- 이전 목록 마지막 번호로 이동 -->
         <li>
-          <a th:href="@{/product/{productNo}#productReivew(productNo=${product.productNo},(cp=${pagination.prevPage}))}">
+          <a th:href="@{product/{productNo}#productReivew(productNo=${product.productNo},(cp=${pagination.prevPage}))}">
             <img th:src="@{/images/common/paging/prev-page.svg}">
           </a>
         </li>
@@ -76,18 +76,18 @@
                 <a class="current" th:text="${i}">현재페이지</a>
             </li>
             <li th:unless="${i == pagination.currentPage}">
-                <a th:href="@{/product/{productNo}#productReivew(productNo=${product.productNo},(cp=${i}))}" th:text="${i}">현재페이지</a>
+                <a th:href="@{product/{productNo}#productReivew(productNo=${product.productNo},(cp=${i}))}" th:text="${i}">현재페이지</a>
             </li>
         </th:block>
         <!-- 다음 목록 시작 번호로 이동 -->
         <li>
-          <a th:href="@{/product/{productNo}#productReivew(productNo=${product.productNo},(cp=${pagination.nextPage}))}">
+          <a th:href="@{product/{productNo}#productReivew(productNo=${product.productNo},(cp=${pagination.nextPage}))}">
             <img th:src="@{/images/common/paging/next-page.svg}">
           </a>
         </li>
         <!-- 끝 페이지로 이동 -->
         <li>
-          <a th:href="@{/product/{productNo}#productReivew(productNo=${product.productNo},(cp=${pagination.maxPage}))}">
+          <a th:href="@{product/{productNo}#productReivew(productNo=${product.productNo},(cp=${pagination.maxPage}))}">
             <img th:src="@{/images/common/paging/last-page.svg}">
           </a>
         </li>
@@ -99,13 +99,13 @@
       <ul th:unless="${param.query}" class="pagination">
         <!-- 첫 페이지로 이동 -->
         <li>
-          <a th:href="@{/review(cp=1)}">
+          <a th:href="@{review(cp=1)}">
             <img th:src="@{/images/common/paging/first-page.svg}">
           </a>
         </li>
         <!-- 이전 목록 마지막 번호로 이동 -->
         <li>
-          <a th:href="@{/review(cp=${pagination.prevPage})}">
+          <a th:href="@{review(cp=${pagination.prevPage})}">
             <img th:src="@{/images/common/paging/prev-page.svg}">
           </a>
         </li>
@@ -117,18 +117,18 @@
                 <a class="current" th:text="${i}">현재페이지</a>
             </li>
             <li th:unless="${i == pagination.currentPage}">
-                <a th:href="@{/review(cp=${i})}" th:text="${i}">현재페이지</a>
+                <a th:href="@{review(cp=${i})}" th:text="${i}">현재페이지</a>
             </li>
         </th:block>
         <!-- 다음 목록 시작 번호로 이동 -->
         <li>
-          <a th:href="@{/review(cp=${pagination.nextPage})}">
+          <a th:href="@{review(cp=${pagination.nextPage})}">
             <img th:src="@{/images/common/paging/next-page.svg}">
           </a>
         </li>
         <!-- 끝 페이지로 이동 -->
         <li>
-          <a th:href="@{/review(cp=${pagination.maxPage})}">
+          <a th:href="@{review(cp=${pagination.maxPage})}">
             <img th:src="@{/images/common/paging/last-page.svg}">
           </a>
         </li>

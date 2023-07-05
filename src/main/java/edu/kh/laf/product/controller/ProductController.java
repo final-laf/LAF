@@ -19,15 +19,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.service.ReviewService;
+import edu.kh.laf.main.model.service.MainService;
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
-import edu.kh.laf.product.model.dto.Category;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
 import edu.kh.laf.product.model.dto.ProductImage;
 import edu.kh.laf.product.model.service.CategoryService;
 import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes({"loginMember", "likeList"})
@@ -43,6 +44,8 @@ public class ProductController {
 	private ReviewService reviewService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private MainService mainService;
 	
 	// 카테고리 상품목록 조회
 	@GetMapping("/{category:[0-9]+}")
@@ -79,7 +82,8 @@ public class ProductController {
 			@PathVariable("productNo")long productNo,
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 			RedirectAttributes ra,
-			Model model) {
+			Model model,
+			HttpSession session) {
 		
 		// 상품정보 조회
 		Product product = productService.selectProduct(productNo);
@@ -104,12 +108,15 @@ public class ProductController {
 		List<ProductImage> productImageList = productService.selectProductImage(productNo);
 		model.addAttribute("productImageList", productImageList);
 		
-		// 회원인 경우 찜 여부 확인
+		// 회원인 경우 찜 여부 확인, 조회 목록에 추가
 		if(loginMember != null) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("productNo", productNo);
 			map.put("memberNo", loginMember.getMemberNo());
 			model.addAttribute("checkLike", likeServcie.checkLike(map));
+			
+			List<Object> clickedProducts = mainService.checkClick(map);
+			session.setAttribute("clickedProducts", clickedProducts);
 		}
 		
 		// 리뷰 내역 조회

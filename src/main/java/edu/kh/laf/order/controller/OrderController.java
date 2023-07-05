@@ -1,5 +1,6 @@
 package edu.kh.laf.order.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import edu.kh.laf.member.model.dto.Address;
 import edu.kh.laf.member.model.dto.Coupon;
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.service.EmailService;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.dto.OrderProduct;
@@ -39,6 +41,9 @@ public class OrderController {
 	
 	@Autowired
 	private CartService service3; // 장바구니삭제
+	
+    @Autowired
+    private EmailService service4;
 
 	// 주문정보 입력 페이지
 	@GetMapping("/order")
@@ -163,17 +168,23 @@ public class OrderController {
 	public String detail(@PathVariable int no, Model model,
 						@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
+		// 주문내역 이메일정보
+		Map<String, Object> emailData = new HashMap<>();
+		
 		// 주문한 내역조회
 		Order order = service.selectOrder(no);
+		emailData.put("order", order);
 		model.addAttribute("order",order);
 		
 		// 주문한 상품목록조회
 		List<OrderProduct> odpList = service.selectOrderDetailProductList(no);
+		emailData.put("odpList", odpList);
 		model.addAttribute("odpList",odpList);
 		
 		// 상품 할인액 계산
 		int productDc = service.productDc(odpList);
 		if(productDc > 0) {
+			emailData.put("productDc", productDc);
 			model.addAttribute("productDc",productDc);
 		}
 		
@@ -184,9 +195,14 @@ public class OrderController {
 			long pointUseNo = order.getPointNoUse();
 			if((couponNo + pointGainNo + pointUseNo) != 0 ) {
 				Map<String, String> dc = service.selectDiscount(couponNo,pointGainNo,pointUseNo);
+				emailData.put("dc", dc);
 				model.addAttribute("dc",dc);
 			}
 		}
+		
+		// 주문내역 이메일전송
+		String resultEmail = service4.sendOrderEmail(emailData);
+		model.addAttribute("resultEmail",resultEmail);
 		
 		return "/order/orderDetail";
 	}

@@ -3,11 +3,13 @@ package edu.kh.laf.main.model.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.laf.common.utility.S3Uploader;
@@ -90,6 +92,30 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<String> selectImagePathList() {
 		return mapper.selectImagePathList();
+	}
+	
+	// 조회 목록 누적
+	@Transactional(rollbackFor = { Exception.class })
+	@Override
+	public List<Object> checkClick(Map<String, Object> map) {
+		// 조회 목록에 해당 상품이 있는지 확인
+		int result = mapper.checkClickedProduct(map);
+		// 있으면 기존 기록 삭제
+		if(result > 0) {
+			mapper.deleteClickedProduct(map);
+		}
+		// 조회 목록 누적
+		mapper.insertClick(map);
+		// 최근 조회한 상품 3개 clickedProducts로 반환
+		Long memberNo = (Long) map.get("memberNo");
+		List<Object> clickedProducts = mapper.selectClickedProducts(memberNo);
+		return clickedProducts;
+	}
+
+	// 상품 조회 목록 자정에 초기화
+	@Override
+	public void cleanClickTable() {
+		mapper.cleanClickTable();
 	}
 
 }

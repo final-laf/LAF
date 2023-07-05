@@ -4,11 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.mapper.EmailMapper;
+import edu.kh.laf.order.model.dto.Order;
 import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -16,6 +22,8 @@ import jakarta.mail.internet.MimeMessage;
 @Service
 public class EmailServiceImpl implements EmailService {
 	
+		@Autowired
+		private SpringTemplateEngine templateEngine;
 	
 		@Autowired
 	    private EmailMapper mapper;
@@ -103,6 +111,72 @@ public class EmailServiceImpl implements EmailService {
 			return mapper.checkAuthKey(paramMap);
 		}      
 		
-	
+		
+		
+		@Override
+		public String sendOrderEmail(Map<String, Object> emailData) {
+			
+			Order order = (Order)emailData.get("order");
+			
+			// 제목
+			String subject = "[LAF] " + order.getOrderDate().substring(0,10) + " 주문내역 "+ order.getOrderUno();
+
+			// 주문자 정보 조회 - 이메일 받는사람
+			Member orderMember = mapper.selectSendEmail(order.getMemberNo());
+			
+			// 주문자 이름 세팅
+			order.setPaymentName(orderMember.getMemberName());
+			
+            // 주문자 이메일
+			String sendEmail = orderMember.getMemberEmail();
+
+			// 받는 사람 주소 세팅
+			order.setOrderRecvAdd(order.getOrderRecvAdd().replace("^^^", " "));
+			
+			// 받는 사람 전화번호 세팅
+			StringBuilder recvTel = new StringBuilder();
+			recvTel.append(order.getOrderRecvPhone().substring(0, 3));
+	        recvTel.append("-");
+	        recvTel.append(order.getOrderRecvPhone().substring(3, 7));
+	        recvTel.append("-");
+	        recvTel.append(order.getOrderRecvPhone().substring(7));
+			
+			order.setOrderRecvPhone(recvTel.toString());
+			
+			// 내용 - 템플릿에 전달할 데이터
+			Context context = new Context();
+			context.setVariable("emailData", emailData);
+			
+			 try {
+	            //인증메일 보내기
+	            MimeMessage mail = mailSender.createMimeMessage();
+	            MimeMessageHelper mailhelper = new MimeMessageHelper(mail, true, "UTF-8");
+	            
+	            //메일 제목 설정
+	            mailhelper.setSubject(subject);
+	     
+	            // 송신자(보내는 사람) 지정
+	            mailhelper.setFrom("lostandfoundff@gmail.com");
+
+	            //수신자 설정
+//	            mailhelper.setTo(sendEmail);
+	            mailhelper.setTo("kjaew77@gmail.com");
+	            
+	            // 내용설정
+	            String html = templateEngine.process("mail", context);
+	            mailhelper.setText(html, true);
+	            
+	            // 로고이미지 cid로 삽입
+	            mailhelper.addInline("logo", new ClassPathResource("/static/images/logo.png"));
+	            
+	            mailSender.send(mail);
+	            return "주문내역 이메일 전송 성공";
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return "주문내역 이메일 전송 실패";
+	        }
+		
+		}
+		
 
 }

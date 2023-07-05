@@ -1,8 +1,14 @@
 package edu.kh.laf.member.model.dto;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Member {
     private Long memberNo;				// 회원번호
     private String memberId;			// 회원아이디
