@@ -51,6 +51,7 @@ public class CartController {
 			return "redirect:/cart2";
 		
 		List<Cart> cartList = cartService.selectCart(loginMember.getMemberNo());
+		List<Product> recommandList = productService.selectPersonalProductList(loginMember.getMemberNo());
 		List<Product> productList = new ArrayList<>(); 
 		List<Option> optionList = new ArrayList<>();
 		
@@ -63,6 +64,7 @@ public class CartController {
 		model.addAttribute("productList", productList);
 		model.addAttribute("optionList", optionList);
 		model.addAttribute("cartList", cartList);
+		model.addAttribute("recommandList", recommandList);
 		return "/shopping/cart";
 	}
 	
@@ -104,7 +106,9 @@ public class CartController {
 			}
 		}
 		
+		List<Product> recommandList = productService.selectRecommandProductList(productList);
 		model.addAttribute("productList", productList);
+		model.addAttribute("recommandList", recommandList);
 		model.addAttribute("optionList", optionList);
 		model.addAttribute("cartList", cartList);
 		

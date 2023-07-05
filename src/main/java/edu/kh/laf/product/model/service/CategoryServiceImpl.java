@@ -109,4 +109,107 @@ public class CategoryServiceImpl implements CategoryService {
 	public int deleteProductCategory(long productNo) {
 		return mapper.deleteProductCategory(productNo);
 	}
+
+	// 카테고리 순서 업데이트
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public boolean categoryUpdate(Map<String, String[]> paramMap) {
+		
+		String[] categoryName = paramMap.get("categoryName");
+		String[] categoryNo = paramMap.get("categoryNo");
+		String[] childCategoryName = paramMap.get("childCategoryName");
+		String[] childCategoryNo = paramMap.get("childCategoryNo");
+		String[] parentCategoryNo = paramMap.get("parentCategoryNo");
+		
+		int result = updateParentCategory(categoryName, categoryNo);
+		result *= updateChildCategory(childCategoryName, childCategoryNo, parentCategoryNo);
+		
+		return result > 0;
+	}
+	
+	// 부모 카테고리 순서 업데이트
+	private int updateParentCategory(String[] categoryName, String[] categoryNo) {
+		
+		int result = 1;
+		
+		List<Category> updateParentList = new ArrayList<>();
+		for(int i=0; i<categoryName.length; i++) {
+			Category c = new Category();
+			c.setCategoryNo(Long.parseLong(categoryNo[i]));
+			c.setCategoryOrder(i);
+			updateParentList.add(c);
+		}
+		
+		for(Category c :updateParentList)
+			result *= mapper.updateParentCategory(c);
+		
+		return result;
+	}
+	
+	// 자식 카테고리 업데이트 + 신규 추가
+	private int updateChildCategory(String[] categoryName, String[] categoryNo, String[] parentCategoryNo) {
+		
+		int result = 1;
+		
+		List<Category> updateChildList = new ArrayList<>();
+//		List<Category> insertChildList = new ArrayList<>();
+		
+		for(int i=0; i<categoryName.length; i++) {
+			Category c = new Category();
+			
+			long no = Long.parseLong(categoryNo[i]);
+			c.setCategoryOrder(i);
+
+//			if( no > 0 ) {
+				c.setCategoryNo(no);
+				updateChildList.add(c);
+//			} else {
+//				c.setCategoryName(categoryName[i]);
+//				c.setParentCategoryNo(Long.parseLong(parentCategoryNo[i]));
+//				insertChildList.add(c);
+//			}
+		}
+		
+		for(Category c : updateChildList)
+			result *= mapper.updateChildCategory(c);
+//		if(insertChildList.size() > 0)
+//			result *= mapper.insertChildCategory(insertChildList);
+		
+		return result;
+	}
+
+	// 부모 카테고리 추가
+	@Override
+	public long insertParentCategory(String name) {
+		
+		Category c = new Category();
+		c.setCategoryName(name);
+		mapper.insertParentCategory(c);
+		
+		return c.getCategoryNo();
+	}
+
+	// 부모 카테고리 삭제
+	@Override
+	public int deleteParentCategory(long categoryNo) {
+		return mapper.deleteParentCategory(categoryNo);
+	}
+
+	// 자식 카테고리 추가
+	@Override
+	public long insertChildCategory(String name, long parentNo) {
+		
+		Category c = new Category();
+		c.setCategoryName(name);
+		c.setParentCategoryNo(parentNo);
+		mapper.insertChildCategory(c);
+		
+		return c.getCategoryNo();
+	}
+
+	// 자식 카테고리 삭제
+	@Override
+	public int deleteChildCategory(long categoryNo) {
+		return mapper.deleteChildCategory(categoryNo);
+	}
 }
