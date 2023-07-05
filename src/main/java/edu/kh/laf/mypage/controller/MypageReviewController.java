@@ -32,7 +32,7 @@ public class MypageReviewController {
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 		Map<String, Object> resultMap = reviewService.myOrder(cp, loginMember.getMemberNo());
 		model.addAttribute("resultMap", resultMap);
-		return "/myPage/myPageBoard/myPageReview";
+		return "myPage/myPageBoard/myPageReview";
 	}
 	
 	// 내 리뷰 : 작성한 리뷰
@@ -43,7 +43,7 @@ public class MypageReviewController {
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 		Map<String, Object> resultMap = reviewService.myReview(cp, loginMember.getMemberNo());
 		model.addAttribute("resultMap", resultMap);
-		return "/myPage/myPageBoard/myPageReviewQueue";
+		return "myPage/myPageBoard/myPageReviewQueue";
 	}
 	
 	

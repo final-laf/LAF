@@ -234,17 +234,24 @@ FROM ((SELECT *,  ( SELECT COUNT(*) + 1
 					FROM (SELECT member_no, product_no, click_date, img_path
 						FROM click
 						LEFT JOIN `product_img` USING(product_no)
-						WHERE thumb_fl = 'Y' AND member_no = 2) b
+						WHERE thumb_fl = 'Y' AND member_no = 3) b
 					WHERE click_date > a.click_date ) AS RANK
 		FROM (SELECT member_no, product_no, click_date, img_path
 				FROM click
 				LEFT JOIN `product_img` USING(product_no)
-				WHERE thumb_fl = 'Y' AND member_no = 2) AS a
+				WHERE thumb_fl = 'Y' AND member_no = 3) AS a
 		ORDER BY RANK ASC) ) main
-WHERE RANK < 4;
+WHERE RANK > 1 AND RANK < 5;
 
 
-count
+
+DELETE FROM `click` 
+WHERE member_no = 3 
+AND product_no = 8;
+
+SELECT * FROM `click`;
+
+ROLLBACK;
 
 
 

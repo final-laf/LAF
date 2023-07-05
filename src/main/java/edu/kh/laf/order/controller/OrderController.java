@@ -72,7 +72,7 @@ public class OrderController {
 		// 주문상품정보
 		List<OrderProduct> orderList = service.selectOrderProduct(orderProductList);
 		model.addAttribute("orderList", orderList);	
-		return "/order/order";
+		return "order/order";
 	}
 
 	// 상품품절확인
@@ -203,7 +203,7 @@ public class OrderController {
 		// 주문내역 이메일전송
 		String resultEmail = service4.sendOrderEmail(emailData);
 		
-		return "/order/orderDetail";
+		return "order/orderDetail";
 	}
 	
 	// 주문취소

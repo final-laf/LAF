@@ -59,7 +59,7 @@ public class MypageOrderController {
 			model.addAttribute("ed", ed);
 		}
 		
-		return "/myPage/myPageOrder/myPageOrderList";
+		return "myPage/myPageOrder/myPageOrderList";
 	}
 	
   
@@ -80,7 +80,7 @@ public class MypageOrderController {
 		model.addAttribute("accumulatedUsedPoint", resultMap.get("accumulatedUsedPoint"));
 		model.addAttribute("pagination", resultMap.get("pagination"));
 
-		return "/myPage/myPageOrder/myPagePoint";
+		return "myPage/myPageOrder/myPagePoint";
 	}
 	
 	// 적립금 및 쿠폰 : 쿠폰
@@ -99,7 +99,7 @@ public class MypageOrderController {
 		model.addAttribute("pagination", resultMap.get("pagination"));
 		model.addAttribute("listCount", resultMap.get("listCount"));
 		
-		return "/myPage/myPageOrder/myPageCoupon";
+		return "myPage/myPageOrder/myPageCoupon";
 	}
 
 	
