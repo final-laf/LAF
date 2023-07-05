@@ -10,12 +10,12 @@
 
 </head>
 <body>
-  <th:block th:replace="~{/common/header}"></th:block>
-  <th:block th:replace="~{/common/nav}"></th:block>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
   
   <main>
     <section class="mypageShipping-mainFrame">
-      <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+      <th:block th:replace="~{mypage/mypageSide}"></th:block>
       <!-- 마이페이지 중앙 대쉬보드 -->
       <div class="orderShipping-MyMain-Shipping">
         <div class="section-header">
@@ -62,9 +62,9 @@
           </div>
         </form>
     </section>
-    <th:block th:replace="~{/myPage/myPageInfo/myPageShippingModal}"></th:block>
+    <th:block th:replace="~{myPage/myPageInfo/myPageShippingModal}"></th:block>
   </main>
-  <th:block th:replace="~{/common/footer}"></th:block>
+  <th:block th:replace="~{common/footer}"></th:block>
 
   <script th:inline="javascript">
   /* 주소값 구분자 제거 후 가져오기 */

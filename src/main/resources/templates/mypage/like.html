@@ -9,12 +9,12 @@
 
 </head>
 <body>
-  <th:block th:replace="~{/common/header}"></th:block>
-  <th:block th:replace="~{/common/nav}"></th:block>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
     
   <main>
     <!-- 마이페이지 sidebar -->
-    <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+    <th:block th:replace="~{mypage/mypageSide}"></th:block>
     
     <!-- 마이페이지 content -->
     <section>
@@ -103,7 +103,7 @@
     </div>
 
   </main>
-  <th:block th:replace="~{/common/footer}"></th:block>
+  <th:block th:replace="~{common/footer}"></th:block>
   <script th:src="@{/js/mypage/myPagelike.js}"></script>
 </body>
 </html>

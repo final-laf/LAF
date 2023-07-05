@@ -10,12 +10,12 @@
 
 </head>
   <body>
-  <th:block th:replace="~{/common/header}"></th:block>
-  <th:block th:replace="~{/common/nav}"></th:block>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
   
   <main  th:with="pagination=${resultMap.pagination}, myOrder=${resultMap.orderList}, orderCount=${resultMap.orderListCount}, reviewCount=${resultMap.reviewListCount}">
     <!-- 마이페이지 sidebar -->
-    <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+    <th:block th:replace="~{mypage/mypageSide}"></th:block>
     
     <!-- 작성 가능한 리뷰 -->
     <section id="mypageReview">
@@ -117,8 +117,8 @@
       </div>
     </section>
   </main>
-  <th:block th:replace="~{/boards/review/reviewWriteModal}"></th:block>
-  <th:block th:replace="~{/common/footer}"></th:block>
+  <th:block th:replace="~{boards/review/reviewWriteModal}"></th:block>
+  <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/mypage/myPageReview.js"></script>
 </body>
 </html>

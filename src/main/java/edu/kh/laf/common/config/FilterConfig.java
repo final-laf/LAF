@@ -24,7 +24,7 @@ public class FilterConfig {
 		String[] url = { "/myPage/*" };
 		resiRegistrationBean.setUrlPatterns(Arrays.asList(url));
 		resiRegistrationBean.setName("loginFilter");
-		resiRegistrationBean.setOrder(3);
+		resiRegistrationBean.setOrder(5);
 		return resiRegistrationBean;
 	}
 	
@@ -38,7 +38,7 @@ public class FilterConfig {
 		String[] url = { "/admin/*" };
 		resiRegistrationBean.setUrlPatterns(Arrays.asList(url));
 		resiRegistrationBean.setName("adminFilter");
-		resiRegistrationBean.setOrder(4);
+		resiRegistrationBean.setOrder(6);
 		return resiRegistrationBean;
 	}
 	
