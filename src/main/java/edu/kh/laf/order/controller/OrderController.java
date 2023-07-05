@@ -30,7 +30,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-@SessionAttributes({"loginMember", "orderProductList"})
+@SessionAttributes({"loginMember", "orderProductList", "cartCount"})
 public class OrderController {
 	
 	@Autowired
@@ -145,6 +145,7 @@ public class OrderController {
 		
 		// [회원] 결제완료 후 장바구니 상품 삭제
 		service3.deleteCartAfterOrder(orderProductList);
+		model.addAttribute("cartCount", service3.getCartCount(loginMember.getMemberNo()));
 		
 		// [비회원] 결제완료 후 장바구니 상품 삭제
 		Cookie[] cookies = req.getCookies();

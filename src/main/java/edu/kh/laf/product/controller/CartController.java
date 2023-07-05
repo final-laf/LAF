@@ -31,7 +31,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-@SessionAttributes({"loginMember", "orderProductList"})
+@SessionAttributes({"loginMember", "orderProductList", "cartCount"})
 public class CartController {
 
 	@Autowired
@@ -127,7 +127,8 @@ public class CartController {
 	@ResponseBody
 	public String insertCart(
 			String data, 
-			@SessionAttribute("loginMember") Member loginMember
+			@SessionAttribute("loginMember") Member loginMember,
+			Model model
 		) throws JsonProcessingException {
 		
 		List<Cart> cartList = jsonToCartList(data, loginMember.getMemberNo());
@@ -158,6 +159,7 @@ public class CartController {
 		
 		// 장바구니 추가
 		if(cartService.insertCart(cartList) > 0) {
+			model.addAttribute("cartCount", cartService.getCartCount(loginMember.getMemberNo()));
 			if(dupCheck) return "중복 상품을 제외하고 장바구니에 상품을 담았습니다.";
 			return "장바구니에 상품을 담았습니다.";			
 		}
@@ -172,7 +174,6 @@ public class CartController {
 			String data, 
 			HttpServletRequest req,
 			HttpServletResponse resp) {
-		
 		
 		// 재고 확인
 		List<Cart> cartList = cookieToCartList(new Cookie("cart", data));
@@ -195,17 +196,21 @@ public class CartController {
 	// [회원] 장바구니 상품 선택 삭제
 	@GetMapping("/cart/delete")
 	@ResponseBody
-	public int deleteCart(String data, @SessionAttribute("loginMember") Member loginMember)
+	public int deleteCart(String data, @SessionAttribute("loginMember") Member loginMember, Model model)
 			throws JsonProcessingException {
-		return cartService.deleteCart(data, loginMember.getMemberNo());
+		int result = cartService.deleteCart(data, loginMember.getMemberNo());
+		if(result > 0) model.addAttribute("cartCount", cartService.getCartCount(loginMember.getMemberNo()));
+		return result;
 	}
 	
 	// [회원] 장바구니 상품 전체 삭제
 	@GetMapping("/cart/deleteAll")
 	@ResponseBody
-	public int deleteCartAll(@SessionAttribute("loginMember") Member loginMember)
+	public int deleteCartAll(@SessionAttribute("loginMember") Member loginMember, Model model)
 			throws JsonProcessingException {
-		return cartService.deleteCartAll(loginMember.getMemberNo());
+		int result = cartService.deleteCartAll(loginMember.getMemberNo());
+		if(result > 0) model.addAttribute("cartCount", cartService.getCartCount(loginMember.getMemberNo()));
+		return result;
 	}
 
 	// [비회원] 장바구니 상품 전체 삭제
@@ -235,10 +240,13 @@ public class CartController {
 	@ResponseBody
 	public int updateCart(
 			String data, 
-			@SessionAttribute("loginMember") Member loginMember
+			@SessionAttribute("loginMember") Member loginMember,
+			Model model
 		) throws JsonProcessingException {
-		return cartService.deleteCartAll(loginMember.getMemberNo())
-				* cartService.insertCart(data, loginMember.getMemberNo());
+		int result = cartService.deleteCartAll(loginMember.getMemberNo());
+		result *= cartService.insertCart(data, loginMember.getMemberNo());
+		if(result > 0) model.addAttribute("cartCount", cartService.getCartCount(loginMember.getMemberNo()));
+		return result;
 	}
 	
 	// [비회원] 장바구니 상품 수정
@@ -343,7 +351,6 @@ public class CartController {
 	// cookie to List<Cart>
 	private List<Cart> cookieToCartList(Cookie cart) {
 		
-//		Cookie cart = findCart(cookie);
 		List<Cart> cartList = new ArrayList<>();
 		String[] arr = cart.getValue().split("@");
 		for(String s : arr) {
@@ -358,18 +365,11 @@ public class CartController {
 		return cartList;
 	}
 	
-	// 장바구니 쿠키 찾기
-//	private Cookie findCart(Cookie[] cookies) {
-//		
-//		// 브라우저에 존재하는 쿠키가 없음
-//		if(cookies == null) return null;
-//		
-//		Cookie cart = null;
-//		for(Cookie c : cookies) {
-//			if(c.getName().equals("cart")) cart = c;
-//		}
-//		
-//		return cart;
-//	}
+	// [회원] 장바구니 갯수 조회
+	@GetMapping("/cart/count")
+	@ResponseBody
+	public int getCartCount(@SessionAttribute("loginMember") Member loginMember) {
+		return cartService.getCartCount(loginMember.getMemberNo());
+	}
 
 }

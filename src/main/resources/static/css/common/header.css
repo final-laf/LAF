@@ -298,3 +298,24 @@ body>nav>div.quick-menu>ul>li:nth-child(5)>a>img {
   top: 4;
   right: 0;
 }
+
+/* 장바구니 갯수 아이콘 */
+#cartCountContainer {
+  width: 13px;
+  height: 13px;
+  border-radius: 50px;
+  background-color: #7F7698; 
+  text-align: center;
+  position: absolute;
+  right: 22px;
+  top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#cartCount {
+  position: static;
+  font-size: 1rem;
+  color: white;
+  zoom: 0.8;
+}

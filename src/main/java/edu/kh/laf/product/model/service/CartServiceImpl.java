@@ -270,4 +270,10 @@ public class CartServiceImpl implements CartService {
 	
 		return orderProductList;
 	}
+
+	// [회원] 장바구니 상품 갯수 조회
+	@Override
+	public int getCartCount(Long memberNo) {
+		return mapper.getCartCount(memberNo);
+	}
 }

@@ -31,12 +31,13 @@ import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.service.EmailService;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
+import edu.kh.laf.product.model.service.CartService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
-@SessionAttributes({"loginMember", "likeList"})
+@SessionAttributes({"loginMember", "likeList", "cartCount"})
 public class MemberController {
 
     @Autowired
@@ -45,6 +46,8 @@ public class MemberController {
     private MypageLikeServcie likeServcie;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private CartService cartService;
     
     @Value("${kakao.client.id}")
     private String KAKAO_CLIENT_ID;
@@ -102,6 +105,10 @@ public class MemberController {
 			// 로그인한 회원의 찜 목록 리스트(productNo)
 			List<Long> likeLikst = likeServcie.selectLikeList(loginMember.getMemberNo());
 			model.addAttribute("likeList", likeLikst);
+			
+			// 로그인한 회원의 장바구니 상품 갯수
+			int cartCount = cartService.getCartCount(loginMember.getMemberNo());
+			model.addAttribute("cartCount", cartCount);
 			
 			
 //			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());

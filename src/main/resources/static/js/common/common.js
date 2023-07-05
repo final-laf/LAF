@@ -4,23 +4,25 @@ function numberWithCommas(x) {
 }
 
 // 쿠키 얻어오기
-function getCookie(key) {
-  const cookies = document.cookie;
-  const cookieList = cookies.split("; ").map(cookie => cookie.split("="));
+if(!window.getCookie) {
+  function getCookie(key) {
+    const cookies = document.cookie;
+    const cookieList = cookies.split("; ").map(cookie => cookie.split("="));
 
-  const obj = {};
-  for (let i = 0; i < cookieList.length; i++) {
-    obj[cookieList[i][0]] = cookieList[i][1];
+    const obj = {};
+    for (let i = 0; i < cookieList.length; i++) {
+      obj[cookieList[i][0]] = cookieList[i][1];
+    }
+
+    return obj[key];
   }
-
-  return obj[key];
 }
 
 // 전체선택 체크박스
 // 상위 체크박스 id="checkboxSelectAll"
 // 하위 체크박스 name="checkbox"
-const checkboxSelectAll = document.getElementById('checkboxSelectAll');
-if(checkboxSelectAll != null) {
+if(document.getElementById('checkboxSelectAll') != undefined) {
+  const checkboxSelectAll = document.getElementById('checkboxSelectAll');
   checkboxSelectAll.addEventListener('click', e => {
     const checkboxList = document.querySelectorAll('[name="checkbox"]:not(:disabled)');
     
@@ -34,3 +36,21 @@ if(checkboxSelectAll != null) {
   });
 }
 
+// 장바구니 갯수 갱신
+if(!window.updateCartCount2) {
+  function updateCartCount2() {
+    if(loginMember == undefined) return;
+
+    let cartCountCalc = 0;
+    const cookieStr = getCookie('cart');
+    if(cookieStr != null)
+      cartCountCalc = cookieStr.split('@').length - 1;
+    
+    if(cartCountCalc > 0) {
+      document.getElementById('cartCount').innerText = cartCountCalc;
+      document.getElementById('cartCountContainer').classList.remove('hidden');
+    } else {
+      document.getElementById('cartCountContainer').classList.add('hidden');
+    }
+  }
+}
