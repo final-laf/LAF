@@ -26,7 +26,6 @@
               <div>Password</div>
               <input style="border:none" size="70" type="password" name="memberPw">
             </div>
-            <button id="mypageLoginLogin" class="mypage-button mypage-login-button">LOGIN</button>
             <div class="mypageLogin-memberLogin-other">
               <div>
                 <input type="checkbox">
@@ -34,9 +33,10 @@
               </div>
               <div><a href="/findpw">비밀번호 찾기</a></div>
             </div>
+            <button id="mypageLoginLogin" class="mypage-button mypage-login-button">LOGIN</button>
           </form>
           <div>
-            <a>사용중이신 SNS로 간편하게 로그인하세요?</a>
+            <a href="https://kauth.kakao.com/oauth/authorize?client_id=2616eaa0abdd9c27b7d00ec1a536aaee&redirect_uri=http://localhost/auth/kakao/callback&response_type=code"><img src="/images/common/kakao.png"></a>
           </div>
         </div>
         <div class="mypageLogin-login-notMember">

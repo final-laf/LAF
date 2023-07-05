@@ -64,8 +64,8 @@ public class CartController {
 		model.addAttribute("productList", productList);
 		model.addAttribute("optionList", optionList);
 		model.addAttribute("cartList", cartList);
-		model.addAttribute("recommendList", recommendList);
-		return "/shopping/cart";
+    model.addAttribute("recommendList", recommendList);
+		return "shopping/cart";
 	}
 	
 	// [비회원] 장바구니 조회
@@ -112,7 +112,7 @@ public class CartController {
 		model.addAttribute("optionList", optionList);
 		model.addAttribute("cartList", cartList);
 		
-		return "/shopping/cart";
+		return "shopping/cart";
 	}
 	
 	// 장바구니 상품 목록 조회

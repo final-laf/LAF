@@ -62,7 +62,7 @@ public class MypageQnaController {
 			model.addAttribute("resultMap", resultMap);
 		}
 		model.addAttribute("categoryNo", categoryNo);
-		return "/myPage/myPageBoard/myPageQuestion";
+		return "myPage/myPageBoard/myPageQuestion";
 	}
 	
 

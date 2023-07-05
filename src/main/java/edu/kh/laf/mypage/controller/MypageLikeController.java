@@ -107,6 +107,6 @@ public class MypageLikeController {
 		model.addAttribute("productList", resultMap.get("productList"));
 		model.addAttribute("pagination", resultMap.get("pagination"));
 		
-		return "/mypage/like";
+		return "mypage/like";
 	}
 }

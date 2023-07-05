@@ -60,7 +60,7 @@ public class MypageMemberController {
 		
 		
 		
-		return "/myPage/myPageDashboard";
+		return "myPage/myPageDashboard";
 	}
 	
 	
@@ -74,7 +74,7 @@ public class MypageMemberController {
 		List<Coupon> couponList = orderService.selectCouponList(loginMember.getMemberNo());
 		model.addAttribute("couponList", couponList);
 		
-		return "/myPage/myPageInfo/myPageInfo";
+		return "myPage/myPageInfo/myPageInfo";
 	}
 	
 	
@@ -166,7 +166,7 @@ public class MypageMemberController {
 	// 비밀번호 수정 페이지 이동  
 	@GetMapping("/myPage/changePw") 
 	public String changePw() {
-		return "/myPage/myPageInfo/myPageChangePw";
+		return "myPage/myPageInfo/myPageChangePw";
 	}
 	
 	
@@ -200,7 +200,7 @@ public class MypageMemberController {
 		List<Address> addressList = service.selectAddressList(loginMember.getMemberNo());
 		model.addAttribute("addressList", addressList);
 
-		return "/myPage/myPageInfo/myPageShipping";
+		return "myPage/myPageInfo/myPageShipping";
 	}
 	
 	

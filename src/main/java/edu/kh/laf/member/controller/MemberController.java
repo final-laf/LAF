@@ -7,8 +7,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -16,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.service.EmailService;
@@ -37,23 +46,29 @@ public class MemberController {
     @Autowired
     private EmailService emailService;
     
+    @Value("${kakao.client.id}")
+    private String KAKAO_CLIENT_ID;
+
+    @Value("${kakao.redirect.url}")
+    private String KAKAO_REDIRECT_URL;
+    
     
     // 로그인 페이지 이동
 	@GetMapping("/login")
 	public String login() {
-		return "/member/login";
+		return "member/login";
 	}
 	
 	// 회원가입 페이지 이동
 	@GetMapping("/signup")
 	public String signup() {
-		return "/member/signUp";
+		return "member/signUp";
 	}
 	
 	// 비밀번호 찾기 페이지 이동
 	@GetMapping("/findpw")
 	public String findPw() {
-		return "/member/findPw";
+		return "member/findPw";
 	}
 	
 	// 로그인 기능
@@ -248,6 +263,37 @@ public class MemberController {
 	}
 	
 	
+	
+	@GetMapping("/auth/kakao/callback")
+	@ResponseBody
+	public String kakaoCallBack(String code) {
+		
+		//POST방식으로 key=value 데이터를 요청(카카오쪽으로)
+		RestTemplate rt = new RestTemplate();
+		
+		// HttpHeader 오브젝트 생성
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); // 내가 담을 데이터가 key=value 타입이라는걸 알려줌
+		
+		// HttpBody 오브젝트 생성
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("grant_type", "authorization_code");
+		params.add("client_id", KAKAO_CLIENT_ID);
+		params.add("redirect_uri", KAKAO_REDIRECT_URL);
+		params.add("code", code);
+		
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
+		
+		ResponseEntity<String> response = rt.exchange(
+				"https://kauth.kakao.com/oauth/token",
+				HttpMethod.POST,
+				kakaoTokenRequest,
+				String.class
+		);
+		
+		return "카카오 인증 완료 : 토큰 요청에 대한 응답" + response;
+	}
 	
 	
 	
