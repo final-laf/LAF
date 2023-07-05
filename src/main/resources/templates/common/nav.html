@@ -8,7 +8,7 @@
       <table>
         <tr>
           <td th:each="cate : ${application.category}">
-            <a th:href="@{{c}(c=${cate.categoryNo})}"><div th:text="${cate.parentCategoryName}"></div></a>
+            <a th:href="${cate.categoryNo}"><div th:text="${cate.parentCategoryName}"></div></a>
             <ul th:each="childCategory : ${cate.childCategoryList}">
               <a th:href="@{{c}(c=${cate.categoryNo}, cc=${childCategory.categoryNo})}"><li th:text="${childCategory.categoryName}"></li></a>
             </ul>

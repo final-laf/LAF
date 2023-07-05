@@ -48,7 +48,7 @@ public class ProductController {
 	private MainService mainService;
 	
 	// 카테고리 상품목록 조회
-	@GetMapping("/{category:[0-9]+}")
+	@GetMapping("{category:[0-9]+}")
 	public String category(
 			Model model, 
 			@PathVariable("category") int categoryNo, String ordering,
@@ -72,7 +72,7 @@ public class ProductController {
 		model.addAttribute("ordering", ordering);
 		model.addAttribute("cc", cc);
 		
-		return "/shopping/categoryList";
+		return "shopping/categoryList";
 	}
 	
 	// 상품상세조회
@@ -134,7 +134,7 @@ public class ProductController {
 		model.addAttribute("bestReview", bestReview);
 		
 		
-		return "/shopping/product";
+		return "shopping/product";
 	}
 	
 	// 색상 선택 시 해당 색상 사이즈 목록 조회
@@ -170,6 +170,6 @@ public class ProductController {
 		model.addAttribute("ordering", ordering);
 		model.addAttribute("query", query);
 		
-		return "/shopping/searchResult";
+		return "shopping/searchResult";
 	}
 }
