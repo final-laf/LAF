@@ -23,11 +23,11 @@ public class ChatbotController {
 		return answer;
 	}
 
-//	@GetMapping("/chatbot/chat")
-//	@ResponseBody
-//	public List<Faq> searchChat(String chat) {
-//		List<Faq> searchAnswer = service.searchAnswer(chat);
-//		return searchAnswer;
-//	}
+	@GetMapping("/chatbot/chat")
+	@ResponseBody
+	public List<Faq> searchChat(String chat) {
+		List<Faq> searchAnswer = service.searchAnswer(chat);
+		return searchAnswer;
+	}
 	
 }
