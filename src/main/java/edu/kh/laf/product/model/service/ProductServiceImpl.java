@@ -405,4 +405,12 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.adminGetListCount(map);
 	}
 
+	// 장바구니 상품 기반 추천상품 리스트
+	@Override
+	public List<Product> selectRecommendProductList(List<Product> productList) {
+		if(productList.isEmpty())
+			return mapper.selectRecommendList(0);
+		return mapper.selectRecommendList(productList.get(0).getProductNo());
+	}
+
 }
