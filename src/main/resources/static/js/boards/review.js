@@ -2,7 +2,6 @@
 /* 작성한 리뷰 모달 */
 const modal = document.getElementsByClassName("review-modal-overlay")[0];
 const reviewDetail = document.getElementsByClassName("reviewListDetail");
-console.log(modal);
 let memberName = "";
 let reviewCreateDate = "";
 let option = "";
@@ -45,7 +44,6 @@ for(let review of reviewDetail) {
       document.getElementById("reviewDetailModalStar").value="";
       document.getElementById("reviewDetailScoreColor").style.width=0+"px";
       document.getElementById("reviewDetailScoreColor").style.backgroundColor = "white";
-
       document.getElementById("reviewDetailModalName").innerText=review.memberName;
       document.getElementById("reviewDetailModalDate").innerText=review.reviewCreateDate;
       document.getElementById("reviewDetailModalOption").innerText=review.option.color+"/"+review.option.size;
@@ -58,22 +56,26 @@ for(let review of reviewDetail) {
       document.getElementById("reviewDetailModalTextScore").value=review.reviewScore;
       document.getElementById("reviewDetailModalProductNo").href="/product/"+review.productNo;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
-      console.log(review.reviewNo);
-      console.log(bestReviewNoList);
-      document.getElementById("bestReview").style.display = "flex";
+      if (document.getElementById("bestReview")!=null) {
+        
+        document.getElementById("bestReview").style.display = "flex";
+      }
       for(let b of bestReviewNoList){
         if (b.reviewNo==review.reviewNo) {
-          console.log("이미 베스트 리뷰")
-          document.getElementById("bestReview").style.display = "none";
+          if (document.getElementById("bestReview")!=null) {
+            document.getElementById("bestReview").style.display = "none";
+          }
           document.getElementById("reviewDetailModalName").innerHTML="[★--BEST REVIEW--★] <br>"+review.memberName;
         }
       }
       const login = document.getElementById("reviewDetailModalMemberId").getAttribute("value");
       if(login!=review.memberNo){
-        document.getElementById("reviewModifyDeleteBtn").style.display = "none";
+        document.getElementById("reviewDetailModalModifyBtn").style.display = "none";
+        document.getElementById("reviewDetailModalDeleteBtn").style.display = "none";
       }
       if(login==review.memberNo){
-        document.getElementById("reviewModifyDeleteBtn").style.display = "flex";
+        document.getElementById("reviewDetailModalModifyBtn").style.display = "flex";
+        document.getElementById("reviewDetailModalDeleteBtn").style.display = "flex";
       }
       for (let i = 0; i < review.reviewImg.length; i++) {
         for (let index = 0; index < 5; index++) {
@@ -93,8 +95,10 @@ for(let review of reviewDetail) {
       }
       let i = (122/5*review.reviewScore);
       let color = Math.abs(74/5* review.reviewScore - 160)
-      document.getElementById("reviewDetailScoreColor").style.width=i+"px";
-      document.getElementById("reviewDetailScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
+      setTimeout(()=>{ 
+        document.getElementById("reviewDetailScoreColor").style.width=i+"px";
+        document.getElementById("reviewDetailScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
+      }, 100);
       
     if (review.reviewScore>=5) {
       document.getElementById("reviewScorePoint").innerText="점 ╰(*°▽°*╰)"
