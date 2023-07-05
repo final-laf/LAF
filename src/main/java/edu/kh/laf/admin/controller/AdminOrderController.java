@@ -25,7 +25,7 @@ public class AdminOrderController {
 	// 주문관리 : 주문현황
 	@GetMapping("/admin/order/cur")
 	public String orderCur() {
-		return "/admin/adminOrder/orderCurrent";
+		return "admin/adminOrder/orderCurrent";
 	}
 	
 	// 주문관리 : 주문조회
@@ -76,7 +76,7 @@ public class AdminOrderController {
 		}
 		model.addAttribute("pagination", returnMap.get("pagination"));
 		
-		return "/admin/adminOrder/orderSelect";
+		return "admin/adminOrder/orderSelect";
 	}
 	
 	// 오늘 주문현황조회

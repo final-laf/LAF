@@ -61,7 +61,7 @@ public class AdminProductController {
 		model.addAttribute("pagination", resultMap.get("pagination"));
 		model.addAttribute("paramMap", paramMap);
 		
-		return "/admin/adminProduct/productSelect";
+		return "admin/adminProduct/productSelect";
 	}
 	
 	// 상품 상태 변경
@@ -83,7 +83,7 @@ public class AdminProductController {
 	public String productEnroll(Model model) {
 		List<Category> categoryList = categoryService.selectAllCategoryList();
 		model.addAttribute("categoryList", categoryList);
-		return "/admin/adminProduct/productEnroll";
+		return "admin/adminProduct/productEnroll";
 	}
 	
 	// 상품관리 : 상품등록
