@@ -144,4 +144,5 @@ SELECT * FROM product_img pi2 ;
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
 				img_path AS thumbnail_path
 		FROM   `product`
-				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
+				JOIN `product_img` ON `product`.product_no = `product_img`.product_no;
+COMMIT;
