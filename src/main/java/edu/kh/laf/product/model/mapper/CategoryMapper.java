@@ -86,10 +86,10 @@ public interface CategoryMapper {
 
 	/**
 	 * 부모 카테고리 신규 추가
-	 * @param insertParentList
+	 * @param category
 	 * @return result
 	 */
-	int insertParentCategory(List<Category> insertParentList);
+	int insertParentCategory(Category category);
 
 	/**
 	 * 자식 카테고리 순서 업데이트
@@ -105,5 +105,11 @@ public interface CategoryMapper {
 	 */
 	int insertChildCategory(List<Category> insertChildList);
 
+	/**
+	 * 부모 카테고리 삭제
+	 * @param categoryNo
+	 * @return result
+	 */
+	int deleteParentCategory(long categoryNo);
 
 }

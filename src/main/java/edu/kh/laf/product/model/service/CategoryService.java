@@ -70,9 +70,38 @@ public interface CategoryService {
 	int deleteProductCategory(long productNo);
 
 	/**
-	 * 카테고리 변경사항 업데이트
+	 * 카테고리 순서 업데이트
 	 * @param paramMap
 	 * @return result
 	 */
-	List<Category> categoryUpdate(Map<String, String[]> paramMap);
+	boolean categoryUpdate(Map<String, String[]> paramMap);
+
+	/**
+	 * 부모 카테고리 추가
+	 * @param name
+	 * @return parentCategoryNo
+	 */
+	long insertParentCategory(String name);
+
+	/**
+	 * 부모 카테고리 삭제
+	 * @param categoryNo
+	 * @return result
+	 */
+	int deleteParentCategory(long categoryNo);
+
+	/**
+	 * 자식 카테고리 추가
+	 * @param name
+	 * @param parentNo
+	 * @return childCategoryNo
+	 */
+	long insertChildCategory(String name, long parentNo);
+
+	/**
+	 * 자식 카테고리 삭제
+	 * @param categoryNo
+	 * @return result
+	 */
+	int deleteChildCategory(long categoryNo);
 }

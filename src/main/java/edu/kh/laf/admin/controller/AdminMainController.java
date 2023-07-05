@@ -78,14 +78,14 @@ public class AdminMainController {
 		return "admin/adminMain/category";
 	}
 	
-	// 카테고리 상품 갯수 조회(관리자)
-	@GetMapping("/admin/category/empty")
-	@ResponseBody
-	public int category(long pcno, long ccno) {
-		return productService.adminGetListCount(pcno, ccno);
-	}
+//	// 카테고리 상품 갯수 조회(관리자)
+//	@GetMapping("/admin/category/empty")
+//	@ResponseBody
+//	public int category(long pcno, long ccno) {
+//		return productService.adminGetListCount(pcno, ccno);
+//	}
 	
-	// 카테고리 변경사항 변경
+	// 카테고리 순서 변경
 	@PostMapping("/admin/category/save")
 	public String updateCategory(
 			String[] categoryName, 
@@ -93,7 +93,8 @@ public class AdminMainController {
 			String[] childCategoryName, 
 			String[] childCategoryNo, 
 			String[] parentCategoryNo,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			RedirectAttributes ra) {
 		
 		Map<String, String[]> map = new HashMap<>();
 		map.put("categoryName", categoryName);
@@ -102,13 +103,65 @@ public class AdminMainController {
 		map.put("childCategoryNo", childCategoryNo);
 		map.put("parentCategoryNo", parentCategoryNo);
 		
-		ServletContext application = request.getServletContext();
-		List<Category> category = categoryService.categoryUpdate(map);
-		application.setAttribute("category", category);
-		
-		
+		if(categoryService.categoryUpdate(map)) {
+			updateApplicationScopeCategory(request);
+			ra.addFlashAttribute("message", "카테고리 변경사항이 적용되었습니다");
+		} else {
+			ra.addFlashAttribute("message", "카테고리 변경 실패");
+		}
 		
 		return "redirect:/admin/category";
+	}
+	
+	// 부모 카테고리 추가
+	@GetMapping("/admin/category/addParent")
+	@ResponseBody
+	public long insertParentCategory(String name, HttpServletRequest request) {
+		long categoryNo = categoryService.insertParentCategory(name);
+		if(categoryNo > 0) updateApplicationScopeCategory(request);
+		return categoryNo;
+	}
+	
+	// 부모 카테고리 삭제
+	@GetMapping("/admin/category/rmParent")
+	@ResponseBody
+	public int deleteParentCategory(long categoryNo, HttpServletRequest request) {
+		
+		// 카테고리에 등록된 상품이 있을 시 카테고리 삭제 불가
+		if(productService.adminGetListCount(categoryNo, 0) > 0) return -1; 
+		
+		// 카테고리 삭제 및 동기화
+		int result = categoryService.deleteParentCategory(categoryNo);
+		if(result > 0) updateApplicationScopeCategory(request);
+		return result;
+	}
+	
+	// 자식 카테고리 추가
+	@GetMapping("/admin/category/addChild")
+	@ResponseBody
+	public long insertChildCategory(String name, long parentNo, HttpServletRequest request) {
+		long categoryNo = categoryService.insertChildCategory(name, parentNo);
+		if(categoryNo > 0) updateApplicationScopeCategory(request);
+		return categoryNo;
+	}
+	
+	// 자식 카테고리 삭제
+	@GetMapping("/admin/category/rmChild")
+	@ResponseBody
+	public long deleteChildCategory(long categoryNo, long parentNo, HttpServletRequest request) {
+		// 카테고리에 등록된 상품이 있을 시 카테고리 삭제 불가
+		if(productService.adminGetListCount(parentNo, categoryNo) > 0) return -1; 
+		
+		// 카테고리 삭제 및 동기화
+		int result = categoryService.deleteChildCategory(categoryNo);
+		if(result > 0) updateApplicationScopeCategory(request);
+		return result;
+	}
+	
+	// 카테고리 변경사항 application scope 동기화
+	private void updateApplicationScopeCategory(HttpServletRequest request) {
+		ServletContext application = request.getServletContext();
+		application.setAttribute("category", categoryService.selectNavCategoryList());
 	}
 
 }

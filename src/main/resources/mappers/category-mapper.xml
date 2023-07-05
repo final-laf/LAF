@@ -161,8 +161,8 @@
 	</update>
 	
 	<!-- 부모 카테고리 신규 추가 -->
-	<insert id="insertParentCategory">
-		insert into `parent_category_cd`
+	<insert id="insertParentCategory" useGeneratedKeys="true" keyProperty="categoryNo" parameterType="Category">
+		<!--insert into `parent_category_cd`
 		values
 		<foreach collection="list" item="item" separator=",">
 		(
@@ -170,8 +170,19 @@
 			#{item.categoryName},
 			${item.categoryOrder}
 		)
-		</foreach>
+		</foreach>-->
+		insert into `parent_category_cd`
+		(
+			SELECT NULL, #{categoryName}, max(parent_category_order) + 1
+			FROM `parent_category_cd`
+		)
 	</insert>
+	
+	<!-- 부모 카테고리 삭제 -->
+	<delete id="deleteParentCategory">
+		delete from `parent_category_cd`
+		where parent_category_no=${categoryNo}
+	</delete>
 	
 	<!-- 자식 카테고리 순서 업데이트 -->
 	<update id="updateChildCategory">
