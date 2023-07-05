@@ -150,14 +150,24 @@
     </form>
     
     <!-- 추천상품 -->
-    <section id="proudctRecommandItem">
-      <div class="product-item-title">RECOMMEND ITEM</div>
-      <div class="product-item-desc">이 상품과 함께 구매하면 좋을 상품 추천드립니다 :-)</div>
-      
-      <!-- 아이템 목록 -->
-      <th:block th:replace="~{/dev/productList}"></th:block>
+    <section class="sub-section" id="proudctRecommandItem">
+      <div class="sub-section-title">RECOMMEND ITEM</div>
+      <div class="sub-section-desc">이 상품과 함께 구매하면 좋을 상품 추천드립니다 :-)</div>
+      <div class="sub-section-content slide_wrap_sub-2">
+        <ul class="sub-section-list slide_list_sub">
+          <li class="slide_content_sub" th:each="product : ${recommendList}">
+            <th:block th:replace="~{/shopping/productListItem}"></th:block>
+          </li>
+        </ul>
+        
+        <button class="slide_btn_prev slide_btn_prev_sub" type="button">
+          <img th:src="@{/images/common/allowBtnLeft-white.svg}">
+        </button>
+        <button class="slide_btn_next slide_btn_next_sub" type="button">
+          <img th:src="@{/images/common/allowBtnRight-white.svg}">
+        </button>
+      </div>
     </section>
-    
     
   </main>
 
@@ -183,5 +193,6 @@
   <th:block th:replace="~{/common/footer}"></th:block>
   
   <script th:src="@{js/shopping/cart.js}"></script>
+  <script th:src="@{/js/shopping/productListItem.js}"></script>
 </body>
 </html>

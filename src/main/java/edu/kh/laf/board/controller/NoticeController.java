@@ -21,8 +21,7 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService service;
-	
-	
+		
 	// 공지사항 목록
 	@GetMapping("/notice")
 	public String qna(
@@ -40,25 +39,22 @@ public class NoticeController {
 			Map<String, Object> resultMap = service.noticeList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
 		}
-		return "/boards/notice/notice";
+		return "boards/notice/notice";
 	}
 	
 	// 공지사항 상세
-	
 	@GetMapping("/notice/{no:[0-9]+}")
 	public String detail(@PathVariable String no, Model model) {
 		Notice notice = service.detailNotice(no);
 		model.addAttribute("notice", notice);
-		
-		
-		return "/boards/notice/noticeDetail";
+		return "boards/notice/noticeDetail";
 	}
 
 	
 	// 공지사항 목록 - 글쓰기페이지 연결
 	@GetMapping("/notice/write")
 	public String wirte(Model model){
-		return "/boards/notice/noticeWrite";
+		return "boards/notice/noticeWrite";
 	}
 	
 	// 공지사항 글쓰기
@@ -68,26 +64,15 @@ public class NoticeController {
 		notice.setMemberNo(loginMember.getMemberNo());
 		int writeNotice = service.writeNotice(notice);
 		model.addAttribute("writeNotice",writeNotice);
-		
 		return "redirect:/notice";
 	}
 	
-	
-
 	// 공지사항 삭제
 	@GetMapping(value="/notice/delete",produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteNotice(String noticeNo){
-		int no = service.deleteNotice(noticeNo);
-		String n= "";
-		return n;
+		service.deleteNotice(noticeNo);
+		return "";
 	}
-//	// 공지사항 글쓰기
-//	@GetMapping("/notice/write/no:[0-9+]")
-//	public String modify(@PathVariable String no, Model model){
-//		Notice notice = service.modifyNotice(no);
-//		
-//		return "/boards/notice/noticeWrite";
-//	}
 	
 }

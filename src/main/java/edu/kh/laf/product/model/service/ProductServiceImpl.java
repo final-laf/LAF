@@ -392,4 +392,23 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectProductPathList();
 	}
 
+	// 카테고리별 상품 갯수 조회(관리자)
+	@Override
+	public int adminGetListCount(long pcno, long ccno) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("categoryNo", pcno);
+		map.put("cc", ccno);
+		
+		return mapper.adminGetListCount(map);
+	}
+
+	// 장바구니 상품 기반 추천상품 리스트
+	@Override
+	public List<Product> selectRecommendProductList(List<Product> productList) {
+		if(productList.isEmpty())
+			return mapper.selectRecommendList(0);
+		return mapper.selectRecommendList(productList.get(0).getProductNo());
+	}
+
 }

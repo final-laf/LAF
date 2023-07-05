@@ -157,4 +157,19 @@ public interface ProductService {
 	 * @return imageList
 	 */
 	List<String> selectProductPathList();
+
+	/**
+	 * 카테고리별 상품 갯수 조회(관리자)
+	 * @param pcno
+	 * @param ccno
+	 * @return count
+	 */
+	int adminGetListCount(long pcno, long ccno);
+
+	/**
+	 * 장바구니 상품 기반 추천상품 리스트
+	 * @param productList
+	 * @return productList
+	 */
+	List<Product> selectRecommendProductList(List<Product> productList);
 }

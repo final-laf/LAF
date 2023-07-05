@@ -46,7 +46,7 @@ public class AdminMemberController {
 		model.addAttribute("memberList", resultMap.get("memberList"));
 		model.addAttribute("listCount", resultMap.get("listCount"));
 		model.addAttribute("paramMap", paramMap);
-		return "/admin/adminMember/member";
+		return "admin/adminMember/member";
 		
 		
 	}

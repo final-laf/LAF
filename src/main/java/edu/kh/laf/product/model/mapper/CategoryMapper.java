@@ -76,5 +76,48 @@ public interface CategoryMapper {
 	 */
 	int deleteProductCategory(long productNo);
 
+	/**
+	 * 부모 카테고리 순서 업데이트
+	 * @param category
+	 * @return result
+	 */
+//	int updateParentCategory(List<Category> updateParentList);
+	int updateParentCategory(Category category);
+
+	/**
+	 * 부모 카테고리 신규 추가
+	 * @param category
+	 * @return result
+	 */
+	int insertParentCategory(Category category);
+
+	/**
+	 * 자식 카테고리 순서 업데이트
+	 * @param category
+	 * @return result
+	 */
+	int updateChildCategory(Category category);
+
+	/**
+	 * 자식 카테고리 추가
+	 * @param insertChildList
+	 * @return result
+	 */
+//	int insertChildCategory(List<Category> insertChildList);
+	int insertChildCategory(Category category);
+
+	/**
+	 * 부모 카테고리 삭제
+	 * @param categoryNo
+	 * @return result
+	 */
+	int deleteParentCategory(long categoryNo);
+
+	/**
+	 * 자식 카테고리 삭제
+	 * @param categoryNo
+	 * @return result
+	 */
+	int deleteChildCategory(long categoryNo);
 
 }
