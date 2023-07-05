@@ -26,8 +26,13 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.OAuthToken;
+import edu.kh.laf.member.model.dto.SocialLoginProfile;
 import edu.kh.laf.member.model.service.EmailService;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
@@ -268,7 +273,7 @@ public class MemberController {
 	@ResponseBody
 	public String kakaoCallBack(String code) {
 		
-		//POST방식으로 key=value 데이터를 요청(카카오쪽으로)
+		//POST방식으로 인증 토큰 요청(카카오쪽으로)
 		RestTemplate rt = new RestTemplate();
 		
 		// HttpHeader 오브젝트 생성
@@ -282,9 +287,10 @@ public class MemberController {
 		params.add("redirect_uri", KAKAO_REDIRECT_URL);
 		params.add("code", code);
 		
-		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기(exchange함수가 httpentity를 담기 때문)
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 		
+		// Http 요청하기 = Post 방식으로 - 그리고 response 변수의 응답 받음
 		ResponseEntity<String> response = rt.exchange(
 				"https://kauth.kakao.com/oauth/token",
 				HttpMethod.POST,
@@ -292,7 +298,59 @@ public class MemberController {
 				String.class
 		);
 		
-		return "카카오 인증 완료 : 토큰 요청에 대한 응답" + response;
+		// 엑세스 토큰을 java 객체로 만들기
+		// Gson, Json Simple, ObjectMapper
+		ObjectMapper objectMapper = new ObjectMapper();
+		OAuthToken oauthtoken = null;
+		try {
+			oauthtoken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		//POST방식으로 인증 토큰을 가지고 사용자 정보 요청(카카오쪽으로)
+		RestTemplate rt2 = new RestTemplate();
+		
+		// HttpHeader 오브젝트 생성
+		HttpHeaders headers2 = new HttpHeaders();
+		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		headers2.add("Authorization", "Bearer " + oauthtoken.getAccess_token());
+		
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기(exchange함수가 httpentity를 담기 때문)
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
+		
+		// Http 요청하기 = Post 방식으로 - 그리고 response 변수의 응답 받음
+		ResponseEntity<String> response2 = rt2.exchange(
+				"https://kapi.kakao.com/v2/user/me",
+				HttpMethod.POST,
+				kakaoProfileRequest2,
+				String.class
+		);
+		
+		System.out.println(response2.getBody());
+		
+		// 엑세스 토큰을 java 객체로 만들기
+		// Gson, Json Simple, ObjectMapper
+		ObjectMapper objectMapper2 = new ObjectMapper();
+		SocialLoginProfile socialLoginProfile = null;
+		try {
+			socialLoginProfile = objectMapper2.readValue(response2.getBody(), SocialLoginProfile.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("카카오아이디(번호)" + socialLoginProfile.getId());
+		System.out.println("이메일" + socialLoginProfile.getKakao_account().getEmail());
+		
+		return response2.getBody();
 	}
 	
 	
