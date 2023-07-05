@@ -21,7 +21,5 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		registry.addInterceptor(CategoryInterceptor())
 			.addPathPatterns("/**") // 가로챌 경로 지정(여러개 작성 시 ,로 구분)
 			.excludePathPatterns("/css/**", "/js/**", "/images/**"); // 예외 경로 지정
-		
 	}
-	
 }

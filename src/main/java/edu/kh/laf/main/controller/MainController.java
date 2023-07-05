@@ -43,7 +43,7 @@ public class MainController {
         model.addAttribute("newArrivals", newArrivals);
         model.addAttribute("personalList", personalList);
         
-        return "/main";
+        return "main";
     }
     
     @GetMapping("/weekly")

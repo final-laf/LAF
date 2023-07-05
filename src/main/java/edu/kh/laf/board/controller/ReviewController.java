@@ -18,63 +18,69 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.board.model.service.ReviewService;
-import edu.kh.laf.mypage.model.service.MypageReviewService;
 
 @Controller
 public class ReviewController {
 
 	@Autowired
 	private ReviewService service;
-	private MypageReviewService myReviewService;
-	
-	// 리뷰 메인화면
+
+	/**
+	 * 리뷰 메인화면
+	 * @param model
+	 * @param cp
+	 */
 	@GetMapping("/review")
-	public String review(
-			Model model
-			, @RequestParam(value="cp", required=false, defaultValue="1") int cp
-			) {
-			Map<String, Object> resultMap = service.reviewList(cp);
-			model.addAttribute("resultMap", resultMap);
-			
-			List<Review> bestReview = service.bestReview();
-			for(Review review : bestReview) {
-				review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
-				review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
-				List<ReviewImg> imgList = new ArrayList<>();
-				imgList=service.reviewImg(review.getReviewNo());
-				review.setReviewImg(imgList);
-			}
-			model.addAttribute("bestReview", bestReview);
-		return "/boards/review/review";
+	public String review(Model model, @RequestParam(value = "cp", required = false, defaultValue = "1") int cp) {
+		Map<String, Object> resultMap = service.reviewList(cp);
+		model.addAttribute("resultMap", resultMap);
+
+		List<Review> bestReview = service.bestReview();
+		for (Review review : bestReview) {
+			review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
+			review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
+			List<ReviewImg> imgList = new ArrayList<>();
+			imgList = service.reviewImg(review.getReviewNo());
+			review.setReviewImg(imgList);
+		}
+		model.addAttribute("bestReview", bestReview);
+		return "boards/review/review";
 	}
-//	리뷰 상세
+
+	/**
+	 * 리뷰 상세
+	 * @param reviewNo
+	 */
 	@GetMapping("/review/detailReview")
 	@ResponseBody
 	public Review detail(String reviewNo) {
 		Review review = new Review();
 		review = service.detailReview(reviewNo);
-		if(review!=null) {
-			int num = review.getMemberId().length()/2;
-			int uNum = review.getOrderUno().length()/2;
-			
+		if (review != null) {
+			int num = review.getMemberId().length() / 2;
+			int uNum = review.getOrderUno().length() / 2;
+
 			String blind = "";
 			blind = "";
-			for(int i=0; i<uNum; i++) {blind += "*";}
-			review.setOrderUno(review.getOrderUno().substring(0, uNum)+blind);
-			
+			for (int i = 0; i < uNum; i++) {
+				blind += "*";
+			}
+			review.setOrderUno(review.getOrderUno().substring(0, uNum) + blind);
+
 			List<ReviewImg> imgList = new ArrayList<>();
-			imgList=service.reviewImg(review.getReviewNo());
+			imgList = service.reviewImg(review.getReviewNo());
 			review.setReviewImg(imgList);
 			review.setOption(service.reviewOption(review.getOptionNo())); // 옵션 설정
 			review.setProduct(service.reviewProduct(review.getProductNo())); // 상품 설정
-		}else {
+		} else {
 			review = new Review();
 			review.setMemberNo(0);
 		}
 		return review;
 	}
-	
-	/** 리뷰 추가
+
+	/**
+	 * 리뷰 추가
 	 * @param review
 	 * @param images
 	 * @return
@@ -82,13 +88,14 @@ public class ReviewController {
 	 * @throws IOException
 	 */
 	@PostMapping("/review/insert")
-	public String insert(Review review, @RequestParam(value="images", required=false) List<MultipartFile> images)throws IllegalStateException, IOException {
+	public String insert(Review review, @RequestParam(value = "images", required = false) List<MultipartFile> images)
+			throws IllegalStateException, IOException {
 		service.insertReview(review, images);
-		
-		return "redirect:/myPage/review/list"; 
+		return "redirect:/myPage/review/list";
 	}
 
-	/** 리뷰 수정
+	/**
+	 * 리뷰 수정
 	 * @param review
 	 * @param deleteList
 	 * @param images
@@ -96,41 +103,34 @@ public class ReviewController {
 	 * @throws Exception
 	 */
 	@PostMapping("/review/update")
-	public String update(
-			Review review,
-			@RequestParam(value="deleteList", required=false) String deleteList, 
-			@RequestParam(value="images", required=false) List<MultipartFile> images,
-			@RequestHeader("referer") String referer
-			)  throws Exception {
-		int i = service.updateReview(review, images, deleteList);
-		
-		
-		return "redirect:"+referer; 
+	public String update(Review review, @RequestParam(value = "deleteList", required = false) String deleteList,
+			@RequestParam(value = "images", required = false) List<MultipartFile> images,
+			@RequestHeader("referer") String referer) throws Exception {
+		service.updateReview(review, images, deleteList);
+		return "redirect:" + referer;
 	}
-	/** 리뷰 삭제
+
+	/**
+	 * 리뷰 삭제
 	 * @param reviewNo
 	 * @return
 	 */
 	@GetMapping("/review/delete")
-	public String delete(
-			@RequestParam(value="reviewNo", required=false) long reviewNo,
-			@RequestHeader("referer") String referer
-			) {
-		int i = service.deleteReview(reviewNo);
-		return "redirect:"+referer; 
+	public String delete(@RequestParam(value = "reviewNo", required = false) long reviewNo,
+			@RequestHeader("referer") String referer) {
+		service.deleteReview(reviewNo);
+		return "redirect:" + referer;
 	}
-	
-	
-	/** 베스트 리뷰 수정
+
+	/**
+	 * 베스트 리뷰 수정
 	 * @param paramMap
 	 * @return
 	 */
 	@GetMapping("/review/best")
-	public String bestReview(
-			@RequestParam Map<String, Object> paramMap
-			) {
-		int i = service.updateBestReview(paramMap);
-		return "redirect:/review"; 
+	public String bestReview(@RequestParam Map<String, Object> paramMap) {
+		service.updateBestReview(paramMap);
+		return "redirect:/review";
 	}
-	
+
 }

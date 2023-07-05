@@ -23,7 +23,7 @@ public class FaqController {
 		faqList = service.faqList();
 		model.addAttribute("faqList", faqList);
 		
-		return "/boards/faq/faq";
+		return "boards/faq/faq";
 	}
 	
 }

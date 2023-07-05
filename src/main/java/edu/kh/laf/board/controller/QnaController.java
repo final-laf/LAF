@@ -40,7 +40,7 @@ public class QnaController {
 			Map<String, Object> resultMap = qnaService.qnaList(paramMap, cp);
 			model.addAttribute("resultMap", resultMap);
 		}
-		return "/boards/qna/qna";
+		return "boards/qna/qna";
 	}
 	
 	// 1:1 문의 상세
@@ -48,7 +48,7 @@ public class QnaController {
 	public String detail(@PathVariable String no, Model model) {
 		Qna qna = qnaService.detailQna(no);
 		model.addAttribute("qna", qna);
-		return "/boards/qna/qnaDetail";
+		return "boards/qna/qnaDetail";
 	}
 	
 	
@@ -57,7 +57,7 @@ public class QnaController {
 	public String modifyQna(@PathVariable String no, Model model) {
 		Qna qna = qnaService.detailQna(no);
 		model.addAttribute("qna", qna);
-		return "/boards/qna/qnaModify";
+		return "boards/qna/qnaModify";
 	}
 	
 	// 1:1 문의 답글 컨트롤러
@@ -65,12 +65,12 @@ public class QnaController {
 	public String answerQna(@PathVariable String no, Model model) {
 		Qna qna = qnaService.detailQna(no);
 		model.addAttribute("qna", qna);
-		return "/boards/qna/qnaAnswer";
+		return "boards/qna/qnaAnswer";
 	}
 	// 1:1 문의 글쓰기 컨트롤러
 	@GetMapping("/qna/write")
 	public String write() {
-		return "/boards/qna/qnaWrite";
+		return "boards/qna/qnaWrite";
 	}
 	
 	// 기능: 1:1 문의 글쓰기
@@ -154,14 +154,9 @@ public class QnaController {
 	public String answer(Qna qna, Model model){
 		String path = "redirect:/qna/detail/";
 		path+=qna.getQnaNo();
-		
-		int answerNotice = qnaService.answerQna(qna);
-		
+		qnaService.answerQna(qna);
 		return path;
 	}
-	
-	
-	
 	
 	/** 기능: 1:1 문의 삭제
 	 * @param qnaNo
@@ -170,9 +165,8 @@ public class QnaController {
 	@GetMapping(value="/qna/delete",produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	public String deleteQna(String qnaNo){
-		int no = qnaService.deleteQna(qnaNo);
-		String n= "";
-		return n;
+		qnaService.deleteQna(qnaNo);
+		return "";
 	}
 	
 	// 기능 : 1:1 문의 비밀글 유효성 검사
