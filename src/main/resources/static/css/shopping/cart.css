@@ -229,3 +229,7 @@ tr:not(:first-child) > .cart-item-product {
 .bubble-content:disabled {
   background-color: #eee;
 }
+
+.sub-section {
+  margin-top: 0px !important;
+}

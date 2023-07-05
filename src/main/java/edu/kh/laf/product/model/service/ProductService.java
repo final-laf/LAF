@@ -165,4 +165,11 @@ public interface ProductService {
 	 * @return count
 	 */
 	int adminGetListCount(long pcno, long ccno);
+
+	/**
+	 * 장바구니 상품 기반 추천상품 리스트
+	 * @param productList
+	 * @return productList
+	 */
+	List<Product> selectRecommendProductList(List<Product> productList);
 }
