@@ -180,6 +180,7 @@
 		 		LEFT JOIN review r ON br.review_no=r.review_no 
 		 		JOIN `order` o ON r.order_no =o.order_no 
 				JOIN `member` m ON o.member_no = m.member_no 
+		ORDER BY best_review_no 
     </select>
     
         <!-- 베스트 리뷰 업데이트 -->
