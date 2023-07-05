@@ -48,7 +48,7 @@ public class ProductController {
 	private MainService mainService;
 	
 	// 카테고리 상품목록 조회
-	@GetMapping("{category:[0-9]+}")
+	@GetMapping("/{category:[0-9]+}")
 	public String category(
 			Model model, 
 			@PathVariable("category") int categoryNo, String ordering,

@@ -52,7 +52,7 @@
               <div class="item-order-no"><a th:href="'order/'+${r.orderNo}"><p th:text="|[${r.orderUno}]|">주문번호</p></a></div>
             </td>
             <td class="item-image">
-              <a href="/product/1">
+              <a th:href="@{/product/{no}(no=${r.product.productNo})}">
                 <img th:src="${r.product.thumbnailPath}">
               </a>
             </td>
