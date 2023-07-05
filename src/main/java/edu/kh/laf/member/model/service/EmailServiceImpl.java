@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.member.model.mapper.EmailMapper;
 import edu.kh.laf.order.model.dto.Order;
 import jakarta.mail.Message;
@@ -118,12 +120,29 @@ public class EmailServiceImpl implements EmailService {
 			
 			// 제목
 			String subject = "[LAF] " + order.getOrderDate().substring(0,10) + " 주문내역 "+ order.getOrderUno();
-			System.out.println(subject);
 
-			// 주문자 이메일 주소 조회 - 이메일 받는사람
-			String sendEmail = mapper.selectSendEmail(order.getMemberNo());
-			System.out.println(sendEmail);
-            
+			// 주문자 정보 조회 - 이메일 받는사람
+			Member orderMember = mapper.selectSendEmail(order.getMemberNo());
+			
+			// 주문자 이름 세팅
+			order.setPaymentName(orderMember.getMemberName());
+			
+            // 주문자 이메일
+			String sendEmail = orderMember.getMemberEmail();
+
+			// 받는 사람 주소 세팅
+			order.setOrderRecvAdd(order.getOrderRecvAdd().replace("^^^", " "));
+			
+			// 받는 사람 전화번호 세팅
+			StringBuilder recvTel = new StringBuilder();
+			recvTel.append(order.getOrderRecvPhone().substring(0, 3));
+	        recvTel.append("-");
+	        recvTel.append(order.getOrderRecvPhone().substring(3, 7));
+	        recvTel.append("-");
+	        recvTel.append(order.getOrderRecvPhone().substring(7));
+			
+			order.setOrderRecvPhone(recvTel.toString());
+			
 			// 내용 - 템플릿에 전달할 데이터
 			Context context = new Context();
 			context.setVariable("emailData", emailData);
@@ -141,18 +160,22 @@ public class EmailServiceImpl implements EmailService {
 
 	            //수신자 설정
 //	            mailhelper.setTo(sendEmail);
-//	            mailhelper.setTo("kjaew31@gmail.com");
+	            mailhelper.setTo("kjaew77@gmail.com");
 	            
 	            // 내용설정
 	            String html = templateEngine.process("mail", context);
 	            mailhelper.setText(html, true);
 	            
-//	            mailSender.send(mail);
+	            // 로고이미지 cid로 삽입
+	            mailhelper.addInline("logo", new ClassPathResource("/static/images/logo.png"));
+	            
+	            mailSender.send(mail);
+	            return "주문내역 이메일 전송 성공";
 	        } catch (Exception e) {
 	            e.printStackTrace();
+	            return "주문내역 이메일 전송 실패";
 	        }
 		
-			return null;
 		}
 		
 

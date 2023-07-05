@@ -146,9 +146,12 @@
   <script th:inline="javascript">
     const order = /*[[${order}]]*/ "주문정보";
     const dc = /*[[${dc}]]*/ "주문상품정보";
+
+    const resultEmail = /*[[${resultEmail}]]*/ "이메일전송";
+    if(resultEmail !=null ) alert(resultEmail);
   </script>
 
-  <script src="/js/order/orderDetail.js"></script>
+  <script th:src="@{/js/order/orderDetail.js}"></script>
 
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

@@ -4,6 +4,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import edu.kh.laf.member.model.dto.Member;
+
 @Mapper
 public interface EmailMapper {
 
@@ -29,6 +31,6 @@ public interface EmailMapper {
 	 * @param memberNo 
 	 * @return
 	 */
-	String selectSendEmail(long memberNo);
+	Member selectSendEmail(long memberNo);
 	
 }
