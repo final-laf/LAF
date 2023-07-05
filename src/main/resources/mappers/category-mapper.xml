@@ -31,7 +31,7 @@
 		ORDER BY parent_category_order
 	</select>
 	
-		<!-- Navigation 자식 카테고리 조회 -->
+	<!-- Navigation 자식 카테고리 조회 -->
 	<select id="selectNavChildCategoryList" resultMap="child_category_rm">
 		select 	child_category_no,
 				child_category_name,
@@ -84,6 +84,7 @@
 				parent_category_no
 		from 	`child_category_cd`
 		where 	parent_category_no = ${categoryNo}
+		order by child_category_order asc
 	</select>
 	
 	<!-- 상품이 포함된 카테고리 조회 -->
@@ -147,13 +148,6 @@
 	</delete>
 	
 	<!-- 부모 카테고리 순서 업데이트 -->
-<!--	<update id="updateParentCategory" parameterType="list"> 
-	  <foreach collection="list" item="item"> 
-	    UPDATE 	`parent_category_cd`
-	    SET		parent_category_order=${item.categoryOrder}
-	    WHERE 	parent_category_no=${item.categoryNo}
-	  </foreach> 
-	</update>-->
 	<update id="updateParentCategory"> 
 	    UPDATE 	`parent_category_cd`
 	    SET		 parent_category_order=${categoryOrder}
@@ -162,19 +156,12 @@
 	
 	<!-- 부모 카테고리 신규 추가 -->
 	<insert id="insertParentCategory" useGeneratedKeys="true" keyProperty="categoryNo" parameterType="Category">
-		<!--insert into `parent_category_cd`
-		values
-		<foreach collection="list" item="item" separator=",">
-		(
-			null,
-			#{item.categoryName},
-			${item.categoryOrder}
-		)
-		</foreach>-->
 		insert into `parent_category_cd`
 		(
-			SELECT NULL, #{categoryName}, max(parent_category_order) + 1
-			FROM `parent_category_cd`
+			SELECT 	 NULL,
+					 #{categoryName},
+					 max(parent_category_order) + 1
+			FROM  	`parent_category_cd`
 		)
 	</insert>
 	
@@ -192,18 +179,23 @@
 	</update>
 	
 	<!-- 자식 카테고리 신규 추가 -->
-	<insert id="insertChildCategory">
+	<insert id="insertChildCategory" useGeneratedKeys="true" keyProperty="categoryNo" parameterType="Category">
 		insert into `child_category_cd`
-		values
-		<foreach collection="list" item="item" separator=",">
 		(
-			null,
-			#{item.categoryName},
-			${item.parentCategoryNo},
-			${item.categoryOrder}
-		)
-		</foreach>
+			select 	 null,
+					 #{categoryName},
+					 ${parentCategoryNo},
+					 max(child_category_order) + 1
+			from 	`child_category_cd`
+			where 	 parent_category_no = ${parentCategoryNo}
+		)			
 	</insert>
+	
+	<!-- 자식 카테고리 삭제 -->
+	<delete id="deleteChildCategory">
+		delete from `child_category_cd`
+		where child_category_no=${categoryNo}
+	</delete>
 	
 </mapper>
 

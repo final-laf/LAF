@@ -198,12 +198,18 @@ public class CategoryServiceImpl implements CategoryService {
 	// 자식 카테고리 추가
 	@Override
 	public long insertChildCategory(String name, long parentNo) {
-		return 0;
+		
+		Category c = new Category();
+		c.setCategoryName(name);
+		c.setParentCategoryNo(parentNo);
+		mapper.insertChildCategory(c);
+		
+		return c.getCategoryNo();
 	}
 
 	// 자식 카테고리 삭제
 	@Override
 	public int deleteChildCategory(long categoryNo) {
-		return 0;
+		return mapper.deleteChildCategory(categoryNo);
 	}
 }

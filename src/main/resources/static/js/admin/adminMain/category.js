@@ -30,8 +30,8 @@ function removeParentCategory(e) {
   if (!confirm('카테고리를 삭제하시겠습니까?')) return;
   
   // 하위메뉴가 있으면 삭제 불가
-  let el = e.target.parentElement;
-  if(el.querySelectorAll(".category-second > div").length > 0) {
+  let el = e.target.parentElement.parentElement;
+  if(el.querySelectorAll(".cc1").length > 0) {
     alert('하위 메뉴가 있는 카테고리는 삭제할 수 없습니다.'); return;
   }
 
@@ -58,8 +58,42 @@ function removeParentCategory(e) {
     document.querySelector('.pc2-container').innerHTML = '';
     document.getElementById('pcInput').disabled = false;
     document.getElementById('ccInput').disabled = true;
-    // document.getElementById('pcInput').focus();
+    alert('삭제되었습니다');
+  })
+  .catch(e => console.log(e));
+}
 
+/* 자식 카테고리 삭제 */
+function removeChildCategory(e) {
+  e.stopPropagation();
+  
+  if (!confirm('카테고리를 삭제하시겠습니까?')) return;
+  
+  // 자식, 부모 카테고리 번호 추출
+  const pcno = document.querySelector('.pc2').getAttribute('pcno');
+  let el = e.target;
+  let ccno = e.target.getAttribute('ccno');
+  while (ccno == null) {
+    el = el.parentElement;
+    ccno = el.getAttribute('ccno');
+  }
+
+  // DB에서 삭제
+  fetch("/admin/category/rmChild?categoryNo=" + ccno + "&parentNo=" + pcno)
+  .then(resp => resp.text())
+  .then(resp => {
+
+    // 실패 -> 함수 종료
+    if(resp == -1) {
+      alert('해당 카테고리에 등록된 상품이 있습니다'); return;
+    } else if(resp <= 0) {
+      alert('DB 삭제 실패'); return;
+    }
+
+    // 화면에서 삭제
+    const ccno = e.target.parentElement.getAttribute('ccno');
+    e.target.parentElement.remove();
+    document.querySelector('.cc1[ccno="' + ccno + '"]').remove();
     alert('삭제되었습니다');
   })
   .catch(e => console.log(e));
@@ -126,9 +160,10 @@ const selectCategory = e => {
     span2.innerHTML = '&times;';
     span2.classList.add('remove-btn');
     span2.addEventListener('click', e => {
-      const ccno = e.target.parentElement.getAttribute('ccno');
-      e.target.parentElement.remove();
-      document.querySelector('.cc1[ccno="' + ccno + '"]').remove();
+      removeChildCategory(e);
+      // const ccno = e.target.parentElement.getAttribute('ccno');
+      // e.target.parentElement.remove();
+      // document.querySelector('.cc1[ccno="' + ccno + '"]').remove();
     });
 
     const ccno = ccNameList[i].parentElement.getAttribute('ccno');
@@ -156,71 +191,78 @@ for (const c of categoryList) {
 
 /* 카테고리 추가 */
 
-const newIndex = {
-  pc: -1,
-  cc: -1
-};
-
 // 자식 카테고리 추가
 const childCategoryNameInput = document.querySelector('#ccInput');
 const childCategoryContainer = document.querySelector('.child-category-container');
 const addSecondCategory = e => {
 
-  // 오른쪽에 추가
-  if (childCategoryNameInput.value.trim().length == 0) {
+  const name = childCategoryNameInput.value.trim();
+  const pcno = document.querySelector('.pc2').getAttribute('pcno');
+  let ccno = 0;
+
+  // 빈칸이면 추가 안함
+  if (name.length == 0) {
     childCategoryNameInput.value = '';
     return;
   }
-
-  const span2 = document.createElement('span');
-  span2.innerHTML = '&times;';
-  span2.classList.add('remove-btn');
-  span2.addEventListener('click', e => {
-    const ccno = e.target.parentElement.getAttribute('ccno');
-    e.target.parentElement.remove();
-    document.querySelector('.cc1[ccno="' + ccno + '"]').remove();
-  });
-
-  const p2 = document.createElement('p');
-  p2.innerHTML = childCategoryNameInput.value;
-  p2.classList.add('drag-item');
-  p2.classList.add('cc2');
-  p2.setAttribute('draggable', true);
-  p2.setAttribute('ccno', newIndex.cc);
-  p2.append(span2);
-  addDragEvent(p2);
   
-  childCategoryContainer.append(p2);
-  
-  // 왼쪽에 추가
-  const cc1span = document.createElement('span');
-  cc1span.classList.add('category-name');
-  cc1span.innerText = childCategoryNameInput.value;
+  fetch("/admin/category/addChild?name=" + name + "&parentNo=" + pcno)
+  .then(resp => resp.text())
+  .then(categoryNo => {
+    ccno = categoryNo;
 
-  const input1 = document.createElement('input');
-  input1.type = 'hidden';
-  input1.name = 'childCategoryName';
-  input1.value = childCategoryNameInput.value;
+    /* 오른쪽 추가 */
+    const span2 = document.createElement('span');
+    span2.innerHTML = '&times;';
+    span2.classList.add('remove-btn');
+    span2.addEventListener('click', e => {
+      removeChildCategory(e);
+      // const ccno = e.target.parentElement.getAttribute('ccno');
+      // e.target.parentElement.remove();
+      // document.querySelector('.cc1[ccno="' + ccno + '"]').remove();
+    });
 
-  const input2 = document.createElement('input');
-  input2.type = 'hidden';
-  input2.name = 'childCategoryNo';
-  input2.value = newIndex.cc;
+    const p2 = document.createElement('p');
+    p2.innerHTML = childCategoryNameInput.value;
+    p2.classList.add('drag-item');
+    p2.classList.add('cc2');
+    p2.setAttribute('draggable', true);
+    p2.setAttribute('ccno', ccno);
+    p2.append(span2);
+    addDragEvent(p2);
+    
+    childCategoryContainer.append(p2);
+    
+    /* 왼쪽 추가 */
+    const cc1span = document.createElement('span');
+    cc1span.classList.add('category-name');
+    cc1span.innerText = childCategoryNameInput.value;
 
-  const input3 = document.createElement('input');
-  input3.type = 'hidden';
-  input3.name = 'parentCategoryNo';
-  input3.value = document.querySelector('.select-edit').getAttribute('pcno');
-  
-  const cc1div = document.createElement('div');
-  cc1div.classList.add('cc1');
-  cc1div.setAttribute('ccno', newIndex.cc--);
-  cc1div.append(cc1span, input1, input2, input3);
-  
-  document.querySelector('.select-edit .cc1-container').append(cc1div);
+    const input1 = document.createElement('input');
+    input1.type = 'hidden';
+    input1.name = 'childCategoryName';
+    input1.value = childCategoryNameInput.value;
 
-  childCategoryNameInput.value = '';
-  childCategoryNameInput.focus();
+    const input2 = document.createElement('input');
+    input2.type = 'hidden';
+    input2.name = 'childCategoryNo';
+    input2.value = ccno;
+
+    const input3 = document.createElement('input');
+    input3.type = 'hidden';
+    input3.name = 'parentCategoryNo';
+    input3.value = document.querySelector('.select-edit').getAttribute('pcno');
+    
+    const cc1div = document.createElement('div');
+    cc1div.classList.add('cc1');
+    cc1div.setAttribute('ccno', ccno);
+    cc1div.append(cc1span, input1, input2, input3);
+    
+    document.querySelector('.select-edit .cc1-container').append(cc1div);
+
+    childCategoryNameInput.value = '';
+    childCategoryNameInput.focus();
+  }).catch(e => console.log(e));
 }
 
 // 엔터로 자식 카테고리 추가
@@ -235,13 +277,13 @@ const parentCategoryNameInput = document.querySelector('#pcInput');
 const parentCategoryContainer = document.querySelector('.parent-category-container');
 const addFirstCategory = e => {
 
-  if (parentCategoryNameInput.value.trim().length == 0) {
+  const name = parentCategoryNameInput.value.trim();
+  let pcno = 0;
+
+  if (name.length == 0) {
     parentCategoryNameInput.value = '';
     return;
   }
-
-  const name = parentCategoryNameInput.value;
-  let pcno = 0;
 
   /* DB 추가 */
   fetch('/admin/category/addParent?name=' + name)
@@ -315,8 +357,7 @@ const addFirstCategory = e => {
     childCategoryNameInput.disabled = false;
     parentCategoryNameInput.value = '';
     childCategoryNameInput.focus();
-  })
-  .catch(e => console.log(e));
+  }).catch(e => console.log(e));
 };
 
 // 엔터로 부모 카테고리 추가
