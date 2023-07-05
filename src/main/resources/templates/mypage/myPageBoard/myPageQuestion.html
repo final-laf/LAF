@@ -11,13 +11,13 @@
 
 </head>
 <body>
-  <th:block th:replace="~{/common/header}"></th:block>
-  <th:block th:replace="~{/common/nav}"></th:block>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
   
   <main th:with="pagination=${resultMap.pagination}, qnaList=${resultMap.qnaList}">
     <form th:action="@{/myPage/qna/{categoryNo}(categoryNo=${categoryNo})}" method="get" id="myPageQuestionSubmit">
       <section class="mypageQuestion-mainFrame">
-        <th:block th:replace="~{/myPage/myPageSide}"></th:block>
+        <th:block th:replace="~{myPage/myPageSide}"></th:block>
         <!-- 마이페이지 중앙 대쉬보드 -->
         <div class="mypageQuestion-mainFrame-myMain">
           <!-- 등급 확인 및 적립금 예치금 쿠폰 -->
@@ -189,7 +189,7 @@
       </section>
     </form>
   </main>
-  <th:block th:replace="~{/common/footer}"></th:block>
+  <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/myPage/myPageQuestion.js"></script>
   
 </body>

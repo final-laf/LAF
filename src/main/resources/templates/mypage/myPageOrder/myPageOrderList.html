@@ -9,12 +9,12 @@
 
 </head>
 <body>
-  <th:block th:replace="~{/common/header}"></th:block>
-  <th:block th:replace="~{/common/nav}"></th:block>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
   
   <main>
     <!-- 마이페이지 sidebar -->
-    <th:block th:replace="~{/mypage/mypageSide}"></th:block>
+    <th:block th:replace="~{mypage/mypageSide}"></th:block>
     
     <!-- 주문 정보 목록 -->
     <section id="mypageOrderList">
@@ -159,7 +159,7 @@
     </section>
   </main>
 
-  <th:block th:replace="~{/common/footer}"></th:block>
+  <th:block th:replace="~{common/footer}"></th:block>
   <script th:inline="javascript">
     const os = /*[[${os}]]*/ "주문조회";
   </script>

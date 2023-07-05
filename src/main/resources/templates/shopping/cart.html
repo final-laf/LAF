@@ -156,7 +156,7 @@
       <div class="sub-section-content slide_wrap_sub-2">
         <ul class="sub-section-list slide_list_sub">
           <li class="slide_content_sub" th:each="product : ${recommendList}">
-            <th:block th:replace="~{/shopping/productListItem}"></th:block>
+            <th:block th:replace="~{shopping/productListItem}"></th:block>
           </li>
         </ul>
         
@@ -190,7 +190,7 @@
   </div>
   
   
-  <th:block th:replace="~{/common/footer}"></th:block>
+  <th:block th:replace="~{common/footer}"></th:block>
   
   <script th:src="@{js/shopping/cart.js}"></script>
   <script th:src="@{/js/shopping/productListItem.js}"></script>

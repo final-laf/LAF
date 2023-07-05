@@ -10,8 +10,8 @@
 
 <body>
 
-  <th:block th:replace="~{/common/header}"></th:block>
-  <th:block th:replace="~{/common/nav}"></th:block>
+  <th:block th:replace="~{common/header}"></th:block>
+  <th:block th:replace="~{common/nav}"></th:block>
   
   <main th:with="pagination=${resultMap.pagination}, reviewList=${resultMap.reviewList}, bestReview=${bestReview}">
 
@@ -66,13 +66,13 @@
     </section>
 
     <!-- 사용자 리뷰(최신순) 게시판 -->
-    <th:block th:replace="~{/boards/review/reviewList}"></th:block>
+    <th:block th:replace="~{boards/review/reviewList}"></th:block>
 
 
   <!-- 리뷰 수정 모달창 -->
   </main>
 
-  <th:block th:replace="~{/common/footer}"></th:block>
+  <th:block th:replace="~{common/footer}"></th:block>
   
 <!-- 타입스크립트로 옮길 땐 지울것 -->
 
