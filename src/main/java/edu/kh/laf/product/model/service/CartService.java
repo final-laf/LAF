@@ -90,4 +90,11 @@ public interface CartService {
 	 */
 	List<OrderProduct> jsonToOrderProductList(String data, Long memberNo);
 
+	/**
+	 * [회원] 장바구니 상품 갯수 조회
+	 * @param memberNo
+	 * @return cartCount
+	 */
+	int getCartCount(Long memberNo);
+
 }

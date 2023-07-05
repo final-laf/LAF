@@ -19,6 +19,10 @@ function updateCart() {
   .then(resp => resp.text())
   .then(result => {
     if(result <= 0 ) alert('업데이트 실패');
+    
+    // 카트 총 수량 업데이트
+    // updateCartCount(result);
+    // updateCartCount2(); 
   }) 
   .catch(err => console.log(err));
 }
@@ -139,6 +143,10 @@ for(let btn of deleteBtns) {
 
         // 스크롤 맨 위로 이동
         window.scrollTo(0, 0);
+
+        // 카트 총 수량 업데이트
+        if(loginMember == undefined) updateCartCount2(); 
+        else updateCartCount(result * (-1));
       } else {
         alert("삭제 실패");
       }
@@ -192,7 +200,11 @@ clearCartBtn.addEventListener('click', () => {
 
       // 스크롤 맨 위로 이동
       window.scrollTo(0, 0);
-      alert("장바구니를 비웠습니다.")
+      alert("장바구니를 비웠습니다.");
+
+      // 카트 총 수량 업데이트
+      if(loginMember == undefined) updateCartCount2(); 
+      else updateCartCount(result * (-1));
     } else {
       alert("삭제 실패");
     }
@@ -250,7 +262,11 @@ deleteSelectedBtn.addEventListener('click', () => {
 
       // 스크롤 맨 위로 이동
       window.scrollTo(0, 0);
-      alert("선택하신 상품을 삭제했습니다.")
+      alert("선택하신 상품을 삭제했습니다.");
+      
+      // 카트 총 수량 업데이트
+      if(loginMember == undefined) updateCartCount2(); 
+      else updateCartCount(result * (-1));
     } else {
       alert("삭제 실패");
     }
@@ -371,8 +387,6 @@ for(let btn of optionChangeBtns) {
           stock.push(op.stock);
           opNo.push(op.optionNo);
         }
-        // if(op.stock > 0)
-          // stock[color.indexOf(op.color)] = true;
       }
       
       // select option 생성

@@ -246,14 +246,13 @@ addCartBtn.addEventListener('click', () => {
     let cookieStr = "";
     for(let item of curItems) {
       const curStr = productNo + "-"
-        + item.getAttribute('option-no') + "-"
-        + item.querySelector('.current-count span').innerText + "@";
+        + item.getAttribute('option-no');
 
       // 중복제거
       if(getCookie('cart') && getCookie('cart').includes(curStr)) {
         flag = true;
       } else {
-        cookieStr += curStr;
+        cookieStr += curStr + "-" + item.querySelector('.current-count span').innerText + "@";
       }
     }
 
@@ -269,11 +268,11 @@ addCartBtn.addEventListener('click', () => {
       if(result == "성공") {
         if(flag) alert("중복된 상품을 제외하고 장바구니에 추가하였습니다.");
         else alert("선택한 상품을 장바구니에 담았습니다.");
+        updateCartCount2();
       } else {
         alert(result);
       }
-    }) 
-    .catch(err => console.log(err));
+    }).catch(err => console.log(err));
   }
   
   // 회원 : 서버 DB에 저장
@@ -294,7 +293,13 @@ addCartBtn.addEventListener('click', () => {
     fetch("/cart/add?data=" + dataStr)
     .then(resp => resp.text())
     .then(result => {
+      
       alert(result);
+
+      fetch("/cart/count")
+      .then(resp => resp.text()) 
+      .then(res => cartCount.innerText = res)
+      .catch(e => console.log(e));
     }) 
     .catch(err => console.log(err));
   }
