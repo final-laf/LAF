@@ -64,13 +64,6 @@
         ORDER BY qna_order_by DESC
     </select>
     
-    
-    
-    
-    
-    
-     
-    
     	<!-- answered qnaList -->
     <select id="answeredQna" resultType="Qna">
         SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no ORDER BY qna_answer
@@ -109,6 +102,11 @@
 	<!-- qna문의 수정 -->
     <update id="updateQna" parameterType="Qna" >
         UPDATE `qna` SET order_no=#{orderNo}, product_no=#{productNo}, qna_category=#{qnaCategory}, qna_title=#{qnaTitle}, qna_content=#{qnaContent}, qna_lock_fl=#{qnaLockFl}, qna_pw=#{qnaPw} WHERE qna_no=#{qnaNo}
+    </update>
+
+	<!-- qna문의 수정 -->
+    <update id="answerQna" parameterType="Qna" >
+        UPDATE `qna` SET qna_answer=#{qnaAnswer} WHERE qna_no=#{qnaNo}
     </update>
 	
 	

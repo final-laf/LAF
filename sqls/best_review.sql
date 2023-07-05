@@ -63,4 +63,5 @@ FROM best_review br
 		JOIN `member` m ON o.member_no = m.member_no 
 			  
 			 
-			 
+;
+SELECT * FROM best_review br ORDER BY best_review_no ;

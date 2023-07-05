@@ -71,7 +71,7 @@ SELECT * FROM `review` WHERE review_delete_fl='N' ORDER BY review_create_date DE
 --         
 UPDATE `review`	SET review_content='리뷰내용 수정', review_score= 2.2 WHERE review_no = 28;
 
-
+SELECT * FROM `member` m ;
 SELECT * FROM `order` r2 ;
 SELECT * FROM `order_product` r2 ;
 SELECT * FROM review r2 ;

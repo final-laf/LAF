@@ -53,6 +53,13 @@
           </tbody>
         </table>
       </div>
+
+      <!-- 하단 버튼 영역 -->
+      <div th:if="${session.loginMember?.memberGrade=='A'}" class="btn-area" >
+        <button type="button" id="insertBtn">WRITE</button>                     
+      </div>
+
+
       <!-- 하단 버튼 영역 -->
       <div th:if="${#lists.size(noticeList) > 0}" class="pagination-area">
         <ul th:unless="${param.query}" class="pagination">
@@ -136,7 +143,6 @@
         <input type="text" name="query" id="searchQuery" >
         <button>검색</button>
       </form>
-      <button type="button" id="chatBtn">chat</button>
     </section>
   </main>
 
