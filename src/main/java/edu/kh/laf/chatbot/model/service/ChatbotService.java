@@ -16,6 +16,6 @@ public interface ChatbotService {
 	 * @param chat
 	 * @return
 	 */
-//	List<Faq> searchAnswer(String chat);
+	List<Faq> searchAnswer(String chat);
 
 }

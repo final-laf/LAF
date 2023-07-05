@@ -6,6 +6,7 @@
 }
 
 #chatbotSection{
+  display: none;
   z-index: 999;
   border-radius: 10px;
   height: 450px;

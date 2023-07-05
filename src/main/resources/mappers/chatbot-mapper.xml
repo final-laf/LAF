@@ -20,8 +20,26 @@
 			</if>
 		ORDER BY faq_order
 	</select>
-
-	
+	<select id="searchAnswer" resultType="Faq">
+		SELECT 
+			subquery.faq_no,
+			subquery.faq_title,
+			subquery.faq_content
+			
+		FROM 
+			(SELECT 
+				faq_no,
+				faq_title,
+				faq_content,
+				0
+				<foreach collection='list' item='i'>
+					+ (SELECT count(*) FROM faq a WHERE faq_title LIKE '%${i}%' AND a.faq_no=f.faq_no)
+				</foreach>
+				count
+			FROM faq f 
+			ORDER BY count DESC) AS subquery
+		WHERE count>0
+	</select>
 
     
     
