@@ -19,6 +19,7 @@
     <section th:object="${orderMember}" class="mypageOrder-mainFrame">
       <form id="orderSubmit" th:action="@{/order}" method="post">
         <div class="mypageOrder-order-text">주문 정보</div>
+        <button id="paytestbtn" type="button"> 결제 테스트용 버튼</button>
         <!-- 주문 정보 -->
         <div class="mypageOrder-mainFrame-order">
           <div>주문 정보</div>
@@ -239,16 +240,21 @@
           </table>
         </div>
         <div class="mypageOrder-mainFrame-order">
-          <div>결제수단</div>
+          <div>
+            결제수단
+            <input type="hidden" name="payment" value="1">
+          </div>
           <table class="mypageOrder-order-info" id="mypageOrderHow">
             <tr>
               <th>
-                <span>무통장입금</span>
-                <input type="hidden" name="payment" value="1">
-                <!-- <button type="button">Paypal</button> -->
+                <div>
+                  <input type="radio" name="payHow" id="pay1"><label for="pay1"><span>무통장입금</span></label>
+                  <input type="radio" name="payHow" id="pay2"><label for="pay2"><span>일반결제</span></label>
+                  <input type="radio" name="payHow" id="pay3"><label for="pay3"><span>카카오페이</span></label>
+                </div>
               </th>
             </tr>
-            <tr>
+            <tr id="inputPay1" class="hidden">
               <th>
                 <div>
                   <div>입금은행</div>
@@ -299,5 +305,11 @@
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/js/common/api/address.js"></script>
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    
 </body>
 </html>
