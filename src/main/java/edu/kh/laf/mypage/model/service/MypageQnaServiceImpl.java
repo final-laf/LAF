@@ -18,11 +18,6 @@ public class MypageQnaServiceImpl implements MypageQnaService {
 	@Autowired
 	private MypageQnaMapper mapper;
 	
-
-	
-
-	
-	
 	// 나의 qna 리스트
 	@Override
 	public Map<String, Object> qnaList(Map<String, Object> paramMap, int cp) {
@@ -43,9 +38,7 @@ public class MypageQnaServiceImpl implements MypageQnaService {
 	}
 
 
-
-
-	/** 검색어를 포함한
+	/** 검색어를 포함한 qna 리스트
 	 *
 	 */
 	@Override

@@ -19,7 +19,15 @@
    text-decoration: none;
 }
 
-.list-table tr > *:nth-of-type(4){ width: 10%; }
+.list-table tr > *:nth-of-type(4){ 
+  width: 15%; 
+  overflow: hidden;
+}
+.list-table tr > *:nth-of-type(4)> span{
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
 .list-table tr > *:nth-of-type(5){ width: 20%; }
 
 .list-table td.hover {
@@ -59,6 +67,11 @@
   padding-left: 20px;
   text-decoration: none;
 }
+.qnaMemberGrade{
+  height: 25px;
+  width: 25px;
+}
+
 /* 작성 시 카테고리 none */
 #qnaWriteProduct{
   display:none;
@@ -288,4 +301,24 @@ color: hsl(0, 0%, 44%);
   width: 100px;
   letter-spacing: 3px;
 }
+#qnaWriteOrderList{
+  position: absolute;
+  background-color: #eee;
+  border-radius: 10px;
+  height: 0px;
+  overflow : auto;
+  transition-duration: 0.5s;
+}
 
+.qnaWriteOrder{
+  display: flex;
+  padding: 5px;
+}
+.qnaWriteOrder:hover{
+  background-color: #ccc;
+  cursor:pointer;
+}
+.qnaWriteOrder > div:first-child{
+  display: flex;
+  width: 135px !important;
+}

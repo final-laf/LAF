@@ -50,17 +50,13 @@ if (document.getElementById("qnaModalBtn")!=null) {
   document.getElementById("qnaModalBtn").addEventListener("click", e => {
     const pw = e.target.parentElement.parentElement.children[1].children[0].value
     const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
-    console.log(pw)
-    console.log(data)
     fetch("/qna/qnaLockNo",{
       method : "POST", headers : {"Content-Type" : "application/json"},
       body : JSON.stringify(data)
     })
     .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
     .then(count => {
-      console.log("count = "+count);
       if (count == -1) { // 비밀번호 불일치 시
-        console.log("비밀번호 입력 실패");
         document.getElementById("qnaDetailModalInput").value = "";
         return;            
       }
@@ -68,8 +64,6 @@ if (document.getElementById("qnaModalBtn")!=null) {
 
     }) //파싱된 데이터를 받아서 처리하는 코드 작성
     .catch(err => {
-        console.log("예외 발생");
-        console.log(err);
     }) 
   })
 }
@@ -86,7 +80,6 @@ if (insertBtn!=null) {
 // 글쓰기 내부 select 클릭 시
 const changeValue = (target) => {
 
-  console.log(target.value);
   if(target.value=="product"){
     document.getElementById("qnaWriteProduct").style.display = "table-row"
     document.getElementById("qnaWriteShipping").style.display = "none"
@@ -103,6 +96,32 @@ const changeValue = (target) => {
   }
 }
 
+const orderUnoList = document.getElementById("orderUno");
+// 내 주문내역 조회
+if (orderUnoList!=null) {
+  orderUnoList.addEventListener("click", e=>{
+    document.getElementById("qnaWriteOrderList").style.height="250px";
+  })
+  const orderUno = document.getElementsByClassName("qnaWriteOrder");
+  
+  for(let order of orderUno){
+    order.addEventListener("click", e => {
+      console.log(e.target)
+      if(e.target.classList.contains("qnaWriteOrder")) {
+        console.log(e.target.getAttribute("value"));
+        document.getElementById("orderUno").value=e.target.getAttribute("value")
+      }else{
+        if(e.target.parentElement.classList.contains("qnaWriteOrder")){
+          document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("orderUno").value=e.target.parentElement.parentElement.getAttribute("value")
+  
+        }
+      }
+      document.getElementById("qnaWriteOrderList").style.height=0;
+    });
+  }
+}
 
 /* 문의 게시글(수정) 클릭시 */
 const modifyBtn = document.getElementById("qnaModify")
@@ -113,7 +132,6 @@ if (modifyBtn!=null) {
     const qnaNo = e.target.value;
     if(loginMember==writeMember){
       const qnaNo = e.target.value;
-      console.log(qnaNo);
       document.location.href="/qna/modify/"+qnaNo
       return;
     }
@@ -124,7 +142,6 @@ if (modifyBtn!=null) {
       e.stopPropagation();
       return;
     }
-    console.log(qnaNo);
     document.location.href="/qna/modify/"+qnaNo
   });
 }
@@ -141,17 +158,13 @@ if (document.getElementById("qnaDetailModalBtn")!=null) {
     .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
     .then(count => {
       
-      console.log("count = "+count);
       if (count == -1) { // 비밀번호 불일치 시
-        console.log("비밀번호 입력 실패");
         document.getElementById("qnaDetailModalInput").value = "";
         return;            
       }
       document.location.href="/qna/modify/" + qnaLockNo;
     }) //파싱된 데이터를 받아서 처리하는 코드 작성
     .catch(err => {
-      console.log("예외 발생");
-      console.log(err);
     }) 
   })
 }

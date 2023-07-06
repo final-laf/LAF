@@ -1,5 +1,6 @@
 package edu.kh.laf.board.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.service.QnaService;
+import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.order.model.dto.Order;
 
 @Controller
 public class QnaController {
@@ -69,7 +73,12 @@ public class QnaController {
 	}
 	// 1:1 문의 글쓰기 컨트롤러
 	@GetMapping("/qna/write")
-	public String write() {
+	public String write(Model model, @SessionAttribute(name="loginMember", required = false) Member loginMember) {
+		if(loginMember!=null) {
+			List<Order> orderList= qnaService.orderList(loginMember.getMemberNo()); 
+			model.addAttribute("orderList", orderList);
+		}
+			
 		return "boards/qna/qnaWrite";
 	}
 	
@@ -82,8 +91,8 @@ public class QnaController {
 		if(qna.getMemberNo()==0) {
 			qna.setMemberNo(35);
 		}
-		if(qna.getOrderNo()=="") {
-			qna.setOrderNo(null);
+		if(qna.getOrderUno()=="") {
+			qna.setOrderUno(null);
 		}
 		if(qna.getProductNo()=="") {
 			qna.setProductNo(null);
@@ -106,7 +115,7 @@ public class QnaController {
 			qna.setQnaCategory("배송");
 		}
 		
-		int writeNotice = qnaService.writeQna(qna);
+		qnaService.writeQna(qna);
 		
 		return "redirect:/qna";
 	}
@@ -121,8 +130,8 @@ public class QnaController {
 		if(qna.getMemberNo()==0) {
 			qna.setMemberNo(35);
 		}
-		if(qna.getOrderNo()=="") {
-			qna.setOrderNo(null);
+		if(qna.getOrderUno()=="") {
+			qna.setOrderUno(null);
 		}
 		if(qna.getProductNo()=="") {
 			qna.setProductNo(null);
@@ -143,7 +152,7 @@ public class QnaController {
 			qna.setQnaCategory("배송");
 		}
 		
-		int writeNotice = qnaService.updateQna(qna);
+		qnaService.updateQna(qna);
 		
 		return path;
 	}

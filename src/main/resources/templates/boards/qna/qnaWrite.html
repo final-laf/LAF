@@ -52,7 +52,19 @@
             </tr>
             <tr id="qnaWriteShipping">
               <td>ORDER NO.</td>
-              <td><input name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력"></td>
+              <td>
+                <input name="orderUno" type="text" placeholder="주문번호 입력" id="orderUno">
+                <div th:if="orderList" id="qnaWriteOrderList">
+                  <div th:each="order, status:${orderList}" class="qnaWriteOrder" th:value="${order.orderUno}">
+                    <div>
+                      <span th:text="${'날짜 : '+order.orderDate}"></span>
+                    </div>
+                    <div>
+                      <span th:text="${'주문번호 : '+order.orderUno}"></span>
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr> 
             <tr th:if="${session.loginMember}">
               <td>PASSWORD.</td>

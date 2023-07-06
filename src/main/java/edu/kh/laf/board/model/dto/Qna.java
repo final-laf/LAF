@@ -13,7 +13,8 @@ public class Qna {
 	private long qnaNo;
 	private long memberNo;
 	private String memberName;
-	private String orderNo;
+	private String memberGrade;
+	private String orderUno;
 	private String productNo;
 	private String qnaCategory;
 	private String qnaTitle;

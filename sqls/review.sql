@@ -74,7 +74,7 @@ UPDATE `review`	SET review_content='리뷰내용 수정', review_score= 2.2 WHER
 SELECT * FROM `member` m ;
 SELECT * FROM `order` r2 ;
 SELECT * FROM `order_product` r2 ;
-SELECT * FROM review r2 ;
+SELECT * FROM review r2 WHERE review_no=130;
 
 
 -- 리뷰 없는 오더 리스트
@@ -108,41 +108,23 @@ ORDER BY order_date DESC;
 					  JOIN `order` o ON r.order_no = o.order_no 
 					  JOIN `member`m ON o.member_no = m.member_no 
 		WHERE o.member_no=2 AND r.review_delete_fl = 'n'
-		ORDER BY o.order_date DESC
+		ORDER BY o.order_date DESC;
 
-SELECT * FROM `order` r2 ;
+SELECT * FROM `order` r2 WHERE member_no ;
+
+SELECT * FROM product;
 SELECT * FROM `review` r2 ;
 SELECT * FROM `order` r WHERE member_no=3 ;
 SELECT * FROM `review` r LEFT JOIN order_product op ON r.review_no=op.review_no ;
 SELECT * FROM `review` r  ;
 SELECT * FROM `order_product` WHERE order_no = 2 AND product_no =1 AND option_no =38 ;
 
-
-SELECT op.order_no,
-	   op.product_no, 
-	   op.option_no, 
-	   op.count, 
-	   TRUNCATE((SELECT AVG(review_score) FROM review r WHERE op.product_no =r.product_no),1) review_score_avg, 
-	   (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
-FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no 
-WHERE op.order_no = 2 AND op.product_no =1 AND op.option_no =38;
-
-SELECT review_no 
-FROM review 
-WHERE order_no = 51 AND product_no =1 AND option_no =48;
-
-SELECT img_path FROM product_img WHERE product_no=82 AND thumb_fl='Y';
-SELECT * FROM product;
-SELECT * FROM product_img pi2 ;
-        SELECT `product`.product_no,
-				product_name,
-				product_price,
-				product_sale_price,
-				product_sale,
-				product_point,
-				product_state,
-				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
-				img_path AS thumbnail_path
-		FROM   `product`
-				JOIN `product_img` ON `product`.product_no = `product_img`.product_no;
-COMMIT;
+SELECT * FROM review;
+SELECT * FROM  `order` o LEFT JOIN order_product op ON op.order_no=o.order_no  WHERE o.member_no=2;
+SELECT DISTINCT 
+	o.order_Uno, 	
+	DATE_FORMAT(o.order_date, '%Y-%m-%d') AS order_date, 
+	o.member_no
+	
+FROM `order_product` op JOIN `order` o ON op.order_no =o.order_no 
+WHERE member_no = 2

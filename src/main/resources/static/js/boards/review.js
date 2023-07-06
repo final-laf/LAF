@@ -56,6 +56,7 @@ for(let review of reviewDetail) {
       document.getElementById("reviewDetailModalTextScore").value=review.reviewScore;
       document.getElementById("reviewDetailModalProductNo").href="/product/"+review.productNo;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
+      document.getElementById("reviewDetailProduct").src=review.product.thumbnailPath;
       if (document.getElementById("bestReview")!=null) {
         
         document.getElementById("bestReview").style.display = "flex";
@@ -174,10 +175,7 @@ if (document.getElementById("reviewDetailModalModifyBtn")!=null) {
     document.getElementById("reviewModifyModalReviewCount").innerText=reviewCount;
     document.getElementById("reviewModifyModalContent").innerText=reviewContent;
     document.getElementById("reviewModifyModalReviewNo").value=reviewNum;
-      document.getElementById("reviewModifyModalOrderNo").value=orderNo;
-
-
-    console.log(reviewScore)
+    document.getElementById("reviewModifyModalOrderNo").value=orderNo;
     document.getElementById("reviewModifyModalStar").value=reviewScore;
     document.getElementById("reviewModalTextScore").value=reviewScore;
     document.getElementById("reviewModifyModalStar").value=reviewScore;
@@ -198,7 +196,6 @@ if (document.getElementById("reviewDetailModalModifyBtn")!=null) {
 // 삭제하기 모달
 if (document.getElementById("reviewDetailModalDeleteBtn")!=null) {
   document.getElementById("reviewDetailModalDeleteBtn").addEventListener("click", e=>{
-    console.log(reviewNum)
     const reviewNo = reviewNum;
     var url = "/review/delete?reviewNo="+reviewNo;
     location.href=url;
@@ -272,7 +269,6 @@ if (score != null) {
       });
       // 바뀔 때 마다 변경
       score.addEventListener("change", (e) => {
-        console.log(e.target.value)
         let i = ((123/5)*e.target.value);
         document.getElementById("reviewScoreColor").style.width=i+"px";
         document.getElementById("reviewModalTextScore").value = e.target.value;
@@ -357,10 +353,8 @@ for(let i=0; i<inputImage.length; i++){
       }
   })
   deleteImage[i].addEventListener('click', () => {
-    console.log("asd")
     // 미리보기 이미지가 있을 경우
     if(preview[i].getAttribute("src") != ""){
-        console.log("있음")
           // 미리보기 삭제
           preview[i].removeAttribute("src");
 
@@ -416,8 +410,6 @@ if (document.getElementById("bestReview")!=null) {
     document.getElementById("newBestScore").innerText = reviewScore;
     document.getElementById("newBestWrite").innerText = memberName;
     document.getElementById("newBestDate").innerText = reviewCreateDate;
-  
-    console.log(e.target);
   })
 }
 const bestModal = document.getElementById("bestReview-modal-overlay");
@@ -425,7 +417,6 @@ const bestModal = document.getElementById("bestReview-modal-overlay");
 if (bestModal!=null) {
   bestModal.addEventListener("click", e => {
     const evTarget = e.target
-    console.log(evTarget)
     if(evTarget.getAttribute("value")=="modalBack") {
       bestModal.style.display = "none";
         document.body.style.removeProperty('overflow');

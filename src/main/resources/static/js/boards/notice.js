@@ -7,7 +7,7 @@ for(let notice of notices) {
     });
   
 };
-
+// 공지 글쓰기 버튼
 if(document.getElementById("insertBtn") != null){
   document.getElementById("insertBtn").addEventListener('click', () => {
     document.location.href="/notice/write"
@@ -18,7 +18,6 @@ if(document.getElementById("insertBtn") != null){
 /* 공지사항 삭제 버튼 */
 if (document.getElementById("noticeDelete") != null) {
   document.getElementById("noticeDelete").addEventListener("click", e=>{
-    console.log(e.target.value);
     const noticeNo = e.target.value;
     fetch("/notice/delete?noticeNo="+noticeNo)  
     .then(response => response.text()) 
