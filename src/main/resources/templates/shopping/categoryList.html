@@ -44,7 +44,7 @@
                 th:text="${#numbers.formatInteger(product.productPrice, 3, 'COMMA')}">원가</span>
               <div class="item-additional-info">
                 <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
-                <img th:src="@{/images/common/like-fill.svg}">
+                <img th:src="@{images/common/like-fill.svg}">
                 <span th:text="${product.likeCount}"></span>
               </div>
             </div>
@@ -110,10 +110,10 @@
           </a>
           <img class="like"
             th:if="!${session.likeList} or ${!#lists.contains(session.likeList, product.productNo)}"
-            th:src="@{/images/common/like-grey.svg}">
+            th:src="@{images/common/like-grey.svg}">
           <img class="like"
             th:if="${session.likeList} and ${#lists.contains(session.likeList, product.productNo)}"
-            th:src="@{/images/common/like-fill.svg}" value="like">
+            th:src="@{images/common/like-fill.svg}" value="like">
           <div class="item-description-bottom-container">
 
             <a th:href="@{/product/{productNo}(productNo=${product.productNo})}">
@@ -137,7 +137,7 @@
 
               <div class="item-additional-info">
                 <div class="item-rieview-count" th:text="|리뷰 : ${product.reviewCount} 개|"></div>
-                <img th:src="@{/images/common/like-fill.svg}">
+                <img th:src="@{images/common/like-fill.svg}">
                 <span class="like-count" th:text="${product.likeCount}"></span>
               </div>
             </div>
@@ -154,12 +154,12 @@
 
           <!-- 첫 페이지로 이동 -->
           <li><a th:href="@{/{c}(c=${category}, ordering=${ordering})}">
-              <img th:src="@{/images/common/paging/first-page.svg}">
+              <img th:src="@{images/common/paging/first-page.svg}">
             </a></li>
 
           <!-- 이전 목록 마지막 번호로 이동 -->
           <li><a th:href="@{/{c}(c=${category}, cp=${pagination.prevPage}, ordering=${ordering})}">
-              <img th:src="@{/images/common/paging/prev-page.svg}">
+              <img th:src="@{images/common/paging/prev-page.svg}">
             </a></li>
 
           <!-- 특정 페이지로 이동 -->
@@ -177,12 +177,12 @@
 
           <!-- 다음 목록 시작 번호로 이동 -->
           <li><a th:href="@{/{c}(c=${category}, cp=${pagination.nextPage}, ordering=${ordering})}">
-              <img th:src="@{/images/common/paging/next-page.svg}">
+              <img th:src="@{images/common/paging/next-page.svg}">
             </a></li>
 
           <!-- 끝 페이지로 이동 -->
           <li><a th:href="@{/{c}(c=${category}, cp=${pagination.maxPage}, ordering=${ordering})}">
-              <img th:src="@{/images/common/paging/last-page.svg}">
+              <img th:src="@{images/common/paging/last-page.svg}">
             </a></li>
         </ul>
         
@@ -191,7 +191,7 @@
   </main>
 
   <th:block th:replace="~{common/footer}"></th:block>
-  <script th:src="@{/js/shopping/categoryList.js}"></script>
+  <script th:src="@{js/shopping/categoryList.js}"></script>
 </body>
 
 </html>

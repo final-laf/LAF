@@ -126,10 +126,10 @@
         </ul>
         
         <button class="slide_btn_prev slide_btn_prev_sub" type="button">
-          <img th:src="@{/images/common/allowBtnLeft-white.svg}">
+          <img th:src="@{images/common/allowBtnLeft-white.svg}">
         </button>
         <button class="slide_btn_next slide_btn_next_sub" type="button">
-          <img th:src="@{/images/common/allowBtnRight-white.svg}">
+          <img th:src="@{images/common/allowBtnRight-white.svg}">
         </button>
       </div>
     </section>
@@ -157,7 +157,7 @@
       </div>
 
       <!-- 사용자 리뷰(최신순) 게시판 -->
-      <div layout:fragment="content" th:replace="~{/boards/review/reviewList}"></div>
+      <div layout:fragment="content" th:replace="~{boards/review/reviewList}"></div>
       <th:block th:replace="~{boards/review/reviewDetailModal}"></th:block>
       <th:block th:replace="~{boards/review/reviewModifyModal}"></th:block>
 
@@ -165,7 +165,7 @@
   </main>
 
   <th:block th:replace="~{common/footer}"></th:block>
-  <script th:src="@{/js/shopping/product.js}"></script>
-  <script th:src="@{/js/shopping/productListItem.js}"></script>
+  <script th:src="@{js/shopping/product.js}"></script>
+  <script th:src="@{js/shopping/productListItem.js}"></script>
 </body>
 </html>

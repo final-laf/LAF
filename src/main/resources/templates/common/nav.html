@@ -27,7 +27,7 @@
   </div>
 
   <!-- 비회원 -->
-  <form th:action="@{search}">
+  <form th:action="@{/search}">
     <div th:unless="${session.loginMember}" class="header-nav-icon">
       <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">
