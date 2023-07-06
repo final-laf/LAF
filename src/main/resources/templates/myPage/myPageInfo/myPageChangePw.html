@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LAF :: 비밀번호 변경</title>
 
-  <link rel="stylesheet" href="/css/myPage/myPageInfo/myPageChangePw.css">
+  <link rel="stylesheet" href="/css/mypage/myPageInfo/myPageChangePw.css">
 </head>
 <body>
   <th:block th:replace="~{common/header}"></th:block>
@@ -14,7 +14,7 @@
   
   <main>
     <section class="mypageSignUp-signUp" th:object="${session.loginMember}">
-      <th:block th:replace="~{mypage/mypageSide}"></th:block>
+      <th:block th:replace="~{myPage/myPageSide}"></th:block>
       <div class="mypageSignUp-signUp-info"> <!-- width 1000px, 상단 마진 50px, 중앙정렬  -->
         <form th:action="@{/myPage/changePw}" method="post" id="mypageSignUpSubmit">
           <div class="section-header">
@@ -64,6 +64,6 @@
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/js/common/api/address.js"></script>
-  <script src="/js/myPage/myPageChangePw.js"></script>
+  <script src="/js/mypage/myPageChangePw.js"></script>
 </body>
 </html>
