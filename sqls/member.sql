@@ -420,14 +420,15 @@ COMMIT;
 
 SELECT * FROM `point`;
 SELECT * FROM `member`;
+COMMIT;
 
 UPDATE `member` SET member_grade= 'B';
 
+COMMIT;
 
 
-UPDATE `point`
-SET 
 
+DELETE FROM `member` WHERE member_no = 78;
 		
 
 			

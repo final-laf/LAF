@@ -23,7 +23,7 @@ public class Member {
     private String memberEnrollDate;	// 가입일
     private String memberDelFL;			// 회원 탈퇴여부
     private String memberDelDate;		// 회원 탈퇴일
-    private String memberSocial;		// 회원 소셜가입
+    private String memberSocial;		// 회원 소셜가입 (K:카카오)
     private Long memberPoint;			// 회원 적립금
     private Long memberTotalPay;		// 회원 누적 구매액
     private String memberNot;			// 비회원 여부

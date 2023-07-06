@@ -119,6 +119,12 @@ public interface MemberService {
  	 */
 	int insertMemberCoupon(Map<String, Object> paramMap);
 
+	/** 아이디로 회원 조회
+	 * @param memberId
+	 * @return member
+	 */
+	Member selectMemberById(Member member);
+
 
 
 

@@ -126,4 +126,5 @@ public interface MemberMapper {
 	 */
 	int insertMemberCoupon(Map<String, Object> paramMap);
 
+
 }

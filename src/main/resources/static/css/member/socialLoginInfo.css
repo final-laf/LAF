@@ -1,0 +1,383 @@
+/* 회원가입 정규식 확인 */
+.confirm{color : #666;}
+.error{color : red;}
+
+
+input {
+  outline: none;
+}
+
+.mypageSignUp-signUp{
+  display: flex;
+  justify-content: center;
+}
+.mypageSignUp-signUp-info{
+    display: flex;
+    width: 1000px;
+}
+.mypageSignUp-info-intro{
+  color: #666;
+  display: flex;
+  font-size: 17px;
+  align-items: flex-end;
+  margin-bottom: 30px;
+}
+
+.mypageSignUp-info-intro span{
+  color: black;
+  font-weight: bold;
+  margin-right: 10px;
+  display: flex;
+  font-size: 2.0rem;
+}
+
+.mypageSignUp-info-signUpInfo{
+    display: block;
+}
+
+.mypageSignUp-signUpInfo-table{
+    margin: 20px 0;
+    margin-bottom: 50px;
+}
+
+.mypageSignUp-signUpInfo-table td:nth-child(1){
+    padding-left: 10px;
+    height: 30px;
+    width: 150px;
+    background-color: #fafafa;
+    border-top: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+    border-right: 0.5px solid #eee;
+    text-align: left;
+}
+
+#mypageSignUpSubmit > div:nth-child(3) > table > tbody > tr:nth-child(3) > td {
+  background-color: white;
+}
+
+#mypageSignUpSubmit > div:nth-child(3) > table > tbody > tr:nth-child(4) > td {
+  background-color: white;
+}
+
+
+.mypageSignUp-signUpInfo-table td{
+    width: 1200px;
+    padding-left: 10px;
+    border-top: 0.5px solid #eee;
+    border-left: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+
+}
+.mypageSignUp-signUpInfo-table tr{
+    
+    height: 70px;
+}
+.mypageSignUp-signUpInfo-table input{
+  border: 0.5px solid #eee;
+    width: 300px;
+    height: 45px;
+}
+.mypageSignUp-table-inputTd{
+    display: flex;
+    align-items: center;
+}
+.mypageSignUp-table-inputTd > div{
+  color: #666;
+  margin-left: 10px;
+} 
+
+.mypageSignUp-table-address input{
+    margin: 10px 0;
+}
+
+.mypageSignUp-table-address button{
+    height: 45px;
+    width: 100px;
+    border: 0.5px solid #eee;
+    background-color: #fafafa;
+}
+.mypageSignUp-address-postal{
+    width: 100px !important;
+}
+.mypageSignUp-table-tel input{
+    text-align: left;
+    width: 300px;
+}
+
+.mypageSignUp-table-birth input{
+  border: 0.5px solid #eee;
+  width: 50px;
+  margin-right: 5px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.mypageSignUp-table-birth input:not(:first-child) {
+  margin-left: 10px;
+}
+
+.mypageSignUp-table-Refund div{
+    padding: 15px 0;
+}
+.mypageSignUp-table-Refund select{
+  border: 0.5px solid #eee;
+  text-align: center;
+  height: 45px;
+  width: 170px;
+}
+.mypageSignUp-table-Refund option{
+  text-align: center;
+  height: 45px;
+  width: 170px;
+}
+.mypageSignUp-table-Refund td {
+  padding-left: 10px;
+}
+
+#mypageSignUpSubmit {
+  width: 100%;
+}
+
+#mypageSignUpSubmitButton{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  height: 50px
+}
+
+#mypageSignUpSubmitButton button {
+  height: 50px;
+  width: 200px;
+  margin: 10px;
+}
+
+#signUpButton {
+  background-color: #7F7698;
+}
+
+#cancelButton {
+  background-color: #ccc;
+}
+
+/* 필수 입력값 첫뻔째 열 */
+#mypageSignUpSubmit > div > div:nth-child(2) > table > tbody > tr > th {
+  width: 15%;
+}
+
+
+
+
+/* 추가정보 각 행별 설정 */
+.modify-margin-bottom > tbody > tr:not(:nth-child(4), :nth-child(3)) > td:nth-child(1) {
+  width: 10%;
+  background-color: #fafafa;
+}
+
+.mypageSignUp-table-birth > td:nth-child(2) {
+  width: 40%;
+}
+
+.mypageSignUp-table-birth > td:nth-child(3) {
+  width: 10%;
+  background-color: #fafafa;
+}
+
+.mypageSignUp-table-birth > td:nth-child(4) {
+  width: 40%;
+}
+
+.mypageSignUp-table-birth > td:nth-child(4) > select {
+  width: 100px;
+}
+
+
+#mypageSignUpRefundName {
+  margin-left: 10px;
+}
+
+[name="refundBank"] {
+  margin-left: 10px;
+}
+
+
+
+
+/* 유효성 검사 메세지(id, phone, email) */
+#mypageSignUpRefundNo, #emailMessage, #phoneMessage {
+  margin-left: 10px;
+  color: #666;
+}
+
+/* 필수입력값을 알리는 '*' */
+.required-for-signUp {
+  display: flex;
+  align-items: flex-start;
+}
+
+.required-for-signUp > span {
+  margin-left: 5px;
+  font-size: 2px;
+  color: red;
+}
+
+.for-flex-signUp {
+  display: flex;
+  flex-direction: row;
+}
+
+.signUp-button {
+  margin-left: 10px;
+}
+
+.mypageSignUp-signUpInfo-table tr:nth-child(6) {
+  display: none;
+}
+
+#mypageSignUpSubmit > div > div:nth-child(3) > div {
+  display: flex;
+  justify-content: end;
+}
+
+
+/* 회원 탈퇴 버튼 위치 조정 */
+.modify-margin-bottom {
+  margin-bottom: 10px;
+}
+
+
+
+
+/* 회원 탈퇴 모달창 */
+/* 모달창 오버레이 */
+#memberDeleteModalOverlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: none;
+
+  z-index: 101;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* 모달창 */
+.myPage-delete-modal-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 500px;
+  height: 310px;
+
+  padding: 15px;
+
+  text-align: center;
+
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+  transform: translateX(-50%) translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* 회원 탈퇴 타이틀 */
+.myPage-delete-modal-window > div > div:first-child {
+  font-size: 2.0rem;
+  font-weight: bold;
+  text-align: left;
+  width: 100%;
+  padding-left: 5px;
+}
+
+/* 사용하지 안은 혜택 창 (미사용 적립금, 쿠폰) */
+.delete-confirm-message-box {
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+}  
+
+.delete-confirm-message-box > div {
+  margin: 10px;
+  padding: 10px;
+  border: 0.5px solid #eee;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #fafafa;
+}  
+
+.myPage-delete-modal-window > div {
+  width: 100%;
+  margin: 10px 0px;
+}  
+
+.myPage-delete-modal-subtext {
+  text-align: left;
+  width: 100%;
+}
+
+.delete-confirm-message-box > div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-confirm-message-box > div > div > div:first-child {
+  width: 100%;
+}
+
+.delete-confirm-message-box > div > div > div:nth-child(2), .delete-confirm-message-box > div > div > div:nth-child(3)  {
+  width: 80%;
+  margin: 20px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 1.6rem;
+  font-weight: bold;
+} 
+
+.not-used-point-coupon {
+  display: inline-block;
+}
+
+.not-used-point-coupon > span {
+  margin-left: 10px;
+}
+
+.myPage-delete-modal-window > div > div:last-child {
+  margin-left: 12px;
+}
+
+/* 버튼 영역 */
+.myPage-delete-btn-area *{
+  color: white;
+  margin: 0 5px;
+  width: 70px;
+}
+
+/* 취소버튼 */
+#cancelButton {
+  background-color: white;
+  border: 0.5px solid #ccc;
+}
+
+#cancelButton:hover {
+  background-color: #eee;
+}
+
+#signUpButton:hover {
+  background-color: #493e5d;
+}
+
