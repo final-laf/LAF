@@ -8,9 +8,9 @@
       <table>
         <tr>
           <td th:each="cate : ${application.category}">
-            <a th:href="${cate.categoryNo}"><div th:text="${cate.parentCategoryName}"></div></a>
+            <a th:href="@{/{c}(c=${cate.categoryNo})}"><div th:text="${cate.parentCategoryName}"></div></a>
             <ul th:each="childCategory : ${cate.childCategoryList}">
-              <a th:href="@{{c}(c=${cate.categoryNo}, cc=${childCategory.categoryNo})}"><li th:text="${childCategory.categoryName}"></li></a>
+              <a th:href="@{/{c}(c=${cate.categoryNo}, cc=${childCategory.categoryNo})}"><li th:text="${childCategory.categoryName}"></li></a>
             </ul>
           </td>
         </tr>
@@ -21,13 +21,13 @@
   <div class="header-nav-catagory">
     <ul class="header-nav-catagory-menu">
       <li th:each="cate : ${application.category}">
-        <a th:href="@{{c}(c=${cate.categoryNo})}" th:text="${cate.parentCategoryName}">카테고리 이름</a>
+        <a th:href="@{/{c}(c=${cate.categoryNo})}" th:text="${cate.parentCategoryName}">카테고리 이름</a>
       </li>
     </ul>
   </div>
 
   <!-- 비회원 -->
-  <form th:action="@{search}">
+  <form th:action="@{/search}">
     <div th:unless="${session.loginMember}" class="header-nav-icon">
       <input id="searchCheckbox" class="hidden" type="checkbox">
       <input type="text" name="query" id="query" class="hidden" placeholder="검색어를 입력하세요">

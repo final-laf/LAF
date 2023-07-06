@@ -20,9 +20,9 @@
       <ul class="slide_list clearfix">
         
         <li class="slide_content" th:each="banner : ${bannerList}">
-          <a th:href="@{product/{productNo}(productNo = ${banner.productNo})}">
+          <!-- <a th:href="@{product/{productNo}(productNo = ${banner.productNo})}"> -->
             <img class="main-banner-img" th:src="${banner.imgPath}">
-          </a>
+          <!-- </a> -->
         </li>
         
       </ul>
