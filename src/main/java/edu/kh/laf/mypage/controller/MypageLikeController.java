@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
-import edu.kh.laf.product.model.service.OptionService;
 import edu.kh.laf.product.model.service.ProductService;
 
 @Controller
@@ -28,9 +27,6 @@ public class MypageLikeController {
 	private MypageLikeServcie service;
 	@Autowired
 	private ProductService productService;
-	@Autowired
-	private OptionService optionService;
-	
 	
 	// 찜 목록 추가
 	@GetMapping("/like/add")
@@ -107,6 +103,6 @@ public class MypageLikeController {
 		model.addAttribute("productList", resultMap.get("productList"));
 		model.addAttribute("pagination", resultMap.get("pagination"));
 		
-		return "mypage/like";
+		return "myPage/like";
 	}
 }
