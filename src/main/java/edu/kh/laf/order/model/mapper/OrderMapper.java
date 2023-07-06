@@ -127,5 +127,15 @@ public interface OrderMapper {
 	
 	// 조건에 맞는 주문조회목록(관리자)
 	public List<Order> findOrderList(Map<String, Object> paramMap, RowBounds rowBounds);
+	
+	// 일별 매출 조회 (30일 전까지만 조회)
+	public List<Map<String, Object>> getRevenue();
+	
+	// 월별 매출 조회 (12개월)
+	public List<Map<String, Object>> getRevenueMonth();
+	
+	// 연도별 매출 조회
+	public List<Map<String, Object>> getRevenueYear();
+	
 
 }

@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Expires" content="-1" />
-  <link rel="stylesheet" th:href="@{css/dev/productList.css}">
-  <link rel="stylesheet" th:href="@{css/shopping/cart.css}">
+  <link rel="stylesheet" th:href="@{/css/dev/productList.css}">
+  <link rel="stylesheet" th:href="@{/css/shopping/cart.css}">
   <title>LAF :: 장바구니</title>
 </head>
 <body>
@@ -161,10 +161,10 @@
         </ul>
         
         <button class="slide_btn_prev slide_btn_prev_sub" type="button">
-          <img th:src="@{images/common/allowBtnLeft-white.svg}">
+          <img th:src="@{/images/common/allowBtnLeft-white.svg}">
         </button>
         <button class="slide_btn_next slide_btn_next_sub" type="button">
-          <img th:src="@{images/common/allowBtnRight-white.svg}">
+          <img th:src="@{/images/common/allowBtnRight-white.svg}">
         </button>
       </div>
     </section>
@@ -192,7 +192,7 @@
   
   <th:block th:replace="~{common/footer}"></th:block>
   
-  <script th:src="@{js/shopping/cart.js}"></script>
-  <script th:src="@{js/shopping/productListItem.js}"></script>
+  <script th:src="@{/js/shopping/cart.js}"></script>
+  <script th:src="@{/js/shopping/productListItem.js}"></script>
 </body>
 </html>

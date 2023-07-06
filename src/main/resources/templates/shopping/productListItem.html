@@ -2,7 +2,7 @@
 
 <!-- 상품 이미지 -->  
 <a th:href="@{/product/{productNo}(productNo = ${product.productNo})}">
-  <img class="thumbnail" th:src="${product.thumbnailPath} ?: 'images/common/no-image.png'">
+  <img class="thumbnail" th:src="${product.thumbnailPath} ?: '/images/common/no-image.png'">
 </a>
 
 <!-- 상품정보(hover일 때 출력) -->
@@ -33,7 +33,7 @@
     <div class="item-rieview-count">
       <th:block th:text="|리뷰 : ${product.reviewCount} 개|">리뷰 갯수</th:block>
     </div>
-    <img th:src="@{images/common/like-fill.svg}">
+    <img th:src="@{/images/common/like-fill.svg}">
     <span th:text="${product.likeCount}"></span>
   </div>
 </div>

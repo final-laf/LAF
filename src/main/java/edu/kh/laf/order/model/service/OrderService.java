@@ -134,5 +134,22 @@ public interface OrderService {
 	 */
 	 Map<String, Object> findOrderList(Map<String, Object> paramMap);
 
-
+	 /**
+	  * 일별 매출 조회 (30일 전까지만 조회)
+	  * @return revenueList
+	  */
+	 List<Map<String, Object>> getRevenue();
+	 
+	 /**
+	  * 월별 매출 조회 (12개월)
+	  * @return revenueList
+	  */
+	 List<Map<String, Object>> getRevenueMonth();
+	 
+	 /**
+	  * 연도별 매출 조회
+	  * @return revenueList
+	  */
+	 List<Map<String, Object>> getRevenueYear();
+	 
 }

@@ -418,5 +418,27 @@
 		ORDER BY o.order_no DESC
 	</select>
 	
+	<!-- 일별 매출 조회 (30일 전까지만 조회) -->
+	<select id="getRevenue" resultType="map">
+		SELECT DATE_FORMAT(order_date, '%m / %d') AS `date`, sum(order_payment) AS revenue
+		FROM `order`
+		WHERE order_date between DATE_SUB(NOW(), INTERVAL 1 MONTH) AND DATE_FORMAT(now(), '%Y-%m-%d')
+		GROUP BY `date`
+	</select>
+	
+	<!-- 월별 매출 조회 (12개월) -->
+	<select id="getRevenueMonth" resultType="map">
+		SELECT DATE_FORMAT(order_date, '%Y / %m') AS `date`, sum(order_payment) AS revenue 
+		FROM `order`
+		WHERE order_date between DATE_SUB(NOW(), INTERVAL 12 MONTH) AND DATE_FORMAT(now(), '%Y-%m-%d')
+		GROUP BY `date`
+	</select>
+	
+	<!-- 연도별 매출 조회 -->
+	<select id="getRevenueYear" resultType="map">
+		SELECT DATE_FORMAT(order_date, '%Y') AS `date`, sum(order_payment) AS revenue 
+		FROM `order`
+		GROUP BY `date`
+	</select>
 </mapper>
 
