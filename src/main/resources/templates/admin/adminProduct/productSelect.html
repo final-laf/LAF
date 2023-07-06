@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{/css/admin/adminProduct/productSelect.css}">
+  <link rel="stylesheet" th:href="@{css/admin/adminProduct/productSelect.css}">
   <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
   <title>관리자 :: 상품조회</title>
   <style>
@@ -191,12 +191,12 @@
 
             <!-- 첫 페이지로 이동 -->
             <li><a th:href="@{/admin/product}">
-                <img th:src="@{/images/common/paging/first-page.svg}">
+                <img th:src="@{images/common/paging/first-page.svg}">
               </a></li>
 
             <!-- 이전 목록 마지막 번호로 이동 -->
             <li><a th:href="@{/admin/product(cp=${pagination.prevPage})}">
-                <img th:src="@{/images/common/paging/prev-page.svg}">
+                <img th:src="@{images/common/paging/prev-page.svg}">
               </a></li>
 
             <!-- 특정 페이지로 이동 -->
@@ -214,12 +214,12 @@
 
             <!-- 다음 목록 시작 번호로 이동 -->
             <li><a th:href="@{/admin/product(cp=${pagination.nextPage})}">
-                <img th:src="@{/images/common/paging/next-page.svg}">
+                <img th:src="@{images/common/paging/next-page.svg}">
               </a></li>
 
             <!-- 끝 페이지로 이동 -->
             <li><a th:href="@{/admin/product(cp=${pagination.maxPage})}">
-                <img th:src="@{/images/common/paging/last-page.svg}">
+                <img th:src="@{images/common/paging/last-page.svg}">
               </a></li>
           </ul>
           
@@ -251,7 +251,7 @@
     const queryString = /*[[${queryString}]]*/ "전달 받은 queryString";
     if(queryString != null ) location.href = location.href + queryString;
   </script>
-  <script th:src="@{/js/admin/adminProduct/adminProduct.js}"></script>
+  <script th:src="@{js/admin/adminProduct/adminProduct.js}"></script>
 
 </body>
 
