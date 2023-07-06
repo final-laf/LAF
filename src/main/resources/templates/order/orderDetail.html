@@ -114,12 +114,8 @@
             <td th:text="*{orderRecvName}">ㅇㅇㅇ</td>
           </tr>
           <tr>
-            <th>우편번호</th>
-            <td id="recvAddNo">우편번호</td>
-          </tr>
-          <tr>
             <th>주소</th>
-            <td id="recvAdd">주소</td>
+            <td th:text="*{orderRecvAdd}">주소</td>
           </tr>
           <tr>
             <th>휴대전화</th>
@@ -142,20 +138,17 @@
     </section>
   </main>
   <th:block th:replace="~{common/footer}"></th:block>
-
-  <script th:inline="javascript">
-    const order = /*[[${order}]]*/ "주문정보";
-    const dc = /*[[${dc}]]*/ "주문상품정보";
-
-    const resultEmail = /*[[${resultEmail}]]*/ "이메일전송";
-    if(resultEmail !=null ) alert(resultEmail);
-  </script>
-
-  <script th:src="@{/js/order/orderDetail.js}"></script>
-
-  <!-- 주소 api -->
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="/js/common/api/address.js"></script>
-
 </body>
+<script th:inline="javascript">
+  const order = /*[[${order}]]*/ "주문정보";
+  const dc = /*[[${dc}]]*/ "주문상품정보";
+
+  const resultEmail = /*[[${resultEmail}]]*/ "이메일전송";
+</script>
+
+<script th:src="@{/js/order/orderDetail.js}"></script>
+
+<!-- 주소 api -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/common/api/address.js"></script>
 </html>

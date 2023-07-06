@@ -42,11 +42,6 @@ if(dc != null){
     }
 }
 
-// 우편번호, 주소 세팅
-const arr = order.orderRecvAdd.split("^^^");
-document.getElementById("recvAddNo").innerText = arr[0];
-document.getElementById("recvAdd").innerText = arr[1] + " " + arr[2];
-
 // 배송비 설정
 const deliveryCost = document.querySelectorAll('.deliveryCost');
 if(parseInt(order.orderTotalPrice) > 100000){
@@ -89,3 +84,5 @@ if(loginMember != null){
         }
     });
 }
+
+if(resultEmail !=null ) alert(resultEmail);
