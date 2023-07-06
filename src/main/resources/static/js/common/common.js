@@ -39,8 +39,6 @@ if(document.getElementById('checkboxSelectAll') != undefined) {
 // 장바구니 갯수 갱신
 if(!window.updateCartCount2) {
   function updateCartCount2() {
-    if(loginMember == undefined) return;
-
     let cartCountCalc = 0;
     const cookieStr = getCookie('cart');
     if(cookieStr != null)
