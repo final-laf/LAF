@@ -142,7 +142,19 @@
   pointer-events: none;
 }
 
-#mypageOrderHow > tbody > tr:nth-child(1) > th > span{
+#mypageOrderHow > tbody > tr:nth-child(1) > div{
+  display: flex;
+}
+
+#mypageOrderHow > tbody > tr:nth-child(1) > th input{
+  display: none;
+}
+
+#mypageOrderHow > tbody > tr:nth-child(1) > th input:checked+label>span{
+  background-color: #7F769880;
+}
+
+#mypageOrderHow > tbody > tr:nth-child(1) > th span{
   width: auto;
   height: 27px;
   padding: 0px 8px;

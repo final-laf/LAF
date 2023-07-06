@@ -287,6 +287,23 @@ if(loginMember != null){ // 로그인한 회원일시
 
 // -----------------------------------------------------------------------------
 
+// 결제수단선택
+const payHows = document.querySelectorAll('input[name="payHow"]');
+payHows.forEach( e => {
+  e.addEventListener('change', () => {
+    const payHow = document.querySelector('input[name="payHow"]:checked');
+    if(payHow != null){
+      if(payHow.getAttribute('id').slice(-1) == '1'){
+        document.getElementById('inputPay1').classList.remove("hidden");
+      }else{
+        document.getElementById('inputPay1').classList.add("hidden");
+      }
+    }
+    document.querySelector('input[name="payment"]').value = payHow.getAttribute('id').slice(-1);
+  });
+});
+
+
 // 결제동의
 function agreeCheck(){ // 둘다체크시 모두동의 체크
   const agreePays = document.querySelectorAll("#agreePay");
@@ -327,6 +344,7 @@ const checkObj = {
   "orderRecvName" : false,
   "receiverAddress" : false,
   "recvTel" : false,
+  "paymentHow" : false,
   "paymentName" : false,
   "agreePayAll" : false
 };
@@ -364,7 +382,11 @@ function nameCheck(inputName) {
 nameCheck("orderName");
 nameCheck("refundName");
 nameCheck("orderRecvName");
-nameCheck("paymentName");
+if(document.getElementById('inputPay1').classList.contains("hidden")){
+  checkObj[inputName] = true;
+}else{
+  nameCheck("paymentName");
+}
 
 // 이메일 유효성 검사
 const orderEmail = document.getElementById("orderEmail");
@@ -541,8 +563,11 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
         // 경고창 확인 누르면 특정 주소로 이동
         window.location.href = "/cart";
       } else {
+
+        // requestPay();
+
         // message가 없으므로 submit 실행
-        document.getElementById("orderSubmit").submit();
+        
       }
     });
 });
@@ -573,4 +598,33 @@ shippingSelectBtn.addEventListener('click', () => {
       document.body.style.removeProperty('overflow');
     }
   })
+});
+
+/* 결제 시스템 테스트 */
+function requestPay() {
+  IMP.init('imp33621846');
+  IMP.request_pay({
+    pg : 'kcp.A52CY',
+    // pg : 'kakaopay.TC0ONETIME',
+    pay_method : 'card', //생략 가능
+    merchant_uid: "order_no_0001" + new Date().getTime(), // 상점에서 관리하는 주문 번호
+    name : '주문명:결제테스트',
+    amount : 1,
+    buyer_email : 'iamport@siot.do',
+    buyer_name : '구매자이름',
+    buyer_tel : '010-1234-5678',
+    buyer_addr : '서울특별시 강남구 삼성동',
+    buyer_postcode : '123-456'
+    }, function (rsp) { // callback
+        if (rsp.success) {
+            console.log(rsp);
+            document.getElementById("orderSubmit").submit();
+        } else {
+            console.log(rsp);
+        }
+    });
+  }
+const paytestbtn = document.getElementById('paytestbtn');
+paytestbtn.addEventListener('click', () => {
+  requestPay();
 });

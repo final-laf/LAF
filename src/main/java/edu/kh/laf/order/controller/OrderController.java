@@ -202,8 +202,8 @@ public class OrderController {
 		}
 		
 		// 주문내역 이메일전송
-		String resultEmail = service4.sendOrderEmail(emailData);
-		model.addAttribute("resultEmail",resultEmail);
+//		String resultEmail = service4.sendOrderEmail(emailData);
+//		model.addAttribute("resultEmail",resultEmail);
 		
 		return "order/orderDetail";
 	}
