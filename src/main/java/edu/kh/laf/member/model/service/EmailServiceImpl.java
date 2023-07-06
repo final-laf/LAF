@@ -131,7 +131,10 @@ public class EmailServiceImpl implements EmailService {
 			String sendEmail = orderMember.getMemberEmail();
 
 			// 받는 사람 주소 세팅
-			order.setOrderRecvAdd(order.getOrderRecvAdd().replace("^^^", " "));
+			String[] add = order.getOrderRecvAdd().split("\\^\\^\\^");
+			add[0] = "(" + add[0] + ")";
+			order.setOrderRecvAdd(String.join(" ", add));
+
 			
 			// 받는 사람 전화번호 세팅
 			StringBuilder recvTel = new StringBuilder();
@@ -159,8 +162,7 @@ public class EmailServiceImpl implements EmailService {
 	            mailhelper.setFrom("lostandfoundff@gmail.com");
 
 	            //수신자 설정
-//	            mailhelper.setTo(sendEmail);
-	            mailhelper.setTo("kjaew77@gmail.com");
+	            mailhelper.setTo(sendEmail);
 	            
 	            // 내용설정
 	            String html = templateEngine.process("mail", context);
