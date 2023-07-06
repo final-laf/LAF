@@ -1,9 +1,11 @@
 package edu.kh.laf.member.controller;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.OAuthToken;
+import edu.kh.laf.member.model.dto.SocialLoginProfile;
 import edu.kh.laf.member.model.service.EmailService;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
@@ -54,6 +63,12 @@ public class MemberController {
 
     @Value("${kakao.redirect.url}")
     private String KAKAO_REDIRECT_URL;
+
+    @Value("${kakao.socialLogin.pw}")
+    private String KAKAO_PW;
+    
+    @Value("${kakao.logout.url}")
+    private String KAKAO_LOGOUT_URL;
     
     
     // 로그인 페이지 이동
@@ -131,8 +146,24 @@ public class MemberController {
 
 	// 로그아웃 기능
 	@GetMapping("/logout")
-	  public String logout(SessionStatus status) {
-	    status.setComplete(); 
+	  public String logout(SessionStatus status, @SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+		
+		
+		// 카카오 로그인일 경우 카카오톡과 함께 로그아웃 (GET방식으로 요청/진행중)
+		if(loginMember.getMemberSocial().equals("K")) {
+            URI logoutUrl = UriComponentsBuilder
+                    .fromUriString("https://kauth.kakao.com/oauth/logout")
+                    .queryParam("client_id", KAKAO_CLIENT_ID)     
+                    .queryParam("logout_redirect_uri", KAKAO_LOGOUT_URL)     
+                    .build()
+                    .toUri();
+			RestTemplate rt = new RestTemplate();
+			rt.getForObject(logoutUrl, String.class);
+			status.setComplete(); 
+		} else {
+			status.setComplete(); 
+		}
+	    
 	    return "redirect:/";
 	}
 	
@@ -269,13 +300,9 @@ public class MemberController {
 		return path;
 	}
 	
-	
-	
-	@GetMapping("/auth/kakao/callback")
-	@ResponseBody
-	public String kakaoCallBack(String code) {
+	// 카카오로그인 (POST방식으로 인증 토큰 요청)
+	public OAuthToken kakaoCallback(String code) {
 		
-		//POST방식으로 key=value 데이터를 요청(카카오쪽으로)
 		RestTemplate rt = new RestTemplate();
 		
 		// HttpHeader 오브젝트 생성
@@ -289,9 +316,10 @@ public class MemberController {
 		params.add("redirect_uri", KAKAO_REDIRECT_URL);
 		params.add("code", code);
 		
-		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기(exchange함수가 httpentity를 담기 때문)
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 		
+		// Http 요청하기 = Post 방식으로 - 그리고 response 변수의 응답 받음
 		ResponseEntity<String> response = rt.exchange(
 				"https://kauth.kakao.com/oauth/token",
 				HttpMethod.POST,
@@ -299,14 +327,111 @@ public class MemberController {
 				String.class
 		);
 		
-		return "카카오 인증 완료 : 토큰 요청에 대한 응답" + response;
+		// 엑세스 토큰을 java 객체로 만들기
+		// Gson, Json Simple, ObjectMapper
+		ObjectMapper objectMapper = new ObjectMapper();
+		OAuthToken oauthtoken = null;
+		try {
+			oauthtoken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return oauthtoken;
+	}
+	
+	
+	// 카카오로그인
+	public Member kakaoGetInfo(OAuthToken oauthtoken) {
+		
+		//POST방식으로 인증 토큰을 가지고 사용자 정보 요청(카카오쪽으로)
+		RestTemplate rt2 = new RestTemplate();
+		
+		// HttpHeader 오브젝트 생성
+		HttpHeaders headers2 = new HttpHeaders();
+		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		headers2.add("Authorization", "Bearer " + oauthtoken.getAccess_token());
+		
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기(exchange함수가 httpentity를 담기 때문)
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
+		
+		// Http 요청하기 = Post 방식으로 - 그리고 response 변수의 응답 받음
+		ResponseEntity<String> response2 = rt2.exchange(
+				"https://kapi.kakao.com/v2/user/me",
+				HttpMethod.POST,
+				kakaoProfileRequest2,
+				String.class
+		);
+		
+		// 엑세스 토큰을 java 객체로 만들기
+		// Gson, Json Simple, ObjectMapper
+		ObjectMapper objectMapper2 = new ObjectMapper();
+		SocialLoginProfile socialLoginProfile = null;
+		try {
+			socialLoginProfile = objectMapper2.readValue(response2.getBody(), SocialLoginProfile.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		// Member 오브젝트(id)
+		Member member = new Member();
+		member.setMemberId("K" + socialLoginProfile.getId());
+		member.setMemberPw(KAKAO_PW);
+		member.setMemberName(socialLoginProfile.properties.getNickname());
+		member.setMemberEmail("emailTemp");
+		member.setMemberPhone("01012341234");
+		member.setMemberAddress("00000, 임시주소값, 임시주소값");
+		member.setMemberSocial("K");
+		
+		return member;
 	}
 	
 	
 	
-	
-	
-	
+	// 카카오 로그인
+	@GetMapping("/auth/kakao/callback")
+	public String kakaoLogin(String code
+							, Model model
+							, HttpServletResponse resp
+							, RedirectAttributes ra
+							, HttpServletRequest request) {
+		
+		// 카카오에 코드를 주고 인증 토큰 받아오기
+		OAuthToken oauthtoken = kakaoCallback(code);
+		// 카카오에 인증 토큰을 주고 개인정보 받아오기(id, nickname)
+		Member member = kakaoGetInfo(oauthtoken);
+		// id 중복검사
+		int result = checkId(member.getMemberId());
+		
+		Member loginMember = new Member();
+		if(result == 0) {
+			// 중복된 id가 없을시 회원가입 후 로그인
+			service.signUp(member);
+		}
+		// member로 회원 조회(회원번호를 가져오기 위한 과정)
+		loginMember = service.selectMemberById(member);
+		// 중복된 id가 있을 시 로그인
+		service.login(loginMember);
+		
+		// 기존에 있던 세션 정보를 초기화
+		request.getSession().invalidate();
+		request.getSession(true);
+		
+		// 세션에 로그인멤버 정보 저장
+		model.addAttribute("loginMember", loginMember);
+		
+		
+//		// 로그인한 회원의 찜 목록 리스트(productNo)
+//		List<Long> likeLikst = likeServcie.selectLikeList(member.getMemberNo());
+//		model.addAttribute("likeList", likeLikst);
+		
+		
+		return "member/socialLoginInfo";
+	}
 	
 	
 	

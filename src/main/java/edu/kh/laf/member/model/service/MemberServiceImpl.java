@@ -279,6 +279,12 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.insertMemberCoupon(paramMap);
 	}
 
+	// 아이디로 회원 조회(회원id로 조회해서 member로 받아오는 기존 login sql문 재활용)
+	@Override
+	public Member selectMemberById(Member member) {
+		return mapper.login(member);
+	}
+
 
 	
 
