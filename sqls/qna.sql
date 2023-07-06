@@ -13,16 +13,16 @@ create table `qna` (
 	`qna_pw`		int	null	comment '문의 비밀글 비밀번호',
 	`qna_answer`	TEXT	null	comment '답글 내용'
 );
-
+SELECT * FROM `member` m ;
 alter table `qna` add constraint `pk_qna` primary key (
 	`qna_no`
 );
-
+SELECT * FROM  product_img pi2 ;
 alter table `qna` add constraint `fk_member_to_qna` foreign key (`member_no`) references `member` (`member_no`);
 
 SELECT * FROM qna ORDER BY qna_category='상품' DESC ;
 
-
+SELECT * FROM `qna`;
 -- insert구문
 -- INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);
 -- INSERT INTO `qna` VALUES (default, 2, null, null, 2, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);

@@ -10,7 +10,6 @@ for(let review of wirteReview) {
     const orderProduct = {orderNo:orderNo, productNo:productNo,optionNo:optionNo}
     modal.style.display = "block";
     document.body.style.overflowY = "hidden";
-    console.log(orderProduct);
 
     fetch("/review/detail",{
       method : "POST", 
@@ -20,7 +19,9 @@ for(let review of wirteReview) {
     })
     .then(response => response.json()) 
     .then(review => {
-      
+      for (let i = 0; i < 5; i++) {
+        document.getElementsByClassName("preview")[i].src = "/images/common/no-image.png";
+      }
       document.getElementById("reviewModifyModalStar").value="";
       document.getElementById("reviewModalTextScore").value="";
       document.getElementById("reviewModifyModalStar").value="";
@@ -31,6 +32,7 @@ for(let review of wirteReview) {
       document.getElementById("reviewModifyModalProductName").innerText=review.product.productName;
       document.getElementById("reviewModifyModalProductPrice").innerText=review.product.productPrice;
       document.getElementById("reviewModifyModalProductSalePrice").innerText=review.product.productSalePrice;
+      document.getElementById("reviewWriteProduct").src=review.product.thumbnailPath;
       document.getElementById("reviewModifyModalReviewCount").innerText=review.reviewCount;
       document.getElementById("reviewModifyModalOptionNo").value=review.optionNo;
       document.getElementById("reviewModifyModalProductNo").value=review.productNo;
@@ -38,6 +40,7 @@ for(let review of wirteReview) {
       document.getElementById("reviewModifyModalStar").value=5;
       document.getElementById("reviewModalTextScore").value=5;
       document.getElementById("reviewModifyModalStar").value=5;
+      
       for (let i = 0; i < review.reviewImg.length; i++) {
         for (let index = 0; index < 5; index++) {
           if (review.reviewImg[i].reviewImgOrder==index) {
@@ -50,15 +53,6 @@ for(let review of wirteReview) {
       document.getElementById("reviewScoreColor").style.width=i+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
       document.getElementById("reviewScorePoint").innerText="점 ╰(*°▽°*╰)"
-      // memberName = review.memberName
-      // reviewCreateDate = review.reviewCreateDate
-      // option = review.option.color+"/"+review.option.size
-      // productName = review.product.productName
-      // productPrice = review.product.productPrice
-      // productSalePrice =review.product.productSalePrice
-      // reviewCount = review.reviewCount
-      // reviewContent = review.reviewContent
-      // document.getElementById("reviewModalName").innerText="review.memberName";
     }) 
     .catch (e => { console.log(e)}); 
   });
@@ -66,15 +60,6 @@ for(let review of wirteReview) {
 /* 리뷰 수정 모달 */
 const modal = document.getElementsByClassName("review-modal-overlay")[0];
 const modifyReview = document.getElementsByClassName("myPageReviewModify");
-console.log(modal);
-// let memberName = "";
-// let reviewCreateDate = "";
-// let option = "";
-// let productName = "";
-// let productPrice = "";
-// let productSalePrice = "";
-// let reviewCount = "";
-// let reviewContent = "";
 for(let review of modifyReview) {
   /* 리뷰 아이템 클릭시 */
   review.addEventListener('click', e => {
@@ -87,14 +72,13 @@ for(let review of modifyReview) {
     .then(response => response.json()) 
     .then(review => {
       for (let i = 0; i < 5; i++) {
-            document.getElementsByClassName("preview")[i].src = "/images/review/review_image_upload.png";
+            document.getElementsByClassName("preview")[i].src = "/images/common/no-image.png";
       }
       document.getElementById("reviewModifyModalStar").value="";
       document.getElementById("reviewModalTextScore").value="";
       document.getElementById("reviewModifyModalStar").value="";
       document.getElementById("reviewScoreColor").style.width=0+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = "white";
-
       document.getElementById("reviewModifyModalProductName").innerText=review.product.productName;
       document.getElementById("reviewModifyModalProductPrice").innerText=review.product.productPrice;
       document.getElementById("reviewModifyModalProductSalePrice").innerText=review.product.productSalePrice;
@@ -105,7 +89,7 @@ for(let review of modifyReview) {
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
       document.getElementById("reviewModalTextScore").value=review.reviewScore;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
-      console.log(review.reviewImg);
+      document.getElementById("reviewModifyProduct").src=review.product.thumbnailPath;
       for (let i = 0; i < review.reviewImg.length; i++) {
         for (let index = 0; index < 5; index++) {
           if (review.reviewImg[i].reviewImgOrder==index) {
@@ -113,28 +97,31 @@ for(let review of modifyReview) {
           }
         }
       }
+      console.log(review.reviewImg)
+
+      for (let i = 0; i < review.reviewImg.length; i++) {
+        for (let index = 0; index < 5; index++) {
+          if (review.reviewImg[i].reviewImgOrder==index) {
+            document.getElementsByClassName("preview")[index].src = review.reviewImg[i].reviewPath;
+            document.getElementsByClassName("preview")[index].style.display = "block";
+          }
+        }
+      }
+
       let i = (122/5*review.reviewScore);
       let color = Math.abs(74/5* review.reviewScore - 160)
       document.getElementById("reviewScoreColor").style.width=i+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = 'rgb(238, 206,'+ color+')';
       if (review.reviewScore==5) {
-        document.getElementById("reviewScorePoint").innerText="점 ╰(*°▽°*╰)"
+        document.getElementById("reviewModifyScorePoint").innerText="점 ╰(*°▽°*╰)"
       }else{
-        document.getElementById("reviewScorePoint").innerText="점"
+        document.getElementById("reviewModifyScorePoint").innerText="점"
       }
-      // memberName = review.memberName
-      // reviewCreateDate = review.reviewCreateDate
-      // option = review.option.color+"/"+review.option.size
-      // productName = review.product.productName
-      // productPrice = review.product.productPrice
-      // productSalePrice =review.product.productSalePrice
-      // reviewCount = review.reviewCount
-      // reviewContent = review.reviewContent
-      // document.getElementById("reviewModalName").innerText="review.memberName";
     }) 
     .catch (e => { console.log(e)}); 
   });
 };
+
 
   
 /* 모달창 바깥 영역을 클릭하면 모달창이 꺼지게 하기 */
@@ -276,17 +263,15 @@ for(let i=0; i<inputImage.length; i++){
       }
   })
   deleteImage[i].addEventListener('click', () => {
-    console.log("asd")
     // 미리보기 이미지가 있을 경우
     if(preview[i].getAttribute("src") != ""){
-        console.log("있음")
           // 미리보기 삭제
           preview[i].removeAttribute("src");
 
           // input type = "file" 태그의 value를 삭제
           // ** input type="file" 의 value는 ""(빈칸)만 대입 가능
           inputImage[i].value = "";
-          document.getElementsByClassName("preview")[i].src="/images/review/review_image_upload.png";
+          document.getElementsByClassName("preview")[i].src="/images/common/no-image.png";
           // deleteSet에 삭제된 이미지 순서 추가
           deleteSet.add(i);
       }

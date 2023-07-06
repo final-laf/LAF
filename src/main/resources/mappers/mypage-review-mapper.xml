@@ -15,7 +15,7 @@
           
     
 	<!-- 마이페이지 오더 List -->
-     <select id="orderList" resultType="Review">
+    <select id="orderList" resultType="Review">
         SELECT  op.review_no,
 				r.review_delete_fl,
 				op.order_no,
@@ -33,12 +33,12 @@
     </select>
     
 	<!-- myReviewOption -->
-     <select id="myOrderOption" resultType="Option">
+    <select id="myOrderOption" resultType="Option">
         SELECT * FROM `option` o WHERE option_no=#{optionNo}
     </select>
     
 	<!-- myOrderProduct -->
-     <select id="myOrderProduct" resultType="Product">
+    <select id="myOrderProduct" resultType="Product">
         SELECT  product_no,
 				product_name,
 				product_price,
@@ -65,27 +65,27 @@
 		WHERE o.member_no=#{memberNo} AND r.review_delete_fl = 'N'
     </select>
 	
-	    <!-- reviewList -->
-     <select id="reviewList" resultType="Review">
-        SELECT r.review_no, 
-	           m.member_id, 
-			   r.review_content, 
-			   r.review_create_date, 
-			   r.review_score, 
-			   r.order_no, 
-			   r.product_no, 
-			   r.option_no, 
-			   o.order_uno,
-			   o.order_date,
-			   op.count, 
-			   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.review_delete_fl='N' AND r.product_no =sr.product_no),1) review_score_avg, 
-			   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
+    <!-- reviewList -->
+    <select id="reviewList" resultType="Review">
+       SELECT r.review_no, 
+           m.member_id, 
+		   r.review_content, 
+		   r.review_create_date, 
+		   r.review_score, 
+		   r.order_no, 
+		   r.product_no, 
+		   r.option_no, 
+		   o.order_uno,
+		   o.order_date,
+		   op.count, 
+		   TRUNCATE((SELECT AVG(review_score) FROM review sr WHERE r.review_delete_fl='N' AND r.product_no =sr.product_no),1) review_score_avg, 
+		   (SELECT COUNT(*) FROM review rc WHERE rc.product_no=r.product_no) review_Count  
 		FROM review r LEFT JOIN order_product op ON r.review_no = op.review_no 
 					  JOIN `order` o ON r.order_no = o.order_no 
 					  JOIN `member`m ON o.member_no = m.member_no 
 		WHERE o.member_no=#{memberNo} AND r.review_delete_fl = 'N'
 		ORDER BY o.order_date DESC
-    </select>
+   	</select>
 	
 	
 	

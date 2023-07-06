@@ -60,18 +60,32 @@
               </td>
             </tr>
             <!-- select에 따라 변동 사항 -->
-            <tr id="qnaWriteProduct">
+            <tr id="qnaWriteProduct" th:if="${qna.qnaCategory=='상품'}" style="display: table-row">
               <td>PRODUCT NO.</td>
               <td>
                 <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}">
                 <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력">
               </td>
             </tr>
-            <tr id="qnaWriteShipping">
+            <tr id="qnaWriteProduct" th:unless="${qna.qnaCategory=='상품'}" style="display: none">
+              <td>PRODUCT NO.</td>
+              <td>
+                <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}">
+                <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력">
+              </td>
+            </tr>
+            <tr id="qnaWriteShipping" th:if="${qna.qnaCategory=='배송'}" style="display: table-row">
               <td>ORDER NO.</td>
               <td>
-                <input th:if="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.orderNo}" >
-                <input th:unless="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력">
+                <input th:if="${qna.orderUno}" name="orderUno" type="text" th:value="${qna.orderUno}" >
+                <input th:unless="${qna.orderUno}" name="orderUno" type="text" placeholder="주문번호 입력">
+              </td>
+            </tr> 
+            <tr id="qnaWriteShipping" th:unless="${qna.qnaCategory=='배송'}" style="display: none">
+              <td>ORDER NO.</td>
+              <td>
+                <input th:if="${qna.orderUno}" name="orderUno" type="text" th:value="${qna.orderUno}" >
+                <input th:unless="${qna.orderUno}" name="orderUno" type="text" placeholder="주문번호 입력">
               </td>
             </tr> 
             <!-- 변동 사항 -->

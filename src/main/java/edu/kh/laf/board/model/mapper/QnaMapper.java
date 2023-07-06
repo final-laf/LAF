@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.board.model.dto.Qna;
+import edu.kh.laf.order.model.dto.Order;
 
 @Mapper
 public interface QnaMapper {
@@ -74,6 +75,12 @@ public interface QnaMapper {
 	 * @return
 	 */
 	int answerQna(Qna qna);
+
+	/** qna 오더리스트
+	 * @param memberNo
+	 * @return
+	 */
+	List<Order> orderList(Long memberNo);
 
 
 

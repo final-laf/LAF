@@ -57,7 +57,6 @@ public class ReviewController {
 		Review review = new Review();
 		review = service.detailReview(reviewNo);
 		if (review != null) {
-			int num = review.getMemberId().length() / 2;
 			int uNum = review.getOrderUno().length() / 2;
 
 			String blind = "";
