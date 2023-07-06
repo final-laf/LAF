@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" th:href="@{css/admin/adminProduct/productSelect.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/adminProduct/productSelect.css}">
   <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
   <title>관리자 :: 상품조회</title>
   <style>
@@ -251,7 +251,7 @@
     const queryString = /*[[${queryString}]]*/ "전달 받은 queryString";
     if(queryString != null ) location.href = location.href + queryString;
   </script>
-  <script th:src="@{js/admin/adminProduct/adminProduct.js}"></script>
+  <script th:src="@{/js/admin/adminProduct/adminProduct.js}"></script>
 
 </body>
 
