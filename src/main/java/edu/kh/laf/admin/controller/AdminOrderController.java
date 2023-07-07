@@ -86,6 +86,13 @@ public class AdminOrderController {
 		return service.selectTodayOrderState();
 	}
 	
+	// 오늘 주문목록조회
+	@PostMapping("/admin/order/list")
+	@ResponseBody
+	public List<Map<String, Object>> todayOrderList() {
+		return service.selectTodayOrderList();
+	}
+	
 	// 주문처리상태변경
 	@PostMapping("/admin/order/state")
 	@ResponseBody
