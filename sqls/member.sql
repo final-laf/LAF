@@ -428,7 +428,7 @@ COMMIT;
 
 
 
-DELETE FROM `member` WHERE member_no = 78;
+DELETE FROM `member` WHERE member_no = 79;
 		
 
 			

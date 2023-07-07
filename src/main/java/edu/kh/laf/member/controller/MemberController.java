@@ -89,6 +89,14 @@ public class MemberController {
 		return "member/findPw";
 	}
 	
+	// 소셜 로그인 회원 회원 정보 등록 페이지 이동
+	@GetMapping("/mypage/setinfo")
+	public String socialLoginSetInfo(){
+		return "member/socialLoginInfo";
+	}
+	
+	
+	
 	// 로그인 기능
 	@PostMapping("/login")
 	public String login(Member inputMember, Model model
@@ -147,25 +155,6 @@ public class MemberController {
 	// 로그아웃 기능
 	@GetMapping("/logout")
 	 public String logout(SessionStatus status) {
-		
-	// 카카오 로그아웃 코드(진행중)
-//	  public String logout(SessionStatus status, @SessionAttribute(value = "loginMember", required = false) Member loginMember) {
-//		
-//		
-//		// 카카오 로그인일 경우 카카오톡과 함께 로그아웃 (GET방식으로 요청/진행중)
-//		if(loginMember.getMemberSocial().equals("K")) {
-//            URI logoutUrl = UriComponentsBuilder
-//                    .fromUriString("https://kauth.kakao.com/oauth/logout")
-//                    .queryParam("client_id", KAKAO_CLIENT_ID)     
-//                    .queryParam("logout_redirect_uri", KAKAO_LOGOUT_URL)     
-//                    .build()
-//                    .toUri();
-//			RestTemplate rt = new RestTemplate();
-//			rt.getForObject(logoutUrl, String.class);
-//			status.setComplete(); 
-//		} else {
-//			status.setComplete(); 
-//		}
 		status.setComplete(); 
 	    return "redirect:/";
 	}
@@ -427,14 +416,20 @@ public class MemberController {
 		// 세션에 로그인멤버 정보 저장
 		model.addAttribute("loginMember", loginMember);
 		
+		// 로그인한 회원의 찜 목록 리스트(productNo)
+		List<Long> likeLikst = likeServcie.selectLikeList(member.getMemberNo());
+		model.addAttribute("likeList", likeLikst);
 		
-//		// 로그인한 회원의 찜 목록 리스트(productNo)
-//		List<Long> likeLikst = likeServcie.selectLikeList(member.getMemberNo());
-//		model.addAttribute("likeList", likeLikst);
-		
-		
-		return "member/socialLoginInfo";
+//		if(result == 0) {
+			// 회원가입 한 신규회원이 로그인 시 회원 정보 등록(소셜로그인) 창으로 이동
+			return "redirect:/mypage/setinfo";
+//		}
+//		
+//		// 회원가입한 신규회원이 아닐 시 메인 페이지로 이동
+//		return "redirect:/";
 	}
+	
+
 	
 	
 	
