@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.product.model.dto.Product;
 
 @Mapper
 public interface QnaMapper {
@@ -81,6 +82,12 @@ public interface QnaMapper {
 	 * @return
 	 */
 	List<Order> orderList(Long memberNo);
+
+	/** qna 상품 검색
+	 * @param productName
+	 * @return
+	 */
+	List<Product> productSearch(String productName);
 
 
 

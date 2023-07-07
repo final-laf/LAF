@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="/css/boards/qna.css">
   <title>LAF :: 1대1문의</title>
 </head>
-<body>
+<body id="qnaM">
 
   <th:block th:replace="~{common/header}"></th:block>
   <th:block th:replace="~{common/nav}"></th:block>
   
-  <main>
+  <main >
 
     <form action="/qna/update" method="post">
       
@@ -36,7 +36,7 @@
           <table class="detail-list-table">
             <tr>
               <td>TITLE</td>
-              <td><input name="qnaTitle" type="text" required th:value="${qna.qnaTitle}"></td>
+              <td><input name="qnaTitle" type="text" required autocomplete="off"  th:value="${qna.qnaTitle}"></td>
             </tr>
             <tr>
               <td>CATEGORY</td>
@@ -61,39 +61,97 @@
             </tr>
             <!-- select에 따라 변동 사항 -->
             <tr id="qnaWriteProduct" th:if="${qna.qnaCategory=='상품'}" style="display: table-row">
-              <td>PRODUCT NO.</td>
+              <td>PRODUCT NAME.</td>
               <td>
-                <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}">
-                <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력">
+                <input th:if="${qna.productName}" id="qnaProductName" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
+                <input th:unless="${qna.productName}" id="qnaProductName" name="productName" type="text" autocomplete="off"  placeholder="정확한 상품명을 입력하지 않을 시 답변에 어려움이 있을 수 있습니다.">
+                <div id="qnaProductList">
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    상품 :
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    상품 :
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    상품 :
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
             <tr id="qnaWriteProduct" th:unless="${qna.qnaCategory=='상품'}" style="display: none">
-              <td>PRODUCT NO.</td>
+              <td>PRODUCT NAME.</td>
               <td>
-                <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}">
-                <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력">
+                <input th:if="${qna.productName}" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
+                <input th:unless="${qna.productName}" name="productName" type="text" autocomplete="off"   placeholder="상품번호 입력">
               </td>
             </tr>
             <tr id="qnaWriteShipping" th:if="${qna.qnaCategory=='배송'}" style="display: table-row">
               <td>ORDER NO.</td>
               <td>
-                <input th:if="${qna.orderUno}" name="orderUno" type="text" th:value="${qna.orderUno}" >
-                <input th:unless="${qna.orderUno}" name="orderUno" type="text" placeholder="주문번호 입력">
+                <input th:if="${qna.orderUno}" id="orderUno" name="orderUno" type="text" autocomplete="off" th:value="${qna.orderUno}" >
+                <input th:unless="${qna.orderUno}" id="orderUno" name="orderUno" type="text" autocomplete="off" placeholder="주문번호 입력">
+                <div th:if="orderList" id="qnaOrderList">
+                  <div th:each="order, status:${orderList}" class="qnaOrder" th:value="${order.orderUno}">
+                    <div>
+                      <span th:text="${'날짜 : '+order.orderDate}"></span>
+                    </div>
+                    <div>
+                      <span th:text="${'주문번호 : '+order.orderUno}"></span>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr> 
             <tr id="qnaWriteShipping" th:unless="${qna.qnaCategory=='배송'}" style="display: none">
               <td>ORDER NO.</td>
               <td>
-                <input th:if="${qna.orderUno}" name="orderUno" type="text" th:value="${qna.orderUno}" >
-                <input th:unless="${qna.orderUno}" name="orderUno" type="text" placeholder="주문번호 입력">
+                <input th:if="${qna.orderUno}" name="orderUno" type="text" autocomplete="off" th:value="${qna.orderUno}"  id="orderUno">
+                <input th:unless="${qna.orderUno}" name="orderUno" type="text" autocomplete="off"  placeholder="주문번호 입력"  id="orderUno">
+                <div th:if="orderList" id="qnaOrderList">
+                  <div th:each="order, status:${orderList}" class="qnaOrder" th:value="${order.orderUno}">
+                    <div>
+                      <span th:text="${'날짜 : '+order.orderDate}"></span>
+                    </div>
+                    <div>
+                      <span th:text="${'주문번호 : '+order.orderUno}"></span>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr> 
             <!-- 변동 사항 -->
             <tr>
               <td>PASSWORD.</td>
               <td>
-                <input th:if="${qna.qnaPw}" name="qnaPw" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"  th:value="${qna.qnaPw}">
-                <input th:unless="${qna.qnaPw}" name="qnaPw"  type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.qnaPw}">
+                <input th:if="${qna.qnaPw}" name="qnaPw" type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true"  th:value="${qna.qnaPw}">
+                <input th:unless="${qna.qnaPw}" name="qnaPw"  type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.qnaPw}">
               </td>
             </tr>
             <tr>
@@ -119,7 +177,7 @@
       </section>
     </form>
   </main>
-  
+  <div id="qnaModalBack">asd</div>
 
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/boards/qna.js"></script>

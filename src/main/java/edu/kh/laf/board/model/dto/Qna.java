@@ -15,7 +15,7 @@ public class Qna {
 	private String memberName;
 	private String memberGrade;
 	private String orderUno;
-	private String productNo;
+	private String productName;
 	private String qnaCategory;
 	private String qnaTitle;
 	private String qnaContent;

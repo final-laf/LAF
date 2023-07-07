@@ -91,7 +91,7 @@
 	
 	<!-- qna 작성 -->
     <insert id="writeQna" parameterType="Qna" >
-        INSERT INTO qna VALUES (default, #{memberNo}, #{orderUno}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default)
+        INSERT INTO qna VALUES (default, #{memberNo}, #{orderUno}, #{productName}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default)
     </insert>
 	
     <!--qna 비밀글 조회-->
@@ -102,7 +102,7 @@
 	
 	<!-- qna문의 수정 -->
     <update id="updateQna" parameterType="Qna" >
-        UPDATE `qna` SET order_Uno=#{orderUno}, product_no=#{productNo}, qna_category=#{qnaCategory}, qna_title=#{qnaTitle}, qna_content=#{qnaContent}, qna_lock_fl=#{qnaLockFl}, qna_pw=#{qnaPw} WHERE qna_no=#{qnaNo}
+        UPDATE `qna` SET order_Uno=#{orderUno}, product_name=#{productName}, qna_category=#{qnaCategory}, qna_title=#{qnaTitle}, qna_content=#{qnaContent}, qna_lock_fl=#{qnaLockFl}, qna_pw=#{qnaPw} WHERE qna_no=#{qnaNo}
     </update>
 
 	<!-- qna문의 답변 수정 -->
@@ -118,10 +118,21 @@
 			DATE_FORMAT(order_date, '%Y-%m-%d') AS order_date 
 		FROM `order` o 
 		WHERE member_no = #{memberNo}
+		ORDER BY order_date DESC
 	</select>
     
 	
-	
+	<!--qna 상품 조회-->
+    <select id="productSearch" parameterType="Product">
+		SELECT p.product_no , 
+			p.product_name , 
+			pi.img_path thumbnail_path
+		FROM product p JOIN product_img pi ON p.product_no =pi.product_no 
+		WHERE p.product_name LIKE '%${productName}%' 
+			AND pi.thumb_fl='Y'		
+
+ 
+	</select>
 
 </mapper>
 
