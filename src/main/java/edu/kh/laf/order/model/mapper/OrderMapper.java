@@ -137,5 +137,9 @@ public interface OrderMapper {
 	// 연도별 매출 조회
 	public List<Map<String, Object>> getRevenueYear();
 	
-
+	// 오늘 매출 조회
+	public long getRevenueToday();
+	
+	// 오늘 결제 확인
+	public long getPaymentToday();
 }

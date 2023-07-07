@@ -418,11 +418,28 @@
 		ORDER BY o.order_no DESC
 	</select>
 	
+	<!-- 오늘 매출 조회 -->
+	<select id="getRevenueToday">
+		SELECT sum(order_payment) AS revenue 
+		FROM `order`
+		WHERE date_format(order_date, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
+			  and order_state != 'H' and order_state != 'L' 
+	</select>
+	
+	<!-- 오늘 결제 확인 -->
+	<select id="getPaymentToday">
+		SELECT sum(order_payment) AS revenue 
+		FROM `order`
+		WHERE date_format(order_date, '%Y-%m-%d') = DATE_FORMAT(now(), '%Y-%m-%d')
+		      and order_state != 'H' and order_state != 'L' and order_state != 'A'
+	</select>
+	
 	<!-- 일별 매출 조회 (30일 전까지만 조회) -->
 	<select id="getRevenue" resultType="map">
 		SELECT DATE_FORMAT(order_date, '%m / %d') AS `date`, sum(order_payment) AS revenue
 		FROM `order`
-		WHERE order_date between DATE_SUB(NOW(), INTERVAL 1 MONTH) AND DATE_FORMAT(now(), '%Y-%m-%d')
+		WHERE order_date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+			  and order_state != 'H' and order_state != 'L'
 		GROUP BY `date`
 	</select>
 	
@@ -430,7 +447,8 @@
 	<select id="getRevenueMonth" resultType="map">
 		SELECT DATE_FORMAT(order_date, '%Y / %m') AS `date`, sum(order_payment) AS revenue 
 		FROM `order`
-		WHERE order_date between DATE_SUB(NOW(), INTERVAL 12 MONTH) AND DATE_FORMAT(now(), '%Y-%m-%d')
+		WHERE order_date >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+			  and order_state != 'H' and order_state != 'L'
 		GROUP BY `date`
 	</select>
 	
@@ -438,6 +456,7 @@
 	<select id="getRevenueYear" resultType="map">
 		SELECT DATE_FORMAT(order_date, '%Y') AS `date`, sum(order_payment) AS revenue 
 		FROM `order`
+		where order_state != 'H' and order_state != 'L'
 		GROUP BY `date`
 	</select>
 </mapper>
