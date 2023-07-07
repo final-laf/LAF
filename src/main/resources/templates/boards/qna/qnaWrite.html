@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/boards/qna.css">
   <title>LAF :: 1대1문의</title>
 </head>
-<body>
+<body id="qnaM">
 
   <th:block th:replace="~{common/header}"></th:block>
   <th:block th:replace="~{common/nav}"></th:block>
@@ -47,15 +47,15 @@
               </td>
             </tr>
             <tr id="qnaWriteProduct">
-              <td>PRODUCT NO.</td>
-              <td><input name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력"></td>
+              <td>PRODUCT NAME.</td>
+              <td><input name="productName" type="text"  placeholder="정확한 상품 명을 입력하지 않을 시 정확한 답변이 아닐 수 있습니다."></td>
             </tr>
             <tr id="qnaWriteShipping">
               <td>ORDER NO.</td>
               <td>
-                <input name="orderUno" type="text" placeholder="주문번호 입력" id="orderUno">
-                <div th:if="orderList" id="qnaWriteOrderList">
-                  <div th:each="order, status:${orderList}" class="qnaWriteOrder" th:value="${order.orderUno}">
+                <input name="orderUno" type="text" placeholder="주문번호 입력" id="orderUno" autocomplete="off" >
+                <div th:if="orderList" id="qnaOrderList">
+                  <div th:each="order, status:${orderList}" class="qnaOrder" th:value="${order.orderUno}">
                     <div>
                       <span th:text="${'날짜 : '+order.orderDate}"></span>
                     </div>
@@ -88,7 +88,7 @@
         <!-- 하단 버튼 영역 -->
         <div class="detail-btn-area write-btn-area">
           <div>
-            <button type="button" class="write-btn" id="listBtn">LIST</button>                     
+            <a href="/qna"><button type="button" class="write-btn" id="listBtn">LIST</button></a>                       
           </div>
           <div>
             <button class="write-btn submit">SUBMIT</button>                     
@@ -97,6 +97,7 @@
       </section>
     </form>
   </main>
+  <div id="qnaModalBack">asd</div>
 
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/boards/qna.js"></script>

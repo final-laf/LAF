@@ -461,22 +461,22 @@ function plusBtn(e){
 
 /* 모달창 끄기 */
 const chatModal = document.getElementById("chatbotSection")
-window.addEventListener("keyup", e => {
-  if (chatModal!=null) {
+if (chatModal!=null) {
+  window.addEventListener("keyup", e => {
     if(chatModal.style.display != "none" && e.key == "Escape") {
-        document.getElementById("chatbotIcon").style.borderRadius="15px";
-        document.getElementById("quickChatbot").style.display="none";
-        document.getElementById("chatbotIcon").style.display="flex";
-        document.getElementById("chatbotMain").style.display="none";
-        document.getElementById("chatbotSection").classList.add("go");
-        setTimeout(()=>{ 
-          document.getElementById("chatbotSection").style.display="none"; // 스크롤 제일 밑으로
-          document.getElementById("quickChatbot").style.display="flex";
-        }, 650);
-        return;
-      }
-  }
-});
+      document.getElementById("chatbotIcon").style.borderRadius="15px";
+      document.getElementById("quickChatbot").style.display="none";
+      document.getElementById("chatbotIcon").style.display="flex";
+      document.getElementById("chatbotMain").style.display="none";
+      document.getElementById("chatbotSection").classList.add("go");
+      setTimeout(()=>{ 
+        document.getElementById("chatbotSection").style.display="none"; // 스크롤 제일 밑으로
+        document.getElementById("quickChatbot").style.display="flex";
+      }, 650);
+      return;
+    }
+  });
+}
 
 function mainCategory() {
   // 챗봇 영역

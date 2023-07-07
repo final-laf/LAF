@@ -76,12 +76,13 @@
           <button type="button" id="qnaModify" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}" >MODIFY</button>                     
           <button type="button" id="qnaDelete" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}">DELETE</button>                     
         </div>
-       </div>
-       <div class="btn-container"  th:if="${session.loginMember?.memberGrade =='A'}">
+      </div>
+      <div class="btn-container"  th:if="${session.loginMember?.memberGrade =='A'}">
         <button type="button" id="qnaAnswer" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}" class="submit" >답변하기</button>
       </div>
     </section>
   </main>
+
   <div id="qnaDetailModelBack"></div>
   <div id="qnaDetailModal" th:value="${qna.qnaNo}">
     <div>비밀번호를 입력해주세요</div>
@@ -100,6 +101,5 @@
     });
   </script>
   <script src="/js/boards/qna.js"></script>
-
 </body> 
 </html>

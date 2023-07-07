@@ -96,32 +96,112 @@ const changeValue = (target) => {
   }
 }
 
+
+
 const orderUnoList = document.getElementById("orderUno");
 // 내 주문내역 조회
 if (orderUnoList!=null) {
   orderUnoList.addEventListener("click", e=>{
-    document.getElementById("qnaWriteOrderList").style.height="250px";
+    document.getElementById("qnaOrderList").style.height="250px";
+    document.getElementById("qnaModalBack").style.display="block";
   })
-  const orderUno = document.getElementsByClassName("qnaWriteOrder");
+  const orderUno = document.getElementsByClassName("qnaOrder");
   
   for(let order of orderUno){
     order.addEventListener("click", e => {
       console.log(e.target)
-      if(e.target.classList.contains("qnaWriteOrder")) {
+      if(e.target.classList.contains("qnaOrder")) {
         console.log(e.target.getAttribute("value"));
         document.getElementById("orderUno").value=e.target.getAttribute("value")
+        document.getElementById("qnaOrderList").style.height=0;
+        document.getElementById("qnaModalBack").style.display="none";
       }else{
-        if(e.target.parentElement.classList.contains("qnaWriteOrder")){
+        if(e.target.parentElement.classList.contains("qnaOrder")){
           document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
         }else{
           document.getElementById("orderUno").value=e.target.parentElement.parentElement.getAttribute("value")
-  
         }
+        document.getElementById("qnaOrderList").style.height=0;
+        document.getElementById("qnaModalBack").style.display="none";
       }
-      document.getElementById("qnaWriteOrderList").style.height=0;
     });
   }
 }
+
+// 모달창 닫기
+if (document.getElementById("qnaModalBack")!=null) {
+  document.getElementById("qnaModalBack").addEventListener("click", e=>{
+    document.getElementById("qnaOrderList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  })
+}
+
+// 모달창에 상품 정보 넣기
+if (document.getElementById("qnaProductName")) {
+  document.getElementById("qnaProductName").addEventListener("keyup", e=> {
+    const productName = document.getElementById("qnaProductName").value;
+    fetch("/qna/product?productName="+productName)
+    .then(response => response.json()) 
+    .then(productList => {
+      for(let i=0; i<productList.length; i++){
+        console.log("asd");
+        document.getElementsByClassName("productNo")[i].innerText=productList[i].productNo
+        document.getElementsByClassName("productImg")[i].src=productList[i].thumbnailPath
+        document.getElementsByClassName("productName")[i].innerText=productList[i].productName
+        document.getElementsByClassName("qnaProduct")[i].setAttribute("value")=productList[i].productNo
+      }
+      console.log(productList)
+      .catch (e => { console.log(e)}); 
+      
+      
+      const qnaProduct = document.getElementsByClassName("qnaProduct")
+      // for(let product of qnaProduct){
+        
+        // }
+      })
+  }) 
+}
+
+
+const qnaProductName = document.getElementById("qnaProductName");
+// 상품 조회
+if (qnaProductName!=null) {
+  qnaProductName.addEventListener("click", e=>{
+    document.getElementById("qnaProductList").style.height="130px";
+    document.getElementById("qnaModalBack").style.display="block";
+  })
+  const orderUno = document.getElementsByClassName("qnaOrder");
+  
+  for(let order of orderUno){
+    order.addEventListener("click", e => {
+      console.log(e.target)
+      if(e.target.classList.contains("qnaOrder")) {
+        console.log(e.target.getAttribute("value"));
+        document.getElementById("orderUno").value=e.target.getAttribute("value")
+        document.getElementById("qnaOrderList").style.height=0;
+        document.getElementById("qnaModalBack").style.display="none";
+      }else{
+        if(e.target.parentElement.classList.contains("qnaOrder")){
+          document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("orderUno").value=e.target.parentElement.parentElement.getAttribute("value")
+        }
+        document.getElementById("qnaOrderList").style.height=0;
+        document.getElementById("qnaModalBack").style.display="none";
+      }
+    });
+  }
+}
+
+// 모달창 닫기
+if (document.getElementById("qnaModalBack")!=null) {
+  document.getElementById("qnaModalBack").addEventListener("click", e=>{
+    document.getElementById("qnaProductList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  })
+}
+
+
 
 /* 문의 게시글(수정) 클릭시 */
 const modifyBtn = document.getElementById("qnaModify")
@@ -168,7 +248,6 @@ if (document.getElementById("qnaDetailModalBtn")!=null) {
     }) 
   })
 }
-
 
 
   

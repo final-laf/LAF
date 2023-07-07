@@ -58,7 +58,6 @@
 .detail-list-table tr > *:nth-of-type(1){ 
   width: 10%; 
   background-color: #eee;
-  font-weight: bold;
 }
 
 .detail-list-table tr > td:nth-of-type(2){
@@ -212,14 +211,11 @@ outline: none;
 }
 
 #qnaWriteLockBtn{
+  cursor:pointer;
 width: 20px;
 border: 0.5px solid #eee;
 }
 
-#qnaWriteLockBtn{
-width: 20px;
-border: 0.5px solid #eee;
-}
 
 #qnaWriteLockText{
 font-size: 1.2rem;
@@ -301,7 +297,10 @@ color: hsl(0, 0%, 44%);
   width: 100px;
   letter-spacing: 3px;
 }
-#qnaWriteOrderList{
+
+/* qna input부분 */
+#qnaOrderList{
+  z-index: 1;
   position: absolute;
   background-color: #eee;
   border-radius: 10px;
@@ -309,16 +308,54 @@ color: hsl(0, 0%, 44%);
   overflow : auto;
   transition-duration: 0.5s;
 }
+#qnaProductList{
+  height: 0px;
+  z-index: 222;
+  position: absolute;
+  background-color: #eee;
+  border-radius: 10px;
+  overflow : auto;
+  transition-duration: 0.5s;
+}
 
-.qnaWriteOrder{
+.qnaOrder{
   display: flex;
   padding: 5px;
 }
-.qnaWriteOrder:hover{
+.qnaOrder:hover{
   background-color: #ccc;
   cursor:pointer;
 }
-.qnaWriteOrder > div:first-child{
+.qnaOrder > div:first-child{
   display: flex;
   width: 135px !important;
 }
+
+.qnaProduct{
+  display: flex;
+  padding: 5px;
+  align-items: center;
+}
+
+.qnaProduct:hover{
+  background-color: #ccc;
+  cursor:pointer;
+}
+
+.qnaProduct > div:nth-child(1){
+  display: flex;
+  width: 100px !important;
+}
+
+#qnaModalBack{
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.productImg{
+  height: 30px;
+  width: 30px;
+}
+

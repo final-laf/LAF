@@ -13,14 +13,6 @@ create table `qna` (
 	`qna_pw`		int	null	comment '문의 비밀글 비밀번호',
 	`qna_answer`	TEXT	null	comment '답글 내용'
 );
-SELECT * FROM `member` m ;
-alter table `qna` add constraint `pk_qna` primary key (
-	`qna_no`
-);
-SELECT * FROM  product_img pi2 ;
-alter table `qna` add constraint `fk_member_to_qna` foreign key (`member_no`) references `member` (`member_no`);
-
-SELECT * FROM qna ORDER BY qna_category='상품' DESC ;
 
 SELECT * FROM `qna`;
 -- insert구문
@@ -35,4 +27,7 @@ SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDE
 
 -- update구문
 -- UPDATE qna SET (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default) WHERE pnaNo
-
+;
+SELECT * FROM product_img;
+SELECT p.product_no , p.product_name , pi.img_path thumbnail_path
+FROM product p JOIN product_img pi ON p.product_no =pi.product_no WHERE p.product_name LIKE '%스%' AND pi.thumb_fl='Y';
