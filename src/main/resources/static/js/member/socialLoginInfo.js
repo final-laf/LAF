@@ -1,3 +1,4 @@
+
 // 회원 정보 등록 check확인용 
 const checkObj = {
   "memberName" : true,

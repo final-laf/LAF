@@ -141,7 +141,8 @@ public class MemberController {
 //				cookie.setMaxAge(0);
 //			}
 //			cookie.setPath("/"); 
-//			resp.addCookie(cookie);
+//			resp.addCookie(cookie);+
+			
 			
 			
 		} else { // 로그인 실패 시
