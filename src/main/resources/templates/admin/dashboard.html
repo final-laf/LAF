@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/admin/dashboard.css">
+  <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>관리자 :: DASHBOARD</title>
 </head>
 <body>
@@ -13,48 +15,17 @@
   
   <main>
     <section class="admin-container">
+
+      <!-- 오늘 주문 현황 -->
       <div class="order">
-        <div class="order-table">
-          <div>
-            <span>오늘 주문 현황</span>
-            <div id="reflesh">
-              <img th:src="@{/images/common/reflesh.svg}">
-              <span>새로고침</span>
-            </div>
+
+        <div class="title">
+          <span>오늘 주문 현황</span>
+          <div id="refresh">
+            <i class="fa-solid fa-arrows-rotate"></i><span>새로고침</span>
           </div>
-          <table>
-            <tr>
-              <td>주문접수</td>
-              <td>결제확인</td>
-              <td>상품준비</td>
-              <td>출고완료</td>
-              <td>배송중</td>
-              <td>배송완료</td>
-              <td>취소중</td>
-              <td>취소완료</td>
-              <td>교환중</td>
-              <td>교환완료</td>
-              <td>반품중</td>
-              <td>반품완료</td>
-            </tr>
-            <tr id="orderState">
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-              <td>0개</td>
-            </tr>
-          </table>
         </div>
-      </div>
-      <div class="today">
+
         <div class="today-content">
           <div class="today-content-item">
             <div class="today-img">
@@ -84,13 +55,51 @@
             </div>
           </div>
         </div>
+
+        <div class="order-table">
+          <table>
+            <tr>
+              <td>주문접수</td>
+              <td>결제확인</td>
+              <td>상품준비</td>
+              <td>출고완료</td>
+              <td>배송중</td>
+              <td>배송완료</td>
+              <td>취소중</td>
+              <td>취소완료</td>
+              <td>교환중</td>
+              <td>교환완료</td>
+              <td>반품중</td>
+              <td>반품완료</td>
+            </tr>
+            <tr id="orderState">
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+              <td>0건</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 매출 추이 -->
+      <div class="today">
         <div class="today-graph">
-          <div>
-            <span class="board-title">판매금액</span>
+          <span class="board-title">매출 추이</span>
+          <div id="graphBtnContainer">
+            <button type="button" class="cur" id="day">30일</button>
+            <button type="button" id="month">월별</button>
+            <button type="button" id="year">연도별</button>
           </div>
-          <div>
-            <img src="/images/graph.png">
-          </div>
+          <canvas id="revenueChart"></canvas>
         </div>
       </div>
 
@@ -134,7 +143,7 @@
         </div>
         <div class="current-right">
           <div>
-            <span class="board-title">게시글현황</span>
+            <span class="board-title">문의글현황</span>
           </div>
           <div class="current-list">
             <ul>
@@ -173,6 +182,8 @@
     </section>
 
   </main>
+
+  <script th:src="@{/js/admin/dashboard.js}"></script>
 
 </body>
 </html>

@@ -611,4 +611,20 @@ public class OrderServiceImpl implements OrderService{
     	
     	return returnMap;
     }
+
+    // 일별 매출 조회 (30일 전까지만 조회)
+	@Override
+	public List<Map<String, Object>> getRevenue() {
+		return mapper.getRevenue();
+	}
+
+	@Override
+	public List<Map<String, Object>> getRevenueMonth() {
+		return mapper.getRevenueMonth();
+	}
+
+	@Override
+	public List<Map<String, Object>> getRevenueYear() {
+		return mapper.getRevenueYear();
+	}
 }
