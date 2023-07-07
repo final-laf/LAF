@@ -142,6 +142,7 @@
     border-radius: 30px;
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
     background-color: white;
+    margin-bottom: 20px;
 }
 
 .today-graph * {
@@ -190,15 +191,14 @@
 /* current */
 .current {
     width: 1200px;
-    height: 450px;
+    height: 400px;
+    margin-bottom: 40px;
     display: flex;
     justify-content: space-between;
-
-    margin: 20px 0;
 }
 
 .current-left, .current-right {
-    width: 575px;
+    width: 578px;
     height: 400px;
     padding: 30px 20px 20px;
 
@@ -228,12 +228,12 @@
     justify-content: center;
     align-items: center;
 }
-.current-cat{
+.current-cat {
     width: 200px;
     background-color: #fafafa;
 }
 
-.current-count{
+.current-count {
     width: 500px;
     justify-content: end !important;
     padding-right: 50px;
@@ -243,4 +243,26 @@
     font-size: 2rem;
     font-weight: bold;
     margin-right: 5px;
+}
+
+/* 카테고리별 판매량 */
+.chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.current-left.chart {
+    width: 400px !important;
+}
+
+.current-right.chart {
+    width: 760px;
+}
+
+#memberChartContainer {
+    padding-left: 20px;
+    width: 700px;
+    height: 300px;
 }
