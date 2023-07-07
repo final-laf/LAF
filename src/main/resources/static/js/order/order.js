@@ -610,7 +610,7 @@ function requestPay() {
   IMP.request_pay({
     pg : payHow == '2' ? 'kcp.A52CY' : 'kakaopay.TC0ONETIME' ,
     merchant_uid: orderMember.memberNo + new Date().getTime(), // 상점에서 관리하는 주문 번호
-    name : '주문명:결제테스트',
+    name : document.getElementById('productName').value,
     amount : document.querySelector('[name="orderPayment"]').value,
     buyer_email : document.getElementById('orderEmail').value,
     buyer_name : document.getElementById('orderName').value,
@@ -619,11 +619,10 @@ function requestPay() {
     buyer_postcode : '123-456'
     }, function (rsp) { // callback
         if (rsp.success) {
-            console.log(rsp);
-
+            // console.log(rsp);
             document.getElementById("orderSubmit").submit();
         } else {
-            console.log(rsp);
+            // console.log(rsp);
         }
     });
   }

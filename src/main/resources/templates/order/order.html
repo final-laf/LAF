@@ -146,7 +146,7 @@
               </td>
               <td width="70px"><img width="70px" th:src="${order.product.thumbnailPath}"></td>
               <td>
-                <div th:text="${order.product.productName}">상품명</div>
+                <div id="productName" th:text="${order.product.productName}">상품명</div>
                 <div th:text="${order.option.size}?${order.option.color} + ' | '+${order.option.size}:${order.option.color}">[옵션 : 내츄럴 크림]</div>
               </td>
               <td th:text="${order.count}">구매수량</td>
