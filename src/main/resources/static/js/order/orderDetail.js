@@ -1,3 +1,27 @@
+
+const referrer = document.referrer;
+
+if(referrer.slice(17) === 'order'){
+    sendEmail();
+}
+
+document.querySelector('[class="emailReSend"]>span').addEventListener('click', () => {
+    sendEmail();
+});
+
+// 이메일 전송 요청
+function sendEmail(){
+    fetch("/orderEmail", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: order.orderNo
+    })
+    .then(resp => resp.text())
+    .then(result => console.log(result))
+    .catch(e => console.log(e));
+    
+}
+
 // 주문 상태 세팅
 let orderState = "";
 switch (order.orderState){

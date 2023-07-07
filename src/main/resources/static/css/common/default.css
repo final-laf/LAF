@@ -46,6 +46,10 @@ table{
   border-spacing: 0;
 }
 
+th{
+  font-weight: normal;
+}
+
 button{
   font-family: SUITE-Regular;
 }

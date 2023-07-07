@@ -344,7 +344,6 @@ const checkObj = {
   "orderRecvName" : false,
   "receiverAddress" : false,
   "recvTel" : false,
-  "paymentHow" : false,
   "paymentName" : false,
   "agreePayAll" : false
 };
@@ -382,11 +381,8 @@ function nameCheck(inputName) {
 nameCheck("orderName");
 nameCheck("refundName");
 nameCheck("orderRecvName");
-if(document.getElementById('inputPay1').classList.contains("hidden")){
-  checkObj[inputName] = true;
-}else{
-  nameCheck("paymentName");
-}
+
+
 
 // 이메일 유효성 검사
 const orderEmail = document.getElementById("orderEmail");
@@ -489,6 +485,12 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
   if(agreePayAll.checked){
     checkObj.agreePayAll = true;
   }
+  // 결제수단별 입금자명 체크
+  if(document.getElementById('inputPay1').classList.contains("hidden")){
+    checkObj.paymentName = true;
+  }else{
+    nameCheck("paymentName");
+  }
   // 유효성검사
   for(let key in checkObj){
     if(!checkObj[key]){ // 각 key에 대한 value(true/false)를 얻어와
@@ -563,11 +565,9 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
         // 경고창 확인 누르면 특정 주소로 이동
         window.location.href = "/cart";
       } else {
-
-        // requestPay();
-
-        // message가 없으므로 submit 실행
-        
+        const payHow = document.querySelector('input[name="payment"]').value;
+        if(payHow == '1') document.getElementById("orderSubmit").submit();
+        else requestPay();
       }
     });
 });
@@ -602,29 +602,31 @@ shippingSelectBtn.addEventListener('click', () => {
 
 /* 결제 시스템 테스트 */
 function requestPay() {
+
+  const payHow = document.querySelector('input[name="payment"]').value;
+
+
   IMP.init('imp33621846');
   IMP.request_pay({
-    pg : 'kcp.A52CY',
-    // pg : 'kakaopay.TC0ONETIME',
-    pay_method : 'card', //생략 가능
-    merchant_uid: "order_no_0001" + new Date().getTime(), // 상점에서 관리하는 주문 번호
+    pg : payHow == '2' ? 'kcp.A52CY' : 'kakaopay.TC0ONETIME' ,
+    merchant_uid: orderMember.memberNo + new Date().getTime(), // 상점에서 관리하는 주문 번호
     name : '주문명:결제테스트',
-    amount : 1,
-    buyer_email : 'iamport@siot.do',
-    buyer_name : '구매자이름',
-    buyer_tel : '010-1234-5678',
-    buyer_addr : '서울특별시 강남구 삼성동',
+    amount : document.querySelector('[name="orderPayment"]').value,
+    buyer_email : document.getElementById('orderEmail').value,
+    buyer_name : document.getElementById('orderName').value,
+    buyer_tel : document.getElementById('orderTel').value,
+    buyer_addr : document.querySelector('[name="orderAdd"]').value,
     buyer_postcode : '123-456'
     }, function (rsp) { // callback
         if (rsp.success) {
             console.log(rsp);
+
             document.getElementById("orderSubmit").submit();
         } else {
             console.log(rsp);
         }
     });
   }
-const paytestbtn = document.getElementById('paytestbtn');
-paytestbtn.addEventListener('click', () => {
-  requestPay();
-});
+
+
+

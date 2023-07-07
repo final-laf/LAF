@@ -10,7 +10,6 @@
 }
 
 .orderDetail-order-text{
-  font-weight: bold;
   font-size: 30px;
   display: flex;
   justify-content: center;
@@ -75,7 +74,7 @@
   color: #ccc;
 }
 .orderDetail-order-info td>div:nth-child(1){
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 .orderDetail-order-info td:nth-child(4)>div:nth-child(2){
   margin-top: 5px;
@@ -105,6 +104,10 @@
   background-color: #fafafa;
 }
 
+.mypageDetail-order-shipping{
+  margin-bottom: 0 !important;
+}
+
 .mypageDetail-order-shipping th{
   width: 200px;
 }
@@ -116,12 +119,27 @@
   color: #666;
 }
 
+.orderButtom{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.emailReSend{
+  margin-right: 2px;
+  margin-bottom: 10px;
+}
+
+.emailReSend>span{
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 .orderBtn{
   display: flex;
-  align-items: center;
-  justify-content: end;
 }
 
 #cancleBtn{
-  margin: 0 20px;
+  margin: 0 10px;
 }
