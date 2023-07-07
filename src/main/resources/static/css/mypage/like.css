@@ -68,7 +68,9 @@ tr:not(:first-child) > .item-product {
 }
 .item-image img {
   height: 94px;
-  width: auto;
+  width: 70px;
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 .item-product button {
