@@ -146,24 +146,27 @@ public class MemberController {
 
 	// 로그아웃 기능
 	@GetMapping("/logout")
-	  public String logout(SessionStatus status, @SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+	 public String logout(SessionStatus status) {
 		
-		
-		// 카카오 로그인일 경우 카카오톡과 함께 로그아웃 (GET방식으로 요청/진행중)
-		if(loginMember.getMemberSocial().equals("K")) {
-            URI logoutUrl = UriComponentsBuilder
-                    .fromUriString("https://kauth.kakao.com/oauth/logout")
-                    .queryParam("client_id", KAKAO_CLIENT_ID)     
-                    .queryParam("logout_redirect_uri", KAKAO_LOGOUT_URL)     
-                    .build()
-                    .toUri();
-			RestTemplate rt = new RestTemplate();
-			rt.getForObject(logoutUrl, String.class);
-			status.setComplete(); 
-		} else {
-			status.setComplete(); 
-		}
-	    
+	// 카카오 로그아웃 코드(진행중)
+//	  public String logout(SessionStatus status, @SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+//		
+//		
+//		// 카카오 로그인일 경우 카카오톡과 함께 로그아웃 (GET방식으로 요청/진행중)
+//		if(loginMember.getMemberSocial().equals("K")) {
+//            URI logoutUrl = UriComponentsBuilder
+//                    .fromUriString("https://kauth.kakao.com/oauth/logout")
+//                    .queryParam("client_id", KAKAO_CLIENT_ID)     
+//                    .queryParam("logout_redirect_uri", KAKAO_LOGOUT_URL)     
+//                    .build()
+//                    .toUri();
+//			RestTemplate rt = new RestTemplate();
+//			rt.getForObject(logoutUrl, String.class);
+//			status.setComplete(); 
+//		} else {
+//			status.setComplete(); 
+//		}
+		status.setComplete(); 
 	    return "redirect:/";
 	}
 	
