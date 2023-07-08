@@ -36,7 +36,7 @@ if(orderMember.refundBank != null){
   document.getElementById('refundBank').children[parseInt(orderMember.refundBank)-1].selected = true;
 };
 // 주소 잘라서 세팅
-if(orderMember.memberAddress !=null){
+if(orderMember.memberAddress !=null && loginMember.memberSocial != 'K'){
   const arr = orderMember.memberAddress.split("^^^");
   document.querySelectorAll("input[name='memberAddress']").forEach( (item, i) =>{
     item.value = arr[i];

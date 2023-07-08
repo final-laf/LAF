@@ -140,8 +140,9 @@ public class MemberController {
 //			}else {
 //				cookie.setMaxAge(0);
 //			}
-//			cookie.setPath("/"); 
-//			resp.addCookie(cookie);
+//			cookie.setPath("/login"); 
+//			resp.addCookie(cookie);+
+			
 			
 			
 		} else { // 로그인 실패 시
@@ -272,7 +273,13 @@ public class MemberController {
 	@PostMapping("/notmember")
 	public String signUp(String memberPhone
 				  		,String orderUno
-				  		,RedirectAttributes ra) {
+				  		,RedirectAttributes ra
+				  		,@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+		
+		if(loginMember != null) {
+			ra.addFlashAttribute("message", "회원은 마이페이지를 이용해 주시기 바랍니다");
+			return "redirect:/myPage";
+		}
 		
 		String path;
 		// orderNo Long 타입으로 바꿔주기
@@ -408,6 +415,7 @@ public class MemberController {
 		loginMember = service.selectMemberById(member);
 		// 중복된 id가 있을 시 로그인
 		service.login(loginMember);
+		loginMember.setMemberPw(null);
 		
 		// 기존에 있던 세션 정보를 초기화
 		request.getSession().invalidate();
@@ -420,13 +428,8 @@ public class MemberController {
 		List<Long> likeLikst = likeServcie.selectLikeList(member.getMemberNo());
 		model.addAttribute("likeList", likeLikst);
 		
-//		if(result == 0) {
-			// 회원가입 한 신규회원이 로그인 시 회원 정보 등록(소셜로그인) 창으로 이동
-			return "redirect:/mypage/setinfo";
-//		}
-//		
-//		// 회원가입한 신규회원이 아닐 시 메인 페이지로 이동
-//		return "redirect:/";
+		// 회원가입한 신규회원이 아닐 시 메인 페이지로 이동
+		return "redirect:/";
 	}
 	
 

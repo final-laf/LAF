@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import edu.kh.laf.common.filter.AdminFilter;
 import edu.kh.laf.common.filter.LoginFilter;
+import edu.kh.laf.common.filter.NonmemberFilter;
 
 @Configuration
 public class FilterConfig {
@@ -39,6 +40,20 @@ public class FilterConfig {
 		resiRegistrationBean.setUrlPatterns(Arrays.asList(url));
 		resiRegistrationBean.setName("adminFilter");
 		resiRegistrationBean.setOrder(6);
+		return resiRegistrationBean;
+	}
+	
+	// 로그인 상테에서 로그인 페이지 접근 제한 필터
+	@Bean
+	public FilterRegistrationBean<NonmemberFilter> nonmemberFilter() {
+		
+		FilterRegistrationBean<NonmemberFilter> resiRegistrationBean = new FilterRegistrationBean<NonmemberFilter>();
+		resiRegistrationBean.setFilter(new NonmemberFilter());
+		
+		String[] url = { "/login", "/signup" };
+		resiRegistrationBean.setUrlPatterns(Arrays.asList(url));
+		resiRegistrationBean.setName("nonmemberFilter");
+		resiRegistrationBean.setOrder(7);
 		return resiRegistrationBean;
 	}
 	
