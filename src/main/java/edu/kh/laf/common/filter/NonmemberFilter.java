@@ -12,10 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 /**
- * 마이페이지 접근 필터
- * @author yuna
+ * 로그인 상태에서 페이지 접근 제한  필터
+ * @author jamin
  */
-public class LoginFilter implements Filter {
+public class NonmemberFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -26,14 +26,14 @@ public class LoginFilter implements Filter {
 		
 		HttpSession session = req.getSession();
 		
-		if(session.getAttribute("loginMember") == null) {
-			resp.sendRedirect("/error/login");
+		if(session.getAttribute("loginMember") != null) {
+			resp.sendRedirect("/myPage");
 		} else {
 			chain.doFilter(request, response);
 		}
 		
-//		// 필터 기능 임시 중지
-//		chain.doFilter(request, response);
+		// 필터 기능 임시 중지
+		chain.doFilter(request, response);
 	}
 	
 	

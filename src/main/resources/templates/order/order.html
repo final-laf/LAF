@@ -34,13 +34,15 @@
             <tr>
               <th>이메일</th>
               <td>
-                <input name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
+                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmailSocial"  type="text"> <!-- 소셜로그인일 때 -->
+                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
+                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTelSocial" type="text"> <!-- 소셜로그인일 때 -->
+                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
               </td>
             </tr>
             <tr>
