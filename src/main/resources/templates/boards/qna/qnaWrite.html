@@ -48,7 +48,44 @@
             </tr>
             <tr id="qnaWriteProduct">
               <td>PRODUCT NAME.</td>
-              <td><input name="productName" type="text"  placeholder="정확한 상품 명을 입력하지 않을 시 정확한 답변이 아닐 수 있습니다."></td>
+              <td>
+                <input id="qnaProductName" name="productName" type="text" autocomplete="off"  placeholder="정확한 상품명을 입력하지 않을 시 답변에 어려움이 있을 수 있습니다.">
+                <div id="qnaProductList">
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr>
             <tr id="qnaWriteShipping">
               <td>ORDER NO.</td>
