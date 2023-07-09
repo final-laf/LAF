@@ -139,8 +139,8 @@
   width: 70px;
 }
 
-.shipping-enroll-modal-btn-area>button:nth-child(1){background-color: #7f7698;}
-.shipping-enroll-modal-btn-area>button:nth-child(2){background-color: #ccc;}
+.shipping-enroll-modal-btn-area>button:nth-child(1){background-color: #ccc;}
+.shipping-enroll-modal-btn-area>button:nth-child(2){background-color: #7f7698;}
 
 
 
