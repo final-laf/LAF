@@ -20,7 +20,8 @@
           <form action="" method="post">
             <div class="mypageLogin-memberLogin-member">
               <div>ID</div>
-              <input style="border:none" size="70" type="text" name="memberId">
+              <input th:if="${saveId}" style="border:none" size="70" type="text" name="memberId" th:value="${saveId}">
+              <input th:unless="${saveId}" style="border:none" size="70" type="text" name="memberId">
             </div>
             <div class="mypageLogin-memberLogin-member">
               <div>Password</div>
@@ -28,7 +29,8 @@
             </div>
             <div class="mypageLogin-memberLogin-other">
               <div>
-                <input type="checkbox" name="saveId">
+                <input th:if="${saveId}" type="checkbox" name="saveId" checked="true">
+                <input th:unless="${saveId}" type="checkbox" name="saveId">
                 <span>아이디 저장</span>
               </div>
               <div><a href="/findpw">비밀번호 찾기</a></div>
@@ -68,5 +70,8 @@
   </main>
 
   <th:block th:replace="~{common/footer}"></th:block>
+<!--   <script th:inline="javascript">
+    const getCookie = function 
+  </script> -->
 </body>
 </html>
