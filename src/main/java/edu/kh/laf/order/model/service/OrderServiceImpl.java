@@ -627,4 +627,12 @@ public class OrderServiceImpl implements OrderService{
 	public List<Map<String, Object>> getRevenueYear() {
 		return mapper.getRevenueYear();
 	}
+	
+	// 주문번호로 회원번호 조회
+	@Override
+	public int selectCompletOrderNo(int orderNo) {
+		return mapper.selectCompletOrderNo(orderNo);
+	}
+	
+	
 }

@@ -151,5 +151,11 @@ public interface OrderService {
 	  * @return revenueList
 	  */
 	 List<Map<String, Object>> getRevenueYear();
+
+	/** 주문번호로 회원번호 조회
+	 * @param orderNo
+	 * @return
+	 */
+	int selectCompletOrderNo(int orderNo);
 	 
 }
