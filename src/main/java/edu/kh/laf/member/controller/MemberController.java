@@ -1,11 +1,9 @@
 package edu.kh.laf.member.controller;
 
-import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -41,6 +39,7 @@ import edu.kh.laf.member.model.service.EmailService;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
 import edu.kh.laf.product.model.service.CartService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -73,7 +72,11 @@ public class MemberController {
     
     // 로그인 페이지 이동
 	@GetMapping("/login")
-	public String login() {
+	public String login(@CookieValue(value = "saveId", required = false) String saveId
+									,Model model) {
+		if(saveId != null) {
+			model.addAttribute("saveId", saveId);
+		}
 		return "member/login";
 	}
 	
@@ -134,14 +137,14 @@ public class MemberController {
 			model.addAttribute("cartCount", cartCount);
 			
 			
-//			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
-//			if(saveId != null) { // 체크 되었을 때
-//				cookie.setMaxAge(60 * 60 * 24 * 30); // 초 단위로 지정
-//			}else {
-//				cookie.setMaxAge(0);
-//			}
-//			cookie.setPath("/login"); 
-//			resp.addCookie(cookie);+
+			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
+			if(saveId != null) { // 체크 되었을 때
+				cookie.setMaxAge(60 * 60 * 24 * 30); // 한 달간 유지
+			}else {
+				cookie.setMaxAge(0); // 0초동안 유지(기존 쿠키 삭제)
+			};
+			cookie.setPath("/"); 
+			resp.addCookie(cookie);
 			
 			
 			

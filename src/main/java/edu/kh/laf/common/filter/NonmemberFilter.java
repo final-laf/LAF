@@ -32,8 +32,6 @@ public class NonmemberFilter implements Filter {
 			chain.doFilter(request, response);
 		}
 		
-		// 필터 기능 임시 중지
-		chain.doFilter(request, response);
 	}
 	
 	
