@@ -440,5 +440,12 @@
 		FROM `order`
 		GROUP BY `date`
 	</select>
+	
+	<!-- 주문번호로 회원번호 조회 -->
+	<select id="selectCompletOrderNo" resultType="int">
+        SELECT member_no FROM `order`
+        WHERE order_no = #{orderNo}
+	</select>
+	
 </mapper>
 
