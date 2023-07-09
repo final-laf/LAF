@@ -70,6 +70,48 @@
                     <div>상품 번호 : 
                       <span class="productNo" id="productNo"></span>
                     </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr id="qnaWriteProduct" th:unless="${qna.qnaCategory=='상품'}" style="display: none">
+              <td>PRODUCT NAME.</td>
+              <td>
+                <input th:if="${qna.productName}" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
+                <input th:unless="${qna.productName}" name="productName" type="text" autocomplete="off"   placeholder="상품번호 입력">
+                <div id="qnaProductList">
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
                     상품 :
                     <div>
                       <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
@@ -103,13 +145,6 @@
                     </div>
                   </div>
                 </div>
-              </td>
-            </tr>
-            <tr id="qnaWriteProduct" th:unless="${qna.qnaCategory=='상품'}" style="display: none">
-              <td>PRODUCT NAME.</td>
-              <td>
-                <input th:if="${qna.productName}" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
-                <input th:unless="${qna.productName}" name="productName" type="text" autocomplete="off"   placeholder="상품번호 입력">
               </td>
             </tr>
             <tr id="qnaWriteShipping" th:if="${qna.qnaCategory=='배송'}" style="display: table-row">

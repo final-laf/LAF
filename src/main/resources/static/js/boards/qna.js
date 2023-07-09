@@ -143,22 +143,29 @@ if (document.getElementById("qnaProductName")) {
     fetch("/qna/product?productName="+productName)
     .then(response => response.json()) 
     .then(productList => {
+      for(let i = 0; i<3; i++){
+        document.getElementsByClassName("qnaProduct")[i].style.display="none"
+      }
       for(let i=0; i<productList.length; i++){
-        console.log("asd");
+        if (i==3) {
+          document.getElementById("qnaProductList").style.height="auto";
+          return
+        }
+        document.getElementById("qnaProductList").style.height=(i+1)*43+"px";
         document.getElementsByClassName("productNo")[i].innerText=productList[i].productNo
         document.getElementsByClassName("productImg")[i].src=productList[i].thumbnailPath
         document.getElementsByClassName("productName")[i].innerText=productList[i].productName
-        document.getElementsByClassName("qnaProduct")[i].setAttribute("value")=productList[i].productNo
+        document.getElementsByClassName("qnaProduct")[i].setAttribute("value", productList[i].productName)
+        document.getElementsByClassName("qnaProduct")[i].style.display="flex"
+        
       }
-      console.log(productList)
-      .catch (e => { console.log(e)}); 
-      
       
       const qnaProduct = document.getElementsByClassName("qnaProduct")
       // for(let product of qnaProduct){
         
         // }
       })
+    .catch (e => { console.log(e)}); 
   }) 
 }
 
@@ -167,30 +174,60 @@ const qnaProductName = document.getElementById("qnaProductName");
 // 상품 조회
 if (qnaProductName!=null) {
   qnaProductName.addEventListener("click", e=>{
-    document.getElementById("qnaProductList").style.height="130px";
+    document.getElementById("qnaProductList").style.height="auto";
     document.getElementById("qnaModalBack").style.display="block";
   })
-  const orderUno = document.getElementsByClassName("qnaOrder");
-  
-  for(let order of orderUno){
-    order.addEventListener("click", e => {
-      console.log(e.target)
-      if(e.target.classList.contains("qnaOrder")) {
-        console.log(e.target.getAttribute("value"));
-        document.getElementById("orderUno").value=e.target.getAttribute("value")
-        document.getElementById("qnaOrderList").style.height=0;
-        document.getElementById("qnaModalBack").style.display="none";
+}
+
+// 주문정보 넣기
+const orderUno = document.getElementsByClassName("qnaOrder");
+for(let order of orderUno){
+  order.addEventListener("click", e => {
+    console.log(e.target)
+    if(e.target.classList.contains("qnaOrder")) {
+      console.log(e.target.getAttribute("value"));
+      document.getElementById("orderUno").value=e.target.getAttribute("value")
+    }else{
+      if(e.target.parentElement.classList.contains("qnaOrder")){
+        document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
       }else{
-        if(e.target.parentElement.classList.contains("qnaOrder")){
-          document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
-        }else{
+        if(e.target.parentElement.parentElement.classList.contains("qnaOrder")){
           document.getElementById("orderUno").value=e.target.parentElement.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("orderUno").value=e.target.parentElement.parentElement.parentElement.getAttribute("value")
+
         }
-        document.getElementById("qnaOrderList").style.height=0;
-        document.getElementById("qnaModalBack").style.display="none";
       }
-    });
-  }
+    }
+    document.getElementById("qnaOrderList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  });
+}
+
+// 상품 클릭 시 넣기
+const qnaProduct = document.getElementsByClassName("qnaProduct");
+for(let product of qnaProduct){
+  product.addEventListener("click", e => {
+    console.log(e.target)
+    console.log(e.target.getAttribute("value"))
+    console.log("왜 안들어가?")
+    document.getElementById("qnaProductName").value=e.target.getAttribute("value")
+    if(e.target.classList.contains("qnaProductName")) {
+      document.getElementById("qnaProductName").value=e.target.getAttribute("value")
+    }else{
+      if(e.target.parentElement.classList.contains("qnaProduct")){
+        document.getElementById("qnaProductName").value=e.target.parentElement.getAttribute("value")
+      }else{
+        if(e.target.parentElement.parentElement.classList.contains("qnaProduct")){
+          document.getElementById("qnaProductName").value=e.target.parentElement.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("qnaProductName").value=e.target.parentElement.parentElement.parentElement.getAttribute("value")
+        }
+      }
+    }
+    document.getElementById("qnaProductList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  });
 }
 
 // 모달창 닫기
