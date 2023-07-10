@@ -110,6 +110,7 @@
               <!-- ~~~~~~~~~~~~~~~ -->
               </div>
             </table>
+            <button type="button" id="writeQna" class="submit">WRITE</button>
             <!-- 게시글이 있을 때만 페이지네이션 보이기 -->
             <div th:if="${#lists.size(qnaList) > 0}" class="pagination-area">
               <ul th:unless="${param.query}" class="pagination">

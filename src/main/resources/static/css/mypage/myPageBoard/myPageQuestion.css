@@ -1,3 +1,4 @@
+/* 마이페이지 qna 전체 프레임 */
 .mypageQuestion-mainFrame{
     display: flex;
     margin: 0 auto;
@@ -20,7 +21,7 @@
     display:inline-block;
 }
 
-/* 테이블 구간 */
+/*  마이페이지 테이블 구간 */
 .mypageQuestion-MyMain-Question table{
     padding: 10px 0 0 0;
     width: 100%;
@@ -52,6 +53,7 @@
     text-align: left;
 }
 
+/* 마이페이지 qna 검색 */
 .mypageQuestion-Question-search{
     display: flex;
     justify-content: center;
@@ -94,4 +96,10 @@
 #mypageQuestionRecent tr:nth-child(1){
     text-align: center;
     background-color: #fafafa;
+}
+
+#writeQna{
+    margin-left: 900px;
+    margin-top: 10px;
+    display: flex;
 }

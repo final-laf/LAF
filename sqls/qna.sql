@@ -42,5 +42,5 @@ SELECT  op.review_no,
 	    (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
 FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no LEFT JOIN review r ON op.review_no=r.review_no
 WHERE op.order_no=(SELECT so.order_no FROM `order` so WHERE member_no=90 AND op.order_no=so.order_no)
-AND (r.review_delete_fl = 'Y' OR op.review_no IS NULL) 
+AND (r.review_delete_fl = 'Y' OR op.review_no IS NULL) AND o.order_state='F'
 ORDER BY order_date DESC
