@@ -36,7 +36,7 @@ if(orderMember.refundBank != null){
   document.getElementById('refundBank').children[parseInt(orderMember.refundBank)-1].selected = true;
 };
 // 주소 잘라서 세팅
-if(orderMember.memberAddress !=null){
+if(orderMember.memberAddress !=null && loginMember.memberSocial != 'K'){
   const arr = orderMember.memberAddress.split("^^^");
   document.querySelectorAll("input[name='memberAddress']").forEach( (item, i) =>{
     item.value = arr[i];
@@ -287,6 +287,23 @@ if(loginMember != null){ // 로그인한 회원일시
 
 // -----------------------------------------------------------------------------
 
+// 결제수단선택
+const payHows = document.querySelectorAll('input[name="payHow"]');
+payHows.forEach( e => {
+  e.addEventListener('change', () => {
+    const payHow = document.querySelector('input[name="payHow"]:checked');
+    if(payHow != null){
+      if(payHow.getAttribute('id').slice(-1) == '1'){
+        document.getElementById('inputPay1').classList.remove("hidden");
+      }else{
+        document.getElementById('inputPay1').classList.add("hidden");
+      }
+    }
+    document.querySelector('input[name="payment"]').value = payHow.getAttribute('id').slice(-1);
+  });
+});
+
+
 // 결제동의
 function agreeCheck(){ // 둘다체크시 모두동의 체크
   const agreePays = document.querySelectorAll("#agreePay");
@@ -364,7 +381,8 @@ function nameCheck(inputName) {
 nameCheck("orderName");
 nameCheck("refundName");
 nameCheck("orderRecvName");
-nameCheck("paymentName");
+
+
 
 // 이메일 유효성 검사
 const orderEmail = document.getElementById("orderEmail");
@@ -467,6 +485,12 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
   if(agreePayAll.checked){
     checkObj.agreePayAll = true;
   }
+  // 결제수단별 입금자명 체크
+  if(document.getElementById('inputPay1').classList.contains("hidden")){
+    checkObj.paymentName = true;
+  }else{
+    nameCheck("paymentName");
+  }
   // 유효성검사
   for(let key in checkObj){
     if(!checkObj[key]){ // 각 key에 대한 value(true/false)를 얻어와
@@ -541,8 +565,9 @@ document.getElementById("orderSubmit").addEventListener("submit", e => {
         // 경고창 확인 누르면 특정 주소로 이동
         window.location.href = "/cart";
       } else {
-        // message가 없으므로 submit 실행
-        document.getElementById("orderSubmit").submit();
+        const payHow = document.querySelector('input[name="payment"]').value;
+        if(payHow == '1') document.getElementById("orderSubmit").submit();
+        else requestPay();
       }
     });
 });
@@ -574,3 +599,33 @@ shippingSelectBtn.addEventListener('click', () => {
     }
   })
 });
+
+/* 결제 시스템 테스트 */
+function requestPay() {
+
+  const payHow = document.querySelector('input[name="payment"]').value;
+
+
+  IMP.init('imp33621846');
+  IMP.request_pay({
+    pg : payHow == '2' ? 'kcp.A52CY' : 'kakaopay.TC0ONETIME' ,
+    merchant_uid: orderMember.memberNo + new Date().getTime(), // 상점에서 관리하는 주문 번호
+    name : document.getElementById('productName').value,
+    amount : document.querySelector('[name="orderPayment"]').value,
+    buyer_email : document.getElementById('orderEmail').value,
+    buyer_name : document.getElementById('orderName').value,
+    buyer_tel : document.getElementById('orderTel').value,
+    buyer_addr : document.querySelector('[name="orderAdd"]').value,
+    buyer_postcode : '123-456'
+    }, function (rsp) { // callback
+        if (rsp.success) {
+            // console.log(rsp);
+            document.getElementById("orderSubmit").submit();
+        } else {
+            // console.log(rsp);
+        }
+    });
+  }
+
+
+

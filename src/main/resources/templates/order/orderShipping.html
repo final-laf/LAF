@@ -50,10 +50,12 @@
 </section>
 
 <script th:inline="javascript">
-  /* 주소값 구분자 제거 후 가져오기 */
-  const addressList = /*[[${addressList}]]*/ [];
-  const innerAddress = document.getElementsByClassName("order-shipping-address");
-  for(let i = 0; i < addressList.length; i++) {
-    innerAddress[i].innerText =  (addressList[i].address.replaceAll("^^^", " "));
+  if(loginMember != null){
+    /* 주소값 구분자 제거 후 가져오기 */
+    const addressList = /*[[${addressList}]]*/ [];
+    const innerAddress = document.getElementsByClassName("order-shipping-address");
+    for(let i = 0; i < addressList.length; i++) {
+      innerAddress[i].innerText =  (addressList[i].address.replaceAll("^^^", " "));
+    }
   }
-  </script>
+</script>

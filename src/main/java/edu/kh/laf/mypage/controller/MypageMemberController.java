@@ -165,7 +165,15 @@ public class MypageMemberController {
 	
 	// 비밀번호 수정 페이지 이동  
 	@GetMapping("/myPage/changePw") 
-	public String changePw() {
+	public String changePw(@SessionAttribute("loginMember") Member loginMember
+							,RedirectAttributes ra) {
+		
+		if(loginMember.getMemberSocial() != null) {
+			String message="소셜로그인 회원은 비밀번호를 변경할 수 없습니다.";
+			ra.addFlashAttribute("message", message);
+			return"redirect:/myPage";
+		}
+		
 		return "myPage/myPageInfo/myPageChangePw";
 	}
 	
@@ -178,14 +186,14 @@ public class MypageMemberController {
 								,@RequestParam("newMemberPw") String newMemberPw
 								,RedirectAttributes ra) {
 		
-		// 기존의 비밀번호와 일치하면, 새로운 비밀번호를 기존의 비밀번호로 업데이트
 		String message = null;
-		int result = service.changePw(memberPw, newMemberPw ,loginMember);
-		if(result > 0) {
-			message="비밀번호가 변경되었습니다.";
-		} else {
-			message="현재 비밀번호가 일치하지 않습니다.";
-		}
+			// 기존의 비밀번호와 일치하면, 새로운 비밀번호를 기존의 비밀번호로 업데이트
+			int result = service.changePw(memberPw, newMemberPw ,loginMember);
+			if(result > 0) {
+				message="비밀번호가 변경되었습니다.";
+			} else {
+				message="현재 비밀번호가 일치하지 않습니다.";
+			}
 		ra.addFlashAttribute("message", message);
 		return "redirect:" + referer;
 	}

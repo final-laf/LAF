@@ -551,7 +551,7 @@ couponName.addEventListener("input", () => {
   }
 
   // 정규표현식으로 유효성 검사
-  const regEx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\-!/*&]+$/;
+  const regEx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\-!/*& ()<>%^]+$/;
   if(regEx.test(couponName.value)) { // 유효
     couponCheckObj.couponName = true;
     } else { // 무효
@@ -857,7 +857,7 @@ pointContent.addEventListener("input", () => {
   }
 
   // 정규표현식으로 유효성 검사
-  const regEx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\-!/*&]+$/;
+  const regEx = /^[ㄱ-ㅎ가-힣a-zA-Z0-9\-!/*& ()<>%^]+$/;
   if(regEx.test(pointContent.value)) { // 유효
     pointCheckObj.pointContent = true;
     } else { // 무효

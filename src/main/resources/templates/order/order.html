@@ -33,13 +33,15 @@
             <tr>
               <th>이메일</th>
               <td>
-                <input name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
+                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmailSocial"  type="text"> <!-- 소셜로그인일 때 -->
+                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
+                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTelSocial" type="text"> <!-- 소셜로그인일 때 -->
+                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
               </td>
             </tr>
             <tr>
@@ -146,7 +148,7 @@
               </td>
               <td width="70px"><img width="70px" th:src="${order.product.thumbnailPath}"></td>
               <td>
-                <div th:text="${order.product.productName}">상품명</div>
+                <div id="productName" th:text="${order.product.productName}">상품명</div>
                 <div th:text="${order.option.size}?${order.option.color} + ' | '+${order.option.size}:${order.option.color}">[옵션 : 내츄럴 크림]</div>
               </td>
               <td th:text="${order.count}">구매수량</td>
@@ -239,16 +241,21 @@
           </table>
         </div>
         <div class="mypageOrder-mainFrame-order">
-          <div>결제수단</div>
+          <div>
+            결제수단
+            <input type="hidden" name="payment" value="1">
+          </div>
           <table class="mypageOrder-order-info" id="mypageOrderHow">
             <tr>
               <th>
-                <span>무통장입금</span>
-                <input type="hidden" name="payment" value="1">
-                <!-- <button type="button">Paypal</button> -->
+                <div>
+                  <input type="radio" name="payHow" id="pay1" checked><label for="pay1"><span>무통장입금</span></label>
+                  <input type="radio" name="payHow" id="pay2"><label for="pay2"><span>일반결제</span></label>
+                  <input type="radio" name="payHow" id="pay3"><label for="pay3"><span>카카오페이</span></label>
+                </div>
               </th>
             </tr>
-            <tr>
+            <tr id="inputPay1">
               <th>
                 <div>
                   <div>입금은행</div>
@@ -299,5 +306,11 @@
   <!-- 주소 api -->
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="/js/common/api/address.js"></script>
+
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    
 </body>
 </html>

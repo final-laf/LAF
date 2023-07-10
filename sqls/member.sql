@@ -420,14 +420,28 @@ COMMIT;
 
 SELECT * FROM `point`;
 SELECT * FROM `member`;
+COMMIT;
 
 UPDATE `member` SET member_grade= 'B';
 
+COMMIT;
 
 
-UPDATE `point`
-SET 
 
-		
+DELETE FROM `member` WHERE member_no = 81;
+
+
+
+  SELECT member_no, member_id, member_name, member_gender, member_email, member_phone, member_birth, member_address, member_grade, 
+  		 member_enroll_date, member_del_fl, member_del_date, member_social, member_point, member_totalpay, member_not,refund_name, refund_bank, refund_account
+  FROM `member`
+  WHERE MEMBER_DEL_FL = 'N'
+  AND MEMBER_ID = 'user01';
+	 
+	 
+ SELECT *
+  FROM `member`
+  WHERE MEMBER_DEL_FL = 'N'
+  AND MEMBER_ID = 'user01';
 
 			

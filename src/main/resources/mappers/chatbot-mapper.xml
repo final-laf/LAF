@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.kh.laf.chatbot.model.mapper.ChatbotMapper">
 	
+	<!-- 목록으로 주문 조회 -->
 	<select id="faqAnswer" resultType="Faq">
 		SELECT * 
 		FROM faq 
@@ -20,6 +21,8 @@
 			</if>
 		ORDER BY faq_order
 	</select>
+	
+	<!-- 검색으로 답변 조회 -->
 	<select id="searchAnswer" resultType="Faq">
 		SELECT 
 			subquery.faq_no,

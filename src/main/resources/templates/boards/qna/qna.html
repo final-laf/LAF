@@ -47,14 +47,60 @@
                 <td th:text="${index.index+1}">번호</td>
                 <td th:text="${q.qnaCategory}">qna카테고리</td>
                 <td th:text="${q.qnaTitle}">제목</td>
-                <td th:text="${q.memberName}">작성자</td>
+                <td th:if="${q.memberGrade eq 'B'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'B' + q.memberName}"></span>
+                  </span>
+                </td>
+                <td th:if="${q.memberGrade eq 'S'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'S' + q.memberName}"></span>
+                  </span>
+                </td>
+                <td th:if="${q.memberGrade eq 'G'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'G' + q.memberName}"></span>
+                  </span>
+                </td>
+                <td th:if="${q.memberGrade eq 'D'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'D' + q.memberName}"></span>
+                  </span>
+                </td>
                 <td th:text="${q.qnaCreateDate}">작성일</td>
               </div>
               <div th:if="${q.qnaLockFl=='y'}">
                 <td th:text="${index.index+1}">번호</td>
                 <td th:text="${q.qnaCategory}">qna카테고리</td>
-                <td th:utext="|${'[비밀글] '+q.qnaTitle}">제목 input</td>
-                <td th:text="${q.memberName}">작성자</td>
+                <td th:text="${'[비밀글] '+q.qnaTitle}">제목 input</td>
+                <td th:if="${q.memberGrade eq 'B'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'B' + q.memberName}"></span>
+                  </span>
+                </td>
+                <td th:if="${q.memberGrade eq 'S'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'S' + q.memberName}"></span>
+                  </span>
+                </td>
+                <td th:if="${q.memberGrade eq 'G'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'G' + q.memberName}"></span>
+                  </span>
+                </td>
+                <td th:if="${q.memberGrade eq 'D'}" >
+                  <span>
+                    <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
+                    <span th:text="${'D' + q.memberName}"></span>
+                  </span>
+                </td>
                 <td th:text="${q.qnaCreateDate}">작성일</td>
               </div>
             </tr>

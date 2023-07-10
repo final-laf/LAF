@@ -17,7 +17,7 @@ function todayOrderCur(){
 // 페이지 로드시
 todayOrderCur();
 // 새로고침시
-document.getElementById('reflesh').addEventListener('click', () => {
+document.getElementById('refresh').addEventListener('click', () => {
     todayOrderCur();
 });
 

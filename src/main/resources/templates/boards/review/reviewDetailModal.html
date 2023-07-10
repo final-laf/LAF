@@ -26,7 +26,7 @@
         </div>
         <div class="review-modal-product">
           <div>
-            <img src="/images/sample/230605001.jpg">
+            <img src="/images/sample/230605001.jpg" id="reviewDetailProduct">
           </div>
           <div class="review-modal-product-desc">
             <div id="reviewDetailModalProductName">(상품명)</div>
@@ -48,8 +48,8 @@
     </div>
     <div class="btn-container" id="reviewModifyDeleteBtn">
       <button type="button" th:if="${session.loginMember?.memberGrade=='A'}" id="bestReview">베스트 리뷰에 추가</button>
-      <button id="reviewDetailModalModifyBtn">수정</button>
-      <button id="reviewDetailModalDeleteBtn" class="submit">삭제</button>
+      <button id="reviewDetailModalDeleteBtn">삭제</button>
+      <button id="reviewDetailModalModifyBtn" class="submit">수정</button>
     </div>
   </div>
 </div>

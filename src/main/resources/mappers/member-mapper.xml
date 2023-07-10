@@ -34,7 +34,12 @@
 				DEFAULT, 				<!--가입일-->
 				DEFAULT, 				<!--회원 탈퇴여부-->
 				NULL, 					<!--탈퇴일-->
-				NULL, 					<!--회원 소셜 가입-->
+				<!--회원 소셜 가입-->
+				<!--회원 소셜 가입이 없으면-->
+				<if test='memberSocial == null'> NULL, </if>
+				<!--회원 소셜 가입이 있으면-->
+				<if test='memberSocial != null'> #{memberSocial}, </if>
+				<!--환불 은행-->
 				DEFAULT, 				<!--회원 적립금-->
 				DEFAULT, 				<!--회원 누적 구매액-->
 				DEFAULT, 				<!--비회원 여부-->
@@ -253,6 +258,13 @@
 				,'N')
         </foreach>
 	</insert>
+	
+	<select id="selectMemberById" resultType="Member">
+	  SELECT *
+	  FROM `member`
+	  WHERE MEMBER_DEL_FL = 'N'
+	  AND MEMBER_ID = #{memberId}
+	</select>
 
 	
 </mapper>

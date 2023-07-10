@@ -4,7 +4,6 @@ const noAnswer = document.querySelectorAll(".chatbot-noAnswer");
 
 // 챗봇 움직임
 document.getElementById("quickChatbot").addEventListener("click", e=> {
-  console.log(document.getElementById("chatbotSection").style.display)
   if (document.getElementById("chatbotSection").style.display=="" || document.getElementById("chatbotSection").style.display=="none") {
     document.getElementById("chatbotIcon").style.display="none";
     document.getElementById("chatbotSection").style.display="block"; // 스크롤 제일 밑으로
@@ -31,6 +30,7 @@ document.getElementById("quickChatbot").addEventListener("click", e=> {
 const send = document.getElementById("send");
 const display = document.getElementsByClassName("display-chatting")[0]
 
+// 채팅 확인 누를 시
 document.getElementById("inputChattingBtn").addEventListener("click", () => {
   sendMessage();
 })
@@ -53,7 +53,7 @@ const sendMessage = () => {
 	printChat(chat);
 }
 
-// 
+// 채팅 출력
 function printChat(chat){
   const ul = document.querySelector(".display-chatting");
   // 메세지 만들어서 출력하기
@@ -73,7 +73,6 @@ function printChat(chat){
   ul.append(li)
 
   document.getElementById("inputChatting").value ="";
-  console.log(document.getElementById("inputChatting").value);
   const categoryL = ["상품", "배송", "교환", "기타"]
   for(let title of categoryL){
     if (title==chat) {
@@ -109,9 +108,7 @@ function printChat(chat){
       fetch("/chatbot?categoryValue="+categoryValue)  
       .then(response => response.json()) 
       .then(answer => {
-        console.log(answer)
         for(let i=0 ; i<answer.length; i++){
-          console.log(answer[i].faqTitle);
           const category = document.createElement("div");
           category.classList.add("chatbot-answer")
           category.innerText = answer[i].faqTitle; // 전역변수
@@ -168,7 +165,6 @@ function printChat(chat){
   fetch("/chatbot/chat?chat="+chat)  
   .then(response => response.json()) 
   .then(answer => {
-    console.log(answer)
     for(let i=0 ; i<answer.length; i++){
       if (answer[0].faqContent==='qna') {
         const aTag = document.createElement("a"); 
@@ -181,7 +177,6 @@ function printChat(chat){
         aTag.href="/qna"
         aTag.append(category);
         categoryList.append(aTag);
-        console.log("답변ㄴㄴ")
       }
       else{
         const category = document.createElement("div");
@@ -193,7 +188,6 @@ function printChat(chat){
         if (i>=4) {
           category.style.display="none";
         }
-        console.log("답변")
       }
     }
     if(answer.length>4){
@@ -243,7 +237,7 @@ function printChat(chat){
   return;
 }
   
-
+// 카테고리 클릭 이벤트 시 함수
 function categoryClcik(e) {
   const myLi = document.createElement("li"); 
   const myDiv = document.createElement("div");
@@ -332,7 +326,7 @@ function categoryClcik(e) {
 
 
 
-
+// 카테고리 클릭 이벤트
 Array.from(category).forEach(category => {
   category.addEventListener("click", e => {
     categoryClcik(e);
@@ -447,6 +441,7 @@ function answered(e) {
   }, 50);
 }
 
+// 더보기 버튼
 function plusBtn(e){
   const leng = e.target.getAttribute("length")
   for (let i = leng; i < Number(leng)+4; i++){
@@ -466,22 +461,22 @@ function plusBtn(e){
 
 /* 모달창 끄기 */
 const chatModal = document.getElementById("chatbotSection")
-window.addEventListener("keyup", e => {
-  if (chatModal!=null) {
+if (chatModal!=null) {
+  window.addEventListener("keyup", e => {
     if(chatModal.style.display != "none" && e.key == "Escape") {
-        document.getElementById("chatbotIcon").style.borderRadius="15px";
-        document.getElementById("quickChatbot").style.display="none";
-        document.getElementById("chatbotIcon").style.display="flex";
-        document.getElementById("chatbotMain").style.display="none";
-        document.getElementById("chatbotSection").classList.add("go");
-        setTimeout(()=>{ 
-          document.getElementById("chatbotSection").style.display="none"; // 스크롤 제일 밑으로
-          document.getElementById("quickChatbot").style.display="flex";
-        }, 650);
-        return;
-      }
-  }
-});
+      document.getElementById("chatbotIcon").style.borderRadius="15px";
+      document.getElementById("quickChatbot").style.display="none";
+      document.getElementById("chatbotIcon").style.display="flex";
+      document.getElementById("chatbotMain").style.display="none";
+      document.getElementById("chatbotSection").classList.add("go");
+      setTimeout(()=>{ 
+        document.getElementById("chatbotSection").style.display="none"; // 스크롤 제일 밑으로
+        document.getElementById("quickChatbot").style.display="flex";
+      }, 650);
+      return;
+    }
+  });
+}
 
 function mainCategory() {
   // 챗봇 영역

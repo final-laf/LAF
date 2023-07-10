@@ -70,13 +70,23 @@ input {
 }
 .mypageSignUp-signUpInfo-table tr{
     
-    height: 70px;
+    height: 60px;
 }
 .mypageSignUp-signUpInfo-table input{
   border: 0.5px solid #eee;
     width: 300px;
-    height: 45px;
+    height: 40px;
 }
+
+/* 주소 input 사이즈 */
+#sample6_address {
+  width: 500px;
+}
+
+#sample6_detailAddress {
+  width: 200px;
+}
+
 .mypageSignUp-table-inputTd{
     display: flex;
     align-items: center;
@@ -91,7 +101,7 @@ input {
 }
 
 .mypageSignUp-table-address button{
-    height: 45px;
+    height: 40px;
     width: 100px;
     border: 0.5px solid #eee;
     background-color: #fafafa;
@@ -122,12 +132,12 @@ input {
 .mypageSignUp-table-Refund select{
   border: 0.5px solid #eee;
   text-align: center;
-  height: 45px;
+  height: 40px;
   width: 170px;
 }
 .mypageSignUp-table-Refund option{
   text-align: center;
-  height: 45px;
+  height: 40px;
   width: 170px;
 }
 .mypageSignUp-table-Refund td {
@@ -381,3 +391,7 @@ input {
   background-color: #493e5d;
 }
 
+
+#modalClose {
+  color : black
+}

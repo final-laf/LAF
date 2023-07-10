@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/admin/adminOrder/ordercurrent.css">
+  <script src="https://kit.fontawesome.com/9c2aaccfe5.js" crossorigin="anonymous"></script>
   <title>관리자 :: 주문현황</title>
   <style>
     .sidebar li.sub.adminOrder:not(.last) { height: 30px !important; }
@@ -24,8 +25,8 @@
         <div class="order-table">
           <div>
             <span>오늘 주문 현황</span>
-            <div id="reflesh">
-              <img th:src="@{/images/common/reflesh.svg}">
+            <div id="refresh">
+              <i class="fa-solid fa-arrows-rotate"></i>
               <span>새로고침</span>
             </div>
           </div>
@@ -65,8 +66,8 @@
             <div>
               <span>오늘 주문 목록</span>
               <div id="bTreflesh">
-                <img th:src="@{/images/common/reflesh.svg}">
-                <span>새로고침</span>
+                <i class="fa-solid fa-arrows-rotate">
+                </i><span>새로고침</span>
               </div>
             </div>
             <div>

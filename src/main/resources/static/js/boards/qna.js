@@ -50,17 +50,13 @@ if (document.getElementById("qnaModalBtn")!=null) {
   document.getElementById("qnaModalBtn").addEventListener("click", e => {
     const pw = e.target.parentElement.parentElement.children[1].children[0].value
     const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
-    console.log(pw)
-    console.log(data)
     fetch("/qna/qnaLockNo",{
       method : "POST", headers : {"Content-Type" : "application/json"},
       body : JSON.stringify(data)
     })
     .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
     .then(count => {
-      console.log("count = "+count);
       if (count == -1) { // 비밀번호 불일치 시
-        console.log("비밀번호 입력 실패");
         document.getElementById("qnaDetailModalInput").value = "";
         return;            
       }
@@ -68,8 +64,6 @@ if (document.getElementById("qnaModalBtn")!=null) {
 
     }) //파싱된 데이터를 받아서 처리하는 코드 작성
     .catch(err => {
-        console.log("예외 발생");
-        console.log(err);
     }) 
   })
 }
@@ -86,7 +80,6 @@ if (insertBtn!=null) {
 // 글쓰기 내부 select 클릭 시
 const changeValue = (target) => {
 
-  console.log(target.value);
   if(target.value=="product"){
     document.getElementById("qnaWriteProduct").style.display = "table-row"
     document.getElementById("qnaWriteShipping").style.display = "none"
@@ -104,6 +97,149 @@ const changeValue = (target) => {
 }
 
 
+
+const orderUnoList = document.getElementById("orderUno");
+// 내 주문내역 조회
+if (orderUnoList!=null) {
+  orderUnoList.addEventListener("click", e=>{
+    document.getElementById("qnaOrderList").style.height="250px";
+    document.getElementById("qnaModalBack").style.display="block";
+  })
+  const orderUno = document.getElementsByClassName("qnaOrder");
+  
+  for(let order of orderUno){
+    order.addEventListener("click", e => {
+      console.log(e.target)
+      if(e.target.classList.contains("qnaOrder")) {
+        console.log(e.target.getAttribute("value"));
+        document.getElementById("orderUno").value=e.target.getAttribute("value")
+        document.getElementById("qnaOrderList").style.height=0;
+        document.getElementById("qnaModalBack").style.display="none";
+      }else{
+        if(e.target.parentElement.classList.contains("qnaOrder")){
+          document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("orderUno").value=e.target.parentElement.parentElement.getAttribute("value")
+        }
+        document.getElementById("qnaOrderList").style.height=0;
+        document.getElementById("qnaModalBack").style.display="none";
+      }
+    });
+  }
+}
+
+// 모달창 닫기
+if (document.getElementById("qnaModalBack")!=null) {
+  document.getElementById("qnaModalBack").addEventListener("click", e=>{
+    document.getElementById("qnaOrderList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  })
+}
+
+// 모달창에 상품 정보 넣기
+if (document.getElementById("qnaProductName")) {
+  document.getElementById("qnaProductName").addEventListener("keyup", e=> {
+    const productName = document.getElementById("qnaProductName").value;
+    fetch("/qna/product?productName="+productName)
+    .then(response => response.json()) 
+    .then(productList => {
+      for(let i = 0; i<3; i++){
+        document.getElementsByClassName("qnaProduct")[i].style.display="none"
+      }
+      for(let i=0; i<productList.length; i++){
+        if (i==3) {
+          document.getElementById("qnaProductList").style.height="auto";
+          return
+        }
+        document.getElementById("qnaProductList").style.height=(i+1)*43+"px";
+        document.getElementsByClassName("productNo")[i].innerText=productList[i].productNo
+        document.getElementsByClassName("productImg")[i].src=productList[i].thumbnailPath
+        document.getElementsByClassName("productName")[i].innerText=productList[i].productName
+        document.getElementsByClassName("qnaProduct")[i].setAttribute("value", productList[i].productName)
+        document.getElementsByClassName("qnaProduct")[i].style.display="flex"
+        
+      }
+      
+      const qnaProduct = document.getElementsByClassName("qnaProduct")
+      // for(let product of qnaProduct){
+        
+        // }
+      })
+    .catch (e => { console.log(e)}); 
+  }) 
+}
+
+
+const qnaProductName = document.getElementById("qnaProductName");
+// 상품 조회
+if (qnaProductName!=null) {
+  qnaProductName.addEventListener("click", e=>{
+    document.getElementById("qnaProductList").style.height="auto";
+    document.getElementById("qnaModalBack").style.display="block";
+  })
+}
+
+// 주문정보 넣기
+const orderUno = document.getElementsByClassName("qnaOrder");
+for(let order of orderUno){
+  order.addEventListener("click", e => {
+    console.log(e.target)
+    if(e.target.classList.contains("qnaOrder")) {
+      console.log(e.target.getAttribute("value"));
+      document.getElementById("orderUno").value=e.target.getAttribute("value")
+    }else{
+      if(e.target.parentElement.classList.contains("qnaOrder")){
+        document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
+      }else{
+        if(e.target.parentElement.parentElement.classList.contains("qnaOrder")){
+          document.getElementById("orderUno").value=e.target.parentElement.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("orderUno").value=e.target.parentElement.parentElement.parentElement.getAttribute("value")
+
+        }
+      }
+    }
+    document.getElementById("qnaOrderList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  });
+}
+
+// 상품 클릭 시 넣기
+const qnaProduct = document.getElementsByClassName("qnaProduct");
+for(let product of qnaProduct){
+  product.addEventListener("click", e => {
+    console.log(e.target)
+    console.log(e.target.getAttribute("value"))
+    console.log("왜 안들어가?")
+    document.getElementById("qnaProductName").value=e.target.getAttribute("value")
+    if(e.target.classList.contains("qnaProductName")) {
+      document.getElementById("qnaProductName").value=e.target.getAttribute("value")
+    }else{
+      if(e.target.parentElement.classList.contains("qnaProduct")){
+        document.getElementById("qnaProductName").value=e.target.parentElement.getAttribute("value")
+      }else{
+        if(e.target.parentElement.parentElement.classList.contains("qnaProduct")){
+          document.getElementById("qnaProductName").value=e.target.parentElement.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("qnaProductName").value=e.target.parentElement.parentElement.parentElement.getAttribute("value")
+        }
+      }
+    }
+    document.getElementById("qnaProductList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  });
+}
+
+// 모달창 닫기
+if (document.getElementById("qnaModalBack")!=null) {
+  document.getElementById("qnaModalBack").addEventListener("click", e=>{
+    document.getElementById("qnaProductList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  })
+}
+
+
+
 /* 문의 게시글(수정) 클릭시 */
 const modifyBtn = document.getElementById("qnaModify")
 if (modifyBtn!=null) {
@@ -113,7 +249,6 @@ if (modifyBtn!=null) {
     const qnaNo = e.target.value;
     if(loginMember==writeMember){
       const qnaNo = e.target.value;
-      console.log(qnaNo);
       document.location.href="/qna/modify/"+qnaNo
       return;
     }
@@ -124,7 +259,6 @@ if (modifyBtn!=null) {
       e.stopPropagation();
       return;
     }
-    console.log(qnaNo);
     document.location.href="/qna/modify/"+qnaNo
   });
 }
@@ -141,21 +275,16 @@ if (document.getElementById("qnaDetailModalBtn")!=null) {
     .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
     .then(count => {
       
-      console.log("count = "+count);
       if (count == -1) { // 비밀번호 불일치 시
-        console.log("비밀번호 입력 실패");
         document.getElementById("qnaDetailModalInput").value = "";
         return;            
       }
       document.location.href="/qna/modify/" + qnaLockNo;
     }) //파싱된 데이터를 받아서 처리하는 코드 작성
     .catch(err => {
-      console.log("예외 발생");
-      console.log(err);
     }) 
   })
 }
-
 
 
   

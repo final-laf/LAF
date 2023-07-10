@@ -31,14 +31,28 @@
 		</choose> 
 	</select>
     
+    <!-- qna 조회 결과 -->
     <select id="qnaList" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer, q.qna_lock_fl, qna_create_date qna_order_by FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no WHERE qna_delete_fl='N' ORDER BY qna_order_by DESC
+        SELECT qna_no, 
+	        q.member_no, 
+	        m.member_grade,
+	        qna_category, 
+	        qna_title, 
+	        member_name, 
+	        SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, 
+	        q.qna_answer, 
+	        q.qna_lock_fl, 
+	        qna_create_date qna_order_by 
+        FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no 
+        WHERE qna_delete_fl='N' 
+        ORDER BY qna_order_by DESC
     </select>
     
     <!-- 검색어를 포함한 qna조회결과  -->
     <select id="searchQnaList" resultType="Qna">
         SELECT  qna_no, 
 		        q.member_no, 
+		        m.member_grade,
 		        qna_category, 
 		        qna_title, 
 		        member_name, 
@@ -64,19 +78,6 @@
         ORDER BY qna_order_by DESC
     </select>
     
-    	<!-- answered qnaList -->
-    <select id="answeredQna" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  JOIN `member` m ON q.member_no = m.member_no ORDER BY qna_answer
-    </select>
-    
-	    <!-- 검색어를 포함한 qna조회결과  -->
-    <select id="searchAnsweredQna" resultType="Qna">
-        SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDEX(qna_create_date, ' ', 1) qna_create_date, q.qna_answer FROM `qna` q  
-        JOIN `member` m ON q.member_no = m.member_no 
-        WHERE `${type}` LIKE '%${content}%' 
-        ORDER BY qna_answer
-    </select>
-    
     <!--qna 상세정보 조회-->
     <select id="detailQna" resultType="Qna">
 		SELECT * FROM `qna` q  
@@ -88,9 +89,9 @@
         UPDATE `qna` SET qna_delete_fl ='y' WHERE qna_no=#{noticeNo}
     </update>
 	
-	<!-- 공지사항 작성 -->
+	<!-- qna 작성 -->
     <insert id="writeQna" parameterType="Qna" >
-        INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default)
+        INSERT INTO qna VALUES (default, #{memberNo}, #{orderUno}, #{productName}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default)
     </insert>
 	
     <!--qna 비밀글 조회-->
@@ -101,15 +102,37 @@
 	
 	<!-- qna문의 수정 -->
     <update id="updateQna" parameterType="Qna" >
-        UPDATE `qna` SET order_no=#{orderNo}, product_no=#{productNo}, qna_category=#{qnaCategory}, qna_title=#{qnaTitle}, qna_content=#{qnaContent}, qna_lock_fl=#{qnaLockFl}, qna_pw=#{qnaPw} WHERE qna_no=#{qnaNo}
+        UPDATE `qna` SET order_Uno=#{orderUno}, product_name=#{productName}, qna_category=#{qnaCategory}, qna_title=#{qnaTitle}, qna_content=#{qnaContent}, qna_lock_fl=#{qnaLockFl}, qna_pw=#{qnaPw} WHERE qna_no=#{qnaNo}
     </update>
 
-	<!-- qna문의 수정 -->
+	<!-- qna문의 답변 수정 -->
     <update id="answerQna" parameterType="Qna" >
         UPDATE `qna` SET qna_answer=#{qnaAnswer} WHERE qna_no=#{qnaNo}
     </update>
+    
 	
+    <!--qna 오더 리스트 조회-->
+    <select id="orderList" parameterType="Order">
+		SELECT DISTINCT 
+			order_Uno, 	
+			DATE_FORMAT(order_date, '%Y-%m-%d') AS order_date 
+		FROM `order` o 
+		WHERE member_no = #{memberNo}
+		ORDER BY order_date DESC
+	</select>
+    
 	
+	<!--qna 상품 조회-->
+    <select id="productSearch" parameterType="Product">
+		SELECT p.product_no , 
+			p.product_name , 
+			pi.img_path thumbnail_path
+		FROM product p JOIN product_img pi ON p.product_no =pi.product_no 
+		WHERE p.product_name LIKE '%${productName}%' 
+			AND pi.thumb_fl='Y'		
+
+ 
+	</select>
 
 </mapper>
 

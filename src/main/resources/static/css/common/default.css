@@ -46,6 +46,10 @@ table{
   border-spacing: 0;
 }
 
+th{
+  font-weight: normal;
+}
+
 button{
   font-family: SUITE-Regular;
 }
@@ -244,6 +248,8 @@ select{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  outline: none;
 }
 *:disabled {
   cursor: default;

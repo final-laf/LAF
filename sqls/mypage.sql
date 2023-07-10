@@ -212,6 +212,7 @@ values (null
 	
 	delete from `click`;
 
+COMMIT;
 select * from `click`;
 rollback;
 

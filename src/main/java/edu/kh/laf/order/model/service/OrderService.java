@@ -163,4 +163,10 @@ public interface OrderService {
 	  * @return today's total payment
 	  */
 	 long getPaymentToday();
+  
+	/** 주문번호로 회원번호 조회
+	 * @param orderNo
+	 * @return
+	 */
+	int selectCompletOrderNo(int orderNo);
 }

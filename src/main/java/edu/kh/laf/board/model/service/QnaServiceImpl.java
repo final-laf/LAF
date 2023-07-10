@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import edu.kh.laf.board.model.dto.Qna;
 import edu.kh.laf.board.model.mapper.QnaMapper;
 import edu.kh.laf.common.utility.Pagination;
+import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.product.model.dto.Product;
 
 @Service
 public class QnaServiceImpl implements QnaService {
@@ -105,9 +107,30 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.updateQna(qna);
 	}
 
+	/** qna 답변달기
+	 *
+	 */
 	@Override
 	public int answerQna(Qna qna) {
 		return mapper.answerQna(qna);
+	}
+
+
+	/** 내 주문목록
+	 *
+	 */
+	@Override
+	public List<Order> orderList(Long memberNo) {
+		return mapper.orderList(memberNo);
+	}
+
+
+	/** qna 상품 검색
+	 *
+	 */
+	@Override
+	public List<Product> productSearch(String productName) {
+		return mapper.productSearch(productName);
 	}
 
 

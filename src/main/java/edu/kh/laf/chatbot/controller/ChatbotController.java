@@ -16,6 +16,10 @@ public class ChatbotController {
 	@Autowired
 	private ChatbotService service;
 	
+	/** 클릭 이벤트 목록 조회
+	 * @param categoryValue
+	 * @return
+	 */
 	@GetMapping("/chatbot")
 	@ResponseBody
 	public List<Faq> selectChatbot(String categoryValue) {
@@ -23,6 +27,10 @@ public class ChatbotController {
 		return answer;
 	}
 
+	/** 채팅으로 목록 조회
+	 * @param chat
+	 * @return
+	 */
 	@GetMapping("/chatbot/chat")
 	@ResponseBody
 	public List<Faq> searchChat(String chat) {

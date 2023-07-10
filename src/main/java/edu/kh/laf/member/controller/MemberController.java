@@ -16,22 +16,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.kh.laf.member.model.dto.Member;
+import edu.kh.laf.member.model.dto.OAuthToken;
+import edu.kh.laf.member.model.dto.SocialLoginProfile;
 import edu.kh.laf.member.model.service.EmailService;
 import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.mypage.model.service.MypageLikeServcie;
 import edu.kh.laf.product.model.service.CartService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -54,11 +62,21 @@ public class MemberController {
 
     @Value("${kakao.redirect.url}")
     private String KAKAO_REDIRECT_URL;
+
+    @Value("${kakao.socialLogin.pw}")
+    private String KAKAO_PW;
+    
+    @Value("${kakao.logout.url}")
+    private String KAKAO_LOGOUT_URL;
     
     
     // 로그인 페이지 이동
 	@GetMapping("/login")
-	public String login() {
+	public String login(@CookieValue(value = "saveId", required = false) String saveId
+									,Model model) {
+		if(saveId != null) {
+			model.addAttribute("saveId", saveId);
+		}
 		return "member/login";
 	}
 	
@@ -73,6 +91,14 @@ public class MemberController {
 	public String findPw() {
 		return "member/findPw";
 	}
+	
+	// 소셜 로그인 회원 회원 정보 등록 페이지 이동
+	@GetMapping("/mypage/setinfo")
+	public String socialLoginSetInfo(){
+		return "member/socialLoginInfo";
+	}
+	
+	
 	
 	// 로그인 기능
 	@PostMapping("/login")
@@ -111,14 +137,15 @@ public class MemberController {
 			model.addAttribute("cartCount", cartCount);
 			
 			
-//			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
-//			if(saveId != null) { // 체크 되었을 때
-//				cookie.setMaxAge(60 * 60 * 24 * 30); // 초 단위로 지정
-//			}else {
-//				cookie.setMaxAge(0);
-//			}
-//			cookie.setPath("/"); 
-//			resp.addCookie(cookie);
+			Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
+			if(saveId != null) { // 체크 되었을 때
+				cookie.setMaxAge(60 * 60 * 24 * 30); // 한 달간 유지
+			}else {
+				cookie.setMaxAge(0); // 0초동안 유지(기존 쿠키 삭제)
+			};
+			cookie.setPath("/"); 
+			resp.addCookie(cookie);
+			
 			
 			
 		} else { // 로그인 실패 시
@@ -131,8 +158,8 @@ public class MemberController {
 
 	// 로그아웃 기능
 	@GetMapping("/logout")
-	  public String logout(SessionStatus status) {
-	    status.setComplete(); 
+	 public String logout(SessionStatus status) {
+		status.setComplete(); 
 	    return "redirect:/";
 	}
 	
@@ -249,7 +276,13 @@ public class MemberController {
 	@PostMapping("/notmember")
 	public String signUp(String memberPhone
 				  		,String orderUno
-				  		,RedirectAttributes ra) {
+				  		,RedirectAttributes ra
+				  		,@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+		
+		if(loginMember != null) {
+			ra.addFlashAttribute("message", "회원은 마이페이지를 이용해 주시기 바랍니다");
+			return "redirect:/myPage";
+		}
 		
 		String path;
 		// orderNo Long 타입으로 바꿔주기
@@ -269,13 +302,9 @@ public class MemberController {
 		return path;
 	}
 	
-	
-	
-	@GetMapping("/auth/kakao/callback")
-	@ResponseBody
-	public String kakaoCallBack(String code) {
+	// 카카오로그인 (POST방식으로 인증 토큰 요청)
+	public OAuthToken kakaoCallback(String code) {
 		
-		//POST방식으로 key=value 데이터를 요청(카카오쪽으로)
 		RestTemplate rt = new RestTemplate();
 		
 		// HttpHeader 오브젝트 생성
@@ -289,9 +318,10 @@ public class MemberController {
 		params.add("redirect_uri", KAKAO_REDIRECT_URL);
 		params.add("code", code);
 		
-		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기(exchange함수가 httpentity를 담기 때문)
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 		
+		// Http 요청하기 = Post 방식으로 - 그리고 response 변수의 응답 받음
 		ResponseEntity<String> response = rt.exchange(
 				"https://kauth.kakao.com/oauth/token",
 				HttpMethod.POST,
@@ -299,14 +329,113 @@ public class MemberController {
 				String.class
 		);
 		
-		return "카카오 인증 완료 : 토큰 요청에 대한 응답" + response;
+		// 엑세스 토큰을 java 객체로 만들기
+		// Gson, Json Simple, ObjectMapper
+		ObjectMapper objectMapper = new ObjectMapper();
+		OAuthToken oauthtoken = null;
+		try {
+			oauthtoken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		return oauthtoken;
+	}
+	
+	
+	// 카카오로그인
+	public Member kakaoGetInfo(OAuthToken oauthtoken) {
+		
+		//POST방식으로 인증 토큰을 가지고 사용자 정보 요청(카카오쪽으로)
+		RestTemplate rt2 = new RestTemplate();
+		
+		// HttpHeader 오브젝트 생성
+		HttpHeaders headers2 = new HttpHeaders();
+		headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		headers2.add("Authorization", "Bearer " + oauthtoken.getAccess_token());
+		
+		// HttpHeader와 HttpBody를 하나의 오브젝트에 담기(exchange함수가 httpentity를 담기 때문)
+		HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
+		
+		// Http 요청하기 = Post 방식으로 - 그리고 response 변수의 응답 받음
+		ResponseEntity<String> response2 = rt2.exchange(
+				"https://kapi.kakao.com/v2/user/me",
+				HttpMethod.POST,
+				kakaoProfileRequest2,
+				String.class
+		);
+		
+		// 엑세스 토큰을 java 객체로 만들기
+		// Gson, Json Simple, ObjectMapper
+		ObjectMapper objectMapper2 = new ObjectMapper();
+		SocialLoginProfile socialLoginProfile = null;
+		try {
+			socialLoginProfile = objectMapper2.readValue(response2.getBody(), SocialLoginProfile.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+		// Member 오브젝트(id)
+		Member member = new Member();
+		member.setMemberId("K" + socialLoginProfile.getId());
+		member.setMemberPw(KAKAO_PW);
+		member.setMemberName(socialLoginProfile.properties.getNickname());
+		member.setMemberEmail("emailTemp");
+		member.setMemberPhone("01012341234");
+		member.setMemberAddress("00000, 임시주소값, 임시주소값");
+		member.setMemberSocial("K");
+		
+		return member;
 	}
 	
 	
 	
+	// 카카오 로그인
+	@GetMapping("/auth/kakao/callback")
+	public String kakaoLogin(String code
+							, Model model
+							, HttpServletResponse resp
+							, RedirectAttributes ra
+							, HttpServletRequest request) {
+		
+		// 카카오에 코드를 주고 인증 토큰 받아오기
+		OAuthToken oauthtoken = kakaoCallback(code);
+		// 카카오에 인증 토큰을 주고 개인정보 받아오기(id, nickname)
+		Member member = kakaoGetInfo(oauthtoken);
+		// id 중복검사
+		int result = checkId(member.getMemberId());
+		
+		Member loginMember = new Member();
+		if(result == 0) {
+			// 중복된 id가 없을시 회원가입 후 로그인
+			service.signUp(member);
+		}
+		// member로 회원 조회(회원번호를 가져오기 위한 과정)
+		loginMember = service.selectMemberById(member);
+		// 중복된 id가 있을 시 로그인
+		service.login(loginMember);
+		loginMember.setMemberPw(null);
+		
+		// 기존에 있던 세션 정보를 초기화
+		request.getSession().invalidate();
+		request.getSession(true);
+		
+		// 세션에 로그인멤버 정보 저장
+		model.addAttribute("loginMember", loginMember);
+		
+		// 로그인한 회원의 찜 목록 리스트(productNo)
+		List<Long> likeLikst = likeServcie.selectLikeList(member.getMemberNo());
+		model.addAttribute("likeList", likeLikst);
+		
+		// 회원가입한 신규회원이 아닐 시 메인 페이지로 이동
+		return "redirect:/";
+	}
 	
-	
-	
+
 	
 	
 	

@@ -174,18 +174,15 @@ public class OrderController {
 		
 		// 주문한 내역조회
 		Order order = service.selectOrder(no);
-		emailData.put("order", order);
 		model.addAttribute("order",order);
 		
 		// 주문한 상품목록조회
 		List<OrderProduct> odpList = service.selectOrderDetailProductList(no);
-		emailData.put("odpList", odpList);
 		model.addAttribute("odpList",odpList);
 		
 		// 상품 할인액 계산
 		int productDc = service.productDc(odpList);
 		if(productDc > 0) {
-			emailData.put("productDc", productDc);
 			model.addAttribute("productDc",productDc);
 		}
 		
@@ -196,14 +193,9 @@ public class OrderController {
 			long pointUseNo = order.getPointNoUse();
 			if((couponNo + pointGainNo + pointUseNo) != 0 ) {
 				Map<String, String> dc = service.selectDiscount(couponNo,pointGainNo,pointUseNo);
-				emailData.put("dc", dc);
 				model.addAttribute("dc",dc);
 			}
 		}
-		
-		// 주문내역 이메일전송
-		String resultEmail = service4.sendOrderEmail(emailData);
-		model.addAttribute("resultEmail",resultEmail);
 		
 		return "order/orderDetail";
 	}
@@ -238,6 +230,48 @@ public class OrderController {
 		message = "취소되었습니다.";
 		
 		return message;
+	}
+	
+	// 이메일 전송 서비스
+	@PostMapping("/orderEmail")
+	@ResponseBody
+	public String sendOrderEmail(@RequestBody int no,
+								@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+		
+		System.out.println(no);
+		
+		// 주문내역 이메일정보
+		Map<String, Object> emailData = new HashMap<>();
+		
+		// 주문한 내역조회
+		Order order = service.selectOrder(no);
+		emailData.put("order", order);
+		
+		// 주문한 상품목록조회
+		List<OrderProduct> odpList = service.selectOrderDetailProductList(no);
+		emailData.put("odpList", odpList);
+		
+		// 상품 할인액 계산
+		int productDc = service.productDc(odpList);
+		if(productDc > 0) {
+			emailData.put("productDc", productDc);
+		}
+		
+		if(loginMember != null) { // 로그인 회원인 경우
+			// 쿠폰 할인액, 적립금, 사용된 적립금 조회
+			long couponNo = order.getCouponNo();
+			long pointGainNo = order.getPointNoGain();
+			long pointUseNo = order.getPointNoUse();
+			if((couponNo + pointGainNo + pointUseNo) != 0 ) {
+				Map<String, String> dc = service.selectDiscount(couponNo,pointGainNo,pointUseNo);
+				emailData.put("dc", dc);
+			}
+		}
+		
+		// 주문내역 이메일전송
+		String resultEmail = service4.sendOrderEmail(emailData);
+		
+		return resultEmail;
 	}
 	
 	

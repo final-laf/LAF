@@ -163,11 +163,11 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 		if(!uploadList.isEmpty()) {
 			if(uploadList.size()==size) {
-				for(int i=0; i<size; i++) {
+				for(int i=0; i<uploadList.size(); i++) {
 					int index = uploadList.get(i).getReviewImgOrder();
-					fileName = review.getReviewNo()+images.get(i).getOriginalFilename();
-					uploader.upload(images.get(index), webPath+fileName);					
-//					images.get(index).transferTo(new File(filePath+fileName));					
+					fileName = review.getReviewNo()+images.get(index).getOriginalFilename();
+					uploader.upload(images.get(index), webPath+fileName);
+//					images.get(index).transferTo(new File(filePath+ fileName));
 				}
 			} else {
 				throw new FileUploadException();
@@ -252,14 +252,14 @@ public class ReviewServiceImpl implements ReviewService{
 	 */
 	@Override
 	public int deleteReview(long reviewNo) {
-		int deleteReview = mapper.deleteReview(reviewNo);
-		int deleteImg = mapper.deleteImg(reviewNo);
+		mapper.deleteReview(reviewNo);
+		
+		mapper.deleteImg(reviewNo);
 		return 1;
 	}
 
 	@Override
 	public Map<String, Object> productReviewList(int cp, long productNo) {
-		Map<String, Object> paramMap = new HashMap<>();
 		
 		int listCount = mapper.productReviewListCount(productNo);
 		

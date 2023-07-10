@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import edu.kh.laf.board.model.dto.Review;
 import edu.kh.laf.board.model.dto.ReviewImg;
 import edu.kh.laf.common.utility.Pagination;
-import edu.kh.laf.common.utility.S3Uploader;
 import edu.kh.laf.mypage.model.mapper.MypageReviewMapper;
 import edu.kh.laf.product.model.dto.Option;
 import edu.kh.laf.product.model.dto.Product;
@@ -19,8 +18,6 @@ import edu.kh.laf.product.model.dto.Product;
 @Service
 public class MypageReviewServiceImpl implements MypageReviewService {
 	
-	@Autowired
-	private S3Uploader uploader;
 	
 	@Autowired
 	private MypageReviewMapper mapper;
@@ -40,8 +37,8 @@ public class MypageReviewServiceImpl implements MypageReviewService {
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
 		List<Review> reviewList = mapper.orderList(rowBounds, memberNo);
-		// reviewList에서 하나씩 옵션 및 상품 설정
 		
+		// reviewList에서 하나씩 옵션 및 상품 설정
 		for(Review review : reviewList) {
 			review.setOption(mapper.myOrderOption(review.getOptionNo())); // 옵션 설정
 			review.setProduct(mapper.myOrderProduct(review.getProductNo()));
@@ -70,8 +67,8 @@ public class MypageReviewServiceImpl implements MypageReviewService {
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
 		List<Review> reviewList = mapper.reviewList(rowBounds, memberNo);
+
 		// reviewList에서 하나씩 옵션 및 상품 설정
-		
 		for(Review review : reviewList) {
 			review.setOption(mapper.myOrderOption(review.getOptionNo())); // 옵션 설정
 			review.setProduct(mapper.myOrderProduct(review.getProductNo()));

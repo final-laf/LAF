@@ -1,8 +1,11 @@
 package edu.kh.laf.board.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import edu.kh.laf.board.model.dto.Qna;
+import edu.kh.laf.order.model.dto.Order;
+import edu.kh.laf.product.model.dto.Product;
 
 public interface QnaService {
 
@@ -78,6 +81,24 @@ public interface QnaService {
 	 * @return
 	 */
 	int answerQna(Qna qna);
+
+
+
+
+	/** 내 주문 목록
+	 * @param loginMember
+	 * @return
+	 */
+	List<Order> orderList(Long memberNo);
+
+
+
+
+	/** qna 상품 검색
+	 * @param productName
+	 * @return
+	 */
+	List<Product> productSearch(String productName);
 
 
 
