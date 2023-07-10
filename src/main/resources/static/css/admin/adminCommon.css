@@ -42,8 +42,9 @@ main{
     height: 100%;
 
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     
     position: fixed;
     z-index: 1;
@@ -167,4 +168,30 @@ main{
     background-color: #493E5D !important;
 }
 
+
+/* times */
+.clock {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.clock span {
+    color: #7F7698;
+}
+.time_box {
+    margin-top: 10px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+}
+.txt_lg { font-size: 5rem; }
+.txt_sm { font-size: 3rem; }
+.date_box { font-size: 0.8rem; }
+#sec{
+    margin-top: auto;
+}
 

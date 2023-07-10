@@ -17,30 +17,29 @@ public class OrderInterceptor implements HandlerInterceptor  {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
-		String url = request.getRequestURI();
-		String[] arr = url.split("/"); 
+		 String requestUrl = request.getRequestURI();
 		
-//		if (arr.length >= 3 && arr[1].equals("order") && !arr[2].isEmpty()) {
-//      if( arr[1] == "order" && !arr[2].isEmpty()) {
-		if (arr[1].equals("order")) {
+		if (requestUrl.equals("/order/80")) {
 			int orderNo = 0;
-			try {
-				String num = arr[arr.length-1];
-				orderNo = Integer.parseInt(num);
-			} catch (Exception e) {
-				return HandlerInterceptor.super.preHandle(request, response, handler);
-			}
+			
+			String url = request.getRequestURI();
+			String[] arr = url.split("/"); 
+			String num = arr[arr.length-1];
+			orderNo = Integer.parseInt(num);
+		
 			// 회원일때 
 			HttpSession session = request.getSession();
 			Member loginMember = (Member)session.getAttribute("loginMember");
-			// 주문번호로 회원번호 조회
-			long memberNo = service.selectCompletOrderNo(orderNo);
-			if(loginMember == null) {
-//			if(loginMember.getMemberNo().equals(memberNo)) {
-				response.sendRedirect(request.getContextPath()+"/");
-				return false;
+			
+			if(loginMember != null) {
+				// 주문번호로 회원번호 조회
+				long memberNo = service.selectCompletOrderNo(orderNo);
+				if(loginMember.getMemberNo() != memberNo) {
+					response.sendRedirect(request.getContextPath()+"/");
+					return false;
+				}
 			}
+				
 		}
 		
 		return HandlerInterceptor.super.preHandle(request, response, handler);
