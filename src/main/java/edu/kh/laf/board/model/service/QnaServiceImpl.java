@@ -133,6 +133,14 @@ public class QnaServiceImpl implements QnaService {
 		return mapper.productSearch(productName);
 	}
 
+	/**
+	 * qna 현황 조회(관리자)
+	 */
+	@Override
+	public List<Map<String, Object>> qnaStatistics() {
+		return mapper.qnaStatistics();
+	}
+
 
 
 
