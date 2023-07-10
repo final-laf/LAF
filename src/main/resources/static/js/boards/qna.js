@@ -5,21 +5,23 @@ const qnas = document.querySelector(".qna-list")
 
 // qna list에서 삭제
 let qnaLockNo =0;
+// qna 선택
 if (qnas!=null) {
-  for(let notice of qnas.children) {
+  for(let qna of qnas.children) {
     /* 문의 게시글(질문) 클릭시 */
     
-    notice.addEventListener('click', e => {
+    qna.addEventListener('click', e => {
       qnaLockNo = e.target.parentElement.getAttribute("value");
       const loginMember = e.target.parentElement.getAttribute("memberNo");
       const writeMember = e.target.parentElement.getAttribute("writerNo");
+      const memberGrade = e.target.parentElement.getAttribute("memberGrade");
       // 로그인멤버와 작성자가 같거나 운영자일 경우 바로 접속
-      if(loginMember==writeMember || loginMember==1){
+      if(loginMember==writeMember || memberGrade=='A'){
         document.location.href="/qna/detail/" + qnaLockNo;
         return;
       }
       // 비밀글일 경우 
-      if(e.target.parentElement.getAttribute("fl")=="y"){
+      if(e.target.parentElement.getAttribute("fl")=="Y"){
         document.getElementById("qnaModelBack").style.display = "flex";
         document.getElementById("qnaModal").style.display = "flex";
         e.stopPropagation();
