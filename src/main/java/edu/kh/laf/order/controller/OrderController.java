@@ -143,23 +143,24 @@ public class OrderController {
 			}
 		}
 		
-		// [회원] 결제완료 후 장바구니 상품 삭제
-		service3.deleteCartAfterOrder(orderProductList);
-		model.addAttribute("cartCount", service3.getCartCount(loginMember.getMemberNo()));
-		
-		// [비회원] 결제완료 후 장바구니 상품 삭제
-		Cookie[] cookies = req.getCookies();
-		service3.deleteCart2AfterOrder(cookies, orderProductList);
+		if(loginMember != null) {
+			// [회원] 결제완료 후 장바구니 상품 삭제
+			service3.deleteCartAfterOrder(orderProductList);
+			model.addAttribute("cartCount", service3.getCartCount(loginMember.getMemberNo()));
+
+			// 회원정보 세션업데이트
+			loginMember = service2.selectMember(loginMember.getMemberNo());
+			model.addAttribute("loginMember", loginMember);
+		} else {
+			// [비회원] 결제완료 후 장바구니 상품 삭제
+			Cookie[] cookies = req.getCookies();
+			service3.deleteCart2AfterOrder(cookies, orderProductList);
+		}
 		
 		// 장바구니 삭제하기 - 세션값 제거
 		req.getSession().removeAttribute("orderProductList");
 		
-		// 회원정보 세션업데이트
-		loginMember = service2.selectMember(loginMember.getMemberNo());
-		model.addAttribute("loginMember", loginMember);
-		
-		
-		 //주문상세조회로 넘어가기 - 주문번호
+		//주문상세조회로 넘어가기 - 주문번호
 		return "redirect:/order/" + orderNo;
 	}
 	
