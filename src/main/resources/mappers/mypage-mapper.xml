@@ -83,7 +83,7 @@
 			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
 		</if>
 		<if test='sd != "3"'>
-			AND order_date BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+			AND DATE(order_date) BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
 		</if>
 		
 		<if test='os != null'>
@@ -105,7 +105,7 @@
 			AND (order_date BETWEEN  DATE_ADD(NOW(), INTERVAL -${sd} MONTH) AND NOW())
 		</if>
 		<if test='sd != "3"'>
-			AND order_date BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+			AND DATE(order_date) BETWEEN  STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
 		</if>
 		
 		<if test='os != null'>
