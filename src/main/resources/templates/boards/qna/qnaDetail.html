@@ -90,6 +90,13 @@
     <div><input type="number" id="qnaDetailModalInput"></div>
     <div><button type="button" id="qnaDetailModalBtn">확인</button></div>
   </div>
+  <div id="qnaDeleteModelBack"></div>
+  <div id="qnaDeleteModal" th:value="${qna.qnaNo}">
+    <div>비밀번호를 입력해주세요</div>
+    
+    <div><input type="number" id="qnaDeleteModalInput"></div>
+    <div><button type="button" id="qnaDeleteModalBtn">확인</button></div>
+  </div>
   
   <th:block th:replace="~{common/footer}"></th:block>
 

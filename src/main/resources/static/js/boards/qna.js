@@ -15,8 +15,12 @@ if (qnas!=null) {
       const loginMember = e.target.parentElement.getAttribute("memberNo");
       const writeMember = e.target.parentElement.getAttribute("writerNo");
       const memberGrade = e.target.parentElement.getAttribute("memberGrade");
+      console.log(loginMember)
+      console.log(writeMember)
+      console.log(memberGrade)
       // 로그인멤버와 작성자가 같거나 운영자일 경우 바로 접속
       if(loginMember==writeMember || memberGrade=='A'){
+        alert("asd")
         document.location.href="/qna/detail/" + qnaLockNo;
         return;
       }
@@ -44,6 +48,13 @@ if (document.getElementById("qnaDetailModelBack")!=null) {
   document.getElementById("qnaDetailModelBack").addEventListener("click", ()=>{
     document.getElementById("qnaDetailModelBack").style.display = "none";
     document.getElementById("qnaDetailModal").style.display = "none";
+  })
+}
+//삭제하기 비밀번호 모달
+if (document.getElementById("qnaDeleteModelBack")!=null) {
+  document.getElementById("qnaDeleteModelBack").addEventListener("click", ()=>{
+    document.getElementById("qnaDeleteModelBack").style.display = "none";
+    document.getElementById("qnaDeleteModal").style.display = "none";
   })
 }
 
@@ -288,6 +299,41 @@ if (document.getElementById("qnaDetailModalBtn")!=null) {
   })
 }
 
+// 삭제하기 모달 비밀글 입력하기
+if (document.getElementById("qnaDeleteModalBtn")!=null) {
+  document.getElementById("qnaDeleteModalBtn").addEventListener("click", e => {
+    const pw = e.target.parentElement.parentElement.children[1].children[0].value
+    const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
+    fetch("/qna/qnaLockNo",{
+      method : "POST", headers : {"Content-Type" : "application/json"},
+      body : JSON.stringify(data)
+    })
+    .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
+    .then(count => {
+      
+      if (count == -1) { // 비밀번호 불일치 시
+        document.getElementById("qnaDeleteModalInput").value = "";
+        return;            
+      }
+      if (confirm("작성한 QNA가 삭제됩니다. 그래도 삭제하시겠습니까?")) {
+        const qnaNo = e.target.value;
+        fetch("/qna/delete?qnaNo="+qnaNo)  
+        .then(response => response.text()) 
+        .then(() => {}) 
+        .catch (e => { console.log(e)}); 
+      
+        setTimeout(function(){
+        document.location.href="/qna"
+        },500);
+      } else {
+        e.preventDefault()
+      }
+    }) //파싱된 데이터를 받아서 처리하는 코드 작성
+    .catch(err => {
+    }) 
+  })
+}
+
 
   
 /* 문의 게시글(답변) 클릭시 */
@@ -304,17 +350,39 @@ if (answerBtn!=null) {
 // qna 삭제
 if (document.getElementById("qnaDelete") != null) {
   document.getElementById("qnaDelete").addEventListener("click", e=>{
-    alert("123")
+    const loginMember = e.target.getAttribute("memberNo");
+    const writeMember = e.target.getAttribute("writerNo");
     const qnaNo = e.target.value;
-    fetch("/qna/delete?qnaNo="+qnaNo)  
-    .then(response => response.text()) 
-    .then(() => {}) 
-    .catch (e => { console.log(e)}); 
-  
-    setTimeout(function(){
+    if(loginMember==writeMember){
+      const qnaNo = e.target.value;
+      fetch("/qna/delete?qnaNo="+qnaNo)  
+      .then(response => response.text()) 
+      .then(() => {}) 
+      .catch (e => { console.log(e)}); 
+    
+      setTimeout(function(){
       document.location.href="/qna"
-    },500);
-  })
+      },500);
+      return;
+    }
+
+    if(loginMember!=writeMember){
+      qnaLockNo=qnaNo;
+      document.getElementById("qnaDeleteModelBack").style.display = "flex";
+      document.getElementById("qnaDeleteModal").style.display = "flex";
+      e.stopPropagation();
+      return;
+    }
+  });
+    // const qnaNo = e.target.value;
+    // fetch("/qna/delete?qnaNo="+qnaNo)  
+    // .then(response => response.text()) 
+    // .then(() => {}) 
+    // .catch (e => { console.log(e)}); 
+  
+    // setTimeout(function(){
+    //   document.location.href="/qna"
+    // },500);
 }
 
 // qna 게시글 mouse hover 시 배경색 변경

@@ -297,6 +297,40 @@ color: hsl(0, 0%, 44%);
   width: 100px;
   letter-spacing: 3px;
 }
+/* 삭제하기 */
+#qnaDeleteModelBack{
+  display: none;
+  z-index: 1000;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+
+}
+#qnaDeleteModal{ 
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1001;
+  border: 0.5px solid #eee;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  width: 200px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#qnaDeleteModal *{
+  margin: 2px;
+}
+#qnaDeleteModal button{
+  width: 100px;
+  letter-spacing: 3px;
+}
 
 /* qna input부분 */
 #qnaOrderList{

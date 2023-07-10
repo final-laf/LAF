@@ -106,7 +106,7 @@
             <tr th:if="${session.loginMember}">
               <td>PASSWORD.</td>
               <td><input name="qnaPw" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true"  placeholder="비밀번호 입력(선택)"></td>
-              <td><input th:unless="${session.loginMember}" name="orderNo"  type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="비밀번호 입력(필수)"></td>
+              <td><input th:unless="${session.loginMember}" name="orderNo"  type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="비밀번호 입력(필수)" required></td>
             </tr>
             <tr th:unless="${session.loginMember}">
               <td>PASSWORD.</td>

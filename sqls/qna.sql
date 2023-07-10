@@ -15,7 +15,7 @@ create table `qna` (
 );
 COMMIT;
 SELECT * FROM `member`;
-SELECT * FROM `qna`;
+SELECT * FROM `qna` WHERE qna_delete_fl='N';
 -- insert구문
 -- INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);
 -- INSERT INTO `qna` VALUES (default, 2, null, null, 2, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);
