@@ -102,6 +102,14 @@ public interface QnaService {
 
 
 
+	/**
+	 * qna 현황 조회(관리자)
+	 * @return qnaCountList
+	 */
+	List<Map<String, Object>> qnaStatistics();
+
+
+
 
 
 

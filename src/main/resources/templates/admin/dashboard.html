@@ -159,28 +159,28 @@
               <li>
                 <div class="current-cat">상품문의</div>
                 <div class="current-count">
-                  <span class="current-count-num">5</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[1].count}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">배송문의</div>
                 <div class="current-count">
-                  <span class="current-count-num">4</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[0].count}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">일반문의</div>
                 <div class="current-count">
-                  <span class="current-count-num">3</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[2].count}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">총개수</div>
                 <div class="current-count">
-                  <span class="current-count-num">12</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[0].count + qnaStatistics[1].count + qnaStatistics[2].count}">0</span>
                   <span>개</span>
                 </div>
               </li>

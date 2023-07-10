@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.laf.board.model.service.QnaService;
 import edu.kh.laf.main.model.dto.Banner;
 import edu.kh.laf.main.model.service.MainService;
 import edu.kh.laf.member.model.service.MemberService;
@@ -37,11 +38,14 @@ public class AdminMainController {
 	private OrderService orderService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private QnaService qnaService;
 	
 	// 대쉬보드
 	@GetMapping("/admin")
 	public String admin(Model model) {
 		model.addAttribute("productStatistics", productService.productStatistics());
+		model.addAttribute("qnaStatistics", qnaService.qnaStatistics());
 		return "admin/dashboard";
 	}
 	
