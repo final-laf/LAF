@@ -48,25 +48,25 @@
                 <td th:text="${q.qnaCategory}">qna카테고리</td>
                 <td th:text="${q.qnaTitle}">제목</td>
                 <td th:if="${q.memberGrade eq 'B'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'B' + q.memberName}"></span>
                   </span>
                 </td>
                 <td th:if="${q.memberGrade eq 'S'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'S' + q.memberName}"></span>
                   </span>
                 </td>
                 <td th:if="${q.memberGrade eq 'G'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'G' + q.memberName}"></span>
                   </span>
                 </td>
                 <td th:if="${q.memberGrade eq 'D'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'D' + q.memberName}"></span>
                   </span>
@@ -78,25 +78,25 @@
                 <td th:text="${q.qnaCategory}">qna카테고리</td>
                 <td th:text="${'[비밀글] '+q.qnaTitle}">제목 input</td>
                 <td th:if="${q.memberGrade eq 'B'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'B' + q.memberName}"></span>
                   </span>
                 </td>
                 <td th:if="${q.memberGrade eq 'S'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'S' + q.memberName}"></span>
                   </span>
                 </td>
                 <td th:if="${q.memberGrade eq 'G'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'G' + q.memberName}"></span>
                   </span>
                 </td>
                 <td th:if="${q.memberGrade eq 'D'}" >
-                  <span th:value="${q.qnaNo}">
+                  <span th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:memberGrade="${session.loginMember?.memberGrade}" th:fl="${q.qnaLockFl}">
                     <img class="qnaMemberGrade" src="/images/common/no-image.png" alt="">
                     <span th:text="${'D' + q.memberName}"></span>
                   </span>

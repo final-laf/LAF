@@ -182,11 +182,18 @@
               </td>
             </tr> 
             <!-- 변동 사항 -->
-            <tr>
+            <tr th:if="${session.loginMember}">
               <td>PASSWORD.</td>
               <td>
                 <input th:if="${qna.qnaPw}" name="qnaPw" type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true"  th:value="${qna.qnaPw}">
                 <input th:unless="${qna.qnaPw}" name="qnaPw"  type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.qnaPw}">
+              </td>
+            </tr>
+            <tr th:unless="${session.loginMember}">
+              <td>PASSWORD.</td>
+              <td>
+                <input th:if="${qna.qnaPw}" name="qnaPw" type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true"  th:value="${qna.qnaPw}" required>
+                <input th:unless="${qna.qnaPw}" name="qnaPw"  type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.qnaPw}" required>
               </td>
             </tr>
             <tr>

@@ -52,15 +52,19 @@ if(document.getElementById("noticeDetailModify")!=null){
 if (document.getElementById("noticeDelete") != null) {
   document.getElementById("noticeDelete").addEventListener("click", e=>{
     const noticeNo = e.target.value;
-    fetch("/notice/delete?noticeNo="+noticeNo)  
-    .then(response => response.text()) 
-    .then(() => {
-    }) 
-    .catch (e => { console.log(e)}); 
-
-    setTimeout(function(){
-      document.location.href="/notice"
-    },500);
+    if (confirm("삭제하시겠습니까?")) {
+      fetch("/notice/delete?noticeNo="+noticeNo)  
+      .then(response => response.text()) 
+      .then(() => {
+      }) 
+      .catch (e => { console.log(e)}); 
+  
+      setTimeout(function(){
+        document.location.href="/notice"
+      },500);
+    } else {
+      e.preventDefault()
+    }
     
   })
 }
