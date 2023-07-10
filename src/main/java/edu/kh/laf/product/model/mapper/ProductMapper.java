@@ -190,4 +190,10 @@ public interface ProductMapper {
 	 * @return result
 	 */
 	int insertThumbnailImage(ProductImage thumbnailImg);
+
+	/**
+	 * 상품 현황(관리자)
+	 * @return countList
+	 */
+	List<String> productStatistics();
 }

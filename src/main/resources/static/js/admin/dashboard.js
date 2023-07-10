@@ -95,71 +95,82 @@ document.getElementById('year').addEventListener('click', e => {
 });
 
 /* 카테고리별 판매량 */
-const categoryData = {
-  labels: [
-    'Red',
-    'Blue',
-    'Yellow'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-  }]
-};
+(() => {
+  fetch('/admin/statistics/category')
+  .then(resp => resp.json())
+  .then(data => {
+    
+    const categoryChart = document.getElementById('categoryChart');
+    const categoryData = {
+      labels: data.map(row => row.category),
+      datasets: [{
+        data: data.map(row => row.count),
+        backgroundColor: [
+          '#7F769880',
+          '#9bc6d3',
+          '#a6d6c3',
+          '#cbddc3',
+          '#e8e3cc',
+          '#eae8df',
+          '#f5d3d6',
+        ],
+        hoverOffset: 4
+      }]
+    };
+    
+    const categoryChartConfig = {
+      type: 'doughnut',
+      data: categoryData,
+      options: {
+        responsive: false,
+      },
+    };
 
-const categoryChartConfig = {
-  type: 'doughnut',
-  data: categoryData,
-  options: {
-    responsive: false,
-  },
-};
+    new Chart(categoryChart, categoryChartConfig);
+  })
+  .catch(e => console.log(e));
+})();
 
-const categoryChart = document.getElementById('categoryChart');
-new Chart(categoryChart, categoryChartConfig);
 
 /* 회원 수 추이 */
-const memberData = {
-  labels: [
-    'January',
-    'February',
-    'March',
-    'April'
-  ],
-  datasets: [{
-    type: 'line',
-    label: '신규 가입자',
-    data: [10, 20, 30, 40],
-    borderColor: 'rgb(255, 99, 132)',
-    backgroundColor: 'rgba(255, 99, 132, 0.2)'
-  }, {
-    type: 'line',
-    label: '장기 미접속자(1년)',
-    data: [50, 40, 10, 50],
-    fill: false,
-    borderColor: 'rgb(54, 162, 235)'
-  }]
-};
-
-const memberChartConfig = {
-  type: 'scatter',
-  data: memberData,
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
+(() => {
+  fetch('/admin/statistics/member')
+  .then(resp => resp.json())
+  .then(data => {
+    
+    const memberChart = document.getElementById('memberChart');
+    const memberData = {
+      labels: data.map(row => row.date),
+      datasets: [{
+        type: 'line',
+        label: '신규 가입자',
+        data: data.map(row => row.count),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)'
+      }, {
+        type: 'line',
+        label: '장기 미구매자(1개월)',
+        data: data.map(row => row.count2),
+        fill: false,
+        borderColor: 'rgb(54, 162, 235)'
+      }]
+    };
+    
+    const memberChartConfig = {
+      type: 'scatter',
+      data: memberData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
       }
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-  }
-};
+    };
 
-const memberChart = document.getElementById('memberChart');
-new Chart(memberChart, memberChartConfig);
+    new Chart(memberChart, memberChartConfig);
+  })
+  .catch(e => console.log(e));
+})();

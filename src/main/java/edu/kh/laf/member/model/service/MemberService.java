@@ -125,6 +125,12 @@ public interface MemberService {
 	 */
 	Member selectMemberById(Member member);
 
+	/**
+	 * 멤버 수 추이 조회
+	 * @return memberCountList
+	 */
+	List<Map<String, Object>> getMemeberStatistics();
+
 
 
 

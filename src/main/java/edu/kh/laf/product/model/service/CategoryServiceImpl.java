@@ -212,4 +212,10 @@ public class CategoryServiceImpl implements CategoryService {
 	public int deleteChildCategory(long categoryNo) {
 		return mapper.deleteChildCategory(categoryNo);
 	}
+
+	// 카테고리별 판매량 조회(30일)
+	@Override
+	public List<Map<String, Object>> getCategoryStatistics() {
+		return mapper.getCategoryStatistics();
+	}
 }

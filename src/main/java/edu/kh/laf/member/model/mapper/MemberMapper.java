@@ -126,5 +126,10 @@ public interface MemberMapper {
 	 */
 	int insertMemberCoupon(Map<String, Object> paramMap);
 
+	/**
+	 * 멤버 수 추이 조회(최대 3년)
+	 */
+	List<Map<String, Object>> getMemeberStatistics();
+
 
 }

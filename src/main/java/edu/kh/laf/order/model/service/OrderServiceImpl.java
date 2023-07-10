@@ -639,7 +639,8 @@ public class OrderServiceImpl implements OrderService{
 	// 오늘 결제 확인
 	@Override
 	public long getPaymentToday() {
-		return mapper.getPaymentToday();
+		Long result = mapper.getPaymentToday();
+		return result == null ? 0L : result;
 	}
 
 	// 주문번호로 회원번호 조회
