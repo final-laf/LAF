@@ -52,6 +52,12 @@ public interface NoticeMapper {
 	 */
 	int deleteNotice(String noticeNo);
 
+	/** 공지사항 수정
+	 * @param notice
+	 * @return
+	 */
+	int updateNotice(Notice notice);
+
 
 
 

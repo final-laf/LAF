@@ -1,4 +1,4 @@
-<form action="/review/update" method="POST" enctype="multipart/form-data">
+<form action="/review/update" method="POST" enctype="multipart/form-data" id="reviewSubmit">
   <input id="reviewModifyModalReviewNo" name="reviewNo" type="hidden" >
   <input id="reviewModifyModalOrderNo" name="orderNo" type="hidden" >
   <div class="review-modal-overlay" id="review-modal-overlay">
@@ -36,7 +36,7 @@
             </div>
           </div>
           <div class="write-review-modal-contents">
-            <textarea id="reviewModifyModalContent" name="reviewContent">내용</textarea>
+            <textarea id="reviewModifyModalContent" name="reviewContent"></textarea>
           </div>
         </div>
       </div>

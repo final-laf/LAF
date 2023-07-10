@@ -217,8 +217,10 @@ public class MemberController {
 		String message = null;
 		
 		if(result > 0) { // 가입 성공
-			path += "/"; // 메인 페이지
+			// 회원 가입 기념 적립금 2000원 지급
+			result = service.insertSignupPoint(inputMember.getMemberId());
 			message = inputMember.getMemberName() + "님의 가입을 환영합니다.";
+			path += "/"; // 메인 페이지
 		} else { // 가입 실패
 			path += "signUp";  
 			message = "회원 가입 실패!";
@@ -413,6 +415,10 @@ public class MemberController {
 		if(result == 0) {
 			// 중복된 id가 없을시 회원가입 후 로그인
 			service.signUp(member);
+			// 회원 가입 기념 적립금 2000원 지급
+			result = service.insertSignupPoint(member.getMemberId());
+			// 적립한 포인트를 회원 정보에 반영
+			result = service.updateSignupPoint(member.getMemberId());
 		}
 		// member로 회원 조회(회원번호를 가져오기 위한 과정)
 		loginMember = service.selectMemberById(member);

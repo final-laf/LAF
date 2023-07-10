@@ -60,6 +60,26 @@
 				<if test='refundAccount != null'> #{refundAccount}) </if>
   	</insert>
   	
+  	<!--회원 가입 기념 적립금 지급-->
+  	<insert id="insertSignupPoint">
+		  insert into `point`
+			values 
+					(null
+					,(SELECT member_no FROM `member` WHERE member_id = #{memberId})
+					,'G'
+					,'2000'
+					,now()
+					,date_add(now(), INTERVAL 1 month)
+					,'회원 가입 기념 적립금'
+					,null)	
+	</insert>
+  	
+	<!--적립한 포인트를 회원 정보에 반영-->
+	<update id="updateSignupPoint" parameterType="java.util.HashMap">
+		UPDATE `member`
+		SET member_point = (member_point + 2000)
+		WHERE member_id = #{memberId}
+	</update>
   	
   	<!--아이디 중복 검사-->
   	<select id="checkId" resultType="_int">
@@ -241,7 +261,7 @@
 				member_del_fl = 'N'
 	</select>
 	
-	<!---->
+	<!--쿠폰 지급-->
 	<insert id="insertMemberCoupon" parameterType="java.util.HashMap">
 		INSERT into `coupon`
 		values 
@@ -259,6 +279,7 @@
         </foreach>
 	</insert>
 	
+	<!--ID로 회원 찾기-->
 	<select id="selectMemberById" resultType="Member">
 	  SELECT *
 	  FROM `member`

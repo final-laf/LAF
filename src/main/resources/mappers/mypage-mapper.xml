@@ -149,7 +149,7 @@
 	
 	<!--포인트 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
 	<select id="point" resultType="Point">
-		SELECT point_no , p.member_no , point_sort , point_amount , point_date , point_content , order_no , order_uno 
+		SELECT point_no , p.member_no , point_sort , point_amount , point_date, point_due_date, point_content , order_no , order_uno 
 		FROM `point`p 
 		LEFT JOIN `order` 
 		USING (order_no)
@@ -167,7 +167,7 @@
 	
 	<!--페이지네이션이 적용된 적립금 리스트 조회(마이페이지-주문관리-적립금 및 쿠폰)-->
 	<select id="selectPointList" resultType="Point">
-		SELECT point_no , p.member_no , point_sort , point_amount , point_date , point_content , order_no , order_uno 
+		SELECT point_no , p.member_no , point_sort , point_amount , point_date , point_due_date, point_content , order_no , order_uno 
 		FROM `point` p 
 		LEFT JOIN `order` USING (order_no)
 		WHERE p.member_no = #{memberNo}

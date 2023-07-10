@@ -72,6 +72,20 @@ public class MemberServiceImpl implements MemberService {
 		int result = mapper.signUp(inputMember);
 		return result;
 	}
+	
+	// 회원 가입 기념 적립금 2000원 지급
+	@Override
+	public int insertSignupPoint(String memberId) {
+		return mapper.insertSignupPoint(memberId);
+	}
+
+	
+	// 적립한 포인트를 회원 정보에 반영
+	@Override
+	public int updateSignupPoint(String memberId) {
+		return mapper.updateSignupPoint(memberId);
+	}
+
 
 	// 아이디 중복 검사
 	@Override
@@ -290,6 +304,8 @@ public class MemberServiceImpl implements MemberService {
 	public List<Map<String, Object>> getMemeberStatistics() {
 		return mapper.getMemeberStatistics();
 	}
+
+
 
 
 	

@@ -74,23 +74,28 @@
 /* 적립금 내역 테이블 */
 /* 각 행별 설정 */
 .mypagePoint-detail-list td:nth-child(1) {
-    width: 15%;
+    width: 10%;
 }
 .mypagePoint-detail-list td:nth-child(2) {
     width: 10%;
 }
 .mypagePoint-detail-list td:nth-child(3) {
-    width: 15%;
-}
-.mypagePoint-detail-list td:nth-child(4) {
-    width: 20%;
+    width: 10%;
 }
 
-.mypagePoint-detail-list td:nth-child(4) p{
+.mypagePoint-detail-list td:nth-child(4) {
+    width: 10%;
+}
+
+.mypagePoint-detail-list td:nth-child(5) * {
     font-size: 1.2rem;
 }
 
 .mypagePoint-detail-list td:nth-child(5) {
+    width: 20%;
+}
+
+.mypagePoint-detail-list td:nth-child(6) {
     width: 40%;
 }
 

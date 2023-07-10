@@ -30,7 +30,15 @@ if(loginMember != null){ // 로그인한 회원만
   })
 };
 
-// 배송 관련 정보 세팅--------------------------------------------------------------
+// 주문자 관련 정보 세팅--------------------------------------------------------------
+if(loginMember != null) {
+  if(loginMember.memberSocial == 'K') {
+    document.getElementById("orderEmail").value="";
+    document.getElementById("orderTel").value="";
+    document.getElementById("SocialLoginArea").style.display="block";
+  }
+}
+
 // 주문자 환불정보 세팅
 if(orderMember.refundBank != null){
   document.getElementById('refundBank').children[parseInt(orderMember.refundBank)-1].selected = true;

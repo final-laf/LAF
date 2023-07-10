@@ -52,7 +52,8 @@
             <div class="mypagePoint-point-detail">
               <table>
                 <tr>
-                  <td width="120px">주문날짜</td>
+                  <td width="120px">적립일</td>
+                  <td width="120px">만료일</td>
                   <td width="120px">적립/사용</td>
                   <td width="120px">적립금</td>
                   <td width="300px">관련 주문</td>
@@ -65,7 +66,8 @@
                 </tr>
                 <!-- 적립 내역이 있을 때 -->
                 <tr th:unless="${#lists.size(pointList) == 0}" class="mypagePoint-detail-list" th:each="point : ${pointList}">
-                  <td th:text="${#strings.substring(point.pointDate,0,11)}">주문날짜</td>
+                  <td th:text="${#strings.substring(point.pointDate,0,11)}">적립일</td>
+                  <td th:text="${#strings.substring(point.pointDueDate,0,11)}">만료일</td>
                   <td th:if='${point.pointSort == "G"}' th:text="적립">적립된 적립금일 경우</td>
                   <td th:if='${point.pointSort == "U"}' th:text="사용">사용된 적립금일 경우</td>
                   <td th:if='${point.pointSort == "C"}' th:text="취소">사용된 적립금일 경우</td>
