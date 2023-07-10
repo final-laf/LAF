@@ -200,6 +200,7 @@
 		SELECT *
 		FROM `coupon` 
 		WHERE member_no = #{memberNo}
+		AND coupon_fl = 'N'
 		ORDER BY coupon_due_date
 	</select>
 	
