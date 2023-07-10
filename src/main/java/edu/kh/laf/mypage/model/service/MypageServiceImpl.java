@@ -204,8 +204,21 @@ public class MypageServiceImpl implements MypageService {
 		
 		// 포인트 누적액. 누적 사용액 조회
 		List<Map<String, Long>> sumList = mapper.selectAccumulatedPoints(paramMap);
-		long accumulatedPoint = Long.parseLong(String.valueOf(sumList.get(0).get("pointSum")));
-		long accumulatedUsedPoint = Long.parseLong(String.valueOf(sumList.get(1).get("pointSum")));
+		
+		long accumulatedPoint = 0;
+		long accumulatedUsedPoint = 0;
+		
+		for(Map<String, Long> map : sumList) {
+			if(String.valueOf(map.get("pointSort")).equals("G")) {
+				accumulatedPoint = Long.parseLong(String.valueOf(map.get("pointSum")));
+			};
+			if(String.valueOf(map.get("pointSort")).equals("U")) {
+				accumulatedUsedPoint = Long.parseLong(String.valueOf(map.get("pointSum")));
+			};
+		}
+		
+//		long accumulatedPoint = Long.parseLong(String.valueOf(sumList.get(0).get("pointSum")));
+//		long accumulatedUsedPoint = Long.parseLong(String.valueOf(sumList.get(1).get("pointSum")));
 		
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("pagination", pagination);
