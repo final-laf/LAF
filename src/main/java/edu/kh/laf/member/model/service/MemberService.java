@@ -20,7 +20,7 @@ public interface MemberService {
 	 * @return result
 	 */
 	int signUp(Member inputMember);
-
+	
 	/** 아이디 중복 검사 서비스
 	 * @param nickname
 	 * @return result
@@ -33,6 +33,18 @@ public interface MemberService {
 	 * @return count
 	 */
 	int checkEmail(String email);
+	
+	/** 회원 가입 기념 적립금 2000원 지급
+	 * @param memberId
+	 */
+	int insertSignupPoint(String memberId);
+
+	/** 적립한 포인트를 회원 정보에 반영
+	 * @param memberId
+	 * @return
+	 */
+	int updateSignupPoint(String memberId);
+	
 	
 	/** 랜덤한 패스워드 생성
 	 * @return memberPw
@@ -124,6 +136,8 @@ public interface MemberService {
 	 * @return member
 	 */
 	Member selectMemberById(Member member);
+
+
 
 
 

@@ -443,5 +443,44 @@ DELETE FROM `member` WHERE member_no = 81;
   FROM `member`
   WHERE MEMBER_DEL_FL = 'N'
   AND MEMBER_ID = 'user01';
+ 
+ SELECT * FROM `click`;
+ SELECT * FROM `cart`;
+ SELECT * FROM `member`;
+DELETE FROM `member` WHERE member_no = 85;
+COMMIT;
 
+
+SELECT * FROM `point` WHERE member_no = 83;
+DELETE FROM `point` WHERE member_no = 83;
+COMMIT;
+SELECT * FROM `point`;
+
+INSERT INTO `point` 
+VALUES ( NULL,
+		member_no = 3,
+		'G',
+		2000,
+		20230101,
+		date_add(now(), INTERVAL 1 month),
+		'회원 가입 기념 적립금 2,000원 지급',
+		null
+		);
 			
+
+insert into `point`
+values 
+		(null
+		,(SELECT member_no FROM `member` WHERE member_id = 'user01')
+		,'G'
+		,'2000'
+		,now()
+		,date_add(now(), INTERVAL 1 month)
+		,'회원 가입 기념 적립금'
+		,null)	
+		;
+	
+		
+SELECT * FROM `point` ORDER BY point_no desc;
+
+SELECT member_no FROM `member` WHERE member_id = 'user01';
