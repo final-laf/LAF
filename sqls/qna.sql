@@ -14,6 +14,7 @@ create table `qna` (
 	`qna_answer`	TEXT	null	comment '답글 내용'
 );
 COMMIT;
+SELECT * FROM `member`;
 SELECT * FROM `qna`;
 -- insert구문
 -- INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);
@@ -28,6 +29,18 @@ SELECT qna_no, q.member_no, qna_category, qna_title, member_name, SUBSTRING_INDE
 -- update구문
 -- UPDATE qna SET (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw}, NULL, default) WHERE pnaNo
 ;
-SELECT * FROM product_img;
-SELECT p.product_no , p.product_name , pi.img_path thumbnail_path
-FROM product p JOIN product_img pi ON p.product_no =pi.product_no WHERE p.product_name LIKE '%스%' AND pi.thumb_fl='Y';
+SELECT * FROM  `order`; 
+SELECT  op.review_no,
+		r.review_delete_fl,
+		op.order_no,
+	    op.product_no, 
+	    op.option_no, 
+	    o.order_date,
+	    (SELECT order_uno FROM `order`o WHERE member_no=90 AND op.order_no=o.order_no) order_uno,
+	    op.count, 
+	    TRUNCATE((SELECT AVG(review_score) FROM review r WHERE r.review_delete_fl='N' AND op.product_no =r.product_no),1) review_score_avg, 
+	    (SELECT COUNT(*) FROM review r WHERE r.product_no=op.product_no) review_Count  
+FROM `order_product` op LEFT JOIN `order` o ON op.order_no =o.order_no LEFT JOIN review r ON op.review_no=r.review_no
+WHERE op.order_no=(SELECT so.order_no FROM `order` so WHERE member_no=90 AND op.order_no=so.order_no)
+AND (r.review_delete_fl = 'Y' OR op.review_no IS NULL) 
+ORDER BY order_date DESC
