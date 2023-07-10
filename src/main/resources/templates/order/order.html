@@ -33,15 +33,13 @@
             <tr>
               <th>이메일</th>
               <td>
-                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmailSocial"  type="text"> <!-- 소셜로그인일 때 -->
-                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
+                <input name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTelSocial" type="text"> <!-- 소셜로그인일 때 -->
-                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
+                <input name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
               </td>
             </tr>
             <tr>
@@ -81,6 +79,12 @@
               </td>
             </tr>
           </table>
+          <div id="SocialLoginArea">
+            <div>
+              <input type="checkbox" id="memberSocialUpdate" name="memberSocialUpdate">
+              <label for="memberSocialUpdate">회원 정보로 등록</label>
+            </div>
+          </div>
         </div>
         <!-- 배송지 -->
         <div class="mypageOrder-mainFrame-order">

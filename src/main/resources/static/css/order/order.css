@@ -4,7 +4,7 @@
 }
 
 .mypageOrder-mainFrame-order{
-  width: 9700px;
+  width: 970px;
   margin: 80px 0 0 0;
 }
 .mypageOrder-order-text{
@@ -23,7 +23,6 @@
 .mypageOrder-mainFrame-order table{
   border-top: 0.5px solid #eee;
   width: 970px;
-  margin-bottom: 40px;
 }
 .mypageOrder-mainFrame-order th{
   padding-left: 15px;
@@ -354,4 +353,23 @@
 #paymentBtn:hover{
   background-color: #7f7698;
   pointer-events: initial;
+}
+
+#SocialLoginArea {
+  display: none;
+}
+
+#memberSocialUpdate {
+  width: auto;
+}
+
+#SocialLoginArea > div {
+  display: flex;
+  justify-content: end; 
+  align-items: center;
+}
+
+#SocialLoginArea > div > *{
+  margin-left: 5px;
+  font-weight: normal;
 }
