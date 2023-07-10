@@ -132,6 +132,11 @@ label[for='menuList'] {
 
 
 /* catagory menu */
+.header-nav-catagory {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
 .header-nav-catagory-menu {
   display: flex;
   justify-content: center;
@@ -167,9 +172,9 @@ label[for='menuList'] {
 
 /* 검색창 */
 #query {
-  position: absolute;
-  bottom: 12px;
-  right: 135px;
+  /* position: absolute; */
+  /* bottom: 12px; */
+  /* right: 135px; */
   background-color: white;
 }
 #searchCheckbox + #query { 
