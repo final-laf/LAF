@@ -13,7 +13,7 @@ create table `qna` (
 	`qna_pw`		int	null	comment '문의 비밀글 비밀번호',
 	`qna_answer`	TEXT	null	comment '답글 내용'
 );
-
+COMMIT;
 SELECT * FROM `qna`;
 -- insert구문
 -- INSERT INTO qna VALUES (default, #{memberNo}, #{orderNo}, #{productNo}, #{qnaCategory}, #{qnaTitle}, #{qnaContent}, DEFAULT, #{qnaLockFl}, #{qnaPw} ,default);

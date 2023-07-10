@@ -108,10 +108,10 @@ public class QnaController {
 		}
 		if(qna.getQnaLockFl()!=null) {
 			if(qna.getQnaLockFl().equals("on")) {
-				qna.setQnaLockFl("y");
+				qna.setQnaLockFl("Y");
 			}
 		}else {
-			qna.setQnaLockFl("n");
+			qna.setQnaLockFl("N");
 		}
 		if(qna.getQnaCategory().equals("etc")) {
 			qna.setQnaCategory("일반");
@@ -132,7 +132,7 @@ public class QnaController {
 	public String update(Qna qna, Model model){
 		String path = "redirect:/qna/detail/";
 		path+=qna.getQnaNo();
-		
+		System.out.println(qna);
 		if(qna.getMemberNo()==0) {
 			qna.setMemberNo(35);
 		}
@@ -145,10 +145,10 @@ public class QnaController {
 		if(qna.getQnaPw()=="") {
 			qna.setQnaPw(null);
 		}
-		if(qna.getQnaLockFl().equals("on")) {
-			qna.setQnaLockFl("y");
+		if(qna.getQnaLockFl()==null||qna.getQnaLockFl().equals("N")) {
+			qna.setQnaLockFl("N");
 		}else {
-			qna.setQnaLockFl("n");
+			qna.setQnaLockFl("Y");
 		}
 		if(qna.getQnaCategory().equals("etc")) {
 			qna.setQnaCategory("일반");
@@ -163,7 +163,7 @@ public class QnaController {
 		return path;
 	}
 	
-	// 기능: 1:1 문의 수정하기
+	// 기능: 1:1 문의 답변하기
 	@PostMapping("/qna/answer")
 	
 	public String answer(Qna qna, Model model){

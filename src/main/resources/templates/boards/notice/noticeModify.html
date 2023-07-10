@@ -16,8 +16,9 @@
   <main>
 
 
-    <form action="/notice/insert" id="submitNotice" method="get">
-      <section class="board-list">
+    <form action="/notice/update" method="get" id="submitNotice">
+      <section class="board-list" th:with="notice=${notice}">
+        <input type="hidden" name="noticeNo" th:value="${notice.noticeNo}">
         <div class="section-header">
           <div class="section-title">NOTICE</div>
         </div>
@@ -28,30 +29,28 @@
           <a href="/faq"><div class="sub-category">FAQ</div></a>
           <a href="/review"><div class="sub-category">REVIEW</div></a>
         </div>
-
+  
         <!-- 게시판 -->
-      
         <div class="list-wrapper">
           <table class="detail-list-table">
             <tr>
               <td>TITLE</td>
-              <td><input type="text" id="noticeTitle" name="noticeTitle" placeholder="제목 입력"></td>
+              <td><input type="text" id="noticeTitle" name="noticeTitle" placeholder="제목 입력" th:value="${notice.noticeTitle}"></td>
             </tr>
           </table>
           <div class="write-list-contents">
-            <textarea id="noticeContent" name="noticeContent"></textarea>
+            <textarea id="noticeContent" name="noticeContent" th:text="${notice.noticeContent}" ></textarea>
           </div>
         </div>
-    
-
-
+  
         <!-- 하단 버튼 영역 -->
-        <div class="detail-btn-area write-btn-area">
+        <div class="detail-btn-area">
           <div>
-            <a href="/notice"><button class="write-btn" type="button">LIST</button></a>
+            <a href="/notice"><button class="write-btn" type="button">LIST</button></a>                   
           </div>
-          <div>
-            <button id="writeNotice" class="write-btn submit" type="submit">SUBMIT</button>                     
+          <div th:if="${session.loginMember?.memberGrade=='A'}">
+            <button id="noticeDelete" type="button" th:value="${notice.noticeNo}">DELETE</button>                     
+            <button class="submit" id="noticeModify" th:value="${notice.noticeNo}">SUBMIT</button>                     
           </div>
         </div>
       </section>
