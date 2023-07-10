@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String insertOrder(Order order, Map<String, Object> orderData, Member loginMember) {
-	
+		System.out.println(order);
 		// 주문자 번호 세팅
 		// 비회원인 경우
 		if( loginMember == null) {
@@ -133,7 +133,11 @@ public class OrderServiceImpl implements OrderService{
 		order.setOrderUno(orderKey);
 		
 		// 주문상태 세팅(주문접수)
-		order.setOrderState("A");
+		if(order.getPayment() == "1") {
+			order.setOrderState("A");
+		}else {
+			order.setOrderState("B");
+		}
 		// 주문내역 추가
 		int result = mapper.insertOrder(order);
 		if(result == 0) {
