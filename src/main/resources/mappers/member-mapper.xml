@@ -286,6 +286,33 @@
 	  WHERE MEMBER_DEL_FL = 'N'
 	  AND MEMBER_ID = #{memberId}
 	</select>
+	
+	<!-- 멤버 수 추이 조회 -->
+	<select id="getMemeberStatistics">
+		SELECT master.`date` as `date`, master.`count` AS `count`, ifnull(tb.`count`, 0) as count2
+		from (
+			SELECT DATE_FORMAT(m.member_enroll_date, '\'%y.%m') `date`, count(*) `count`
+			FROM `member` m
+			WHERE m.member_del_fl='N' 
+				AND m.member_not='N'
+				AND m.member_enroll_date >= DATE_SUB(NOW(), INTERVAL 3 YEAR)
+			GROUP BY `date`
+		) master	
+		LEFT JOIN (	
+			SELECT tb.`date`, count(*) AS `count`
+			FROM (
+			SELECT 
+				IFNULL(DATE_FORMAT(date_add(max(order_date), INTERVAL 1 month), '\'%y.%m'), DATE_FORMAT(date_add(member_enroll_date, INTERVAL 1 MONTH), '\'%y.%m')) `date`
+			FROM `order`
+				right JOIN `member` ON `member`.member_no = `order`.member_no
+			WHERE order_date <![CDATA[<]]> DATE_SUB(NOW(), INTERVAL 1 MONTH) 
+				OR (order_date IS NULL AND member_enroll_date <![CDATA[<]]> DATE_SUB(NOW(), INTERVAL 1 MONTH))
+			GROUP BY `member`.member_no
+			) AS tb
+			GROUP BY `date`		
+		) tb ON tb.`date` = master.`date`
+		order by `date`
+	</select>
 
 	
 </mapper>

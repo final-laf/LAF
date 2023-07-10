@@ -452,5 +452,25 @@
 			null
 		)
 	</insert>
+	
+	<!-- 상품 현황(관리자) -->
+	<!-- 안전재고 미만, 판매 상품 갯수, 품절 상품 갯수, 비공개 상품 갯수 -->
+	<select id="productStatistics">
+		SELECT count(*)
+		FROM (
+			SELECT `product`.product_no, sum(stock)
+			FROM `product`
+				JOIN `option` ON `product`.product_no = `option`.product_no
+			WHERE product_state='O'
+			GROUP BY `product`.product_no
+			HAVING sum(stock) <![CDATA[<]]> 10
+		) tb
+		UNION ALL
+		SELECT count(*) FROM `product` WHERE product_state='O'
+		UNION ALL
+		SELECT count(*) FROM `product` WHERE product_state='S'
+		UNION ALL
+		SELECT count(*) FROM `product` WHERE product_state='N'
+	</select>
 
 </mapper>

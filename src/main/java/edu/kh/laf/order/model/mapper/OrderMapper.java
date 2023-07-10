@@ -144,5 +144,5 @@ public interface OrderMapper {
 	public long getRevenueToday();
 	
 	// 오늘 결제 확인
-	public long getPaymentToday();
+	public Long getPaymentToday();
 }

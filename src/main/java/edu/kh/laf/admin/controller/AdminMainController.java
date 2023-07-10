@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.laf.main.model.dto.Banner;
 import edu.kh.laf.main.model.service.MainService;
+import edu.kh.laf.member.model.service.MemberService;
 import edu.kh.laf.order.model.service.OrderService;
 import edu.kh.laf.product.model.service.CategoryService;
 import edu.kh.laf.product.model.service.ProductService;
@@ -34,10 +35,13 @@ public class AdminMainController {
 	private ProductService productService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private MemberService memberService;
 	
 	// 대쉬보드
 	@GetMapping("/admin")
 	public String admin(Model model) {
+		model.addAttribute("productStatistics", productService.productStatistics());
 		return "admin/dashboard";
 	}
 	
@@ -72,6 +76,20 @@ public class AdminMainController {
 	@ResponseBody
 	public List<Map<String, Object>> getRevenueYear() {
 		return orderService.getRevenueYear();
+	}
+	
+	// 카테고리별 판매량 조회
+	@GetMapping("/admin/statistics/category")
+	@ResponseBody
+	public List<Map<String, Object>> getCategoryStatistics() {
+		return categoryService.getCategoryStatistics();
+	}
+	
+	// 회원 수 추이 조회
+	@GetMapping("/admin/statistics/member")
+	@ResponseBody
+	public List<Map<String, Object>> getMemeberStatistics() {
+		return memberService.getMemeberStatistics();
 	}
 	
 	// 메인화면관리 : 배너관리

@@ -411,4 +411,10 @@ public class ProductServiceImpl implements ProductService {
 		return mapper.selectRecommendList(productList.get(0).getProductNo());
 	}
 
+	// 상품 현황(관리자)
+	@Override
+	public List<String> productStatistics() {
+		return mapper.productStatistics();
+	}
+
 }

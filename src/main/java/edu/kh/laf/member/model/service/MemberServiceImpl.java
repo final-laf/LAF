@@ -299,6 +299,12 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.login(member);
 	}
 
+	// 멤버 수 추이 조회(최대 3년)
+	@Override
+	public List<Map<String, Object>> getMemeberStatistics() {
+		return mapper.getMemeberStatistics();
+	}
+
 
 
 
