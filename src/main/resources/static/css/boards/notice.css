@@ -32,7 +32,15 @@
   background-color: #fafafa;
   transition-duration: 0.2s;
 }
-
+/* 게시자 등급 */
+.noticeMemberGrade{
+  height: 25%;
+  width: 25px;
+}
+.noticeMember{
+  display: flex;
+  align-items: center;
+}
 
 /* 게시판 상세 */
 /* 게시판 상세 상단 */
