@@ -618,7 +618,7 @@ function requestPay() {
   IMP.request_pay({
     pg : payHow == '2' ? 'kcp.A52CY' : 'kakaopay.TC0ONETIME' ,
     merchant_uid: orderMember.memberNo + new Date().getTime(), // 상점에서 관리하는 주문 번호
-    name : document.getElementById('productName').value,
+    name : document.getElementById('productName').innerText,
     amount : document.querySelector('[name="orderPayment"]').value,
     buyer_email : document.getElementById('orderEmail').value,
     buyer_name : document.getElementById('orderName').value,
@@ -637,3 +637,9 @@ function requestPay() {
 
 
 
+/* 
+tosspay
+payco
+kakaopay.TC0ONETIME
+
+*/
