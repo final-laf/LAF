@@ -618,21 +618,33 @@ public class OrderServiceImpl implements OrderService{
 		return mapper.getRevenue();
 	}
 
+	// 월별 매출 조회
 	@Override
 	public List<Map<String, Object>> getRevenueMonth() {
 		return mapper.getRevenueMonth();
 	}
 
+	// 연도별 매출 조회
 	@Override
 	public List<Map<String, Object>> getRevenueYear() {
 		return mapper.getRevenueYear();
 	}
+
+	// 일별 매출 조회
+	@Override
+	public long getRevenueToday() {
+		return mapper.getRevenueToday();
+	}
 	
+	// 오늘 결제 확인
+	@Override
+	public long getPaymentToday() {
+		return mapper.getPaymentToday();
+	}
+
 	// 주문번호로 회원번호 조회
 	@Override
 	public int selectCompletOrderNo(int orderNo) {
 		return mapper.selectCompletOrderNo(orderNo);
 	}
-	
-	
 }

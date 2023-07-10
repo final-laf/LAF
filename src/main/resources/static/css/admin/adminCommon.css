@@ -1,3 +1,7 @@
+body {
+    background-color: #F9F4F5 !important;
+}
+
 /* header */
 header {
     width: 100%;
@@ -30,7 +34,6 @@ main{
     display: flex;
     padding: 60px 0 150px;
     background-color: #F9F4F5 !important;
-
 }
 
 /* sidebar */

@@ -122,9 +122,8 @@
 	</select>
 	
 	<!-- 카테고리 별 주간 판매량 순위 -->
-	<!-- TODO: 주문 집계가 되면 판매량으로 재정렬 필요 -->
 	<select id="selectWeeklyBest" resultType="Product">
-		SELECT `product`.product_no,
+		select p.product_no,
 				product_name,
 				product_price,
 				product_sale_price,
@@ -132,18 +131,24 @@
 				product_point,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
-				click_count,
 				img_path AS thumbnail_path,
-				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
-				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
-		FROM   `product`
-				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
-				JOIN `product_category` ON `product`.product_no = `product_category`.product_no
-		WHERE  thumb_fl  = 'Y' -- 썸네일 반드시 필요
-				AND parent_category_no = ${categoryNo}
-				and product_state = 'O' -- 판매중
-		ORDER BY click_count asc, product_sale_price desc
-		LIMIT ${limit}
+				(SELECT count(*) FROM `like` WHERE  p.product_no = `like`.product_no) AS like_count,
+				(SELECT count(*) FROM `review` WHERE p.product_no = `review`.product_no) AS review_count,
+				(select sum(sell_count) from `option` where p.product_no = `option`.product_no) as sell_count
+		from `product` p
+				left join (
+					select op.product_no as product_no, sum(`count`) as `count`
+					from `order_product` op
+								join `order` on `order`.order_no = op.order_no
+								join `product_category` c on op.product_no = c.product_no
+					where parent_category_no = ${categoryNo} and order_date > DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 7 DAY), '%Y-%m-%d')
+					group by product_no
+				) op on op.product_no = p.product_no 
+				join `product_category` c on p.product_no = c.product_no
+				JOIN `product_img` ON p.product_no = `product_img`.product_no
+		where parent_category_no = ${categoryNo} and product_state = 'O' and thumb_fl = 'Y'
+		order by op.`count` desc, sell_count desc, review_count desc, like_count desc, product_date desc
+		limit ${limit}
 	</select>
 	
 	<!-- 카테고리별 상품 목록 조회 -->
@@ -218,7 +223,6 @@
 	</select>
 	
 	<!-- 개인별 맞춤 상품 추천 -->
-	<!-- TODO: 개발 진행 후 알고리즘 개선 필요 -->
 	<select id="selectPersonalProductList" resultType="Product">
 		SELECT `product`.product_no,
 				product_name,
@@ -228,20 +232,19 @@
 				product_point,
 				product_state,
 				DATE_FORMAT(product_date, '%Y-%m-%d') AS product_date,
-				click_count,
 				img_path AS thumbnail_path,
 				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
-				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count,
+				(select sum(sell_count) from `option` where `product`.product_no = `option`.product_no) as sell_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
 		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
 				and product_state = 'O' -- 판매중
-		ORDER BY click_count asc, product_sale_price desc
+		ORDER BY sell_count desc, product_sale_price desc
 		LIMIT 20
 	</select>
 	
-	<!-- 추천 상품 추천 -->
-	<!-- TODO: 개발 진행 후 알고리즘 개선 필요 -->
+	<!-- 추천 상품 -->
 	<select id="selectRecommendList" resultType="Product">
 		SELECT `product`.product_no,
 				product_name,
@@ -254,12 +257,13 @@
 				click_count,
 				img_path AS thumbnail_path,
 				(SELECT count(*) FROM `like` WHERE  `product`.product_no = `like`.product_no) AS like_count,
-				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count
+				(SELECT count(*) FROM `review` WHERE  `product`.product_no = `review`.product_no) AS review_count,
+				(select sum(sell_count) from `option` where `product`.product_no = `option`.product_no) as sell_count
 		FROM   `product`
 				JOIN `product_img` ON `product`.product_no = `product_img`.product_no
 		WHERE  	thumb_fl  = 'Y' -- 썸네일 반드시 필요
 				and product_state = 'O' -- 판매중
-		ORDER BY click_count asc, product_sale_price desc
+		ORDER BY sell_count desc, product_sale_price desc
 		LIMIT 20
 	</select>
 	

@@ -140,5 +140,9 @@ public interface OrderMapper {
 	// 주문번호로 회원번호 조회
 	public int selectCompletOrderNo(int orderNo);
 	
-
+	// 오늘 매출 조회
+	public long getRevenueToday();
+	
+	// 오늘 결제 확인
+	public long getPaymentToday();
 }

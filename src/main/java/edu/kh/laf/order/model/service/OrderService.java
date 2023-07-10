@@ -152,10 +152,21 @@ public interface OrderService {
 	  */
 	 List<Map<String, Object>> getRevenueYear();
 
+	 /**
+	  * 일별 매출 조회
+	  * @return revenue
+	  */
+	 long getRevenueToday();
+
+	 /**
+	  * 오늘 결제 확인
+	  * @return today's total payment
+	  */
+	 long getPaymentToday();
+  
 	/** 주문번호로 회원번호 조회
 	 * @param orderNo
 	 * @return
 	 */
 	int selectCompletOrderNo(int orderNo);
-	 
 }

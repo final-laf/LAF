@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.laf.main.model.dto.Banner;
 import edu.kh.laf.main.model.service.MainService;
+import edu.kh.laf.order.model.service.OrderService;
 import edu.kh.laf.product.model.service.CategoryService;
 import edu.kh.laf.product.model.service.ProductService;
 import jakarta.servlet.ServletContext;
@@ -31,11 +32,46 @@ public class AdminMainController {
 	private CategoryService categoryService;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private OrderService orderService;
 	
 	// 대쉬보드
 	@GetMapping("/admin")
-	public String admin() {
+	public String admin(Model model) {
 		return "admin/dashboard";
+	}
+	
+	// 대쉬보드 : 오늘 주문 현황
+	@GetMapping("/admin/today")
+	@ResponseBody
+	public List<Map<String, String>> today() {
+		List<Map<String, String>> mapList = orderService.selectTodayOrderState();
+		Map<String, String> map = new HashMap<>();
+		map.put("todayRevenue", String.valueOf(orderService.getRevenueToday()));
+		map.put("todayPayment", String.valueOf(orderService.getPaymentToday()));
+		mapList.add(map);
+		return mapList;
+	}
+	
+	// 일별 매출 조회 (30일 전까지만 조회)
+	@GetMapping("/admin/revenue")
+	@ResponseBody
+	public List<Map<String, Object>> getRevenue() {
+		return orderService.getRevenue();
+	}
+	
+	// 월별 매출 조회 (12개월)
+	@GetMapping("/admin/revenue/month")
+	@ResponseBody
+	public List<Map<String, Object>> getRevenueMonth() {
+		return orderService.getRevenueMonth();
+	}
+	
+	// 연도별 매출 조회
+	@GetMapping("/admin/revenue/year")
+	@ResponseBody
+	public List<Map<String, Object>> getRevenueYear() {
+		return orderService.getRevenueYear();
 	}
 	
 	// 메인화면관리 : 배너관리
@@ -74,13 +110,6 @@ public class AdminMainController {
 		model.addAttribute("categoryList", categoryService.selectAllCategoryList());
 		return "admin/adminMain/category";
 	}
-	
-//	// 카테고리 상품 갯수 조회(관리자)
-//	@GetMapping("/admin/category/empty")
-//	@ResponseBody
-//	public int category(long pcno, long ccno) {
-//		return productService.adminGetListCount(pcno, ccno);
-//	}
 	
 	// 카테고리 순서 변경
 	@PostMapping("/admin/category/save")
