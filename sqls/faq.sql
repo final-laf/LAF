@@ -7,22 +7,6 @@ create table `faq` (
 	`faq_category`	char(1)	null	comment '1(상품), 2(배송), 3(교환반품), 4(기타)',
 	`faq_order`	int	null
 );
-SELECT 
-	subquery.faq_no,
-	subquery.faq_title,
-	subquery.faq_content
-	
-FROM 
-	(SELECT 
-		faq_no,
-		faq_title,
-		faq_content,
-		(SELECT count(*) FROM faq a WHERE a.faq_title LIKE '%주문%' AND a.faq_no=f.faq_no)+
-		(SELECT count(*) FROM faq a WHERE a.faq_title LIKE '%취소%' AND a.faq_no=f.faq_no)+
-		(SELECT count(*) FROM faq a WHERE a.faq_title LIKE '%배송%' AND a.faq_no=f.faq_no) AS count
-	FROM faq f 
-	ORDER BY count DESC) AS subquery
-WHERE count>0;
 
 SELECT * FROM faq WHERE faq_title LIKE '%취소%' AND faq_title LIKE '%주문%';
 INSERT INTO faq values(DEFAULT, '주문한 상품이 갑자기 취소되었다고 연락왔어요!', '입금 후 공장측 원단문제로 더 이상 제작이 어려운 경우 저희 LAF에서는 빠른 배송을 위해 품절 상품 취소처리 도와드리고 있는 점 양해부탁드립니다:)', '1', '1');

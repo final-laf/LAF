@@ -15,9 +15,10 @@ import lombok.ToString;
 @ToString
 public class Review {
 	private String memberId; 		 // 주문자 id
+	private String memberGrade;      // 주문자 등급
 	private String memberName; 		 // 주문자 네임
-	private String orderDate;		// 주문
-	private long memberNo;			// 주문자 넘버
+	private String orderDate;		 // 주문
+	private long memberNo;			 // 주문자 넘버
 	private String orderUno;		 // 주문고유번호
 	private long reviewNo; 			 // 리뷰 번호
 	private String reviewContent; 	 // 리뷰 내용
@@ -33,6 +34,6 @@ public class Review {
 	private Option option; 			 // 옵션
 	private long count;				 // 수량
 	
-	private double reviewScoreAvg;  	 // 후기 점수 평균
+	private double reviewScoreAvg;  	   // 후기 점수 평균
 	private int reviewCount;
 }
