@@ -183,6 +183,7 @@
 	<select id="selectAccumulatedPoints" resultMap="sumPoint_rm">
 		SELECT point_sort, SUM(point_amount) point_sum
 		FROM `point` 
+		WHERE member_no = #{memberNo}
 		GROUP BY point_sort
 	</select>
     
