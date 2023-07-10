@@ -27,7 +27,7 @@ for(let review of reviewDetail) {
       reviewNo= e.target.parentElement.parentElement.getAttribute("value")
     }
     
-
+    // 리뷰 상세정보
     fetch("/review/detailReview?reviewNo="+reviewNo)  
     .then(review => review.json()) 
     .then(review => {
@@ -57,10 +57,12 @@ for(let review of reviewDetail) {
       document.getElementById("reviewDetailModalProductNo").href="/product/"+review.productNo;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;
       document.getElementById("reviewDetailProduct").src=review.product.thumbnailPath;
+      document.getElementById("reviewModifyProduct").src= review.product.thumbnailPath;
       if (document.getElementById("bestReview")!=null) {
         
         document.getElementById("bestReview").style.display = "flex";
       }
+      // 베스트 리뷰 체크
       for(let b of bestReviewNoList){
         if (b.reviewNo==review.reviewNo) {
           if (document.getElementById("bestReview")!=null) {
@@ -78,6 +80,7 @@ for(let review of reviewDetail) {
         document.getElementById("reviewDetailModalModifyBtn").style.display = "flex";
         document.getElementById("reviewDetailModalDeleteBtn").style.display = "flex";
       }
+      // 리뷰 이미지 넣기
       for (let i = 0; i < review.reviewImg.length; i++) {
         for (let index = 0; index < 5; index++) {
           if (review.reviewImg[i].reviewImgOrder==index) {
@@ -117,7 +120,6 @@ for(let review of reviewDetail) {
       reviewScore=review.reviewScore
       reviewNum=review.reviewNo
       orderNo=review.orderNo
-      // document.getElementById("reviewModalName").innerText="review.memberName";
     }) 
     .catch (e => { console.log(e)}); 
 
@@ -179,6 +181,7 @@ if (document.getElementById("reviewDetailModalModifyBtn")!=null) {
     document.getElementById("reviewModifyModalStar").value=reviewScore;
     document.getElementById("reviewModalTextScore").value=reviewScore;
     document.getElementById("reviewModifyModalStar").value=reviewScore;
+   
 
     let i = (122/5*reviewScore);
     let color = Math.abs(74/5* reviewScore - 160)
@@ -434,4 +437,13 @@ if (bestReviewCan!=null) {
     bestModal.style.display = "none";
   });
   
+}
+
+if(document.getElementById("reviewSubmit")!=null){
+  document.getElementById("reviewSubmit").addEventListener("submit", e=> {
+    if(document.getElementById("reviewContent")==""){
+      alert("리뷰 내용을 입력주세요.")
+      e.preventDefault();
+    }
+  })
 }

@@ -92,6 +92,15 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.deleteNotice(noticeNo);
 	}
 
+	/** 공지사항 수정
+	 * @return 
+	 *
+	 */
+	@Override
+	public int updateNotice(Notice notice) {
+		return mapper.updateNotice(notice);
+	}
+
 
 
 

@@ -75,4 +75,25 @@ public class NoticeController {
 		return "";
 	}
 	
+	// 공지사항 수정페이지
+	@GetMapping("/notice/modify/{no:[0-9]+}")
+	public String modify(@PathVariable String no,Model model) {
+		Notice notice = service.detailNotice(no);
+		model.addAttribute("notice", notice);
+		return "boards/notice/noticeModify";
+	}
+	
+	// 공지사항 수정
+	@GetMapping("/notice/update")
+	public String update(Notice notice,
+			Model model
+			){
+		System.out.println(notice);
+		int i = service.updateNotice(notice);
+		if(i==0) {
+			
+		}
+		return "redirect:/notice";
+	}
+	
 }

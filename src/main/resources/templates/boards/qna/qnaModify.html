@@ -191,8 +191,8 @@
             </tr>
             <tr>
               <td>LOCK.</td>
-              <td th:if="${qna.qnaLockFl}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부" checked>&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
-              <td th:unless="${qna.qnaLockFl}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부">&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
+              <td th:if="${qna.qnaLockFl=='Y'}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부" checked>&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
+              <td th:if="${qna.qnaLockFl=='N'}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부">&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
             </tr>
           </table>
           <div class="write-list-contents">

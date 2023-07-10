@@ -43,7 +43,7 @@
           <!-- 게시판 본문 -->
           <tbody>
             <tr th:each="q, index:${qnaList}" th:value="${q.qnaNo}" th:writerNo="${q.memberNo}" th:memberNo="${session.loginMember?.memberNo}" th:fl="${q.qnaLockFl}">
-              <div th:if="${q.qnaLockFl=='n'}">
+              <div th:if="${q.qnaLockFl=='N'}">
                 <td th:text="${index.index+1}">번호</td>
                 <td th:text="${q.qnaCategory}">qna카테고리</td>
                 <td th:text="${q.qnaTitle}">제목</td>
@@ -73,7 +73,7 @@
                 </td>
                 <td th:text="${q.qnaCreateDate}">작성일</td>
               </div>
-              <div th:if="${q.qnaLockFl=='y'}">
+              <div th:if="${q.qnaLockFl=='Y'}">
                 <td th:text="${index.index+1}">번호</td>
                 <td th:text="${q.qnaCategory}">qna카테고리</td>
                 <td th:text="${'[비밀글] '+q.qnaTitle}">제목 input</td>

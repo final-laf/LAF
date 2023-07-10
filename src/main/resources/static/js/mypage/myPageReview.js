@@ -97,7 +97,6 @@ for(let review of modifyReview) {
           }
         }
       }
-      console.log(review.reviewImg)
 
       for (let i = 0; i < review.reviewImg.length; i++) {
         for (let index = 0; index < 5; index++) {
@@ -149,9 +148,20 @@ if (modal!=null) {
 
 /* 모달창 내부 닫기 버튼 */
 
-const modalClose = document.getElementsByClassName("review-modal-close")[1];
+const modalClose = document.getElementsByClassName("review-modal-close")[0];
 if (modalClose!=null) {
   modalClose.addEventListener("click", e => {
+    modal.style.display = "none";
+    document.body.style.removeProperty('overflow');
+    document.getElementById("reviewScoreColor").style.width=0+"px";
+  });
+  
+}
+/* 수정모달창 내부 닫기 버튼 */
+
+const modalModifyClose = document.getElementsByClassName("review-modal-close")[1];
+if (modalModifyClose!=null) {
+  modalModifyClose.addEventListener("click", e => {
     modal.style.display = "none";
     document.body.style.removeProperty('overflow');
     document.getElementById("reviewScoreColor").style.width=0+"px";
@@ -302,5 +312,15 @@ if (document.getElementById("listDelete")!=null) {
     alert(reviewNo)
     var url = "/review/delete?reviewNo="+reviewNo;
     location.href=url
+  })
+}
+// 리뷰 내용 확인
+if(document.getElementById("reviewSubmit")!=null){
+  document.getElementById("reviewSubmit").addEventListener("submit", e=> {
+
+    if(document.getElementById("reviewModifyModalContent").value.trim() === ""){
+      alert("리뷰 내용을 입력주세요.")
+      e.preventDefault();
+    }
   })
 }
