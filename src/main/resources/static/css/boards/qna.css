@@ -335,7 +335,7 @@ color: hsl(0, 0%, 44%);
 
 /* qna input부분 */
 #qnaOrderList{
-  z-index: 1;
+  z-index: 7;
   position: absolute;
   background-color: #eee;
   border-radius: 10px;
