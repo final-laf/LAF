@@ -64,6 +64,12 @@
   padding: 5px 0 5px 0;
 }
 
+#order_postcode {
+  width: 100px;
+  margin-right: 10px;
+}
+
+
 #sample6_postcode{
   padding-left: 15px;
   width: 150px;
@@ -353,23 +359,4 @@
 #paymentBtn:hover{
   background-color: #7f7698;
   pointer-events: initial;
-}
-
-#SocialLoginArea {
-  display: none;
-}
-
-#memberSocialUpdate {
-  width: auto;
-}
-
-#SocialLoginArea > div {
-  display: flex;
-  justify-content: end; 
-  align-items: center;
-}
-
-#SocialLoginArea > div > *{
-  margin-left: 5px;
-  font-weight: normal;
 }

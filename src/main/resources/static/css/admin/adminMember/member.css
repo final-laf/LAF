@@ -72,7 +72,7 @@
   display: flex;
   justify-content: space-between;
   align-items: end;
-  margin: 10px;
+  margin: 10px 0px;
 }
 
 .member-result-top button{
