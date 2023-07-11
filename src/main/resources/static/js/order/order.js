@@ -94,10 +94,11 @@ let totalPoint = 0; // 총적립금
 for (let i = 1; i < table.rows.length - 1; i++) {
   let row = table.rows[i];
   
-  let point = parseInt(row.cells[0].children[0].value)
   let quantity = parseInt(row.cells[3].innerText);
   let price = parseInt(row.cells[4].innerText.replace(",", ""));
   let rowAmount = quantity * price;
+  let point = parseInt(row.cells[0].children[0].value);
+  point = quantity * point;
 
   totalAmount += rowAmount; // 상품할인전 총금액
 
@@ -588,7 +589,7 @@ myShippingBtn.addEventListener('click', () => {
 });
 
 const shippingSelectBtn = document.getElementById('shippingSelectBtn');
-
+console.log(addressList);
 const addSelect = document.querySelectorAll('[name="addSelect"]');
 const addLists = document.getElementsByClassName("order-shipping-address");
 shippingSelectBtn.addEventListener('click', () => {
