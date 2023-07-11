@@ -436,11 +436,22 @@
 	
 	<!-- 일별 매출 조회 (30일 전까지만 조회) -->
 	<select id="getRevenue" resultType="map">
-		SELECT DATE_FORMAT(order_date, '%m / %d') AS `date`, sum(order_payment) AS revenue
-		FROM `order`
-		WHERE order_date >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
-			  and order_state != 'H' and order_state != 'L'
-		GROUP BY `date`
+		SELECT b.`date`, ifnull(a.revenue, 0) AS `revenue`
+		FROM 
+		(
+			SELECT DATE_FORMAT(order_date, '%m / %d') AS `date`, sum(order_payment) AS revenue
+			FROM `order`
+			WHERE order_state != 'H' and order_state != 'L'
+			GROUP BY `date`
+		) a
+		right join  
+		( 
+			select  @N := @N +1 AS n ,  
+					date_format( DATE_SUB(now() , interval @N -1 day),'%m / %d') as `date`  
+			from (`order`), (select @N:=0 from dual ) a  
+			limit 30
+		) b ON a.`date` = b.`date`
+		ORDER BY `date`
 	</select>
 	
 	<!-- 월별 매출 조회 (12개월) -->
