@@ -26,16 +26,20 @@ public class OrderInterceptor implements HandlerInterceptor  {
 			String num = arr[arr.length-1];
 			orderNo = Integer.parseInt(num);
 		
-			// 회원일때 
 			HttpSession session = request.getSession();
 			Member loginMember = (Member)session.getAttribute("loginMember");
+			Object memberPhone = session.getAttribute("memberPhone");
 			
-			if(loginMember != null) {
+			if(loginMember != null) { // 회원일때
 				// 주문번호로 회원번호 조회
 				long memberNo = service.selectCompletOrderNo(orderNo);
 				if(loginMember.getMemberNo() == memberNo) {
 					return HandlerInterceptor.super.preHandle(request, response, handler);
 				}
+			}
+			if(memberPhone != null) {
+				((HttpServletRequest) session).getSession().removeAttribute("memberPhone");
+				return HandlerInterceptor.super.preHandle(request, response, handler);
 			}
 				
 		}

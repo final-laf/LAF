@@ -45,7 +45,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
-@SessionAttributes({"loginMember", "likeList", "cartCount"})
+@SessionAttributes({"loginMember", "likeList", "cartCount", "memberPhone"})
 public class MemberController {
 
     @Autowired
@@ -279,12 +279,16 @@ public class MemberController {
 	public String signUp(String memberPhone
 				  		,String orderUno
 				  		,RedirectAttributes ra
-				  		,@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+				  		,@SessionAttribute(value = "loginMember", required = false) Member loginMember
+				  		,Model model) {
 		
 		if(loginMember != null) {
 			ra.addFlashAttribute("message", "회원은 마이페이지를 이용해 주시기 바랍니다");
 			return "redirect:/myPage";
 		}
+		
+		// 세션에 값세팅(인터셉터)
+		model.addAttribute("memberPhone",memberPhone);
 		
 		String path;
 		// orderNo Long 타입으로 바꿔주기
