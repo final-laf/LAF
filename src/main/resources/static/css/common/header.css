@@ -188,8 +188,8 @@ label[for='menuList'] {
 /* 로그인 시 출력되는 환영문구 */
 #searchCheckbox + #query + #welcome { 
   position: absolute;
-  right: 160px;
-  bottom: 15px;
+  right: 150px;
+  bottom: 16px;
 
   display: flex;
   align-items: center;
