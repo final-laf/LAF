@@ -50,7 +50,7 @@
       <label id="searchImgLabel" for="searchCheckbox">
         <img id="searchImg" src="/images/common/search.svg">
       </label>
-      <a th:if ="${loginMember.memberGrade == 'A'}" href="/admin"><img src="/images/common/admin1.svg"></a>
+      <a th:if ="${session.loginMember.memberGrade == 'A'}" href="/admin"><img src="/images/common/admin1.svg"></a>
       <a href="/myPage"><img src="/images/common/user.svg"></a>
       <a href="/logout"><img src="/images/common/logout1.svg"></a>
       <a href="/cart"><img src="/images/common/cart.svg"></a>
