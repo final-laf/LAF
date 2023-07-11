@@ -139,7 +139,7 @@
         <div>주문 상품 정보</div>
           <table class="mypageOrder-order-info" id="mypageOrderProduct">
             <tr>
-              <th width="70px"><input type="checkbox"></th>
+              <th width="70px"></th>
               <th width="70px">이미지</th>
               <th width="600px">상품정보</th>
               <th width="50px">수량</th>
@@ -148,7 +148,7 @@
             </tr>
             <tr th:each="order : ${orderList}">
               <td>
-                <input class="productPoint" type="checkbox" th:value=${order.product.productPoint}>
+                <input class="productPoint" type="hidden" th:value=${order.product.productPoint}>
               </td>
               <td width="70px"><img width="70px" th:src="${order.product.thumbnailPath}"></td>
               <td>
@@ -303,6 +303,7 @@
   <script th:inline="javascript">
     const orderMember = /*[[${orderMember}]]*/ "주문자 회원정보";
     const orderList = /*[[${orderList}]]*/ "주문상품정보";
+    const addressList = /*[[${addressList}]]*/ "주문상품정보";
   </script>
 
   <script src="/js/order/order.js"></script>
