@@ -104,7 +104,6 @@ public class OrderController {
 	@PostMapping("/order")
 	public String payment(Order order,
 						@RequestParam Map<String, Object> orderData ,
-						@RequestParam(value = "loginMember", required = false) String memberSocialUpdate ,
 						@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList,
 						HttpServletRequest req,
@@ -142,10 +141,6 @@ public class OrderController {
 					return "redirect:/cart";
 				}
 			}
-	        // 소셜 로그인 회원이고, 회원 정보로 등록을 체크했을 경우 회원정보 업데이트
-	        if(loginMember.getMemberSocial().equals("K") && memberSocialUpdate.equals("on")) {
-	           System.out.println("작업중");
-	        }
 		}
 		
 		if(loginMember != null) {
