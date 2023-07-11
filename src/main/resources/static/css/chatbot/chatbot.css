@@ -1,3 +1,7 @@
+.chatbot-shadow{
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, 0.25);
+}
+
 #chatbotIcon{
   display: none;
   width: 100%;
@@ -91,7 +95,7 @@
 .chat {
 	display: inline-block;
 	border-radius: 5px;
-	padding: 5px;
+	margin: 5px;
 	background-color: #eee;
 	text-align: left;
 	max-width: 500px;
@@ -139,11 +143,13 @@
   text-align: center;
   border-radius: 5px;
   height: auto;
+  cursor: pointer;
 }
 
 .chatbot-category:hover{
   transition-duration: 1s;
   background-color: #635292;
+  cursor: pointer;
 }
 
 .chatbot-answer{
@@ -155,11 +161,13 @@
   border-radius: 5px;
   height: auto;
   transition: all  1s;
+  cursor: pointer;
 }
 
 .chatbot-answer:hover{
   transition-duration: 1s;
   background-color: #635292;
+  cursor: pointer;
 }
 
 .chatbot-noAnswer{
@@ -171,11 +179,13 @@
   border-radius: 5px;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .chatbot-noAnswer:hover{
   transition-duration: 1s;
   background-color: #635292;
+  cursor: pointer;
 }
 
 
@@ -188,11 +198,13 @@
   border-radius: 5px;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .chatbot-list:hover{
   transition-duration: 1s;
   background-color: hsl(0, 0%, 67%);
+  cursor: pointer;
 }
 
 .chatbot-categoryList{
@@ -203,11 +215,13 @@
   text-align: center;
   border-radius: 5px;
   height: auto;
+  cursor: pointer;
 }
 
 .chatbot-categoryList:hover{
   transition-duration: 1s;
   background-color: hsl(0, 0%, 67%);
+  cursor: pointer;
 }
 
 .go {

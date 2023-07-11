@@ -324,3 +324,8 @@ body>nav>div.quick-menu>ul>li:nth-child(5)>a>img {
   color: white;
   zoom: 0.8;
 }
+
+/* 챗봇 */
+#quickChatbot{
+  cursor: pointer;
+}

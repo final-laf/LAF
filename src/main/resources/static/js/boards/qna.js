@@ -15,12 +15,8 @@ if (qnas!=null) {
       const loginMember = e.target.parentElement.getAttribute("memberNo");
       const writeMember = e.target.parentElement.getAttribute("writerNo");
       const memberGrade = e.target.parentElement.getAttribute("memberGrade");
-      console.log(loginMember)
-      console.log(writeMember)
-      console.log(memberGrade)
       // 로그인멤버와 작성자가 같거나 운영자일 경우 바로 접속
       if(loginMember==writeMember || memberGrade=='A'){
-        alert("asd")
         document.location.href="/qna/detail/" + qnaLockNo;
         return;
       }
@@ -122,9 +118,7 @@ if (orderUnoList!=null) {
   
   for(let order of orderUno){
     order.addEventListener("click", e => {
-      console.log(e.target)
       if(e.target.classList.contains("qnaOrder")) {
-        console.log(e.target.getAttribute("value"));
         document.getElementById("orderUno").value=e.target.getAttribute("value")
         document.getElementById("qnaOrderList").style.height=0;
         document.getElementById("qnaModalBack").style.display="none";
@@ -188,7 +182,7 @@ const qnaProductName = document.getElementById("qnaProductName");
 if (qnaProductName!=null) {
   qnaProductName.addEventListener("click", e=>{
     document.getElementById("qnaProductList").style.height="auto";
-    document.getElementById("qnaModalBack").style.display="block";
+    document.getElementById("qnaModalBack").style.display="flex";
   })
 }
 
@@ -196,9 +190,7 @@ if (qnaProductName!=null) {
 const orderUno = document.getElementsByClassName("qnaOrder");
 for(let order of orderUno){
   order.addEventListener("click", e => {
-    console.log(e.target)
     if(e.target.classList.contains("qnaOrder")) {
-      console.log(e.target.getAttribute("value"));
       document.getElementById("orderUno").value=e.target.getAttribute("value")
     }else{
       if(e.target.parentElement.classList.contains("qnaOrder")){
@@ -221,9 +213,6 @@ for(let order of orderUno){
 const qnaProduct = document.getElementsByClassName("qnaProduct");
 for(let product of qnaProduct){
   product.addEventListener("click", e => {
-    console.log(e.target)
-    console.log(e.target.getAttribute("value"))
-    console.log("왜 안들어가?")
     document.getElementById("qnaProductName").value=e.target.getAttribute("value")
     if(e.target.classList.contains("qnaProductName")) {
       document.getElementById("qnaProductName").value=e.target.getAttribute("value")
@@ -260,7 +249,8 @@ if (modifyBtn!=null) {
     const loginMember = e.target.getAttribute("memberNo");
     const writeMember = e.target.getAttribute("writerNo");
     const qnaNo = e.target.value;
-    if(loginMember==writeMember){
+    const grade = document.getElementsByClassName("board-list")[0].getAttribute("grade");
+    if(loginMember==writeMember||grade=='A'){
       const qnaNo = e.target.value;
       document.location.href="/qna/modify/"+qnaNo
       return;
@@ -353,7 +343,8 @@ if (document.getElementById("qnaDelete") != null) {
     const loginMember = e.target.getAttribute("memberNo");
     const writeMember = e.target.getAttribute("writerNo");
     const qnaNo = e.target.value;
-    if(loginMember==writeMember){
+    const grade = document.getElementsByClassName("board-list")[0].getAttribute("grade");
+    if(loginMember==writeMember||grade=='A'){
       const qnaNo = e.target.value;
       fetch("/qna/delete?qnaNo="+qnaNo)  
       .then(response => response.text()) 
