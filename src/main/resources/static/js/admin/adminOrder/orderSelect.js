@@ -258,8 +258,6 @@ function changeOrderState(data){
 }
 
 // 검색데이터 유지
-console.log(dataMap)
-
 
 if(dataMap.findState != null) document.querySelector('[name="findState"]').value = dataMap.findState;
 if(dataMap.findKeyword != null) document.querySelector('[name="findKeyword"]').value = dataMap.findKeyword;
