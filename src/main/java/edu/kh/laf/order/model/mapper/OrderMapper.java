@@ -141,7 +141,7 @@ public interface OrderMapper {
 	public int selectCompletOrderNo(int orderNo);
 	
 	// 오늘 매출 조회
-	public long getRevenueToday();
+	public Long getRevenueToday();
 	
 	// 오늘 결제 확인
 	public Long getPaymentToday();

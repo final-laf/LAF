@@ -633,7 +633,8 @@ public class OrderServiceImpl implements OrderService{
 	// 일별 매출 조회
 	@Override
 	public long getRevenueToday() {
-		return mapper.getRevenueToday();
+		Long result = mapper.getRevenueToday(); 
+		return result == null ? 0L : result;
 	}
 	
 	// 오늘 결제 확인
