@@ -676,7 +676,10 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
-/* 모달창 */
+
+/* 베스트 모달창 */
+
+
 #bestReview-modal-window {
   z-index: 40;
   position: absolute;
@@ -707,11 +710,16 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 740px;
   height: 45px;
 }
+
 .bestReviews {
   width: 720px;
+  height: 60px;
 }
 .bestReviews > td{
   padding: 5px;
+}
+.bestReviewRadio{
+  cursor: pointer;  
 }
 .bestReview-table{
   border-radius: 15px;
@@ -765,7 +773,6 @@ input[type="number"]::-webkit-inner-spin-button {
 #bestReviewCan{
   background-color: #ccc;
 }
-
 .reviewListScoreBack{
  z-index: auto !important;
  margin-bottom: 25px;

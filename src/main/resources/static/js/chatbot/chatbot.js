@@ -66,6 +66,7 @@ function printChat(chat){
   // 메세지 내용
   const div = document.createElement("div");
   div.classList.add("chat");
+  div.classList.add("chatbot-shadow");
   div.innerHTML = chat; // br태그 해석을 위해 innerHTML
   li.classList.add("my-chat");
   
@@ -93,6 +94,7 @@ function printChat(chat){
       // chat 영역
       const content = document.createElement("div");
       content.classList.add("chat");
+      content.classList.add("chatbot-shadow");
       
       // text영역
       const text = document.createElement("div");
@@ -159,6 +161,7 @@ function printChat(chat){
   const categoryList = document.createElement("div");
   const content = document.createElement("div");
   content.classList.add("chat");
+  content.classList.add("chatbot-shadow");
       
   // target 하위 div
   const targetChatContent = document.createElement("div")
@@ -242,6 +245,7 @@ function categoryClcik(e) {
   const myLi = document.createElement("li"); 
   const myDiv = document.createElement("div");
   myDiv.classList.add("chat");
+  myDiv.classList.add("chatbot-shadow");
   myDiv.innerHTML = e.target.innerText;
   myLi.classList.add("my-chat")
   myLi.append(myDiv);
@@ -262,6 +266,7 @@ function categoryClcik(e) {
   // chat 영역
   const content = document.createElement("div");
   content.classList.add("chat");
+  content.classList.add("chatbot-shadow");
   
   // text영역
   const text = document.createElement("div");
@@ -354,6 +359,7 @@ function no(e) {
   // chat 영역
   const content = document.createElement("div");
   content.classList.add("chat");
+  content.classList.add("chatbot-shadow");
   
   // text영역
   const text = document.createElement("div");
@@ -407,6 +413,7 @@ function answered(e) {
   // chat 영역
   const content = document.createElement("div");
   content.classList.add("chat");
+  content.classList.add("chatbot-shadow");
   
   // text영역
   const text = document.createElement("div");
@@ -495,6 +502,7 @@ function mainCategory() {
   // chat 영역
   const content = document.createElement("div");
   content.classList.add("chat");
+  content.classList.add("chatbot-shadow");
   
   // text영역
   const text = document.createElement("div");

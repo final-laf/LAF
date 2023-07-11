@@ -26,7 +26,8 @@
 .list-table tr > *:nth-of-type(4)> span{
   display: flex; 
   align-items: center;
-  justify-content: center;
+  justify-content: left;
+  padding-left: 5px;
 }
 .list-table tr > *:nth-of-type(5){ width: 20%; }
 
@@ -382,8 +383,13 @@ color: hsl(0, 0%, 44%);
 }
 
 #qnaModalBack{
+  z-index: 5;
   display: none;
   position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   height: 100%;
   width: 100%;
 }

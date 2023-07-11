@@ -34,7 +34,7 @@
           <table class="detail-list-table">
             <tr>
               <td>TITLE</td>
-              <td><input name="qnaTitle" type="text" placeholder="제목 입력" required></td>
+              <td><input name="qnaTitle" type="text" placeholder="제목 입력" required maxlength="30"></td>
             </tr>
             <tr>
               <td>CATEGORY</td>
@@ -118,7 +118,7 @@
             </tr>
           </table>
           <div class="write-list-contents">
-            <textarea name="qnaContent" type="text" required></textarea>
+            <textarea name="qnaContent" type="text" required maxlength="300"></textarea>
           </div>
         </div>
 
@@ -134,7 +134,7 @@
       </section>
     </form>
   </main>
-  <div id="qnaModalBack">asd</div>
+  <div id="qnaModalBack"></div>
 
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/boards/qna.js"></script>
