@@ -589,7 +589,6 @@ myShippingBtn.addEventListener('click', () => {
 });
 
 const shippingSelectBtn = document.getElementById('shippingSelectBtn');
-console.log(addressList);
 const addSelect = document.querySelectorAll('[name="addSelect"]');
 const addLists = document.getElementsByClassName("order-shipping-address");
 shippingSelectBtn.addEventListener('click', () => {
