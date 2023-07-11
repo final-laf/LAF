@@ -165,7 +165,7 @@ public class EmailServiceImpl implements EmailService {
 	            mailhelper.setTo(sendEmail);
 	            
 	            // 내용설정
-	            String html = templateEngine.process("mail", context);
+	            String html = templateEngine.process("orderMail", context);
 	            mailhelper.setText(html, true);
 	            
 	            // 로고이미지 cid로 삽입

@@ -180,6 +180,9 @@ public class OrderController {
 		
 		// 주문한 내역조회
 		Order order = service.selectOrder(no);
+		String[] add = order.getOrderRecvAdd().split("\\^\\^\\^");
+		add[0] = "(" + add[0] + ")";
+		order.setOrderRecvAdd(String.join(" ", add));
 		model.addAttribute("order",order);
 		
 		// 주문한 상품목록조회

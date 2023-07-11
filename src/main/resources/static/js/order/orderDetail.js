@@ -83,7 +83,7 @@ if(orderListBtn != null){
 }
 
 
-if(loginMember != null){
+if(order.orderState == 'A' || order.orderState == 'B' || order.orderState == 'C'){
     const orderNo = {orderNo : order.orderNo};
     
     const cancleBtn = document.getElementById('cancleBtn');
