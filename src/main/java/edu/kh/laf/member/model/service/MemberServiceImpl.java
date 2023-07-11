@@ -147,12 +147,12 @@ public class MemberServiceImpl implements MemberService {
 	            //인증메일 보내기
 	            MimeMessage mail = mailSender.createMimeMessage();
 	            // 제목
-	            String subject = "[LAF]"+title+" 인증코드";
+	            String subject = "[LAF]"+title+" 새로운 비밀번호 전송";
 	            // 문자 인코딩
 	            String charset = "UTF-8";
 	            // 메일 내용
 	            String mailContent 
-	                = "<p>LAF "+title+" 인증코드입니다.</p>"
+	                = "<p>LAF "+title+" 새로운 비밀번호 입니다.</p>"
 	                + "<h3 style='color:blue'>" + memberPw + "</h3>";
 	            // 송신자(보내는 사람) 지정
 	            mail.setFrom(new InternetAddress(fromEmail, fromUsername));
