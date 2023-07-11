@@ -105,14 +105,13 @@
             <tr id="qnaWriteProduct" th:unless="${qna.qnaCategory=='상품'}" style="display: none">
               <td>PRODUCT NAME.</td>
               <td>
-                <input th:if="${qna.productName}" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
-                <input th:unless="${qna.productName}" name="productName" type="text" autocomplete="off"   placeholder="상품번호 입력">
+                <input id="qnaProductName" th:if="${qna.productName}" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
+                <input id="qnaProductName" th:unless="${qna.productName}" name="productName" type="text" autocomplete="off"   placeholder="정확한 상품명을 입력하지 않을 시 답변에 어려움이 있을 수 있습니다.">
                 <div id="qnaProductList">
                   <div class="qnaProduct" value="0">
                     <div>상품 번호 : 
                       <span class="productNo" id="productNo"></span>
                     </div>
-                    상품 :
                     <div>
                       <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
                     </div>
@@ -124,7 +123,6 @@
                     <div>상품 번호 : 
                       <span class="productNo" id="productNo"></span>
                     </div>
-                    상품 :
                     <div>
                       <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
                     </div>
@@ -136,7 +134,6 @@
                     <div>상품 번호 : 
                       <span class="productNo" id="productNo"></span>
                     </div>
-                    상품 :
                     <div>
                       <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
                     </div>
