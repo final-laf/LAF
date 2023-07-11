@@ -170,9 +170,6 @@ public class OrderController {
 	public String detail(@PathVariable int no, Model model,
 						@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
 		
-		// 주문내역 이메일정보
-		Map<String, Object> emailData = new HashMap<>();
-		
 		// 주문한 내역조회
 		Order order = service.selectOrder(no);
 		String[] add = order.getOrderRecvAdd().split("\\^\\^\\^");

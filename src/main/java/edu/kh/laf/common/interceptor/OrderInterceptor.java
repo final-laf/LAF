@@ -38,7 +38,7 @@ public class OrderInterceptor implements HandlerInterceptor  {
 				}
 			}
 			if(memberPhone != null) {
-				((HttpServletRequest) session).getSession().removeAttribute("memberPhone");
+				session.removeAttribute("memberPhone");
 				return HandlerInterceptor.super.preHandle(request, response, handler);
 			}
 				
