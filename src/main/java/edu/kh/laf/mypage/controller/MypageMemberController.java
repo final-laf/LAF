@@ -185,7 +185,8 @@ public class MypageMemberController {
 			 					,@SessionAttribute("loginMember") Member loginMember
 								,String memberPw
 								,@RequestParam("newMemberPw") String newMemberPw
-								,RedirectAttributes ra) {
+								,RedirectAttributes ra
+								,SessionStatus status) {
 		
 		String message = null;
 			// 기존의 비밀번호와 일치하면, 새로운 비밀번호를 기존의 비밀번호로 업데이트
@@ -195,7 +196,9 @@ public class MypageMemberController {
 			} else {
 				message="현재 비밀번호가 일치하지 않습니다.";
 			}
+			
 		ra.addFlashAttribute("message", message);
+		status.setComplete(); // 로그아웃
 		return "redirect:" + referer;
 	}
 	
