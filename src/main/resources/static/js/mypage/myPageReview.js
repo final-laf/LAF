@@ -25,7 +25,7 @@ for(let review of wirteReview) {
       document.getElementById("reviewModifyModalStar").value="";
       document.getElementById("reviewModalTextScore").value="";
       document.getElementById("reviewModifyModalStar").value="";
-      document.getElementById("reviewModifyModalContent").innerText="";
+      document.getElementById("reviewModifyModalContent").value="";
       document.getElementById("reviewScoreColor").style.width=0+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = "white";
 
@@ -77,13 +77,14 @@ for(let review of modifyReview) {
       document.getElementById("reviewModifyModalStar").value="";
       document.getElementById("reviewModalTextScore").value="";
       document.getElementById("reviewModifyModalStar").value="";
+      document.getElementById("reviewModifyModalContent").value="";
       document.getElementById("reviewScoreColor").style.width=0+"px";
       document.getElementById("reviewScoreColor").style.backgroundColor = "white";
       document.getElementById("reviewModifyModalProductName").innerText=review.product.productName;
       document.getElementById("reviewModifyModalProductPrice").innerText=review.product.productPrice;
       document.getElementById("reviewModifyModalProductSalePrice").innerText=review.product.productSalePrice;
       document.getElementById("reviewModifyModalReviewCount").innerText=review.reviewCount;
-      document.getElementById("reviewModifyModalContent").innerText=review.reviewContent;
+      document.getElementById("reviewModifyModalContent").value=review.reviewContent;
       document.getElementById("reviewModifyModalReviewNo").value=review.reviewNo;
       document.getElementById("reviewModifyModalOrderNo").value=review.orderNo;
       document.getElementById("reviewModifyModalStar").value=review.reviewScore;

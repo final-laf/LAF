@@ -67,6 +67,8 @@ if (document.getElementById("qnaModalBtn")!=null) {
     .then(count => {
       if (count == -1) { // 비밀번호 불일치 시
         document.getElementById("qnaDetailModalInput").value = "";
+        alert("비밀번호가 일치하지 않습니다.")
+        document.location.href="/qna"
         return;            
       }
       document.location.href="/qna/detail/" + qnaLockNo;
@@ -280,6 +282,8 @@ if (document.getElementById("qnaDetailModalBtn")!=null) {
       
       if (count == -1) { // 비밀번호 불일치 시
         document.getElementById("qnaDetailModalInput").value = "";
+        alert("비밀번호가 일치하지 않습니다.")
+        document.location.href="/qna"
         return;            
       }
       document.location.href="/qna/modify/" + qnaLockNo;
@@ -303,6 +307,8 @@ if (document.getElementById("qnaDeleteModalBtn")!=null) {
       
       if (count == -1) { // 비밀번호 불일치 시
         document.getElementById("qnaDeleteModalInput").value = "";
+        alert("비밀번호가 일치하지 않습니다.")
+        document.location.href="/qna"
         return;            
       }
       if (confirm("작성한 QNA가 삭제됩니다. 그래도 삭제하시겠습니까?")) {
