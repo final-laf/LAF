@@ -191,7 +191,7 @@
     }
   })();
 
-  if(loginMember.memberGrade == 'A') {
+  if(loginMember != null && loginMember.memberGrade == 'A') {
     document.querySelector('#searchCheckbox + #query + #welcome').style.right = '190px';
   }
 
