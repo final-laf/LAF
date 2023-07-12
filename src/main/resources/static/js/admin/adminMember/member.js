@@ -71,6 +71,7 @@ function loadOrderList (memberNo, cp){
       const orderProductList = orderList.orderProductList;
       // tr생성
       const newRow = document.createElement("tr");
+      newRow.style.cursor="pointer";
       newRow.addEventListener("click", e => {
         location.href="/order/" + order.orderNo;
       });
@@ -229,9 +230,6 @@ function loadPointList (memberNo, cp){
   fetch("/admin/member/memberPointList?memberNo=" + memberNo + "&cp=" + cp)
   .then(response => response.json()) 
   .then(resultMap => {
-    console.log(resultMap)
-    // resultMap : pointList
-    //             PointListpagination
 
   
     const pointList = resultMap.pointList;
