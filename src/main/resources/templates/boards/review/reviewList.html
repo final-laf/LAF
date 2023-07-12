@@ -17,7 +17,7 @@
     <!-- 사용자 리뷰 게시글 하나하나 -->
     <div class="reviews-item" th:each="r:${reviewList}">
       <input type="hidden" th:text="${session.memberNo}">
-      <a th:href="${'product/'+r.productNo}">
+      <a th:href="${'/product/'+r.productNo}">
         <div class="reviews-item-product">
           <img th:each="img, status:${r.reviewImg}" th:if="${status.first && r.reviewImg.size()!=0}" th:src="${img.reviewPath}">
           <img th:if="${r.reviewImg.size()==0}" src="/images/common/no-image.png">
