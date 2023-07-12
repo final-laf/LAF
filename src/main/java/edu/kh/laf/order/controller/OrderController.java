@@ -30,7 +30,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-@SessionAttributes({"loginMember", "orderProductList", "cartCount"})
+@SessionAttributes({"loginMember", "orderProductList", "cartCount", "memberPhone"})
 public class OrderController {
 	
 	@Autowired
@@ -103,6 +103,7 @@ public class OrderController {
 	// 결제시
 	@PostMapping("/order")
 	public String payment(Order order,
+						@RequestParam String orderTel,
 						@RequestParam Map<String, Object> orderData ,
 						@SessionAttribute(value = "loginMember", required = false) Member loginMember,
 						@SessionAttribute(value = "orderProductList", required = false) List<OrderProduct> orderProductList,
@@ -126,6 +127,8 @@ public class OrderController {
 		if(productResult == 0) { // 실패시 장바구니로 리다이렉트
 			return "redirect:/cart";
 		}
+		// 비회원일 경우(인터셉터)
+		model.addAttribute("memberPhone",orderTel);
 		
 		// 회원일경우
 		if(loginMember != null) {
@@ -238,8 +241,6 @@ public class OrderController {
 	@ResponseBody
 	public String sendOrderEmail(@RequestBody int no,
 								@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
-		
-		System.out.println(no);
 		
 		// 주문내역 이메일정보
 		Map<String, Object> emailData = new HashMap<>();

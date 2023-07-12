@@ -91,7 +91,6 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String insertOrder(Order order, Map<String, Object> orderData, Member loginMember) {
-		System.out.println(order);
 		// 주문자 번호 세팅
 		// 비회원인 경우
 		if( loginMember == null) {

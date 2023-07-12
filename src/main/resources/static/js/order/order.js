@@ -287,7 +287,7 @@ if(loginMember != null){ // 로그인한 회원일시
   document.getElementById("payDiscount").innerText = '-' + (totalDiscount).toLocaleString() + '원'; // 제출용
 
   // 최종결제금액 세팅
-  const payment = totalAmount + delivery;
+  const payment = totalAmount -totalDiscount + delivery;
   document.getElementById("payment").innerText = payment.toLocaleString() + '원';
   document.getElementById("paymentBtn").innerText = payment.toLocaleString() + '원 결제하기';
   document.querySelector("input[name=orderPayment]").value = payment;

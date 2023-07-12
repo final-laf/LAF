@@ -88,7 +88,6 @@ public class NoticeController {
 	public String update(Notice notice,
 			Model model
 			){
-		System.out.println(notice);
 		int i = service.updateNotice(notice);
 		if(i==0) {
 			

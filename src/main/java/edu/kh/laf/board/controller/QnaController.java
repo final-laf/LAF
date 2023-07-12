@@ -132,7 +132,6 @@ public class QnaController {
 	public String update(Qna qna, Model model){
 		String path = "redirect:/qna/detail/";
 		path+=qna.getQnaNo();
-		System.out.println(qna);
 		if(qna.getMemberNo()==0) {
 			qna.setMemberNo(35);
 		}
