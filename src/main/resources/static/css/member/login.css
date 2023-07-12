@@ -132,3 +132,23 @@
 .login-subtitle > div {
     line-height: 10px;
 }
+
+#kakaoHover {
+    padding : 0px;
+    position: relative;
+}
+
+#kakaoHover > div {
+    background-color: #00000000;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+}
+
+#kakaoHover > div:hover {
+    background-color: #ffffff40;
+    cursor: pointer;
+    display: block;
+}
