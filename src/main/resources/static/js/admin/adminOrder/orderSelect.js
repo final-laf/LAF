@@ -287,3 +287,13 @@ if(dataMap.payState != null){
         }
     }
 }
+
+/* 페이지네이션 주소세팅 */
+const paginationUrls = document.querySelectorAll('[class="pagination"] a');
+
+paginationUrls.forEach( e => {
+    if(e.getAttribute("href") != null){
+        let purl = e.getAttribute("href");
+        e.href = purl + "&" + new URLSearchParams(dataMap).toString();
+    }
+});
