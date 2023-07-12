@@ -70,9 +70,11 @@ public class AdminOrderController {
 		model.addAttribute("dataMap", dataMap);
 		
 		Map<String, Object> returnMap = service.findOrderList(paramMap);
-		if(returnMap.get("orderMaps") != null && returnMap.get("listCount") != null) {
-			model.addAttribute("orderMaps", returnMap.get("orderMaps"));
-			model.addAttribute("listCount", returnMap.get("listCount"));
+		if(returnMap != null) {
+			if(returnMap.get("orderMaps") != null && returnMap.get("listCount") != null) {
+				model.addAttribute("orderMaps", returnMap.get("orderMaps"));
+				model.addAttribute("listCount", returnMap.get("listCount"));
+			}
 		}
 		model.addAttribute("pagination", returnMap.get("pagination"));
 		

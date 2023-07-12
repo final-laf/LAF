@@ -132,6 +132,13 @@
               <td>상품구매금액</td>
               <td>주문처리상태</td>
             </tr>
+            <tr th:if="${#lists.size(orderMaps) == 0}">
+              <td colspan="7">
+                <div style="display: flex; justify-content: center;">
+                  <span>오늘 주문 내역이 없습니다.</span>
+                </div>
+              </td>
+            </tr>
             <tr class="order-modal-row" th:each="orderMap : ${orderMaps}" th:object="${orderMap}">
               <td>
                 <input type="checkbox" id="checkedSelect"><input type="hidden" th:value="*{order.orderNo}">

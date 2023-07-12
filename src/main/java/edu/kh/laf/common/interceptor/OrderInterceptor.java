@@ -31,11 +31,17 @@ public class OrderInterceptor implements HandlerInterceptor  {
 			Object memberPhone = session.getAttribute("memberPhone");
 			
 			if(loginMember != null) { // 회원일때
+				// 관리자인경우
+				if(loginMember.getMemberGrade().equals("A")) {
+					return HandlerInterceptor.super.preHandle(request, response, handler);
+				}
+				
 				// 주문번호로 회원번호 조회
 				long memberNo = service.selectCompletOrderNo(orderNo);
 				if(loginMember.getMemberNo() == memberNo) {
 					return HandlerInterceptor.super.preHandle(request, response, handler);
 				}
+				
 			}
 			if(memberPhone != null) {
 				session.removeAttribute("memberPhone");

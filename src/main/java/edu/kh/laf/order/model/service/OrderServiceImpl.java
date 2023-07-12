@@ -574,9 +574,7 @@ public class OrderServiceImpl implements OrderService{
     public Map<String, Object> findOrderList(Map<String, Object> paramMap) {
     	
 		int listCount = mapper.getfindOrderListCount(paramMap); // 조건에 맞는 주문조회목록 개수
-		if(listCount == 0) {
-			return null;
-		}
+		
 		Pagination pagination = new Pagination(listCount, (int)paramMap.get("cp"), 10);
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
