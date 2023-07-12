@@ -74,7 +74,7 @@
         </div>
         <div th:if="${qna.memberNo==session.loginMember?.memberNo or not #strings.isEmpty(qna.qnaPw) || session.loginMember?.memberGrade =='A'}">
           <button type="button" id="qnaDelete" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}">DELETE</button>                     
-          <button type="button" id="qnaModify" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}" >MODIFY</button>                     
+          <button type="button" class="submit" id="qnaModify" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}" >MODIFY</button>                     
         </div>
       </div>
       <div class="btn-container"  th:if="${session.loginMember?.memberGrade =='A'}">
