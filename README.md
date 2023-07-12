@@ -12,24 +12,19 @@
 ###### 👉 사진 클릭해서 멤버 Github로 이동
 <br>
 <div>
-  <a href="https://github.com/woongdam777">
-    <img src="https://drive.google.com/uc?export=view&id=1obJhbrliRXSR4cWQW-wOgL2fZkSS6bgn" height="100px">&nbsp;&nbsp;&nbsp;&nbsp;
-  </a>
-  <a href="https://github.com/alittlebitJ">
-    <img src="https://drive.google.com/uc?export=view&id=1WI2b1Et5gKmRZiX6WvGPP0s5VtoK3oNU" height="100px">&nbsp;&nbsp;&nbsp;&nbsp;
-  </a>
-  <a href="https://github.com/peter9217">
-    <img src="https://drive.google.com/uc?export=view&id=1su4JyZxxdysnjG3Ru6GtaXXmQmoPF-pC" height="100px">&nbsp;&nbsp;&nbsp;&nbsp;
-  </a>
-  <a href="https://github.com/cyunanne">
-    <img src="https://drive.google.com/uc?export=view&id=16JUrOcb7vp0qErIuzz65Bdj8bAigLpTC" height="100px">
-  </a>
-  <br>
-  💜 권재웅 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  💜 김자민 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  💜 장반석 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  💜 최유나
+  <a href="https://github.com/woongdam777"><img src="https://drive.google.com/uc?export=view&id=1obJhbrliRXSR4cWQW-wOgL2fZkSS6bgn" height="100px"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/alittlebitJ"><img src="https://drive.google.com/uc?export=view&id=1WI2b1Et5gKmRZiX6WvGPP0s5VtoK3oNU" height="100px"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/peter9217"><img src="https://drive.google.com/uc?export=view&id=1su4JyZxxdysnjG3Ru6GtaXXmQmoPF-pC" height="100px"></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://github.com/cyunanne"><img src="https://drive.google.com/uc?export=view&id=16JUrOcb7vp0qErIuzz65Bdj8bAigLpTC" height="100px"></a>
 </div>
+💜 권재웅 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+💜 김자민 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+💜 장반석 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+💜 최유나 &nbsp;&nbsp;
+
 
 
 
