@@ -16,7 +16,7 @@ footer {
     border-radius: 0px 0px 200px 0px;
 }
 .footer-content{
-    height: 420px;
+    height: 300px;
     margin: -30px auto 0;
     width: 1200px;
     display: flex;
@@ -30,22 +30,31 @@ footer {
     font-size: 1rem;
 }
 
+.footer-content>div{
+    margin-top: 100px;
+}
+
 .footer-content-left{
     width: 40%;
     margin-left: 20px;
 }
-.footer-content-left a>p:first-child{
+.footer-title{
     font-size: 2.5rem;
 }
-.footer-content-center>p:nth-child(1){
+.footer-subtitle{
     font-size: 1.5rem;
 }
-.footer-content-center>p:nth-child(4){
-    font-size: 1.5rem;
-    margin: 12px 0;
+.footer-content-center>p:nth-child(2){
+    margin: 20px 0 12px;
 }
-.footer-content-right{width: 23%;}
-.footer-content-sns{width: 16%;}
+.footer-content-right{
+    width: 23%;
+    padding-top: -3px;
+}
+.footer-content-sns{
+    width: 16%;
+    height: 113px;
+}
 .footer-content-sns>p:nth-child(1){
     font-size: 1.5rem;
     margin-bottom: 10px;
