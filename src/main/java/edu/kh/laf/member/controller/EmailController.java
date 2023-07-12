@@ -20,7 +20,7 @@ public class EmailController {
     @Autowired
     private EmailService service;
     
-    
+    // 회원가입 인증 메일 전송
     @GetMapping("/signUp")
     @ResponseBody
     public int signUp(String memberEmail) {
@@ -28,11 +28,10 @@ public class EmailController {
     }
     
     
+    // 회원가입 인증 번호 확인
     @GetMapping("/checkAuthKey")
     @ResponseBody
     public int checkAuthKey(@RequestParam Map<String, Object> paramMap){
-
-        
         return service.checkAuthKey(paramMap);
     }
 	

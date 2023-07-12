@@ -55,6 +55,7 @@ public class EmailServiceImpl implements EmailService {
 	        return key;
 	    }
 	    
+	    // 회원가입 인증 메일 보내기
 	    @Transactional
 	    @Override
 	    public int signUp(String memberEmail, String title) {
@@ -62,30 +63,28 @@ public class EmailServiceImpl implements EmailService {
 	        //6자리 난수 인증번호 생성
 	        String authKey = createAuthKey();
 	        try {
+	        	
+	            String subject = "[LAF]"+title+" 인증코드";
+				Context context = new Context();
+				context.setVariable("authKey", authKey);
+				
 	            //인증메일 보내기
 	            MimeMessage mail = mailSender.createMimeMessage();
-	            // 제목
-	            String subject = "[LAF]"+title+" 인증코드";
-	            // 문자 인코딩
-	            String charset = "UTF-8";
-	            // 메일 내용
-	            String mailContent 
-	                = "<p>LAF "+title+" 인증코드입니다.</p>"
-	                + "<h3 style='color:blue'>" + authKey + "</h3>";
+	            MimeMessageHelper mailhelper = new MimeMessageHelper(mail, true, "UTF-8");
 	            
+	            //메일 제목 설정
+	            mailhelper.setSubject(subject);
 	            // 송신자(보내는 사람) 지정
-	            mail.setFrom(new InternetAddress(fromEmail, fromUsername));
-	            mail.addRecipient(Message.RecipientType.TO, new InternetAddress(memberEmail));
-	            
-	            // 수신자(받는사람) 지정
-	            
-	            // 이메일 제목 세팅
-	            mail.setSubject(subject, charset);
-	            
-	            // 내용 세팅
-	            mail.setText(mailContent, charset, "html"); //"html" 추가 시 HTML 태그가 해석됨
-	            
+	            mailhelper.setFrom("lostandfoundff@gmail.com");
+	            //수신자 설정
+	            mailhelper.setTo(memberEmail);
+	            // 내용설정
+	            String html = templateEngine.process("SignupMail", context);
+	            mailhelper.setText(html, true);
+	            // 로고이미지 cid로 삽입
+	            mailhelper.addInline("logo", new ClassPathResource("/static/images/logo.png"));
 	            mailSender.send(mail);
+	            
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            return 0;
@@ -106,6 +105,8 @@ public class EmailServiceImpl implements EmailService {
 	        return result;
 	    }
 
+	    
+	    // 인증메일 확인
 		@Override
 		public int checkAuthKey(Map<String, Object> paramMap) {
 			return mapper.checkAuthKey(paramMap);
