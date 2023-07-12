@@ -34,7 +34,7 @@ footer {
     width: 40%;
     margin-left: 20px;
 }
-.footer-content-left>p:first-child{
+.footer-content-left a>p:first-child{
     font-size: 2.5rem;
 }
 .footer-content-center>p:nth-child(1){
@@ -48,7 +48,7 @@ footer {
 .footer-content-sns{width: 16%;}
 .footer-content-sns>p:nth-child(1){
     font-size: 1.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 .footer-content-sns img{
     width: 35px;

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/boards/qna.css">
   <title>LAF :: 1대1문의</title>
 </head>
-<body id="qnaM">
+<body id="qnaM" >
 
   <th:block th:replace="~{common/header}"></th:block>
   <th:block th:replace="~{common/nav}"></th:block>
@@ -18,7 +18,7 @@
     <form action="/qna/update" method="post">
       
       <input th:value="${session.loginMember.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
-      <section class="board-list"  th:with="qna=${qna}">
+      <section class="board-list"  th:with="qna=${qna}" th:grade="${session.loginMember?.memberGrade}">
         <input type="hidden" name="qnaNo" th:value="${qna.qnaNo}">
         <div class="section-header">
           <div class="section-title">1:1문의</div>
@@ -36,7 +36,7 @@
           <table class="detail-list-table">
             <tr>
               <td>TITLE</td>
-              <td><input name="qnaTitle" type="text" required autocomplete="off"  th:value="${qna.qnaTitle}"></td>
+              <td><input name="qnaTitle" type="text" required autocomplete="off"  th:value="${qna.qnaTitle}" maxlength="30" ></td>
             </tr>
             <tr>
               <td>CATEGORY</td>
@@ -70,7 +70,6 @@
                     <div>상품 번호 : 
                       <span class="productNo" id="productNo"></span>
                     </div>
-                    상품 :
                     <div>
                       <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
                     </div>
@@ -82,7 +81,6 @@
                     <div>상품 번호 : 
                       <span class="productNo" id="productNo"></span>
                     </div>
-                    상품 :
                     <div>
                       <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
                     </div>
@@ -94,7 +92,6 @@
                     <div>상품 번호 : 
                       <span class="productNo" id="productNo"></span>
                     </div>
-                    상품 :
                     <div>
                       <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
                     </div>
@@ -108,8 +105,43 @@
             <tr id="qnaWriteProduct" th:unless="${qna.qnaCategory=='상품'}" style="display: none">
               <td>PRODUCT NAME.</td>
               <td>
-                <input th:if="${qna.productName}" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
-                <input th:unless="${qna.productName}" name="productName" type="text" autocomplete="off"   placeholder="상품번호 입력">
+                <input id="qnaProductName" th:if="${qna.productName}" name="productName" type="text" autocomplete="off"  th:value="${qna.productName}">
+                <input id="qnaProductName" th:unless="${qna.productName}" name="productName" type="text" autocomplete="off"   placeholder="정확한 상품명을 입력하지 않을 시 답변에 어려움이 있을 수 있습니다.">
+                <div id="qnaProductList">
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                  <div class="qnaProduct" value="0">
+                    <div>상품 번호 : 
+                      <span class="productNo" id="productNo"></span>
+                    </div>
+                    <div>
+                      <span> <img class="productImg" id="productImg" src="/images/common/no-image.png" alt=""></span>
+                    </div>
+                    <div>
+                      <span id="productName" class="productName"></span>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
             <tr id="qnaWriteShipping" th:if="${qna.qnaCategory=='배송'}" style="display: table-row">
@@ -147,21 +179,28 @@
               </td>
             </tr> 
             <!-- 변동 사항 -->
-            <tr>
+            <tr th:if="${session.loginMember}">
               <td>PASSWORD.</td>
               <td>
                 <input th:if="${qna.qnaPw}" name="qnaPw" type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true"  th:value="${qna.qnaPw}">
                 <input th:unless="${qna.qnaPw}" name="qnaPw"  type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.qnaPw}">
               </td>
             </tr>
+            <tr th:unless="${session.loginMember}">
+              <td>PASSWORD.</td>
+              <td>
+                <input th:if="${qna.qnaPw}" name="qnaPw" type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true"  th:value="${qna.qnaPw}" required>
+                <input th:unless="${qna.qnaPw}" name="qnaPw"  type="number" autocomplete="off" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.qnaPw}" required>
+              </td>
+            </tr>
             <tr>
               <td>LOCK.</td>
-              <td th:if="${qna.qnaLockFl}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부" checked>&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
-              <td th:unless="${qna.qnaLockFl}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부">&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
+              <td th:if="${qna.qnaLockFl=='Y'}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부" checked>&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
+              <td th:if="${qna.qnaLockFl=='N'}" id="qnaWriteLockText">&nbsp;<input id="qnaWriteLockBtn" name="qnaLockFl" type="checkbox" placeholder="공개여부">&nbsp;<label for="qnaWriteLockBtn">※선택 시 비밀번호를 꼭 기억해주세요</label></td>
             </tr>
           </table>
           <div class="write-list-contents">
-            <textarea name="qnaContent" type="text" required th:text="${qna.qnaContent}"></textarea>
+            <textarea name="qnaContent" type="text" required th:text="${qna.qnaContent}" maxlength="300"></textarea>
           </div>
         </div>
 
@@ -176,8 +215,8 @@
         </div>
       </section>
     </form>
+    <div id="qnaModalBack"></div>
   </main>
-  <div id="qnaModalBack">asd</div>
 
   <th:block th:replace="~{common/footer}"></th:block>
   <script src="/js/boards/qna.js"></script>

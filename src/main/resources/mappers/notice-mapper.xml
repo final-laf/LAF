@@ -51,10 +51,6 @@
     </select>
     
     
-    
-    
-    
-    
 	<!--공지사항 상세 조회-->
     <select id="detailNotice" resultType="Notice">
         SELECT * FROM `notice` WHERE notice_no = #{noticeNo}
@@ -69,6 +65,16 @@
     <update id="deleteNotice">
         UPDATE `notice` SET notice_delete_fl ='y' WHERE notice_no=#{noticeNo}
     </update>
+
+	<!-- 공지사항 수정 -->
+    <update id="updateNotice" >
+        UPDATE `notice` SET notice_Title=#{noticeTitle}, notice_content=#{noticeContent} WHERE notice_no=#{noticeNo}
+    </update>
+
+
+
+
+
 
 </mapper>
 

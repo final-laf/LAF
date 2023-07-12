@@ -86,35 +86,17 @@ public class AdminOrderController {
 		return service.selectTodayOrderState();
 	}
 	
+	// 오늘 주문목록조회
+	@PostMapping("/admin/order/list")
+	@ResponseBody
+	public List<Map<String, Object>> todayOrderList() {
+		return service.selectTodayOrderList();
+	}
+	
 	// 주문처리상태변경
 	@PostMapping("/admin/order/state")
 	@ResponseBody
 	public int changeOrderState(@RequestBody List<Map<String, Object>> paramMap) {
 		return service.changeOrderState(paramMap);
 	}
-	
-	// 일별 매출 조회 (30일 전까지만 조회)
-	@GetMapping("/admin/revenue")
-	@ResponseBody
-	public List<Map<String, Object>> getRevenue() {
-		return service.getRevenue();
-	}
-	
-	// 월별 매출 조회 (12개월)
-	@GetMapping("/admin/revenue/month")
-	@ResponseBody
-	public List<Map<String, Object>> getRevenueMonth() {
-		return service.getRevenueMonth();
-	}
-	
-	// 연도별 매출 조회
-	@GetMapping("/admin/revenue/year")
-	@ResponseBody
-	public List<Map<String, Object>> getRevenueYear() {
-		return service.getRevenueYear();
-	}
-		
-		
-
-	
 }

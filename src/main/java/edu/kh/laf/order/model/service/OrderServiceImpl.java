@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public String insertOrder(Order order, Map<String, Object> orderData, Member loginMember) {
-	
+		System.out.println(order);
 		// 주문자 번호 세팅
 		// 비회원인 경우
 		if( loginMember == null) {
@@ -133,7 +133,11 @@ public class OrderServiceImpl implements OrderService{
 		order.setOrderUno(orderKey);
 		
 		// 주문상태 세팅(주문접수)
-		order.setOrderState("A");
+		if(order.getPayment() == "1") {
+			order.setOrderState("A");
+		}else {
+			order.setOrderState("B");
+		}
 		// 주문내역 추가
 		int result = mapper.insertOrder(order);
 		if(result == 0) {
@@ -618,13 +622,35 @@ public class OrderServiceImpl implements OrderService{
 		return mapper.getRevenue();
 	}
 
+	// 월별 매출 조회
 	@Override
 	public List<Map<String, Object>> getRevenueMonth() {
 		return mapper.getRevenueMonth();
 	}
 
+	// 연도별 매출 조회
 	@Override
 	public List<Map<String, Object>> getRevenueYear() {
 		return mapper.getRevenueYear();
+	}
+
+	// 일별 매출 조회
+	@Override
+	public long getRevenueToday() {
+		Long result = mapper.getRevenueToday(); 
+		return result == null ? 0L : result;
+	}
+	
+	// 오늘 결제 확인
+	@Override
+	public long getPaymentToday() {
+		Long result = mapper.getPaymentToday();
+		return result == null ? 0L : result;
+	}
+
+	// 주문번호로 회원번호 조회
+	@Override
+	public int selectCompletOrderNo(int orderNo) {
+		return mapper.selectCompletOrderNo(orderNo);
 	}
 }

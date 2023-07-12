@@ -72,6 +72,20 @@ public class MemberServiceImpl implements MemberService {
 		int result = mapper.signUp(inputMember);
 		return result;
 	}
+	
+	// 회원 가입 기념 적립금 2000원 지급
+	@Override
+	public int insertSignupPoint(String memberId) {
+		return mapper.insertSignupPoint(memberId);
+	}
+
+	
+	// 적립한 포인트를 회원 정보에 반영
+	@Override
+	public int updateSignupPoint(String memberId) {
+		return mapper.updateSignupPoint(memberId);
+	}
+
 
 	// 아이디 중복 검사
 	@Override
@@ -133,12 +147,12 @@ public class MemberServiceImpl implements MemberService {
 	            //인증메일 보내기
 	            MimeMessage mail = mailSender.createMimeMessage();
 	            // 제목
-	            String subject = "[LAF]"+title+" 인증코드";
+	            String subject = "[LAF]"+title+" 새로운 비밀번호 전송";
 	            // 문자 인코딩
 	            String charset = "UTF-8";
 	            // 메일 내용
 	            String mailContent 
-	                = "<p>LAF "+title+" 인증코드입니다.</p>"
+	                = "<p>LAF "+title+" 새로운 비밀번호 입니다.</p>"
 	                + "<h3 style='color:blue'>" + memberPw + "</h3>";
 	            // 송신자(보내는 사람) 지정
 	            mail.setFrom(new InternetAddress(fromEmail, fromUsername));
@@ -284,6 +298,14 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectMemberById(Member member) {
 		return mapper.login(member);
 	}
+
+	// 멤버 수 추이 조회(최대 3년)
+	@Override
+	public List<Map<String, Object>> getMemeberStatistics() {
+		return mapper.getMemeberStatistics();
+	}
+
+
 
 
 	

@@ -22,6 +22,7 @@ import edu.kh.laf.member.model.dto.Member;
 import edu.kh.laf.mypage.model.service.MypageService;
 import edu.kh.laf.order.model.dto.Order;
 import edu.kh.laf.order.model.service.OrderService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
@@ -147,10 +148,10 @@ public class MypageMemberController {
 			message = "탈퇴 되었습니다";
 			path += "/";
 			status.setComplete();
-//			Cookie cookie = new Cookie("saveId", ""); 
-//			cookie.setMaxAge(0);
-//			cookie.setPath("/"); 
-//			resp.addCookie(cookie); 
+			Cookie cookie = new Cookie("saveId", ""); 
+			cookie.setMaxAge(0);
+			cookie.setPath("/"); 
+			resp.addCookie(cookie); 
 		}
 		//탈퇴 실패 시
 		else {
@@ -184,7 +185,8 @@ public class MypageMemberController {
 			 					,@SessionAttribute("loginMember") Member loginMember
 								,String memberPw
 								,@RequestParam("newMemberPw") String newMemberPw
-								,RedirectAttributes ra) {
+								,RedirectAttributes ra
+								,SessionStatus status) {
 		
 		String message = null;
 			// 기존의 비밀번호와 일치하면, 새로운 비밀번호를 기존의 비밀번호로 업데이트
@@ -194,7 +196,9 @@ public class MypageMemberController {
 			} else {
 				message="현재 비밀번호가 일치하지 않습니다.";
 			}
+			
 		ra.addFlashAttribute("message", message);
+		status.setComplete(); // 로그아웃
 		return "redirect:" + referer;
 	}
 	

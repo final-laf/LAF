@@ -133,6 +133,15 @@
 
  
 	</select>
+	
+	<!-- 문의 현황(관리자) -->
+	<select id="qnaStatistics" resultType="map">
+		SELECT qna_category, count(*) AS `count`
+		FROM `qna`
+		WHERE qna_category IN ('상품', '일반', '배송')
+		GROUP BY qna_category
+		ORDER BY qna_category
+	</select>
 
 </mapper>
 

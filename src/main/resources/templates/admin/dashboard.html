@@ -15,7 +15,6 @@
   
   <main>
     <section class="admin-container">
-
       <!-- 오늘 주문 현황 -->
       <div class="order">
 
@@ -28,30 +27,24 @@
 
         <div class="today-content">
           <div class="today-content-item">
-            <div class="today-img">
-              <img src="/images/common/cart.svg">
-            </div>
+            <img class="today-img" src="/images/common/admin-cart.svg">
             <div>
               <p>오늘 주문접수</p>
-              <span class="today-count">0</span><span>건</span>
+              <span class="today-count">0 건</span>
             </div>
           </div>
           <div class="today-content-item">
-            <div class="today-img">
-              <img src="/images/common/coin.svg">
-            </div>
+            <img class="today-img" src="/images/common/admin-cash.svg">
             <div>
               <p>오늘 결제확인</p>
-              <span class="today-count">0</span><span>KRW</span>
+              <span class="today-count">0 KRW</span>
             </div>
           </div>
           <div class="today-content-item">
-            <div class="today-img">
-              <img src="/images/common/calc.svg">
-            </div>
+            <img class="today-img" src="/images/common/admin-calc.svg">
             <div>
               <p>오늘 매출</p>
-              <span class="today-count">0</span><span>KRW</span>
+              <span class="today-count">0 KRW</span>
             </div>
           </div>
         </div>
@@ -103,7 +96,22 @@
         </div>
       </div>
 
+      <div class="current chart">
+        <div class="current-left chart">
+          <span class="board-title">카테고리별 판매량<span class="info">※ 직전 30일 기준</span></span>
+          <div class="chart-container"><canvas id="categoryChart"></canvas></div>
+        </div>
+
+        <div class="current-right chart">
+          <span class="board-title">회원 수 추이</span>
+          <div class="chart-container" id="memberChartContainer"><canvas id="memberChart"></canvas></div>
+        </div>
+      </div>
+
+
+
       <div class="current">
+        
         <div class="current-left">
           <div>
             <span class="board-title">상품현황</span>
@@ -113,34 +121,35 @@
               <li>
                 <div class="current-cat">안전재고 미만</div>
                 <div class="current-count">
-                  <span class="current-count-num">12</span>
+                  <span class="current-count-num" th:text="${productStatistics[0]}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">판매중</div>
                 <div class="current-count">
-                  <span class="current-count-num">9</span>
+                  <span class="current-count-num" th:text="${productStatistics[1]}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">품절</div>
                 <div class="current-count">
-                  <span class="current-count-num">1</span>
+                  <span class="current-count-num" th:text="${productStatistics[2]}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">비공개</div>
                 <div class="current-count">
-                  <span class="current-count-num">2</span>
+                  <span class="current-count-num" th:text="${productStatistics[3]}">0</span>
                   <span>개</span>
                 </div>
               </li>
             </ul>
           </div>
         </div>
+        
         <div class="current-right">
           <div>
             <span class="board-title">문의글현황</span>
@@ -150,28 +159,28 @@
               <li>
                 <div class="current-cat">상품문의</div>
                 <div class="current-count">
-                  <span class="current-count-num">5</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[1].count}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">배송문의</div>
                 <div class="current-count">
-                  <span class="current-count-num">4</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[0].count}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">일반문의</div>
                 <div class="current-count">
-                  <span class="current-count-num">3</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[2].count}">0</span>
                   <span>개</span>
                 </div>
               </li>
               <li>
                 <div class="current-cat">총개수</div>
                 <div class="current-count">
-                  <span class="current-count-num">12</span>
+                  <span class="current-count-num" th:text="${qnaStatistics[0].count + qnaStatistics[1].count + qnaStatistics[2].count}">0</span>
                   <span>개</span>
                 </div>
               </li>
@@ -179,6 +188,8 @@
           </div>  
         </div>
       </div>
+
+
     </section>
 
   </main>

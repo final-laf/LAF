@@ -40,6 +40,18 @@ public interface MemberMapper {
 	 * @return result
 	 */
 	int checkEmail(String email);
+	
+	/** 회원 가입 기념 적립금 2000원 지급
+	 * @param memberId
+	 * @return 
+	 */
+	int insertSignupPoint(String memberId);
+
+	/** 적립한 포인트를 회원 정보에 반영
+	 * @param memberId
+	 * @return
+	 */
+	int updateSignupPoint(String memberId);
 
 	/** 이메일, 아이디가 일치하는 회원 찾기
 	 * @param paramMap
@@ -125,6 +137,13 @@ public interface MemberMapper {
 	 * @return result
 	 */
 	int insertMemberCoupon(Map<String, Object> paramMap);
+
+	/**
+	 * 멤버 수 추이 조회(최대 3년)
+	 */
+	List<Map<String, Object>> getMemeberStatistics();
+
+
 
 
 }

@@ -197,5 +197,18 @@
 		where child_category_no=${categoryNo}
 	</delete>
 	
+	<!-- 카테고리별 판매량 조회 -->
+	<select id="getCategoryStatistics" resultType="map">
+		SELECT parent_category_name AS category, sum(`count`) AS count
+		FROM `order_product` 
+			JOIN `product_category` on `product_category`.product_no = `order_product`.product_no
+			JOIN `parent_category_cd` ON product_category.parent_category_no = parent_category_cd.parent_category_no
+		WHERE order_no IN (
+			SELECT order_no FROM `order` WHERE order_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+		)
+		GROUP BY parent_category_name
+		order by count desc
+	</select>
+	
 </mapper>
 

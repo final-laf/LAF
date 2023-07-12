@@ -33,13 +33,13 @@
             기존
           </td>
           <td>
-            <input type="radio" name="deleteNo" th:value="${r.reviewNo}"></input>
+            <input class="bestReviewRadio" type="radio" name="deleteNo" th:value="${r.reviewNo}"></input>
           </td>
           <td>
             <div class="example" th:text="${r.product.productName}">(상품명)</div>
           </td>
           <td>
-            <p  th:text="${r.reviewContent}">(리뷰 내용)</p>
+            <p  class="example" th:text="${r.reviewContent}">(리뷰 내용)</p>
           </td>
           <td>
             <span th:text="${r.reviewScore}">(평점)</span>
@@ -52,9 +52,6 @@
           </td>
         </tr>
       </table>
-      <div>△</div>
-      <div>▲</div>
-      <div>△</div>
       <div class="bestReviewList">[신규 베스트 리뷰] ✧₊⁎ ╰(*°▽°*)╯ ⁎⁺✧</div>
       <table class="bestReview-table">
         <tr class="bestReviews">
@@ -112,17 +109,20 @@
   </div>
 </div>
 <script>
-  
-  for (let index = 0; index < 6; index++) {
-    var element = document.getElementsByClassName('example')[index];
-    var text = element.innerText;
-  
-    var maxLength = 20;
-    if (text.length > maxLength) {
-      var trimmedText = text.substring(0, maxLength) + '...';
-      element.innerText = trimmedText;
+  if (document.getElementsByClassName('example')[0] != null) {
+  var elements = document.getElementsByClassName('example');
+  for (let index = 0; index < elements.length; index++) {
+    var element = elements[index];
+    if (element !== undefined) {
+      var text = element.innerText;
+      var maxLength = 40;
+      if (text.length > maxLength) {
+        var trimmedText = text.substring(0, maxLength) + '...';
+        element.innerText = trimmedText;
+      }
     }
   }
+}
 </script>
 
 

@@ -17,7 +17,7 @@ function todayOrderCur(){
 // 페이지 로드시
 todayOrderCur();
 // 새로고침시
-document.getElementById('reflesh').addEventListener('click', () => {
+document.getElementById('refresh').addEventListener('click', () => {
     todayOrderCur();
 });
 
@@ -135,6 +135,10 @@ function todayOrderList(){
             checkbox.type = 'checkbox';
             checkbox.setAttribute("id",'checked')
             td1.appendChild(checkbox);
+            const orderNo = document.createElement('input');
+            orderNo.type = 'hidden';
+            orderNo.setAttribute("value",i.order.orderNo)
+            td1.appendChild(orderNo);
             tr.appendChild(td1);
 
             // 두 번째 td 요소 생성
@@ -225,10 +229,9 @@ function orderState(input){
 // 일괄수정
 const changeStateAllBtn = document.getElementById('changeStateAllBtn');
 changeStateAllBtn.addEventListener('click', () => {
-    
     const checkedNos = document.querySelectorAll('input[type=checkbox]:checked~input');
     const selectState = document.querySelector('[id="orderStateC"]').value;
-
+    
     if(checkedNos.length != 0 && selectState !='0'){
         const data = [];
         for(let checkedNo of checkedNos){

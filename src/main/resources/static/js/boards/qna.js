@@ -5,21 +5,23 @@ const qnas = document.querySelector(".qna-list")
 
 // qna list에서 삭제
 let qnaLockNo =0;
+// qna 선택
 if (qnas!=null) {
-  for(let notice of qnas.children) {
+  for(let qna of qnas.children) {
     /* 문의 게시글(질문) 클릭시 */
     
-    notice.addEventListener('click', e => {
+    qna.addEventListener('click', e => {
       qnaLockNo = e.target.parentElement.getAttribute("value");
       const loginMember = e.target.parentElement.getAttribute("memberNo");
       const writeMember = e.target.parentElement.getAttribute("writerNo");
+      const memberGrade = e.target.parentElement.getAttribute("memberGrade");
       // 로그인멤버와 작성자가 같거나 운영자일 경우 바로 접속
-      if(loginMember==writeMember || loginMember==1){
+      if(loginMember==writeMember || memberGrade=='A'){
         document.location.href="/qna/detail/" + qnaLockNo;
         return;
       }
       // 비밀글일 경우 
-      if(e.target.parentElement.getAttribute("fl")=="y"){
+      if(e.target.parentElement.getAttribute("fl")=="Y"){
         document.getElementById("qnaModelBack").style.display = "flex";
         document.getElementById("qnaModal").style.display = "flex";
         e.stopPropagation();
@@ -42,6 +44,13 @@ if (document.getElementById("qnaDetailModelBack")!=null) {
   document.getElementById("qnaDetailModelBack").addEventListener("click", ()=>{
     document.getElementById("qnaDetailModelBack").style.display = "none";
     document.getElementById("qnaDetailModal").style.display = "none";
+  })
+}
+//삭제하기 비밀번호 모달
+if (document.getElementById("qnaDeleteModelBack")!=null) {
+  document.getElementById("qnaDeleteModelBack").addEventListener("click", ()=>{
+    document.getElementById("qnaDeleteModelBack").style.display = "none";
+    document.getElementById("qnaDeleteModal").style.display = "none";
   })
 }
 
@@ -109,9 +118,7 @@ if (orderUnoList!=null) {
   
   for(let order of orderUno){
     order.addEventListener("click", e => {
-      console.log(e.target)
       if(e.target.classList.contains("qnaOrder")) {
-        console.log(e.target.getAttribute("value"));
         document.getElementById("orderUno").value=e.target.getAttribute("value")
         document.getElementById("qnaOrderList").style.height=0;
         document.getElementById("qnaModalBack").style.display="none";
@@ -143,22 +150,29 @@ if (document.getElementById("qnaProductName")) {
     fetch("/qna/product?productName="+productName)
     .then(response => response.json()) 
     .then(productList => {
+      for(let i = 0; i<3; i++){
+        document.getElementsByClassName("qnaProduct")[i].style.display="none"
+      }
       for(let i=0; i<productList.length; i++){
-        console.log("asd");
+        if (i==3) {
+          document.getElementById("qnaProductList").style.height="auto";
+          return
+        }
+        document.getElementById("qnaProductList").style.height=(i+1)*43+"px";
         document.getElementsByClassName("productNo")[i].innerText=productList[i].productNo
         document.getElementsByClassName("productImg")[i].src=productList[i].thumbnailPath
         document.getElementsByClassName("productName")[i].innerText=productList[i].productName
-        document.getElementsByClassName("qnaProduct")[i].setAttribute("value")=productList[i].productNo
+        document.getElementsByClassName("qnaProduct")[i].setAttribute("value", productList[i].productName)
+        document.getElementsByClassName("qnaProduct")[i].style.display="flex"
+        
       }
-      console.log(productList)
-      .catch (e => { console.log(e)}); 
-      
       
       const qnaProduct = document.getElementsByClassName("qnaProduct")
       // for(let product of qnaProduct){
         
         // }
       })
+    .catch (e => { console.log(e)}); 
   }) 
 }
 
@@ -167,30 +181,55 @@ const qnaProductName = document.getElementById("qnaProductName");
 // 상품 조회
 if (qnaProductName!=null) {
   qnaProductName.addEventListener("click", e=>{
-    document.getElementById("qnaProductList").style.height="130px";
-    document.getElementById("qnaModalBack").style.display="block";
+    document.getElementById("qnaProductList").style.height="auto";
+    document.getElementById("qnaModalBack").style.display="flex";
   })
-  const orderUno = document.getElementsByClassName("qnaOrder");
-  
-  for(let order of orderUno){
-    order.addEventListener("click", e => {
-      console.log(e.target)
-      if(e.target.classList.contains("qnaOrder")) {
-        console.log(e.target.getAttribute("value"));
-        document.getElementById("orderUno").value=e.target.getAttribute("value")
-        document.getElementById("qnaOrderList").style.height=0;
-        document.getElementById("qnaModalBack").style.display="none";
+}
+
+// 주문정보 넣기
+const orderUno = document.getElementsByClassName("qnaOrder");
+for(let order of orderUno){
+  order.addEventListener("click", e => {
+    if(e.target.classList.contains("qnaOrder")) {
+      document.getElementById("orderUno").value=e.target.getAttribute("value")
+    }else{
+      if(e.target.parentElement.classList.contains("qnaOrder")){
+        document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
       }else{
-        if(e.target.parentElement.classList.contains("qnaOrder")){
-          document.getElementById("orderUno").value=e.target.parentElement.getAttribute("value")
-        }else{
+        if(e.target.parentElement.parentElement.classList.contains("qnaOrder")){
           document.getElementById("orderUno").value=e.target.parentElement.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("orderUno").value=e.target.parentElement.parentElement.parentElement.getAttribute("value")
+
         }
-        document.getElementById("qnaOrderList").style.height=0;
-        document.getElementById("qnaModalBack").style.display="none";
       }
-    });
-  }
+    }
+    document.getElementById("qnaOrderList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  });
+}
+
+// 상품 클릭 시 넣기
+const qnaProduct = document.getElementsByClassName("qnaProduct");
+for(let product of qnaProduct){
+  product.addEventListener("click", e => {
+    document.getElementById("qnaProductName").value=e.target.getAttribute("value")
+    if(e.target.classList.contains("qnaProductName")) {
+      document.getElementById("qnaProductName").value=e.target.getAttribute("value")
+    }else{
+      if(e.target.parentElement.classList.contains("qnaProduct")){
+        document.getElementById("qnaProductName").value=e.target.parentElement.getAttribute("value")
+      }else{
+        if(e.target.parentElement.parentElement.classList.contains("qnaProduct")){
+          document.getElementById("qnaProductName").value=e.target.parentElement.parentElement.getAttribute("value")
+        }else{
+          document.getElementById("qnaProductName").value=e.target.parentElement.parentElement.parentElement.getAttribute("value")
+        }
+      }
+    }
+    document.getElementById("qnaProductList").style.height=0;
+    document.getElementById("qnaModalBack").style.display="none";
+  });
 }
 
 // 모달창 닫기
@@ -210,7 +249,8 @@ if (modifyBtn!=null) {
     const loginMember = e.target.getAttribute("memberNo");
     const writeMember = e.target.getAttribute("writerNo");
     const qnaNo = e.target.value;
-    if(loginMember==writeMember){
+    const grade = document.getElementsByClassName("board-list")[0].getAttribute("grade");
+    if(loginMember==writeMember||grade=='A'){
       const qnaNo = e.target.value;
       document.location.href="/qna/modify/"+qnaNo
       return;
@@ -249,6 +289,41 @@ if (document.getElementById("qnaDetailModalBtn")!=null) {
   })
 }
 
+// 삭제하기 모달 비밀글 입력하기
+if (document.getElementById("qnaDeleteModalBtn")!=null) {
+  document.getElementById("qnaDeleteModalBtn").addEventListener("click", e => {
+    const pw = e.target.parentElement.parentElement.children[1].children[0].value
+    const data = {"qnaNo" : qnaLockNo , "qnaPw": pw};
+    fetch("/qna/qnaLockNo",{
+      method : "POST", headers : {"Content-Type" : "application/json"},
+      body : JSON.stringify(data)
+    })
+    .then(response => response.text() ) // 응답 객체를 필요한 형태로 파싱
+    .then(count => {
+      
+      if (count == -1) { // 비밀번호 불일치 시
+        document.getElementById("qnaDeleteModalInput").value = "";
+        return;            
+      }
+      if (confirm("작성한 QNA가 삭제됩니다. 그래도 삭제하시겠습니까?")) {
+        const qnaNo = e.target.value;
+        fetch("/qna/delete?qnaNo="+qnaNo)  
+        .then(response => response.text()) 
+        .then(() => {}) 
+        .catch (e => { console.log(e)}); 
+      
+        setTimeout(function(){
+        document.location.href="/qna"
+        },500);
+      } else {
+        e.preventDefault()
+      }
+    }) //파싱된 데이터를 받아서 처리하는 코드 작성
+    .catch(err => {
+    }) 
+  })
+}
+
 
   
 /* 문의 게시글(답변) 클릭시 */
@@ -265,17 +340,40 @@ if (answerBtn!=null) {
 // qna 삭제
 if (document.getElementById("qnaDelete") != null) {
   document.getElementById("qnaDelete").addEventListener("click", e=>{
-    alert("123")
+    const loginMember = e.target.getAttribute("memberNo");
+    const writeMember = e.target.getAttribute("writerNo");
     const qnaNo = e.target.value;
-    fetch("/qna/delete?qnaNo="+qnaNo)  
-    .then(response => response.text()) 
-    .then(() => {}) 
-    .catch (e => { console.log(e)}); 
-  
-    setTimeout(function(){
+    const grade = document.getElementsByClassName("board-list")[0].getAttribute("grade");
+    if(loginMember==writeMember||grade=='A'){
+      const qnaNo = e.target.value;
+      fetch("/qna/delete?qnaNo="+qnaNo)  
+      .then(response => response.text()) 
+      .then(() => {}) 
+      .catch (e => { console.log(e)}); 
+    
+      setTimeout(function(){
       document.location.href="/qna"
-    },500);
-  })
+      },500);
+      return;
+    }
+
+    if(loginMember!=writeMember){
+      qnaLockNo=qnaNo;
+      document.getElementById("qnaDeleteModelBack").style.display = "flex";
+      document.getElementById("qnaDeleteModal").style.display = "flex";
+      e.stopPropagation();
+      return;
+    }
+  });
+    // const qnaNo = e.target.value;
+    // fetch("/qna/delete?qnaNo="+qnaNo)  
+    // .then(response => response.text()) 
+    // .then(() => {}) 
+    // .catch (e => { console.log(e)}); 
+  
+    // setTimeout(function(){
+    //   document.location.href="/qna"
+    // },500);
 }
 
 // qna 게시글 mouse hover 시 배경색 변경

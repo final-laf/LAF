@@ -27,9 +27,10 @@
 }
 
 #refresh {
+    cursor: pointer;
     display: flex;
     align-items: center;
-    cursor: pointer;
+    justify-content: center;
     user-select: none;
 }
 #refresh * {
@@ -44,17 +45,19 @@
 }
 #refresh:active i {
     transition-duration: 0s;
+    transform-origin:50% 50%;
     transform: rotate(-360deg);
 }
 #refresh:active * {
     color: #7f7698; 
 }
 
-.order-table table{
+.order-table table {
     width: 100%;
+    table-layout: fixed;
 }
 
-.order-table table *{
+.order-table table * {
     text-align: center;
     font-size: 1.4rem;
     letter-spacing: 2px;
@@ -65,7 +68,7 @@
     background-color: #fafafa;
 }
 
-.order-table table td{
+.order-table table td {
     border: 1px solid #eee;
     height: 40px;
 }
@@ -98,7 +101,7 @@
     font-size: 2rem;
 }
 
-.today-img {
+/* .today-img {
     border-radius: 50%;
     background-color: #fafafa;
 
@@ -109,16 +112,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
-.today-img img {
-    width: 50px;
-    height: 50px;
+.today-img {
+    width: 80px;
+    height: 80px;
+    margin: 20px;
 }
 
 .today-content-item span{
-    color: #3A96FC;
     margin-right: 10px;
+}
+
+.today-count {
+    color: #7f7698;
+    font-weight: bold;
+    margin-right: 10px;
+    background-image: linear-gradient(90deg,#7F769830,#7F769830);
+    background-position: bottom -5px left 0;
+    background-size: 100% 15px;
+    background-repeat: no-repeat;
 }
 
 .today-count-item{
@@ -132,6 +145,7 @@
     border-radius: 30px;
     box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
     background-color: white;
+    margin-bottom: 20px;
 }
 
 .today-graph * {
@@ -145,6 +159,10 @@
 .board-title {
     font-size: 2.5rem;
     margin-left: 30px;
+}
+.board-title .info {
+    font-size: 12px;
+    color: #666;
 }
 
 .today-graph img {
@@ -180,15 +198,14 @@
 /* current */
 .current {
     width: 1200px;
-    height: 450px;
+    height: 400px;
+    margin-bottom: 40px;
     display: flex;
     justify-content: space-between;
-
-    margin: 20px 0;
 }
 
 .current-left, .current-right {
-    width: 575px;
+    width: 578px;
     height: 400px;
     padding: 30px 20px 20px;
 
@@ -218,12 +235,12 @@
     justify-content: center;
     align-items: center;
 }
-.current-cat{
+.current-cat {
     width: 200px;
     background-color: #fafafa;
 }
 
-.current-count{
+.current-count {
     width: 500px;
     justify-content: end !important;
     padding-right: 50px;
@@ -233,4 +250,26 @@
     font-size: 2rem;
     font-weight: bold;
     margin-right: 5px;
+}
+
+/* 카테고리별 판매량 */
+.chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+.current-left.chart {
+    width: 400px !important;
+}
+
+.current-right.chart {
+    width: 760px;
+}
+
+#memberChartContainer {
+    padding-left: 20px;
+    width: 700px;
+    height: 300px;
 }

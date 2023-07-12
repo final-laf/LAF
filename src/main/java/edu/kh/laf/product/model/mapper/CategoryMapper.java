@@ -120,4 +120,10 @@ public interface CategoryMapper {
 	 */
 	int deleteChildCategory(long categoryNo);
 
+	/**
+	 * 카테고리별 판매량 조회
+	 * @return categorySalseList
+	 */
+	List<Map<String, Object>> getCategoryStatistics();
+
 }

@@ -4,7 +4,7 @@
 }
 
 .mypageOrder-mainFrame-order{
-  width: 9700px;
+  width: 970px;
   margin: 80px 0 0 0;
 }
 .mypageOrder-order-text{
@@ -23,7 +23,6 @@
 .mypageOrder-mainFrame-order table{
   border-top: 0.5px solid #eee;
   width: 970px;
-  margin-bottom: 40px;
 }
 .mypageOrder-mainFrame-order th{
   padding-left: 15px;
@@ -64,6 +63,12 @@
 .mypageSignUp-table-address{
   padding: 5px 0 5px 0;
 }
+
+#order_postcode {
+  width: 100px;
+  margin-right: 10px;
+}
+
 
 #sample6_postcode{
   padding-left: 15px;

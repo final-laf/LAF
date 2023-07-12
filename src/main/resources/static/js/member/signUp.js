@@ -455,7 +455,7 @@ document.getElementById("mypageSignUpMonth").addEventListener("input", () => {
 //생년월일(일)
 document.getElementById("mypageSignUpDay").addEventListener("input", () => {
   const mypageSignUpBirth = document.getElementById("mypageSignUpDay");
-  const regEx = /^[0-9]$/;
+  const regEx = /^0[0-9]$/;
   const regEx1 = /^[0-2][0-9]$/;
   const regEx2 = /^3[0-1]$/;
 

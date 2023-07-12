@@ -172,4 +172,10 @@ public interface ProductService {
 	 * @return productList
 	 */
 	List<Product> selectRecommendProductList(List<Product> productList);
+
+	/**
+	 * 상품 현황(관리자)
+	 * @return
+	 */
+	List<String> productStatistics();
 }

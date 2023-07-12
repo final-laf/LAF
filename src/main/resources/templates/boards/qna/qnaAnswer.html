@@ -53,18 +53,18 @@
               </td>
             </tr>
             <!-- select에 따라 변동 사항 -->
-            <tr  th:if="${qna.productNo}">
-              <td>PRODUCT NO.</td>
+            <tr  th:if="${qna.productName}">
+              <td>PRODUCT NAME.</td>
               <td>
-                <input th:if="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productNo}" readonly>
-                <input th:unless="${qna.productNo}" name="productNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="상품번호 입력" readonly>
+                <input th:if="${qna.productName}" name="productName" type="hidden" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.productName}" th:text="${qna.productName}" readonly>
+                <input th:unless="${qna.productName}" name="productName" type="hidden" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="정확한 상품명을 입력하지 않을 시 답변에 어려움이 있을 수 있습니다." readonly>
               </td>
             </tr>
-            <tr  th:if="${qna.orderNo}">
+            <tr  th:if="${qna.orderUno}">
               <td>ORDER NO.</td>
               <td>
-                <input th:if="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.orderNo}"  readonly>
-                <input th:unless="${qna.orderNo}" name="orderNo" type="number" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력" readonly>
+                <input th:if="${qna.orderUno}" name="orderUno" type="hidden" onkeydown="javascript: return event.keyCode == 69 ? false : true" th:value="${qna.orderUno}" th:text="${qna.orderUno}"  readonly>
+                <input th:unless="${qna.orderUno}" name="orderUno" type="hidden" onkeydown="javascript: return event.keyCode == 69 ? false : true" placeholder="주문번호 입력" readonly>
               </td>
             </tr> 
             <!-- 변동 사항 -->

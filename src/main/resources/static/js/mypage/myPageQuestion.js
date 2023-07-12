@@ -29,7 +29,14 @@ function categoryChange(category){
 		document.getElementById("questionWrite").style.display="none"
 	}
 }
-// 폼 제출 전 수정사항
+/* 글쓰기 버튼 클릭시  */
+const insertBtn = document.getElementById("writeQna")
+if (insertBtn!=null) {
+  insertBtn.addEventListener('click', () => {
+	
+    document.location.href="/qna/write"
+  });
+}
 
 
 // qna 게시글 mouse hover 시 배경색 변경

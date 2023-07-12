@@ -32,7 +32,15 @@
   background-color: #fafafa;
   transition-duration: 0.2s;
 }
-
+/* 게시자 등급 */
+.noticeMemberGrade{
+  height: 25%;
+  width: 25px;
+}
+.noticeMember{
+  display: flex;
+  align-items: center;
+}
 
 /* 게시판 상세 */
 /* 게시판 상세 상단 */
@@ -54,7 +62,6 @@
 .detail-list-table tr > *:nth-of-type(1){ 
   width: 10%; 
   background-color: #eee;
-  font-weight: bold;
 }
 
 .detail-list-table tr > td:nth-of-type(2){

@@ -45,7 +45,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
-@SessionAttributes({"loginMember", "likeList", "cartCount"})
+@SessionAttributes({"loginMember", "likeList", "cartCount", "memberPhone"})
 public class MemberController {
 
     @Autowired
@@ -217,8 +217,12 @@ public class MemberController {
 		String message = null;
 		
 		if(result > 0) { // 가입 성공
-			path += "/"; // 메인 페이지
+			// 회원 가입 기념 적립금 2000원 지급
+			result = service.insertSignupPoint(inputMember.getMemberId());
+			// 적립한 포인트를 회원 정보에 반영
+			result = service.updateSignupPoint(inputMember.getMemberId());
 			message = inputMember.getMemberName() + "님의 가입을 환영합니다.";
+			path += "/"; // 메인 페이지
 		} else { // 가입 실패
 			path += "signUp";  
 			message = "회원 가입 실패!";
@@ -277,12 +281,16 @@ public class MemberController {
 	public String signUp(String memberPhone
 				  		,String orderUno
 				  		,RedirectAttributes ra
-				  		,@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+				  		,@SessionAttribute(value = "loginMember", required = false) Member loginMember
+				  		,Model model) {
 		
 		if(loginMember != null) {
 			ra.addFlashAttribute("message", "회원은 마이페이지를 이용해 주시기 바랍니다");
 			return "redirect:/myPage";
 		}
+		
+		// 세션에 값세팅(인터셉터)
+		model.addAttribute("memberPhone",memberPhone);
 		
 		String path;
 		// orderNo Long 타입으로 바꿔주기

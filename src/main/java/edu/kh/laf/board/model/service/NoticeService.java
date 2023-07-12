@@ -40,6 +40,11 @@ public interface NoticeService {
 	 */
 	int deleteNotice(String noticeNo);
 
+	/** 공지사항 수정
+	 * @param notice
+	 */
+	int updateNotice(Notice notice);
+
 
 
 

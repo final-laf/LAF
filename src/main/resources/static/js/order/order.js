@@ -30,7 +30,14 @@ if(loginMember != null){ // 로그인한 회원만
   })
 };
 
-// 배송 관련 정보 세팅--------------------------------------------------------------
+// 주문자 관련 정보 세팅--------------------------------------------------------------
+if(loginMember != null) {
+  if(loginMember.memberSocial == 'K') {
+    document.getElementById("orderEmail").value="";
+    document.getElementById("orderTel").value="";
+  }
+}
+
 // 주문자 환불정보 세팅
 if(orderMember.refundBank != null){
   document.getElementById('refundBank').children[parseInt(orderMember.refundBank)-1].selected = true;
@@ -86,10 +93,11 @@ let totalPoint = 0; // 총적립금
 for (let i = 1; i < table.rows.length - 1; i++) {
   let row = table.rows[i];
   
-  let point = parseInt(row.cells[0].children[0].value)
   let quantity = parseInt(row.cells[3].innerText);
   let price = parseInt(row.cells[4].innerText.replace(",", ""));
   let rowAmount = quantity * price;
+  let point = parseInt(row.cells[0].children[0].value);
+  point = quantity * point;
 
   totalAmount += rowAmount; // 상품할인전 총금액
 
@@ -580,7 +588,6 @@ myShippingBtn.addEventListener('click', () => {
 });
 
 const shippingSelectBtn = document.getElementById('shippingSelectBtn');
-
 const addSelect = document.querySelectorAll('[name="addSelect"]');
 const addLists = document.getElementsByClassName("order-shipping-address");
 shippingSelectBtn.addEventListener('click', () => {
@@ -610,7 +617,7 @@ function requestPay() {
   IMP.request_pay({
     pg : payHow == '2' ? 'kcp.A52CY' : 'kakaopay.TC0ONETIME' ,
     merchant_uid: orderMember.memberNo + new Date().getTime(), // 상점에서 관리하는 주문 번호
-    name : document.getElementById('productName').value,
+    name : document.getElementById('productName').innerText,
     amount : document.querySelector('[name="orderPayment"]').value,
     buyer_email : document.getElementById('orderEmail').value,
     buyer_name : document.getElementById('orderName').value,
@@ -629,3 +636,9 @@ function requestPay() {
 
 
 
+/* 
+tosspay
+payco
+kakaopay.TC0ONETIME
+
+*/

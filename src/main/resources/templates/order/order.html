@@ -33,15 +33,13 @@
             <tr>
               <th>이메일</th>
               <td>
-                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmailSocial"  type="text"> <!-- 소셜로그인일 때 -->
-                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
+                <input name="orderEmail" id="orderEmail"  type="text" th:value="*{memberEmail}">
               </td>
             </tr>
             <tr class="mypageOrder-order-tel">
               <th>휴대전화</th>
               <td>
-                <input th:if="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTelSocial" type="text"> <!-- 소셜로그인일 때 -->
-                <input th:unless="${session.loginMember.memberSocial} == 'K'" name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
+                <input name="orderTel" id="orderTel" type="text" th:value="*{memberPhone}">
               </td>
             </tr>
             <tr>
@@ -135,7 +133,7 @@
         <div>주문 상품 정보</div>
           <table class="mypageOrder-order-info" id="mypageOrderProduct">
             <tr>
-              <th width="70px"><input type="checkbox"></th>
+              <th width="70px"></th>
               <th width="70px">이미지</th>
               <th width="600px">상품정보</th>
               <th width="50px">수량</th>
@@ -144,7 +142,7 @@
             </tr>
             <tr th:each="order : ${orderList}">
               <td>
-                <input class="productPoint" type="checkbox" th:value=${order.product.productPoint}>
+                <input class="productPoint" type="hidden" th:value=${order.product.productPoint}>
               </td>
               <td width="70px"><img width="70px" th:src="${order.product.thumbnailPath}"></td>
               <td>
@@ -276,13 +274,13 @@
           <div>
             <input type="checkbox" id="agreePay">구매조건 확인 및 결제진행 동의
             <div>
-              <pre th:insert="~{/member/termsAndConditions :: terms3}"></pre>
+              <pre th:insert="~{member/termsAndConditions :: terms3}"></pre>
             </div>
           </div>
           <div>
             <input type="checkbox" id="agreePay">배송 및 상품 방침 동의 (취소,반품,교환, 환불 등)
             <div>
-              <pre th:insert="~{/member/termsAndConditions :: terms4}"></pre>
+              <pre th:insert="~{member/termsAndConditions :: terms4}"></pre>
             </div>
           </div>
           <div>
@@ -299,6 +297,7 @@
   <script th:inline="javascript">
     const orderMember = /*[[${orderMember}]]*/ "주문자 회원정보";
     const orderList = /*[[${orderList}]]*/ "주문상품정보";
+    const addressList = /*[[${addressList}]]*/ "주문상품정보";
   </script>
 
   <script src="/js/order/order.js"></script>

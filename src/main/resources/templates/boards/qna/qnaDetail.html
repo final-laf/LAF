@@ -15,7 +15,7 @@
   
   <main>
 
-    <section class="board-list">
+    <section class="board-list" th:grade="${session.loginMember?.memberGrade}">
       <div class="section-header">
         <div class="section-title">1:1문의</div>
       </div>
@@ -72,7 +72,7 @@
         <div>
           <a href="/qna"><button type="button">LIST</button></a>                     
         </div>
-        <div th:if="${qna.memberNo==session.loginMember?.memberNo or not #strings.isEmpty(qna.qnaPw)}">
+        <div th:if="${qna.memberNo==session.loginMember?.memberNo or not #strings.isEmpty(qna.qnaPw) || session.loginMember?.memberGrade =='A'}">
           <button type="button" id="qnaModify" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}" >MODIFY</button>                     
           <button type="button" id="qnaDelete" th:value="${qna.qnaNo}"  th:writerNo="${qna.memberNo}" th:memberNo="${session.loginMember?.memberNo}">DELETE</button>                     
         </div>
@@ -89,6 +89,13 @@
     
     <div><input type="number" id="qnaDetailModalInput"></div>
     <div><button type="button" id="qnaDetailModalBtn">확인</button></div>
+  </div>
+  <div id="qnaDeleteModelBack"></div>
+  <div id="qnaDeleteModal" th:value="${qna.qnaNo}">
+    <div>비밀번호를 입력해주세요</div>
+    
+    <div><input type="number" id="qnaDeleteModalInput"></div>
+    <div><button type="button" id="qnaDeleteModalBtn">확인</button></div>
   </div>
   
   <th:block th:replace="~{common/footer}"></th:block>

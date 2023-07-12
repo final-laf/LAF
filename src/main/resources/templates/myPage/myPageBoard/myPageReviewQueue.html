@@ -49,7 +49,7 @@
           <tr th:each="r:${reviewList}">
             <td class="item-order-info" >
               <div th:text="${#strings.substring(r.reviewCreateDate,0,10)}"></div>
-              <div class="item-order-no"><a th:href="'order/'+${r.orderNo}"><p th:text="|[${r.orderUno}]|">주문번호</p></a></div>
+              <div class="item-order-no"><a th:href="'/order/'+${r.orderNo}"><p th:text="|[${r.orderUno}]|">주문번호</p></a></div>
             </td>
             <td class="item-image">
               <a th:href="@{/product/{no}(no=${r.product.productNo})}">
@@ -57,7 +57,7 @@
               </a>
             </td>
             <td class="item-product">
-              <a th:href="'order/'+${r.orderNo}" th:text="${r.product.productName}">
+              <a th:href="'/order/'+${r.orderNo}" th:text="${r.product.productName}">
                 제품명
               </a>
               <p class="item-product-option">[옵션 : 
@@ -82,13 +82,13 @@
         <ul th:unless="${param.query}" class="pagination">
           <!-- 첫 페이지로 이동 -->
           <li>
-            <a th:href="@{myPage/review/list(cp=1)}">
+            <a th:href="@{/myPage/review/list(cp=1)}">
               <img th:src="@{/images/common/paging/first-page.svg}">
             </a>
           </li>
           <!-- 이전 목록 마지막 번호로 이동 -->
           <li>
-            <a th:href="@{myPage/review/list(cp=${pagination.prevPage})}">
+            <a th:href="@{/myPage/review/list(cp=${pagination.prevPage})}">
               <img th:src="@{/images/common/paging/prev-page.svg}">
             </a>
           </li>
@@ -100,18 +100,18 @@
                   <a class="current" th:text="${i}">현재페이지</a>
               </li>
               <li th:unless="${i == pagination.currentPage}">
-                  <a th:href="@{myPage/review/list(cp=${i})}" th:text="${i}">현재페이지</a>
+                  <a th:href="@{/myPage/review/list(cp=${i})}" th:text="${i}">현재페이지</a>
               </li>
           </th:block>
           <!-- 다음 목록 시작 번호로 이동 -->
           <li>
-            <a th:href="@{myPage/review/list(cp=${pagination.nextPage})}">
+            <a th:href="@{/myPage/review/list(cp=${pagination.nextPage})}">
               <img th:src="@{/images/common/paging/next-page.svg}">
             </a>
           </li>
           <!-- 끝 페이지로 이동 -->
           <li>
-            <a th:href="@{myPage/review/list(cp=${pagination.maxPage})}">
+            <a th:href="@{/myPage/review/list(cp=${pagination.maxPage})}">
               <img th:src="@{/images/common/paging/last-page.svg}">
             </a>
           </li>

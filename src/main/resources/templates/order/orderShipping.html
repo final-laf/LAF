@@ -5,18 +5,16 @@
   <!-- 결제 배송 모달창  -->
   <div class="orderShipping-mainFrame-myMain">
     <!-- 배송지 관리 -->
-    <div class="orderShipping-myMain-text">배송 주소록 관리
-    </div>
+    <div class="orderShipping-myMain-text">배송 주소록 관리</div>
     <div class="orderShipping-MyMain-Shipping">
       <table>
         <tr>
-          <th width="60px"> <input type="checkbox"> </th>
+          <th width="60px">선택</th>
           <th width="130px">배송지명</th>
           <th width="100px">수령인</th>
           <th width="130px">휴대전화</th>
           <th width="550px">주소</th>
         </tr>
-        <!-- 항목 추가~ -->
         <tr id="addressList" th:each="address : ${addressList}"  class="orderShipping-Shipping-list">
           <td><input type="radio" name="addSelect"></td>
           <td th:text="${address.addressName}">배송지명</td>
@@ -24,6 +22,7 @@
           <td th:text="${address.addressTel}">전화번호</td>
           <td>
             <div id="addressItem">
+              <input id="originAdd" type="hidden" th:value="${address.address}"></input>
               <div class="order-shipping-address" th:text="${address.address}">주소</div>
               <span th:if="${address.addressDefaultFL == 'Y'}" class="p-category-item">기본배송지</span>
             </div>

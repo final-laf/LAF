@@ -2,6 +2,9 @@ package edu.kh.laf.common.filter;
 
 import java.io.IOException;
 
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import edu.kh.laf.member.model.dto.Member;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,14 +29,16 @@ public class AdminFilter implements Filter {
 		
 		HttpSession session = req.getSession();
 		
-//		if(((Member)session.getAttribute("loginMember")).getMemberNo() != 1L) {
-//			resp.sendRedirect("/error/admin");
-//		} else {
-//			chain.doFilter(request, response);
-//		}
+		Member member = (Member)session.getAttribute("loginMember");
+		
+		if(member == null || !member.getMemberGrade().equals("A")) {
+			resp.sendRedirect("/error/admin");
+		} else {
+			chain.doFilter(request, response);
+		}
 		
 		// 필터 기능 임시 중지
-		chain.doFilter(request, response);
+//		chain.doFilter(request, response);
 	}
 
 }

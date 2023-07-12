@@ -101,7 +101,7 @@ label[for='menuList'] {
 
 
 .header-nav-menu-list table td {
-  width: 150px;
+  width: 130px;
   height: 100%;
   vertical-align: top;
   line-height: 25px;
@@ -132,6 +132,11 @@ label[for='menuList'] {
 
 
 /* catagory menu */
+.header-nav-catagory {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
 .header-nav-catagory-menu {
   display: flex;
   justify-content: center;
@@ -167,9 +172,9 @@ label[for='menuList'] {
 
 /* 검색창 */
 #query {
-  position: absolute;
-  bottom: 12px;
-  right: 135px;
+  /* position: absolute; */
+  /* bottom: 12px; */
+  /* right: 135px; */
   background-color: white;
 }
 #searchCheckbox + #query { 
@@ -183,8 +188,8 @@ label[for='menuList'] {
 /* 로그인 시 출력되는 환영문구 */
 #searchCheckbox + #query + #welcome { 
   position: absolute;
-  right: 160px;
-  bottom: 15px;
+  right: 150px;
+  bottom: 16px;
 
   display: flex;
   align-items: center;
@@ -318,4 +323,9 @@ body>nav>div.quick-menu>ul>li:nth-child(5)>a>img {
   font-size: 1rem;
   color: white;
   zoom: 0.8;
+}
+
+/* 챗봇 */
+#quickChatbot{
+  cursor: pointer;
 }
