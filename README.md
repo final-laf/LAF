@@ -3,13 +3,14 @@
 <img src="http://www.lost-and-found.store/images/common/logo.png" height="50px"/>
 <br><br><br><br>
 
-<div>프로젝트 설명</div>
-<div>링크</div>
+**프로젝트 설명**
+
+<div>**프로젝트 설명**</div>
+<div>__링크__</div>
 <div>보고서 링크</div>
 
 <br><br>
-##### 🔥 Members 🔥
-###### 👉 사진 클릭해서 멤버 Github로 이동
+##### 🔥 **Members** 🔥
 <br>
 <div>
   <a href="https://github.com/woongdam777"><img src="https://drive.google.com/uc?export=view&id=1obJhbrliRXSR4cWQW-wOgL2fZkSS6bgn" height="100px"></a>
@@ -20,10 +21,13 @@
   &nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://github.com/cyunanne"><img src="https://drive.google.com/uc?export=view&id=16JUrOcb7vp0qErIuzz65Bdj8bAigLpTC" height="100px"></a>
 </div>
-💜 권재웅 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-💜 김자민 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-💜 장반석 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-💜 최유나 &nbsp;&nbsp;
+
+**💜 권재웅** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+**💜 김자민** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+**💜 장반석** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+**💜 최유나** &nbsp;&nbsp;
+
+###### 👉 사진 클릭해서 멤버 Github로 이동
 
 
 
@@ -32,7 +36,7 @@
 
 
 <br><br>
-##### 📚 Tech Stack 📚
+##### 📚 **Tech Stack** 📚
 
 ##### 🔹 Platforms & Languages 🔹
 <div>
@@ -48,18 +52,19 @@
   <img alt="Static Badge" src="https://img.shields.io/badge/jQuery-%230769AD?logo=jquery&logoColor=white">
 </div>
 <div>
-  <img alt="Static Badge" src="https://img.shields.io/badge/KakaoAPI-%23FFCD00?logo=kakao&logoColor=white">
-  <img alt="Static Badge" src="https://img.shields.io/badge/Chart.js-%23FF6384?logo=chartdotjs&logoColor=white">
-  <img alt="Static Badge" src="https://img.shields.io/badge/PortOne-%23F36633?link=https%3A%2F%2Fportone.io%2Fkorea%2Fko">
-
-</div>
-<div>
   <img alt="Static Badge" src="https://img.shields.io/badge/AWS-%23232F3E?logo=amazonaws&logoColor=white">
   <img alt="Static Badge" src="https://img.shields.io/badge/AmazonS3-%23569A31?logo=amazons3&logoColor=white">
   <img alt="Static Badge" src="https://img.shields.io/badge/AmazonEC2-%23FF9900?logo=amazonec2&logoColor=white">
 </div>
 
-##### 🔸 Tools 🔸
+##### 🔸 APIs 🔸
+<div>
+  <img alt="Static Badge" src="https://img.shields.io/badge/KakaoAPI-%23FFCD00?logo=kakao&logoColor=white&link=https%3A%2F%2Fdevelopers.kakao.com%2F">
+  <img alt="Static Badge" src="https://img.shields.io/badge/Chart.js-%23FF6384?logo=chartdotjs&logoColor=white&link=https%3A%2F%2Fwww.chartjs.org%2F">
+  <img alt="Static Badge" src="https://img.shields.io/badge/PortOne-%23F36633?link=https%3A%2F%2Fportone.io%2Fkorea%2Fko">
+</div>
+
+##### 🔹 Tools 🔹
 <div>
   <img alt="Static Badge" src="https://img.shields.io/badge/Eclipse-%232C2255?logo=eclipseide&logoColor=white">
   <img alt="Static Badge" src="https://img.shields.io/badge/VS%20Code-%23007ACC?logo=visualstudiocode&logoColor=white">
