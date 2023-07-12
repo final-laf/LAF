@@ -138,17 +138,24 @@
     position: relative;
 }
 
-#kakaoHover > div {
+#kakaoHover > a {
+    display: block;
+    width: 300px;
+    height: 45px;
+}
+
+#kakaoHover > a > div {
     background-color: #00000000;
     position: absolute;
     z-index: 100;
-    width: 100%;
+    width: 300px;
     height: 45px;
     border-radius: 5px;
 }
 
-#kakaoHover > div:hover {
-    background-color: #ffffff40;
+#kakaoHover > a > div:hover {
+    background-color: #FEE50040;
     cursor: pointer;
     display: block;
 }
+
