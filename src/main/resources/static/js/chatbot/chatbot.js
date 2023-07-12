@@ -7,6 +7,7 @@ document.getElementById("quickChatbot").addEventListener("click", e=> {
   if (document.getElementById("chatbotSection").style.display=="" || document.getElementById("chatbotSection").style.display=="none") {
     document.getElementById("chatbotIcon").style.display="none";
     document.getElementById("chatbotSection").style.display="block"; // 스크롤 제일 밑으로
+    document.getElementById("chatbotModalBack").style.display="block";
     document.getElementById("chatbotSection").classList.remove("go");
     document.getElementById("chatbotMain").style.display="flex";
     document.getElementById("quickChatbot").style.display="flex";
@@ -466,7 +467,7 @@ function plusBtn(e){
   display.scrollTop = display.scrollHeight
 }
 
-/* 모달창 끄기 */
+/* 모달창 끄기 esc끄기 */
 const chatModal = document.getElementById("chatbotSection")
 if (chatModal!=null) {
   window.addEventListener("keyup", e => {
@@ -475,6 +476,7 @@ if (chatModal!=null) {
       document.getElementById("quickChatbot").style.display="none";
       document.getElementById("chatbotIcon").style.display="flex";
       document.getElementById("chatbotMain").style.display="none";
+      document.getElementById("chatbotModalBack").style.display="none";
       document.getElementById("chatbotSection").classList.add("go");
       setTimeout(()=>{ 
         document.getElementById("chatbotSection").style.display="none"; // 스크롤 제일 밑으로
@@ -482,6 +484,23 @@ if (chatModal!=null) {
       }, 650);
       return;
     }
+  });
+}
+/* 모달창 끄기 다른 곳 클릭*/
+const chatbotModalBack = document.getElementById("chatbotModalBack")
+if (chatbotModalBack!=null) {
+  chatbotModalBack.addEventListener("click", e => {
+    document.getElementById("chatbotIcon").style.borderRadius="15px";
+    document.getElementById("quickChatbot").style.display="none";
+    document.getElementById("chatbotIcon").style.display="flex";
+    document.getElementById("chatbotMain").style.display="none";
+    document.getElementById("chatbotModalBack").style.display="none";
+    document.getElementById("chatbotSection").classList.add("go");
+    setTimeout(()=>{ 
+      document.getElementById("chatbotSection").style.display="none"; // 스크롤 제일 밑으로
+      document.getElementById("quickChatbot").style.display="flex";
+    }, 650);
+    return;
   });
 }
 

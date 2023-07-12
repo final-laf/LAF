@@ -167,8 +167,6 @@
   padding: 20px 0px;
 
   border-bottom: 0.5px solid #ccc;
-
-  cursor: pointer;
 }
 
 /* 사용자 리뷰 게시글 하나 하나 */
@@ -224,6 +222,7 @@
 .reviewListDetail{
   font-size: 18px;
   font-weight: bolder;
+  cursor: pointer;
 }
 
 
@@ -331,6 +330,7 @@
 .review-modal-product img{
   width: 80px;
   height: 110px;
+  cursor: pointer;
 }
 
 .review-modal-product-desc {
