@@ -16,7 +16,11 @@
   <main th:with="pagination=${resultMap.pagination}, reviewList=${resultMap.reviewList}, bestReview=${bestReview}">
 
     <section class="board-list" th:grade="${session.loginMember?.memberGrade}">
-      <div class="board-name"><span>REVIEW</span></div>
+      <div class="section-header">
+        <span  class="section-title">
+          REVIEW
+        </span>
+      </div>
       <div class="sub-category-container">
         <!-- 현재 카테고리에 current 클래스 추가 -->
         <a href="/notice"><div class="sub-category">NOTICE</div></a>
