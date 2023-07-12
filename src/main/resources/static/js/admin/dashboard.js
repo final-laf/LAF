@@ -74,21 +74,21 @@ renewChart(''); // 초기값
 
 
 // 일별 차트 출력
-document.getElementById('day').addEventListener('click', e => {
+document.getElementById('dayStatistics').addEventListener('click', e => {
   renewChart('');
   document.querySelector('button.cur').classList.remove('cur');
   e.target.classList.add('cur');
 });
 
 // 월별 차트 출력
-document.getElementById('month').addEventListener('click', e => {
+document.getElementById('monthStatistics').addEventListener('click', e => {
   renewChart('/month');
   document.querySelector('button.cur').classList.remove('cur');
   e.target.classList.add('cur');
 });
 
 // 연도별 차트 출력
-document.getElementById('year').addEventListener('click', e => {
+document.getElementById('yearStatistics').addEventListener('click', e => {
   renewChart('/year');
   document.querySelector('button.cur').classList.remove('cur');
   e.target.classList.add('cur');
