@@ -359,10 +359,10 @@
 			<if test='sd != null and ed != null'>
 				<choose>
 					<when test='sd == ed'>
-						and	o.order_date like CONCAT('%', #{sd}, '%')
+						and	Date(o.order_date) like CONCAT('%', #{sd}, '%')
 					</when>
 					<otherwise>
-						and	o.order_date BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+						and	Date(o.order_date) BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
 					</otherwise>
 				</choose>
 			</if>
@@ -402,10 +402,10 @@
 		<if test='sd != null and ed != null'>
 			<choose>
 				<when test='sd == ed'>
-					and	o.order_date like CONCAT('%', #{sd}, '%')
+					and	Date(o.order_date) like CONCAT('%', #{sd}, '%')
 				</when>
 				<otherwise>
-					and	o.order_date BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
+					and	Date(o.order_date) BETWEEN STR_TO_DATE(#{sd}, '%Y-%m-%d') AND STR_TO_DATE(#{ed}, '%Y-%m-%d')
 				</otherwise>
 			</choose>
 		</if>
