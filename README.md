@@ -1,11 +1,9 @@
 <div align="center">
 
+<br><br>
 <img src="http://www.lost-and-found.store/images/common/logo.png" height="50px"/>\
 
-
-
-<br><br><br><br>
-
+<br><br>
 
 <div align="left">
   <div fone-size="20px" font-weight="bold">LOST AND FOUND</div>
