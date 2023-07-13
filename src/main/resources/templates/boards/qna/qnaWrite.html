@@ -15,7 +15,7 @@
   
   <main>
 
-    <form action="/qna/insert" method="post">
+    <form action="/qna/insert" method="post" accept-charset="UTF-8">
       <input th:value="${session.loginMember?.memberNo}" th:if="${session.loginMember}" type="hidden" name="memberNo">
       <section class="board-list">
         <div class="section-header">
