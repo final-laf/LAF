@@ -86,7 +86,7 @@ public class ReviewController {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	@PostMapping("/review/insert")
+	@PostMapping(value="/review/insert", produces = "application/json; charset=UTF-8")
 	public String insert(Review review, @RequestParam(value = "images", required = false) List<MultipartFile> images)
 			throws IllegalStateException, IOException {
 		service.insertReview(review, images);
@@ -101,10 +101,11 @@ public class ReviewController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/review/update")
+	@PostMapping(value="/review/update", produces = "application/json; charset=UTF-8")
 	public String update(Review review, @RequestParam(value = "deleteList", required = false) String deleteList,
 			@RequestParam(value = "images", required = false) List<MultipartFile> images,
 			@RequestHeader("referer") String referer) throws Exception {
+		System.out.println(review);
 		service.updateReview(review, images, deleteList);
 		return "redirect:" + referer;
 	}
