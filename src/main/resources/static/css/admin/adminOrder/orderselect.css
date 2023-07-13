@@ -194,6 +194,11 @@
   text-align: center;
 }
 
+.order-select-table td:nth-child(2){width: 150px;}
+.order-select-table td:nth-child(5){width: 50px;}
+.order-select-table td:nth-child(6){width: 120px;}
+.order-select-table td:nth-child(7){width: 120px;}
+
 .order-select-table input{
   margin-right: 5px;
 }
@@ -207,6 +212,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.order-select-table td:nth-child(2) p:nth-child(2){
+  font-size: 1rem;
 }
 
 .order-select-table td:nth-child(3) p{
