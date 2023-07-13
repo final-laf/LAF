@@ -1,20 +1,34 @@
 <div align="center">
 
-<img src="http://www.lost-and-found.store/images/common/logo.png" height="50px"/>
+<img src="http://www.lost-and-found.store/images/common/logo.png" height="50px"/>\
+
+
+
 <br><br><br><br>
 
-<div>**LOST AND FOUND**</div>
-- 2023.05.29 ~ 2023.07.14
-<br>
-- A project to create a Korean apparel shopping site
-<br>
 
-LOST AND FOUND aims to sell comfortable, everyday wearable clothing <b>
-This project was developed as a final project for students from KH Academy and is not for commercial purposes <b>
-<div>__링크__</div>
-<div>보고서 링크</div>
+<div align="left">
+  <div fone-size="20px" font-weight="bold">LOST AND FOUND</div>
+  - 2023.05.29 ~ 2023.07.14 <br>
+  - A project to create a Korean apparel shopping site <br>
+  <br>
+  LOST AND FOUND aims to sell comfortable, everyday wearable clothing<br>
+  This project was developed as a final project for students from KH Academy and is not for commercial purposes
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<a href="http://lost-and-found.store/">
+  <img src="https://drive.google.com/uc?export=view&id=1qsKR1XZDGuTiAZf707kgYGkpSGMppGCl">
+</a>
 
-<br><br>
+[→ Lost & Found](http://lost-and-found.store/)<br>
+[→ Final Project Report](https://drive.google.com/file/d/1jieatszPYncdjUarN3BlcLA4qaQzrqho/view?usp=sharing)
+
+<br><br><br>
 ##### 🔥 **Members** 🔥
 <br>
 <div>
@@ -32,7 +46,7 @@ This project was developed as a final project for students from KH Academy and i
 **💜 장반석** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 **💜 최유나** &nbsp;&nbsp;
 
-###### 👉 사진 클릭해서 멤버 Github로 이동
+###### 👉 Click a picture to go to members' GitHub !
 
 
 
@@ -40,7 +54,7 @@ This project was developed as a final project for students from KH Academy and i
 
 
 
-<br><br>
+<br><br><br>
 ##### 📚 **Tech Stack** 📚
 
 ##### 🔹 Platforms & Languages 🔹
