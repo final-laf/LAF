@@ -216,7 +216,9 @@ COMMIT;
 select * from `click`;
 rollback;
 
-
+SELECT * FROM `member` ORDER BY member_no desc;
+DELETE FROM `member` WHERE member_no = "135";
+COMMIT;
 
 
 
