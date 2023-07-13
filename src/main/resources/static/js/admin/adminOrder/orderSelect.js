@@ -134,9 +134,8 @@ for(let x = 0; x< selectedOrders.length; x++) {
         
         document.getElementById('modalOrderRecvName').innerText = i.order.orderRecvName
         document.getElementById('modalOrderRecvPhone').innerText = i.order.orderRecvPhone
-        const arr = i.order.orderRecvAdd.split("^^^");
-        document.getElementById('modalAdd').innerText = arr[1] + arr[2]
-        document.getElementById('modalAddNo').innerText = arr[0]
+        const arr = i.order.orderRecvAdd;
+        document.getElementById('modalAdd').innerText = arr;
 
         if(i.order.orderRecvRequire != null){
             document.getElementById('modalOrderRecvRequire').innerText = i.order.orderRecvRequire

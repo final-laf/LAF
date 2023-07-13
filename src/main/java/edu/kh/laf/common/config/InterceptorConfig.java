@@ -30,7 +30,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		
 		
 		registry.addInterceptor(OrderInterceptor())
-			.addPathPatterns("/order/**") // 가로챌 경로 지정(여러개 작성 시 ,로 구분)
+			.addPathPatterns("/order/{no:[0-9]+}") // 가로챌 경로 지정(여러개 작성 시 ,로 구분)
 			.excludePathPatterns("/css/**", "/js/**", "/images/**,", "/order", "/order/cancle"); // 예외 경로 지정
 	}
 }
