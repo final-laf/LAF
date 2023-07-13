@@ -5,7 +5,13 @@
 
 **프로젝트 설명**
 
-<div>**프로젝트 설명**</div>
+<div>**LOST AND FOUND명**</div>
+- 2023.05.29 ~ 2023.07.14
+- A project to create a Korean apparel shopping site
+
+LOST AND FOUND aims to sell comfortable, everyday wearable clothing
+
+This project was developed as a final project for students from KH Academy and is not for commercial purposes
 <div>__링크__</div>
 <div>보고서 링크</div>
 
