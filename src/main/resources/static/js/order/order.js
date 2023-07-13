@@ -211,6 +211,7 @@ if(loginMember != null){ // 로그인한 회원일시
   const pointInput = document.querySelector("input[name=usePoint]");
   // 전액사용 포인트 버튼
   document.getElementById("pointBtn").addEventListener('click', () => {
+    document.getElementById("memberPoint").innerText = memberPoint;
     pointInput.value = memberPoint;
   });
   // 포인트 입력시 사용포인트 제어
