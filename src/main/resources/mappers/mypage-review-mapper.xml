@@ -84,27 +84,8 @@
 					  JOIN `order` o ON r.order_no = o.order_no 
 					  JOIN `member`m ON o.member_no = m.member_no 
 		WHERE o.member_no=#{memberNo} AND r.review_delete_fl = 'N'
-		ORDER BY o.order_date DESC
+		ORDER BY r.review_create_date DESC
    	</select>
-	
-	
-	
-	
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 
     
