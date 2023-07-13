@@ -83,7 +83,7 @@ function loadOrderList (memberNo, cp){
       orderDate.innerText = order.orderDate;
       orderInfoCell.append(orderDate);
       const orderUno = document.createElement("div");
-      orderUno.innerText = order.orderUno;
+      orderUno.innerText = "[" + order.orderUno + "]";
       orderInfoCell.append(orderUno);
       // 이미지
       const orderProductImg = document.createElement("td");
@@ -118,6 +118,8 @@ function loadOrderList (memberNo, cp){
       newRow.append(orderPriceCell);
       const orderPrice = document.createElement("div");
       orderPrice.innerText = order.orderTotalPrice;
+      orderPrice.style.textDecoration="line-through"
+      orderPrice.style.fontSize="1.0rem"
       orderPriceCell.append(orderPrice);
       const orderTotalPrice = document.createElement("div");
       orderTotalPrice.innerText = order.orderPayment;
