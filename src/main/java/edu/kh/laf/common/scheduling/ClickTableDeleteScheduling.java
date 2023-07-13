@@ -17,7 +17,7 @@ public class ClickTableDeleteScheduling {
 	private MainService mainService;
 	
 //	@Scheduled(cron = "0,30 * * * * *")
-//	@Scheduled(cron = "0 0 0 * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void cleanClickTable() {
 		// 상품 조회 목록 자정에 초기화
 		mainService.cleanClickTable();

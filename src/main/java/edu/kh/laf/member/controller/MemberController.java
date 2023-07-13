@@ -410,6 +410,8 @@ public class MemberController {
 							, RedirectAttributes ra
 							, HttpServletRequest request) {
 		
+		String message = "";
+		
 		// 카카오에 코드를 주고 인증 토큰 받아오기
 		OAuthToken oauthtoken = kakaoCallback(code);
 		// 카카오에 인증 토큰을 주고 개인정보 받아오기(id, nickname)
@@ -421,6 +423,11 @@ public class MemberController {
 		if(result == 0) {
 			// 중복된 id가 없을시 회원가입 후 로그인
 			service.signUp(member);
+			// 회원 가입 기념 적립금 2000원 지급
+			result = service.insertSignupPoint(member.getMemberId());
+			// 적립한 포인트를 회원 정보에 반영
+			result = service.updateSignupPoint(member.getMemberId());
+			message = "회원가입이 완료되었습니다.";
 		}
 		// member로 회원 조회(회원번호를 가져오기 위한 과정)
 		loginMember = service.selectMemberById(member);
@@ -439,7 +446,7 @@ public class MemberController {
 		List<Long> likeLikst = likeServcie.selectLikeList(member.getMemberNo());
 		model.addAttribute("likeList", likeLikst);
 		
-		// 회원가입한 신규회원이 아닐 시 메인 페이지로 이동
+		ra.addFlashAttribute("message", message);
 		return "redirect:/";
 	}
 	
