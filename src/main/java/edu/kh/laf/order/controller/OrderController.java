@@ -208,7 +208,8 @@ public class OrderController {
 	@PostMapping(value="/order/cancle", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String cancle(@RequestBody Map<String, String> orderNo,
-						@SessionAttribute(value = "loginMember", required = false) Member loginMember) {
+						@SessionAttribute(value = "loginMember", required = false) Member loginMember,
+						Model model) {
 		
 		int no = Integer.parseInt(orderNo.get("orderNo"));
 		
@@ -225,6 +226,10 @@ public class OrderController {
 			
 			// 포인트 취소 서비스
 			int updatePointResult = service.updatePoint(no);
+			// 회원정보 세션업데이트
+			loginMember = service2.selectMember(loginMember.getMemberNo());
+			model.addAttribute("loginMember", loginMember);
+			
 			if(updatePointResult == 0) { // 실패처리
 				message = "주문취소실패";
 			}
