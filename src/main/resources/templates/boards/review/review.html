@@ -15,7 +15,7 @@
   
   <main th:with="pagination=${resultMap.pagination}, reviewList=${resultMap.reviewList}, bestReview=${bestReview}">
 
-    <section class="board-list" th:grade="${session.loginMember?.memberGrade}">
+    <section class="board-list" th:grade="${session.loginMember != null ? session.loginMember.memberGrade : ''}">
       <div class="section-header">
         <span  class="section-title">
           REVIEW
