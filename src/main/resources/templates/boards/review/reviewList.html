@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/boards/review.css">
 
 <!-- 사용자 리뷰(최신순) 게시판 -->
-<section class="reviews-boards-section" th:with="pagination=${resultMap.pagination}, reviewList=${resultMap.reviewList}">
+<section id="reviewListReview" class="reviews-boards-section" th:with="pagination=${resultMap.pagination}, reviewList=${resultMap.reviewList}" th:grade="${session.loginMember != null ? session.loginMember.memberGrade : ''}">
   <div class="reviews">
     <!-- 검색창 영역 -->
     <div class="reviews-boards-search">

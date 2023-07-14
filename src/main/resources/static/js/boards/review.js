@@ -72,13 +72,16 @@ for(let review of reviewDetail) {
         }
       }
       const login = document.getElementById("reviewDetailModalMemberId").getAttribute("value");
-      const grade = document.getElementsByClassName("board-list")[0].getAttribute("grade");
       
       if(login!=review.memberNo){
         document.getElementById("reviewDetailModalModifyBtn").style.display = "none";
         document.getElementById("reviewDetailModalDeleteBtn").style.display = "none";
       }
-      if(login==review.memberNo || grade=='A'){
+      if(login==review.memberNo){
+        document.getElementById("reviewDetailModalModifyBtn").style.display = "flex";
+        document.getElementById("reviewDetailModalDeleteBtn").style.display = "flex";
+      }
+      if(document.getElementById("reviewListReview").getAttribute('grade')=='A'){
         document.getElementById("reviewDetailModalModifyBtn").style.display = "flex";
         document.getElementById("reviewDetailModalDeleteBtn").style.display = "flex";
       }
