@@ -1,7 +1,7 @@
 <div align="center">
 
 <br><br>
-<img src="http://www.lost-and-found.store/images/common/logo.png" height="50px"/>\
+<img src="http://www.lost-and-found.store/images/common/logo.png" height="50px"/>
 
 <br><br>
 
